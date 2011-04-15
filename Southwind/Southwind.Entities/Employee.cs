@@ -63,7 +63,9 @@ namespace Southwind.Entities
             set { Set(ref hireDate, value, () => HireDate); }
         }
 
+        [NotNullable]
         AddressDN address;
+        [NotNullValidator]
         public AddressDN Address
         {
             get { return address; }

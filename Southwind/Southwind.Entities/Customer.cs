@@ -10,7 +10,9 @@ namespace Southwind.Entities
     [Serializable]
     public abstract class CustomerDN : Entity
     {
+        [NotNullable]
         AddressDN address;
+        [NotNullValidator]
         public AddressDN Address
         {
             get { return address; }
@@ -26,16 +28,16 @@ namespace Southwind.Entities
             set { Set(ref phone, value, () => Phone); }
         }
 
-        [NotNullable, SqlDbType(Size = 24)]
+        [SqlDbType(Size = 24)]
         string fax;
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
+        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 24), TelephoneValidator]
         public string Fax
         {
             get { return fax; }
             set { Set(ref fax, value, () => Fax); }
         }
     }
-
+    
     [Serializable]
     public class PersonDN : CustomerDN
     {  
@@ -57,21 +59,50 @@ namespace Southwind.Entities
             set { Set(ref lastName, value, () => LastName); }
         }
 
-        [NotNullable, SqlDbType(Size = 10)]
+        [SqlDbType(Size = 10)]
         string title;
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 10)]
+        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10, DisableOnCorrupt=true)]
         public string Title
         {
             get { return title; }
             set { Set(ref title, value, () => Title); }
         }
 
-        DateTime dateOfBirth;
-        [DateTimePrecissionValidator(DateTimePrecision.Days)]
-        public DateTime DateOfBirth
+        DateTime? dateOfBirth;
+        [DateTimePrecissionValidator(DateTimePrecision.Days, DisableOnCorrupt = true)]
+        public DateTime? DateOfBirth
         {
             get { return dateOfBirth; }
             set { Set(ref dateOfBirth, value, () => DateOfBirth); }
+        }
+
+        bool corrupt;
+        public bool Corrupt
+        {
+            get { return corrupt; }
+            set { Set(ref corrupt, value, () => Corrupt); }
+        }
+
+        public override string IdentifiableIntegrityCheck()
+        {
+            using (this.Corrupt ? Corruption.Allow() : null)
+            {
+                return base.IdentifiableIntegrityCheck();
+            }
+        }
+
+        protected override void PreSaving(ref bool graphModified)
+        {
+            base.PreSaving(ref graphModified);
+            if (this.Corrupt && string.IsNullOrEmpty(base.IdentifiableIntegrityCheck()))
+            {
+                this.Corrupt = false;
+            }
+        }
+
+        protected override void PostRetrieving()
+        {
+            base.PostRetrieving();
         }
 
         public override string ToString()
@@ -101,9 +132,9 @@ namespace Southwind.Entities
             set { Set(ref contactName, value, () => ContactName); }
         }
 
-        [NotNullable, SqlDbType(Size = 10)]
+        [NotNullable, SqlDbType(Size = 30)]
         string contactTitle;
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 10)]
+        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 30)]
         public string ContactTitle
         {
             get { return contactTitle; }

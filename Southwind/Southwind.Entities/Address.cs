@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Signum.Entities;
-
+using System.Reflection;
+using Signum.Utilities;
 namespace Southwind.Entities
 {
-
-
     [Serializable]
     public class AddressDN : EmbeddedEntity
     {
@@ -29,18 +28,18 @@ namespace Southwind.Entities
             set { Set(ref city, value, () => City); }
         }
 
-        [NotNullable, SqlDbType(Size = 15)]
+        [SqlDbType(Size = 15)]
         string region;
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 15)]
+        [StringLengthValidator(AllowNulls = true, Min = 2, Max = 15)]
         public string Region
         {
             get { return region; }
             set { Set(ref region, value, () => Region); }
         }
 
-        [NotNullable, SqlDbType(Size = 10)]
+        [SqlDbType(Size = 10)]
         string postalCode;
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 10)]
+        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10)]
         public string PostalCode
         {
             get { return postalCode; }
@@ -49,11 +48,21 @@ namespace Southwind.Entities
 
         [NotNullable, SqlDbType(Size = 15)]
         string country;
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 15)]
+        [StringLengthValidator(AllowNulls = false, Min = 2, Max = 15)]
         public string Country
         {
             get { return country; }
             set { Set(ref country, value, () => Country); }
+        }
+        protected override string PropertyValidation(PropertyInfo pi)
+        {
+            if (pi.Is(() => PostalCode))
+            {
+                if(string.IsNullOrEmpty(postalCode) && Country != "Ireland")
+                    return Signum.Entities.Properties.Resources._0IsNotSet.Formato(pi.NiceName());
+            }
+
+            return null; 
         }
     }
 }

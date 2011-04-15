@@ -54,7 +54,7 @@ namespace Southwind.Entities
         }
 
         short unitsInStock;
-        [NumberIsValidator(ComparisonType.GreaterThan, 0)]
+        [NumberIsValidator(ComparisonType.GreaterThanOrEqual, 0)]
         public short UnitsInStock
         {
             get { return unitsInStock; }
@@ -118,7 +118,9 @@ namespace Southwind.Entities
             set { Set(ref contactTitle, value, () => ContactTitle); }
         }
 
+        [NotNullable]
         AddressDN address;
+        [NotNullValidator]
         public AddressDN Address
         {
             get { return address; }
@@ -143,9 +145,9 @@ namespace Southwind.Entities
             set { Set(ref fax, value, () => Fax); }
         }
 
-        [NotNullable, SqlDbType(Size = int.MaxValue)]
+        [SqlDbType(Size = int.MaxValue)]
         string homePage;
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = int.MaxValue)]
+        [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
         public string HomePage
         {
             get { return homePage; }

@@ -51,7 +51,7 @@ namespace Southwind.Logic
         public static OrderDN Create(OrderDN order)
         {
             if (!order.IsNew)
-                throw new InvalidOperationException("order should be null");
+                throw new ArgumentException("order should be new");
 
             using (Transaction tr = new Transaction())
             {
@@ -64,7 +64,6 @@ namespace Southwind.Logic
 
                     if (updated != 1)
                         throw new ApplicationException("There are not enought {0} in stock".Formato(od.Product)); 
-
                 }
 
                 order.Save(); 

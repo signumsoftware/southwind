@@ -74,7 +74,6 @@ namespace Southwind.Logic
             employee.Save();
         }
 
-
         public static List<Lite<EmployeeDN>> TopEmployees(int num)
         {
             return (from e in Database.Query<EmployeeDN>()

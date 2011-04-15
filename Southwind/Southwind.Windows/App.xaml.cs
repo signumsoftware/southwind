@@ -36,6 +36,7 @@ namespace Southwind.Windows
             InitializeComponent();
         }
 
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //Fix so App.xaml InitializeComponent gets generated

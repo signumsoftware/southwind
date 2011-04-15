@@ -66,13 +66,23 @@ namespace Southwind.Entities
             set { Set(ref shipName, value, () => ShipName); }
         }
 
+        [NotNullable]
         AddressDN shipAddress;
+        [NotNullValidator]
         public AddressDN ShipAddress
         {
             get { return shipAddress; }
             set { Set(ref shipAddress, value, () => ShipAddress); }
         }
 
+        decimal freight;
+        public decimal Freight
+        {
+            get { return freight; }
+            set { Set(ref freight, value, () => Freight); }
+        }
+
+        [ValidateChildProperty]
         MList<OrderDetailsDN> details;
         public MList<OrderDetailsDN> Details
         {
@@ -85,6 +95,25 @@ namespace Southwind.Entities
         public decimal TotalPrice
         {
             get{ return TotalPriceExpression.Invoke(this); }
+        }
+        bool isLegacy;
+        public bool IsLegacy
+        {
+            get { return isLegacy; }
+            set { Set(ref isLegacy, value, () => IsLegacy); }
+        }
+
+        protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi, object propertyValue)
+        {
+            OrderDetailsDN details = sender as OrderDetailsDN;
+
+            if (details != null && !IsLegacy &&  pi.Is(() => details.Discount))
+            {
+                if ((details.Discount * 100) % 5 != 0)
+                    return "Discount should be multiple of 5%";
+            }
+
+            return base.ChildPropertyValidation(sender, pi, propertyValue);
         }
     }
 
@@ -119,17 +148,6 @@ namespace Southwind.Entities
         {
             get { return discount; }
             set { Set(ref discount, value, () => Discount); }
-        }
-
-        protected override string PropertyValidation(PropertyInfo pi)
-        {
-            if (pi.Is(() => Discount))
-            {
-                if ((discount * 100) % 5 != 0)
-                    return "Discount should be mutiple of 5%"; 
-            }
-
-            return base.PropertyValidation(pi);
         }
 
         static Expression<Func<OrderDetailsDN, decimal>> SubTotalPriceExpression =
