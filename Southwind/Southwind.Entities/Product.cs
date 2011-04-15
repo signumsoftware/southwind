@@ -46,11 +46,15 @@ namespace Southwind.Entities
         }
 
         decimal unitPrice;
-        [NumberIsValidator(ComparisonType.GreaterThan, 0)]
+        [NumberIsValidator(ComparisonType.GreaterThan, 0), Unit("$")]
         public decimal UnitPrice
         {
             get { return unitPrice; }
-            set { Set(ref unitPrice, value, () => UnitPrice); }
+            set
+            {
+                if (Set(ref unitPrice, value, () => UnitPrice))
+                    Notify(() => ValueInStock);
+            }
         }
 
         short unitsInStock;
@@ -58,7 +62,11 @@ namespace Southwind.Entities
         public short UnitsInStock
         {
             get { return unitsInStock; }
-            set { Set(ref unitsInStock, value, () => UnitsInStock); }
+            set
+            {
+                if (Set(ref unitsInStock, value, () => UnitsInStock))
+                    Notify(() => ValueInStock);
+            }
         }
 
         int reorderLevel;
@@ -77,6 +85,7 @@ namespace Southwind.Entities
 
         static Expression<Func<ProductDN, decimal>> ValueInStockExpression =
             p => p.unitPrice * p.unitsInStock;
+        [Unit("$")]
         public decimal ValueInStock
         {
             get {  return ValueInStockExpression.Invoke(this); }

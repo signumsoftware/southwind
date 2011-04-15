@@ -57,6 +57,10 @@ namespace Southwind.Load
                         {7, CustomerLoader.LoadPersons },
                         {8, OrderLoader.LoadShippers },
                         {9, OrderLoader.LoadOrders },
+
+                        {10, EmployeeLoader.FixEmployeeImages},
+                        {11, EmployeeLoader.FixCategoryImages},
+
                     }.ChooseMultiple();
 
                     if (actions == null)

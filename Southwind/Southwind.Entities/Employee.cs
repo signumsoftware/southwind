@@ -18,7 +18,7 @@ namespace Southwind.Entities
         public string LastName
         {
             get { return lastName; }
-            set { Set(ref lastName, value, () => LastName); }
+            set { SetToStr(ref lastName, value, () => LastName); }
         }
 
         [NotNullable, SqlDbType(Size = 10)]
@@ -27,7 +27,7 @@ namespace Southwind.Entities
         public string FirstName
         {
             get { return firstName; }
-            set { Set(ref firstName, value, () => FirstName); }
+            set { SetToStr(ref firstName, value, () => FirstName); }
         }
 
         [SqlDbType(Size = 30)]
@@ -49,7 +49,7 @@ namespace Southwind.Entities
         }
 
         DateTime? birthDate;
-        [DateTimePrecissionValidator(DateTimePrecision.Hours)]
+        [DateTimePrecissionValidator(DateTimePrecision.Days)]
         public DateTime? BirthDate
         {
             get { return birthDate; }
@@ -98,7 +98,7 @@ namespace Southwind.Entities
             set { Set(ref photo, value, () => Photo); }
         }
 
-        [SqlDbType(Size = int.MaxValue),]
+        [SqlDbType(Size = int.MaxValue), ]
         string notes;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
         public string Notes
@@ -128,6 +128,11 @@ namespace Southwind.Entities
         {
             get { return territories; }
             set { Set(ref territories, value, () => Territories); }
+        }
+
+        public override string ToString()
+        {
+            return "{0} {1}".Formato(FirstName, LastName);
         }
     }
 

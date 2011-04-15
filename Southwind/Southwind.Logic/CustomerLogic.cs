@@ -52,28 +52,28 @@ namespace Southwind.Logic
 
                 dqm[typeof(CustomerDN)] = DynamicQuery.Manual((QueryRequest request) =>
                 {
-                    var persons = Database.Query<PersonDN>().Select(p => new
-                    {
-                        Entity = p.ToLite<CustomerDN>(),
-                        Id = "P " + p.Id,
-                        Name = p.FirstName + " " + p.LastName,
-                        p.Address,
-                        p.Phone,
-                        p.Fax
-                    }).Where(request.Filters).SelectDynamic(request.Columns, request.Orders).TryTake(request.Limit).ToArray();
+                   var persons = Database.Query<PersonDN>().Select(p => new
+                   {
+                       Entity = p.ToLite<CustomerDN>(),
+                       Id = "P " + p.Id,
+                       Name = p.FirstName + " " + p.LastName,
+                       p.Address,
+                       p.Phone,
+                       p.Fax
+                   }).Where(request.Filters).SelectDynamic(request.Columns, request.Orders).TryTake(request.Limit).ToArray();
 
-                    var companies = Database.Query<CompanyDN>().Select(p => new
-                    {
-                        Entity = p.ToLite<CustomerDN>(),
-                        Id = "C " + p.Id,
-                        Name = p.CompanyName,
-                        p.Address,
-                        p.Phone,
-                        p.Fax
-                    }).Where(request.Filters).SelectDynamic(request.Columns, request.Orders).TryTake(request.Limit).ToArray();
+                   var companies = Database.Query<CompanyDN>().Select(p => new
+                   {
+                       Entity = p.ToLite<CustomerDN>(),
+                       Id = "C " + p.Id,
+                       Name = p.CompanyName,
+                       p.Address,
+                       p.Phone,
+                       p.Fax
+                   }).Where(request.Filters).SelectDynamic(request.Columns, request.Orders).TryTake(request.Limit).ToArray();
 
 
-                    return persons.Concat(companies).OrderBy(request.Orders).TryTake(request.Limit);
+                   return persons.Concat(companies).OrderBy(request.Orders).TryTake(request.Limit);
                 }).Column(a => a.Entity, cd => cd.Implementations = new ImplementedByAttribute(typeof(PersonDN), typeof(CustomerDN)));
             }
         }

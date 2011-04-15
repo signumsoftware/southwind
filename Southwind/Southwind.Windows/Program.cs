@@ -21,12 +21,15 @@ namespace Southwind.Windows
         {
             try
             {
+                Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US"); 
+
                 Server.SetNewServerCallback(NewServer);
 
                 Server.Connect();
 
                 App app = new App() { ShutdownMode = ShutdownMode.OnMainWindowClose };
                 app.Run(new Main());
+                
             }
             catch (Exception e)
             {

@@ -16,6 +16,8 @@ using Signum.Windows;
 using Signum.Windows.Basics;
 using Southwind.Entities;
 using Southwind.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Data;
 
 namespace Southwind.Windows
 {
@@ -25,7 +27,6 @@ namespace Southwind.Windows
     public partial class App : Application
     {
         public App()
-            : base()
         {
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.InvariantCulture.IetfLanguageTag)));
@@ -35,7 +36,6 @@ namespace Southwind.Windows
 
             InitializeComponent();
         }
-
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -60,10 +60,48 @@ namespace Southwind.Windows
 
             Navigator.AddSettings(new List<EntitySettings>
             {
-                new EntitySettings<MyEntityDN>(EntityType.Default) { View = e => new MyEntity() }
+                new EntitySettings<EmployeeDN>(EntityType.Default) { View = e => new Employee(), IsCreable= admin=>false},
+                new EntitySettings<TerritoryDN>(EntityType.Admin) { View = e => new Territory() },
+                new EntitySettings<RegionDN>(EntityType.Admin) { View = e => new Region() },
+
+                new EntitySettings<ProductDN>(EntityType.Admin) { View = e => new Product() },
+                new EntitySettings<CategoryDN>(EntityType.Admin) { View = e => new Category() },
+                new EntitySettings<SupplierDN>(EntityType.Admin) { View = e => new Supplier() },
+
+                new EntitySettings<CompanyDN>(EntityType.Default) { View = e => new Company() },
+                new EntitySettings<PersonDN>(EntityType.Default) { View = e => new Person() },
+
+                new EntitySettings<OrderDN>(EntityType.Default) { View = e => new Order()},
+            });
+            
+            Constructor.ConstructorManager.Constructors.Add(typeof(OrderDN), win => new OrderDN
+            {
+                 OrderDate = DateTime.Now,
+                 RequiredDate = DateTime.Now.AddDays(2),
+                 Details = new MList<OrderDetailsDN>()
             });
 
+            Constructor.Register(win => new PersonDN
+            {
+                Address = new AddressDN()
+            });
+            Constructor.Register(win => new CompanyDN
+            {
+                Address = new AddressDN()
+            }); 
+
             Navigator.Initialize();
+
+            Func<Binding, DataTemplate> formatter = b =>
+            {
+                b.Converter = SouthwindConverters.ImageConverter;
+                return Fluent.GetDataTemplate(() => new Image { MaxHeight = 32.0, Stretch = Stretch.Uniform }
+                    .Bind(Image.SourceProperty, b)
+                    .Set(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Linear));
+            };
+
+            QuerySettings.RegisterPropertyFormat((EmployeeDN e)=>e.Photo, formatter);
+            QuerySettings.RegisterPropertyFormat((CategoryDN e)=>e.Picture, formatter);
         }
     }
 }

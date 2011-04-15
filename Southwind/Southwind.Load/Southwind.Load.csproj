@@ -39,15 +39,15 @@
   <ItemGroup>
     <Reference Include="Signum.Engine, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b6f529cd3458096d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Signum Software\Signum Framework\Signum.Engine.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Signum Software\Signum Framework 2.0\Signum.Engine.dll</HintPath>
     </Reference>
     <Reference Include="Signum.Entities, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b6f529cd3458096d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Signum Software\Signum Framework\Signum.Entities.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Signum Software\Signum Framework 2.0\Signum.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Signum.Utilities, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b6f529cd3458096d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Signum Software\Signum Framework\Signum.Utilities.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Signum Software\Signum Framework 2.0\Signum.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,15 +59,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderLoader.cs" />
     <Compile Include="CustomerLoader.cs" />
+    <Compile Include="ProductLoader.cs" />
     <Compile Include="EmployeeLoader.cs" />
     <Compile Include="Northwind.designer.cs">
-      <DependentUpon>Northwind.dbml</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Northwind.dbml</DependentUpon>
     </Compile>
-    <Compile Include="OrderLoader.cs" />
-    <Compile Include="ProductLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -89,21 +89,25 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Northwind.dbml">
-      <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Northwind.designer.cs</LastGenOutput>
-    </None>
-    <None Include="Northwind.dbml.layout">
-      <DependentUpon>Northwind.dbml</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="SupplierFaxes.csv" />
+    <None Include="SupplierFaxes.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Northwind.dbml.layout">
+      <DependentUpon>Northwind.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

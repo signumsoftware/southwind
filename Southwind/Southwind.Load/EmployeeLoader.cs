@@ -19,7 +19,7 @@ namespace Southwind.Load
                 Administrator.SaveListDisableIdentity(db.Regions.Select(r =>
                     Administrator.SetId(r.RegionID, new RegionDN
                     {
-                        Description = r.RegionDescription,
+                        Description = r.RegionDescription.Trim()
                     })));
             }
         }
@@ -42,7 +42,7 @@ namespace Southwind.Load
                 Administrator.SaveListDisableIdentity(territories.Select(t =>
                     Administrator.SetId(int.Parse(t.Id), new TerritoryDN
                     {
-                        Description = t.Description,
+                        Description = t.Description.Trim(),
                         Region = regionDic[t.RegionID]
                     })));
             }
@@ -103,5 +103,40 @@ namespace Southwind.Load
                 }
             }
         }
+
+        public static void FixEmployeeImages()
+        {
+            foreach (var employee in Database.RetrieveAll<EmployeeDN>())
+            {
+                if (employee.Photo != null)
+                {
+                    employee.Photo = RemoveOlePrefix(employee.Photo); // employee.Photo.Skip(78).ToArray();
+
+                    employee.Save();
+                }
+            }
+        }
+
+        public static void FixCategoryImages()
+        {
+            foreach (var category in Database.RetrieveAll<CategoryDN>())
+            {
+                if (category.Picture != null)
+                {
+                    category.Picture = RemoveOlePrefix(category.Picture);
+
+                    category.Save();
+                }
+            }
+        }
+
+        static byte[] RemoveOlePrefix(byte[] bytes)
+        {
+            byte[] clean = new byte[bytes.Length - 78];
+            Array.Copy(bytes, 78, clean, 0, bytes.Length - 78);
+            return clean;
+        }
+
+       
     }
 }

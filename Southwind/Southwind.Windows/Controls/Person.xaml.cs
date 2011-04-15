@@ -12,16 +12,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Signum.Windows;
+using Signum.Entities;
 using Southwind.Entities;
 
 namespace Southwind.Windows.Controls
 {
     /// <summary>
-    /// Interaction logic for CustomerDN.xaml
+    /// Interaction logic for Person.xaml
     /// </summary>
-    public partial class MyEntity : UserControl
+    public partial class Person : UserControl
     {
-        public MyEntity()
+        public Person()
         {
             InitializeComponent();
         }

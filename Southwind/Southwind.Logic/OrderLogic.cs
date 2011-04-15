@@ -62,6 +62,7 @@ namespace Southwind.Logic
                         UnitsInStock = (short)(p.UnitsInStock - od.Quantity)
                     });
 
+
                     if (updated != 1)
                         throw new ApplicationException("There are not enought {0} in stock".Formato(od.Product)); 
                 }

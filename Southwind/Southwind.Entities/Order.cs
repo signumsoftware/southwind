@@ -6,6 +6,8 @@ using Signum.Entities;
 using System.Reflection;
 using System.Linq.Expressions;
 using Signum.Utilities;
+using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace Southwind.Entities
 {
@@ -76,13 +78,14 @@ namespace Southwind.Entities
         }
 
         decimal freight;
+        [Unit("Kg")]
         public decimal Freight
         {
             get { return freight; }
             set { Set(ref freight, value, () => Freight); }
         }
 
-        [ValidateChildProperty]
+        [ValidateChildProperty, NotifyChildProperty, NotifyCollectionChanged]
         MList<OrderDetailsDN> details;
         public MList<OrderDetailsDN> Details
         {
@@ -92,10 +95,12 @@ namespace Southwind.Entities
 
         static Expression<Func<OrderDN, decimal>> TotalPriceExpression =
             o => o.Details.Sum(od => od.SubTotalPrice);
+        [Unit("€")]
         public decimal TotalPrice
         {
             get{ return TotalPriceExpression.Invoke(this); }
         }
+
         bool isLegacy;
         public bool IsLegacy
         {
@@ -109,17 +114,29 @@ namespace Southwind.Entities
 
             if (details != null && !IsLegacy &&  pi.Is(() => details.Discount))
             {
-                if ((details.Discount * 100) % 5 != 0)
+                if ((details.Discount * 100.0) % 5.0f != 0)
                     return "Discount should be multiple of 5%";
             }
 
             return base.ChildPropertyValidation(sender, pi, propertyValue);
         }
+
+        protected override void ChildCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            if (sender == details)
+                Notify(() => TotalPrice);
+        }
+
+        protected override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is OrderDetailsDN)
+                Notify(() => TotalPrice);
+        }
     }
 
 
     [Serializable]
-    public class OrderDetailsDN : EmbeddedEntity
+    public class OrderDetailsDN : EmbeddedEntity, IEditableObject
     {
         Lite<ProductDN> product;
         [NotNullValidator]
@@ -130,31 +147,71 @@ namespace Southwind.Entities
         }
 
         decimal unitPrice;
+        [Unit("€")]
         public decimal UnitPrice
         {
             get { return unitPrice; }
-            set { Set(ref unitPrice, value, () => UnitPrice); }
+            set
+            {
+                if (Set(ref unitPrice, value, () => UnitPrice))
+                    Notify(() => SubTotalPrice);
+            }
         }
 
         int quantity;
         public int Quantity
         {
             get { return quantity; }
-            set { Set(ref quantity, value, () => Quantity); }
+            set
+            {
+                if (Set(ref quantity, value, () => Quantity))
+                    Notify(() => SubTotalPrice);
+            }
         }
 
         decimal discount;
+        [Format("p")]
         public decimal Discount
         {
             get { return discount; }
-            set { Set(ref discount, value, () => Discount); }
+            set
+            {
+                if (Set(ref discount, value, () => Discount))
+                    Notify(() => SubTotalPrice);
+            }
         }
 
         static Expression<Func<OrderDetailsDN, decimal>> SubTotalPriceExpression =
             od => od.Quantity * od.UnitPrice * (decimal)(1 - od.Discount);
         public decimal SubTotalPrice
         {
-            get{ return SubTotalPriceExpression.Invoke(this); }
+            get { return SubTotalPriceExpression.Invoke(this); }
+        }
+
+        [Ignore]
+        OrderDetailsDN clone;
+
+        public void BeginEdit()
+        {
+            clone = new OrderDetailsDN
+            {
+                Product = product,
+                Quantity = quantity,
+                UnitPrice = unitPrice,
+                Discount = discount
+            };
+        }
+
+        public void CancelEdit()
+        {
+            Product = clone.product;
+            Quantity = clone.quantity;
+            Discount = clone.discount;
+        }
+
+        public void EndEdit()
+        {
+            clone = null;
         }
     }
 

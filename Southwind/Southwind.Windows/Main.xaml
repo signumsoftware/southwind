@@ -5,8 +5,24 @@
     xmlns:d="clr-namespace:Southwind.Entities;assembly=Southwind.Entities"
     Title="Southwind Application"  SizeToContent="WidthAndHeight">
     <Menu MaxHeight ="{x:Static SystemParameters.MenuBarHeight}" x:Name="menu">
-        <MenuItem Header="Entities">
-            <MenuItem Tag="{m:Explore QueryName={x:Type d:MyEntityDN}}"/>
+        <MenuItem Header="Orders">
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:OrderDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Static d:OrderQueries.OrderLines}}"/>
+        </MenuItem>
+        <MenuItem Header="Customers">
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:CustomerDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:PersonDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:CompanyDN}}"/>
+        </MenuItem>
+        <MenuItem Header="Products">
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:ProductDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:CategoryDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:SupplierDN}}"/>
+        </MenuItem>
+        <MenuItem Header="Employees">
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:EmployeeDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:TerritoryDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type d:RegionDN}}"/>
         </MenuItem>
     </Menu>
 </Window>

@@ -38,6 +38,7 @@ namespace Southwind.Entities
         }
     }
     
+
     [Serializable]
     public class PersonDN : CustomerDN
     {  
