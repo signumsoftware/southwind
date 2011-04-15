@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Southwind.Web.ServerSouthwind" CodeBehind="ServerSouthwind.svc.cs" %>
