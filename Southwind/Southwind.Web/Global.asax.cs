@@ -10,6 +10,16 @@ using Southwind.Web.Properties;
 using Signum.Engine.Maps;
 using Signum.Web;
 using Signum.Web.PortableAreas;
+using Signum.Engine.Authorization;
+using Signum.Web.Auth;
+using Signum.Web.AuthAdmin;
+using Signum.Web.Operations;
+using Signum.Entities.Authorization;
+using System.Threading;
+using Signum.Web.Queries;
+using Signum.Web.Reports;
+using Signum.Utilities;
+using System.Globalization;
 
 namespace Southwind.Web
 {
@@ -52,7 +62,8 @@ namespace Southwind.Web
         {
             Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 
-            Schema.Current.Initialize();
+            using (AuthLogic.Disable())
+                Schema.Current.Initialize();
 
             WebStart();
 
@@ -64,23 +75,50 @@ namespace Southwind.Web
             Navigator.Start(new NavigationManager());
             Constructor.Start(new ConstructorManager());
 
-            SouthwindClient.Start();
+            OperationsClient.Start(new OperationManager(), true);
+
+            AuthClient.Start(true, true, true, true, false);
+            AuthAdminClient.Start(true, true, true, true, true, true, true);
+
+            UserQueriesClient.Start();
+            ReportsClient.Start(true, false);            
+
+            SouthwindClient.Start();            
 
             ScriptHtmlHelper.Manager.MainAssembly = typeof(SouthwindClient).Assembly;
             SignumControllerFactory.MainAssembly = typeof(SouthwindClient).Assembly;
 
             SignumControllerFactory.EveryController().AddFilters(ctx =>
-               ctx.FilterInfo.AuthorizationFilters.OfType<AuthenticationRequiredAttribute>().Any() ? null : new AuthenticationRequiredAttribute());
+                ctx.FilterInfo.AuthorizationFilters.OfType<AuthenticationRequiredAttribute>().Any() ? null : new AuthenticationRequiredAttribute());
 
             SignumControllerFactory.EveryController().AddFilters(new SignumExceptionHandlerAttribute());
-
 
             Navigator.Initialize();
         }
 
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            UserDN user = HttpContext.Current.Session == null ? null : (UserDN)HttpContext.Current.Session[AuthController.SessionUserKey];
+
+            if (user != null)
+                Thread.CurrentPrincipal = user;
+
+            Sync.ChangeBothCultures(new CultureInfo("en-US"));
+        } 
+        
         protected void Application_Error(Object sender, EventArgs e)
         {
             SignumExceptionHandlerAttribute.HandlerApplication_Error(HttpContext.Current, true);
+        }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            AuthController.LoginFromCookie();
+        }
+
+        protected void Application_ReleaseRequestState(object sender, EventArgs e)
+        {
+            Thread.CurrentPrincipal = null;
         }
     }
 }

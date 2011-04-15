@@ -60,12 +60,12 @@
                 <fieldset>
                     <legend>@Html.PropertyNiceName(() => ec.Value.Notes)</legend>
                     @Html.ValueLine(ec, e => e.Notes, vl =>
-                    {
-                        vl.ValueLineType = ValueLineType.TextArea;
-                        vl.LabelVisible = false;
-                        vl.ValueHtmlProps["cols"] = "70";
-                        vl.ValueHtmlProps["rows"] = "4";
-                    })
+               {
+                   vl.ValueLineType = ValueLineType.TextArea;
+                   vl.LabelVisible = false;
+                   vl.ValueHtmlProps["cols"] = "70";
+                   vl.ValueHtmlProps["rows"] = "4";
+               })
                 </fieldset>
             </td>
         </tr>

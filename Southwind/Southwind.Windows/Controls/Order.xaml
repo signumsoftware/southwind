@@ -29,6 +29,7 @@
                 <m:ValueLine m:Common.Route="RequiredDate" />
                 <m:ValueLine m:Common.Route="ShippedDate"  />
                 <m:EntityCombo m:Common.Route="ShipVia" />
+                <m:ValueLine m:Common.CollapseIfNull="True" m:Common.Route="CancelationDate" Background="LightPink" />
             </StackPanel>
 
         </Grid>

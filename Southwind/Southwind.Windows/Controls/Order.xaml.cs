@@ -78,7 +78,7 @@ namespace Southwind.Windows.Controls
 
         private void ebDetails_Viewing(object sender, RoutedEventArgs e)
         {
-            if (CurrentOrderDetails == null)
+            if(CurrentOrderDetails == null)
                 return;
 
             Navigator.Navigate(CurrentOrderDetails.Product);
@@ -104,10 +104,12 @@ namespace Southwind.Windows.Controls
             dgDetails.CommitEdit(DataGridEditingUnit.Cell, true);
         }
 
+
         private void AutoCompleteTextBox_Loaded(object sender, RoutedEventArgs e)
         {
             var actb = (AutoCompleteTextBox)sender;
             actb.Text = CurrentOrderDetails.Product.TryCC(a => a.ToStr);
+            actb.Text = CurrentOrderDetails.Product.TryCC(a=>a.ToStr);
             actb.SelectAndFocus();
         }
 

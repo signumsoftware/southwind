@@ -38,7 +38,7 @@ namespace Southwind.Web
                     new EntitySettings<PersonDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Person") },
                     new EntitySettings<CompanyDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Company") },
                    
-                    new EntitySettings<OrderDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Order")},
+                    new EntitySettings<OrderDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Order"), ShowSave = false },
                     new EmbeddedEntitySettings<OrderDetailsDN> { PartialViewName = e => ViewPrefix.Formato("OrderDetails") },
                     new EntitySettings<ShipperDN>(EntityType.Admin) { PartialViewName = e => ViewPrefix.Formato("Shipper") },
                 });

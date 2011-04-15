@@ -7,6 +7,7 @@ using Southwind.Entities;
 using Signum.Utilities;
 using Signum.Entities;
 using Signum.Services;
+using Signum.Entities.Authorization;
 
 namespace Southwind.Load
 {
@@ -137,6 +138,55 @@ namespace Southwind.Load
             return clean;
         }
 
-       
+        internal static void CreateSystemUser()
+        {
+            using (Transaction tr = new Transaction())
+            {
+                RoleDN sys = new RoleDN() { Name = "System" }.Save();
+
+                UserDN system = new UserDN
+                {
+                    UserName = "System",
+                    PasswordHash = Security.EncodePassword(Guid.NewGuid().ToString()),
+                    Role = sys,
+                }.Save(); 
+
+                tr.Commit();
+            }
+        }
+
+        internal static void CreateUsers()
+        {
+            using (Transaction tr = new Transaction())
+            {
+                RoleDN su = new RoleDN() { Name = "Super user" }.Save();
+                RoleDN u = new RoleDN() { Name = "User" }.Save();
+
+                RoleDN au = new RoleDN()
+                {
+                    Name = "Advanced user",
+                    Roles = new MList<Lite<RoleDN>> { u.ToLite() },
+                }.Save();
+
+                var employees = Database.Query<EmployeeDN>().OrderByDescending(a => a.Notes.Length).ToList();
+
+                for (int i = 0; i < employees.Count; i++)
+                {
+                    var employee = employees[i];
+                    new UserDN
+                    {
+                        Related = employee,
+                        UserName = employee.FirstName,
+                        PasswordHash = Security.EncodePassword(employee.FirstName),
+                        Role = i < 2 ? su :
+                               i < 5 ? au : u
+
+                    }.Save();
+                }
+
+                tr.Commit();
+            }
+
+        }
     }
 }

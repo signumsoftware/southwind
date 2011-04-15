@@ -1,4 +1,7 @@
 ﻿@using Southwind.Entities
+@using Signum.Entities.Authorization
+@using Signum.Entities.Operations
+@using Signum.Entities.Reports
 
 @(new WebMenuItem
     {
@@ -40,6 +43,10 @@
                    new WebMenuItem { Link = new FindOptions(typeof(EmployeeDN)) },
                    new WebMenuItem { Link = new FindOptions(typeof(TerritoryDN)) },
                    new WebMenuItem { Link = new FindOptions(typeof(RegionDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(LogOperationDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(UserQueryDN)) },
                 }
             }
         }

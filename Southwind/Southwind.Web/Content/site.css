@@ -214,7 +214,14 @@ div.photo
     border:1px solid black;
     padding: 4px;
     margin: 5px; 
+    
 }
+div.photo img
+{
+    max-width: 200px;
+    max-height: 300px; 
+}
+
 #Details_sfItemsContainer
 {
     display: table;    

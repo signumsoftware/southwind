@@ -6,11 +6,12 @@ using Signum.Entities;
 using Signum.Utilities;
 using Signum.Entities.Basics;
 using System.Data;
+using Signum.Entities.Authorization;
 
 namespace Southwind.Entities
 {
     [Serializable]
-    public class EmployeeDN : Entity
+    public class EmployeeDN : Entity, IUserRelatedDN
     {
         [NotNullable, SqlDbType(Size = 20)]
         string lastName;

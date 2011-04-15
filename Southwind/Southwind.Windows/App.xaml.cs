@@ -18,6 +18,11 @@ using Southwind.Entities;
 using Southwind.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Data;
+using Signum.Windows.Operations;
+using Signum.Windows.Authorization;
+using Signum.Windows.Reports;
+using Signum.Windows.Chart;
+using Signum.Entities.Authorization;
 
 namespace Southwind.Windows
 {
@@ -58,6 +63,9 @@ namespace Southwind.Windows
             Navigator.Start(new NavigationManager());
             Constructor.Start(new ConstructorManager());
 
+            OperationClient.Start(new OperationManager());
+            AuthClient.Start(true, true, true, true, true, true, true, true); 
+
             Navigator.AddSettings(new List<EntitySettings>
             {
                 new EntitySettings<EmployeeDN>(EntityType.Default) { View = e => new Employee(), IsCreable= admin=>false},
@@ -78,6 +86,7 @@ namespace Southwind.Windows
             {
                  OrderDate = DateTime.Now,
                  RequiredDate = DateTime.Now.AddDays(2),
+                 Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
                  Details = new MList<OrderDetailsDN>()
             });
 
@@ -90,7 +99,14 @@ namespace Southwind.Windows
                 Address = new AddressDN()
             }); 
 
+
+            LinksWidget.Start();
+
             Navigator.Initialize();
+
+            ReportClient.Start(true, false);
+            UserQueryClient.Start();
+            ChartClient.Start(()=>new ChartRendererVisifire());
 
             Func<Binding, DataTemplate> formatter = b =>
             {

@@ -11,6 +11,9 @@ using Signum.Utilities;
 using Signum.Windows;
 using Signum.Services;
 using Southwind.Services;
+using Signum.Entities.Authorization;
+using Signum.Windows.Authorization;
+using Southwind.Windows.Properties;
 
 namespace Southwind.Windows
 {
@@ -35,6 +38,13 @@ namespace Southwind.Windows
             {
                 HandleException("Start-up error", e);
             }
+
+            try
+            {
+                Server.Execute((ILoginServer ls) => ls.Logout());
+            }
+            catch
+            { }
         }
 
         public static void HandleException(string errorTitle, Exception e)
@@ -62,10 +72,85 @@ namespace Southwind.Windows
             if (channelFactory == null)
                 channelFactory = new ChannelFactory<IServerSouthwind>("server");
 
-            //Add Login here
             IServerSouthwind result = channelFactory.CreateChannel();
 
+            if (Application.Current == null || Application.Current.CheckAccess())
+                return Login(result);
+            else
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    result = Login(result);
+                });
+
             return result;
+        }
+
+        static IServerSouthwind Login(IServerSouthwind result)
+        {
+            Login milogin = new Login
+            {
+                Title = "Welcome to Southwind",
+                UserName = Settings.Default.UserName,
+                Password = "",
+                ProductName = "Southwind",
+                CompanyName = "Signum Software"
+            };
+
+            AsignarMetodoLogin(result, milogin);
+
+            milogin.FocusUserName();
+
+            bool? dialogResult = milogin.ShowDialog();
+            if (dialogResult == true)
+            {
+                UserDN user = result.GetCurrentUser();
+                Thread.CurrentPrincipal = user;
+
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static void AsignarMetodoLogin(IServerSouthwind result, Login milogin)
+        {
+
+            milogin.LoginClicked += (o, e) =>
+            {
+                try
+                {
+                    result.Login(milogin.UserName, Security.EncodePassword(milogin.Password));
+
+                    Settings.Default.UserName = milogin.UserName;
+                    Settings.Default.Save();
+
+                    Thread.CurrentPrincipal = result.GetCurrentUser();
+
+                    // verificar el tiempo de expiracion
+                    var alerta = result.PasswordNearExpired();
+                    if (alerta.HasText())
+                        MessageBox.Show(alerta);
+
+
+                    milogin.DialogResult = true;
+                }
+
+                catch (FaultException ex)
+                {
+                    milogin.Error = ex.Message;
+
+                    if (ex.Code.Name == typeof(IncorrectUsernameException).Name)
+                    {
+                        milogin.FocusUserName();
+                    }
+                    else if (ex.Code.Name == typeof(IncorrectPasswordException).Name)
+                    {
+                        milogin.FocusPassword();
+                    }
+                }
+            };
         }
     }
 }

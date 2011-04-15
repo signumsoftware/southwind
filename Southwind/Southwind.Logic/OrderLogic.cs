@@ -10,6 +10,7 @@ using Signum.Engine.DynamicQuery;
 using Southwind.Entities;
 using System.Reflection;
 using Signum.Utilities;
+using Signum.Engine.Operations;
 
 namespace Southwind.Logic
 {
@@ -44,8 +45,65 @@ namespace Southwind.Logic
                                                     od.Quantity,
                                                     od.UnitPrice,
                                                     od.Discount,
+                                                    od.SubTotalPrice,
                                                 }).ToDynamic();
+
+                new GraphOrder().Register();
+
             }
+        }
+
+        class GraphOrder : Graph<OrderDN, OrderState>
+        {
+            public GraphOrder()
+            {
+                this.GetState = o => o.State;
+                this.Operations = new List<IGraphOperation>()
+                {
+                    new Goto(OrderOperations.Create, OrderState.Ordered)
+                    {
+                        FromStates = new []{ OrderState.New },
+                        AllowsNew = true,
+                        Lite = false,
+                        Execute = (e,args)=>
+                        {
+                            e.OrderDate = DateTime.Now;
+                            e.State = OrderState.Ordered;
+                        }
+                    },
+
+                    new Goto(OrderOperations.Save, OrderState.Ordered)
+                    {
+                        FromStates = new []{ OrderState.Ordered },
+                        Lite = false,
+                        Execute = (e,args)=>
+                        {
+                        }
+                    },
+
+                    new Goto(OrderOperations.Ship, OrderState.Shipped)
+                    {
+                        FromStates = new []{ OrderState.Ordered },
+                        Execute = (e,args)=>
+                        {
+                            e.ShippedDate = DateTime.Now;
+                            e.State = OrderState.Shipped;
+                        }
+                    },
+
+                    new Goto(OrderOperations.Cancel, OrderState.Canceled)
+                    {
+                        FromStates = new []{ OrderState.Ordered, OrderState.Shipped },
+                        Execute = (e,args)=>
+                        {
+                            e.CancelationDate = DateTime.Now;
+                            e.State = OrderState.Canceled;
+                        }
+                    },
+                }; 
+            }
+
+
         }
 
         public static OrderDN Create(OrderDN order)

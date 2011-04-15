@@ -30,14 +30,14 @@ namespace Southwind.Logic
                                          }).ToDynamic();
 
                 dqm[typeof(TerritoryDN)] = (from t in Database.Query<TerritoryDN>()
-                                            select new
-                                            {
-                                                Entity = t.ToLite(),
-                                                t.Id,
-                                                t.Description,
-                                                Region = t.Region.ToLite()
-                                            }).ToDynamic();
-
+                                           select new
+                                           {
+                                               Entity = t.ToLite(),
+                                               t.Id,
+                                               t.Description,
+                                               Region = t.Region.ToLite()
+                                           }).ToDynamic();
+                
                 dqm[typeof(EmployeeDN)] = (from e in Database.Query<EmployeeDN>()
                                            select new
                                            {
@@ -64,6 +64,8 @@ namespace Southwind.Logic
 
 
             }
+
+
         }
 
         public static void Create(EmployeeDN employee)

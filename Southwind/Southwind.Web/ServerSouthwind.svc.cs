@@ -13,22 +13,13 @@ using Signum.Engine.DynamicQuery;
 using Signum.Entities.Basics;
 using Signum.Services;
 using Southwind.Services;
+using Signum.Entities.Authorization;
+using Signum.Engine.Authorization;
 
 namespace Southwind.Web
 {
-    public class ServerSouthwind : ServerBasic, IServerSouthwind
+    public class ServerSouthwind : ServerExtensions, IServerSouthwind
     {
-        protected override T Return<T>(MethodBase mi, string description, Func<T> function)
-        {
-            try
-            {
-                //Do Security, Tracing and Logging here
-                return function();
-            }
-            catch (Exception e)
-            {
-                throw new FaultException(e.Message);
-            }
-        }
+       
     }
 }

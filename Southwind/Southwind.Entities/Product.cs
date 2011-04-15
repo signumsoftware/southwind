@@ -46,7 +46,7 @@ namespace Southwind.Entities
         }
 
         decimal unitPrice;
-        [NumberIsValidator(ComparisonType.GreaterThan, 0), Unit("$")]
+        [NumberIsValidator(ComparisonType.GreaterThan, 0), Unit("€")]
         public decimal UnitPrice
         {
             get { return unitPrice; }

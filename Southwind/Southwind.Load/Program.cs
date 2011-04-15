@@ -10,6 +10,8 @@ using Southwind.Logic;
 using Southwind.Entities;
 using Signum.Services;
 using Signum.Entities;
+using Signum.Engine.Authorization;
+using Signum.Entities.Reflection;
 
 namespace Southwind.Load
 {
@@ -17,6 +19,7 @@ namespace Southwind.Load
     {
         static void Main(string[] args)
         {
+            using (AuthLogic.Disable())
             using (Sync.ChangeCulture("en"))
             using (Sync.ChangeCultureUI("en"))
             {
@@ -60,6 +63,13 @@ namespace Southwind.Load
 
                         {10, EmployeeLoader.FixEmployeeImages},
                         {11, EmployeeLoader.FixCategoryImages},
+                        
+                        {20, EmployeeLoader.CreateUsers },
+                        {21, EmployeeLoader.CreateSystemUser }, 
+
+                        {22, SnamphotIsolation},
+
+                        {23, ShowOrder}
 
                     }.ChooseMultiple();
 
@@ -89,22 +99,40 @@ namespace Southwind.Load
 
         static void Synchronize()
         {
-            Console.Write("Generating script...");
-
-            SqlPreCommand command = Administrator.TotalSynchronizeScript();
-            if (command == null)
+            using (AuthLogic.Disable())
             {
-                Console.WriteLine("Already synchronized!");
-                return;
+                Console.Write("Generating script...");
+
+                SqlPreCommand command = Administrator.TotalSynchronizeScript();
+                if (command == null)
+                {
+                    Console.WriteLine("Already synchronized!");
+                    return;
+                }
+                else
+                    Console.WriteLine("Done!");
+
+                Console.WriteLine("Check and Modify the synchronization script before");
+                Console.WriteLine("executing it in SQL Server Management Studio: ");
+                Console.WriteLine();
+
+                command.OpenSqlFileRetry();
             }
-            else
-                Console.WriteLine("Done!");
+        }
 
-            Console.WriteLine("Check and Modify the synchronization script before");
-            Console.WriteLine("executing it in SQL Server Management Studio: ");
-            Console.WriteLine();
+        static void SnamphotIsolation()
+        {
+            Administrator.SetSnapshotIsolation(true);
+            Administrator.MakeSnapshotIsolationDefault(true);
+        }
 
-            command.OpenSqlFileRetry();
+        static void ShowOrder()
+        {
+            var query = Database.Query<OrderDN>()
+                .Where(a => a.Details.Any(l => l.Discount != 0))
+                .OrderByDescending(a => a.TotalPrice); 
+
+            OrderDN order = query.First(); 
         }
     }
 }

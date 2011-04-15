@@ -1,4 +1,5 @@
 @using Southwind.Web.Controllers
+@using Signum.Entities.Authorization
 <!doctype html>
 <html>
 <head>
@@ -11,7 +12,7 @@
        "~/signum/content/SF_Search.css",
        "~/content/smoothness/jquery-ui-1.8.9.custom.css",
        "~/content/site.css")
-    @Html.ScriptsJs("~/scripts/jquery-1.5.min.js", "~/scripts/jquery-ui-1.8.9.custom.min.js")
+    @Html.ScriptsJs("~/scripts/jquery-1.5.2.min.js", "~/scripts/jquery-ui-1.8.9.custom.min.js")
     @Html.ScriptsJs("~/signum/resources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
     @Html.ScriptsJs("~/signum/calendarResources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
     @Html.ScriptsJs("~/signum/scripts/SF_Utils.js", "~/signum/scripts/SF_jquery-ui-datepicker-extension.js", "~/scripts/newcontent.js")
@@ -28,11 +29,14 @@
             </div>
         </header>
         <div id="main">
+        @if (UserDN.Current != null)
+        {
             <div id="menu">
                 <div class="box menu">
                     @{ Html.RenderPartial("Menu", ViewData["current"] = Context.Request.RawUrl);}
                 </div>
             </div>
+        }
             <div id="content">
                 @RenderBody()
             </div>

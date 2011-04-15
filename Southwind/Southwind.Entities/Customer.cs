@@ -36,6 +36,8 @@ namespace Southwind.Entities
             get { return fax; }
             set { Set(ref fax, value, () => Fax); }
         }
+
+        
     }
     
 
@@ -110,6 +112,8 @@ namespace Southwind.Entities
         {
             return "{0} {1}".Formato(firstName, lastName);
         }
+
+        public static PersonDN Current { get; set; }
     }
 
     [Serializable]
@@ -146,5 +150,7 @@ namespace Southwind.Entities
         {
             return companyName;
         }
+
+        public static CompanyDN Current { get; set; }
     }
 }

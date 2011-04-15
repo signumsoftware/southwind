@@ -52,6 +52,13 @@ namespace Southwind.Entities
             set { Set(ref shippedDate, value, () => ShippedDate); }
         }
 
+        DateTime? cancelationDate;
+        public DateTime? CancelationDate
+        {
+            get { return cancelationDate; }
+            set { Set(ref cancelationDate, value, () => CancelationDate); }
+        }
+
         Lite<ShipperDN> shipVia;
         public Lite<ShipperDN> ShipVia
         {
@@ -108,13 +115,20 @@ namespace Southwind.Entities
             set { Set(ref isLegacy, value, () => IsLegacy); }
         }
 
+        OrderState state;
+        public OrderState State
+        {
+            get { return state; }
+            set { Set(ref state, value, () => State); }
+        }
+
         protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi, object propertyValue)
         {
             OrderDetailsDN details = sender as OrderDetailsDN;
 
             if (details != null && !IsLegacy &&  pi.Is(() => details.Discount))
             {
-                if ((details.Discount * 100.0) % 5.0f != 0)
+                if ((details.Discount * 100) % 5 != 0)
                     return "Discount should be multiple of 5%";
             }
 
@@ -132,8 +146,38 @@ namespace Southwind.Entities
             if (sender is OrderDetailsDN)
                 Notify(() => TotalPrice);
         }
+
+        protected override string PropertyValidation(PropertyInfo pi)
+        {
+            return validator.Validate(this, pi); 
+        }
+
+  		static StateValidator<OrderDN, OrderState> validator = new StateValidator<OrderDN, OrderState>(
+            o => o.State, o => o.ShippedDate, o => o.ShipVia, o => o.CancelationDate)
+            {
+            {OrderState.New,     false, null, null},
+            {OrderState.Ordered, false, null, null},
+            {OrderState.Shipped, true, true, null},
+            {OrderState.Canceled, null, null, true},
+            }; 
     }
 
+    public enum OrderState
+    {
+        [Ignore]
+        New,
+        Ordered, 
+        Shipped,
+        Canceled,
+    }
+
+    public enum OrderOperations
+    {
+        Create, 
+        Save, 
+        Ship,
+        Cancel,
+    }
 
     [Serializable]
     public class OrderDetailsDN : EmbeddedEntity, IEditableObject
