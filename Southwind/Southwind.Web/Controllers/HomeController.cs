@@ -19,5 +19,15 @@ namespace Southwind.Web.Controllers
         {
             return View();
         }
+
+        public FileResult EmployeePhoto(Lite<EmployeeDN> employee)
+        {
+            return File(employee.InDB().Select(e => e.Photo).Single(), "image/jpeg");
+        }
+
+        public FileResult CategoryPhoto(Lite<CategoryDN> employee)
+        {
+            return File(employee.InDB().Select(e => e.Picture).Single(), "image/jpeg");
+        }
     }
 }

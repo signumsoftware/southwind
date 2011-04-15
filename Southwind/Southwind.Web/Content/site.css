@@ -78,6 +78,7 @@ fieldset
 {
 	border:1px dotted #bbb;
 	padding:10px;
+	margin: 2px;
 	margin-bottom:10px;
 	background-color:#fff;
 }
@@ -145,17 +146,12 @@ footer
 	box-shadow:0 0 20px #bbb;
 }
 
-.sf-filters-header:before 
+.sf-label-line
 {
-	content: "▲";
+    color: #444;  
+    text-align:inherit;   
+    width: 100px;       
 }
-
-.sf-filters-header.close:before 
-{
-	content: "▼";    
-}
-
-
 
 .sf-line-button {
     font-size:0px;
@@ -181,4 +177,102 @@ footer
     cursor:pointer;
     opacity:0.8;
     filter:alpha(opacity=80);
+}
+
+#territories .sf-field
+{
+    min-width: inherit;
+}
+
+#productExternal
+{
+    padding: 0 30px;    
+    margin: 10px 0;
+}
+#productInternal
+{
+    border: solid 1px gray;    
+    padding: 5px;
+    display: table;
+}
+#productInternal td
+{
+    padding: 0 5px;    
+}
+#productInternal td:first-child
+{
+    padding-top: 5px;
+    vertical-align: top;
+}
+#trMultiply
+{
+    border-bottom: solid 2px #000;    
+}
+
+div.photo
+{
+    border:1px solid black;
+    padding: 4px;
+    margin: 5px; 
+}
+#Details_sfItemsContainer
+{
+    display: table;    
+}
+#Details_sfItemsContainer a.sf-value-line, #Details_sfItemsContainer input[type="text"].sf-entity-autocomplete
+{
+    width: 150px;    
+}
+#Details_sfItemsContainer .sf-repeater-element
+{
+    min-width: 600px;
+    margin-left: 10px;
+}
+
+.sf-repeater-element:last-child
+{
+    border-bottom-color: #dfdfdf;
+}
+
+/*Menu*/
+#menu {
+    clear: left;
+    float: left;
+    margin: 0 5px 15px -155px;
+    padding: 0;
+    position: relative;
+    width: 145px;
+}
+li.l1 > span
+{
+    border-bottom: 1px solid #CCC;
+    display: block;
+    font-weight: bold;
+    margin: 20px 0 5px 0;
+    padding: 5px;
+    text-transform: uppercase;
+    color: #555;
+    font-size: 110%;
+    text-shadow: 0 1px white;
+}
+li.l2
+{
+    text-decoration: none;    
+    padding-top: 3px;
+}
+
+li.l1:first-child > span
+{
+    margin: 0 0 5px 0;
+}
+
+#divNormalControl
+{
+    border-left: 1px solid lightgray;
+    padding-left: 10px;    
+}
+
+#main
+{
+    padding-left: 0;    
 }

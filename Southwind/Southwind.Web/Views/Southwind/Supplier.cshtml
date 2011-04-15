@@ -1,0 +1,15 @@
+﻿@using Southwind.Entities
+
+@using (var sc = Html.TypeContext<SupplierDN>()) 
+{
+	@Html.ValueLine(sc, s => s.CompanyName)
+	
+    @Html.EmbeddedControl(sc, s => s.Address)     
+ 
+    @Html.ValueLine(sc, s => s.ContactName)
+	@Html.ValueLine(sc, s => s.ContactTitle)
+
+	@Html.ValueLine(sc, s => s.Phone)
+	@Html.ValueLine(sc, s => s.Fax)
+	@Html.ValueLine(sc, s => s.HomePage)
+}

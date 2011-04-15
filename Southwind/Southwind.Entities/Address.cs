@@ -5,6 +5,7 @@ using System.Text;
 using Signum.Entities;
 using System.Reflection;
 using Signum.Utilities;
+
 namespace Southwind.Entities
 {
     [Serializable]
@@ -54,15 +55,33 @@ namespace Southwind.Entities
             get { return country; }
             set { Set(ref country, value, () => Country); }
         }
+
         protected override string PropertyValidation(PropertyInfo pi)
         {
             if (pi.Is(() => PostalCode))
             {
-                if(string.IsNullOrEmpty(postalCode) && Country != "Ireland")
+                if (string.IsNullOrEmpty(postalCode) && Country != "Ireland")
                     return Signum.Entities.Properties.Resources._0IsNotSet.Formato(pi.NiceName());
             }
 
-            return null; 
+            return null;
+        }
+
+        public override string ToString()
+        {
+            return "{0}\r\n{1} {2} ({3})".Formato(Address, PostalCode, City, Country);
+        }
+
+        public AddressDN Clone()
+        {
+            return new AddressDN
+            {
+                Address = this.Address,
+                City = this.City,
+                Region = this.Region,
+                PostalCode = this.PostalCode,
+                Country = this.Country
+            };
         }
     }
 }

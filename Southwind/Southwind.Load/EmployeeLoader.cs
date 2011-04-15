@@ -69,7 +69,6 @@ namespace Southwind.Load
                     from e in db.Employees
                     select Administrator.SetId(e.EmployeeID, new EmployeeDN
                     {
-
                         BirthDate = e.BirthDate,
                         FirstName = e.FirstName,
                         LastName = e.LastName,

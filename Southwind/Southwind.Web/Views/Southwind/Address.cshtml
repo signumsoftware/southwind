@@ -1,0 +1,27 @@
+﻿@using Southwind.Entities
+
+@using (var ac = Html.TypeContext<AddressDN>()) 
+{
+    @Html.HiddenRuntimeInfo(ac)
+    <fieldset>
+        <legend>@(ViewData["Legend"] ?? typeof(AddressDN).NiceName())</legend>
+        @Html.ValueLine(ac, a => a.Address, vl => 
+        { 
+            vl.ValueFirst = true;
+            vl.LabelVisible = false;
+            vl.ValueHtmlProps["placeholder"] = Html.PropertyNiceName(() => ac.Value.Address); 
+        })
+             
+        @{ Action<ValueLine> modifier = vl => { vl.ValueHtmlProps["size"] = "20";  vl.ValueHtmlProps["size"] = "20"; }; }
+        @using (Html.FieldInline())
+        {
+            @Html.ValueLine(ac, a => a.City, modifier)
+            @Html.ValueLine(ac, a => a.Region, modifier)
+        }
+        @using (Html.FieldInline())
+        {
+            @Html.ValueLine(ac, a => a.PostalCode, modifier)
+            @Html.ValueLine(ac, a => a.Country, modifier)
+        }
+   </fieldset>
+}

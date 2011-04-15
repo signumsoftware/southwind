@@ -98,7 +98,7 @@ namespace Southwind.Entities
             set { Set(ref photo, value, () => Photo); }
         }
 
-        [SqlDbType(Size = int.MaxValue), ]
+        [SqlDbType(Size = int.MaxValue),]
         string notes;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
         public string Notes

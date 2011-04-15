@@ -1,0 +1,23 @@
+﻿@using Southwind.Entities
+@using Southwind.Web.Controllers
+@using (var cc = Html.TypeContext<CategoryDN>())
+{
+    <table>
+        <tr>
+            @if (!cc.Value.IsNew) {
+            <td rowspan="3">
+                <div class="photo">
+                    <img src="@(Url.Action<HomeController>(hc => hc.CategoryPhoto(cc.Value.ToLite())))" />
+                </div>
+            </td>
+            }
+            <td>@Html.ValueLine(cc, c => c.CategoryName)
+            </td>
+        </tr>
+        <tr>
+            <td>  @Html.ValueLine(cc, c => c.Description)
+            </td>
+        </tr>
+        <tr></tr>
+    </table>
+}

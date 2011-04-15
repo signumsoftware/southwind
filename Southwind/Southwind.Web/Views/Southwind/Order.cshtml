@@ -1,0 +1,31 @@
+﻿@using Southwind.Entities
+
+@using (var oc = Html.TypeContext<OrderDN>()) 
+{
+    <table>
+        <tr>
+            <td>@Html.ValueLine(oc, o => o.ShipName)</td>
+            <td style="padding-left: 10px">@Html.ValueLine(oc, o => o.IsLegacy)</td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EntityLine(oc, o => o.Customer)
+                @Html.EmbeddedControl(oc, o => o.ShipAddress, ec => ec.ViewData = new Dictionary<string, object> { { "Legend", Html.PropertyNiceName(() => oc.Value.ShipAddress) } })                 
+            </td>
+            <td style="vertical-align: top; padding-left: 10px">
+                @Html.ValueLine(oc, o => o.OrderDate)
+	            @Html.ValueLine(oc, o => o.RequiredDate)
+	            @Html.ValueLine(oc, o => o.ShippedDate)
+	            @Html.EntityCombo(oc, o => o.ShipVia)
+            </td>
+        </tr>
+    </table>
+    
+    <fieldset>
+        <legend>@Html.PropertyNiceName(() => oc.Value.Details)</legend>
+        @Html.EntityRepeater(oc, o => o.Details, er => { er.LabelVisible = false; })
+    </fieldset>
+	@Html.EntityLine(oc, o => o.Employee)
+    @Html.ValueLine(oc, o => o.Freight)
+	@Html.ValueLine(oc, o => o.TotalPrice)
+}

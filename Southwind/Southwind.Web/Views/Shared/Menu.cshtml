@@ -6,11 +6,41 @@
         {
             new WebMenuItem 
             { 
-                Text="Entities", 
+                Text="Orders", 
                 Children = 
                 {
-                    new WebMenuItem { Link = new FindOptions(typeof(MyEntityDN)) }
+                   new WebMenuItem { Link = new FindOptions(typeof(OrderDN)) },
+                   new WebMenuItem { Link = new FindOptions(OrderQueries.OrderLines) },
                 },
+            },
+            new WebMenuItem 
+            { 
+                Text="Customers", 
+                Children = 
+                {
+                   new WebMenuItem { Link = new FindOptions(typeof(PersonDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(CompanyDN)) },
+                }
+            },
+            new WebMenuItem 
+            { 
+                Text="Products", 
+                Children = 
+                {
+                   new WebMenuItem { Link = new FindOptions(typeof(ProductDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(CategoryDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(SupplierDN)) },
+                }
+            },
+            new WebMenuItem 
+            { 
+                Text="Employees", 
+                Children = 
+                {
+                   new WebMenuItem { Link = new FindOptions(typeof(EmployeeDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(TerritoryDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(RegionDN)) },
+                }
             }
         }
     }.ToHtml((string)ViewData["current"],"")) 

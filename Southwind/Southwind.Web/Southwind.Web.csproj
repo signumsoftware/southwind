@@ -102,6 +102,7 @@
     <Content Include="Content\smoothness\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\smoothness\jquery-ui-1.8.9.custom.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.5.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.9.custom.min.js" />
@@ -111,7 +112,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Menu.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Southwind\MyEntity.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config" />
@@ -141,6 +141,18 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Southwind\Address.cshtml" />
+    <Content Include="Views\Southwind\Category.cshtml" />
+    <Content Include="Views\Southwind\Company.cshtml" />
+    <Content Include="Views\Southwind\Employee.cshtml" />
+    <Content Include="Views\Southwind\Order.cshtml" />
+    <Content Include="Views\Southwind\OrderDetails.cshtml" />
+    <Content Include="Views\Southwind\Person.cshtml" />
+    <Content Include="Views\Southwind\Product.cshtml" />
+    <Content Include="Views\Southwind\Region.cshtml" />
+    <Content Include="Views\Southwind\Shipper.cshtml" />
+    <Content Include="Views\Southwind\Supplier.cshtml" />
+    <Content Include="Views\Southwind\Territory.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -95,6 +95,7 @@ namespace Southwind.Load
             }
             else
                 Console.WriteLine("Done!");
+
             Console.WriteLine("Check and Modify the synchronization script before");
             Console.WriteLine("executing it in SQL Server Management Studio: ");
             Console.WriteLine();
