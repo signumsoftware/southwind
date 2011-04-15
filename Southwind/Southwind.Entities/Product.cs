@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Signum.Entities;
+using System.Linq.Expressions;
+using Signum.Utilities;
 
 namespace Southwind.Entities
 {
@@ -71,6 +73,13 @@ namespace Southwind.Entities
         {
             get { return discontinued; }
             set { Set(ref discontinued, value, () => Discontinued); }
+        }
+
+        static Expression<Func<ProductDN, decimal>> ValueInStockExpression =
+            p => p.unitPrice * p.unitsInStock;
+        public decimal ValueInStock
+        {
+            get {  return ValueInStockExpression.Invoke(this); }
         }
 
         public override string ToString()
@@ -181,5 +190,10 @@ namespace Southwind.Entities
         {
             return categoryName;
         }
+    }
+
+    public enum ProductQueries
+    {
+        Current
     }
 }

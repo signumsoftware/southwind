@@ -58,7 +58,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyEntityLogic.cs" />
+    <Compile Include="CustomerLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EmployeeLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="OrderLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProductLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Starter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -21,7 +21,10 @@ namespace Southwind.Logic
             DynamicQueryManager dqm = new DynamicQueryManager();
             ConnectionScope.Default = new Connection(connectionString, sb.Schema, dqm);
 
-            MyEntityLogic.Start(sb, dqm);
+            EmployeeLogic.Start(sb, dqm);
+            ProductLogic.Start(sb, dqm);
+            CustomerLogic.Start(sb, dqm);
+            OrderLogic.Start(sb, dqm);
         }
     }
 }

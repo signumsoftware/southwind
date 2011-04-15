@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Signum.Entities;
+using System.Reflection;
+using System.Linq.Expressions;
+using Signum.Utilities;
 
 namespace Southwind.Entities
 {
     [Serializable]
     public class OrderDN : Entity
     {
+        [ImplementedBy(typeof(CompanyDN), typeof(PersonDN))]
         CustomerDN customer;
         [NotNullValidator]
         public CustomerDN Customer
@@ -75,6 +79,13 @@ namespace Southwind.Entities
             get { return details; }
             set { Set(ref details, value, () => Details); }
         }
+
+        static Expression<Func<OrderDN, decimal>> TotalPriceExpression =
+            o => o.Details.Sum(od => od.SubTotalPrice);
+        public decimal TotalPrice
+        {
+            get{ return TotalPriceExpression.Invoke(this); }
+        }
     }
 
 
@@ -109,6 +120,24 @@ namespace Southwind.Entities
             get { return discount; }
             set { Set(ref discount, value, () => Discount); }
         }
+
+        protected override string PropertyValidation(PropertyInfo pi)
+        {
+            if (pi.Is(() => Discount))
+            {
+                if ((discount * 100) % 5 != 0)
+                    return "Discount should be mutiple of 5%"; 
+            }
+
+            return base.PropertyValidation(pi);
+        }
+
+        static Expression<Func<OrderDetailsDN, decimal>> SubTotalPriceExpression =
+            od => od.Quantity * od.UnitPrice * (decimal)(1 - od.Discount);
+        public decimal SubTotalPrice
+        {
+            get{ return SubTotalPriceExpression.Invoke(this); }
+        }
     }
 
     [Serializable]
@@ -136,5 +165,10 @@ namespace Southwind.Entities
         {
             return companyName;
         }
+    }
+
+    public enum OrderQueries
+    {
+        OrderLines
     }
 }

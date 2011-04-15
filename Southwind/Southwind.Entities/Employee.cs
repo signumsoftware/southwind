@@ -172,4 +172,9 @@ namespace Southwind.Entities
             return description;
         }
     }
+
+    public enum EmployeeQueries
+    {
+        EmployeesByTerritory
+    }
 }
