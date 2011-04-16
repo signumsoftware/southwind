@@ -114,7 +114,7 @@ namespace Southwind.Entities
 
             if (details != null && !IsLegacy &&  pi.Is(() => details.Discount))
             {
-                if ((details.Discount * 100.0) % 5.0f != 0)
+                if ((details.Discount * 100.0m) % 5.0m != 0)
                     return "Discount should be multiple of 5%";
             }
 
