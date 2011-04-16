@@ -139,36 +139,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Dev\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj">
-      <Project>{7D851227-5294-4BEB-990E-56B4FBB7A148}</Project>
-      <Name>Signum.Entities.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Extensions\Signum.Windows.Extensions\Signum.Windows.Extensions.csproj">
-      <Project>{CAFD6D4D-E5FB-4A6E-84FC-3185854CCD9D}</Project>
-      <Name>Signum.Windows.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Extensions\Signum.Windows.Visifire\Signum.Windows.Visifire.csproj">
-      <Project>{FCC8FE70-1452-4860-9062-8F570B59DCA3}</Project>
-      <Name>Signum.Windows.Visifire</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Entities\Signum.Entities.csproj">
-      <Project>{F2B51D08-498D-4C9F-8112-9521A7762B02}</Project>
-      <Name>Signum.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Utilities\Signum.Utilities.csproj">
-      <Project>{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}</Project>
-      <Name>Signum.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Windows\Signum.Windows.csproj">
-      <Project>{76278145-7CCD-4411-9B8A-078708128571}</Project>
-      <Name>Signum.Windows</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj">
-      <Project>{233B16A6-CB31-43E8-8F5F-F3FD973C2CDC}</Project>
-      <Name>Southwind.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Controls\Address.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,7 +184,36 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Signum\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj">
+      <Project>{7D851227-5294-4BEB-990E-56B4FBB7A148}</Project>
+      <Name>Signum.Entities.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Extensions\Signum.Windows.Extensions\Signum.Windows.Extensions.csproj">
+      <Project>{CAFD6D4D-E5FB-4A6E-84FC-3185854CCD9D}</Project>
+      <Name>Signum.Windows.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Extensions\Signum.Windows.Visifire\Signum.Windows.Visifire.csproj">
+      <Project>{FCC8FE70-1452-4860-9062-8F570B59DCA3}</Project>
+      <Name>Signum.Windows.Visifire</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Entities\Signum.Entities.csproj">
+      <Project>{F2B51D08-498D-4C9F-8112-9521A7762B02}</Project>
+      <Name>Signum.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Utilities\Signum.Utilities.csproj">
+      <Project>{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}</Project>
+      <Name>Signum.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Windows\Signum.Windows.csproj">
+      <Project>{76278145-7CCD-4411-9B8A-078708128571}</Project>
+      <Name>Signum.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj">
+      <Project>{2FE283CC-8F34-451E-9805-C7858F7D705D}</Project>
+      <Name>Southwind.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

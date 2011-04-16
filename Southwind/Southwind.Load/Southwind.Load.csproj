@@ -61,36 +61,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Dev\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
-      <Project>{BA7FA363-61A1-41B1-945B-9B9C7BBCD357}</Project>
-      <Name>Signum.Engine.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj">
-      <Project>{7D851227-5294-4BEB-990E-56B4FBB7A148}</Project>
-      <Name>Signum.Entities.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Engine\Signum.Engine.csproj">
-      <Project>{7F2DB6FE-C109-4057-B207-C62A767F905D}</Project>
-      <Name>Signum.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Entities\Signum.Entities.csproj">
-      <Project>{F2B51D08-498D-4C9F-8112-9521A7762B02}</Project>
-      <Name>Signum.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Utilities\Signum.Utilities.csproj">
-      <Project>{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}</Project>
-      <Name>Signum.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj">
-      <Project>{233B16A6-CB31-43E8-8F5F-F3FD973C2CDC}</Project>
-      <Name>Southwind.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj">
-      <Project>{1DFE3599-A5FB-4A06-B8DD-15FCB91AC0F0}</Project>
-      <Name>Southwind.Logic</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="Northwind.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -112,6 +82,36 @@
     <None Include="Northwind.dbml.layout">
       <DependentUpon>Northwind.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Signum\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
+      <Project>{BA7FA363-61A1-41B1-945B-9B9C7BBCD357}</Project>
+      <Name>Signum.Engine.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj">
+      <Project>{7D851227-5294-4BEB-990E-56B4FBB7A148}</Project>
+      <Name>Signum.Entities.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Engine\Signum.Engine.csproj">
+      <Project>{7F2DB6FE-C109-4057-B207-C62A767F905D}</Project>
+      <Name>Signum.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Entities\Signum.Entities.csproj">
+      <Project>{F2B51D08-498D-4C9F-8112-9521A7762B02}</Project>
+      <Name>Signum.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Utilities\Signum.Utilities.csproj">
+      <Project>{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}</Project>
+      <Name>Signum.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj">
+      <Project>{2FE283CC-8F34-451E-9805-C7858F7D705D}</Project>
+      <Name>Southwind.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj">
+      <Project>{2DA0D6C7-53DB-45F3-BA86-F4FDEB6924FA}</Project>
+      <Name>Southwind.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

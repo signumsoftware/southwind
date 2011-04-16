@@ -14,6 +14,7 @@
     <AssemblyName>Southwind.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>true</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -113,53 +114,49 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Dev\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
+    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Engine\Signum.Engine.csproj">
+      <Project>{7F2DB6FE-C109-4057-B207-C62A767F905D}</Project>
+      <Name>Signum.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Entities\Signum.Entities.csproj">
+      <Project>{F2B51D08-498D-4C9F-8112-9521A7762B02}</Project>
+      <Name>Signum.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Utilities\Signum.Utilities.csproj">
+      <Project>{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}</Project>
+      <Name>Signum.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
       <Project>{BA7FA363-61A1-41B1-945B-9B9C7BBCD357}</Project>
       <Name>Signum.Engine.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj">
+    <ProjectReference Include="..\..\..\Signum\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj">
       <Project>{7D851227-5294-4BEB-990E-56B4FBB7A148}</Project>
       <Name>Signum.Entities.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Extensions\Signum.Web.Extensions\Signum.Web.Extensions.csproj">
+    <ProjectReference Include="..\..\..\Signum\Extensions\Signum.Web.Extensions\Signum.Web.Extensions.csproj">
       <Project>{86EE7792-96CF-4420-997B-8C811E2B166D}</Project>
       <Name>Signum.Web.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Engine\Signum.Engine.csproj">
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Engine\Signum.Engine.csproj">
       <Project>{7F2DB6FE-C109-4057-B207-C62A767F905D}</Project>
       <Name>Signum.Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Engine\Signum.Engine.csproj">
-      <Project>{7F2DB6FE-C109-4057-B207-C62A767F905D}</Project>
-      <Name>Signum.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Entities\Signum.Entities.csproj">
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Entities\Signum.Entities.csproj">
       <Project>{F2B51D08-498D-4C9F-8112-9521A7762B02}</Project>
       <Name>Signum.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Entities\Signum.Entities.csproj">
-      <Project>{F2B51D08-498D-4C9F-8112-9521A7762B02}</Project>
-      <Name>Signum.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Utilities\Signum.Utilities.csproj">
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Utilities\Signum.Utilities.csproj">
       <Project>{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}</Project>
       <Name>Signum.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Utilities\Signum.Utilities.csproj">
-      <Project>{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}</Project>
-      <Name>Signum.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Dev\Framework\Signum.Web\Signum.Web.csproj">
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Web\Signum.Web.csproj">
       <Project>{61898D02-521F-49AB-928B-F80615D55CA3}</Project>
       <Name>Signum.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj">
       <Project>{2FE283CC-8F34-451E-9805-C7858F7D705D}</Project>
       <Name>Southwind.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Southwind.Load\Southwind.Load.csproj">
-      <Project>{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}</Project>
-      <Name>Southwind.Load</Name>
     </ProjectReference>
     <ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj">
       <Project>{2DA0D6C7-53DB-45F3-BA86-F4FDEB6924FA}</Project>

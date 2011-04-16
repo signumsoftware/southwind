@@ -11,92 +11,31 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Southwind.Web", "Southwind\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Southwind.Windows", "Southwind\Southwind.Windows\Southwind.Windows.csproj", "{B676A7B5-9DA3-441A-BEA1-2C20A93F18F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Entities", "..\..\..\Dev\Framework\Signum.Entities\Signum.Entities.csproj", "{F2B51D08-498D-4C9F-8112-9521A7762B02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Entities", "..\Signum\Framework\Signum.Entities\Signum.Entities.csproj", "{F2B51D08-498D-4C9F-8112-9521A7762B02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Windows", "..\..\..\Dev\Framework\Signum.Windows\Signum.Windows.csproj", "{76278145-7CCD-4411-9B8A-078708128571}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Windows", "..\Signum\Framework\Signum.Windows\Signum.Windows.csproj", "{76278145-7CCD-4411-9B8A-078708128571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Utilities", "..\..\..\Dev\Framework\Signum.Utilities\Signum.Utilities.csproj", "{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Utilities", "..\Signum\Framework\Signum.Utilities\Signum.Utilities.csproj", "{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Engine", "..\..\..\Dev\Framework\Signum.Engine\Signum.Engine.csproj", "{7F2DB6FE-C109-4057-B207-C62A767F905D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Engine", "..\Signum\Framework\Signum.Engine\Signum.Engine.csproj", "{7F2DB6FE-C109-4057-B207-C62A767F905D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Web", "..\..\..\Dev\Framework\Signum.Web\Signum.Web.csproj", "{61898D02-521F-49AB-928B-F80615D55CA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Web", "..\Signum\Framework\Signum.Web\Signum.Web.csproj", "{61898D02-521F-49AB-928B-F80615D55CA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{8636251D-0291-4B49-BD87-644F49A928F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Engine.Extensions", "..\..\..\Dev\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj", "{BA7FA363-61A1-41B1-945B-9B9C7BBCD357}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Engine.Extensions", "..\Signum\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj", "{BA7FA363-61A1-41B1-945B-9B9C7BBCD357}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Entities.Extensions", "..\..\..\Dev\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj", "{7D851227-5294-4BEB-990E-56B4FBB7A148}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Entities.Extensions", "..\Signum\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj", "{7D851227-5294-4BEB-990E-56B4FBB7A148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Web.Extensions", "..\..\..\Dev\Extensions\Signum.Web.Extensions\Signum.Web.Extensions.csproj", "{86EE7792-96CF-4420-997B-8C811E2B166D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Web.Extensions", "..\Signum\Extensions\Signum.Web.Extensions\Signum.Web.Extensions.csproj", "{86EE7792-96CF-4420-997B-8C811E2B166D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Windows.Extensions", "..\..\..\Dev\Extensions\Signum.Windows.Extensions\Signum.Windows.Extensions.csproj", "{CAFD6D4D-E5FB-4A6E-84FC-3185854CCD9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Windows.Extensions", "..\Signum\Extensions\Signum.Windows.Extensions\Signum.Windows.Extensions.csproj", "{CAFD6D4D-E5FB-4A6E-84FC-3185854CCD9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Windows.Visifire", "..\..\..\Dev\Extensions\Signum.Windows.Visifire\Signum.Windows.Visifire.csproj", "{FCC8FE70-1452-4860-9062-8F570B59DCA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Windows.Visifire", "..\Signum\Extensions\Signum.Windows.Visifire\Signum.Windows.Visifire.csproj", "{FCC8FE70-1452-4860-9062-8F570B59DCA3}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 16
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://192.168.0.8:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = ..\\..\\..\\Dev\\Framework\\Signum.Entities\\Signum.Entities.csproj
-		SccProjectTopLevelParentUniqueName1 = Southwind.sln
-		SccProjectName1 = ../../../Dev/Framework/Signum.Entities
-		SccLocalPath1 = ..\\..\\..\\Dev\\Framework\\Signum.Entities
-		SccProjectUniqueName2 = ..\\..\\..\\Dev\\Framework\\Signum.Windows\\Signum.Windows.csproj
-		SccProjectTopLevelParentUniqueName2 = Southwind.sln
-		SccProjectName2 = ../../../Dev/Framework/Signum.Windows
-		SccLocalPath2 = ..\\..\\..\\Dev\\Framework\\Signum.Windows
-		SccProjectUniqueName3 = ..\\..\\..\\Dev\\Framework\\Signum.Utilities\\Signum.Utilities.csproj
-		SccProjectTopLevelParentUniqueName3 = Southwind.sln
-		SccProjectName3 = ../../../Dev/Framework/Signum.Utilities
-		SccLocalPath3 = ..\\..\\..\\Dev\\Framework\\Signum.Utilities
-		SccProjectUniqueName4 = ..\\..\\..\\Dev\\Framework\\Signum.Engine\\Signum.Engine.csproj
-		SccProjectTopLevelParentUniqueName4 = Southwind.sln
-		SccProjectName4 = ../../../Dev/Framework/Signum.Engine
-		SccLocalPath4 = ..\\..\\..\\Dev\\Framework\\Signum.Engine
-		SccProjectUniqueName5 = ..\\..\\..\\Dev\\Framework\\Signum.Web\\Signum.Web.csproj
-		SccProjectTopLevelParentUniqueName5 = Southwind.sln
-		SccProjectName5 = ../../../Dev/Framework/Signum.Web
-		SccLocalPath5 = ..\\..\\..\\Dev\\Framework\\Signum.Web
-		SccProjectUniqueName6 = ..\\..\\..\\Dev\\Extensions\\Signum.Engine.Extensions\\Signum.Engine.Extensions.csproj
-		SccProjectTopLevelParentUniqueName6 = Southwind.sln
-		SccProjectName6 = ../../../Dev/Extensions/Signum.Engine.Extensions
-		SccLocalPath6 = ..\\..\\..\\Dev\\Extensions\\Signum.Engine.Extensions
-		SccProjectUniqueName7 = ..\\..\\..\\Dev\\Extensions\\Signum.Entities.Extensions\\Signum.Entities.Extensions.csproj
-		SccProjectTopLevelParentUniqueName7 = Southwind.sln
-		SccProjectName7 = ../../../Dev/Extensions/Signum.Entities.Extensions
-		SccLocalPath7 = ..\\..\\..\\Dev\\Extensions\\Signum.Entities.Extensions
-		SccProjectUniqueName8 = ..\\..\\..\\Dev\\Extensions\\Signum.Web.Extensions\\Signum.Web.Extensions.csproj
-		SccProjectTopLevelParentUniqueName8 = Southwind.sln
-		SccProjectName8 = ../../../Dev/Extensions/Signum.Web.Extensions
-		SccLocalPath8 = ..\\..\\..\\Dev\\Extensions\\Signum.Web.Extensions
-		SccProjectUniqueName9 = ..\\..\\..\\Dev\\Extensions\\Signum.Windows.Extensions\\Signum.Windows.Extensions.csproj
-		SccProjectTopLevelParentUniqueName9 = Southwind.sln
-		SccProjectName9 = ../../../Dev/Extensions/Signum.Windows.Extensions
-		SccLocalPath9 = ..\\..\\..\\Dev\\Extensions\\Signum.Windows.Extensions
-		SccProjectUniqueName10 = ..\\..\\..\\Dev\\Extensions\\Signum.Windows.Visifire\\Signum.Windows.Visifire.csproj
-		SccProjectTopLevelParentUniqueName10 = Southwind.sln
-		SccProjectName10 = ../../../Dev/Extensions/Signum.Windows.Visifire
-		SccLocalPath10 = ..\\..\\..\\Dev\\Extensions\\Signum.Windows.Visifire
-		SccProjectUniqueName11 = Southwind\\Southwind.Entities\\Southwind.Entities.csproj
-		SccProjectName11 = Southwind/Southwind.Entities
-		SccLocalPath11 = Southwind\\Southwind.Entities
-		SccProjectUniqueName12 = Southwind\\Southwind.Load\\Southwind.Load.csproj
-		SccProjectName12 = Southwind/Southwind.Load
-		SccLocalPath12 = Southwind\\Southwind.Load
-		SccProjectUniqueName13 = Southwind\\Southwind.Logic\\Southwind.Logic.csproj
-		SccProjectName13 = Southwind/Southwind.Logic
-		SccLocalPath13 = Southwind\\Southwind.Logic
-		SccProjectUniqueName14 = Southwind\\Southwind.Web\\Southwind.Web.csproj
-		SccProjectName14 = Southwind/Southwind.Web
-		SccLocalPath14 = Southwind\\Southwind.Web
-		SccProjectUniqueName15 = Southwind\\Southwind.Windows\\Southwind.Windows.csproj
-		SccProjectName15 = Southwind/Southwind.Windows
-		SccLocalPath15 = Southwind\\Southwind.Windows
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -349,5 +288,66 @@ Global
 		{86EE7792-96CF-4420-997B-8C811E2B166D} = {84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}
 		{CAFD6D4D-E5FB-4A6E-84FC-3185854CCD9D} = {84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}
 		{FCC8FE70-1452-4860-9062-8F570B59DCA3} = {84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 16
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://192.168.0.8:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\..\\Dev\\Framework\\Signum.Entities\\Signum.Entities.csproj
+		SccProjectTopLevelParentUniqueName1 = Southwind.sln
+		SccProjectName1 = ../../../Dev/Framework/Signum.Entities
+		SccLocalPath1 = ..\\..\\..\\Dev\\Framework\\Signum.Entities
+		SccProjectUniqueName2 = ..\\..\\..\\Dev\\Framework\\Signum.Windows\\Signum.Windows.csproj
+		SccProjectTopLevelParentUniqueName2 = Southwind.sln
+		SccProjectName2 = ../../../Dev/Framework/Signum.Windows
+		SccLocalPath2 = ..\\..\\..\\Dev\\Framework\\Signum.Windows
+		SccProjectUniqueName3 = ..\\..\\..\\Dev\\Framework\\Signum.Utilities\\Signum.Utilities.csproj
+		SccProjectTopLevelParentUniqueName3 = Southwind.sln
+		SccProjectName3 = ../../../Dev/Framework/Signum.Utilities
+		SccLocalPath3 = ..\\..\\..\\Dev\\Framework\\Signum.Utilities
+		SccProjectUniqueName4 = ..\\..\\..\\Dev\\Framework\\Signum.Engine\\Signum.Engine.csproj
+		SccProjectTopLevelParentUniqueName4 = Southwind.sln
+		SccProjectName4 = ../../../Dev/Framework/Signum.Engine
+		SccLocalPath4 = ..\\..\\..\\Dev\\Framework\\Signum.Engine
+		SccProjectUniqueName5 = ..\\..\\..\\Dev\\Framework\\Signum.Web\\Signum.Web.csproj
+		SccProjectTopLevelParentUniqueName5 = Southwind.sln
+		SccProjectName5 = ../../../Dev/Framework/Signum.Web
+		SccLocalPath5 = ..\\..\\..\\Dev\\Framework\\Signum.Web
+		SccProjectUniqueName6 = ..\\..\\..\\Dev\\Extensions\\Signum.Engine.Extensions\\Signum.Engine.Extensions.csproj
+		SccProjectTopLevelParentUniqueName6 = Southwind.sln
+		SccProjectName6 = ../../../Dev/Extensions/Signum.Engine.Extensions
+		SccLocalPath6 = ..\\..\\..\\Dev\\Extensions\\Signum.Engine.Extensions
+		SccProjectUniqueName7 = ..\\..\\..\\Dev\\Extensions\\Signum.Entities.Extensions\\Signum.Entities.Extensions.csproj
+		SccProjectTopLevelParentUniqueName7 = Southwind.sln
+		SccProjectName7 = ../../../Dev/Extensions/Signum.Entities.Extensions
+		SccLocalPath7 = ..\\..\\..\\Dev\\Extensions\\Signum.Entities.Extensions
+		SccProjectUniqueName8 = ..\\..\\..\\Dev\\Extensions\\Signum.Web.Extensions\\Signum.Web.Extensions.csproj
+		SccProjectTopLevelParentUniqueName8 = Southwind.sln
+		SccProjectName8 = ../../../Dev/Extensions/Signum.Web.Extensions
+		SccLocalPath8 = ..\\..\\..\\Dev\\Extensions\\Signum.Web.Extensions
+		SccProjectUniqueName9 = ..\\..\\..\\Dev\\Extensions\\Signum.Windows.Extensions\\Signum.Windows.Extensions.csproj
+		SccProjectTopLevelParentUniqueName9 = Southwind.sln
+		SccProjectName9 = ../../../Dev/Extensions/Signum.Windows.Extensions
+		SccLocalPath9 = ..\\..\\..\\Dev\\Extensions\\Signum.Windows.Extensions
+		SccProjectUniqueName10 = ..\\..\\..\\Dev\\Extensions\\Signum.Windows.Visifire\\Signum.Windows.Visifire.csproj
+		SccProjectTopLevelParentUniqueName10 = Southwind.sln
+		SccProjectName10 = ../../../Dev/Extensions/Signum.Windows.Visifire
+		SccLocalPath10 = ..\\..\\..\\Dev\\Extensions\\Signum.Windows.Visifire
+		SccProjectUniqueName11 = Southwind\\Southwind.Entities\\Southwind.Entities.csproj
+		SccProjectName11 = Southwind/Southwind.Entities
+		SccLocalPath11 = Southwind\\Southwind.Entities
+		SccProjectUniqueName12 = Southwind\\Southwind.Load\\Southwind.Load.csproj
+		SccProjectName12 = Southwind/Southwind.Load
+		SccLocalPath12 = Southwind\\Southwind.Load
+		SccProjectUniqueName13 = Southwind\\Southwind.Logic\\Southwind.Logic.csproj
+		SccProjectName13 = Southwind/Southwind.Logic
+		SccLocalPath13 = Southwind\\Southwind.Logic
+		SccProjectUniqueName14 = Southwind\\Southwind.Web\\Southwind.Web.csproj
+		SccProjectName14 = Southwind/Southwind.Web
+		SccLocalPath14 = Southwind\\Southwind.Web
+		SccProjectUniqueName15 = Southwind\\Southwind.Windows\\Southwind.Windows.csproj
+		SccProjectName15 = Southwind/Southwind.Windows
+		SccLocalPath15 = Southwind\\Southwind.Windows
 	EndGlobalSection
 EndGlobal
