@@ -12,27 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Southwind.Windows", "Southwind\Southwind.Windows\Southwind.Windows.csproj", "{B676A7B5-9DA3-441A-BEA1-2C20A93F18F6}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://192.168.0.8:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Southwind\\Southwind.Entities\\Southwind.Entities.csproj
-		SccProjectName1 = Southwind/Southwind.Entities
-		SccLocalPath1 = Southwind\\Southwind.Entities
-		SccProjectUniqueName2 = Southwind\\Southwind.Logic\\Southwind.Logic.csproj
-		SccProjectName2 = Southwind/Southwind.Logic
-		SccLocalPath2 = Southwind\\Southwind.Logic
-		SccProjectUniqueName3 = Southwind\\Southwind.Load\\Southwind.Load.csproj
-		SccProjectName3 = Southwind/Southwind.Load
-		SccLocalPath3 = Southwind\\Southwind.Load
-		SccProjectUniqueName4 = Southwind\\Southwind.Web\\Southwind.Web.csproj
-		SccProjectName4 = Southwind/Southwind.Web
-		SccLocalPath4 = Southwind\\Southwind.Web
-		SccProjectUniqueName5 = Southwind\\Southwind.Windows\\Southwind.Windows.csproj
-		SccProjectName5 = Southwind/Southwind.Windows
-		SccLocalPath5 = Southwind\\Southwind.Windows
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
