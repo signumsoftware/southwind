@@ -173,10 +173,15 @@ namespace Southwind.Entities
 
     public enum OrderOperations
     {
-        Create, 
+        Create,
+        SaveNew, 
         Save, 
         Ship,
         Cancel,
+        [Description("New Order")]
+        ConstructFromCustomer,
+        [Description("New Order")]
+        ConstructFromProducts,
     }
 
     [Serializable]

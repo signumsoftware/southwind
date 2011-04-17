@@ -11,6 +11,7 @@ using Southwind.Entities;
 using System.Reflection;
 using Signum.Utilities;
 using Signum.Engine.Operations;
+using Signum.Entities.Authorization;
 
 namespace Southwind.Logic
 {
@@ -31,7 +32,7 @@ namespace Southwind.Logic
                                             o.Employee,
                                             o.OrderDate,
                                             o.RequiredDate,
-                                            o.ShipAddress, 
+                                            o.ShipAddress,
                                             o.ShipVia,
                                         }).ToDynamic();
 
@@ -48,19 +49,61 @@ namespace Southwind.Logic
                                                     od.SubTotalPrice,
                                                 }).ToDynamic();
 
-                new GraphOrder().Register();
-
+                GraphOrder.Register();
             }
         }
 
-        class GraphOrder : Graph<OrderDN, OrderState>
+        public class GraphOrder : Graph<OrderDN, OrderState>
         {
-            public GraphOrder()
+            static GraphOrder()
             {
-                this.GetState = o => o.State;
-                this.Operations = new List<IGraphOperation>()
+                GetState = o => o.State;
+                Operations = new List<IGraphOperation>()
                 {
-                    new Goto(OrderOperations.Create, OrderState.Ordered)
+                    new Construct(OrderState.New, OrderState.New)
+                    {
+                         Construct = (_)=>new OrderDN
+                         {
+                             State = OrderState.New,
+                             Employee = ((EmployeeDN)UserDN.Current.Related).ToLite()
+                         }
+                    },
+
+                    new ConstructFrom<CustomerDN>(OrderOperations.ConstructFromCustomer, OrderState.New)
+                    {
+                         Construct = (c,_)=>
+                         {
+                             return new OrderDN
+                             {
+                                 State = OrderState.New,
+                                 Customer = c,
+                                 Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
+                             };
+                         }
+                    },
+
+                    new ConstructFromMany<ProductDN>(OrderOperations.ConstructFromProducts, OrderState.New)
+                    {
+                        Constructor = (prods, _)=>
+                        {
+                            var dic = Database.Query<ProductDN>()
+                                .Where(p=>prods.Contains(p.ToLite()))
+                                .Select(p=>new KeyValuePair<Lite<ProductDN>, decimal>(p.ToLite(), p.UnitPrice)).ToDictionary(); 
+
+                            return new OrderDN
+                            {
+                                State = OrderState.New,
+                                Details = prods.Select(p=>new OrderDetailsDN
+                                {
+                                    Product = p,
+                                    UnitPrice = dic[p],
+                                    Quantity =1,
+                                }).ToMList()
+                            };
+                        }
+                    },
+
+                    new Goto(OrderOperations.SaveNew, OrderState.Ordered)
                     {
                         FromStates = new []{ OrderState.New },
                         AllowsNew = true,
@@ -83,6 +126,7 @@ namespace Southwind.Logic
 
                     new Goto(OrderOperations.Ship, OrderState.Shipped)
                     {
+                        CanExecute = o => o.Details.Empty()? "No order lines": null, 
                         FromStates = new []{ OrderState.Ordered },
                         Execute = (e,args)=>
                         {
@@ -100,6 +144,8 @@ namespace Southwind.Logic
                             e.State = OrderState.Canceled;
                         }
                     },
+
+                    
                 }; 
             }
 
