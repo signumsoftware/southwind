@@ -55,101 +55,94 @@ namespace Southwind.Logic
 
         public class GraphOrder : Graph<OrderDN, OrderState>
         {
-            static GraphOrder()
+            public static void Register()
             {
                 GetState = o => o.State;
-                Operations = new List<IGraphOperation>()
+                new Construct(OrderOperations.Create, OrderState.New)
                 {
-                    new Construct(OrderState.New, OrderState.New)
+                    Construct = (_) => new OrderDN
                     {
-                         Construct = (_)=>new OrderDN
-                         {
-                             State = OrderState.New,
-                             Employee = ((EmployeeDN)UserDN.Current.Related).ToLite()
-                         }
-                    },
+                        State = OrderState.New,
+                        Employee = ((EmployeeDN)UserDN.Current.Related).ToLite()
+                    }
+                }.Register();
 
-                    new ConstructFrom<CustomerDN>(OrderOperations.ConstructFromCustomer, OrderState.New)
+                new ConstructFrom<CustomerDN>(OrderOperations.ConstructFromCustomer, OrderState.New)
+                {
+                    Construct = (c, _) =>
                     {
-                         Construct = (c,_)=>
-                         {
-                             return new OrderDN
-                             {
-                                 State = OrderState.New,
-                                 Customer = c,
-                                 Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
-                             };
-                         }
-                    },
-
-                    new ConstructFromMany<ProductDN>(OrderOperations.ConstructFromProducts, OrderState.New)
-                    {
-                        Constructor = (prods, _)=>
+                        return new OrderDN
                         {
-                            var dic = Database.Query<ProductDN>()
-                                .Where(p=>prods.Contains(p.ToLite()))
-                                .Select(p=>new KeyValuePair<Lite<ProductDN>, decimal>(p.ToLite(), p.UnitPrice)).ToDictionary(); 
+                            State = OrderState.New,
+                            Customer = c,
+                            Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
+                        };
+                    }
+                }.Register();
 
-                            return new OrderDN
+                new ConstructFromMany<ProductDN>(OrderOperations.ConstructFromProducts, OrderState.New)
+                {
+                    Constructor = (prods, _) =>
+                    {
+                        var dic = Database.Query<ProductDN>()
+                            .Where(p => prods.Contains(p.ToLite()))
+                            .Select(p => new KeyValuePair<Lite<ProductDN>, decimal>(p.ToLite(), p.UnitPrice)).ToDictionary();
+
+                        return new OrderDN
+                        {
+                            State = OrderState.New,
+                            Details = prods.Select(p => new OrderDetailsDN
                             {
-                                State = OrderState.New,
-                                Details = prods.Select(p=>new OrderDetailsDN
-                                {
-                                    Product = p,
-                                    UnitPrice = dic[p],
-                                    Quantity =1,
-                                }).ToMList()
-                            };
-                        }
-                    },
+                                Product = p,
+                                UnitPrice = dic[p],
+                                Quantity = 1,
+                            }).ToMList()
+                        };
+                    }
+                }.Register();
 
-                    new Goto(OrderOperations.SaveNew, OrderState.Ordered)
+                new Goto(OrderOperations.SaveNew, OrderState.Ordered)
+                {
+                    FromStates = new[] { OrderState.New },
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, args) =>
                     {
-                        FromStates = new []{ OrderState.New },
-                        AllowsNew = true,
-                        Lite = false,
-                        Execute = (e,args)=>
-                        {
-                            e.OrderDate = DateTime.Now;
-                            e.State = OrderState.Ordered;
-                        }
-                    },
+                        e.OrderDate = DateTime.Now;
+                        e.State = OrderState.Ordered; 
+                    }
+                }.Register();
 
-                    new Goto(OrderOperations.Save, OrderState.Ordered)
+                new Goto(OrderOperations.Save, OrderState.Ordered)
+                {
+                    FromStates = new[] { OrderState.Ordered },
+                    Lite = false,
+                    Execute = (e, args) =>
                     {
-                        FromStates = new []{ OrderState.Ordered },
-                        Lite = false,
-                        Execute = (e,args)=>
-                        {
-                        }
-                    },
+                    }
+                }.Register();
 
-                    new Goto(OrderOperations.Ship, OrderState.Shipped)
+                new Goto(OrderOperations.Ship, OrderState.Shipped)
+                {
+                    CanExecute = o => o.Details.Empty() ? "No order lines" : null,
+                    FromStates = new[] { OrderState.Ordered },
+                    Execute = (e, args) =>
                     {
-                        CanExecute = o => o.Details.Empty()? "No order lines": null, 
-                        FromStates = new []{ OrderState.Ordered },
-                        Execute = (e,args)=>
-                        {
-                            e.ShippedDate = DateTime.Now;
-                            e.State = OrderState.Shipped;
-                        }
-                    },
+                        e.ShippedDate = DateTime.Now;
+                        e.State = OrderState.Shipped;
+                    }
+                }.Register();
 
-                    new Goto(OrderOperations.Cancel, OrderState.Canceled)
+                new Goto(OrderOperations.Cancel, OrderState.Canceled)
+                {
+                    FromStates = new[] { OrderState.Ordered, OrderState.Shipped },
+                    Execute = (e, args) =>
                     {
-                        FromStates = new []{ OrderState.Ordered, OrderState.Shipped },
-                        Execute = (e,args)=>
-                        {
-                            e.CancelationDate = DateTime.Now;
-                            e.State = OrderState.Canceled;
-                        }
-                    },
-
-                    
-                }; 
+                        e.CancelationDate = DateTime.Now;
+                        e.State = OrderState.Canceled;
+                    }
+                }.Register();
             }
-
-
         }
 
         public static OrderDN Create(OrderDN order)
@@ -161,19 +154,19 @@ namespace Southwind.Logic
             {
                 foreach (var od in order.Details)
                 {
-                    int updated = od.Product.InDB().Where(p => p.UnitsInStock >= od.Quantity).UnsafeUpdate<ProductDN>(p => new ProductDN
+                    int updated = od.Product.InDB().Where(p => p.UnitsInStock >= od.Quantity).UnsafeUpdate(p => new ProductDN
                     {
                         UnitsInStock = (short)(p.UnitsInStock - od.Quantity)
                     });
 
 
                     if (updated != 1)
-                        throw new ApplicationException("There are not enought {0} in stock".Formato(od.Product)); 
+                        throw new ApplicationException("There are not enought {0} in stock".Formato(od.Product));
                 }
 
-                order.Save(); 
+                order.Save();
 
-                return tr.Commit(order); 
+                return tr.Commit(order);
             }
         }
     }

@@ -96,7 +96,40 @@ namespace Southwind.Windows
                 CompanyName = "Signum Software"
             };
 
-            AsignarMetodoLogin(result, milogin);
+            milogin.LoginClicked += (object sender, EventArgs e) =>
+        {
+            try
+            {
+                result.Login(milogin.UserName, Security.EncodePassword(milogin.Password));
+
+                Settings.Default.UserName = milogin.UserName;
+                Settings.Default.Save();
+
+                Thread.CurrentPrincipal = result.GetCurrentUser();
+
+                // verificar el tiempo de expiracion
+                var alerta = result.PasswordNearExpired();
+                if (alerta.HasText())
+                    MessageBox.Show(alerta);
+
+
+                milogin.DialogResult = true;
+            }
+
+            catch (FaultException ex)
+            {
+                milogin.Error = ex.Message;
+
+                if (ex.Code.Name == typeof(IncorrectUsernameException).Name)
+                {
+                    milogin.FocusUserName();
+                }
+                else if (ex.Code.Name == typeof(IncorrectPasswordException).Name)
+                {
+                    milogin.FocusPassword();
+                }
+            }
+        };
 
             milogin.FocusUserName();
 
@@ -112,45 +145,6 @@ namespace Southwind.Windows
             {
                 return null;
             }
-        }
-
-        public static void AsignarMetodoLogin(IServerSouthwind result, Login milogin)
-        {
-
-            milogin.LoginClicked += (o, e) =>
-            {
-                try
-                {
-                    result.Login(milogin.UserName, Security.EncodePassword(milogin.Password));
-
-                    Settings.Default.UserName = milogin.UserName;
-                    Settings.Default.Save();
-
-                    Thread.CurrentPrincipal = result.GetCurrentUser();
-
-                    // verificar el tiempo de expiracion
-                    var alerta = result.PasswordNearExpired();
-                    if (alerta.HasText())
-                        MessageBox.Show(alerta);
-
-
-                    milogin.DialogResult = true;
-                }
-
-                catch (FaultException ex)
-                {
-                    milogin.Error = ex.Message;
-
-                    if (ex.Code.Name == typeof(IncorrectUsernameException).Name)
-                    {
-                        milogin.FocusUserName();
-                    }
-                    else if (ex.Code.Name == typeof(IncorrectPasswordException).Name)
-                    {
-                        milogin.FocusPassword();
-                    }
-                }
-            };
         }
     }
 }
