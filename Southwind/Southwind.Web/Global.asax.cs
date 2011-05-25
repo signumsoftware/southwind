@@ -89,7 +89,8 @@ namespace Southwind.Web
             SignumControllerFactory.MainAssembly = typeof(SouthwindClient).Assembly;
 
             SignumControllerFactory.EveryController().AddFilters(ctx =>
-                ctx.FilterInfo.AuthorizationFilters.OfType<AuthenticationRequiredAttribute>().Any() ? null : new AuthenticationRequiredAttribute());
+                ctx.FilterInfo.AuthorizationFilters.OfType<AuthenticationRequiredAttribute>().Any() ? null : 
+                new AuthenticationRequiredAttribute());
 
             SignumControllerFactory.EveryController().AddFilters(new SignumExceptionHandlerAttribute());
 
@@ -98,15 +99,16 @@ namespace Southwind.Web
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
-            UserDN user = HttpContext.Current.Session == null ? null : (UserDN)HttpContext.Current.Session[AuthController.SessionUserKey];
+            UserDN user = HttpContext.Current.Session == null ? null :
+                (UserDN)HttpContext.Current.Session[AuthController.SessionUserKey];
 
             if (user != null)
                 Thread.CurrentPrincipal = user;
 
             Sync.ChangeBothCultures(new CultureInfo("en-US"));
-        } 
-        
-        protected void Application_Error(Object sender, EventArgs e)
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
         {
             SignumExceptionHandlerAttribute.HandlerApplication_Error(HttpContext.Current, true);
         }

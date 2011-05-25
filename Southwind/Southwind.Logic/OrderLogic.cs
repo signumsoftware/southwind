@@ -49,6 +49,8 @@ namespace Southwind.Logic
                                                     od.SubTotalPrice,
                                                 }).ToDynamic();
 
+             
+
                 GraphOrder.Register();
             }
         }
@@ -58,6 +60,7 @@ namespace Southwind.Logic
             public static void Register()
             {
                 GetState = o => o.State;
+
                 new Construct(OrderOperations.Create, OrderState.New)
                 {
                     Construct = (_) => new OrderDN
@@ -69,14 +72,11 @@ namespace Southwind.Logic
 
                 new ConstructFrom<CustomerDN>(OrderOperations.ConstructFromCustomer, OrderState.New)
                 {
-                    Construct = (c, _) =>
+                    Construct = (c, _) =>new OrderDN
                     {
-                        return new OrderDN
-                        {
-                            State = OrderState.New,
-                            Customer = c,
-                            Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
-                        };
+                        State = OrderState.New,
+                        Customer = c,
+                        Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
                     }
                 }.Register();
 

@@ -43,6 +43,7 @@ namespace Southwind.Logic
             EmailLogic.Start(sb, dqm);
 
             AuthLogic.Start(sb, dqm, "System", null);
+            
             ResetPasswordRequestLogic.Start(sb, dqm);
             AuthLogic.StartAllModules(sb, dqm, typeof(IServerSouthwind));
             UserTicketLogic.Start(sb, dqm); 
