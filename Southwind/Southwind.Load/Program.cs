@@ -42,7 +42,7 @@ namespace Southwind.Load
                         break;
 
                     action();
-                }
+                } 
 
                 Schema.Current.InitializeUntil(InitLevel.Level0SyncEntities);
 
@@ -129,10 +129,11 @@ namespace Southwind.Load
         static void ShowOrder()
         {
             var query = Database.Query<OrderDN>()
-                .Where(a => a.Details.Any(l => l.Discount != 0))
-                .OrderByDescending(a => a.TotalPrice); 
+              .Where(a => a.Details.Any(l => l.Discount != 0))
+              .OrderByDescending(a => a.TotalPrice);
 
-            OrderDN order = query.First(); 
+            OrderDN order = query.First();
         }
+
     }
 }

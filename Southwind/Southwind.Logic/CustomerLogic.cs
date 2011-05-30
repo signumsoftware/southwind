@@ -50,7 +50,7 @@ namespace Southwind.Logic
                                                 r.Address,
                                             }).ToDynamic();
 
-                 dqm[typeof(CustomerDN)] = DynamicQuery.Manual((QueryRequest request) =>
+                 dqm[typeof(CustomerDN)] = DynamicQuery.Manual((request, descriptions) =>
                 {
                     var persons = Database.Query<PersonDN>().Select(p => new
                     {
@@ -60,7 +60,7 @@ namespace Southwind.Logic
                         p.Address,
                         p.Phone,
                         p.Fax
-                    }).Where(request.Filters).SelectDynamic(request.Columns, request.Orders).TryTake(request.Limit).ToArray();
+                    }).ToDQueryable(descriptions).SelectMany(request.Multiplications).Where(request.Filters).OrderBy(request.Orders).Select(request.Columns).TryTake(request.Limit).ToArray();
 
                     var companies = Database.Query<CompanyDN>().Select(p => new
                     {
@@ -70,7 +70,7 @@ namespace Southwind.Logic
                         p.Address,
                         p.Phone,
                         p.Fax
-                    }).Where(request.Filters).SelectDynamic(request.Columns, request.Orders).TryTake(request.Limit).ToArray();
+                    }).ToDQueryable(descriptions).SelectMany(request.Multiplications).Where(request.Filters).OrderBy(request.Orders).Select(request.Columns).TryTake(request.Limit).ToArray();
 
 
                     return persons.Concat(companies).OrderBy(request.Orders).TryTake(request.Limit);

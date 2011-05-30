@@ -11,7 +11,7 @@ using Signum.Entities.Authorization;
 namespace Southwind.Entities
 {
     [Serializable]
-    public class EmployeeDN : Entity, IUserRelatedDN
+    public class EmployeeDN : Entity
     {
         [NotNullable, SqlDbType(Size = 20)]
         string lastName;

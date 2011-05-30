@@ -23,7 +23,7 @@ namespace Southwind.Load
         {
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
-                List<SupplierFaxCSV> faxes = CSV.ReadCVS<SupplierFaxCSV>("SupplierFaxes.csv", 
+                List<SupplierFaxCSV> faxes = CSV.ReadFile<SupplierFaxCSV>("SupplierFaxes.csv", 
                     Encoding.GetEncoding(1252), CultureInfo.GetCultureInfo("es"), true);
 
                 var faxDic = faxes.ToDictionary(r => r.SupplierID, r => r.Fax); 

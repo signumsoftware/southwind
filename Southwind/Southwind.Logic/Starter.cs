@@ -33,7 +33,7 @@ namespace Southwind.Logic
             DynamicQueryManager dqm = new DynamicQueryManager();
             sb.Schema.ForceCultureInfo = CultureInfo.InvariantCulture;
 
-            sb.Schema.Settings.OverrideTypeAttributes<IUserRelatedDN>(new ImplementedByAttribute(typeof(EmployeeDN)));
+            sb.Schema.Settings.OverrideFieldAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
             sb.Schema.Settings.OverrideFieldAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             
             ConnectionScope.Default = new Connection(connectionString, sb.Schema, dqm);
