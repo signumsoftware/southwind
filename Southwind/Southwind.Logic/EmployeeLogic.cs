@@ -15,6 +15,13 @@ namespace Southwind.Logic
 {
     public static class EmployeeLogic
     {
+        static Expression<Func<RegionDN, IQueryable<TerritoryDN>>> TerritoriesExpression = 
+            r => Database.Query<TerritoryDN>().Where(a=>a.Region == r); 
+        public static IQueryable<TerritoryDN> Territories(this RegionDN r)
+        {
+            return TerritoriesExpression.Invoke(r);
+        }
+
         public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
@@ -28,6 +35,8 @@ namespace Southwind.Logic
                                              r.Id,
                                              r.Description,
                                          }).ToDynamic();
+
+                dqm.RegisterExpression((RegionDN r) => r.Territories()); 
 
                 dqm[typeof(TerritoryDN)] = (from t in Database.Query<TerritoryDN>()
                                            select new

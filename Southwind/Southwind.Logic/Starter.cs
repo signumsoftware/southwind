@@ -35,6 +35,7 @@ namespace Southwind.Logic
 
             sb.Schema.Settings.OverrideFieldAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
             sb.Schema.Settings.OverrideFieldAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideFieldAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             
             ConnectionScope.Default = new Connection(connectionString, sb.Schema, dqm);
 
