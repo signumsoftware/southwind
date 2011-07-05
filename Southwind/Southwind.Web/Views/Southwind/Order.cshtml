@@ -1,5 +1,17 @@
 ﻿@using Southwind.Entities
 
+<style type="text/css">
+.order-lines .sf-repeater-element
+{
+    padding: 2px 10px;
+}
+.order-lines .sf-repeater-element legend
+{
+    float: left;
+    margin-right: 10px;
+}
+</style>
+
 @using (var oc = Html.TypeContext<OrderDN>()) 
 {
     <table>
@@ -21,7 +33,7 @@
         </tr>
     </table>
     
-    <fieldset>
+    <fieldset class="order-lines">
         <legend>@Html.PropertyNiceName(() => oc.Value.Details)</legend>
         @Html.EntityRepeater(oc, o => o.Details, er => { er.LabelVisible = false; })
     </fieldset>
