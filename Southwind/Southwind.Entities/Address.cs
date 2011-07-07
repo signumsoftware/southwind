@@ -6,8 +6,6 @@ using Signum.Entities;
 
 namespace Southwind.Entities
 {
-
-
     [Serializable]
     public class AddressDN : EmbeddedEntity
     {
