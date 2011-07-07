@@ -71,7 +71,9 @@ namespace Southwind.Load
 
         static void Synchronize()
         {
-            Console.Write("Generating script...");
+            Console.WriteLine("Check and Modify the synchronization script before");
+            Console.WriteLine("executing it in SQL Server Management Studio: ");
+            Console.WriteLine();
 
             SqlPreCommand command = Administrator.TotalSynchronizeScript();
             if (command == null)
@@ -79,12 +81,6 @@ namespace Southwind.Load
                 Console.WriteLine("Already synchronized!");
                 return;
             }
-            else
-                Console.WriteLine("Done!");
-
-            Console.WriteLine("Check and Modify the synchronization script before");
-            Console.WriteLine("executing it in SQL Server Management Studio: ");
-            Console.WriteLine();
 
             command.OpenSqlFileRetry();
         }
