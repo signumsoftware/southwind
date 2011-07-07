@@ -6,7 +6,7 @@
     Title="Southwind Application"  SizeToContent="WidthAndHeight">
     <Menu MaxHeight ="{x:Static SystemParameters.MenuBarHeight}" x:Name="menu">
         <MenuItem Header="Entities">
-            <MenuItem Tag="{m:Explore QueryName={x:Type d:MyEntityDN}}"/>
+            <MenuItem Header="_Southwind" Tag="{m:Explore QueryName={x:Type d:MyEntityDN}}"/>
         </MenuItem>
     </Menu>
 </Window>
