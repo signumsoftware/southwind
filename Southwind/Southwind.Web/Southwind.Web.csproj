@@ -14,10 +14,7 @@
     <AssemblyName>Southwind.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -88,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\site.css" />
+    <Content Include="Content\smoothness\jquery-ui-1.8.14.css" />
     <Content Include="Content\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -101,10 +99,9 @@
     <Content Include="Content\smoothness\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\smoothness\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\smoothness\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\smoothness\jquery-ui-1.8.9.custom.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\jquery-1.5.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.9.custom.min.js" />
+    <Content Include="Scripts\jquery-1.6.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.14.min.js" />
     <Content Include="Scripts\newcontent.js" />
     <Content Include="ServerSouthwind.svc" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -115,12 +112,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -154,12 +145,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>7654</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/Southwind.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
