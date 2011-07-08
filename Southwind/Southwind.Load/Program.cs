@@ -20,33 +20,33 @@ namespace Southwind.Load
             using (Sync.ChangeCulture("en"))
             using (Sync.ChangeCultureUI("en"))
             {
-                Starter.Start(Settings.Default.ConnectionString);
+            Starter.Start(Settings.Default.ConnectionString);
 
-                Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
-                Console.WriteLine("Database: {0}", Regex.Match(((Connection)ConnectionScope.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);
-                Console.WriteLine();
+            Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
+            Console.WriteLine("Database: {0}", Regex.Match(((Connection)ConnectionScope.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);
+            Console.WriteLine();
 
-                while (true)
+            while (true)
+            {
+                Action action = new ConsoleSwitch<string, Action>
                 {
-                    Action action = new ConsoleSwitch<string, Action>
-                    {
-                        {"N", NewDatabase},
-                        {"S", Synchronize},
-                        {"L", null, "Load"},
-                    }.Choose();
+                    {"N", NewDatabase},
+                    {"S", Synchronize},
+                    {"L", null, "Load"},
+                }.Choose();
 
-                    if (action == null)
-                        break;
+                if (action == null)
+                    break;
 
-                    action();
-                }
+                action();
+            }
 
-                Schema.Current.InitializeUntil(InitLevel.Level0SyncEntities);
+            Schema.Current.InitializeUntil(InitLevel.Level0SyncEntities);
 
-                while (true)
+            while (true)
+            {
+                Action[] actions = new ConsoleSwitch<int, Action>
                 {
-                    Action[] actions = new ConsoleSwitch<int, Action>
-                    {
                         {0, EmployeeLoader.LoadRegions},
                         {1, EmployeeLoader.LoadTerritories},
                         {2, EmployeeLoader.LoadEmployees},
@@ -57,18 +57,18 @@ namespace Southwind.Load
                         {7, CustomerLoader.LoadPersons },
                         {8, OrderLoader.LoadShippers },
                         {9, OrderLoader.LoadOrders },
-                    }.ChooseMultiple();
+                }.ChooseMultiple();
 
-                    if (actions == null)
-                        return;
+                if (actions == null)
+                    return;
 
-                    foreach (var acc in actions)
-                    {
-                        Console.WriteLine("------- Executing {0} ".Formato(acc.Method.Name.SpacePascal(true)).PadRight(Console.WindowWidth - 2, '-'));
-                        acc();
-                    }
+                foreach (var acc in actions)
+                {
+                    Console.WriteLine("------- Executing {0} ".Formato(acc.Method.Name.SpacePascal(true)).PadRight(Console.WindowWidth - 2, '-'));
+                    acc();
                 }
             }
+        }
         }
 
         public static void NewDatabase()
@@ -85,7 +85,9 @@ namespace Southwind.Load
 
         static void Synchronize()
         {
-            Console.Write("Generating script...");
+            Console.WriteLine("Check and Modify the synchronization script before");
+            Console.WriteLine("executing it in SQL Server Management Studio: ");
+            Console.WriteLine();
 
             SqlPreCommand command = Administrator.TotalSynchronizeScript();
             if (command == null)
@@ -93,12 +95,6 @@ namespace Southwind.Load
                 Console.WriteLine("Already synchronized!");
                 return;
             }
-            else
-                Console.WriteLine("Done!");
-
-            Console.WriteLine("Check and Modify the synchronization script before");
-            Console.WriteLine("executing it in SQL Server Management Studio: ");
-            Console.WriteLine();
 
             command.OpenSqlFileRetry();
         }
