@@ -42,7 +42,7 @@ namespace Southwind.Load
                         break;
 
                     action();
-                } 
+                }
 
                 Schema.Current.InitializeUntil(InitLevel.Level0SyncEntities);
 
@@ -63,7 +63,7 @@ namespace Southwind.Load
 
                         {10, EmployeeLoader.FixEmployeeImages},
                         {11, EmployeeLoader.FixCategoryImages},
-                        
+
                         {20, EmployeeLoader.CreateUsers },
                         {21, EmployeeLoader.CreateSystemUser }, 
 
@@ -99,26 +99,20 @@ namespace Southwind.Load
 
         static void Synchronize()
         {
-            using (AuthLogic.Disable())
+            Console.WriteLine("Check and Modify the synchronization script before");
+            Console.WriteLine("executing it in SQL Server Management Studio: ");
+            Console.WriteLine();
+
+            SqlPreCommand command = Administrator.TotalSynchronizeScript();
+            if (command == null)
             {
-                Console.Write("Generating script...");
-
-                SqlPreCommand command = Administrator.TotalSynchronizeScript();
-                if (command == null)
-                {
-                    Console.WriteLine("Already synchronized!");
-                    return;
-                }
-                else
-                    Console.WriteLine("Done!");
-
-                Console.WriteLine("Check and Modify the synchronization script before");
-                Console.WriteLine("executing it in SQL Server Management Studio: ");
-                Console.WriteLine();
-
-                command.OpenSqlFileRetry();
+                Console.WriteLine("Already synchronized!");
+                return;
             }
+
+            command.OpenSqlFileRetry();
         }
+    }
 
         static void SnamphotIsolation()
         {

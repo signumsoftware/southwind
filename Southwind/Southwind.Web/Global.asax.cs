@@ -89,8 +89,7 @@ namespace Southwind.Web
             SignumControllerFactory.MainAssembly = typeof(SouthwindClient).Assembly;
 
             SignumControllerFactory.EveryController().AddFilters(ctx =>
-                ctx.FilterInfo.AuthorizationFilters.OfType<AuthenticationRequiredAttribute>().Any() ? null : 
-                new AuthenticationRequiredAttribute());
+              ctx.FilterInfo.AuthorizationFilters.OfType<AuthenticationRequiredAttribute>().Any() ? null : new AuthenticationRequiredAttribute());
 
             SignumControllerFactory.EveryController().AddFilters(new SignumExceptionHandlerAttribute());
 

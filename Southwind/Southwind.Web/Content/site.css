@@ -1,184 +1,103 @@
-﻿/* Default CSS rules are embedded in Signum.Web and are accessible via Signum/Content/xxx.css */
+﻿/* Default CSS rules are embedded in Signum.Web and are accessible via Signum/Content/LineStyles.css */
 /* Feel free to override them as you wish here */
 
 body 
 {
     font-family: Arial, Helvetica, Verdana;
-    font-size: 12px;    
-	background-color:#ececec;
-}
-
-.ui-widget 
-{
-    font-size: 12px !important;
-    font-family: Arial, Helvetica, Verdana !important;
-}
-
-a {
-    color:#21759b;
-	text-decoration:none;
-}
-
-.ui-widget-content a 
-{
-    color:#21759b;
-}
-
-/* general tweaks */
-a:focus,a:active {
-    -moz-outline-style:none;
-    outline:none;
-}
-
-a:hover {
-    color:#d54e21;
-    cursor:pointer;
-}
-
-::-moz-focus-inner {
-    border: 0;
-}
-
-textarea, select {/* IE will show a border around input radio */
-    border:1px solid #ccc;
-    color:#333;
-    padding:3px 4px 4px;
-    
-    border-radius:2px;
-    -webkit-border-radius:2px;
-    -moz-border-radius:2px;
-}
-
-select {
-    padding:4px 4px 3px;
-}
-
-input[type=checkbox] {
-    margin-top:4px;
-    border:0;
-}
-
-input[type=text]:focus, input[type=password]:focus, input[type=button]:focus,
-input[type=number]:focus, input[type=email]:focus,
-input[type=url]:focus, input[type=tel]:focus,
-textarea:focus,select:focus {
-    border-color:#76baec;
-}
-
-legend 
-{
-	color:#555;
-	font-weight:bold;
-	padding:0.1em 0.2em;
-	clear:both;
-	border:0;
-}
-
-fieldset 
-{
-	border:1px dotted #bbb;
-	padding:10px;
-	margin: 2px;
-	margin-bottom:10px;
-	background-color:#fff;
-}
-
-header {
-	border-bottom:1px solid #e9e9e9;
-	margin-bottom:20px;
-}
-
-header h1 
-{
-	font-size:200%;
-	padding:10px;
-}
-
-footer
-{
-	background-color: #CCC;
-    clear: both;
-    padding: 3px;
-    text-align: center;
-}
-
-#powered 
-{
-	color:#666;
-}
-
-#menu 
-{
-	clear: left;
-    float: left;
-    margin: 0 5px 15px -155px;
-    padding: 0;
-    position: relative;
-    width: 145px;
-}
-
-#menu li
-{
-	margin-left:10px;
-}
-
-#content
-{
-	float: left;
-    width: 100%;
-    margin-bottom:20px;
-}
-
-#main 
-{
-	clear: both;
-    margin-left: 175px;
-	height: 100%;
-	padding:20px;
+    font-size: 13px;   
+    text-align: center; 
+    background-color: #eee;
 }
 
 #wrap
 {
-	background-color:#fff;
-	margin: 0 30px;
-	-moz-box-shadow:0 0 20px #bbb;
-	-webkit-box-shadow:0 0 20px #bbb;
-	box-shadow:0 0 20px #bbb;
+    width: 80%;
+    min-width: 800px;
+    margin: auto;
+    text-align: left;    
+    background-color: #eee;
 }
 
-.sf-label-line
+#header
 {
-    color: #444;  
-    text-align:inherit;   
-    width: 100px;       
+    height: 40px;
+    padding: 20px 0;
+    background-color: #EEE;
 }
 
-.sf-line-button {
-    font-size:0px;
-    text-indent:-9999px;
-    margin:0;
-    padding:0;
-    float:left;
+#header a
+{
+    font-size: 32px !important;
+    text-shadow: 1px 1px 2px #111;
+    text-decoration: none;
+    color: #000;
 }
 
-.sf-line-button.sf-find {
-    background-position:0 -20px;
+#main 
+{
+	height: 100%;
+	-moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+	background-color:#fff;
 }
 
-.sf-line-button.sf-view {
-    background-position:0 -40px;
+#content
+{
+	margin-left: 145px;
+	padding:10px;
+	min-height: 400px;
+	border-left: 1px solid #CCC;
 }
 
-.sf-line-button.sf-remove {
-    background-position:0 -60px;
+#footer
+{
+    padding: 5px 0;
+    text-align: center;
 }
 
-.sf-line-button:hover {
-    cursor:pointer;
-    opacity:0.8;
-    filter:alpha(opacity=80);
+h1 
+{
+    font-size: 1.5em;
+    color: black;
 }
 
+
+/*Menu*/
+#menu 
+{
+    float: left;
+    width: 145px;
+}
+li
+{
+    padding-left: 5px;    
+}
+li.l1 > span
+{
+    display: block;
+    font-weight: bold;
+    margin: 20px 0 5px 0;
+    padding: 5px;
+    text-transform: uppercase;
+    color: #555;
+    font-size: 1.2em;
+}
+li.l1:first-child > span
+{
+    margin: 0px 0 5px 0;
+}
+li.l2
+{
+    text-decoration: none;    
+    padding-top: 3px;
+}
+#menu a
+{
+    text-decoration: none; 
+}
+
+/* Southwind specific */
 #territories .sf-field
 {
     min-width: inherit;
@@ -214,72 +133,4 @@ div.photo
     border:1px solid black;
     padding: 4px;
     margin: 5px; 
-    
-}
-div.photo img
-{
-    max-width: 200px;
-    max-height: 300px; 
-}
-
-#Details_sfItemsContainer
-{
-    display: table;    
-}
-#Details_sfItemsContainer a.sf-value-line, #Details_sfItemsContainer input[type="text"].sf-entity-autocomplete
-{
-    width: 150px;    
-}
-#Details_sfItemsContainer .sf-repeater-element
-{
-    min-width: 600px;
-    margin-left: 10px;
-}
-
-.sf-repeater-element:last-child
-{
-    border-bottom-color: #dfdfdf;
-}
-
-/*Menu*/
-#menu {
-    clear: left;
-    float: left;
-    margin: 0 5px 15px -155px;
-    padding: 0;
-    position: relative;
-    width: 145px;
-}
-li.l1 > span
-{
-    border-bottom: 1px solid #CCC;
-    display: block;
-    font-weight: bold;
-    margin: 20px 0 5px 0;
-    padding: 5px;
-    text-transform: uppercase;
-    color: #555;
-    font-size: 110%;
-    text-shadow: 0 1px white;
-}
-li.l2
-{
-    text-decoration: none;    
-    padding-top: 3px;
-}
-
-li.l1:first-child > span
-{
-    margin: 0 0 5px 0;
-}
-
-#divNormalControl
-{
-    border-left: 1px solid lightgray;
-    padding-left: 10px;    
-}
-
-#main
-{
-    padding-left: 0;    
 }
