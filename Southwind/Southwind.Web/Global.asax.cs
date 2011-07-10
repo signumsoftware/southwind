@@ -16,7 +16,7 @@ using Signum.Web.AuthAdmin;
 using Signum.Web.Operations;
 using Signum.Entities.Authorization;
 using System.Threading;
-using Signum.Web.Queries;
+using Signum.Web.UserQueries;
 using Signum.Web.Reports;
 using Signum.Utilities;
 using System.Globalization;

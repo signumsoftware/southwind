@@ -112,7 +112,6 @@ namespace Southwind.Load
 
             command.OpenSqlFileRetry();
         }
-    }
 
         static void SnamphotIsolation()
         {
@@ -128,6 +127,5 @@ namespace Southwind.Load
 
             OrderDN order = query.First();
         }
-
     }
 }

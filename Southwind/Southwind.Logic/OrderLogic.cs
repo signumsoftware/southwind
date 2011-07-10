@@ -129,7 +129,7 @@ namespace Southwind.Logic
 
                 new Execute(OrderOperations.Ship)
                 {
-                    CanExecute = o => o.Details.Empty() ? "No order lines" : null,
+                    CanExecute = o => o.Details.IsEmpty() ? "No order lines" : null,
                     FromStates = new[] { OrderState.Ordered },
                     ToState = OrderState.Shipped,
                     Execute = (e, args) =>
