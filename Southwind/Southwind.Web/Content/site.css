@@ -1,11 +1,10 @@
-﻿/* Default CSS rules are embedded in Signum.Web and are accessible via Signum/Content/LineStyles.css */
+/* Default CSS rules are embedded in Signum.Web and are accessible via Signum/Content/LineStyles.css */
 /* Feel free to override them as you wish here */
 
 body 
 {
     font-family: Arial, Helvetica, Verdana;
     font-size: 13px;   
-    text-align: center; 
     background-color: #eee;
 }
 
