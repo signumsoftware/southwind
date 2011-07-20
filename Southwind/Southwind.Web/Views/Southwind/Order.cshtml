@@ -33,11 +33,8 @@
         </tr>
     </table>
     
-    <fieldset class="order-lines">
-        <legend>@Html.PropertyNiceName(() => oc.Value.Details)</legend>
-        @Html.EntityRepeater(oc, o => o.Details, er => { er.LabelVisible = false; })
-    </fieldset>
-	@Html.EntityLine(oc, o => o.Employee)
+    @Html.EntityRepeater(oc, o => o.Details)
+    @Html.EntityLine(oc, o => o.Employee)
     @Html.ValueLine(oc, o => o.Freight)
 	@Html.ValueLine(oc, o => o.TotalPrice)
 }
