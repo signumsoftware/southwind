@@ -25,7 +25,7 @@ body
 }
 
 #header a
-{
+{    
     font-size: 32px !important;
     text-shadow: 1px 1px 2px #111;
     text-decoration: none;
@@ -44,16 +44,21 @@ body
 #content
 {
 	margin-left: 145px;
-	padding:10px;
+	padding: 5px;
 	min-height: 400px;
 	border-left: 1px solid #CCC;
+}
+
+#contentContainer
+{
 	overflow: auto;
+	padding: 5px;
 }
 
 #footer
 {
     padding: 5px 0;
-    text-align: center;
+    text-align: center;    
 }
 
 h1 
