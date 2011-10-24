@@ -20,6 +20,8 @@ using Signum.Engine.Mailing;
 using Signum.Entities.Chart;
 using Signum.Entities.Reports;
 using Signum.Entities.ControlPanel;
+using Signum.Entities.UserQueries;
+using Signum.Engine.UserQueries;
 
 namespace Southwind.Logic
 {
@@ -33,9 +35,9 @@ namespace Southwind.Logic
             DynamicQueryManager dqm = new DynamicQueryManager();
             sb.Schema.ForceCultureInfo = CultureInfo.InvariantCulture;
 
-            sb.Schema.Settings.OverrideFieldAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
-            sb.Schema.Settings.OverrideFieldAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.OverrideFieldAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
+            sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             
             ConnectionScope.Default = new Connection(connectionString, sb.Schema, dqm);
 
@@ -48,7 +50,6 @@ namespace Southwind.Logic
             ResetPasswordRequestLogic.Start(sb, dqm);
             AuthLogic.StartAllModules(sb, dqm, typeof(IServerSouthwind));
             UserTicketLogic.Start(sb, dqm); 
-            EntityGroupAuthLogic.Start(sb, false); 
 
             ChartLogic.Start(sb, dqm);
             UserQueryLogic.Start(sb, dqm);
@@ -61,20 +62,17 @@ namespace Southwind.Logic
 
             //Starter.Start method
 
-            EntityGroupLogic.Register<OrderDN>(SouthwindGroups.UserEntities, 
+            TypeConditionLogic.Register<OrderDN>(SouthwindGroups.UserEntities,
                 o => o.Employee.RefersTo((EmployeeDN)UserDN.Current.Related));
 
-            EntityGroupLogic.Register<EmployeeDN>(SouthwindGroups.UserEntities,
+            TypeConditionLogic.Register<EmployeeDN>(SouthwindGroups.UserEntities,
                 e => e == (EmployeeDN)UserDN.Current.Related);
 
-            EntityGroupLogic.Register<OrderDN>(SouthwindGroups.CurrentCompany,
-                o => o.Customer == CompanyDN.Current,
-                o => o.Customer is CompanyDN);
+            TypeConditionLogic.Register<OrderDN>(SouthwindGroups.CurrentCompany,
+                o => o.Customer == CompanyDN.Current);
 
-            EntityGroupLogic.Register<OrderDN>(SouthwindGroups.CurrentPerson,
-               o => o.Customer == PersonDN.Current, 
-               o => o.Customer is PersonDN); 
-
+            TypeConditionLogic.Register<OrderDN>(SouthwindGroups.CurrentPerson,
+               o => o.Customer == PersonDN.Current);
         }
     }
 }

@@ -64,7 +64,7 @@ namespace Southwind.Entities
 
         [SqlDbType(Size = 10)]
         string title;
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10, DisableOnCorrupt=true)]
+        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10)]
         public string Title
         {
             get { return title; }
@@ -72,7 +72,7 @@ namespace Southwind.Entities
         }
 
         DateTime? dateOfBirth;
-        [DateTimePrecissionValidator(DateTimePrecision.Days, DisableOnCorrupt = true)]
+        [DateTimePrecissionValidator(DateTimePrecision.Days)]
         public DateTime? DateOfBirth
         {
             get { return dateOfBirth; }
@@ -114,6 +114,12 @@ namespace Southwind.Entities
         }
 
         public static PersonDN Current { get; set; }
+
+        static PersonDN()
+        {
+            Validator.IsApplicable<DateTimePrecissionValidatorAttribute>().Of((PersonDN p)=>p.DateOfBirth).When(p=>Corruption.Strict);
+            Validator.IsApplicable<StringLengthValidatorAttribute>().Of((PersonDN p) => p.Title).When(p => Corruption.Strict);
+        }
     }
 
     [Serializable]
