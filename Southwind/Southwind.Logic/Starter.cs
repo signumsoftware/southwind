@@ -53,14 +53,13 @@ namespace Southwind.Logic
 
             ChartLogic.Start(sb, dqm);
             UserQueryLogic.Start(sb, dqm);
+            ChartLogic.Start(sb, dqm);
             
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);
             CustomerLogic.Start(sb, dqm); 
             OrderLogic.Start(sb, dqm);
 
-
-            //Starter.Start method
 
             TypeConditionLogic.Register<OrderDN>(SouthwindGroups.UserEntities,
                 o => o.Employee.RefersTo((EmployeeDN)UserDN.Current.Related));
