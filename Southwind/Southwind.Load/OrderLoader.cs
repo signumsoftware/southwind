@@ -57,10 +57,12 @@ namespace Southwind.Load
                     {
                         Administrator.SetId(o.OrderID, new OrderDN
                         {
+
                             Employee = new Lite<EmployeeDN>(o.EmployeeID.Value),
                             OrderDate = o.OrderDate.Value,
                             RequiredDate = o.RequiredDate.Value,
                             ShippedDate = o.ShippedDate,
+                            State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
                             ShipVia = new Lite<ShipperDN>(o.ShipVia.Value),
                             ShipName = o.ShipName,
                             ShipAddress = new AddressDN
