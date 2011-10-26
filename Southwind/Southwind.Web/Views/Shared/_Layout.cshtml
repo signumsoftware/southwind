@@ -1,5 +1,6 @@
 @using Southwind.Web.Controllers
 @using Signum.Entities.Authorization
+@using Signum.Web.Auth
 <!doctype html>
 <html>
 <head>
@@ -24,19 +25,22 @@
 <body>
     <div id="wrap">
         <header id="header">
+            <div id="loginControl">
+                @{ Html.RenderPartial(AuthClient.LoginUserControlView); }
+            </div>
             <div id="title">
                 <h1>@(Html.ActionLink("Southwind Application", (HomeController h)=>h.Index())) </h1>
             </div>
         </header>
         <div id="main">
-        @if (UserDN.Current != null)
-        {
-            <div id="menu">
-                <div class="box menu">
-                    @{ Html.RenderPartial("Menu", ViewData["current"] = Context.Request.RawUrl);}
+            @if (UserDN.Current != null)
+            {
+                <div id="menu">
+                    <div class="box menu">
+                        @{ Html.RenderPartial("Menu", ViewData["current"] = Context.Request.RawUrl);}
+                    </div>
                 </div>
-            </div>
-        }
+            }
             <div id="contentContainer">
             <div id="content">
                 @RenderBody()

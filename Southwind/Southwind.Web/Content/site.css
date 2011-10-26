@@ -24,12 +24,24 @@ body
     background-color: #EEE;
 }
 
-#header a
+#header #title a
 {    
     font-size: 32px !important;
     text-shadow: 1px 1px 2px #111;
     text-decoration: none;
     color: #000;
+}
+
+#header #loginControl
+{
+    float: right;    
+    font-size: 16px;    
+    font-weight: bold;    
+}
+
+#header #loginControl a
+{
+    text-decoration: none;
 }
 
 #main 
