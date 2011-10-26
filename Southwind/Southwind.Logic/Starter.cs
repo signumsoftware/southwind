@@ -22,6 +22,7 @@ using Signum.Entities.Reports;
 using Signum.Entities.ControlPanel;
 using Signum.Entities.UserQueries;
 using Signum.Engine.UserQueries;
+using Signum.Engine.ControlPanel;
 
 namespace Southwind.Logic
 {
@@ -38,6 +39,7 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((ControlPanelDN cp) => cp.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             
             ConnectionScope.Default = new Connection(connectionString, sb.Schema, dqm);
 
@@ -54,7 +56,8 @@ namespace Southwind.Logic
             ChartLogic.Start(sb, dqm);
             UserQueryLogic.Start(sb, dqm);
             ChartLogic.Start(sb, dqm);
-            
+            ControlPanelLogic.Start(sb, dqm);
+
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);
             CustomerLogic.Start(sb, dqm); 

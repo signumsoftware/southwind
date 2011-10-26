@@ -1,5 +1,7 @@
 ﻿$(function () {
 
+    $("#menu .l1 > span").addClass("ui-widget-header");
+
     var cache, limit = 8;
     var search = function (input) {
         if (!cache) {

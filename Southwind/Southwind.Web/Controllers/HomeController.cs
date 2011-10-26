@@ -9,6 +9,11 @@ using Signum.Engine;
 using Signum.Web;
 using Southwind.Entities;
 using Southwind.Logic;
+using Southwind.Web;
+using Signum.Entities.Authorization;
+using Signum.Engine.Authorization;
+using Signum.Engine.ControlPanel;
+using Signum.Web.ControlPanel;
 
 namespace Southwind.Web.Controllers
 {
@@ -17,7 +22,17 @@ namespace Southwind.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var panel = ControlPanelLogic.GetHomePageControlPanel();
+            if (panel != null)
+                return View(ControlPanelClient.ViewPrefix.Formato("ControlPanel"), panel.Retrieve());
+            else
+                return View();
+        }
+
+        public ActionResult ChangeTheme()
+        {
+            Session[SouthwindClient.ThemeSessionKey] = Request.Params["themeSelector"];
+            return Redirect(Request.UrlReferrer.AbsolutePath);
         }
 
         public FileResult EmployeePhoto(Lite<EmployeeDN> employee)

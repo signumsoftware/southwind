@@ -18,6 +18,7 @@ namespace Southwind.Web
     public static class SouthwindClient
     {
         public static string ViewPrefix = "~/Views/Southwind/{0}.cshtml";
+        public static string ThemeSessionKey = "swCurrentTheme";
 
         public static void Start()
         {

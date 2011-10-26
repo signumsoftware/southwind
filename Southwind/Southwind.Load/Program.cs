@@ -23,7 +23,7 @@ namespace Southwind.Load
             using (Sync.ChangeCulture("en"))
             using (Sync.ChangeCultureUI("en"))
             {
-                Starter.Start(Settings.Default.ConnectionString);
+                Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 
                 Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
                 Console.WriteLine("Database: {0}", Regex.Match(((Connection)ConnectionScope.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);

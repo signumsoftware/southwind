@@ -1,27 +1,20 @@
 /* Default CSS rules are embedded in Signum.Web and are accessible via Signum/Content/LineStyles.css */
 /* Feel free to override them as you wish here */
-
 body 
 {
     font-family: Arial, Helvetica, Verdana;
     font-size: 13px;   
-    background-color: #eee;
 }
-
 #wrap
 {
-    margin: 0 20px;
+    margin: 20px;
     text-align: left;    
-    background-color: #eee;
 }
-
 #header
 {
     height: 40px;
-    padding: 20px 0;
-    background-color: #EEE;
+    padding: 20px;
 }
-
 #header #title a
 {    
     font-size: 32px !important;
@@ -29,19 +22,16 @@ body
     text-decoration: none;
     color: #000;
 }
-
 #header #loginControl
 {
     float: right;    
     font-size: 16px;    
     font-weight: bold;    
 }
-
 #header #loginControl a
 {
     text-decoration: none;
 }
-
 #main 
 {
 	height: 100%;
@@ -49,27 +39,30 @@ body
     -webkit-border-radius: 4px;
     border-radius: 4px;
 	background-color:#fff;
+	border-top: 0;
+	border-bottom: 0;
 }
-
 #content
 {
 	padding: 5px;
-	min-height: 500px;
+	min-height: 542px;
 	border-left: 1px solid #CCC;
 }
-
 #contentContainer
 {
 	overflow: auto;
 	padding: 5px;
 }
-
 #footer
 {
-    padding: 5px 0;
+    padding: 5px;
     text-align: center;    
+    overflow: hidden;
 }
-
+#footer #themeSelectorContainer
+{
+    float: right;   
+}
 h1 
 {
     font-size: 1.5em;
@@ -84,9 +77,18 @@ h1
     width: 160px;
     margin: 10px 5px;
 }
+#menu .box.menu
+{
+    padding-bottom: 10px;    
+}
+#menu_filter
+{
+    margin-bottom: 5px;
+}
 li
 {
     padding-left: 5px;    
+    padding-right: 5px;  
 }
 li.l1 > span
 {

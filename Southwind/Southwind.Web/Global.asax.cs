@@ -21,6 +21,7 @@ using Signum.Web.Reports;
 using Signum.Utilities;
 using System.Globalization;
 using Signum.Web.Chart;
+using Signum.Web.ControlPanel;
 
 namespace Southwind.Web
 {
@@ -95,7 +96,8 @@ namespace Southwind.Web
 
             UserQueriesClient.Start();
             ChartClient.Start();
-            ReportsClient.Start(true, false);            
+            ReportsClient.Start(true, false);
+            ControlPanelClient.Start();
 
             SouthwindClient.Start();            
 
