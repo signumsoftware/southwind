@@ -10,9 +10,7 @@ body
 
 #wrap
 {
-    width: 80%;
-    min-width: 800px;
-    margin: auto;
+    margin: 0 20px;
     text-align: left;    
     background-color: #eee;
 }
@@ -56,7 +54,7 @@ body
 #content
 {
 	padding: 5px;
-	min-height: 400px;
+	min-height: 500px;
 	border-left: 1px solid #CCC;
 }
 
@@ -83,7 +81,8 @@ h1
 #menu 
 {
     float: left;
-    width: 145px;
+    width: 160px;
+    margin: 10px 5px;
 }
 li
 {

@@ -3,14 +3,17 @@
 @using Signum.Entities.Operations
 @using Signum.Entities.Reports
 @using Signum.Entities.UserQueries
+@using Signum.Entities.ControlPanel
+@using Signum.Entities.Chart
 
+<input name="filter" id="menu_filter" type="text" placeholder="Buscar opción de menú" />
 @(new WebMenuItem
     {
         Children =
         {
             new WebMenuItem 
             { 
-                Text="Orders", 
+                Text = "Orders", 
                 Children = 
                 {
                    new WebMenuItem { Link = new FindOptions(typeof(OrderDN)) },
@@ -19,7 +22,7 @@
             },
             new WebMenuItem 
             { 
-                Text="Customers", 
+                Text = "Customers", 
                 Children = 
                 {
                    new WebMenuItem { Link = new FindOptions(typeof(PersonDN)) },
@@ -28,7 +31,7 @@
             },
             new WebMenuItem 
             { 
-                Text="Products", 
+                Text = "Products", 
                 Children = 
                 {
                    new WebMenuItem { Link = new FindOptions(typeof(ProductDN)) },
@@ -38,16 +41,26 @@
             },
             new WebMenuItem 
             { 
-                Text="Employees", 
+                Text = "Employees", 
                 Children = 
                 {
                    new WebMenuItem { Link = new FindOptions(typeof(EmployeeDN)) },
                    new WebMenuItem { Link = new FindOptions(typeof(TerritoryDN)) },
                    new WebMenuItem { Link = new FindOptions(typeof(RegionDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(LogOperationDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(UserQueryDN)) },
+                   
+                }
+            },
+            new WebMenuItem
+            {
+                Text = "Admin",
+                Children = 
+                {
+                    new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(LogOperationDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(UserQueryDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(UserChartDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(ControlPanelDN)) },
                 }
             }
         }
