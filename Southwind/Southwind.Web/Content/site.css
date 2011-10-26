@@ -150,3 +150,28 @@ div.photo
     padding: 4px;
     margin: 5px; 
 }
+
+/*---------------------------
+--login page and auth pages--
+---------------------------*/
+.sf-login-page h2, .sf-reset-password-container h2
+{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.sf-login-page p, .sf-reset-password-container p
+{
+    padding: 10px 0;    
+}
+.sf-login-page td
+{
+    padding: 2px;    
+}
+.sf-login-page .sf-login-reset-password
+{
+    margin-top: 10px; 
+}
+.sf-login-page input[type=submit]
+{
+    margin: 10px 0; 
+}
