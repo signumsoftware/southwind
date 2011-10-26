@@ -6,18 +6,19 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    @Html.ScriptCss(
-       "~/signum/content/reset.css",
-       "~/signum/content/SF_Lines.css",
-       "~/signum/content/SF_NormalPage.css",
-       "~/signum/content/SF_Notify.css",
-       "~/signum/content/SF_Search.css")
-    
+    @Html.ScriptCss("~/signum/content/reset.css")
+
     @{ 
         string currentTheme = (string)Session[SouthwindClient.ThemeSessionKey] ?? "cupertino"; 
-        @Html.ScriptCss("~/content/jqueryui/{0}/jquery-ui-1.8.16.custom.css".Formato(currentTheme),
-            "~/content/site.css")  
+        @Html.ScriptCss("~/content/jqueryui/{0}/jquery-ui-1.8.16.custom.css".Formato(currentTheme))
     }
+
+    @Html.ScriptCss("~/signum/content/SF_Lines.css",
+       "~/signum/content/SF_NormalPage.css",
+       "~/signum/content/SF_Notify.css",
+       "~/signum/content/SF_Search.css",
+       "~/signum/content/SF_Widgets.css",  
+       "~/content/site.css")  
 
     @Html.ScriptsJs("~/scripts/jquery-1.6.2.min.js", "~/scripts/jquery-ui-1.8.16.custom.min.js")
     @Html.ScriptsJs("~/signum/resources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")

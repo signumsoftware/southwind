@@ -21,6 +21,7 @@ namespace Southwind.Services
     {
         UserEntities,
         CurrentCompany,
-        CurrentPerson
+        CurrentPerson,
+        RoleEntities
     }
 }
