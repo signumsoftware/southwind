@@ -92,5 +92,35 @@ namespace Southwind.Load
                 }
             }
         }
+
+        public static void UpdateOrdersDate()
+        {
+            DateTime time = Database.Query<OrderDN>().Max(a => a.OrderDate); 
+
+            var now = TimeZoneManager.Now;
+            var ts = (int)(now - time).TotalDays;
+
+            Database.Query<OrderDN>().UnsafeUpdate(o => new OrderDN
+            {
+                OrderDate = o.OrderDate.AddDays(ts),
+                ShippedDate = o.ShippedDate.Value.AddDays(ts),
+                RequiredDate = o.RequiredDate.AddDays(ts),
+                CancelationDate = null,
+            });
+
+            Database.Query<OrderDN>().Where(a=>a.ShippedDate > now).UnsafeUpdate(o => new OrderDN
+            {
+                ShippedDate = null,
+                State = OrderState.Ordered
+            });
+
+            var limit = TimeZoneManager.Now.AddDays(-10);
+            
+            Database.Query<OrderDN>().Where(a=>a.ShippedDate == null && a.OrderDate < limit).UnsafeUpdate(o => new OrderDN
+            {
+                CancelationDate = o.OrderDate.AddDays(o.Id % 10),
+                State = OrderState.Canceled
+            });
+        }
     }
 }

@@ -61,15 +61,18 @@ namespace Southwind.Load
                         {8, OrderLoader.LoadShippers },
                         {9, OrderLoader.LoadOrders },
 
-                        {10, EmployeeLoader.FixEmployeeImages},
-                        {11, EmployeeLoader.FixCategoryImages},
+                        {10, EmployeeLoader.FixEmployeeImages },
+                        {11, EmployeeLoader.FixCategoryImages },
+                 
 
                         {20, EmployeeLoader.CreateUsers },
                         {21, EmployeeLoader.CreateSystemUser }, 
 
                         {22, SnamphotIsolation},
 
-                        {23, ShowOrder}
+                        {23, ShowOrder},
+
+                        {30, OrderLoader.UpdateOrdersDate },
 
                     }.ChooseMultiple();
 
