@@ -95,7 +95,7 @@ namespace Southwind.Load
 
         public static void UpdateOrdersDate()
         {
-            DateTime time = Database.Query<OrderDN>().Max(a => a.OrderDate); 
+            DateTime time = Database.Query<OrderDN>().Max(a => a.OrderDate);
 
             var now = TimeZoneManager.Now;
             var ts = (int)(now - time).TotalDays;
@@ -108,19 +108,22 @@ namespace Southwind.Load
                 CancelationDate = null,
             });
 
-            Database.Query<OrderDN>().Where(a=>a.ShippedDate > now).UnsafeUpdate(o => new OrderDN
-            {
-                ShippedDate = null,
-                State = OrderState.Ordered
-            });
 
             var limit = TimeZoneManager.Now.AddDays(-10);
-            
-            Database.Query<OrderDN>().Where(a=>a.ShippedDate == null && a.OrderDate < limit).UnsafeUpdate(o => new OrderDN
+
+            var list = Database.Query<OrderDN>().Where(a => a.State == OrderState.Shipped && a.OrderDate < limit).Select(a => a.ToLite()).ToList();
+
+            Random r = new Random(1);
+
+            for (int i = 0; i < list.Count * 0.1f; i++)
             {
-                CancelationDate = o.OrderDate.AddDays(o.Id % 10),
-                State = OrderState.Canceled
-            });
+                r.NextElement(list).InDB().UnsafeUpdate(o => new OrderDN
+               {
+                   ShippedDate = null,
+                   CancelationDate = o.OrderDate.AddDays(o.Id % 10),
+                   State = OrderState.Canceled
+               });
+            }
         }
     }
 }
