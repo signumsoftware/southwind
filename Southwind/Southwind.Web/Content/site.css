@@ -1,37 +1,38 @@
 /* Default CSS rules are embedded in Signum.Web and are accessible via Signum/Content/LineStyles.css */
 /* Feel free to override them as you wish here */
-
 body 
 {
     font-family: Arial, Helvetica, Verdana;
     font-size: 13px;   
-    background-color: #eee;
+    border-bottom: 0 !important;
 }
-
 #wrap
 {
-    width: 80%;
-    min-width: 800px;
-    margin: auto;
+    margin: 20px;
     text-align: left;    
-    background-color: #eee;
 }
-
 #header
 {
     height: 40px;
-    padding: 20px 0;
-    background-color: #EEE;
+    padding: 20px;
 }
-
-#header a
+#header #title a
 {    
     font-size: 32px !important;
     text-shadow: 1px 1px 2px #111;
     text-decoration: none;
     color: #000;
 }
-
+#header #loginControl
+{
+    float: right;    
+    font-size: 16px;    
+    font-weight: bold;    
+}
+#header #loginControl a
+{
+    text-decoration: none;
+}
 #main 
 {
 	height: 100%;
@@ -39,27 +40,31 @@ body
     -webkit-border-radius: 4px;
     border-radius: 4px;
 	background-color:#fff;
+    background-image: none;
+	border-top: 0;
+	border-bottom: 0;
 }
-
 #content
 {
 	padding: 5px;
-	min-height: 400px;
+	min-height: 542px;
 	border-left: 1px solid #CCC;
 }
-
 #contentContainer
 {
 	overflow: auto;
 	padding: 5px;
 }
-
 #footer
 {
-    padding: 5px 0;
+    padding: 5px;
     text-align: center;    
+    overflow: hidden;
 }
-
+#footer #themeSelectorContainer
+{
+    float: right;   
+}
 h1 
 {
     font-size: 1.5em;
@@ -71,11 +76,22 @@ h1
 #menu 
 {
     float: left;
-    width: 145px;
+    width: 160px;
+    margin: 10px 5px;
+}
+#menu .box.menu
+{
+    padding-bottom: 10px;    
+    border: 0;
+}
+#menu_filter
+{
+    margin-bottom: 5px;
 }
 li
 {
     padding-left: 5px;    
+    padding-right: 5px;  
 }
 li.l1 > span
 {
@@ -137,4 +153,29 @@ div.photo
     border:1px solid black;
     padding: 4px;
     margin: 5px; 
+}
+
+/*---------------------------
+--login page and auth pages--
+---------------------------*/
+.sf-login-page h2, .sf-reset-password-container h2
+{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.sf-login-page p, .sf-reset-password-container p
+{
+    padding: 10px 0;    
+}
+.sf-login-page td
+{
+    padding: 2px;    
+}
+.sf-login-page .sf-login-reset-password
+{
+    margin-top: 10px; 
+}
+.sf-login-page input[type=submit]
+{
+    margin: 10px 0; 
 }

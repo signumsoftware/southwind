@@ -6,7 +6,7 @@
     xmlns:sea="clr-namespace:Signum.Entities.Authorization;assembly=Signum.Entities.Extensions"
     xmlns:seo="clr-namespace:Signum.Entities.Operations;assembly=Signum.Entities.Extensions"
     xmlns:sec="clr-namespace:Signum.Entities.Chart;assembly=Signum.Entities.Extensions"
-    xmlns:ser="clr-namespace:Signum.Entities.Reports;assembly=Signum.Entities.Extensions"
+    xmlns:seu="clr-namespace:Signum.Entities.UserQueries;assembly=Signum.Entities.Extensions"
     Title="Southwind Application"  SizeToContent="WidthAndHeight">
     <Menu MaxHeight ="{x:Static SystemParameters.MenuBarHeight}" x:Name="menu">
         <MenuItem Header="Orders">
@@ -33,7 +33,7 @@
         </MenuItem>
         <MenuItem Header="Reporting">
             <MenuItem Tag="{m:Explore QueryName={x:Type sec:UserChartDN}}"/>
-            <MenuItem Tag="{m:Explore QueryName={x:Type ser:UserQueryDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type seu:UserQueryDN}}"/>
         </MenuItem>
     </Menu>
 </Window>

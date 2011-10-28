@@ -20,6 +20,9 @@ using Signum.Web.UserQueries;
 using Signum.Web.Reports;
 using Signum.Utilities;
 using System.Globalization;
+using Signum.Web.Chart;
+using Signum.Web.ControlPanel;
+using Signum.Web.Widgets;
 
 namespace Southwind.Web
 {
@@ -77,11 +80,29 @@ namespace Southwind.Web
 
             OperationsClient.Start(new OperationManager(), true);
 
-            AuthClient.Start(true, true, true, true, false);
-            AuthAdminClient.Start(true, true, true, true, true, true, true);
+            AuthClient.Start(
+                types: true, 
+                property: true, 
+                queries: true, 
+                resetPassword: true, 
+                passwordExpiration: false);
+
+            AuthAdminClient.Start(
+                types: true, 
+                properties: true,
+                queries: true, 
+                operations: true,
+                permissions: true,
+                facadeMethods: true);
 
             UserQueriesClient.Start();
-            ReportsClient.Start(true, false);            
+            ChartClient.Start();
+            ReportsClient.Start(true, false);
+            ControlPanelClient.Start();
+
+            NotesClient.Start();
+            AlertsClient.Start();
+            QuickLinkWidgetHelper.Start();
 
             SouthwindClient.Start();            
 

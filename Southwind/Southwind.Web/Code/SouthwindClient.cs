@@ -12,12 +12,16 @@ using System.IO;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using Signum.Entities;
+using Signum.Entities.Authorization;
+using Signum.Entities.Operations;
+using Signum.Engine;
 
 namespace Southwind.Web
 {
     public static class SouthwindClient
     {
         public static string ViewPrefix = "~/Views/Southwind/{0}.cshtml";
+        public static string ThemeSessionKey = "swCurrentTheme";
 
         public static void Start()
         {
@@ -60,8 +64,84 @@ namespace Southwind.Web
                 Constructor.ConstructorManager.Constructors.Add(typeof(PersonDN), () => new PersonDN { Address = new AddressDN() });
                 Constructor.ConstructorManager.Constructors.Add(typeof(CompanyDN), () => new CompanyDN { Address = new AddressDN() });
                 Constructor.ConstructorManager.Constructors.Add(typeof(SupplierDN), () => new SupplierDN { Address = new AddressDN() });
-            }
-                    
+
+                RegisterQuickLinks();
+            }       
+        }
+
+        private static void RegisterQuickLinks()
+        {
+            QuickLinkWidgetHelper.RegisterEntityLinks<UserDN>((entity, partialViewName, prefix) =>
+            {
+                if (entity.IsNew)
+                    return null;
+
+                return new QuickLink[]
+                {
+                    new QuickLinkFind(typeof(LogOperationDN), "User", entity.ToLite(), true)
+                };
+            });
+
+            QuickLinkWidgetHelper.RegisterEntityLinks<EmployeeDN>((entity, partialViewName, prefix) =>
+            {
+                if (entity.IsNew)
+                    return null;
+
+                var links = new List<QuickLink>()
+                {
+                    new QuickLinkFind(typeof(OrderDN), "Employee", entity.ToLite(), true)  
+                };
+
+                var user = Database.Query<UserDN>().Where(u => u.Related.Is(entity)).Select(u => u.ToLite()).FirstOrDefault();
+                if (user != null)
+                    links.Add(new QuickLinkView(user));
+
+                return links.ToArray();
+            });
+
+            QuickLinkWidgetHelper.RegisterEntityLinks<CategoryDN>((entity, partialViewName, prefix) =>
+            {
+                if (entity.IsNew)
+                    return null;
+
+                return new QuickLink[]
+                {
+                    new QuickLinkFind(typeof(ProductDN), "Category", entity.ToLite(), true)
+                };
+            });
+
+            QuickLinkWidgetHelper.RegisterEntityLinks<SupplierDN>((entity, partialViewName, prefix) =>
+            {
+                if (entity.IsNew)
+                    return null;
+
+                return new QuickLink[]
+                {
+                    new QuickLinkFind(typeof(ProductDN), "Supplier", entity.ToLite(), true)
+                };
+            });
+
+            QuickLinkWidgetHelper.RegisterEntityLinks<PersonDN>((entity, partialViewName, prefix) =>
+            {
+                if (entity.IsNew)
+                    return null;
+
+                return new QuickLink[]
+                {
+                    new QuickLinkFind(typeof(OrderDN), "Customer", entity.ToLite(), true)
+                };
+            });
+
+            QuickLinkWidgetHelper.RegisterEntityLinks<CompanyDN>((entity, partialViewName, prefix) =>
+            {
+                if (entity.IsNew)
+                    return null;
+
+                return new QuickLink[]
+                {
+                    new QuickLinkFind(typeof(OrderDN), "Customer", entity.ToLite(), true)
+                };
+            });
         }
 
         public static string Base64Thumbnail(byte[] image)

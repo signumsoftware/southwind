@@ -18,7 +18,7 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Settings.OverrideFieldAttributes((OrderDN o) => o.Customer,
+                sb.Settings.OverrideAttributes((OrderDN o) => o.Customer,
                     new ImplementedByAttribute(typeof(CompanyDN), typeof(PersonDN)));
 
                 sb.Include<PersonDN>();
@@ -65,7 +65,7 @@ namespace Southwind.Logic
                     .Where(request.Filters)
                     .Select(request.Columns)
                     .OrderBy(request.Orders)
-                    .TryTake(request.Limit).ToArray();
+                    .TryPaginatePartial(request.MaxElementIndex);
 
                    var companies = Database.Query<CompanyDN>().Select(p => new
                    {
@@ -80,9 +80,9 @@ namespace Southwind.Logic
                     .Where(request.Filters)
                     .Select(request.Columns)
                     .OrderBy(request.Orders)
-                    .TryTake(request.Limit).ToArray();
+                    .TryPaginatePartial(request.MaxElementIndex);
 
-                   return persons.Concat(companies).OrderBy(request.Orders).TryTake(request.Limit);
+                   return persons.Concat(companies).OrderBy(request.Orders).TryPaginate(request.ElementsPerPage, request.CurrentPage);
                 }).Column(a => a.Entity, cd => cd.Implementations = new ImplementedByAttribute(typeof(PersonDN), typeof(CompanyDN))); 
             }
         }

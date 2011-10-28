@@ -23,6 +23,7 @@ using Signum.Windows.Authorization;
 using Signum.Windows.Reports;
 using Signum.Windows.Chart;
 using Signum.Entities.Authorization;
+using Signum.Windows.UserQueries;
 
 namespace Southwind.Windows
 {
@@ -64,7 +65,14 @@ namespace Southwind.Windows
             Constructor.Start(new ConstructorManager());
 
             OperationClient.Start(new OperationManager());
-            AuthClient.Start(true, true, true, true, true, true, true, true); 
+            AuthClient.Start(
+                types: true, 
+                property: true, 
+                queries: true, 
+                permissions: true, 
+                operations: true, 
+                facadeMethods: true, 
+                defaultPasswordExpiresLogic: false); 
 
             Navigator.AddSettings(new List<EntitySettings>
             {

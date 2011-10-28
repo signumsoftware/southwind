@@ -122,7 +122,7 @@ namespace Southwind.Entities
             set { Set(ref state, value, () => State); }
         }
 
-        protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi, object propertyValue)
+        protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi)
         {
             OrderDetailsDN details = sender as OrderDetailsDN;
 
@@ -132,7 +132,7 @@ namespace Southwind.Entities
                     return "Discount should be multiple of 5%";
             }
 
-            return base.ChildPropertyValidation(sender, pi, propertyValue);
+            return base.ChildPropertyValidation(sender, pi);
         }
 
         protected override void ChildCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
