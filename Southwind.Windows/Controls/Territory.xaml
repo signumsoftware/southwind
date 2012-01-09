@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Southwind.Windows.Controls.Territory"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:m="clr-namespace:Signum.Windows;assembly=Signum.Windows"
+    xmlns:d="clr-namespace:Southwind.Entities;assembly=Southwind.Entities"
+    m:Common.TypeContext="d:TerritoryDN"
+    MinWidth="300">
+    <StackPanel>
+        <m:ValueLine m:Common.Route="Description" />
+        <m:EntityCombo m:Common.Route="Region"  />
+    </StackPanel>
+</UserControl>

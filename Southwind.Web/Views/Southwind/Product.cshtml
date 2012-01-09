@@ -1,0 +1,37 @@
+﻿@using Southwind.Entities
+
+@using (var pc = Html.TypeContext<ProductDN>()) 
+{
+	@Html.ValueLine(pc, p => p.ProductName)
+	@Html.EntityCombo(pc, p => p.Category)
+    @Html.ValueLine(pc, p => p.ReorderLevel)
+
+    <div id="productExternal">
+        <div id="productInternal">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValueLine(pc, p => p.UnitPrice, vl => vl.ValueHtmlProps["onblur"] = "updateStockValue();")</td>
+                </tr>
+                <tr id="trMultiply">
+                    <td>X</td>
+                    <td>@Html.ValueLine(pc, p => p.UnitsInStock, vl => vl.ValueHtmlProps["onblur"] = "updateStockValue();")</td>
+                </tr>
+                <tr>
+                    <td>=</td>
+                    <td>@Html.ValueLine(pc, p => p.ValueInStock)</td>
+                </tr>
+            </table>
+        </div>
+    </div>    
+    
+    @Html.ValueLine(pc, p => p.QuantityPerUnit)
+	@Html.EntityLine(pc, p => p.Supplier)
+	@Html.ValueLine(pc, p => p.Discontinued)
+}
+
+<script type="text/javascript">
+    function updateStockValue() {
+        $("#ValueInStock").html(parseFloat($("#UnitPrice").val()) * parseFloat($("#UnitsInStock").val())); 
+    }
+</script>

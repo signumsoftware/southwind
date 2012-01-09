@@ -1,0 +1,73 @@
+﻿@using Southwind.Entities
+@using Southwind.Web.Controllers
+@using (var ec = Html.TypeContext<EmployeeDN>())
+{
+    <table cellpadding="5">
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>Name</legend>
+                    @using (Html.FieldInline())
+                    {
+                        @Html.ValueLine(ec, e => e.Title, vl => { vl.ValueFirst = true; vl.ValueHtmlProps["size"] = 4; })
+                        @Html.ValueLine(ec, e => e.FirstName, vl => vl.ValueFirst = true)
+                        @Html.ValueLine(ec, e => e.LastName, vl => vl.ValueFirst = true)
+                    }
+                </fieldset>
+            </td>
+            <td rowspan="3" style="vertical-align: top">
+                @if (!ec.Value.IsNew)
+                {
+                    <div class="photo">
+                        <img src="@(Url.Action<HomeController>(hc => hc.EmployeePhoto(ec.Value.ToLite())))" />
+                    </div>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EmbeddedControl(ec, e => e.Address)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>Personal Info</legend>
+                    @Html.ValueLine(ec, e => e.BirthDate)
+                    @Html.ValueLine(ec, e => e.HomePhone)
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>Company data</legend>
+                    @Html.ValueLine(ec, e => e.TitleOfCourtesy)
+                    @Html.EntityLine(ec, e => e.ReportsTo)
+                    @Html.ValueLine(ec, e => e.HireDate)
+                    @Html.ValueLine(ec, e => e.Extension)
+                </fieldset>
+            </td>
+            <td id="territories">
+                <fieldset>
+                    <legend>@Html.PropertyNiceName(() => ec.Value.Territories)</legend>
+                    @Html.EntityList(ec, e => e.Territories, el => el.LabelVisible = false)
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <fieldset>
+                    <legend>@Html.PropertyNiceName(() => ec.Value.Notes)</legend>
+                    @Html.ValueLine(ec, e => e.Notes, vl =>
+               {
+                   vl.ValueLineType = ValueLineType.TextArea;
+                   vl.LabelVisible = false;
+                   vl.ValueHtmlProps["cols"] = "70";
+                   vl.ValueHtmlProps["rows"] = "4";
+               })
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+}

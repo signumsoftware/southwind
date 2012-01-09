@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3382879C-EC6B-402E-ACB2-BDB2483348EB}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Southwind.Web</RootNamespace>
+    <AssemblyName>Southwind.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>true</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages" />
+    <Reference Include="System.Web.Helpers" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\SouthwindClient.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\HomeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ServerSouthwind.svc.cs">
+      <DependentUpon>ServerSouthwind.svc</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\jqueryui\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-bg_flat_15_cd0a0a_40x100.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="Content\jqueryui\cupertino\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jqueryui\cupertino\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Content\jqueryui\redmond\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\jqueryui\redmond\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\jqueryui\redmond\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\jqueryui\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jqueryui\smoothness\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Content\jqueryui\south-street\images\ui-bg_glass_55_fcf0ba_1x400.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-bg_gloss-wave_100_ece8da_500x100.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-bg_highlight-hard_100_f5f3e5_1x100.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-bg_highlight-hard_100_fafaf4_1x100.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-bg_highlight-hard_15_459e00_1x100.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-bg_highlight-hard_95_cccccc_1x100.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-bg_highlight-soft_25_67b021_1x100.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-bg_highlight-soft_95_ffedad_1x100.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-bg_inset-soft_15_2b2922_1x100.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-icons_808080_256x240.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-icons_847e71_256x240.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-icons_8dc262_256x240.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-icons_eeeeee_256x240.png" />
+    <Content Include="Content\jqueryui\south-street\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jqueryui\south-street\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\jqueryui\ui-lightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jqueryui\ui-lightness\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Content\jqueryui\vader\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-bg_gloss-wave_16_121212_500x100.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-bg_highlight-hard_15_888888_1x100.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-bg_highlight-hard_55_555555_1x100.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-bg_highlight-soft_35_adadad_1x100.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-bg_highlight-soft_60_dddddd_1x100.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-bg_inset-soft_15_121212_1x100.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-icons_666666_256x240.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-icons_aaaaaa_256x240.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-icons_bbbbbb_256x240.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-icons_c98000_256x240.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jqueryui\vader\images\ui-icons_f29a00_256x240.png" />
+    <Content Include="Content\jqueryui\vader\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Content\site.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\d3\d3.geom.min.js" />
+    <Content Include="Scripts\d3\d3.layout.min.js" />
+    <Content Include="Scripts\d3\d3.min.js" />
+    <Content Include="Scripts\jquery-1.6.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.16.custom.min.js" />
+    <Content Include="Scripts\menu.js" />
+    <Content Include="Scripts\newcontent.js" />
+    <Content Include="Scripts\southwind.js" />
+    <Content Include="ServerSouthwind.svc" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Signum.Engine\Signum.Engine.csproj">
+      <Project>{7F2DB6FE-C109-4057-B207-C62A767F905D}</Project>
+      <Name>Signum.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Signum.Entities\Signum.Entities.csproj">
+      <Project>{F2B51D08-498D-4C9F-8112-9521A7762B02}</Project>
+      <Name>Signum.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Signum.Utilities\Signum.Utilities.csproj">
+      <Project>{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}</Project>
+      <Name>Signum.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
+      <Project>{BA7FA363-61A1-41B1-945B-9B9C7BBCD357}</Project>
+      <Name>Signum.Engine.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj">
+      <Project>{7D851227-5294-4BEB-990E-56B4FBB7A148}</Project>
+      <Name>Signum.Entities.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Extensions\Signum.Web.Extensions\Signum.Web.Extensions.csproj">
+      <Project>{86EE7792-96CF-4420-997B-8C811E2B166D}</Project>
+      <Name>Signum.Web.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Engine\Signum.Engine.csproj">
+      <Project>{7F2DB6FE-C109-4057-B207-C62A767F905D}</Project>
+      <Name>Signum.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Entities\Signum.Entities.csproj">
+      <Project>{F2B51D08-498D-4C9F-8112-9521A7762B02}</Project>
+      <Name>Signum.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Signum\Framework\Signum.Utilities\Signum.Utilities.csproj">
+      <Project>{F7D3F72D-741D-4F67-8CF8-CD41B9035FED}</Project>
+      <Name>Signum.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Signum.Web\Signum.Web.csproj">
+      <Project>{61898D02-521F-49AB-928B-F80615D55CA3}</Project>
+      <Name>Signum.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj">
+      <Project>{2FE283CC-8F34-451E-9805-C7858F7D705D}</Project>
+      <Name>Southwind.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj">
+      <Project>{2DA0D6C7-53DB-45F3-BA86-F4FDEB6924FA}</Project>
+      <Name>Southwind.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Southwind\Address.cshtml" />
+    <Content Include="Views\Southwind\Category.cshtml" />
+    <Content Include="Views\Southwind\Company.cshtml" />
+    <Content Include="Views\Southwind\Employee.cshtml" />
+    <Content Include="Views\Southwind\Order.cshtml" />
+    <Content Include="Views\Southwind\OrderDetails.cshtml" />
+    <Content Include="Views\Southwind\Person.cshtml" />
+    <Content Include="Views\Southwind\Product.cshtml" />
+    <Content Include="Views\Southwind\Region.cshtml" />
+    <Content Include="Views\Southwind\Shipper.cshtml" />
+    <Content Include="Views\Southwind\Supplier.cshtml" />
+    <Content Include="Views\Southwind\Territory.cshtml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!--
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>7654</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/Southwind.Web</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

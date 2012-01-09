@@ -1,0 +1,78 @@
+@using Southwind.Web
+@using Southwind.Web.Controllers
+@using Signum.Entities.Authorization
+@using Signum.Web.Auth
+<!doctype html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    @Html.ScriptCss("~/signum/content/reset.css")
+
+    @{ 
+        string currentTheme = (string)Session[SouthwindClient.ThemeSessionKey] ?? "cupertino"; 
+        @Html.ScriptCss("~/content/jqueryui/{0}/jquery-ui-1.8.16.custom.css".Formato(currentTheme))
+    }
+
+    @Html.ScriptCss("~/signum/content/SF_Lines.css",
+       "~/signum/content/SF_NormalPage.css",
+       "~/signum/content/SF_Notify.css",
+       "~/signum/content/SF_Search.css",
+       "~/signum/content/SF_Widgets.css",  
+       "~/content/site.css")  
+
+    @Html.ScriptsJs("~/scripts/jquery-1.6.2.min.js", "~/scripts/jquery-ui-1.8.16.custom.min.js")
+    @Html.ScriptsJs("~/signum/resources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
+    @Html.ScriptsJs("~/signum/calendarResources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
+    @Html.ScriptsJs("~/signum/scripts/SF_Utils.js", 
+        "~/signum/scripts/SF_jquery-ui-datepicker-extension.js", 
+        "~/scripts/newcontent.js",
+        "~/signum/scripts/SF_Globals.js")
+    @Html.ScriptsJs("~/scripts/southwind.js", "~/scripts/menu.js")
+    @if (IsSectionDefined("head"))
+    {
+        @RenderSection("head")
+    }
+</head>
+<body class="ui-widget-content">
+    <div id="wrap">
+        <header id="header" class="ui-widget-header ui-corner-top">
+            <div id="loginControl">
+                @{ Html.RenderPartial(AuthClient.LoginUserControlView); }
+            </div>
+            <div id="title">
+                <h1>@(Html.ActionLink("Southwind Application", (HomeController h)=>h.Index())) </h1>
+            </div>
+        </header>
+        <div id="main" class="ui-widget-content">
+            @if (UserDN.Current != null)
+            {
+                <div id="menu">
+                    <div class="box menu ui-widget-content">
+                        @{ Html.RenderPartial("Menu", ViewData["current"] = Context.Request.RawUrl);}
+                    </div>
+                </div>
+            }
+            <div id="contentContainer">
+            <div id="content">
+                @RenderBody()
+            </div>
+  			</div>          	
+            <div class="clearall">
+            </div>
+        </div>
+        <footer id="footer" class="ui-widget-header ui-corner-bottom">
+            <div id="themeSelectorContainer">
+                <span id="themeSelectorInfo">Select a jquery ui theme:</span>
+                @{ 
+                    var themes = new List<string> { "cupertino", "smoothness", "ui-lightness", "south-street", "redmond" }; 
+                    @Html.DropDownList(
+                        "themeSelector", 
+                        themes.Select(s => new SelectListItem { Text = s, Value = s, Selected = currentTheme == s }), 
+                        new Dictionary<string, object> { { "data-url", Url.Action<HomeController>(hc => hc.ChangeTheme()) } })
+                }
+            </div>
+            <span id="powered">Powered by <a href="http://www.signumframework.com">Signum Framework</a></span>
+        </footer>
+    </div>
+</body>
+</html>

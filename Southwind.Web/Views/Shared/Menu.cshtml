@@ -1,0 +1,67 @@
+﻿@using Southwind.Entities
+@using Signum.Entities.Authorization
+@using Signum.Entities.Operations
+@using Signum.Entities.Reports
+@using Signum.Entities.UserQueries
+@using Signum.Entities.ControlPanel
+@using Signum.Entities.Chart
+
+<input name="filter" id="menu_filter" type="text" placeholder="Buscar opción de menú" />
+@(new WebMenuItem
+    {
+        Children =
+        {
+            new WebMenuItem 
+            { 
+                Text = "Orders", 
+                Children = 
+                {
+                   new WebMenuItem { Link = new FindOptions(typeof(OrderDN)) },
+                   new WebMenuItem { Link = new FindOptions(OrderQueries.OrderLines) },
+                },
+            },
+            new WebMenuItem 
+            { 
+                Text = "Customers", 
+                Children = 
+                {
+                   new WebMenuItem { Link = new FindOptions(typeof(PersonDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(CompanyDN)) },
+                }
+            },
+            new WebMenuItem 
+            { 
+                Text = "Products", 
+                Children = 
+                {
+                   new WebMenuItem { Link = new FindOptions(typeof(ProductDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(CategoryDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(SupplierDN)) },
+                }
+            },
+            new WebMenuItem 
+            { 
+                Text = "Employees", 
+                Children = 
+                {
+                   new WebMenuItem { Link = new FindOptions(typeof(EmployeeDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(TerritoryDN)) },
+                   new WebMenuItem { Link = new FindOptions(typeof(RegionDN)) },
+                   
+                }
+            },
+            new WebMenuItem
+            {
+                Text = "Admin",
+                Children = 
+                {
+                    new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(OperationLogDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(UserQueryDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(UserChartDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(ControlPanelDN)) },
+                }
+            }
+        }
+    }.ToHtml((string)ViewData["current"],"")) 

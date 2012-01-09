@@ -1,0 +1,7 @@
+﻿@using Southwind.Entities
+
+@using (var tc = Html.TypeContext<TerritoryDN>()) 
+{
+	@Html.EntityLine(tc, t => t.Region)
+	@Html.ValueLine(tc, t => t.Description)
+}

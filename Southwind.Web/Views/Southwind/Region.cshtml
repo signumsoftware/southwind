@@ -1,0 +1,6 @@
+﻿@using Southwind.Entities
+
+@using (var rc = Html.TypeContext<RegionDN>()) 
+{
+	@Html.ValueLine(rc, r => r.Description)
+}

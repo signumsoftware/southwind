@@ -1,0 +1,49 @@
+﻿@using Southwind.Entities
+
+@using (var pc = Html.TypeContext<PersonDN>()) 
+{
+    <fieldset>
+        <legend>Name</legend>
+        @using(Html.FieldInline())
+        {
+            @Html.ValueLine(pc, p => p.Title, vl => vl.ValueFirst = true)
+            @Html.ValueLine(pc, p => p.FirstName, vl => vl.ValueFirst = true)
+            @Html.ValueLine(pc, p => p.LastName, vl => vl.ValueFirst = true)
+        }
+    </fieldset>
+    
+    @Html.EmbeddedControl(pc, p => p.Address)       
+
+    <fieldset>
+        <table>
+            <tr>
+                <td>
+                @using (Html.FieldInline())
+                {
+                    @Html.ValueLine(pc, p => p.Phone)
+                }
+                </td>
+                <td>
+                @using (Html.FieldInline())
+                {
+                    @Html.ValueLine(pc, p => p.Fax)
+                }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                @using (Html.FieldInline())
+                {
+                    @Html.ValueLine(pc, p => p.DateOfBirth)
+                }
+                </td>
+                <td>
+                @using (Html.FieldInline())
+                {
+                    @Html.ValueLine(pc, p => p.Corrupt)
+                }
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}
