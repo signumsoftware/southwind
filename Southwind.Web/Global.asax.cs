@@ -23,6 +23,7 @@ using System.Globalization;
 using Signum.Web.Chart;
 using Signum.Web.ControlPanel;
 using Signum.Web.Widgets;
+using Signum.Web.Exceptions;
 
 namespace Southwind.Web
 {
@@ -96,7 +97,7 @@ namespace Southwind.Web
                 operations: true,
                 permissions: true,
                 facadeMethods: true);
-
+            ExceptionClient.Start();
             UserQueriesClient.Start();
             ChartClient.Start();
             ReportsClient.Start(true, false);
