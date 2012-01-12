@@ -25,6 +25,7 @@ using Signum.Engine.UserQueries;
 using Signum.Engine.ControlPanel;
 using Signum.Utilities.ExpressionTrees;
 using Signum.Utilities;
+using Signum.Engine.Exceptions;
 
 namespace Southwind.Logic
 {
@@ -65,7 +66,9 @@ namespace Southwind.Logic
             ControlPanelLogic.Start(sb, dqm);
             ControlPanelLogic.RegisterUserEntityGroup(sb, SouthwindGroups.UserEntities);
             ControlPanelLogic.RegisterRoleEntityGroup(sb, SouthwindGroups.RoleEntities);
-            
+
+            ExceptionLogic.Start(sb, dqm);
+
             sb.Include<NoteDN>();
             dqm[typeof(NoteDN)] = (from a in Database.Query<NoteDN>()
                                    select new
