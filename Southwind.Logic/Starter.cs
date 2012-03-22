@@ -44,7 +44,7 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((ControlPanelDN cp) => cp.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             
-            ConnectionScope.Default = new Connection(connectionString, sb.Schema, dqm);
+            Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm);
 
             OperationLogic.Start(sb, dqm);
 
@@ -58,14 +58,14 @@ namespace Southwind.Logic
 
             QueryLogic.Start(sb);
             UserQueryLogic.Start(sb, dqm);
-            UserQueryLogic.RegisterUserEntityGroup(sb, SouthwindGroups.UserEntities);
-            UserQueryLogic.RegisterRoleEntityGroup(sb, SouthwindGroups.RoleEntities);
+            UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
+            UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
             ChartLogic.Start(sb, dqm);
-            ChartLogic.RegisterUserEntityGroup(sb, SouthwindGroups.UserEntities);
-            ChartLogic.RegisterRoleEntityGroup(sb, SouthwindGroups.RoleEntities);
+            ChartLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
+            ChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
             ControlPanelLogic.Start(sb, dqm);
-            ControlPanelLogic.RegisterUserEntityGroup(sb, SouthwindGroups.UserEntities);
-            ControlPanelLogic.RegisterRoleEntityGroup(sb, SouthwindGroups.RoleEntities);
+            ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
+            ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
 
             ExceptionLogic.Start(sb, dqm);
 

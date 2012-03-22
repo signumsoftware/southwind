@@ -26,7 +26,7 @@ namespace Southwind.Load
                 Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 
                 Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
-                Console.WriteLine("Database: {0}", Regex.Match(((Connection)ConnectionScope.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);
+                Console.WriteLine("Database: {0}", Regex.Match(((SqlConnector)Connector.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);
                 Console.WriteLine();
 
                 while (true)

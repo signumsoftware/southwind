@@ -108,8 +108,8 @@ namespace Southwind.Windows.Controls
         private void AutoCompleteTextBox_Loaded(object sender, RoutedEventArgs e)
         {
             var actb = (AutoCompleteTextBox)sender;
-            actb.Text = CurrentOrderDetails.Product.TryCC(a => a.ToStr);
-            actb.Text = CurrentOrderDetails.Product.TryCC(a=>a.ToStr);
+            actb.Text = CurrentOrderDetails.Product.TryToString();
+            actb.Text = CurrentOrderDetails.Product.TryToString();
             actb.SelectAndFocus();
         }
 

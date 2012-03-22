@@ -48,7 +48,7 @@ namespace Southwind.Windows
             //Fix so App.xaml InitializeComponent gets generated
         }
 
-        void UnhandledAsyncException(Exception e, Window win)
+        void UnhandledAsyncException(Exception e)
         {
             Program.HandleException("Error in async call", e);
         }

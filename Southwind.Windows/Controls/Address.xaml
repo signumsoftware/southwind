@@ -8,7 +8,7 @@
     <GroupBox m:Common.LabelOnlyRoute="">
         <StackPanel>
             <m:ValueLine m:Common.Route="Address" Grid.ColumnSpan="3" m:Common.LabelVisible="False" Grid.Column="0"/>
-            <Grid m:Common.LabelWidth="80">
+            <Grid m:Common.MinLabelWidth="80">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>

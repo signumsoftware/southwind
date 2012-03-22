@@ -105,7 +105,7 @@ namespace Southwind.Windows
                     Settings.Default.UserName = milogin.UserName;
                     Settings.Default.Save();
 
-                    UserDN.SetSessionUser(result.GetCurrentUser());
+                    UserDN.Current=result.GetCurrentUser();
 
                     // verificar el tiempo de expiracion
                     var alerta = result.PasswordNearExpired();
@@ -137,7 +137,7 @@ namespace Southwind.Windows
             if (dialogResult == true)
             {
                 UserDN user = result.GetCurrentUser();
-                UserDN.SetSessionUser(user);
+                UserDN.Current=user;
 
                 return result;
             }
