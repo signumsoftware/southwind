@@ -18,10 +18,10 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 Administrator.SaveListDisableIdentity(db.Regions.Select(r =>
-                    Administrator.SetId(r.RegionID, new RegionDN
+                    new RegionDN
                     {
                         Description = r.RegionDescription.Trim()
-                    })));
+                    }.SetId(r.RegionID)));
             }
         }
 
@@ -41,11 +41,11 @@ namespace Southwind.Load
                                    }).ToList();
 
                 Administrator.SaveListDisableIdentity(territories.Select(t =>
-                    Administrator.SetId(int.Parse(t.Id), new TerritoryDN
+                    new TerritoryDN
                     {
                         Description = t.Description.Trim(),
                         Region = regionDic[t.RegionID]
-                    })));
+                    }.SetId(int.Parse(t.Id))));
             }
         }
 
@@ -68,7 +68,7 @@ namespace Southwind.Load
 
                 Administrator.SaveListDisableIdentity(
                     from e in db.Employees
-                    select Administrator.SetId(e.EmployeeID, new EmployeeDN
+                    select new EmployeeDN
                     {
                         BirthDate = e.BirthDate,
                         FirstName = e.FirstName,
@@ -90,7 +90,7 @@ namespace Southwind.Load
                         Notes = e.Notes,
                         Territories = (from id in e.EmployeeTerritories.Select(a => int.Parse(a.TerritoryID)).ToList()
                                        select territoriesDic[duplicateMapping.TryGet(id, id)]).Distinct().ToMList(),
-                    }));
+                    }.SetId(e.EmployeeID));
 
                 var pairs = (from e in db.Employees
                              where e.ReportsTo != null

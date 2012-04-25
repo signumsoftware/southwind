@@ -18,11 +18,11 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 Administrator.SaveListDisableIdentity(db.Shippers.Select(s =>
-                    Administrator.SetId(s.ShipperID, new ShipperDN
+                    new ShipperDN
                     {
                         CompanyName = s.CompanyName,
                         Phone = s.Phone,
-                    })));
+                    }.SetId(s.ShipperID)));
             }
         }
 
@@ -55,7 +55,7 @@ namespace Southwind.Load
                     IProgressInfo info;
                     foreach (Order o in db.Orders.ToProgressEnumerator(out info))
                     {
-                        Administrator.SetId(o.OrderID, new OrderDN
+                        new OrderDN
                         {
 
                             Employee = new Lite<EmployeeDN>(o.EmployeeID.Value),
@@ -83,7 +83,7 @@ namespace Southwind.Load
                             }).ToMList(),
                             Customer = customerMapping[o.CustomerID].RetrieveAndForget(),
                             IsLegacy = true,
-                        }).Save();
+                        }.SetId(o.OrderID).Save();
 
                         SafeConsole.WriteSameLine(info.ToString());
                     }

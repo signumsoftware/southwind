@@ -28,7 +28,7 @@ namespace Southwind.Load
                 var faxDic = faxes.ToDictionary(r => r.SupplierID, r => r.Fax); 
 
                 Administrator.SaveListDisableIdentity(db.Suppliers.Select(s =>
-                    Administrator.SetId(s.SupplierID, new SupplierDN
+                    new SupplierDN
                     {
                         CompanyName = s.CompanyName,
                         ContactName = s.ContactName,
@@ -43,7 +43,7 @@ namespace Southwind.Load
                             PostalCode = s.PostalCode,
                             Country = s.Country
                         },
-                    })));
+                    }.SetId(s.SupplierID)));
             }
         }
 
@@ -52,12 +52,12 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 Administrator.SaveListDisableIdentity(db.Categories.Select(s =>
-                    Administrator.SetId(s.CategoryID, new CategoryDN
+                    new CategoryDN
                     {
                         CategoryName = s.CategoryName,
                         Description = s.Description,
                         Picture = s.Picture.ToArray(),
-                    })));
+                    }.SetId(s.CategoryID)));
             }
         }
 
@@ -66,7 +66,7 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 Administrator.SaveListDisableIdentity(db.Products.Select(s =>
-                    Administrator.SetId(s.ProductID, new ProductDN
+                    new ProductDN
                     {
                         ProductName = s.ProductName,
                         Supplier = new Lite<SupplierDN>(s.SupplierID.Value),
@@ -76,7 +76,7 @@ namespace Southwind.Load
                         UnitsInStock = s.UnitsInStock.Value,
                         ReorderLevel = s.ReorderLevel.Value,
                         Discontinued = s.Discontinued,
-                    })));
+                    }.SetId(s.ProductID)));
             }
         }
     }

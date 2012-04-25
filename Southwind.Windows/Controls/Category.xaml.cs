@@ -38,7 +38,7 @@ namespace Southwind.Windows.Controls
             {
                 Filter = "Bitmap Image | *.bmp| Jpeg Image  |*.jpg,*.jpeg| Png Image |*.png"
             };
-            if (ofd.ShowDialog(this.FindCurrentWindow()) != true)
+            if (ofd.ShowDialog(Window.GetWindow(this)) != true)
                 return;
 
             ((CategoryDN)DataContext).Picture = File.ReadAllBytes(ofd.FileName);
