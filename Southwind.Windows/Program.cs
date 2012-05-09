@@ -14,6 +14,7 @@ using Southwind.Services;
 using Signum.Entities.Authorization;
 using Signum.Windows.Authorization;
 using Southwind.Windows.Properties;
+using Signum.Windows.Disconnected;
 
 namespace Southwind.Windows
 {
@@ -27,6 +28,8 @@ namespace Southwind.Windows
                 Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
                 Server.SetNewServerCallback(NewServer);
+
+                DisconnectedClient.GetTransferServer = NewServerTransfer;
 
                 Server.Connect();
 
@@ -64,6 +67,9 @@ namespace Southwind.Windows
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
+
 
         static ChannelFactory<IServerSouthwind> channelFactory;
 
@@ -145,6 +151,18 @@ namespace Southwind.Windows
             {
                 return null;
             }
+        }
+
+
+
+        static ChannelFactory<IServerSouthwindTransfer> channelFactoryServer;
+
+        public static IServerSouthwindTransfer NewServerTransfer()
+        {
+            if (channelFactoryServer == null)
+                channelFactoryServer = new ChannelFactory<IServerSouthwindTransfer>("serverTransfer");
+
+            return channelFactoryServer.CreateChannel();
         }
     }
 }

@@ -7,6 +7,7 @@
     xmlns:seo="clr-namespace:Signum.Entities.Operations;assembly=Signum.Entities.Extensions"
     xmlns:sec="clr-namespace:Signum.Entities.Chart;assembly=Signum.Entities.Extensions"
     xmlns:seu="clr-namespace:Signum.Entities.UserQueries;assembly=Signum.Entities.Extensions"
+    xmlns:sed="clr-namespace:Signum.Entities.Disconnected;assembly=Signum.Entities.Extensions"
     Title="Southwind Application"  SizeToContent="WidthAndHeight">
     <Menu MaxHeight ="{x:Static SystemParameters.MenuBarHeight}" x:Name="menu">
         <MenuItem Header="Orders">
@@ -34,6 +35,13 @@
         <MenuItem Header="Reporting">
             <MenuItem Tag="{m:Explore QueryName={x:Type sec:UserChartDN}}"/>
             <MenuItem Tag="{m:Explore QueryName={x:Type seu:UserQueryDN}}"/>
+        </MenuItem>
+        <MenuItem Header="Disconnected">
+            <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedMachineDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type sed:DownloadStatisticsDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type sed:UploadStatisticsDN}}"/>
+            <Separator/>
+            <MenuItem Header="Download for offline work" Click="MenuItem_Click" />
         </MenuItem>
     </Menu>
 </Window>

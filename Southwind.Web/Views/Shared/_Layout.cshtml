@@ -9,7 +9,7 @@
     @Html.ScriptCss("~/signum/content/reset.css")
 
     @{ 
-        string currentTheme = (string)Session[SouthwindClient.ThemeSessionKey] ?? "cupertino"; 
+        string currentTheme = (Session == null ? null: (string)Session[SouthwindClient.ThemeSessionKey]) ?? "cupertino"; 
         @Html.ScriptCss("~/content/jqueryui/{0}/jquery-ui-1.8.16.custom.css".Formato(currentTheme))
     }
 

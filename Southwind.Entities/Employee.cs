@@ -135,6 +135,11 @@ namespace Southwind.Entities
         {
             return "{0} {1}".Formato(FirstName, LastName);
         }
+
+        public static EmployeeDN Current
+        {
+            get { return ((EmployeeDN)UserDN.Current.Related); }
+        }
     }
 
     [Serializable]

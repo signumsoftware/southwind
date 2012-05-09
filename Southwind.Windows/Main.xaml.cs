@@ -14,6 +14,7 @@ using Signum.Windows;
 using Signum.Utilities;
 using Southwind.Windows.Controls;
 using Southwind.Entities;
+using Signum.Windows.Disconnected;
 
 namespace Southwind.Windows
 {
@@ -31,6 +32,11 @@ namespace Southwind.Windows
         void Main_Loaded(object sender, RoutedEventArgs e)
         {
             MenuManager.ProcessMenu(menu);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisconnectedClient.DownloadDatabase(this);
         }
     }
 }

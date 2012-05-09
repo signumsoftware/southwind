@@ -8,11 +8,12 @@ using System.Linq.Expressions;
 using Signum.Utilities;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using Signum.Entities.Disconnected;
 
 namespace Southwind.Entities
 {
     [Serializable]
-    public class OrderDN : Entity
+    public class OrderDN : Entity, IDisconnectedEntity
     {
         [ImplementedBy(typeof(CompanyDN), typeof(PersonDN))]
         CustomerDN customer;
@@ -159,7 +160,22 @@ namespace Southwind.Entities
             {OrderState.Ordered, false, null, null},
             {OrderState.Shipped, true, true,  null},
             {OrderState.Canceled, null, null, true},
-            }; 
+            };
+
+
+        long? lastOnlineTicks;
+        public long? LastOnlineTicks
+        {
+            get { return lastOnlineTicks; }
+            set { Set(ref lastOnlineTicks, value, () => LastOnlineTicks); }
+        }
+
+        Lite<DisconnectedMachineDN> disconnectedMachine;
+        public Lite<DisconnectedMachineDN> DisconnectedMachine
+        {
+            get { return disconnectedMachine; }
+            set { Set(ref disconnectedMachine, value, () => DisconnectedMachine); }
+        }
     }
 
     public enum OrderState

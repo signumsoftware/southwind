@@ -24,6 +24,7 @@ using Signum.Windows.Reports;
 using Signum.Windows.Chart;
 using Signum.Entities.Authorization;
 using Signum.Windows.UserQueries;
+using Signum.Windows.Disconnected;
 
 namespace Southwind.Windows
 {
@@ -74,6 +75,14 @@ namespace Southwind.Windows
                 facadeMethods: true, 
                 defaultPasswordExpiresLogic: false); 
 
+            LinksWidget.Start();
+
+            ReportClient.Start(true, false);
+            UserQueryClient.Start();
+            ChartClient.Start(()=>new ChartRendererVisifire());
+
+            DisconnectedClient.Start();
+
             Navigator.AddSettings(new List<EntitySettings>
             {
                 new EntitySettings<EmployeeDN>(EntityType.Default) { View = e => new Employee(), IsCreable= admin=>false},
@@ -89,13 +98,13 @@ namespace Southwind.Windows
 
                 new EntitySettings<OrderDN>(EntityType.Default) { View = e => new Order()},
             });
-            
+
             Constructor.ConstructorManager.Constructors.Add(typeof(OrderDN), win => new OrderDN
             {
-                 OrderDate = DateTime.Now,
-                 RequiredDate = DateTime.Now.AddDays(2),
-                 Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
-                 Details = new MList<OrderDetailsDN>()
+                OrderDate = DateTime.Now,
+                RequiredDate = DateTime.Now.AddDays(2),
+                Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
+                Details = new MList<OrderDetailsDN>()
             });
 
             Constructor.Register(win => new PersonDN
@@ -107,15 +116,6 @@ namespace Southwind.Windows
                 Address = new AddressDN()
             }); 
 
-
-            LinksWidget.Start();
-
-            Navigator.Initialize();
-
-            ReportClient.Start(true, false);
-            UserQueryClient.Start();
-            ChartClient.Start(()=>new ChartRendererVisifire());
-
             Func<Binding, DataTemplate> formatter = b =>
             {
                 b.Converter = SouthwindConverters.ImageConverter;
@@ -126,6 +126,8 @@ namespace Southwind.Windows
 
             QuerySettings.RegisterPropertyFormat((EmployeeDN e)=>e.Photo, formatter);
             QuerySettings.RegisterPropertyFormat((CategoryDN e)=>e.Picture, formatter);
+
+            Navigator.Initialize();
         }
     }
 }

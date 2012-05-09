@@ -66,6 +66,9 @@
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ServerSouthwindTransfer.svc.cs">
+      <DependentUpon>ServerSouthwindTransfer.svc</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -173,6 +176,7 @@
     <Content Include="Content\jqueryui\vader\images\ui-icons_f29a00_256x240.png" />
     <Content Include="Content\jqueryui\vader\jquery-ui-1.8.16.custom.css" />
     <Content Include="Content\site.css" />
+    <Content Include="ServerSouthwindTransfer.svc" />
     <Content Include="DocumentFormat.OpenXml.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

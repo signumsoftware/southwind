@@ -8,6 +8,7 @@ using Signum.Utilities;
 using Signum.Entities;
 using Signum.Services;
 using System.Globalization;
+using Signum.Engine.Operations;
 
 namespace Southwind.Load
 {
@@ -49,8 +50,9 @@ namespace Southwind.Load
                      join s in companies.Concat(persons) on n.ContactName equals s.ContactName
                      select new KeyValuePair<string, Lite<CustomerDN>>(n.CustomerID, s.Lite)).ToDictionary();
 
-                using(Transaction tr = new Transaction())
+                using (Transaction tr = new Transaction())
                 using (Administrator.DisableIdentity<OrderDN>())
+                using (OperationLogic.AllowSave<OrderDN>())
                 {
                     IProgressInfo info;
                     foreach (Order o in db.Orders.ToProgressEnumerator(out info))

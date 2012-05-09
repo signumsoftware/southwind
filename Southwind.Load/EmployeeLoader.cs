@@ -8,6 +8,7 @@ using Signum.Utilities;
 using Signum.Entities;
 using Signum.Services;
 using Signum.Entities.Authorization;
+using Signum.Engine.Operations;
 
 namespace Southwind.Load
 {
@@ -140,6 +141,7 @@ namespace Southwind.Load
 
         internal static void CreateSystemUser()
         {
+            using (OperationLogic.AllowSave<UserDN>())
             using (Transaction tr = new Transaction())
             {
                 RoleDN sys = new RoleDN() { Name = "System" }.Save();
@@ -149,6 +151,7 @@ namespace Southwind.Load
                     UserName = "System",
                     PasswordHash = Security.EncodePassword(Guid.NewGuid().ToString()),
                     Role = sys,
+                    State = UserState.Created,
                 }.Save(); 
 
                 tr.Commit();
@@ -170,23 +173,24 @@ namespace Southwind.Load
 
                 var employees = Database.Query<EmployeeDN>().OrderByDescending(a => a.Notes.Length).ToList();
 
-                for (int i = 0; i < employees.Count; i++)
-                {
-                    var employee = employees[i];
-                    new UserDN
+                using (OperationLogic.AllowSave<UserDN>())
+                    for (int i = 0; i < employees.Count; i++)
                     {
-                        Related = employee,
-                        UserName = employee.FirstName,
-                        PasswordHash = Security.EncodePassword(employee.FirstName),
-                        Role = i < 2 ? su :
-                               i < 5 ? au : u
+                        var employee = employees[i];
+                        new UserDN
+                        {
+                            Related = employee,
+                            UserName = employee.FirstName,
+                            PasswordHash = Security.EncodePassword(employee.FirstName),
+                            Role = i < 2 ? su :
+                                   i < 5 ? au : u,
+                            State = UserState.Created,
 
-                    }.Save();
-                }
+                        }.Save();
+                    }
 
                 tr.Commit();
             }
-
         }
     }
 }
