@@ -36,12 +36,12 @@
             <MenuItem Tag="{m:Explore QueryName={x:Type sec:UserChartDN}}"/>
             <MenuItem Tag="{m:Explore QueryName={x:Type seu:UserQueryDN}}"/>
         </MenuItem>
-        <MenuItem Header="Disconnected">
+        <MenuItem Header="Disconnected" x:Name="miDisconnected">
             <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedMachineDN}}"/>
             <MenuItem Tag="{m:Explore QueryName={x:Type sed:DownloadStatisticsDN}}"/>
             <MenuItem Tag="{m:Explore QueryName={x:Type sed:UploadStatisticsDN}}"/>
             <Separator/>
-            <MenuItem Header="Download for offline work" Click="MenuItem_Click" />
+            <MenuItem Header="Download for offline work" Click="MenuItem_Click" x:Name="miDownload" />
         </MenuItem>
     </Menu>
 </Window>

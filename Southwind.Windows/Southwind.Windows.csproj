@@ -105,6 +105,10 @@
       <DependentUpon>Territory.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SouthwindImageLoader.cs" />
+    <Compile Include="RestoringDatabase.xaml.cs">
+      <DependentUpon>RestoringDatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SouthwindConverters.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -137,6 +141,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Page Include="RestoringDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\Address.xaml">
@@ -213,6 +221,15 @@
       <Project>{2FE283CC-8F34-451E-9805-C7858F7D705D}</Project>
       <Name>Southwind.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Southwind.Local\Southwind.Local.csproj">
+      <Project>{49D47C70-541C-4B49-88E8-A9A6E7313348}</Project>
+      <Name>Southwind.Local</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\local.png" />
+    <Resource Include="Images\server.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

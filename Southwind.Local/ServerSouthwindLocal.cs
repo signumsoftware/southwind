@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.Text;
-using System.Reflection;
-using Signum.Entities;
-using Signum.Engine;
-using Signum.Entities.DynamicQuery;
-using Signum.Engine.Maps;
-using Signum.Engine.DynamicQuery;
-using Signum.Entities.Basics;
 using Signum.Services;
 using Southwind.Services;
-using Signum.Entities.Authorization;
-using Signum.Engine.Authorization;
-using Signum.Entities.Disconnected;
-using Signum.Engine.Disconnected;
-using Signum.Utilities;
+using System.Reflection;
 using Signum.Engine.Exceptions;
+using Signum.Utilities;
+using Signum.Entities.Disconnected;
+using Signum.Entities;
+using Signum.Engine.Disconnected;
+using Signum.Engine.Maps;
+using Signum.Engine;
+using Signum.Engine.Authorization;
+using System.ServiceModel;
+using Signum.Entities.Authorization;
 
-namespace Southwind.Web
+namespace Southwind.Local
 {
-    public class ServerSouthwind : ServerExtensions, IServerSouthwind
+    class ServerSouthwindLocal : ServerExtensions, IServerSouthwind
     {
         protected override T Return<T>(MethodBase mi, string description, Func<T> function)
         {
@@ -55,23 +51,52 @@ namespace Southwind.Web
 
         public DownloadStatisticsDN GetDownloadEstimation(Lite<DisconnectedMachineDN> machine)
         {
-            return Return(MethodInfo.GetCurrentMethod(), () => DisconnectedLogic.GetDownloadEstimation(machine)); 
+            throw NotAvailableOffline();
         }
 
         public Lite<DisconnectedMachineDN> GetDisconnectedMachine(string machineName)
         {
-            return Return(MethodInfo.GetCurrentMethod(), () => DisconnectedLogic.GetDisconnectedMachine(machineName));
+            return Return(MethodInfo.GetCurrentMethod(), () =>
+              DisconnectedLogic.GetDisconnectedMachine(machineName));
         }
 
         public UploadStatisticsDN GetUploadEstimation(Lite<DisconnectedMachineDN> machine)
         {
-            return Return(MethodInfo.GetCurrentMethod(), () => DisconnectedLogic.GetUploadEstimation(machine));
+            throw NotAvailableOffline();
+        }
+
+        private static InvalidOperationException NotAvailableOffline()
+        {
+            throw new InvalidOperationException("Operation not available while offline");
         }
 
         public Dictionary<Type, StrategyPair> GetStrategyPairs()
         {
             return Return(MethodInfo.GetCurrentMethod(), () =>
                 DisconnectedLogic.GetStrategyPairs());
+        }
+    }
+
+    class ServerSouthwindTransferLocal : IServerSouthwindTransfer
+    {
+        public Lite<DownloadStatisticsDN> BeginExportDatabase(Lite<UserDN> user, Lite<DisconnectedMachineDN> machine)
+        {
+            throw NotAvailableOffline();
+        }
+
+        public FileMessage EndExportDatabase(DownloadDatabaseRequests statistics)
+        {
+            throw NotAvailableOffline();
+        }
+
+        public UploadDatabaseResult UploadDatabase(UploadDatabaseRequest request)
+        {
+            throw NotAvailableOffline();
+        }
+
+        private static InvalidOperationException NotAvailableOffline()
+        {
+            throw new InvalidOperationException("Operation not available while offline");
         }
     }
 }

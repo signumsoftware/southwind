@@ -20,6 +20,7 @@ using Signum.Entities.Disconnected;
 using System.IO;
 using Signum.Utilities;
 using Signum.Engine.Exceptions;
+using System.IO.Compression;
 
 namespace Southwind.Web
 {
@@ -54,9 +55,9 @@ namespace Southwind.Web
             }
         }
 
-        public Lite<DownloadStatisticsDN> BeginExportDatabase(Lite<DisconnectedMachineDN> machine)
+        public Lite<DownloadStatisticsDN> BeginExportDatabase(Lite<UserDN> user, Lite<DisconnectedMachineDN> machine)
         {
-            return Return(GetUser(machine), MethodInfo.GetCurrentMethod(), null, () =>
+            return Return(UnsafeRetrieve(user), MethodInfo.GetCurrentMethod(), null, () =>
                 DisconnectedLogic.ExportManager.BeginExportDatabase(machine.Retrieve()));
         }
 
@@ -64,36 +65,33 @@ namespace Southwind.Web
         {
             var stats = requests.DownloadStatistics;
 
-            return Return(GetUser(stats), MethodInfo.GetCurrentMethod(), null, () =>
+            return Return(UnsafeRetrieve(requests.User), MethodInfo.GetCurrentMethod(), null, () =>
             {
-                string fileName = DisconnectedLogic.ExportManager.BackupFileName(requests.DownloadStatistics.Retrieve().Machine.Retrieve(), requests.DownloadStatistics);
+                string fileName = DisconnectedLogic.ExportManager.BackupFileName(
+                    requests.DownloadStatistics.Retrieve().Machine.Retrieve(), 
+                    requests.DownloadStatistics);
+                
                 var fi = new FileInfo(fileName);
 
                 return new FileMessage
                 {
                     FileName = fi.Name,
                     Length = fi.Length,
-                    Stream = fi.OpenRead(),
+                    Stream = fi.OpenRead(), //,
                     OnDisposing = () => File.Delete(fileName),
                 };
             });
         }
 
-        static UserDN GetUser(Lite<DisconnectedMachineDN> machine)
-        {
-            using (AuthLogic.Disable())
-                return machine.Retrieve().User;
-        }
-
-        static UserDN GetUser(Lite<DownloadStatisticsDN> stats)
-        {
-            using (AuthLogic.Disable())
-                return stats.Retrieve().Machine.Retrieve().User;
-        }
-      
-        public UploadDatabaseResult UploadDatabase(FileMessage request)
+        public UploadDatabaseResult UploadDatabase(UploadDatabaseRequest request)
         {
             throw new NotImplementedException();
+        }
+
+        private static UserDN UnsafeRetrieve(Lite<UserDN> user)
+        {
+            using (AuthLogic.Disable())
+                return user.RetrieveAndForget();
         }
     }
 }

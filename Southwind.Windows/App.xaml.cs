@@ -25,6 +25,8 @@ using Signum.Windows.Chart;
 using Signum.Entities.Authorization;
 using Signum.Windows.UserQueries;
 using Signum.Windows.Disconnected;
+using Signum.Windows.Logging;
+using Southwind.Local;
 
 namespace Southwind.Windows
 {
@@ -82,6 +84,7 @@ namespace Southwind.Windows
             ChartClient.Start(()=>new ChartRendererVisifire());
 
             DisconnectedClient.Start();
+            ExceptionClient.Start();
 
             Navigator.AddSettings(new List<EntitySettings>
             {
@@ -128,6 +131,11 @@ namespace Southwind.Windows
             QuerySettings.RegisterPropertyFormat((CategoryDN e)=>e.Picture, formatter);
 
             Navigator.Initialize();
+
+            if (DisconnectedClient.OfflineMode)
+            {
+                LocalServer.OverrideCommonEvents();
+            }
         }
     }
 }

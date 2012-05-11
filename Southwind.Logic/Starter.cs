@@ -126,7 +126,7 @@ namespace Southwind.Logic
         private static void SetupDisconnectedStrategies(SchemaBuilder sb)
         {
             //Signum.Entities
-            DisconnectedLogic.Register<TypeDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<TypeDN>(Download.None, Upload.None);
             
             //Signum.Entities.Authorization
             DisconnectedLogic.Register<UserDN>(Download.All, Upload.None);
@@ -137,12 +137,12 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<RuleFacadeMethodDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<RuleQueryDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<RuleOperationDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<PermissionDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<PermissionDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<RulePermissionDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<UserTicketDN>(Download.None, Upload.None);
             
             //Signum.Entities.Basics
-            DisconnectedLogic.Register<TypeConditionNameDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<TypeConditionNameDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<PropertyDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<FacadeMethodDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<QueryDN>(Download.All, Upload.None);
@@ -171,7 +171,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<EmailPackageDN>(Download.None, Upload.None);
             
             //Signum.Entities.Operations
-            DisconnectedLogic.Register<OperationDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<OperationDN>(Download.None, Upload.None);
             Expression<Func<OperationLogDN, bool>> operationLogCondition = ol =>
              ol.Target.RuntimeType == typeof(EmployeeDN) ||
              ol.Target.RuntimeType == typeof(ProductDN) ||
@@ -182,7 +182,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<OperationLogDN>(operationLogCondition, Upload.New);
             
             //Signum.Entities.Exceptions
-            DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Where(operationLogCondition).Any(a => a.Exception.RefersTo(e)), Upload.None);
+            DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
             
             //Signum.Entities.UserQueries
             DisconnectedLogic.Register<UserQueryDN>(Download.All, Upload.New);

@@ -32,6 +32,16 @@ namespace Southwind.Windows
         void Main_Loaded(object sender, RoutedEventArgs e)
         {
             MenuManager.ProcessMenu(menu);
+
+            if (DisconnectedClient.OfflineMode)
+            {
+                miDisconnected.Header = ((string)miDisconnected.Header) + " (Offline)";
+                miDownload.IsEnabled = false;
+            }
+            else
+            {
+                miDisconnected.Header = ((string)miDisconnected.Header) + " (Online)";
+            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

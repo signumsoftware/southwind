@@ -15,11 +15,20 @@ using Signum.Entities.Authorization;
 using Signum.Windows.Authorization;
 using Southwind.Windows.Properties;
 using Signum.Windows.Disconnected;
+using System.IO;
+using Southwind.Local;
+using Signum.Entities.Disconnected;
 
 namespace Southwind.Windows
 {
     public class Program
     {
+        public enum StartOption
+        {
+            RunLocally,
+            UploadAndSync
+        }
+
         [STAThread]
         public static void Main(string[] args)
         {
@@ -27,15 +36,58 @@ namespace Southwind.Windows
             {
                 Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
-                Server.SetNewServerCallback(NewServer);
+                
+                if (File.Exists(DisconnectedClient.DatabaseFile) || File.Exists(DisconnectedClient.BackupFile))
+                {
+                    StartOption result;
+                    if (!SelectorWindow.ShowDialog(
+                        EnumExtensions.GetValues<StartOption>(), out result,
+                        elementIcon: so => SouthwindImageLoader.GetImageSortName(so == StartOption.RunLocally ? "local.png" : "server.png"),
+                        elementText: so => so.NiceToString(),
+                        title: "Startup mode",
+                        message: "A local database has been found on your system.\r\nWhat you want to do?"))
+                        return;
 
-                DisconnectedClient.GetTransferServer = NewServerTransfer;
+                    if (File.Exists(DisconnectedClient.BackupFile))
+                    {
+                        RestoringDatabase rd = new RestoringDatabase();
 
+                        rd.Show();
+
+                        LocalServer.RestoreDatabase(
+                            Settings.Default.LocalDatabaseConnectionString,
+                            DisconnectedClient.BackupFile,
+                            DisconnectedClient.DatabaseFile,
+                            DisconnectedClient.DatabaseLogFile);
+
+                        rd.Completed = true;
+                        rd.Close();
+
+                        File.Delete(DisconnectedClient.BackupFile);
+                    }
+
+                    if (result == StartOption.RunLocally)
+                    {
+                        LocalServer.Start(Settings.Default.LocalDatabaseConnectionString);
+                        DisconnectedClient.OfflineMode = true;
+
+
+                        Program.GetServer = LocalServer.GetServer;
+                        DisconnectedClient.GetTransferServer = LocalServer.GetServerTransfer;
+                    }
+                }
+                else
+                {
+
+                    Program.GetServer = RemoteServer; 
+                    DisconnectedClient.GetTransferServer = RemoteServerTransfer;
+                }
+
+                Server.SetNewServerCallback(NewServerAndLogin);
                 Server.Connect();
 
                 App app = new App() { ShutdownMode = ShutdownMode.OnMainWindowClose };
                 app.Run(new Main());
-
             }
             catch (Exception e)
             {
@@ -70,15 +122,11 @@ namespace Southwind.Windows
 
 
 
+        static Func<IServerSouthwind> GetServer;
 
-        static ChannelFactory<IServerSouthwind> channelFactory;
-
-        public static IBaseServer NewServer()
+        public static IBaseServer NewServerAndLogin()
         {
-            if (channelFactory == null)
-                channelFactory = new ChannelFactory<IServerSouthwind>("server");
-
-            IServerSouthwind result = channelFactory.CreateChannel();
+            IServerSouthwind result = GetServer();
 
             if (Application.Current == null || Application.Current.CheckAccess())
                 return Login(result);
@@ -88,6 +136,17 @@ namespace Southwind.Windows
                     result = Login(result);
                 });
 
+            return result;
+        }
+
+
+        static ChannelFactory<IServerSouthwind> channelFactory;
+        private static IServerSouthwind RemoteServer()
+        {
+            if (channelFactory == null)
+                channelFactory = new ChannelFactory<IServerSouthwind>("server");
+
+            IServerSouthwind result = channelFactory.CreateChannel();
             return result;
         }
 
@@ -155,14 +214,13 @@ namespace Southwind.Windows
 
 
 
-        static ChannelFactory<IServerSouthwindTransfer> channelFactoryServer;
-
-        public static IServerSouthwindTransfer NewServerTransfer()
+        static ChannelFactory<IServerSouthwindTransfer> channelFactoryRemote;
+        public static IServerSouthwindTransfer RemoteServerTransfer()
         {
-            if (channelFactoryServer == null)
-                channelFactoryServer = new ChannelFactory<IServerSouthwindTransfer>("serverTransfer");
+            if (channelFactoryRemote == null)
+                channelFactoryRemote = new ChannelFactory<IServerSouthwindTransfer>("serverTransfer");
 
-            return channelFactoryServer.CreateChannel();
+            return channelFactoryRemote.CreateChannel();
         }
     }
 }
