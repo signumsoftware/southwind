@@ -38,10 +38,11 @@
         </MenuItem>
         <MenuItem Header="Disconnected" x:Name="miDisconnected">
             <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedMachineDN}}"/>
-            <MenuItem Tag="{m:Explore QueryName={x:Type sed:DownloadStatisticsDN}}"/>
-            <MenuItem Tag="{m:Explore QueryName={x:Type sed:UploadStatisticsDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedExportDN}}"/>
+            <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedImportDN}}"/>
             <Separator/>
-            <MenuItem Header="Download for offline work" Click="MenuItem_Click" x:Name="miDownload" />
+            <MenuItem Header="Download and work localy" Click="miDownload_Click" x:Name="miDownload" />
+            <MenuItem Header="Upload and work online" Click="miUpload_Click" x:Name="miUpload" />
         </MenuItem>
     </Menu>
 </Window>

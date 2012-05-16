@@ -55,7 +55,7 @@ namespace Southwind.Web
             }
         }
 
-        public Lite<DownloadStatisticsDN> BeginExportDatabase(Lite<UserDN> user, Lite<DisconnectedMachineDN> machine)
+        public Lite<DisconnectedExportDN> BeginExportDatabase(Lite<UserDN> user, Lite<DisconnectedMachineDN> machine)
         {
             return Return(UnsafeRetrieve(user), MethodInfo.GetCurrentMethod(), null, () =>
                 DisconnectedLogic.ExportManager.BeginExportDatabase(machine.Retrieve()));
@@ -67,7 +67,7 @@ namespace Southwind.Web
 
             return Return(UnsafeRetrieve(requests.User), MethodInfo.GetCurrentMethod(), null, () =>
             {
-                string fileName = DisconnectedLogic.ExportManager.BackupFileName(
+                string fileName = DisconnectedLogic.ExportManager.BackupNetworkFileName(
                     requests.DownloadStatistics.Retrieve().Machine.Retrieve(), 
                     requests.DownloadStatistics);
                 
@@ -85,7 +85,12 @@ namespace Southwind.Web
 
         public UploadDatabaseResult UploadDatabase(UploadDatabaseRequest request)
         {
-            throw new NotImplementedException();
+            return Return(UnsafeRetrieve(request.User), MethodInfo.GetCurrentMethod(), null, () =>
+            {
+                var di = DisconnectedLogic.ImportManager.BeginImportDatabase(request.Machine.Retrieve(), request.Stream);
+
+                return new UploadDatabaseResult { UploadStatistics = di }; 
+            });
         }
 
         private static UserDN UnsafeRetrieve(Lite<UserDN> user)

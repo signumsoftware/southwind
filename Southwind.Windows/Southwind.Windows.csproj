@@ -106,8 +106,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SouthwindImageLoader.cs" />
-    <Compile Include="RestoringDatabase.xaml.cs">
-      <DependentUpon>RestoringDatabase.xaml</DependentUpon>
+    <Compile Include="DatabaseWait.xaml.cs">
+      <DependentUpon>DatabaseWait.xaml</DependentUpon>
     </Compile>
     <Compile Include="SouthwindConverters.cs">
       <SubType>Code</SubType>
@@ -141,7 +141,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Page Include="RestoringDatabase.xaml">
+    <Page Include="DatabaseWait.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

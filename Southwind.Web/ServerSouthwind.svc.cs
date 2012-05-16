@@ -53,7 +53,7 @@ namespace Southwind.Web
             }
         }
 
-        public DownloadStatisticsDN GetDownloadEstimation(Lite<DisconnectedMachineDN> machine)
+        public DisconnectedExportDN GetDownloadEstimation(Lite<DisconnectedMachineDN> machine)
         {
             return Return(MethodInfo.GetCurrentMethod(), () => DisconnectedLogic.GetDownloadEstimation(machine)); 
         }
@@ -63,7 +63,7 @@ namespace Southwind.Web
             return Return(MethodInfo.GetCurrentMethod(), () => DisconnectedLogic.GetDisconnectedMachine(machineName));
         }
 
-        public UploadStatisticsDN GetUploadEstimation(Lite<DisconnectedMachineDN> machine)
+        public DisconnectedImportDN GetUploadEstimation(Lite<DisconnectedMachineDN> machine)
         {
             return Return(MethodInfo.GetCurrentMethod(), () => DisconnectedLogic.GetUploadEstimation(machine));
         }

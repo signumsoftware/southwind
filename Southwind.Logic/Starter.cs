@@ -119,6 +119,9 @@ namespace Southwind.Logic
                o => o.Customer == PersonDN.Current);
 
             DisconnectedLogic.Start(sb, dqm);
+            DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
+            DisconnectedLogic.BackupNetworkFolder = @"\\SQLS2012\SouthwindTemp\Backups";
+            DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Backups";
 
             SetupDisconnectedStrategies(sb);
         }
@@ -142,10 +145,10 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<UserTicketDN>(Download.None, Upload.None);
             
             //Signum.Entities.Basics
-            DisconnectedLogic.Register<TypeConditionNameDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<TypeConditionNameDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<PropertyDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<FacadeMethodDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<QueryDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<QueryDN>(Download.All, Upload.New);
             DisconnectedLogic.Register<NoteDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<AlertDN>(Download.None, Upload.None);
             
@@ -162,8 +165,8 @@ namespace Southwind.Logic
             
             //Signum.Entities.Disconnected
             DisconnectedLogic.Register<DisconnectedMachineDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<DownloadStatisticsDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<UploadStatisticsDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DisconnectedExportDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DisconnectedImportDN>(Download.None, Upload.None);
 
             //Signum.Entities.Mailing
             DisconnectedLogic.Register<EmailMessageDN>(Download.None, Upload.None);

@@ -18,6 +18,8 @@ using Signum.Windows.Disconnected;
 using System.IO;
 using Southwind.Local;
 using Signum.Entities.Disconnected;
+using Signum.Entities.Exceptions;
+using Signum.Entities;
 
 namespace Southwind.Windows
 {
@@ -36,8 +38,9 @@ namespace Southwind.Windows
             {
                 Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
+                bool upload = false;
                 
-                if (File.Exists(DisconnectedClient.DatabaseFile) || File.Exists(DisconnectedClient.BackupFile))
+                if (File.Exists(DisconnectedClient.DatabaseFile) || File.Exists(DisconnectedClient.DownloadBackupFile))
                 {
                     StartOption result;
                     if (!SelectorWindow.ShowDialog(
@@ -48,26 +51,23 @@ namespace Southwind.Windows
                         message: "A local database has been found on your system.\r\nWhat you want to do?"))
                         return;
 
-                    if (File.Exists(DisconnectedClient.BackupFile))
-                    {
-                        RestoringDatabase rd = new RestoringDatabase();
-
-                        rd.Show();
-
-                        LocalServer.RestoreDatabase(
-                            Settings.Default.LocalDatabaseConnectionString,
-                            DisconnectedClient.BackupFile,
-                            DisconnectedClient.DatabaseFile,
-                            DisconnectedClient.DatabaseLogFile);
-
-                        rd.Completed = true;
-                        rd.Close();
-
-                        File.Delete(DisconnectedClient.BackupFile);
-                    }
-
                     if (result == StartOption.RunLocally)
                     {
+
+                        if (File.Exists(DisconnectedClient.DownloadBackupFile))
+                        {
+                            DatabaseWait.Waiting("Waiting", "Restoring database...", ()=>
+                            {
+                                LocalServer.RestoreDatabase(
+                                    Settings.Default.LocalDatabaseConnectionString,
+                                    DisconnectedClient.DownloadBackupFile,
+                                    DisconnectedClient.DatabaseFile,
+                                    DisconnectedClient.DatabaseLogFile);
+
+                                File.Delete(DisconnectedClient.DownloadBackupFile);
+                            });
+                        }
+
                         LocalServer.Start(Settings.Default.LocalDatabaseConnectionString);
                         DisconnectedClient.OfflineMode = true;
 
@@ -75,10 +75,27 @@ namespace Southwind.Windows
                         Program.GetServer = LocalServer.GetServer;
                         DisconnectedClient.GetTransferServer = LocalServer.GetServerTransfer;
                     }
+                    else
+                    {
+                        if (File.Exists(DisconnectedClient.DownloadBackupFile))
+                            File.Delete(DisconnectedClient.DownloadBackupFile);
+
+                        if (File.Exists(DisconnectedClient.DatabaseFile))
+                        {
+                            DatabaseWait.Waiting("Waiting", "Backing up...", () =>
+                            {
+                                LocalServer.BackupAndDropDatabase(
+                                    Settings.Default.LocalDatabaseConnectionString,
+                                    DisconnectedClient.UploadBackupFile);
+                            });
+                        }
+
+                        Program.GetServer = RemoteServer;
+                        DisconnectedClient.GetTransferServer = RemoteServerTransfer;
+                    }
                 }
                 else
                 {
-
                     Program.GetServer = RemoteServer; 
                     DisconnectedClient.GetTransferServer = RemoteServerTransfer;
                 }
@@ -87,6 +104,9 @@ namespace Southwind.Windows
                 Server.Connect();
 
                 App app = new App() { ShutdownMode = ShutdownMode.OnMainWindowClose };
+                if(upload)
+                    app.Startup += new StartupEventHandler(app_Startup);
+
                 app.Run(new Main());
             }
             catch (Exception e)
@@ -96,10 +116,15 @@ namespace Southwind.Windows
 
             try
             {
-                Server.Execute((ILoginServer ls) => ls.Logout());
+                Server.ExecuteNoRetryOnSessionExpired((ILoginServer ls) => ls.Logout());
             }
             catch
             { }
+        }
+
+        static void app_Startup(object sender, StartupEventArgs e)
+        {
+            
         }
 
         public static void HandleException(string errorTitle, Exception e)
@@ -107,16 +132,33 @@ namespace Southwind.Windows
             if (e is MessageSecurityException)
             {
                 MessageBox.Show("Session expired", "Session Expired", MessageBoxButton.OK, MessageBoxImage.Hand);
-
             }
             else
             {
-                var bla = e.FollowC(ex => ex.InnerException);
+                try
+                {
+                    var exception = new ExceptionDN(e.FollowC(ex => ex.InnerException).Last())
+                    {
+                        User = UserDN.Current.ToLite(),
+                        ControllerName = "WindowsClient",
+                        ActionName = "WindowClient",
+                        Version = typeof(Program).Assembly.GetName().Version.ToString(),
+                        UserHostName = Environment.MachineName,
+                    };
 
-                MessageBox.Show(
-                    bla.ToString(ex => "{0} : {1}".Formato(ex.GetType().Name, ex.Message), "\r\n\r\n"),
-                    errorTitle + ":",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                    Server.ExecuteNoRetryOnSessionExpired((IBaseServer s) => s.Save(exception));
+                }
+                catch { }
+                finally
+                {
+                    var bla = e.FollowC(ex => ex.InnerException);
+                    MessageBox.Show(
+                        bla.ToString(ex => "{0} : {1}".Formato(
+                            ex.GetType().Name != "FaultException" ? ex.GetType().Name : "Server Error",
+                            ex.Message), "\r\n\r\n"),
+                        errorTitle + ":",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 

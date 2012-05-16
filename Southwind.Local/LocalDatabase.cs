@@ -12,6 +12,7 @@ using Signum.Entities.DynamicQuery;
 using Signum.Engine.DynamicQuery;
 using Signum.Engine.Maps;
 using Signum.Entities;
+using System.Data.SqlClient;
 
 namespace Southwind.Local
 {
@@ -38,11 +39,25 @@ namespace Southwind.Local
 
         public static void RestoreDatabase(string connectionString, string backupFile, string databaseFile, string databaseLogFile)
         {
-            DisconnectedLogic.LocalRestoreManager.RestoreLocalDatabase(
+            DisconnectedLogic.LocalBackupManager.RestoreLocalDatabase(
                 UserConnections.Replace(connectionString),
                 backupFile,
                 databaseFile,
                 databaseLogFile);
+        }
+
+        public static void BackupAndDropDatabase(string connectionString, string backupFile)
+        {
+            SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder(UserConnections.Replace(connectionString));
+            string databaseName = csb.InitialCatalog;
+            csb.InitialCatalog = "";
+
+            using (Connector.Override(new SqlConnector(csb.ToString(), null, null)))
+            {
+                DisconnectedLogic.LocalBackupManager.BackupDatabase(databaseName, backupFile);
+
+                DisconnectedLogic.LocalBackupManager.DropDatabase(databaseName);
+            }
         }
 
         public static void OverrideCommonEvents()

@@ -35,18 +35,30 @@ namespace Southwind.Windows
 
             if (DisconnectedClient.OfflineMode)
             {
-                miDisconnected.Header = ((string)miDisconnected.Header) + " (Offline)";
+                miDisconnected.Header = "(Local)";
                 miDownload.IsEnabled = false;
             }
             else
             {
-                miDisconnected.Header = ((string)miDisconnected.Header) + " (Online)";
+                miDisconnected.Header = "(Server)";
+                miUpload.IsEnabled = false;
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void miDownload_Click(object sender, RoutedEventArgs e)
         {
-            DisconnectedClient.DownloadDatabase(this);
+            if (MessageBox.Show("Downloading a database will take a while and close your session. Are you sure?", "Confirm database download", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                new DownloadProgress().ShowDialog();
+            }
+        }
+
+        private void miUpload_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("You need to restart the application and choose Upload and Sync. Close now?", "Close application", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }
