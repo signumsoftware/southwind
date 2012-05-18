@@ -66,24 +66,35 @@ namespace Southwind.Windows
 
         protected override void OnStartup(StartupEventArgs args)
         {
+            Start();
+        }
+
+        static bool started = false;
+        public static void Start()
+        {
+            if (started)
+                return;
+
+            started = true;
+
             Navigator.Start(new NavigationManager());
             Constructor.Start(new ConstructorManager());
 
             OperationClient.Start(new OperationManager());
             AuthClient.Start(
-                types: true, 
-                property: true, 
-                queries: true, 
-                permissions: true, 
-                operations: true, 
-                facadeMethods: true, 
-                defaultPasswordExpiresLogic: false); 
+                types: true,
+                property: true,
+                queries: true,
+                permissions: true,
+                operations: true,
+                facadeMethods: true,
+                defaultPasswordExpiresLogic: false);
 
             LinksWidget.Start();
 
             ReportClient.Start(true, false);
             UserQueryClient.Start();
-            ChartClient.Start(()=>new ChartRendererVisifire());
+            ChartClient.Start(() => new ChartRendererVisifire());
 
             DisconnectedClient.Start();
             ExceptionClient.Start();
@@ -119,7 +130,7 @@ namespace Southwind.Windows
             Constructor.Register(win => new CompanyDN
             {
                 Address = new AddressDN()
-            }); 
+            });
 
             Func<Binding, DataTemplate> formatter = b =>
             {
@@ -129,22 +140,14 @@ namespace Southwind.Windows
                     .Set(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Linear));
             };
 
-            QuerySettings.RegisterPropertyFormat((EmployeeDN e)=>e.Photo, formatter);
-            QuerySettings.RegisterPropertyFormat((CategoryDN e)=>e.Picture, formatter);
+            QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, formatter);
+            QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture, formatter);
 
             Navigator.Initialize();
 
             if (DisconnectedClient.OfflineMode)
             {
                 LocalServer.OverrideCommonEvents();
-            }
-            else
-            {
-                if (File.Exists(DisconnectedClient.UploadBackupFile))
-                {
-                    if (new UploadProgress().ShowDialog() == false)
-                        this.Shutdown();
-                }
             }
         }
     }

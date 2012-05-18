@@ -37,8 +37,6 @@ namespace Southwind.Windows
             try
             {
                 Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-
-                bool upload = false;
                 
                 if (File.Exists(DisconnectedClient.DatabaseFile) || File.Exists(DisconnectedClient.DownloadBackupFile))
                 {
@@ -53,7 +51,6 @@ namespace Southwind.Windows
 
                     if (result == StartOption.RunLocally)
                     {
-
                         if (File.Exists(DisconnectedClient.DownloadBackupFile))
                         {
                             DatabaseWait.Waiting("Waiting", "Restoring database...", ()=>
@@ -77,18 +74,6 @@ namespace Southwind.Windows
                     }
                     else
                     {
-                        if (File.Exists(DisconnectedClient.DownloadBackupFile))
-                            File.Delete(DisconnectedClient.DownloadBackupFile);
-
-                        if (File.Exists(DisconnectedClient.DatabaseFile))
-                        {
-                            DatabaseWait.Waiting("Waiting", "Backing up...", () =>
-                            {
-                                LocalServer.BackupAndDropDatabase(
-                                    Settings.Default.LocalDatabaseConnectionString,
-                                    DisconnectedClient.UploadBackupFile);
-                            });
-                        }
 
                         Program.GetServer = RemoteServer;
                         DisconnectedClient.GetTransferServer = RemoteServerTransfer;
@@ -103,10 +88,34 @@ namespace Southwind.Windows
                 Server.SetNewServerCallback(NewServerAndLogin);
                 Server.Connect();
 
-                App app = new App() { ShutdownMode = ShutdownMode.OnMainWindowClose };
-                if(upload)
-                    app.Startup += new StartupEventHandler(app_Startup);
+                App.Start();
 
+                if (!DisconnectedClient.OfflineMode)
+                {
+                    if (File.Exists(DisconnectedClient.DownloadBackupFile))
+                        File.Delete(DisconnectedClient.DownloadBackupFile);
+                    else
+                    {
+                        if (File.Exists(DisconnectedClient.DatabaseFile))
+                        {
+                            DatabaseWait.Waiting("Waiting", "Backing up...", () =>
+                            {
+                                LocalServer.BackupAndDropDatabase(
+                                    Settings.Default.LocalDatabaseConnectionString,
+                                    DisconnectedClient.UploadBackupFile);
+                            });
+                        }
+
+                        if (File.Exists(DisconnectedClient.UploadBackupFile))
+                        {
+                            if (new UploadProgress().ShowDialog() == false)
+                                return;
+                        }
+                    }
+                }
+                
+
+                App app = new App() { ShutdownMode = ShutdownMode.OnMainWindowClose };
                 app.Run(new Main());
             }
             catch (Exception e)
@@ -121,12 +130,7 @@ namespace Southwind.Windows
             catch
             { }
         }
-
-        static void app_Startup(object sender, StartupEventArgs e)
-        {
-            
-        }
-
+     
         public static void HandleException(string errorTitle, Exception e)
         {
             if (e is MessageSecurityException)

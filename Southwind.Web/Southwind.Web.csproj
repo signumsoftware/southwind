@@ -176,6 +176,7 @@
     <Content Include="Content\jqueryui\vader\images\ui-icons_f29a00_256x240.png" />
     <Content Include="Content\jqueryui\vader\jquery-ui-1.8.16.custom.css" />
     <Content Include="Content\site.css" />
+    <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="ServerSouthwindTransfer.svc" />
     <Content Include="DocumentFormat.OpenXml.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -186,7 +187,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\d3.v2.min.js" />
-    <Content Include="Scripts\jquery-1.6.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.16.custom.min.js" />
     <Content Include="Scripts\menu.js" />
     <Content Include="Scripts\newcontent.js" />

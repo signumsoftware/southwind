@@ -1,49 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Signum.Engine.Maps;
-using Signum.Entities;
-using Signum.Entities.Basics;
-using Signum.Engine;
-using Signum.Engine.DynamicQuery;
-using Southwind.Entities;
 using System.Globalization;
-using Signum.Engine.Operations;
+using System.Linq;
+using System.Linq.Expressions;
+using Signum.Engine;
 using Signum.Engine.Authorization;
-using Signum.Engine.Chart;
-using Signum.Engine.Reports;
-using Signum.Entities.Authorization;
-using Southwind.Services;
 using Signum.Engine.Basics;
-using Signum.Engine.Mailing;
-using Signum.Entities.Chart;
-using Signum.Entities.Reports;
-using Signum.Entities.ControlPanel;
-using Signum.Entities.UserQueries;
-using Signum.Engine.UserQueries;
+using Signum.Engine.Chart;
 using Signum.Engine.ControlPanel;
-using Signum.Utilities.ExpressionTrees;
-using Signum.Utilities;
-using Signum.Engine.Exceptions;
 using Signum.Engine.Disconnected;
+using Signum.Engine.DynamicQuery;
+using Signum.Engine.Exceptions;
+using Signum.Engine.Mailing;
+using Signum.Engine.Maps;
+using Signum.Engine.Operations;
+using Signum.Engine.UserQueries;
+using Signum.Entities;
+using Signum.Entities.Authorization;
+using Signum.Entities.Basics;
+using Signum.Entities.Chart;
+using Signum.Entities.ControlPanel;
 using Signum.Entities.Disconnected;
 using Signum.Entities.Exceptions;
 using Signum.Entities.Mailing;
 using Signum.Entities.Operations;
-using System.Linq.Expressions;
+using Signum.Entities.UserQueries;
+using Signum.Utilities;
+using Signum.Utilities.ExpressionTrees;
+using Southwind.Entities;
+using Southwind.Services;
 
 namespace Southwind.Logic
 {
 
     //Starts-up the engine for Southwind Entities, used by Web and Load Application
-    public static class Starter
+    public static partial class Starter
     {
         public static void Start(string connectionString)
         {
             SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2008);
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
-            sb.Schema.ForceCultureInfo = CultureInfo.InvariantCulture;
+            sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
             sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
@@ -126,81 +122,5 @@ namespace Southwind.Logic
             SetupDisconnectedStrategies(sb);
         }
 
-        private static void SetupDisconnectedStrategies(SchemaBuilder sb)
-        {
-            //Signum.Entities
-            DisconnectedLogic.Register<TypeDN>(Download.None, Upload.None);
-            
-            //Signum.Entities.Authorization
-            DisconnectedLogic.Register<UserDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RoleDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<ResetPasswordRequestDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<RuleTypeDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RulePropertyDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RuleFacadeMethodDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RuleQueryDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RuleOperationDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<PermissionDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<RulePermissionDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<UserTicketDN>(Download.None, Upload.None);
-            
-            //Signum.Entities.Basics
-            DisconnectedLogic.Register<TypeConditionNameDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<PropertyDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<FacadeMethodDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<QueryDN>(Download.All, Upload.New);
-            DisconnectedLogic.Register<NoteDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<AlertDN>(Download.None, Upload.None);
-            
-            //Signum.Entities.Chart
-            DisconnectedLogic.Register<ChartColorDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<UserChartDN>(Download.All, Upload.New);
-            
-            //Signum.Entities.ControlPanel
-            DisconnectedLogic.Register<ControlPanelDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<UserChartPartDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<UserQueryPartDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<CountSearchControlPartDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<LinkListPartDN>(Download.None, Upload.None);
-            
-            //Signum.Entities.Disconnected
-            DisconnectedLogic.Register<DisconnectedMachineDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<DisconnectedExportDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<DisconnectedImportDN>(Download.None, Upload.None);
-
-            //Signum.Entities.Mailing
-            DisconnectedLogic.Register<EmailMessageDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<EmailTemplateDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<EmailPackageDN>(Download.None, Upload.None);
-            
-            //Signum.Entities.Operations
-            DisconnectedLogic.Register<OperationDN>(Download.None, Upload.None);
-            Expression<Func<OperationLogDN, bool>> operationLogCondition = ol =>
-             ol.Target.RuntimeType == typeof(EmployeeDN) ||
-             ol.Target.RuntimeType == typeof(ProductDN) ||
-             ol.Target.RuntimeType == typeof(OrderDN) && ((OrderDN)ol.Target.Entity).Employee.RefersTo(EmployeeDN.Current) ||
-             ol.Target.RuntimeType == typeof(PersonDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((PersonDN)ol.Target.Entity)) ||
-             ol.Target.RuntimeType == typeof(CompanyDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((CompanyDN)ol.Target.Entity));
-            
-            DisconnectedLogic.Register<OperationLogDN>(operationLogCondition, Upload.New);
-            
-            //Signum.Entities.Exceptions
-            DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
-            
-            //Signum.Entities.UserQueries
-            DisconnectedLogic.Register<UserQueryDN>(Download.All, Upload.New);
-            
-            //Southwind.Entities
-            DisconnectedLogic.Register<EmployeeDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<TerritoryDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RegionDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<ProductDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<SupplierDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<CategoryDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<PersonDN>(p => Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == p), Upload.New);
-            DisconnectedLogic.Register<CompanyDN>(p => Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == p), Upload.New);
-            DisconnectedLogic.Register<OrderDN>(o => o.Employee.RefersTo(EmployeeDN.Current));
-            DisconnectedLogic.Register<ShipperDN>(Download.All, Upload.None);
-        }
     }
 }

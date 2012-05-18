@@ -48,6 +48,7 @@
     <Compile Include="OrderLogic.cs" />
     <Compile Include="Starter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Starter.Disconnected.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">

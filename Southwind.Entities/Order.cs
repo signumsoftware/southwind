@@ -102,7 +102,7 @@ namespace Southwind.Entities
         }
 
         static Expression<Func<OrderDN, decimal>> TotalPriceExpression =
-            o => o.Details.Average(od => od.SubTotalPrice);
+            o => o.Details.Sum(od => od.SubTotalPrice);
         [Unit("€")]
         public decimal TotalPrice
         {
