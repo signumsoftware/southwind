@@ -20,14 +20,15 @@ namespace Southwind.Local
 {
     class ServerSouthwindLocal : ServerExtensions, IServerSouthwind
     {
-        protected override T Return<T>(MethodBase mi, string description, Func<T> function)
+        protected override T Return<T>(MethodBase mi, string description, Func<T> function, bool checkLogin = true)
         {
             try
             {
                 using (ScopeSessionFactory.OverrideSession(session))
                 using (ExecutionContext.Scope(GetDefaultExecutionContext(mi, description)))
                 {
-                    FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
+                    if (checkLogin)
+                        FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
 
                     return function();
                 }
