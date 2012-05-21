@@ -140,7 +140,11 @@ namespace Southwind.Logic
             if (interval == null)
                 return 0;
 
-            var list = Database.Query<UserQueryDN>().Where(a => interval.Value.Contains(a.Id)).ToList();
+            List<UserQueryDN> list; 
+            using (SqlConnector.Override(newDatabase))
+            {
+                list = Database.Query<UserQueryDN>().Where(a => interval.Value.Contains(a.Id)).ToList();
+            }
 
             var queries = Database.Query<QueryDN>().ToDictionary(a => a.Key);
 
@@ -166,7 +170,11 @@ namespace Southwind.Logic
             if (interval == null)
                 return 0;
 
-            var list = Database.Query<UserChartDN>().Where(a => interval.Value.Contains(a.Id)).ToList();
+            List<UserChartDN> list;
+            using (SqlConnector.Override(newDatabase))
+            {
+                list = Database.Query<UserChartDN>().Where(a => interval.Value.Contains(a.Id)).ToList();
+            }
 
             var queries = Database.Query<QueryDN>().ToDictionary(a => a.Key);
 
