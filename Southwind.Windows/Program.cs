@@ -100,7 +100,7 @@ namespace Southwind.Windows
                         {
                             DatabaseWait.Waiting("Waiting", "Backing up...", () =>
                             {
-                                LocalServer.BackupAndDropDatabase(
+                                LocalServer.BackupDatabase(
                                     Settings.Default.LocalDatabaseConnectionString,
                                     DisconnectedClient.UploadBackupFile);
                             });
@@ -110,6 +110,9 @@ namespace Southwind.Windows
                         {
                             if (new UploadProgress().ShowDialog() == false)
                                 return;
+
+                            LocalServer.DropDatabase(Settings.Default.LocalDatabaseConnectionString);
+                            File.Delete(DisconnectedClient.UploadBackupFile);
                         }
                     }
                 }

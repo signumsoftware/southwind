@@ -46,7 +46,7 @@ namespace Southwind.Local
                 databaseLogFile);
         }
 
-        public static void BackupAndDropDatabase(string connectionString, string backupFile)
+        public static void BackupDatabase(string connectionString, string backupFile)
         {
             SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder(UserConnections.Replace(connectionString));
             string databaseName = csb.InitialCatalog;
@@ -55,7 +55,17 @@ namespace Southwind.Local
             using (Connector.Override(new SqlConnector(csb.ToString(), null, null)))
             {
                 DisconnectedLogic.LocalBackupManager.BackupDatabase(databaseName, backupFile);
+            }
+        }
 
+        public static void DropDatabase(string connectionString)
+        {
+            SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder(UserConnections.Replace(connectionString));
+            string databaseName = csb.InitialCatalog;
+            csb.InitialCatalog = "";
+
+            using (Connector.Override(new SqlConnector(csb.ToString(), null, null)))
+            {
                 DisconnectedLogic.LocalBackupManager.DropDatabase(databaseName);
             }
         }

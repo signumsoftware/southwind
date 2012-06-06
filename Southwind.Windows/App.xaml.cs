@@ -112,7 +112,7 @@ namespace Southwind.Windows
                 new EntitySettings<CompanyDN>(EntityType.Default) { View = e => new Company() },
                 new EntitySettings<PersonDN>(EntityType.Default) { View = e => new Person() },
 
-                new EntitySettings<OrderDN>(EntityType.Default) { View = e => new Order()},
+                new EntitySettings<OrderDN>(EntityType.DefaultNotSaving) { View = e => new Order()},
             });
 
             Constructor.ConstructorManager.Constructors.Add(typeof(OrderDN), win => new OrderDN

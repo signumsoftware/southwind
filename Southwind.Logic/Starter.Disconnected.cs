@@ -20,6 +20,8 @@ using System.Linq.Expressions;
 using Signum.Utilities;
 using System.Data.Common;
 using Signum.Engine.Basics;
+using Signum.Engine.Authorization;
+using Signum.Engine.Operations;
 
 namespace Southwind.Logic
 {
@@ -131,7 +133,7 @@ namespace Southwind.Logic
         }
     }
 
-    public class UserQueryImporter : BasicImporter<QueryDN>
+    public class UserQueryImporter : BasicImporter<UserQueryDN>
     {
         protected override int Insert(DisconnectedMachineDN machine, Table table, IDisconnectedStrategy strategy, SqlConnector newDatabase)
         {
@@ -155,13 +157,16 @@ namespace Southwind.Logic
                 uq.Query = queries[uq.Query.Key];
             }
 
-            list.SaveList();
+            using (OperationLogic.AllowSave<UserQueryDN>())
+            {
+                list.SaveList();
+            }
 
             return list.Count;
         }
     }
 
-    public class UserChartImporter : BasicImporter<QueryDN>
+    public class UserChartImporter : BasicImporter<UserChartDN>
     {
         protected override int Insert(DisconnectedMachineDN machine, Table table, IDisconnectedStrategy strategy, SqlConnector newDatabase)
         {
@@ -185,7 +190,10 @@ namespace Southwind.Logic
                 uq.Query = queries[uq.Query.Key];
             }
 
-            list.SaveList();
+            using (OperationLogic.AllowSave<UserChartDN>())
+            {
+                list.SaveList();
+            }
 
             return list.Count;
         }
