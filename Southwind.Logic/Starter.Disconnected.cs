@@ -142,7 +142,7 @@ namespace Southwind.Logic
             if (interval == null)
                 return 0;
 
-            List<UserQueryDN> list; 
+            List<UserQueryDN> list;
             using (SqlConnector.Override(newDatabase))
             {
                 list = Database.Query<UserQueryDN>().Where(a => interval.Value.Contains(a.Id)).ToList();
@@ -150,16 +150,19 @@ namespace Southwind.Logic
 
             var queries = Database.Query<QueryDN>().ToDictionary(a => a.Key);
 
+
             foreach (var uq in list)
             {
-                uq.SetId(null);
                 uq.SetNew();
                 uq.Query = queries[uq.Query.Key];
             }
 
-            using (OperationLogic.AllowSave<UserQueryDN>())
+            using (DisconnectedTools.SaveAndRestoreNextId(table))
             {
-                list.SaveList();
+                using (OperationLogic.AllowSave<UserQueryDN>())
+                {
+                    Administrator.SaveListDisableIdentity(list);
+                }
             }
 
             return list.Count;
@@ -185,14 +188,14 @@ namespace Southwind.Logic
 
             foreach (var uq in list)
             {
-                uq.SetId(null);
                 uq.SetNew();
                 uq.Query = queries[uq.Query.Key];
             }
 
+            using (DisconnectedTools.SaveAndRestoreNextId(table))
             using (OperationLogic.AllowSave<UserChartDN>())
             {
-                list.SaveList();
+                Administrator.SaveListDisableIdentity(list);
             }
 
             return list.Count;
