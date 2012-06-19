@@ -29,6 +29,7 @@ using Signum.Windows.Logging;
 using Southwind.Local;
 using Southwind.Windows.Properties;
 using System.IO;
+using Signum.Windows.Omnibox;
 
 namespace Southwind.Windows
 {
@@ -98,6 +99,8 @@ namespace Southwind.Windows
 
             DisconnectedClient.Start();
             ExceptionClient.Start();
+
+            OmniboxClient.Start(entities: true, dynamicQueries: true);
 
             Navigator.AddSettings(new List<EntitySettings>
             {
