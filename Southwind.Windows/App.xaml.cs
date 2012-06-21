@@ -100,7 +100,12 @@ namespace Southwind.Windows
             DisconnectedClient.Start();
             ExceptionClient.Start();
 
-            OmniboxClient.Start(entities: true, dynamicQueries: true);
+            OmniboxClient.Start();
+            OmniboxClient.Register(new EntityOmniboxProvider());
+            OmniboxClient.Register(new DynamicQueryOmniboxProvider());
+            OmniboxClient.Register(new UserQueryOmniboxProvider());
+            OmniboxClient.Register(new UserChartOmniboxProvider());
+            OmniboxClient.Register(new ChartOmniboxProvider());
 
             Navigator.AddSettings(new List<EntitySettings>
             {
