@@ -18,6 +18,7 @@ using System.Collections;
 using Signum.Services;
 using Signum.Utilities;
 using System.Data;
+using System.Threading;
 
 namespace Southwind.Windows.Controls
 {
@@ -41,7 +42,7 @@ namespace Southwind.Windows.Controls
             InitializeComponent();
         }
 
-        private IEnumerable AutoCompleteTextBox_AutoCompleting(string arg)
+        private IEnumerable AutoCompleteTextBox_AutoCompleting(string arg, CancellationToken ct)
         {
             return Server.Return((IBaseServer s) => s.FindLiteLike(typeof(ProductDN), null, arg, 5)); 
         }    
