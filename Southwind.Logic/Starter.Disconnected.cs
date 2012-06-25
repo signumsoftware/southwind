@@ -30,7 +30,7 @@ namespace Southwind.Logic
         private static void SetupDisconnectedStrategies(SchemaBuilder sb)
         {
             //Signum.Entities
-            DisconnectedLogic.Register<TypeDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<TypeDN>(Download.Replace, Upload.None);
 
             //Signum.Entities.Authorization
             DisconnectedLogic.Register<UserDN>(Download.All, Upload.None);
@@ -41,12 +41,12 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<RuleFacadeMethodDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<RuleQueryDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<RuleOperationDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<PermissionDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<PermissionDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<RulePermissionDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<UserTicketDN>(Download.None, Upload.None);
 
             //Signum.Entities.Basics
-            DisconnectedLogic.Register<TypeConditionNameDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<TypeConditionNameDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<PropertyDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<FacadeMethodDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<QueryDN>(Download.All, Upload.New).Importer = new QueryImporter();
@@ -71,11 +71,11 @@ namespace Southwind.Logic
 
             //Signum.Entities.Mailing
             DisconnectedLogic.Register<EmailMessageDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<EmailTemplateDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<EmailTemplateDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<EmailPackageDN>(Download.None, Upload.None);
 
             //Signum.Entities.Operations
-            DisconnectedLogic.Register<OperationDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<OperationDN>(Download.Replace, Upload.None);
             Expression<Func<OperationLogDN, bool>> operationLogCondition = ol =>
              ol.Target.RuntimeType == typeof(EmployeeDN) ||
              ol.Target.RuntimeType == typeof(ProductDN) ||
