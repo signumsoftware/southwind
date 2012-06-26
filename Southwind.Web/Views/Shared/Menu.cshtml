@@ -6,7 +6,10 @@
 @using Signum.Entities.ControlPanel
 @using Signum.Entities.Chart
 
-<input name="filter" id="menu_filter" type="text" placeholder="Buscar opción de menú" />
+@*<input name="filter" id="menu_filter" type="text" placeholder="Buscar opción de menú" />
+<br />*@
+<input id="sfOmnibox" name="sfOmnibox" data-url="@Url.Action("Autocomplete", "Omnibox")" type="text" placeholder="Buscar" /> 
+@Html.ScriptsJs("~/Omnibox/Scripts/SF_Omnibox.js")
 @(new WebMenuItem
     {
         Children =
