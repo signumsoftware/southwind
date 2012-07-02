@@ -30,6 +30,7 @@ using Southwind.Local;
 using Southwind.Windows.Properties;
 using System.IO;
 using Signum.Windows.Omnibox;
+using Signum.Windows.ControlPanels;
 
 namespace Southwind.Windows
 {
@@ -96,6 +97,7 @@ namespace Southwind.Windows
             ReportClient.Start(true, false);
             UserQueryClient.Start();
             ChartClient.Start(() => new ChartRendererVisifire());
+            ControlPanelClient.Start();
 
             DisconnectedClient.Start();
             ExceptionClient.Start();
