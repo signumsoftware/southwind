@@ -24,6 +24,7 @@ using Signum.Web.Chart;
 using Signum.Web.ControlPanel;
 using Signum.Web.Widgets;
 using Signum.Web.Exceptions;
+using Signum.Web.Omnibox;
 
 namespace Southwind.Web
 {
@@ -118,6 +119,13 @@ namespace Southwind.Web
             SignumControllerFactory.EveryController().AddFilters(new SignumExceptionHandlerAttribute());
 
             Navigator.Initialize();
+
+            OmniboxClient.Start();
+            OmniboxClient.Register(new EntityOmniboxProvider());
+            OmniboxClient.Register(new DynamicQueryOmniboxProvider());
+            OmniboxClient.Register(new UserQueriesOmniboxProvider());
+            OmniboxClient.Register(new ChartOmniboxProvider());
+            OmniboxClient.Register(new UserChartOmniboxProvider());
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
