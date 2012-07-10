@@ -154,6 +154,11 @@ div.photo
     padding: 4px;
     margin: 5px; 
 }
+.notes
+{
+    background-color: #FFC;
+    border-color: #F3F395;
+}
 
 /*---------------------------
 --login page and auth pages--

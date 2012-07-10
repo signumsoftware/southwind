@@ -28,6 +28,7 @@
                 Text = "Customers", 
                 Children = 
                 {
+                    new WebMenuItem { Link = new FindOptions(typeof(CustomerDN)) },
                    new WebMenuItem { Link = new FindOptions(typeof(PersonDN)) },
                    new WebMenuItem { Link = new FindOptions(typeof(CompanyDN)) },
                 }
