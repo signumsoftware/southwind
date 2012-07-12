@@ -7,7 +7,7 @@
         <legend>@(ViewData["Legend"] ?? typeof(AddressDN).NiceName())</legend>
         @Html.ValueLine(ac, a => a.Address, vl => 
         { 
-            vl.ValueFirst = true;
+            //vl.ValueFirst = true;
             vl.LabelVisible = false;
             vl.ValueHtmlProps["placeholder"] = Html.PropertyNiceName(() => ac.Value.Address); 
         })

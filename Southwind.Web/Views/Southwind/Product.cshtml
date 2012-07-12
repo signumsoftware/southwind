@@ -11,15 +11,16 @@
             <table>
                 <tr>
                     <td></td>
-                    <td>@Html.ValueLine(pc, p => p.UnitPrice, vl => vl.ValueHtmlProps["onblur"] = "updateStockValue();")</td>
+                    <td>@Html.ValueLine(pc, p => p.UnitPrice, vl => vl.ValueHtmlProps["onblur"] = "updateStockValue('" + pc.ControlID + "');")</td>
                 </tr>
                 <tr id="trMultiply">
                     <td>X</td>
-                    <td>@Html.ValueLine(pc, p => p.UnitsInStock, vl => vl.ValueHtmlProps["onblur"] = "updateStockValue();")</td>
+                    <td>@Html.ValueLine(pc, p => p.UnitsInStock, vl => vl.ValueHtmlProps["onblur"] = "updateStockValue('" + pc.ControlID + "');")</td>
                 </tr>
                 <tr>
                     <td>=</td>
-                    <td>@Html.ValueLine(pc, p => p.ValueInStock)</td>
+                    <td>@Html.Field(Html.PropertyNiceName(() => pc.Value.ValueInStock), 
+                            Html.Span(pc.Compose("StockValue"), pc.Value.ValueInStock.ToString("c"), "sf-value-line"))</td>
                 </tr>
             </table>
         </div>
@@ -31,7 +32,9 @@
 }
 
 <script type="text/javascript">
-    function updateStockValue() {
-        $("#ValueInStock").html(parseFloat($("#UnitPrice").val()) * parseFloat($("#UnitsInStock").val())); 
+    function updateStockValue(prefix) {
+        var sum = parseFloat($("#" + SF.compose(prefix, "UnitPrice")).val()) *
+            parseFloat($("#" + SF.compose(prefix, "UnitsInStock")).val());
+        $("#" + SF.compose(prefix, "StockValue")).html(sum); 
     }
 </script>

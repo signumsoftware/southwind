@@ -9,7 +9,12 @@
                     <legend>Name</legend>
                     @using (Html.FieldInline())
                     {
-                        @Html.ValueLine(ec, e => e.Title, vl => { vl.ValueFirst = true; vl.ValueHtmlProps["size"] = 4; })
+                        @Html.ValueLine(ec, e => e.TitleOfCourtesy, vl => 
+                        { 
+                            vl.ValueFirst = true; 
+                            vl.ValueHtmlProps["size"] = 4;
+                            vl.LabelText = "Title"; 
+                        })
                         @Html.ValueLine(ec, e => e.FirstName, vl => vl.ValueFirst = true)
                         @Html.ValueLine(ec, e => e.LastName, vl => vl.ValueFirst = true)
                     }
@@ -65,6 +70,7 @@
                    vl.LabelVisible = false;
                    vl.ValueHtmlProps["cols"] = "70";
                    vl.ValueHtmlProps["rows"] = "4";
+                   vl.ValueHtmlProps["class"] = "notes";
                })
                 </fieldset>
             </td>
