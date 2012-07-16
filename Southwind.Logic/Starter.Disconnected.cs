@@ -43,6 +43,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<RuleOperationDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<PermissionDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<RulePermissionDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SessionLogDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<UserTicketDN>(Download.None, Upload.None);
 
             //Signum.Entities.Basics

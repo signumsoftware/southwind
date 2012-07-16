@@ -57,7 +57,8 @@ namespace Southwind.Logic
             
             ResetPasswordRequestLogic.Start(sb, dqm);
             AuthLogic.StartAllModules(sb, dqm, typeof(IServerSouthwind));
-            UserTicketLogic.Start(sb, dqm); 
+            UserTicketLogic.Start(sb, dqm);
+            SessionLogLogic.Start(sb, dqm);
 
             QueryLogic.Start(sb);
             UserQueryLogic.Start(sb, dqm);

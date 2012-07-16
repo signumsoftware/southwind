@@ -98,6 +98,7 @@ namespace Southwind.Web
                 operations: true,
                 permissions: true,
                 facadeMethods: true);
+            SessionLogClient.Start();
             ExceptionClient.Start();
             UserQueriesClient.Start();
             ChartClient.Start();
@@ -141,6 +142,11 @@ namespace Southwind.Web
         protected void Session_Start(object sender, EventArgs e)
         {
             AuthController.LoginFromCookie();
+        }
+
+        protected void Session_End(object sender, EventArgs e)
+        {
+            SessionLogClient.LogSessionEnd((UserDN)Session[UserDN.UserSessionKey], TimeSpan.FromMinutes(Session.Timeout));
         }
 
         protected void Application_ReleaseRequestState(object sender, EventArgs e)
