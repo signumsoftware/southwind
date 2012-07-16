@@ -24,7 +24,7 @@ namespace Southwind.Web.Controllers
         {
             var panel = ControlPanelLogic.GetHomePageControlPanel();
             if (panel != null)
-                return View(ControlPanelClient.ViewPrefix.Formato("ControlPanel"), panel.Retrieve());
+                return View(ControlPanelClient.ViewPrefix.Formato("ControlPanel"), panel);
             else
                 return View();
         }
