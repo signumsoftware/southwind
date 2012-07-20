@@ -61,28 +61,28 @@ namespace Southwind.Logic
             {
                 GetState = o => o.State;
 
-                new Construct(OrderOperations.Create)
+                new Construct(OrderOperation.Create)
                 {
                     ToState = OrderState.New,
                     Construct = (_) => new OrderDN
                     {
                         State = OrderState.New,
-                        Employee = ((EmployeeDN)UserDN.Current.Related).ToLite()
+                        Employee = EmployeeDN.Current.ToLite()
                     }
                 }.Register();
 
-                new ConstructFrom<CustomerDN>(OrderOperations.ConstructFromCustomer)
+                new ConstructFrom<CustomerDN>(OrderOperation.ConstructFromCustomer)
                 {
                     ToState = OrderState.New,
                     Construct = (c, _) => new OrderDN
                     {
                         State = OrderState.New,
                         Customer = c,
-                        Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
+                        Employee = EmployeeDN.Current.ToLite(),
                     }
                 }.Register();
 
-                new ConstructFromMany<ProductDN>(OrderOperations.ConstructFromProducts)
+                new ConstructFromMany<ProductDN>(OrderOperation.ConstructFromProducts)
                 {
                     ToState = OrderState.New,
                     Construct = (prods, _) =>
@@ -94,6 +94,7 @@ namespace Southwind.Logic
                         return new OrderDN
                         {
                             State = OrderState.New,
+                            Employee = EmployeeDN.Current.ToLite(),
                             Details = prods.Select(p => new OrderDetailsDN
                             {
                                 Product = p,
@@ -104,7 +105,7 @@ namespace Southwind.Logic
                     }
                 }.Register();
 
-                new Execute(OrderOperations.SaveNew)
+                new Execute(OrderOperation.SaveNew)
                 {  
                     FromStates = new[] { OrderState.New },
                     ToState = OrderState.Ordered,
@@ -117,17 +118,17 @@ namespace Southwind.Logic
                     }
                 }.Register();
 
-                new Execute(OrderOperations.Save)
+                new Execute(OrderOperation.Save)
                 {
                     FromStates = new[] { OrderState.Ordered },
                     ToState = OrderState.Ordered,
                     Lite = false,
-                    Execute = (e, args) =>
+                    Execute = (e, _) =>
                     {
                     }
                 }.Register();
 
-                new Execute(OrderOperations.Ship)
+                new Execute(OrderOperation.Ship)
                 {
                     CanExecute = o => o.Details.IsEmpty() ? "No order lines" : null,
                     FromStates = new[] { OrderState.Ordered },
@@ -139,7 +140,7 @@ namespace Southwind.Logic
                     }
                 }.Register();
 
-                new Execute(OrderOperations.Cancel)
+                new Execute(OrderOperation.Cancel)
                 {
                     FromStates = new[] { OrderState.Ordered, OrderState.Shipped },
                     ToState = OrderState.Canceled,
