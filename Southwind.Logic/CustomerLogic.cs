@@ -83,7 +83,7 @@ namespace Southwind.Logic
                     .TryPaginatePartial(request.MaxElementIndex);
 
                    return persons.Concat(companies).OrderBy(request.Orders).TryPaginate(request.ElementsPerPage, request.CurrentPage);
-                }).Column(a => a.Entity, cd => cd.Implementations = new ImplementedByAttribute(typeof(PersonDN), typeof(CompanyDN))); 
+                }).Column(a => a.Entity, cd => cd.Implementations = Implementations.By(typeof(PersonDN), typeof(CompanyDN))); 
             }
         }
     }

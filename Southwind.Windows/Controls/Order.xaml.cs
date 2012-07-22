@@ -44,7 +44,7 @@ namespace Southwind.Windows.Controls
 
         private IEnumerable AutoCompleteTextBox_AutoCompleting(string arg, CancellationToken ct)
         {
-            return Server.Return((IBaseServer s) => s.FindLiteLike(typeof(ProductDN), null, arg, 5)); 
+            return Server.Return((IBaseServer s) => s.FindLiteLike(typeof(ProductDN), Implementations.By(typeof(ProductDN)), arg, 5)); 
         }    
 
         private void ebDetails_Finding(object sender, RoutedEventArgs e)
