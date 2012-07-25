@@ -121,6 +121,8 @@ namespace Southwind.Logic
             DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Backups";
 
             SetupDisconnectedStrategies(sb);
+            
+            sb.ExecuteWhenIncluded();
         }
 
     }
