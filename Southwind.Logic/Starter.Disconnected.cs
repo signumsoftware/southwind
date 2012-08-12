@@ -22,6 +22,7 @@ using System.Data.Common;
 using Signum.Engine.Basics;
 using Signum.Engine.Authorization;
 using Signum.Engine.Operations;
+using Signum.Entities.Files;
 
 namespace Southwind.Logic
 {
@@ -56,7 +57,11 @@ namespace Southwind.Logic
 
             //Signum.Entities.Chart
             DisconnectedLogic.Register<ChartColorDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<UserChartDN>(Download.All, Upload.New).Importer = new UserQueryImporter();
+            DisconnectedLogic.Register<UserChartDN>(Download.All, Upload.New).Importer = new UserQueryImporter(); 
+            DisconnectedLogic.Register<ChartScriptDN>(Download.All, Upload.New);
+
+            //Signum.Entities.Files
+            DisconnectedLogic.Register<FileDN>(Download.All, Upload.New);
 
             //Signum.Entities.ControlPanel
             DisconnectedLogic.Register<ControlPanelDN>(Download.None, Upload.None);

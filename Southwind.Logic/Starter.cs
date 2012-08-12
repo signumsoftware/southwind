@@ -65,8 +65,8 @@ namespace Southwind.Logic
             UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
             UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
             ChartLogic.Start(sb, dqm);
-            ChartLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
-            ChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
+            UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
+            UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
             ControlPanelLogic.Start(sb, dqm);
             ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
             ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);

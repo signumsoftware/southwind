@@ -25,6 +25,7 @@ using Signum.Web.ControlPanel;
 using Signum.Web.Widgets;
 using Signum.Web.Exceptions;
 using Signum.Web.Omnibox;
+using Signum.Web.Files;
 
 namespace Southwind.Web
 {
@@ -98,12 +99,14 @@ namespace Southwind.Web
                 operations: true,
                 permissions: true,
                 facadeMethods: true);
+
             SessionLogClient.Start();
             ExceptionClient.Start();
             UserQueriesClient.Start();
             ChartClient.Start();
             ReportsClient.Start(true, false);
             ControlPanelClient.Start();
+            FilesClient.Start(false, true, false);
 
             NotesClient.Start();
             AlertsClient.Start();
