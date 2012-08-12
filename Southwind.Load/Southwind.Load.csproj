@@ -113,6 +113,24 @@
       <Name>Southwind.Logic</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="ChartScripts\Bars.xml" />
+    <Content Include="ChartScripts\Bubbleplot.xml" />
+    <Content Include="ChartScripts\Columns.xml" />
+    <Content Include="ChartScripts\Doughnut.xml" />
+    <Content Include="ChartScripts\Line.xml" />
+    <Content Include="ChartScripts\MultiBars.xml" />
+    <Content Include="ChartScripts\MultiColumns.xml" />
+    <Content Include="ChartScripts\MultiLines.xml" />
+    <Content Include="ChartScripts\Pie.xml" />
+    <Content Include="ChartScripts\Scatterplot.xml" />
+    <Content Include="ChartScripts\StackedAreas.xml" />
+    <Content Include="ChartScripts\StackedBars.xml" />
+    <Content Include="ChartScripts\StackedColumns.xml" />
+    <Content Include="ChartScripts\TotalAreas.xml" />
+    <Content Include="ChartScripts\TotalBars.xml" />
+    <Content Include="ChartScripts\TotalColumns.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
