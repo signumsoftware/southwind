@@ -83,6 +83,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CodeMirror\codemirror.css" />
+    <Content Include="Content\CodeMirror\simple-hint.css" />
     <Content Include="Content\jqueryui\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
     <Content Include="Content\jqueryui\cupertino\images\ui-bg_flat_15_cd0a0a_40x100.png" />
     <Content Include="Content\jqueryui\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
@@ -176,7 +178,15 @@
     <Content Include="Content\jqueryui\vader\images\ui-icons_f29a00_256x240.png" />
     <Content Include="Content\jqueryui\vader\jquery-ui-1.8.16.custom.css" />
     <Content Include="Content\site.css" />
+    <Content Include="Scripts\CodeMirror\codemirror.js" />
+    <Content Include="Scripts\CodeMirror\formatting.js" />
+    <Content Include="Scripts\CodeMirror\javascript-hint.js" />
+    <Content Include="Scripts\CodeMirror\javascript.js" />
+    <Content Include="Scripts\CodeMirror\match-highlighter.js" />
+    <Content Include="Scripts\CodeMirror\searchcursor.js" />
+    <Content Include="Scripts\CodeMirror\simple-hint.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Scripts\underscore-min.js" />
     <Content Include="ServerSouthwindTransfer.svc" />
     <Content Include="DocumentFormat.OpenXml.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
