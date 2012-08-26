@@ -136,12 +136,12 @@ namespace Southwind.Load
 
         static void ExportChartScripts()
         {
-            ChartScriptLogic.ExportAllScripts("../../ChartScripts/");
+            ChartScriptLogic.ExportAllScripts(@"..\..\..\..\..\Extensions\Signum.Engine.Extensions\Chart\ChartScripts");
         }
 
         static void ImportAllScripts()
         {
-            ChartScriptLogic.ImportAllScripts("../../ChartScripts/");
+            ChartScriptLogic.ImportAllScripts(@"..\..\..\..\..\Extensions\Signum.Engine.Extensions\Chart\ChartScripts");
         }
     }
 }
