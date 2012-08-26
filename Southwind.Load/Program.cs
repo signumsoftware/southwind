@@ -75,7 +75,8 @@ namespace Southwind.Load
 
                         {30, OrderLoader.UpdateOrdersDate },
 
-                        {40, ExportChartScripts}
+                        {40, ExportChartScripts},
+                        {41, ImportAllScripts},
                     }.ChooseMultiple();
 
                     if (actions == null)
@@ -136,6 +137,11 @@ namespace Southwind.Load
         static void ExportChartScripts()
         {
             ChartScriptLogic.ExportAllScripts("../../ChartScripts/");
+        }
+
+        static void ImportAllScripts()
+        {
+            ChartScriptLogic.ImportAllScripts("../../ChartScripts/");
         }
     }
 }
