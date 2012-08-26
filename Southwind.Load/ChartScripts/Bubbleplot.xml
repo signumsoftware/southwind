@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ChartScript Name="Bubbleplot" GroupBy="Optional">
+<ChartScript GroupBy="Optional">
   <Columns>
-    <Column DisplayName="Color" ColumnType="Groupable" />
+    <Column DisplayName="Color" ColumnType="Groupable" IsGroupKey="true" />
     <Column DisplayName="Horizontal Axis" ColumnType="Positionable" />
     <Column DisplayName="Vertical Axis" ColumnType="Positionable" />
     <Column DisplayName="Size" ColumnType="Magnitude" />
