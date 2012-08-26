@@ -179,10 +179,13 @@
     <Content Include="Content\jqueryui\vader\jquery-ui-1.8.16.custom.css" />
     <Content Include="Content\site.css" />
     <Content Include="Scripts\CodeMirror\codemirror.js" />
+    <Content Include="Content\CodeMirror\dialog.css" />
+    <Content Include="Scripts\CodeMirror\dialog.js" />
     <Content Include="Scripts\CodeMirror\formatting.js" />
     <Content Include="Scripts\CodeMirror\javascript-hint.js" />
     <Content Include="Scripts\CodeMirror\javascript.js" />
     <Content Include="Scripts\CodeMirror\match-highlighter.js" />
+    <Content Include="Scripts\CodeMirror\search.js" />
     <Content Include="Scripts\CodeMirror\searchcursor.js" />
     <Content Include="Scripts\CodeMirror\simple-hint.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
