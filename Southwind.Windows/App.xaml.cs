@@ -95,7 +95,7 @@ namespace Southwind.Windows
 
             ReportClient.Start(true, false);
             UserQueryClient.Start();
-            ChartClient.Start(() => new ChartRendererVisifire());
+            ChartClient.Start();
 
             DisconnectedClient.Start();
             ExceptionClient.Start();
