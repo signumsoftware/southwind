@@ -73,7 +73,7 @@ namespace Southwind.Local
 
         public static void OverrideCommonEvents()
         {
-            QueryToken.EntityExtensions = (type, parent) => DynamicQueryManager.Current.GetExtensions(type, parent);
+            QueryToken.EntityExtensions = parent => DynamicQueryManager.Current.GetExtensions(parent);
             PropertyRoute.SetFindImplementationsCallback(Schema.Current.FindImplementations);
         }
 
