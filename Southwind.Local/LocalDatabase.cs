@@ -13,6 +13,7 @@ using Signum.Engine.DynamicQuery;
 using Signum.Engine.Maps;
 using Signum.Entities;
 using System.Data.SqlClient;
+using Signum.Engine.Authorization;
 
 namespace Southwind.Local
 {
@@ -74,6 +75,12 @@ namespace Southwind.Local
         {
             QueryToken.EntityExtensions = (type, parent) => DynamicQueryManager.Current.GetExtensions(type, parent);
             PropertyRoute.SetFindImplementationsCallback(Schema.Current.FindImplementations);
+        }
+
+        public static DisconnectedExportDN LastExport()
+        {
+            using (AuthLogic.Disable())
+                return Database.Query<DisconnectedExportDN>().SingleEx();
         }
     }
 }

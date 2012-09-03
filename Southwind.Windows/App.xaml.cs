@@ -30,6 +30,7 @@ using Southwind.Local;
 using Southwind.Windows.Properties;
 using System.IO;
 using Signum.Windows.Omnibox;
+using Signum.Entities.Disconnected;
 
 namespace Southwind.Windows
 {
@@ -97,7 +98,6 @@ namespace Southwind.Windows
             UserQueryClient.Start();
             ChartClient.Start(() => new ChartRendererVisifire());
 
-            DisconnectedClient.Start();
             ExceptionClient.Start();
 
             OmniboxClient.Start();
@@ -151,11 +151,17 @@ namespace Southwind.Windows
             QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, formatter);
             QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture, formatter);
 
+            DisconnectedClient.Start();
+
             Navigator.Initialize();
 
             if (DisconnectedClient.OfflineMode)
             {
                 LocalServer.OverrideCommonEvents();
+                DisconnectedExportRanges.Initialize(
+                    LocalServer.LastExport(),    
+                    DisconnectedMachineDN.Current.Retrieve(),
+                    Server.ServerTypes.ToDictionary(k => k.Value.ToLite(), k => k.Key));
             }
         }
     }

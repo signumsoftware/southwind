@@ -68,7 +68,6 @@ namespace Southwind.Windows
                         LocalServer.Start(Settings.Default.LocalDatabaseConnectionString);
                         DisconnectedClient.OfflineMode = true;
 
-
                         Program.GetServer = LocalServer.GetServer;
                         DisconnectedClient.GetTransferServer = LocalServer.GetServerTransfer;
                     }
