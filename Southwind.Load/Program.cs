@@ -75,8 +75,7 @@ namespace Southwind.Load
 
                         {30, OrderLoader.UpdateOrdersDate },
 
-                        {40, ExportChartScripts},
-                        {41, ImportAllScripts},
+                        {40, ImportExportChartScripts},
                     }.ChooseMultiple();
 
                     if (actions == null)
@@ -134,14 +133,9 @@ namespace Southwind.Load
             OrderDN order = query.First();
         }
 
-        static void ExportChartScripts()
+        static void ImportExportChartScripts()
         {
-            ChartScriptLogic.ExportAllScripts(@"..\..\..\..\..\Extensions\Signum.Engine.Extensions\Chart\ChartScripts");
-        }
-
-        static void ImportAllScripts()
-        {
-            ChartScriptLogic.ImportAllScripts(@"..\..\..\..\..\Extensions\Signum.Engine.Extensions\Chart\ChartScripts");
+            ChartScriptLogic.ImportExportScripts(@"..\..\..\..\..\Extensions\Signum.Engine.Extensions\Chart\ChartScripts");
         }
     }
 }
