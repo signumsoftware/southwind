@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Test", "..\..\Framew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Southwind.Local", "Southwind.Local\Southwind.Local.csproj", "{49D47C70-541C-4B49-88E8-A9A6E7313348}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurelienRibon.Ui.SyntaxHighlightBox", "..\..\..\pruebas\syntaxHighlightwpf\syntaxhighlightbox_18a16149c7b1\AurelienRibon.Ui.SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.csproj", "{10A9ECD3-AE1E-494D-9A27-8A32DD581759}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +142,12 @@ Global
 		{49D47C70-541C-4B49-88E8-A9A6E7313348}.Partial|Any CPU.Build.0 = Release|Any CPU
 		{49D47C70-541C-4B49-88E8-A9A6E7313348}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49D47C70-541C-4B49-88E8-A9A6E7313348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Partial|Any CPU.ActiveCfg = Release|Any CPU
+		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Partial|Any CPU.Build.0 = Release|Any CPU
+		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10A9ECD3-AE1E-494D-9A27-8A32DD581759}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,5 +163,6 @@ Global
 		{7D851227-5294-4BEB-990E-56B4FBB7A148} = {84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}
 		{86EE7792-96CF-4420-997B-8C811E2B166D} = {84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}
 		{CAFD6D4D-E5FB-4A6E-84FC-3185854CCD9D} = {84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}
+		{10A9ECD3-AE1E-494D-9A27-8A32DD581759} = {84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}
 	EndGlobalSection
 EndGlobal

@@ -117,7 +117,7 @@ namespace Southwind.Logic
 
             DisconnectedLogic.Start(sb, dqm);
             DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
-            DisconnectedLogic.BackupNetworkFolder = @"\\SQLS2012\SouthwindTemp\Backups";
+            DisconnectedLogic.BackupNetworkFolder = @"D:\SouthwindTemp\Backups"; //@"\\SQLS2012\SouthwindTemp\Backups";
             DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Backups";
 
             SetupDisconnectedStrategies(sb);
