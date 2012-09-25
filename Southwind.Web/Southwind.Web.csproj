@@ -189,7 +189,6 @@
     <Content Include="Scripts\CodeMirror\searchcursor.js" />
     <Content Include="Scripts\CodeMirror\simple-hint.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
-    <Content Include="Scripts\underscore-min.js" />
     <Content Include="ServerSouthwindTransfer.svc" />
     <Content Include="DocumentFormat.OpenXml.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
