@@ -103,10 +103,10 @@ namespace Southwind.Web
             SessionLogClient.Start();
             ExceptionClient.Start();
             UserQueriesClient.Start();
+            FilesClient.Start(false, true, false);
             ChartClient.Start();
             ReportsClient.Start(true, false);
             ControlPanelClient.Start();
-            FilesClient.Start(false, true, false);
 
             NotesClient.Start();
             AlertsClient.Start();
