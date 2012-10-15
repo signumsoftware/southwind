@@ -154,7 +154,7 @@ namespace Southwind.Web
 
         protected void Application_ReleaseRequestState(object sender, EventArgs e)
         {
-            Thread.CurrentPrincipal = null;
+            Statics.CleanThreadContextAndAssert();
         }
     }
 }
