@@ -37,7 +37,7 @@ namespace Southwind.Logic
     {
         public static void Start(string connectionString)
         {
-            SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2008);
+            SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2012);
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
             sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
@@ -117,7 +117,7 @@ namespace Southwind.Logic
 
             DisconnectedLogic.Start(sb, dqm);
             DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
-            DisconnectedLogic.BackupNetworkFolder = @"D:\SouthwindTemp\Backups"; //@"\\SQLS2012\SouthwindTemp\Backups";
+            DisconnectedLogic.BackupNetworkFolder = @"\\SQLS2012\SouthwindTemp\Backups";
             DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Backups";
 
             SetupDisconnectedStrategies(sb);

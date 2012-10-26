@@ -74,5 +74,11 @@ namespace Southwind.Web
             return Return(MethodInfo.GetCurrentMethod(), () =>
                 DisconnectedLogic.GetStrategyPairs());
         }
+
+        public void SkipExport(Lite<DisconnectedMachineDN> machine)
+        {
+            Execute(MethodInfo.GetCurrentMethod(), () =>
+                 DisconnectedLogic.ImportManager.SkipExport(machine));
+        }
     }
 }

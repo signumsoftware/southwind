@@ -113,6 +113,10 @@ namespace Southwind.Windows
                             LocalServer.DropDatabase(Settings.Default.LocalDatabaseConnectionString);
                             File.Delete(DisconnectedClient.UploadBackupFile);
                         }
+                        else
+                        {
+                            Server.Execute((IDisconnectedServer ds) => ds.SkipExport(DisconnectedMachineDN.Current));
+                        }
                     }
                 }
                 
