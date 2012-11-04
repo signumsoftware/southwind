@@ -80,5 +80,11 @@ namespace Southwind.Web
             Execute(MethodInfo.GetCurrentMethod(), () =>
                  DisconnectedLogic.ImportManager.SkipExport(machine));
         }
+
+        public void ConnectAfterFix(Lite<DisconnectedMachineDN> machine)
+        {
+            Execute(MethodInfo.GetCurrentMethod(), () =>
+                 DisconnectedLogic.ImportManager.ConnectAfterFix(machine));
+        }
     }
 }

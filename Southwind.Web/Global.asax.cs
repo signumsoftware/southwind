@@ -26,6 +26,7 @@ using Signum.Web.Widgets;
 using Signum.Web.Exceptions;
 using Signum.Web.Omnibox;
 using Signum.Web.Files;
+using Signum.Web.Disconnected;
 
 namespace Southwind.Web
 {
@@ -103,10 +104,17 @@ namespace Southwind.Web
             SessionLogClient.Start();
             ExceptionClient.Start();
             UserQueriesClient.Start();
-            FilesClient.Start(false, true, false);
+            FilesClient.Start(
+                filePath: false, 
+                file: true, 
+                embeddedFile: false);
             ChartClient.Start();
-            ReportsClient.Start(true, false);
+            ReportsClient.Start(
+                toExcelPlain:  true, 
+                excelReport: false);
             ControlPanelClient.Start();
+
+            DisconnectedClient.Start();
 
             NotesClient.Start();
             AlertsClient.Start();

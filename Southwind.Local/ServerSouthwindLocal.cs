@@ -61,7 +61,23 @@ namespace Southwind.Local
               DisconnectedLogic.GetDisconnectedMachine(machineName));
         }
 
+        public Dictionary<Type, StrategyPair> GetStrategyPairs()
+        {
+            return Return(MethodInfo.GetCurrentMethod(), () =>
+                DisconnectedLogic.GetStrategyPairs());
+        }
+
         public DisconnectedImportDN GetUploadEstimation(Lite<DisconnectedMachineDN> machine)
+        {
+            throw NotAvailableOffline();
+        }
+
+        public void SkipExport(Lite<DisconnectedMachineDN> machine)
+        {
+            throw NotAvailableOffline();
+        }
+
+        public void ConnectAfterFix(Lite<DisconnectedMachineDN> machine)
         {
             throw NotAvailableOffline();
         }
@@ -69,19 +85,6 @@ namespace Southwind.Local
         private static InvalidOperationException NotAvailableOffline()
         {
             throw new InvalidOperationException("Operation not available while offline");
-        }
-
-        public Dictionary<Type, StrategyPair> GetStrategyPairs()
-        {
-            return Return(MethodInfo.GetCurrentMethod(), () =>
-                DisconnectedLogic.GetStrategyPairs());
-        }
-
-
-        public void SkipExport(Lite<DisconnectedMachineDN> machine)
-        {
-            Execute(MethodInfo.GetCurrentMethod(), () =>
-               DisconnectedLogic.ImportManager.SkipExport(machine));
         }
     }
 
