@@ -126,8 +126,8 @@ namespace Southwind.Windows
                 case DisconnectedMachineState.Faulted:
                     {
                         string message = @"The last import had en exception. You have two options:
-    - Contact IT and wait until they fix the uploaded database.
-    - Restart the application and work locally at your own risk";
+    - Contact IT and wait until they fix the uploaded database
+    - Restart the application and work locally AT YOUR OWN RISK";
 
                         MessageBox.Show(message, "Last import failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         Environment.Exit(0);
@@ -139,8 +139,12 @@ namespace Southwind.Windows
                     {
                         string message = "Good News!!\r\nThe IT department already fixed your last upload so you can continue working.";
                         MessageBox.Show(message, "Upload fixed", MessageBoxButton.OK, MessageBoxImage.Information);
+
                         if (File.Exists(DisconnectedClient.UploadBackupFile))
                             File.Delete(DisconnectedClient.UploadBackupFile);
+
+                        if (File.Exists(DisconnectedClient.DatabaseFile))
+                            LocalServer.DropDatabase(Settings.Default.LocalDatabaseConnectionString);
 
                         Server.Execute((IDisconnectedServer ds) => ds.ConnectAfterFix(DisconnectedMachineDN.Current));
 
@@ -183,7 +187,10 @@ namespace Southwind.Windows
                             if (File.Exists(DisconnectedClient.UploadBackupFile))
                             {
                                 if (new UploadProgress().ShowDialog() == false)
+                                {
+                                    MessageBox.Show("Contact IT to fix the error", "Failed import", MessageBoxButton.OK, MessageBoxImage.Error);
                                     Environment.Exit(0);
+                                }
 
                                 LocalServer.DropDatabase(Settings.Default.LocalDatabaseConnectionString);
                                 File.Delete(DisconnectedClient.UploadBackupFile);
