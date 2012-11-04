@@ -13,12 +13,13 @@ namespace Southwind.Load
 {
     internal static class ProductLoader
     {
+#pragma warning disable 0649
         public class SupplierFaxCSV
         {
             public int SupplierID;
             public string Fax; 
         }
-
+#pragma warning restore 0649
         public static void LoadSuppliers()
         {
             using (NorthwindDataContext db = new NorthwindDataContext())
