@@ -2,6 +2,10 @@
 
 @using (var ac = Html.TypeContext<AddressDN>()) 
 {
+    if (ac.Value == null)
+    {
+        ac.Value = new AddressDN();
+    }
     @Html.HiddenRuntimeInfo(ac)
     <fieldset>
         <legend>@(ViewData["Legend"] ?? typeof(AddressDN).NiceName())</legend>

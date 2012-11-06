@@ -27,6 +27,8 @@ using Signum.Web.Exceptions;
 using Signum.Web.Omnibox;
 using Signum.Web.Files;
 using Signum.Web.Disconnected;
+using Signum.Web.Processes;
+using Signum.Engine.Processes;
 
 namespace Southwind.Web
 {
@@ -40,7 +42,7 @@ namespace Southwind.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-             Navigator.ViewRouteName,
+             Navigator.NavigateRouteName,
              "View/{webTypeName}/{id}",
              new { controller = "Signum", action = "View", webTypeName = "", id = "" }
           );
@@ -75,6 +77,8 @@ namespace Southwind.Web
                 Schema.Current.Initialize();
 
             WebStart();
+
+            ProcessLogic.StartBackgroundProcess(5 * 1000);
 
             RegisterRoutes(RouteTable.Routes);
         }
@@ -115,6 +119,9 @@ namespace Southwind.Web
             ControlPanelClient.Start();
 
             DisconnectedClient.Start();
+            ProcessesClient.Start(
+                packages: true,
+                packageOperations: true);
 
             NotesClient.Start();
             AlertsClient.Start();
@@ -138,6 +145,8 @@ namespace Southwind.Web
             OmniboxClient.Register(new UserQueriesOmniboxProvider());
             OmniboxClient.Register(new ChartOmniboxProvider());
             OmniboxClient.Register(new UserChartOmniboxProvider());
+
+            ContextualItemsHelper.Start();
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)

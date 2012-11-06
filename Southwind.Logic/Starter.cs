@@ -28,6 +28,8 @@ using Signum.Utilities;
 using Signum.Utilities.ExpressionTrees;
 using Southwind.Entities;
 using Southwind.Services;
+using Signum.Engine.Processes;
+using Signum.Entities.Processes;
 
 namespace Southwind.Logic
 {
@@ -44,12 +46,15 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((ControlPanelDN cp) => cp.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((ProcessExecutionDN cp) => cp.ProcessData, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
+            sb.Schema.Settings.OverrideAttributes((PackageLineDN cp) => cp.Package, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
 
             DynamicQueryManager dqm = new DynamicQueryManager();
 
             Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm);
 
             OperationLogic.Start(sb, dqm);
+
 
             EmailLogic.Start(sb, dqm);
 
@@ -59,6 +64,9 @@ namespace Southwind.Logic
             AuthLogic.StartAllModules(sb, dqm, typeof(IServerSouthwind));
             UserTicketLogic.Start(sb, dqm);
             SessionLogLogic.Start(sb, dqm);
+
+            ProcessLogic.Start(sb, dqm, 1);
+            PackageLogic.Start(sb, dqm, true, true);
 
             QueryLogic.Start(sb);
             UserQueryLogic.Start(sb, dqm);

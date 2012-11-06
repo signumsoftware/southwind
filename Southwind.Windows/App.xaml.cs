@@ -31,6 +31,7 @@ using Southwind.Windows.Properties;
 using System.IO;
 using Signum.Windows.Omnibox;
 using Signum.Entities.Disconnected;
+using Signum.Windows.Processes;
 
 namespace Southwind.Windows
 {
@@ -94,6 +95,8 @@ namespace Southwind.Windows
 
             LinksWidget.Start();
 
+            ProcessClient.Start(true, true);
+
             ReportClient.Start(true, false);
             UserQueryClient.Start();
             ChartClient.Start();
@@ -109,18 +112,18 @@ namespace Southwind.Windows
 
             Navigator.AddSettings(new List<EntitySettings>
             {
-                new EntitySettings<EmployeeDN>(EntityType.Default) { View = e => new Employee(), IsCreable= admin=>false},
-                new EntitySettings<TerritoryDN>(EntityType.Admin) { View = e => new Territory() },
-                new EntitySettings<RegionDN>(EntityType.Admin) { View = e => new Region() },
+                new EntitySettings<EmployeeDN>(EntityType.Main) { View = e => new Employee()},
+                new EntitySettings<TerritoryDN>(EntityType.String) { View = e => new Territory() },
+                new EntitySettings<RegionDN>(EntityType.String) { View = e => new Region() },
 
-                new EntitySettings<ProductDN>(EntityType.Admin) { View = e => new Product() },
-                new EntitySettings<CategoryDN>(EntityType.Admin) { View = e => new Category() },
-                new EntitySettings<SupplierDN>(EntityType.Admin) { View = e => new Supplier() },
+                new EntitySettings<ProductDN>(EntityType.Main) { View = e => new Product() },
+                new EntitySettings<CategoryDN>(EntityType.String) { View = e => new Category() },
+                new EntitySettings<SupplierDN>(EntityType.Main) { View = e => new Supplier() },
 
-                new EntitySettings<CompanyDN>(EntityType.Default) { View = e => new Company() },
-                new EntitySettings<PersonDN>(EntityType.Default) { View = e => new Person() },
+                new EntitySettings<CompanyDN>(EntityType.Shared) { View = e => new Company() },
+                new EntitySettings<PersonDN>(EntityType.Shared) { View = e => new Person() },
 
-                new EntitySettings<OrderDN>(EntityType.DefaultNotSaving) { View = e => new Order()},
+                new EntitySettings<OrderDN>(EntityType.Main) { View = e => new Order()},
             });
 
             Constructor.ConstructorManager.Constructors.Add(typeof(OrderDN), win => new OrderDN

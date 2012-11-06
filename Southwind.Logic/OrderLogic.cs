@@ -28,6 +28,7 @@ namespace Southwind.Logic
                                         {
                                             Entity = o.ToLite(),
                                             o.Id,
+                                            o.State,
                                             Customer = o.Customer.ToLite(),
                                             o.Employee,
                                             o.OrderDate,

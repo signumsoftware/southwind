@@ -31,20 +31,20 @@ namespace Southwind.Web
                 {
                     new EmbeddedEntitySettings<AddressDN>() { PartialViewName = e => ViewPrefix.Formato("Address") },
 
-                    new EntitySettings<TerritoryDN>(EntityType.Admin) { PartialViewName = e => ViewPrefix.Formato("Territory") },
-                    new EntitySettings<RegionDN>(EntityType.Admin) { PartialViewName = e => ViewPrefix.Formato("Region") },
-                    new EntitySettings<EmployeeDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Employee") },
+                    new EntitySettings<TerritoryDN>(EntityType.String) { PartialViewName = e => ViewPrefix.Formato("Territory") },
+                    new EntitySettings<RegionDN>(EntityType.String) { PartialViewName = e => ViewPrefix.Formato("Region") },
+                    new EntitySettings<EmployeeDN>(EntityType.Main) { PartialViewName = e => ViewPrefix.Formato("Employee") },
 
-                    new EntitySettings<SupplierDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Supplier") },
-                    new EntitySettings<ProductDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Product") },
-                    new EntitySettings<CategoryDN>(EntityType.Admin) { PartialViewName = e => ViewPrefix.Formato("Category") },
+                    new EntitySettings<SupplierDN>(EntityType.Main) { PartialViewName = e => ViewPrefix.Formato("Supplier") },
+                    new EntitySettings<ProductDN>(EntityType.Main) { PartialViewName = e => ViewPrefix.Formato("Product") },
+                    new EntitySettings<CategoryDN>(EntityType.String) { PartialViewName = e => ViewPrefix.Formato("Category") },
 
-                    new EntitySettings<PersonDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Person") },
-                    new EntitySettings<CompanyDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Company") },
+                    new EntitySettings<PersonDN>(EntityType.Shared) { PartialViewName = e => ViewPrefix.Formato("Person") },
+                    new EntitySettings<CompanyDN>(EntityType.Shared) { PartialViewName = e => ViewPrefix.Formato("Company") },
                    
-                    new EntitySettings<OrderDN>(EntityType.Default) { PartialViewName = e => ViewPrefix.Formato("Order"), ShowSave = false },
+                    new EntitySettings<OrderDN>(EntityType.Main) { PartialViewName = e => ViewPrefix.Formato("Order") },
                     new EmbeddedEntitySettings<OrderDetailsDN> { PartialViewName = e => ViewPrefix.Formato("OrderDetails") },
-                    new EntitySettings<ShipperDN>(EntityType.Admin) { PartialViewName = e => ViewPrefix.Formato("Shipper") },
+                    new EntitySettings<ShipperDN>(EntityType.Main) { PartialViewName = e => ViewPrefix.Formato("Shipper") },
                 });
 
                 QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, (html, obj) =>

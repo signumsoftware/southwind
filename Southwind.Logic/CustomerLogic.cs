@@ -9,6 +9,7 @@ using Southwind.Entities;
 using Signum.Engine;
 using Signum.Entities;
 using Signum.Entities.DynamicQuery;
+using Signum.Engine.Operations;
 
 namespace Southwind.Logic
 {
@@ -49,6 +50,27 @@ namespace Southwind.Logic
                                               r.Fax,
                                               r.Address,
                                           }).ToDynamic();
+
+                new BasicExecute<CustomerDN>(CustomerOperations.Save)
+                {
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, _) => { }
+                }.Register();
+
+                new BasicExecute<CompanyDN>(CustomerOperations.Save)
+                {
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, _) => { }
+                }.RegisterOverride();
+
+                new BasicExecute<PersonDN>(CustomerOperations.Save)
+                {
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, _) => { }
+                }.RegisterOverride();    
 
                 dqm[typeof(CustomerDN)] = DynamicQuery.Manual((QueryRequest request, List<ColumnDescription> descriptions) =>
                 {
