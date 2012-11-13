@@ -66,6 +66,9 @@ namespace Southwind.Windows
                 App app = new App() { ShutdownMode = ShutdownMode.OnMainWindowClose };
                 app.Run(new Main());
             }
+            catch (NotConnectedToServerException)
+            {
+            }
             catch (Exception e)
             {
                 HandleException("Start-up error", e);
@@ -126,8 +129,8 @@ namespace Southwind.Windows
                 case DisconnectedMachineState.Faulted:
                     {
                         string message = @"The last import had en exception. You have two options:
-    - Contact IT and wait until they fix the uploaded database
-    - Restart the application and work locally AT YOUR OWN RISK";
+- Contact IT and wait until they fix the uploaded database
+- Restart the application and work locally AT YOUR OWN RISK";
 
                         MessageBox.Show(message, "Last import failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         Environment.Exit(0);
@@ -149,57 +152,57 @@ namespace Southwind.Windows
                         Server.Execute((IDisconnectedServer ds) => ds.ConnectAfterFix(DisconnectedMachineDN.Current));
 
                         break;
-                }
+                    }
 
                 case DisconnectedMachineState.Connected:
                     {
                         if (File.Exists(DisconnectedClient.DownloadBackupFile) || File.Exists(DisconnectedClient.DatabaseFile))
-                {
+                        {
                             string message = "The server does not expect you to be disconnected, but you have a local database.\r\nRemove you local database manually (loosing your work) or contact IT department.";
 
                             MessageBox.Show(message, "Unexpected situation", MessageBoxButton.OK, MessageBoxImage.Error);
 
                             Environment.Exit(0);
-                }
+                        }
 
                         break;
                     }
 
                 case DisconnectedMachineState.Disconnected:
-                {
-                    if (File.Exists(DisconnectedClient.DownloadBackupFile))
+                    {
+                        if (File.Exists(DisconnectedClient.DownloadBackupFile))
                         {
-                        File.Delete(DisconnectedClient.DownloadBackupFile);
+                            File.Delete(DisconnectedClient.DownloadBackupFile);
                             Server.Execute((IDisconnectedServer ds) => ds.SkipExport(DisconnectedMachineDN.Current));
                         }
-                    else
-                    {
-                        if (File.Exists(DisconnectedClient.DatabaseFile))
+                        else
                         {
-                            DatabaseWait.Waiting("Waiting", "Backing up...", () =>
+                            if (File.Exists(DisconnectedClient.DatabaseFile))
                             {
-                                LocalServer.BackupDatabase(
-                                    Settings.Default.LocalDatabaseConnectionString,
-                                    DisconnectedClient.UploadBackupFile);
-                            });
-                        }
+                                DatabaseWait.Waiting("Waiting", "Backing up...", () =>
+                                {
+                                    LocalServer.BackupDatabase(
+                                        Settings.Default.LocalDatabaseConnectionString,
+                                        DisconnectedClient.UploadBackupFile);
+                                });
+                            }
 
-                        if (File.Exists(DisconnectedClient.UploadBackupFile))
-                        {
-                            if (new UploadProgress().ShowDialog() == false)
+                            if (File.Exists(DisconnectedClient.UploadBackupFile))
+                            {
+                                if (new UploadProgress().ShowDialog() == false)
                                 {
                                     MessageBox.Show("Contact IT to fix the error", "Failed import", MessageBoxButton.OK, MessageBoxImage.Error);
                                     Environment.Exit(0);
                                 }
 
-                            LocalServer.DropDatabase(Settings.Default.LocalDatabaseConnectionString);
-                            File.Delete(DisconnectedClient.UploadBackupFile);
+                                LocalServer.DropDatabase(Settings.Default.LocalDatabaseConnectionString);
+                                File.Delete(DisconnectedClient.UploadBackupFile);
+                            }
+
                         }
 
-                    }
-                
                         break;
-            }
+                    }
             }
         }
      
