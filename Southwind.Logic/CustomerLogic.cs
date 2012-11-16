@@ -63,14 +63,14 @@ namespace Southwind.Logic
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
-                }.RegisterOverride();
+                }.RegisterReplace();
 
                 new BasicExecute<PersonDN>(CustomerOperations.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
-                }.RegisterOverride();    
+                }.RegisterReplace();    
 
                 dqm[typeof(CustomerDN)] = DynamicQuery.Manual((QueryRequest request, List<ColumnDescription> descriptions) =>
                 {

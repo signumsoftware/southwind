@@ -65,7 +65,7 @@ namespace Southwind.Logic
             UserTicketLogic.Start(sb, dqm);
             SessionLogLogic.Start(sb, dqm);
 
-            ProcessLogic.Start(sb, dqm, 1);
+            ProcessLogic.Start(sb, dqm, 1, userProcessSession: true);
             PackageLogic.Start(sb, dqm, true, true);
 
             QueryLogic.Start(sb);
