@@ -37,7 +37,7 @@ namespace Southwind.Windows
             try
             {
                 Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-                
+
                 if (RunLocally())
                 {
                     LocalServer.Start(Settings.Default.LocalDatabaseConnectionString);
@@ -87,35 +87,35 @@ namespace Southwind.Windows
             if (!File.Exists(DisconnectedClient.DatabaseFile) && !File.Exists(DisconnectedClient.DownloadBackupFile))
                 return false;
 
-                    StartOption result;
-                    if (!SelectorWindow.ShowDialog(
-                        EnumExtensions.GetValues<StartOption>(), out result,
-                        elementIcon: so => SouthwindImageLoader.GetImageSortName(so == StartOption.RunLocally ? "local.png" : "server.png"),
-                        elementText: so => so.NiceToString(),
-                        title: "Startup mode",
-                        message: "A local database has been found on your system.\r\nWhat you want to do?"))
+            StartOption result;
+            if (!SelectorWindow.ShowDialog(
+                EnumExtensions.GetValues<StartOption>(), out result,
+                elementIcon: so => SouthwindImageLoader.GetImageSortName(so == StartOption.RunLocally ? "local.png" : "server.png"),
+                elementText: so => so.NiceToString(),
+                title: "Startup mode",
+                message: "A local database has been found on your system.\r\nWhat you want to do?"))
                 Environment.Exit(0);
 
-                    if (result == StartOption.RunLocally)
+            if (result == StartOption.RunLocally)
+            {
+                if (File.Exists(DisconnectedClient.DownloadBackupFile))
+                {
+                    DatabaseWait.Waiting("Waiting", "Restoring database...", () =>
                     {
-                        if (File.Exists(DisconnectedClient.DownloadBackupFile))
-                        {
-                            DatabaseWait.Waiting("Waiting", "Restoring database...", ()=>
-                            {
-                                LocalServer.RestoreDatabase(
-                                    Settings.Default.LocalDatabaseConnectionString,
-                                    DisconnectedClient.DownloadBackupFile,
-                                    DisconnectedClient.DatabaseFile,
-                                    DisconnectedClient.DatabaseLogFile);
+                        LocalServer.RestoreDatabase(
+                            Settings.Default.LocalDatabaseConnectionString,
+                            DisconnectedClient.DownloadBackupFile,
+                            DisconnectedClient.DatabaseFile,
+                            DisconnectedClient.DatabaseLogFile);
 
-                                File.Delete(DisconnectedClient.DownloadBackupFile);
-                            });
-                        }
+                        File.Delete(DisconnectedClient.DownloadBackupFile);
+                    });
+                }
 
                 return true;
-                    }
-                    else
-                    {
+            }
+            else
+            {
                 return false;
             }
         }
@@ -205,7 +205,7 @@ namespace Southwind.Windows
                     }
             }
         }
-     
+
         public static void HandleException(string errorTitle, Exception e)
         {
             if (e is MessageSecurityException)
@@ -289,7 +289,7 @@ namespace Southwind.Windows
                     Settings.Default.UserName = milogin.UserName;
                     Settings.Default.Save();
 
-                    UserDN.Current=result.GetCurrentUser();
+                    UserDN.Current = result.GetCurrentUser();
 
                     // verificar el tiempo de expiracion
                     var alerta = result.PasswordNearExpired();
@@ -321,7 +321,7 @@ namespace Southwind.Windows
             if (dialogResult == true)
             {
                 UserDN user = result.GetCurrentUser();
-                UserDN.Current=user;
+                UserDN.Current = user;
 
                 return result;
             }

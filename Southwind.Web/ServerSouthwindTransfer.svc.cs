@@ -32,7 +32,6 @@ namespace Southwind.Web
             try
             {
                 using (AuthLogic.UserSession(user))
-                using (ExecutionContext.Scope(null))
                 {
                     FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
 

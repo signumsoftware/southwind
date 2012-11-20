@@ -25,7 +25,6 @@ namespace Southwind.Local
             try
             {
                 using (ScopeSessionFactory.OverrideSession(session))
-                using (ExecutionContext.Scope(GetDefaultExecutionContext(mi, description)))
                 {
                     if (checkLogin)
                         FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
