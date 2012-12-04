@@ -20,9 +20,7 @@ using Signum.Entities.Basics;
 using Signum.Entities.Chart;
 using Signum.Entities.ControlPanel;
 using Signum.Entities.Disconnected;
-using Signum.Entities.Exceptions;
 using Signum.Entities.Mailing;
-using Signum.Entities.Operations;
 using Signum.Entities.UserQueries;
 using Signum.Utilities;
 using Signum.Utilities.ExpressionTrees;
@@ -42,6 +40,8 @@ namespace Southwind.Logic
             SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2012);
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
+            sb.Schema.Settings.OverrideAttributes((ExceptionDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((OperationLogDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
@@ -101,6 +101,7 @@ namespace Southwind.Logic
                 a.CheckDate,
                 Target = a.Entity
             });
+
             dqm[typeof(AlertDN)] = Database.Query<AlertDN>().Select(alertExpr).ToDynamic();
             dqm[AlertQueries.NotAttended] = Database.Query<AlertDN>().Where(a => a.NotAttended).Select(alertExpr).ToDynamic();
             dqm[AlertQueries.Attended] = Database.Query<AlertDN>().Where(a => a.Attended).Select(alertExpr).ToDynamic();

@@ -29,6 +29,7 @@ using Signum.Web.Files;
 using Signum.Web.Disconnected;
 using Signum.Web.Processes;
 using Signum.Engine.Processes;
+using Signum.Entities.Basics;
 
 namespace Southwind.Web
 {
@@ -166,7 +167,7 @@ namespace Southwind.Web
 
         protected void Session_End(object sender, EventArgs e)
         {
-            SessionLogClient.LogSessionEnd((UserDN)Session[UserDN.UserSessionKey], TimeSpan.FromMinutes(Session.Timeout));
+            SessionLogClient.LogSessionEnd((UserDN)Session[UserHolder.UserSessionKey], TimeSpan.FromMinutes(Session.Timeout));
         }
 
         protected void Application_ReleaseRequestState(object sender, EventArgs e)

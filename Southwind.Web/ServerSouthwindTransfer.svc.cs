@@ -21,6 +21,7 @@ using System.IO;
 using Signum.Utilities;
 using Signum.Engine.Exceptions;
 using System.IO.Compression;
+using Signum.Engine.Basics;
 
 namespace Southwind.Web
 {

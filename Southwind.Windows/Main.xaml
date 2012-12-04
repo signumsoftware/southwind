@@ -3,12 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:m="clr-namespace:Signum.Windows;assembly=Signum.Windows"
     xmlns:d="clr-namespace:Southwind.Entities;assembly=Southwind.Entities"
+    xmlns:seb="clr-namespace:Signum.Entities.Basics;assembly=Signum.Entities"
     xmlns:sea="clr-namespace:Signum.Entities.Authorization;assembly=Signum.Entities.Extensions"
-    xmlns:seo="clr-namespace:Signum.Entities.Operations;assembly=Signum.Entities.Extensions"
     xmlns:sec="clr-namespace:Signum.Entities.Chart;assembly=Signum.Entities.Extensions"
     xmlns:seu="clr-namespace:Signum.Entities.UserQueries;assembly=Signum.Entities.Extensions"
     xmlns:sed="clr-namespace:Signum.Entities.Disconnected;assembly=Signum.Entities.Extensions"
-        xmlns:swo="clr-namespace:Signum.Windows.Omnibox;assembly=Signum.Windows.Extensions"
+    xmlns:swo="clr-namespace:Signum.Windows.Omnibox;assembly=Signum.Windows.Extensions"
     Title="Southwind Application"  SizeToContent="WidthAndHeight">
     <StackPanel Orientation="Horizontal">
         <Menu MaxHeight ="{x:Static SystemParameters.MenuBarHeight}" x:Name="menu">
@@ -32,7 +32,7 @@
                 <MenuItem Tag="{m:Explore QueryName={x:Type d:RegionDN}}"/>
                 <MenuItem Tag="{m:Explore QueryName={x:Type sea:UserDN}}"/>
                 <MenuItem Tag="{m:Explore QueryName={x:Type sea:RoleDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type seo:OperationLogDN}}"/>
+                <MenuItem Tag="{m:Explore QueryName={x:Type seb:OperationLogDN}}"/>
             </MenuItem>
             <MenuItem Header="Reporting">
                 <MenuItem Tag="{m:Explore QueryName={x:Type sec:UserChartDN}}"/>

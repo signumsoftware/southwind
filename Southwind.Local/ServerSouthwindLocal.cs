@@ -15,6 +15,7 @@ using Signum.Engine;
 using Signum.Engine.Authorization;
 using System.ServiceModel;
 using Signum.Entities.Authorization;
+using Signum.Engine.Basics;
 
 namespace Southwind.Local
 {

@@ -13,8 +13,8 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using Signum.Entities;
 using Signum.Entities.Authorization;
-using Signum.Entities.Operations;
 using Signum.Engine;
+using Signum.Entities.Basics;
 
 namespace Southwind.Web
 {

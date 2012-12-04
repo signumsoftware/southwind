@@ -18,8 +18,8 @@ using Signum.Windows.Disconnected;
 using System.IO;
 using Southwind.Local;
 using Signum.Entities.Disconnected;
-using Signum.Entities.Exceptions;
 using Signum.Entities;
+using Signum.Entities.Basics;
 
 namespace Southwind.Windows
 {
@@ -218,7 +218,7 @@ namespace Southwind.Windows
                 {
                     var exception = new ExceptionDN(e.FollowC(ex => ex.InnerException).Last())
                     {
-                        User = UserDN.Current.ToLite(),
+                        User = UserDN.Current.ToLite<IUserDN>(),
                         ControllerName = "WindowsClient",
                         ActionName = "WindowClient",
                         Version = typeof(Program).Assembly.GetName().Version.ToString(),

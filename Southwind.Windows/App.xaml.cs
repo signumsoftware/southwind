@@ -25,7 +25,6 @@ using Signum.Windows.Chart;
 using Signum.Entities.Authorization;
 using Signum.Windows.UserQueries;
 using Signum.Windows.Disconnected;
-using Signum.Windows.Logging;
 using Southwind.Local;
 using Southwind.Windows.Properties;
 using System.IO;
