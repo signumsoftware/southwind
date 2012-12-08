@@ -28,6 +28,8 @@ using Southwind.Entities;
 using Southwind.Services;
 using Signum.Engine.Processes;
 using Signum.Entities.Processes;
+using Signum.Engine.Alerts;
+using Signum.Engine.Notes;
 
 namespace Southwind.Logic
 {
@@ -81,31 +83,8 @@ namespace Southwind.Logic
 
             ExceptionLogic.Start(sb, dqm);
 
-            sb.Include<NoteDN>();
-            dqm[typeof(NoteDN)] = (from a in Database.Query<NoteDN>()
-                                   select new
-                                   {
-                                       Entity = a.ToLite(),
-                                       a.Id,
-                                       a.Text,
-                                       a.Target
-                                   }).ToDynamic();
-            
-            sb.Include<AlertDN>();
-            var alertExpr = Linq.Expr((AlertDN a) => new
-            {
-                Entity = a.ToLite(),
-                a.Id,
-                a.AlertDate,
-                Text = a.Text.Etc(100),
-                a.CheckDate,
-                Target = a.Entity
-            });
-
-            dqm[typeof(AlertDN)] = Database.Query<AlertDN>().Select(alertExpr).ToDynamic();
-            dqm[AlertQueries.NotAttended] = Database.Query<AlertDN>().Where(a => a.NotAttended).Select(alertExpr).ToDynamic();
-            dqm[AlertQueries.Attended] = Database.Query<AlertDN>().Where(a => a.Attended).Select(alertExpr).ToDynamic();
-            dqm[AlertQueries.Future] = Database.Query<AlertDN>().Where(a => a.Future).Select(alertExpr).ToDynamic();
+            AlertLogic.Start(sb, dqm);
+            NoteLogic.Start(sb, dqm);
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);

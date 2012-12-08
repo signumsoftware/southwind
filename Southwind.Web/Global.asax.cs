@@ -22,7 +22,6 @@ using Signum.Utilities;
 using System.Globalization;
 using Signum.Web.Chart;
 using Signum.Web.ControlPanel;
-using Signum.Web.Widgets;
 using Signum.Web.Exceptions;
 using Signum.Web.Omnibox;
 using Signum.Web.Files;
@@ -30,6 +29,8 @@ using Signum.Web.Disconnected;
 using Signum.Web.Processes;
 using Signum.Engine.Processes;
 using Signum.Entities.Basics;
+using Signum.Web.Notes;
+using Signum.Web.Alerts;
 
 namespace Southwind.Web
 {
@@ -124,8 +125,8 @@ namespace Southwind.Web
                 packages: true,
                 packageOperations: true);
 
-            NotesClient.Start();
-            AlertsClient.Start();
+            NoteClient.Start();
+            AlertClient.Start();
             QuickLinkWidgetHelper.Start();
 
             SouthwindClient.Start();            

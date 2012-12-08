@@ -22,6 +22,8 @@ using Signum.Engine.Authorization;
 using Signum.Engine.Operations;
 using Signum.Entities.Files;
 using Signum.Entities.Processes;
+using Signum.Entities.Notes;
+using Signum.Entities.Alerts;
 
 namespace Southwind.Logic
 {
