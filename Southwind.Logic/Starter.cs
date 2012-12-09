@@ -90,6 +90,7 @@ namespace Southwind.Logic
             ProductLogic.Start(sb, dqm);
             CustomerLogic.Start(sb, dqm); 
             OrderLogic.Start(sb, dqm);
+            ShipperLogic.Start(sb, dqm);
 
             TypeConditionLogic.Register<OrderDN>(SouthwindGroups.UserEntities,
                 o => o.Employee.RefersTo((EmployeeDN)UserDN.Current.Related));

@@ -53,7 +53,12 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<PropertyDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<FacadeMethodDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<QueryDN>(Download.All, Upload.New).Importer = new QueryImporter();
+            
+            //Signum.Entities.Notes
             DisconnectedLogic.Register<NoteDN>(Download.None, Upload.None);
+            
+            //Signum.Entities.Alerts
+            DisconnectedLogic.Register<AlertTypeDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<AlertDN>(Download.None, Upload.None);
 
             //Signum.Entities.Chart

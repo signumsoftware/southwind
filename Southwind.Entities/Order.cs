@@ -94,7 +94,7 @@ namespace Southwind.Entities
         }
 
         [ValidateChildProperty, NotifyChildProperty, NotifyCollectionChanged]
-        MList<OrderDetailsDN> details;
+        MList<OrderDetailsDN> details = new MList<OrderDetailsDN>();
         public MList<OrderDetailsDN> Details
         {
             get { return details; }
@@ -304,6 +304,11 @@ namespace Southwind.Entities
         {
             return companyName;
         }
+    }
+
+    public enum ShipperOperations
+    {
+        Save,
     }
 
     public enum OrderQueries

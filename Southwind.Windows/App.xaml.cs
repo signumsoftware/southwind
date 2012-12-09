@@ -31,6 +31,8 @@ using System.IO;
 using Signum.Windows.Omnibox;
 using Signum.Entities.Disconnected;
 using Signum.Windows.Processes;
+using Signum.Windows.Notes;
+using Signum.Windows.Alerts;
 
 namespace Southwind.Windows
 {
@@ -101,6 +103,9 @@ namespace Southwind.Windows
             ChartClient.Start();
 
             ExceptionClient.Start();
+
+            NoteClient.Start();
+            AlertClient.Start(typeof(OrderDN));
 
             OmniboxClient.Start();
             OmniboxClient.Register(new EntityOmniboxProvider());

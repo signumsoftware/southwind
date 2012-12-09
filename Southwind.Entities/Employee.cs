@@ -142,6 +142,11 @@ namespace Southwind.Entities
         }
     }
 
+    public enum EmployeeOperation
+    {
+        Save
+    }
+
     [Serializable]
     public class TerritoryDN : IdentifiableEntity
     {
@@ -168,6 +173,11 @@ namespace Southwind.Entities
         }
     }
 
+    public enum TerritoryOperation
+    {
+        Save
+    }
+
     [Serializable]
     public class RegionDN : IdentifiableEntity
     {
@@ -186,8 +196,15 @@ namespace Southwind.Entities
         }
     }
 
+    public enum RegionOperation
+    {
+        Save
+    }
+
     public enum EmployeeQueries
     {
         EmployeesByTerritory
     }
+
+    
 }

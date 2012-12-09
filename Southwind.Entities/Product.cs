@@ -97,6 +97,11 @@ namespace Southwind.Entities
         }
     }
 
+    public enum ProductOperation
+    {
+        Save
+    }
+
     [Serializable]
     public class SupplierDN : Entity
     {
@@ -169,6 +174,11 @@ namespace Southwind.Entities
         }
     }
 
+    public enum SupplierOperation
+    {
+        Save
+    }
+
     [Serializable]
     public class CategoryDN : Entity
     {
@@ -201,6 +211,11 @@ namespace Southwind.Entities
         {
             return categoryName;
         }
+    }
+
+    public enum CategoryOperation
+    {
+        Save
     }
 
     public enum ProductQueries

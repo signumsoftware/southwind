@@ -46,6 +46,7 @@
     <Compile Include="ProductLogic.cs" />
     <Compile Include="EmployeeLogic.cs" />
     <Compile Include="OrderLogic.cs" />
+    <Compile Include="ShipperLogic.cs" />
     <Compile Include="Starter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Starter.Disconnected.cs" />
