@@ -60,12 +60,12 @@ namespace Southwind.Load
                         new OrderDN
                         {
 
-                            Employee = new Lite<EmployeeDN>(o.EmployeeID.Value),
+                            Employee = Lite.Create<EmployeeDN>(o.EmployeeID.Value),
                             OrderDate = o.OrderDate.Value,
                             RequiredDate = o.RequiredDate.Value,
                             ShippedDate = o.ShippedDate,
                             State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
-                            ShipVia = new Lite<ShipperDN>(o.ShipVia.Value),
+                            ShipVia = Lite.Create<ShipperDN>(o.ShipVia.Value),
                             ShipName = o.ShipName,
                             ShipAddress = new AddressDN
                             {
@@ -79,7 +79,7 @@ namespace Southwind.Load
                             Details = o.Order_Details.Select(od => new OrderDetailsDN
                             {
                                 Discount = (decimal)od.Discount,
-                                Product = new Lite<ProductDN>(od.ProductID),
+                                Product = Lite.Create<ProductDN>(od.ProductID),
                                 Quantity = od.Quantity,
                                 UnitPrice = od.UnitPrice,
                             }).ToMList(),

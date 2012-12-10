@@ -70,8 +70,8 @@ namespace Southwind.Load
                     new ProductDN
                     {
                         ProductName = s.ProductName,
-                        Supplier = new Lite<SupplierDN>(s.SupplierID.Value),
-                        Category = new Lite<CategoryDN>(s.CategoryID.Value),
+                        Supplier =  Lite.Create<SupplierDN>(s.SupplierID.Value),
+                        Category = Lite.Create<CategoryDN>(s.CategoryID.Value),
                         QuantityPerUnit = s.QuantityPerUnit,
                         UnitPrice = s.UnitPrice.Value,
                         UnitsInStock = s.UnitsInStock.Value,
