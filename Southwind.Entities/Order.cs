@@ -12,7 +12,7 @@ using Signum.Entities.Disconnected;
 
 namespace Southwind.Entities
 {
-    [Serializable]
+    [Serializable, EntityType(EntityType.Main)]
     public class OrderDN : Entity, IDisconnectedEntity
     {
         [ImplementedBy(typeof(CompanyDN), typeof(PersonDN))]
@@ -279,7 +279,7 @@ namespace Southwind.Entities
         }
     }
 
-    [Serializable]
+    [Serializable, EntityType(EntityType.Main)]
     public class ShipperDN : Entity
     {
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]

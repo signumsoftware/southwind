@@ -89,11 +89,11 @@ namespace Southwind.Logic
             //Signum.Entities.Operations
             DisconnectedLogic.Register<OperationDN>(Download.Replace, Upload.None);
             Expression<Func<OperationLogDN, bool>> operationLogCondition = ol =>
-             ol.Target.RuntimeType == typeof(EmployeeDN) ||
-             ol.Target.RuntimeType == typeof(ProductDN) ||
-             ol.Target.RuntimeType == typeof(OrderDN) && ((OrderDN)ol.Target.Entity).Employee.RefersTo(EmployeeDN.Current) ||
-             ol.Target.RuntimeType == typeof(PersonDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((PersonDN)ol.Target.Entity)) ||
-             ol.Target.RuntimeType == typeof(CompanyDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((CompanyDN)ol.Target.Entity));
+             ol.Target.EntityType == typeof(EmployeeDN) ||
+             ol.Target.EntityType == typeof(ProductDN) ||
+             ol.Target.EntityType == typeof(OrderDN) && ((OrderDN)ol.Target.Entity).Employee.RefersTo(EmployeeDN.Current) ||
+             ol.Target.EntityType == typeof(PersonDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((PersonDN)ol.Target.Entity)) ||
+             ol.Target.EntityType == typeof(CompanyDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((CompanyDN)ol.Target.Entity));
 
             DisconnectedLogic.Register<OperationLogDN>(operationLogCondition, Upload.New);
 

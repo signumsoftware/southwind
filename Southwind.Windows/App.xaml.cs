@@ -116,18 +116,18 @@ namespace Southwind.Windows
 
             Navigator.AddSettings(new List<EntitySettings>
             {
-                new EntitySettings<EmployeeDN>(EntityType.Main) { View = e => new Employee()},
-                new EntitySettings<TerritoryDN>(EntityType.String) { View = e => new Territory() },
-                new EntitySettings<RegionDN>(EntityType.String) { View = e => new Region() },
+                new EntitySettings<EmployeeDN>() { View = e => new Employee()},
+                new EntitySettings<TerritoryDN>() { View = e => new Territory() },
+                new EntitySettings<RegionDN>() { View = e => new Region() },
 
-                new EntitySettings<ProductDN>(EntityType.Main) { View = e => new Product() },
-                new EntitySettings<CategoryDN>(EntityType.String) { View = e => new Category() },
-                new EntitySettings<SupplierDN>(EntityType.Main) { View = e => new Supplier() },
+                new EntitySettings<ProductDN>() { View = e => new Product() },
+                new EntitySettings<CategoryDN>() { View = e => new Category() },
+                new EntitySettings<SupplierDN>() { View = e => new Supplier() },
 
-                new EntitySettings<CompanyDN>(EntityType.Shared) { View = e => new Company() },
-                new EntitySettings<PersonDN>(EntityType.Shared) { View = e => new Person() },
+                new EntitySettings<CompanyDN>() { View = e => new Company() },
+                new EntitySettings<PersonDN>() { View = e => new Person() },
 
-                new EntitySettings<OrderDN>(EntityType.Main) { View = e => new Order()},
+                new EntitySettings<OrderDN>() { View = e => new Order()},
             });
 
             Constructor.ConstructorManager.Constructors.Add(typeof(OrderDN), win => new OrderDN
