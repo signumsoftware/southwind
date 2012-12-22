@@ -21,9 +21,11 @@ using System.IO;
 using Signum.Utilities;
 using Signum.Engine.Exceptions;
 using System.IO.Compression;
+using Signum.Engine.Basics;
 
 namespace Southwind.Web
 {
+    //http://talentedmonkeys.wordpress.com/2010/11/29/wcf-400-bad-request-while-streaming-large-files-through-iis/
     public class ServerSouthwindTransfer : IServerSouthwindTransfer
     {
         protected T Return<T>(UserDN user, MethodBase mi, string description, Func<T> function)
@@ -31,7 +33,6 @@ namespace Southwind.Web
             try
             {
                 using (AuthLogic.UserSession(user))
-                using (ExecutionContext.Scope(null))
                 {
                     FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
 

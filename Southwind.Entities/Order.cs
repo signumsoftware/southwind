@@ -12,7 +12,7 @@ using Signum.Entities.Disconnected;
 
 namespace Southwind.Entities
 {
-    [Serializable]
+    [Serializable, EntityType(EntityType.Main)]
     public class OrderDN : Entity, IDisconnectedEntity
     {
         [ImplementedBy(typeof(CompanyDN), typeof(PersonDN))]
@@ -94,7 +94,7 @@ namespace Southwind.Entities
         }
 
         [ValidateChildProperty, NotifyChildProperty, NotifyCollectionChanged]
-        MList<OrderDetailsDN> details;
+        MList<OrderDetailsDN> details = new MList<OrderDetailsDN>();
         public MList<OrderDetailsDN> Details
         {
             get { return details; }
@@ -150,18 +150,17 @@ namespace Southwind.Entities
 
         protected override string PropertyValidation(PropertyInfo pi)
         { 
-            return validator.Validate(this, pi); 
+            return stateValidator.Validate(this, pi); 
         }
 
-  		static StateValidator<OrderDN, OrderState> validator = new StateValidator<OrderDN, OrderState>(
+  		static StateValidator<OrderDN, OrderState> stateValidator = new StateValidator<OrderDN, OrderState>(
             o => o.State, o => o.ShippedDate, o => o.ShipVia, o => o.CancelationDate)
             {
-            {OrderState.New,     false, null, false},
-            {OrderState.Ordered, false, null, null},
-            {OrderState.Shipped, true, true,  null},
-            {OrderState.Canceled, null, null, true},
+                {OrderState.New,     false, null, false},
+                {OrderState.Ordered, false, null, null},
+                {OrderState.Shipped, true, true,  null},
+                {OrderState.Canceled, null, null, true},
             };
-
 
         long? lastOnlineTicks;
         public long? LastOnlineTicks
@@ -187,7 +186,7 @@ namespace Southwind.Entities
         Canceled,
     }
 
-    public enum OrderOperations
+    public enum OrderOperation
     {
         Create,
         SaveNew, 
@@ -280,7 +279,7 @@ namespace Southwind.Entities
         }
     }
 
-    [Serializable]
+    [Serializable, EntityType(EntityType.Main)]
     public class ShipperDN : Entity
     {
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
@@ -305,6 +304,11 @@ namespace Southwind.Entities
         {
             return companyName;
         }
+    }
+
+    public enum ShipperOperations
+    {
+        Save,
     }
 
     public enum OrderQueries

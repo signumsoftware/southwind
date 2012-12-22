@@ -8,6 +8,7 @@
         SF.NewContentProcessor.defaultAutocomplete($newContent);
         SF.NewContentProcessor.defaultPlaceholder($newContent);
         SF.NewContentProcessor.defaultTabs($newContent);
+        SF.NewContentProcessor.defaultModifiedChecker($newContent);
     });
 
     $("body").trigger("sf-new-content");

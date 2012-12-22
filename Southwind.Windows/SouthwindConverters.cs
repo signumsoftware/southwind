@@ -14,6 +14,9 @@ namespace Southwind.Windows
     {
         public static IValueConverter ImageConverter = ConverterFactory.New((byte[] array) =>
         {
+            if (array == null)
+                return null;
+
             BitmapImage image = new BitmapImage();
             image.BeginInit();
             image.StreamSource = new MemoryStream(array);

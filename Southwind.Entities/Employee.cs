@@ -10,7 +10,7 @@ using Signum.Entities.Authorization;
 
 namespace Southwind.Entities
 {
-    [Serializable]
+    [Serializable, EntityType(EntityType.Main)]
     public class EmployeeDN : Entity
     {
         [NotNullable, SqlDbType(Size = 20)]
@@ -142,7 +142,12 @@ namespace Southwind.Entities
         }
     }
 
-    [Serializable]
+    public enum EmployeeOperation
+    {
+        Save
+    }
+
+    [Serializable, EntityType(EntityType.String)]
     public class TerritoryDN : IdentifiableEntity
     {
         RegionDN region;
@@ -168,7 +173,12 @@ namespace Southwind.Entities
         }
     }
 
-    [Serializable]
+    public enum TerritoryOperation
+    {
+        Save
+    }
+
+    [Serializable, EntityType(EntityType.String)]
     public class RegionDN : IdentifiableEntity
     {
         [NotNullable, SqlDbType(Size = 50), UniqueIndex]
@@ -186,8 +196,15 @@ namespace Southwind.Entities
         }
     }
 
+    public enum RegionOperation
+    {
+        Save
+    }
+
     public enum EmployeeQueries
     {
         EmployeesByTerritory
     }
+
+    
 }

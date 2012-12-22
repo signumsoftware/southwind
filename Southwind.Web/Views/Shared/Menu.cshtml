@@ -1,6 +1,6 @@
 ﻿@using Southwind.Entities
 @using Signum.Entities.Authorization
-@using Signum.Entities.Operations
+@using Signum.Entities.Basics
 @using Signum.Entities.Reports
 @using Signum.Entities.UserQueries
 @using Signum.Entities.ControlPanel
@@ -62,8 +62,10 @@
                     new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },
                     new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },
                     new WebMenuItem { Link = new FindOptions(typeof(OperationLogDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(SessionLogDN)) },
                     new WebMenuItem { Link = new FindOptions(typeof(UserQueryDN)) },
                     new WebMenuItem { Link = new FindOptions(typeof(UserChartDN)) },
+                    new WebMenuItem { Link = new FindOptions(typeof(ChartScriptDN)) },
                     new WebMenuItem { Link = new FindOptions(typeof(ControlPanelDN)) },
                 }
             }

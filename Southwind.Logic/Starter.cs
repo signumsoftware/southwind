@@ -20,14 +20,16 @@ using Signum.Entities.Basics;
 using Signum.Entities.Chart;
 using Signum.Entities.ControlPanel;
 using Signum.Entities.Disconnected;
-using Signum.Entities.Exceptions;
 using Signum.Entities.Mailing;
-using Signum.Entities.Operations;
 using Signum.Entities.UserQueries;
 using Signum.Utilities;
 using Signum.Utilities.ExpressionTrees;
 using Southwind.Entities;
 using Southwind.Services;
+using Signum.Engine.Processes;
+using Signum.Entities.Processes;
+using Signum.Engine.Alerts;
+using Signum.Engine.Notes;
 
 namespace Southwind.Logic
 {
@@ -37,13 +39,17 @@ namespace Southwind.Logic
     {
         public static void Start(string connectionString)
         {
-            SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2008);
+            SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2012);
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
+            sb.Schema.Settings.OverrideAttributes((ExceptionDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((OperationLogDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((ControlPanelDN cp) => cp.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((ProcessExecutionDN cp) => cp.ProcessData, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
+            sb.Schema.Settings.OverrideAttributes((PackageLineDN cp) => cp.Package, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
 
             DynamicQueryManager dqm = new DynamicQueryManager();
 
@@ -51,56 +57,40 @@ namespace Southwind.Logic
 
             OperationLogic.Start(sb, dqm);
 
+
             EmailLogic.Start(sb, dqm);
 
             AuthLogic.Start(sb, dqm, "System", null);
             
             ResetPasswordRequestLogic.Start(sb, dqm);
             AuthLogic.StartAllModules(sb, dqm, typeof(IServerSouthwind));
-            UserTicketLogic.Start(sb, dqm); 
+            UserTicketLogic.Start(sb, dqm);
+            SessionLogLogic.Start(sb, dqm);
+
+            ProcessLogic.Start(sb, dqm, 1, userProcessSession: true);
+            PackageLogic.Start(sb, dqm, true, true);
 
             QueryLogic.Start(sb);
             UserQueryLogic.Start(sb, dqm);
             UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
             UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
             ChartLogic.Start(sb, dqm);
-            ChartLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
-            ChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
+            UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
+            UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
             ControlPanelLogic.Start(sb, dqm);
             ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
             ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
 
             ExceptionLogic.Start(sb, dqm);
 
-            sb.Include<NoteDN>();
-            dqm[typeof(NoteDN)] = (from a in Database.Query<NoteDN>()
-                                   select new
-                                   {
-                                       Entity = a.ToLite(),
-                                       a.Id,
-                                       a.Text,
-                                       a.Target
-                                   }).ToDynamic();
-            
-            sb.Include<AlertDN>();
-            var alertExpr = Linq.Expr((AlertDN a) => new
-            {
-                Entity = a.ToLite(),
-                a.Id,
-                a.AlertDate,
-                Text = a.Text.Etc(100),
-                a.CheckDate,
-                Target = a.Entity
-            });
-            dqm[typeof(AlertDN)] = Database.Query<AlertDN>().Select(alertExpr).ToDynamic();
-            dqm[AlertQueries.NotAttended] = Database.Query<AlertDN>().Where(a => a.NotAttended).Select(alertExpr).ToDynamic();
-            dqm[AlertQueries.Attended] = Database.Query<AlertDN>().Where(a => a.Attended).Select(alertExpr).ToDynamic();
-            dqm[AlertQueries.Future] = Database.Query<AlertDN>().Where(a => a.Future).Select(alertExpr).ToDynamic();
+            AlertLogic.Start(sb, dqm);
+            NoteLogic.Start(sb, dqm);
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);
             CustomerLogic.Start(sb, dqm); 
             OrderLogic.Start(sb, dqm);
+            ShipperLogic.Start(sb, dqm);
 
             TypeConditionLogic.Register<OrderDN>(SouthwindGroups.UserEntities,
                 o => o.Employee.RefersTo((EmployeeDN)UserDN.Current.Related));
@@ -116,10 +106,12 @@ namespace Southwind.Logic
 
             DisconnectedLogic.Start(sb, dqm);
             DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
-            DisconnectedLogic.BackupNetworkFolder = @"\\SQLS2012\SouthwindTemp\Backups";
-            DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Backups";
+            DisconnectedLogic.BackupNetworkFolder = @"D:\SouthwindTemp\Backups";
+            DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Database";
 
             SetupDisconnectedStrategies(sb);
+            
+            sb.ExecuteWhenIncluded();
         }
 
     }

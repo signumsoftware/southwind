@@ -12,6 +12,7 @@ using Signum.Services;
 using Signum.Entities;
 using Signum.Engine.Authorization;
 using Signum.Entities.Reflection;
+using Signum.Engine.Chart;
 
 namespace Southwind.Load
 {
@@ -74,6 +75,7 @@ namespace Southwind.Load
 
                         {30, OrderLoader.UpdateOrdersDate },
 
+                        {40, ImportExportChartScripts},
                     }.ChooseMultiple();
 
                     if (actions == null)
@@ -129,6 +131,11 @@ namespace Southwind.Load
               .OrderByDescending(a => a.TotalPrice);
 
             OrderDN order = query.First();
+        }
+
+        static void ImportExportChartScripts()
+        {
+            ChartScriptLogic.ImportExportScripts(@"..\..\..\..\..\Extensions\Signum.Engine.Extensions\Chart\ChartScripts");
         }
     }
 }

@@ -22,9 +22,15 @@ using Signum.Utilities;
 using System.Globalization;
 using Signum.Web.Chart;
 using Signum.Web.ControlPanel;
-using Signum.Web.Widgets;
 using Signum.Web.Exceptions;
 using Signum.Web.Omnibox;
+using Signum.Web.Files;
+using Signum.Web.Disconnected;
+using Signum.Web.Processes;
+using Signum.Engine.Processes;
+using Signum.Entities.Basics;
+using Signum.Web.Notes;
+using Signum.Web.Alerts;
 
 namespace Southwind.Web
 {
@@ -38,7 +44,7 @@ namespace Southwind.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-             Navigator.ViewRouteName,
+             Navigator.NavigateRouteName,
              "View/{webTypeName}/{id}",
              new { controller = "Signum", action = "View", webTypeName = "", id = "" }
           );
@@ -74,6 +80,8 @@ namespace Southwind.Web
 
             WebStart();
 
+            ProcessLogic.StartBackgroundProcess(5 * 1000);
+
             RegisterRoutes(RouteTable.Routes);
         }
 
@@ -98,14 +106,27 @@ namespace Southwind.Web
                 operations: true,
                 permissions: true,
                 facadeMethods: true);
+
+            SessionLogClient.Start();
             ExceptionClient.Start();
             UserQueriesClient.Start();
+            FilesClient.Start(
+                filePath: false, 
+                file: true, 
+                embeddedFile: false);
             ChartClient.Start();
-            ReportsClient.Start(true, false);
+            ReportsClient.Start(
+                toExcelPlain:  true, 
+                excelReport: false);
             ControlPanelClient.Start();
 
-            NotesClient.Start();
-            AlertsClient.Start();
+            DisconnectedClient.Start();
+            ProcessesClient.Start(
+                packages: true,
+                packageOperations: true);
+
+            NoteClient.Start();
+            AlertClient.Start();
             QuickLinkWidgetHelper.Start();
 
             SouthwindClient.Start();            
@@ -126,6 +147,8 @@ namespace Southwind.Web
             OmniboxClient.Register(new UserQueriesOmniboxProvider());
             OmniboxClient.Register(new ChartOmniboxProvider());
             OmniboxClient.Register(new UserChartOmniboxProvider());
+
+            ContextualItemsHelper.Start();
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
@@ -143,9 +166,14 @@ namespace Southwind.Web
             AuthController.LoginFromCookie();
         }
 
+        protected void Session_End(object sender, EventArgs e)
+        {
+            SessionLogClient.LogSessionEnd((UserDN)Session[UserHolder.UserSessionKey], TimeSpan.FromMinutes(Session.Timeout));
+        }
+
         protected void Application_ReleaseRequestState(object sender, EventArgs e)
         {
-            Thread.CurrentPrincipal = null;
+            Statics.CleanThreadContextAndAssert();
         }
     }
 }

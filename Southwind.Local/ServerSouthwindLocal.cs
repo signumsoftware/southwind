@@ -15,6 +15,7 @@ using Signum.Engine;
 using Signum.Engine.Authorization;
 using System.ServiceModel;
 using Signum.Entities.Authorization;
+using Signum.Engine.Basics;
 
 namespace Southwind.Local
 {
@@ -25,7 +26,6 @@ namespace Southwind.Local
             try
             {
                 using (ScopeSessionFactory.OverrideSession(session))
-                using (ExecutionContext.Scope(GetDefaultExecutionContext(mi, description)))
                 {
                     if (checkLogin)
                         FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
@@ -61,7 +61,23 @@ namespace Southwind.Local
               DisconnectedLogic.GetDisconnectedMachine(machineName));
         }
 
+        public Dictionary<Type, StrategyPair> GetStrategyPairs()
+        {
+            return Return(MethodInfo.GetCurrentMethod(), () =>
+                DisconnectedLogic.GetStrategyPairs());
+        }
+
         public DisconnectedImportDN GetUploadEstimation(Lite<DisconnectedMachineDN> machine)
+        {
+            throw NotAvailableOffline();
+        }
+
+        public void SkipExport(Lite<DisconnectedMachineDN> machine)
+        {
+            throw NotAvailableOffline();
+        }
+
+        public void ConnectAfterFix(Lite<DisconnectedMachineDN> machine)
         {
             throw NotAvailableOffline();
         }
@@ -69,12 +85,6 @@ namespace Southwind.Local
         private static InvalidOperationException NotAvailableOffline()
         {
             throw new InvalidOperationException("Operation not available while offline");
-        }
-
-        public Dictionary<Type, StrategyPair> GetStrategyPairs()
-        {
-            return Return(MethodInfo.GetCurrentMethod(), () =>
-                DisconnectedLogic.GetStrategyPairs());
         }
     }
 

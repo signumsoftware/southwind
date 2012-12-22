@@ -9,6 +9,7 @@ using Southwind.Entities;
 using Signum.Engine;
 using Signum.Utilities;
 using Signum.Entities;
+using Signum.Engine.Operations;
 
 namespace Southwind.Logic
 {
@@ -68,8 +69,30 @@ namespace Southwind.Logic
                                                s.Id,
                                                s.CategoryName,
                                                s.Description,
-                                           }).ToDynamic(); 
+                                           }).ToDynamic();
 
+                
+
+                new BasicExecute<ProductDN>(ProductOperation.Save)
+                {
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, _) => { }
+                }.Register();
+
+                new BasicExecute<SupplierDN>(SupplierOperation.Save)
+                {
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, _) => { }
+                }.Register();
+
+                new BasicExecute<CategoryDN>(CategoryOperation.Save)
+                {
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, _) => { }
+                }.Register();
             }
         }
     }

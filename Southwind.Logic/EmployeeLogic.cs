@@ -10,6 +10,7 @@ using Signum.Engine;
 using Signum.Utilities;
 using Signum.Entities;
 using System.Linq.Expressions;
+using Signum.Engine.Operations;
 
 namespace Southwind.Logic
 {
@@ -71,10 +72,27 @@ namespace Southwind.Logic
                                                                  Territory = t.ToLite(),
                                                              }).ToDynamic();
 
+                new BasicExecute<EmployeeDN>(EmployeeOperation.Save)
+                {
+                    Lite = false,
+                    AllowsNew = true,
+                    Execute = (e, _) => { }
+                }.Register();
 
+                new BasicExecute<TerritoryDN>(TerritoryOperation.Save)
+                {
+                    Lite = false,
+                    AllowsNew = true,
+                    Execute = (e, _) => { }
+                }.Register();
+
+                new BasicExecute<RegionDN>(RegionOperation.Save)
+                {
+                    Lite = false,
+                    AllowsNew = true,
+                    Execute = (e, _) => { }
+                }.Register();
             }
-
-
         }
 
         public static void Create(EmployeeDN employee)

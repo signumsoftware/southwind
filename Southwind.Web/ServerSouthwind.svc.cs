@@ -19,6 +19,7 @@ using Signum.Entities.Disconnected;
 using Signum.Engine.Disconnected;
 using Signum.Utilities;
 using Signum.Engine.Exceptions;
+using Signum.Engine.Basics;
 
 namespace Southwind.Web
 {
@@ -29,7 +30,6 @@ namespace Southwind.Web
             try
             {
                 using (ScopeSessionFactory.OverrideSession(session))
-                using (ExecutionContext.Scope(GetDefaultExecutionContext(mi, description)))
                 {
                     if (checkLogin)
                         FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
@@ -73,6 +73,18 @@ namespace Southwind.Web
         {
             return Return(MethodInfo.GetCurrentMethod(), () =>
                 DisconnectedLogic.GetStrategyPairs());
+        }
+
+        public void SkipExport(Lite<DisconnectedMachineDN> machine)
+        {
+            Execute(MethodInfo.GetCurrentMethod(), () =>
+                 DisconnectedLogic.ImportManager.SkipExport(machine));
+        }
+
+        public void ConnectAfterFix(Lite<DisconnectedMachineDN> machine)
+        {
+            Execute(MethodInfo.GetCurrentMethod(), () =>
+                 DisconnectedLogic.ImportManager.ConnectAfterFix(machine));
         }
     }
 }

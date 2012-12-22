@@ -11,9 +11,7 @@ using Signum.Entities.Basics;
 using Signum.Entities.Chart;
 using Signum.Entities.ControlPanel;
 using Signum.Entities.Mailing;
-using Signum.Entities.Operations;
 using Southwind.Entities;
-using Signum.Entities.Exceptions;
 using Signum.Entities.UserQueries;
 using Signum.Engine;
 using System.Linq.Expressions;
@@ -22,6 +20,10 @@ using System.Data.Common;
 using Signum.Engine.Basics;
 using Signum.Engine.Authorization;
 using Signum.Engine.Operations;
+using Signum.Entities.Files;
+using Signum.Entities.Processes;
+using Signum.Entities.Notes;
+using Signum.Entities.Alerts;
 
 namespace Southwind.Logic
 {
@@ -43,6 +45,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<RuleOperationDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<PermissionDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<RulePermissionDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SessionLogDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<UserTicketDN>(Download.None, Upload.None);
 
             //Signum.Entities.Basics
@@ -50,12 +53,21 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<PropertyDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<FacadeMethodDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<QueryDN>(Download.All, Upload.New).Importer = new QueryImporter();
+            
+            //Signum.Entities.Notes
             DisconnectedLogic.Register<NoteDN>(Download.None, Upload.None);
+            
+            //Signum.Entities.Alerts
+            DisconnectedLogic.Register<AlertTypeDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<AlertDN>(Download.None, Upload.None);
 
             //Signum.Entities.Chart
             DisconnectedLogic.Register<ChartColorDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<UserChartDN>(Download.All, Upload.New).Importer = new UserQueryImporter();
+            DisconnectedLogic.Register<UserChartDN>(Download.All, Upload.New).Importer = new UserQueryImporter(); 
+            DisconnectedLogic.Register<ChartScriptDN>(Download.All, Upload.New);
+
+            //Signum.Entities.Files
+            DisconnectedLogic.Register<FileDN>(Download.All, Upload.New);
 
             //Signum.Entities.ControlPanel
             DisconnectedLogic.Register<ControlPanelDN>(Download.None, Upload.None);
@@ -77,13 +89,21 @@ namespace Southwind.Logic
             //Signum.Entities.Operations
             DisconnectedLogic.Register<OperationDN>(Download.Replace, Upload.None);
             Expression<Func<OperationLogDN, bool>> operationLogCondition = ol =>
-             ol.Target.RuntimeType == typeof(EmployeeDN) ||
-             ol.Target.RuntimeType == typeof(ProductDN) ||
-             ol.Target.RuntimeType == typeof(OrderDN) && ((OrderDN)ol.Target.Entity).Employee.RefersTo(EmployeeDN.Current) ||
-             ol.Target.RuntimeType == typeof(PersonDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((PersonDN)ol.Target.Entity)) ||
-             ol.Target.RuntimeType == typeof(CompanyDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((CompanyDN)ol.Target.Entity));
+             ol.Target.EntityType == typeof(EmployeeDN) ||
+             ol.Target.EntityType == typeof(ProductDN) ||
+             ol.Target.EntityType == typeof(OrderDN) && ((OrderDN)ol.Target.Entity).Employee.RefersTo(EmployeeDN.Current) ||
+             ol.Target.EntityType == typeof(PersonDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((PersonDN)ol.Target.Entity)) ||
+             ol.Target.EntityType == typeof(CompanyDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((CompanyDN)ol.Target.Entity));
 
             DisconnectedLogic.Register<OperationLogDN>(operationLogCondition, Upload.New);
+
+            //Signum.Entities.Processes
+            DisconnectedLogic.Register<ProcessDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<ProcessExecutionDN>(Download.None, Upload.New);
+            DisconnectedLogic.Register<UserProcessSessionDN>(Download.None, Upload.New);
+            DisconnectedLogic.Register<PackageDN>(Download.None, Upload.New);
+            DisconnectedLogic.Register<PackageOperationDN>(Download.None, Upload.New);
+            DisconnectedLogic.Register<PackageLineDN>(Download.None, Upload.New);
 
             //Signum.Entities.Exceptions
             DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);

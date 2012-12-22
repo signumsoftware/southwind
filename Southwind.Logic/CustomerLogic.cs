@@ -9,6 +9,7 @@ using Southwind.Entities;
 using Signum.Engine;
 using Signum.Entities;
 using Signum.Entities.DynamicQuery;
+using Signum.Engine.Operations;
 
 namespace Southwind.Logic
 {
@@ -50,6 +51,27 @@ namespace Southwind.Logic
                                               r.Address,
                                           }).ToDynamic();
 
+                new BasicExecute<CustomerDN>(CustomerOperations.Save)
+                {
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, _) => { }
+                }.Register();
+
+                new BasicExecute<CompanyDN>(CustomerOperations.Save)
+                {
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, _) => { }
+                }.RegisterReplace();
+
+                new BasicExecute<PersonDN>(CustomerOperations.Save)
+                {
+                    AllowsNew = true,
+                    Lite = false,
+                    Execute = (e, _) => { }
+                }.RegisterReplace();    
+
                 dqm[typeof(CustomerDN)] = DynamicQuery.Manual((QueryRequest request, List<ColumnDescription> descriptions) =>
                 {
                    var persons = Database.Query<PersonDN>().Select(p => new
@@ -83,7 +105,7 @@ namespace Southwind.Logic
                     .TryPaginatePartial(request.MaxElementIndex);
 
                    return persons.Concat(companies).OrderBy(request.Orders).TryPaginate(request.ElementsPerPage, request.CurrentPage);
-                }).Column(a => a.Entity, cd => cd.Implementations = new ImplementedByAttribute(typeof(PersonDN), typeof(CompanyDN))); 
+                }).Column(a => a.Entity, cd => cd.Implementations = Implementations.By(typeof(PersonDN), typeof(CompanyDN))); 
             }
         }
     }

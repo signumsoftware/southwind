@@ -25,12 +25,15 @@ using Signum.Windows.Chart;
 using Signum.Entities.Authorization;
 using Signum.Windows.UserQueries;
 using Signum.Windows.Disconnected;
-using Signum.Windows.Logging;
 using Southwind.Local;
 using Southwind.Windows.Properties;
 using System.IO;
 using Signum.Windows.Omnibox;
 using Signum.Windows.ControlPanels;
+using Signum.Entities.Disconnected;
+using Signum.Windows.Processes;
+using Signum.Windows.Notes;
+using Signum.Windows.Alerts;
 
 namespace Southwind.Windows
 {
@@ -94,13 +97,17 @@ namespace Southwind.Windows
 
             LinksWidget.Start();
 
+            ProcessClient.Start(true, true);
+
             ReportClient.Start(true, false);
             UserQueryClient.Start();
-            ChartClient.Start(() => new ChartRendererVisifire());
+            ChartClient.Start();
             ControlPanelClient.Start();
 
-            DisconnectedClient.Start();
             ExceptionClient.Start();
+
+            NoteClient.Start();
+            AlertClient.Start(typeof(OrderDN));
 
             OmniboxClient.Start();
             OmniboxClient.Register(new EntityOmniboxProvider());
@@ -111,18 +118,18 @@ namespace Southwind.Windows
 
             Navigator.AddSettings(new List<EntitySettings>
             {
-                new EntitySettings<EmployeeDN>(EntityType.Default) { View = e => new Employee(), IsCreable= admin=>false},
-                new EntitySettings<TerritoryDN>(EntityType.Admin) { View = e => new Territory() },
-                new EntitySettings<RegionDN>(EntityType.Admin) { View = e => new Region() },
+                new EntitySettings<EmployeeDN>() { View = e => new Employee()},
+                new EntitySettings<TerritoryDN>() { View = e => new Territory() },
+                new EntitySettings<RegionDN>() { View = e => new Region() },
 
-                new EntitySettings<ProductDN>(EntityType.Admin) { View = e => new Product() },
-                new EntitySettings<CategoryDN>(EntityType.Admin) { View = e => new Category() },
-                new EntitySettings<SupplierDN>(EntityType.Admin) { View = e => new Supplier() },
+                new EntitySettings<ProductDN>() { View = e => new Product() },
+                new EntitySettings<CategoryDN>() { View = e => new Category() },
+                new EntitySettings<SupplierDN>() { View = e => new Supplier() },
 
-                new EntitySettings<CompanyDN>(EntityType.Default) { View = e => new Company() },
-                new EntitySettings<PersonDN>(EntityType.Default) { View = e => new Person() },
+                new EntitySettings<CompanyDN>() { View = e => new Company() },
+                new EntitySettings<PersonDN>() { View = e => new Person() },
 
-                new EntitySettings<OrderDN>(EntityType.DefaultNotSaving) { View = e => new Order()},
+                new EntitySettings<OrderDN>() { View = e => new Order()},
             });
 
             Constructor.ConstructorManager.Constructors.Add(typeof(OrderDN), win => new OrderDN
@@ -153,11 +160,17 @@ namespace Southwind.Windows
             QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, formatter);
             QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture, formatter);
 
+            DisconnectedClient.Start();
+
             Navigator.Initialize();
 
             if (DisconnectedClient.OfflineMode)
             {
                 LocalServer.OverrideCommonEvents();
+                DisconnectedExportRanges.Initialize(
+                    LocalServer.LastExport(),    
+                    DisconnectedMachineDN.Current.Retrieve(),
+                    Server.ServerTypes.ToDictionary(k => k.Value.ToLite(), k => k.Key));
             }
         }
     }

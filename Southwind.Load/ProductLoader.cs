@@ -13,12 +13,13 @@ namespace Southwind.Load
 {
     internal static class ProductLoader
     {
+#pragma warning disable 0649
         public class SupplierFaxCSV
         {
             public int SupplierID;
             public string Fax; 
         }
-
+#pragma warning restore 0649
         public static void LoadSuppliers()
         {
             using (NorthwindDataContext db = new NorthwindDataContext())
@@ -69,8 +70,8 @@ namespace Southwind.Load
                     new ProductDN
                     {
                         ProductName = s.ProductName,
-                        Supplier = new Lite<SupplierDN>(s.SupplierID.Value),
-                        Category = new Lite<CategoryDN>(s.CategoryID.Value),
+                        Supplier =  Lite.Create<SupplierDN>(s.SupplierID.Value),
+                        Category = Lite.Create<CategoryDN>(s.CategoryID.Value),
                         QuantityPerUnit = s.QuantityPerUnit,
                         UnitPrice = s.UnitPrice.Value,
                         UnitsInStock = s.UnitsInStock.Value,

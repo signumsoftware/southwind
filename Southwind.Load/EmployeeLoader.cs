@@ -100,7 +100,7 @@ namespace Southwind.Load
                 foreach (var pair in pairs)
                 {
                     EmployeeDN employee = Database.Retrieve<EmployeeDN>(pair.EmployeeID);
-                    employee.ReportsTo = new Lite<EmployeeDN>(pair.ReportsTo.Value);
+                    employee.ReportsTo = Lite.Create<EmployeeDN>(pair.ReportsTo.Value);
                     employee.Save();
                 }
             }
