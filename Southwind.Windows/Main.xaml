@@ -12,43 +12,47 @@
     xmlns:swo="clr-namespace:Signum.Windows.Omnibox;assembly=Signum.Windows.Extensions"
     xmlns:swcp="clr-namespace:Signum.Windows.ControlPanels;assembly=Signum.Windows.Extensions"
     Title="Southwind Application"  SizeToContent="WidthAndHeight">
-    <StackPanel Orientation="Horizontal">
-        <Menu MaxHeight ="{x:Static SystemParameters.MenuBarHeight}" x:Name="menu">
-            <MenuItem Header="Orders">
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:OrderDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Static d:OrderQueries.OrderLines}}"/>
-            </MenuItem>
-            <MenuItem Header="Customers">
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:CustomerDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:PersonDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:CompanyDN}}"/>
-            </MenuItem>
-            <MenuItem Header="Products">
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:ProductDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:CategoryDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:SupplierDN}}"/>
-            </MenuItem>
-            <MenuItem Header="Employees">
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:EmployeeDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:TerritoryDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type d:RegionDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type sea:UserDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type sea:RoleDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type seb:OperationLogDN}}"/>
-            </MenuItem>
-            <MenuItem Header="Reporting">
-                <MenuItem Tag="{m:Explore QueryName={x:Type sec:UserChartDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type seu:UserQueryDN}}"/>
-            </MenuItem>
-            <MenuItem Header="Disconnected" x:Name="miDisconnected">
-                <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedMachineDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedExportDN}}"/>
-                <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedImportDN}}"/>
-                <Separator/>
-                <MenuItem Header="Download and work localy" Click="miDownload_Click" x:Name="miDownload" />
-                <MenuItem Header="Upload and work online" Click="miUpload_Click" x:Name="miUpload" />
-            </MenuItem>
-        </Menu>
-        <swo:OmniboxAutocomplete MinWidth="200"/>
-    </StackPanel>
+    <DockPanel LastChildFill="True">
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+            <swo:OmniboxAutocomplete MinWidth="200" DockPanel.Dock="Right"/>
+
+            <Menu MaxHeight ="{x:Static SystemParameters.MenuBarHeight}" x:Name="menu">
+                <MenuItem Header="Orders">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:OrderDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Static d:OrderQueries.OrderLines}}"/>
+                </MenuItem>
+                <MenuItem Header="Customers">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:CustomerDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:PersonDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:CompanyDN}}"/>
+                </MenuItem>
+                <MenuItem Header="Products">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:ProductDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:CategoryDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:SupplierDN}}"/>
+                </MenuItem>
+                <MenuItem Header="Employees">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:EmployeeDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:TerritoryDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:RegionDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sea:UserDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sea:RoleDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type seb:OperationLogDN}}"/>
+                </MenuItem>
+                <MenuItem Header="Reporting">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sec:UserChartDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type seu:UserQueryDN}}"/>
+                </MenuItem>
+                <MenuItem Header="Disconnected" x:Name="miDisconnected">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedMachineDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedExportDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedImportDN}}"/>
+                    <Separator/>
+                    <MenuItem Header="Download and work localy" Click="miDownload_Click" x:Name="miDownload" />
+                    <MenuItem Header="Upload and work online" Click="miUpload_Click" x:Name="miUpload" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <swcp:ControlPanelView />
+    </DockPanel>
 </Window> 
