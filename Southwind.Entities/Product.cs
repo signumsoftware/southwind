@@ -8,7 +8,7 @@ using Signum.Utilities;
 
 namespace Southwind.Entities
 {
-    [Serializable, EntityType(EntityType.Main)]
+    [Serializable, EntityKind(EntityKind.Main)]
     public class ProductDN : Entity
     {
         [NotNullable, SqlDbType(Size = 40), UniqueIndex]
@@ -102,7 +102,7 @@ namespace Southwind.Entities
         Save
     }
 
-    [Serializable, EntityType(EntityType.Main)]
+    [Serializable, EntityKind(EntityKind.Main)]
     public class SupplierDN : Entity
     {
         [NotNullable, SqlDbType(Size = 40), UniqueIndex]
@@ -179,7 +179,7 @@ namespace Southwind.Entities
         Save
     }
 
-    [Serializable, EntityType(EntityType.String)]
+    [Serializable, EntityKind(EntityKind.String)]
     public class CategoryDN : Entity
     {
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]

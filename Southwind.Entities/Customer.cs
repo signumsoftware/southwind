@@ -41,7 +41,7 @@ namespace Southwind.Entities
     }
     
 
-    [Serializable, EntityType(EntityType.Shared)]
+    [Serializable, EntityKind(EntityKind.Shared)]
     public class PersonDN : CustomerDN
     {  
         [NotNullable, SqlDbType(Size = 40)]
@@ -122,7 +122,7 @@ namespace Southwind.Entities
         }
     }
 
-    [Serializable, EntityType(EntityType.Shared)]
+    [Serializable, EntityKind(EntityKind.Shared)]
     public class CompanyDN : CustomerDN
     {
         [SqlDbType(Size = 40)]
