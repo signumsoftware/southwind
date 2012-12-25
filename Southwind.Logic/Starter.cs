@@ -30,6 +30,8 @@ using Signum.Engine.Processes;
 using Signum.Entities.Processes;
 using Signum.Engine.Alerts;
 using Signum.Engine.Notes;
+using Signum.Engine.Cache;
+using Signum.Engine.Profiler;
 
 namespace Southwind.Logic
 {
@@ -57,6 +59,7 @@ namespace Southwind.Logic
 
             OperationLogic.Start(sb, dqm);
 
+       
 
             EmailLogic.Start(sb, dqm);
 
@@ -110,9 +113,23 @@ namespace Southwind.Logic
             DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Database";
 
             SetupDisconnectedStrategies(sb);
-            
+
+            ProfilerLogic.Start(sb, dqm, 
+                timeTracker: true, 
+                heavyProfiler: true, 
+                overrideSessionTimeout: true);
+
+            CacheLogic.Start(sb);
+
+            SetupCache(sb);
+
             sb.ExecuteWhenIncluded();
         }
 
+        private static void SetupCache(SchemaBuilder sb)
+        {
+            CacheLogic.CacheTable<TypeDN>(sb);
+            CacheLogic.CacheTable<ProductDN>(sb);
+        }
     }
 }

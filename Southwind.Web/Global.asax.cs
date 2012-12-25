@@ -31,6 +31,8 @@ using Signum.Engine.Processes;
 using Signum.Entities.Basics;
 using Signum.Web.Notes;
 using Signum.Web.Alerts;
+using Signum.Web.Profiler;
+using Signum.Web.Cache;
 
 namespace Southwind.Web
 {
@@ -129,7 +131,11 @@ namespace Southwind.Web
             AlertClient.Start();
             QuickLinkWidgetHelper.Start();
 
-            SouthwindClient.Start();            
+            SouthwindClient.Start();
+
+            CacheClient.Start();
+
+            ProfilerClient.Start();
 
             ScriptHtmlHelper.Manager.MainAssembly = typeof(SouthwindClient).Assembly;
             SignumControllerFactory.MainAssembly = typeof(SouthwindClient).Assembly;
@@ -139,9 +145,12 @@ namespace Southwind.Web
 
             SignumControllerFactory.EveryController().AddFilters(new SignumExceptionHandlerAttribute());
 
+            SignumControllerFactory.EveryController().AddFilters(new ProfilerFilterAttribute());
+
             Navigator.Initialize();
 
             OmniboxClient.Start();
+            OmniboxClient.Register(new SpecialOmniboxProvider());
             OmniboxClient.Register(new EntityOmniboxProvider());
             OmniboxClient.Register(new DynamicQueryOmniboxProvider());
             OmniboxClient.Register(new UserQueriesOmniboxProvider());

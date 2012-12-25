@@ -34,6 +34,7 @@ using Signum.Entities.Disconnected;
 using Signum.Windows.Processes;
 using Signum.Windows.Notes;
 using Signum.Windows.Alerts;
+using Signum.Windows.Profiler;
 
 namespace Southwind.Windows
 {
@@ -109,7 +110,10 @@ namespace Southwind.Windows
             NoteClient.Start();
             AlertClient.Start(typeof(OrderDN));
 
+            ProfilerClient.Start();
+
             OmniboxClient.Start();
+            OmniboxClient.Register(new SpecialOmniboxProvider());
             OmniboxClient.Register(new EntityOmniboxProvider());
             OmniboxClient.Register(new DynamicQueryOmniboxProvider());
             OmniboxClient.Register(new UserQueryOmniboxProvider());

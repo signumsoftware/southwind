@@ -30,6 +30,7 @@ namespace Southwind.Web
             try
             {
                 using (ScopeSessionFactory.OverrideSession(session))
+                using (HeavyProfiler.Log("WCF", () => mi.Name + ": " + description))
                 {
                     if (checkLogin)
                         FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
