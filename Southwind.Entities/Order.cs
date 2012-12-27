@@ -194,9 +194,9 @@ namespace Southwind.Entities
         Ship,
         Cancel,
         [Description("New Order")]
-        ConstructFromCustomer,
+        CreateOrderFromCustomer,
         [Description("New Order")]
-        ConstructFromProducts,
+        CreateOrderFromProducts,
     }
 
     [Serializable]

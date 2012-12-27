@@ -72,7 +72,7 @@ namespace Southwind.Logic
                     }
                 }.Register();
 
-                new ConstructFrom<CustomerDN>(OrderOperation.ConstructFromCustomer)
+                new ConstructFrom<CustomerDN>(OrderOperation.CreateOrderFromCustomer)
                 {
                     ToState = OrderState.New,
                     Construct = (c, _) => new OrderDN
@@ -83,7 +83,7 @@ namespace Southwind.Logic
                     }
                 }.Register();
 
-                new ConstructFromMany<ProductDN>(OrderOperation.ConstructFromProducts)
+                new ConstructFromMany<ProductDN>(OrderOperation.CreateOrderFromProducts)
                 {
                     ToState = OrderState.New,
                     Construct = (prods, _) =>
