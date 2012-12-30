@@ -39,7 +39,7 @@ namespace Southwind.Logic
     //Starts-up the engine for Southwind Entities, used by Web and Load Application
     public static partial class Starter
     {
-        public static void Start(string connectionString)
+        public static void Start(string connectionString, string logDatabaseName)
         {
             SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2012);
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
@@ -122,6 +122,9 @@ namespace Southwind.Logic
             CacheLogic.Start(sb);
 
             SetupCache(sb);
+
+            if (logDatabaseName.HasText())
+                Starter.SetLogDatabase(sb.Schema, logDatabaseName);
 
             sb.ExecuteWhenIncluded();
         }
