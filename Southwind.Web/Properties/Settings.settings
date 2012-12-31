@@ -9,5 +9,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=localhost;Initial Catalog=Southwind;Integrated Security=true</Value>
     </Setting>
+    <Setting Name="LogDatabaseName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Southwind_Log</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

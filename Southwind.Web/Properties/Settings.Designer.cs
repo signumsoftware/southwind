@@ -32,5 +32,14 @@ namespace Southwind.Web.Properties {
                 return ((string)(this["ConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Southwind_Log")]
+        public string LogDatabaseName {
+            get {
+                return ((string)(this["LogDatabaseName"]));
+            }
+        }
     }
 }

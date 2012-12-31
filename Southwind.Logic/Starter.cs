@@ -131,7 +131,7 @@ namespace Southwind.Logic
 
         private static void SetupCache(SchemaBuilder sb)
         {
-            CacheLogic.CacheTable<TypeDN>(sb);
+            CacheLogic.CacheTable<ShipperDN>(sb);
             CacheLogic.CacheTable<ProductDN>(sb);
         }
     }

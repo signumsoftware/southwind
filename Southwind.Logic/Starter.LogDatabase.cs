@@ -1,5 +1,6 @@
 ﻿using Signum.Engine.Maps;
 using Signum.Entities.Basics;
+using Southwind.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ namespace Southwind.Logic
     {
         public static void SetLogDatabase(Schema schema, string logDatabaseName)
         {
-            NamePrefix np = new NamePrefix { DatabaseName = logDatabaseName };
+            DatabaseName logDb = new DatabaseName(null,logDatabaseName);
 
-            schema.Table<OperationLogDN>().Prefix = np;
-            schema.Table<ExceptionDN>().Prefix = np;
+            schema.Table<OperationLogDN>().ToDatabase(logDb);
+            schema.Table<ExceptionDN>().ToDatabase(logDb);
         }
     }
 }

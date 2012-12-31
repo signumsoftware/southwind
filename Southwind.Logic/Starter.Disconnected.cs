@@ -98,7 +98,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<OperationLogDN>(operationLogCondition, Upload.New);
 
             //Signum.Entities.Processes
-            DisconnectedLogic.Register<ProcessDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<ProcessDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<ProcessExecutionDN>(Download.None, Upload.New);
             DisconnectedLogic.Register<UserProcessSessionDN>(Download.None, Upload.New);
             DisconnectedLogic.Register<PackageDN>(Download.None, Upload.New);
