@@ -207,9 +207,10 @@ namespace Southwind.Entities
             set { Set(ref picture, value, () => Picture); }
         }
 
+        static Expression<Func<CategoryDN, string>> ToStringExpression = e => e.CategoryName;
         public override string ToString()
         {
-            return categoryName;
+            return ToStringExpression.Evaluate(this);
         }
     }
 
