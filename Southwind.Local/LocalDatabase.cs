@@ -21,7 +21,7 @@ namespace Southwind.Local
     {
         public static void Start(string connectionString)
         {
-            Starter.Start(UserConnections.Replace(connectionString), null);
+            Starter.Start(UserConnections.Replace(connectionString));
 
             DisconnectedLogic.OfflineMode = true;
 

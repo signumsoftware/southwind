@@ -39,8 +39,10 @@ namespace Southwind.Logic
     //Starts-up the engine for Southwind Entities, used by Web and Load Application
     public static partial class Starter
     {
-        public static void Start(string connectionString, string logDatabaseName)
+        public static void Start(string connectionString)
         {
+            string logPostfix = Connector.TryExtractCatalogPostfix(ref connectionString, "_Log");
+
             SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2012);
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
@@ -123,8 +125,8 @@ namespace Southwind.Logic
 
             SetupCache(sb);
 
-            if (logDatabaseName.HasText())
-                Starter.SetLogDatabase(sb.Schema, logDatabaseName);
+            if (logPostfix.HasText())
+                SetLogDatabase(sb.Schema, new DatabaseName(null, ((SqlConnector)Connector.Current).DatabaseName() + logPostfix));
 
             sb.ExecuteWhenIncluded();
         }
@@ -133,6 +135,13 @@ namespace Southwind.Logic
         {
             CacheLogic.CacheTable<ShipperDN>(sb);
             CacheLogic.CacheTable<ProductDN>(sb);
+        }
+
+        
+        public static void SetLogDatabase(Schema schema, DatabaseName logDatabaseName)
+        {
+            schema.Table<OperationLogDN>().ToDatabase(logDatabaseName);
+            schema.Table<ExceptionDN>().ToDatabase(logDatabaseName);
         }
     }
 }

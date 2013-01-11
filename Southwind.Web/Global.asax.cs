@@ -75,7 +75,7 @@ namespace Southwind.Web
         {
             Statics.SessionFactory = new ScopeSessionFactory(new AspNetSessionFactory());
 
-            Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString), Settings.Default.LogDatabaseName);
+            Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 
             using (AuthLogic.Disable())
                 Schema.Current.Initialize();
