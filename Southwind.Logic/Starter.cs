@@ -61,8 +61,6 @@ namespace Southwind.Logic
 
             OperationLogic.Start(sb, dqm);
 
-       
-
             EmailLogic.Start(sb, dqm);
 
             AuthLogic.Start(sb, dqm, "System", null);
@@ -133,6 +131,8 @@ namespace Southwind.Logic
 
         private static void SetupCache(SchemaBuilder sb)
         {
+            CacheLogic.CacheAllGlobalLazyTables(sb);
+
             CacheLogic.CacheTable<ShipperDN>(sb);
             CacheLogic.CacheTable<ProductDN>(sb);
         }
