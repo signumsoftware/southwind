@@ -100,7 +100,7 @@ namespace Southwind.Windows
             {
                 if (File.Exists(DisconnectedClient.DownloadBackupFile))
                 {
-                    DatabaseWait.Waiting("Waiting", "Restoring database...", () =>
+                    ProgressWindow.Wait("Waiting", "Restoring database...", () =>
                     {
                         LocalServer.RestoreDatabase(
                             Settings.Default.LocalDatabaseConnectionString,
@@ -179,7 +179,7 @@ namespace Southwind.Windows
                         {
                             if (File.Exists(DisconnectedClient.DatabaseFile))
                             {
-                                DatabaseWait.Waiting("Waiting", "Backing up...", () =>
+                                ProgressWindow.Wait("Waiting", "Backing up...", () =>
                                 {
                                     LocalServer.BackupDatabase(
                                         Settings.Default.LocalDatabaseConnectionString,

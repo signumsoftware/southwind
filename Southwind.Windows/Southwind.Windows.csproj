@@ -106,9 +106,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SouthwindImageLoader.cs" />
-    <Compile Include="DatabaseWait.xaml.cs">
-      <DependentUpon>DatabaseWait.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SouthwindConverters.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -141,10 +138,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Page Include="DatabaseWait.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\Address.xaml">
