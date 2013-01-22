@@ -5,7 +5,7 @@
     xmlns:d="clr-namespace:Southwind.Entities;assembly=Southwind.Entities"
                  xmlns:s="clr-namespace:Southwind.Windows"
     xmlns:sc="clr-namespace:Southwind.Windows.Controls"
-    m:Common.TypeContext="d:OrderDN"
+    m:Common.TypeContext="{x:Type d:OrderDN}"
     MinWidth="600">
     <StackPanel>
         <DockPanel LastChildFill="True">

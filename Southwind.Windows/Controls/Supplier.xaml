@@ -5,7 +5,7 @@
     xmlns:d="clr-namespace:Southwind.Entities;assembly=Southwind.Entities"
     xmlns:s="clr-namespace:Southwind.Windows"
     xmlns:sc="clr-namespace:Southwind.Windows.Controls"
-    m:Common.TypeContext="d:SupplierDN"
+    m:Common.TypeContext="{x:Type d:SupplierDN}"
     MinWidth="350">
     <StackPanel>
         <m:ValueLine m:Common.Route="CompanyName" />
