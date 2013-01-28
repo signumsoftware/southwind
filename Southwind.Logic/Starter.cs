@@ -59,6 +59,8 @@ namespace Southwind.Logic
 
             Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm);
 
+            CacheLogic.Start(sb);
+
             OperationLogic.Start(sb, dqm);
 
             EmailLogic.Start(sb, dqm);
@@ -119,8 +121,6 @@ namespace Southwind.Logic
                 heavyProfiler: true, 
                 overrideSessionTimeout: true);
 
-            CacheLogic.Start(sb);
-
             SetupCache(sb);
 
             if (logPostfix.HasText())
@@ -131,8 +131,6 @@ namespace Southwind.Logic
 
         private static void SetupCache(SchemaBuilder sb)
         {
-            CacheLogic.CacheAllGlobalLazyTables(sb);
-
             CacheLogic.CacheTable<ShipperDN>(sb);
             CacheLogic.CacheTable<ProductDN>(sb);
         }

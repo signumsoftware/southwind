@@ -117,8 +117,8 @@ namespace Southwind.Entities
 
         static PersonDN()
         {
-            Validator.IsApplicable<DateTimePrecissionValidatorAttribute>().Of((PersonDN p)=>p.DateOfBirth).When(p=>Corruption.Strict);
-            Validator.IsApplicable<StringLengthValidatorAttribute>().Of((PersonDN p) => p.Title).When(p => Corruption.Strict);
+            Validator.PropertyValidator((PersonDN p) => p.DateOfBirth).IsApplicableValidator<DateTimePrecissionValidatorAttribute>(p => Corruption.Strict);
+            Validator.PropertyValidator((PersonDN p) => p.Title).IsApplicableValidator<StringLengthValidatorAttribute>(p => Corruption.Strict);
         }
     }
 
