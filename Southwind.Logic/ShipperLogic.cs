@@ -19,14 +19,15 @@ namespace Southwind.Logic
             {
                 sb.Include<ShipperDN>();
 
-                dqm[typeof(ShipperDN)] = (from a in Database.Query<ShipperDN>()
-                                               select new
-                                               {
-                                                   Entity = a,
-                                                   a.Id,
-                                                   a.CompanyName,
-                                                   a.Phone
-                                               }).ToDynamic();
+                dqm.RegisterQuery(typeof(ShipperDN), () =>
+                    from a in Database.Query<ShipperDN>()
+                    select new
+                    {
+                        Entity = a,
+                        a.Id,
+                        a.CompanyName,
+                        a.Phone
+                    });
 
                 new BasicExecute<ShipperDN>(ShipperOperations.Save)
                 {

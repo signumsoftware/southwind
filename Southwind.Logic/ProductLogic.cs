@@ -21,57 +21,61 @@ namespace Southwind.Logic
             {
                 sb.Include<ProductDN>();
 
-                dqm[typeof(ProductDN)] = (from p in Database.Query<ProductDN>()
-                                          select new
-                                          {
-                                              Entity = p.ToLite(),
-                                              p.Id,
-                                              p.ProductName,
-                                              p.Supplier,
-                                              p.Category,
-                                              p.QuantityPerUnit,
-                                              p.UnitPrice,
-                                              p.UnitsInStock,
-                                              p.Discontinued
-                                          }).ToDynamic();
+                dqm.RegisterQuery(typeof(ProductDN), () =>
+                    from p in Database.Query<ProductDN>()
+                    select new
+                    {
+                        Entity = p.ToLite(),
+                        p.Id,
+                        p.ProductName,
+                        p.Supplier,
+                        p.Category,
+                        p.QuantityPerUnit,
+                        p.UnitPrice,
+                        p.UnitsInStock,
+                        p.Discontinued
+                    });
 
-                dqm[ProductQueries.Current] = (from p in Database.Query<ProductDN>()
-                                               where !p.Discontinued
-                                               select new
-                                               {
-                                                   Entity = p.ToLite(),
-                                                   p.Id,
-                                                   p.ProductName,
-                                                   p.Supplier,
-                                                   p.Category,
-                                                   p.QuantityPerUnit,
-                                                   p.UnitPrice,
-                                                   p.UnitsInStock,
-                                               }).ToDynamic();
+                dqm.RegisterQuery(ProductQueries.Current, () =>
+                    from p in Database.Query<ProductDN>()
+                    where !p.Discontinued
+                    select new
+                    {
+                        Entity = p.ToLite(),
+                        p.Id,
+                        p.ProductName,
+                        p.Supplier,
+                        p.Category,
+                        p.QuantityPerUnit,
+                        p.UnitPrice,
+                        p.UnitsInStock,
+                    });
 
-                dqm[typeof(SupplierDN)] = (from s in Database.Query<SupplierDN>()
-                                           select new
-                                           {
-                                               Entity = s.ToLite(),
-                                               s.Id,
-                                               s.CompanyName,
-                                               s.ContactName,
-                                               s.Phone,
-                                               s.Fax,
-                                               s.HomePage,
-                                               s.Address
-                                           }).ToDynamic();
+                dqm.RegisterQuery(typeof(SupplierDN), () =>
+                    from s in Database.Query<SupplierDN>()
+                    select new
+                    {
+                        Entity = s.ToLite(),
+                        s.Id,
+                        s.CompanyName,
+                        s.ContactName,
+                        s.Phone,
+                        s.Fax,
+                        s.HomePage,
+                        s.Address
+                    });
 
-                dqm[typeof(CategoryDN)] = (from s in Database.Query<CategoryDN>()
-                                           select new
-                                           {
-                                               Entity = s.ToLite(),
-                                               s.Id,
-                                               s.CategoryName,
-                                               s.Description,
-                                           }).ToDynamic();
+                dqm.RegisterQuery(typeof(CategoryDN), () =>
+                    from s in Database.Query<CategoryDN>()
+                    select new
+                    {
+                        Entity = s.ToLite(),
+                        s.Id,
+                        s.CategoryName,
+                        s.Description,
+                    });
 
-                
+
 
                 new BasicExecute<ProductDN>(ProductOperation.Save)
                 {

@@ -23,34 +23,36 @@ namespace Southwind.Logic
             {
                 sb.Include<OrderDN>();
 
-                dqm[typeof(OrderDN)] = (from o in Database.Query<OrderDN>()
-                                        select new
-                                        {
-                                            Entity = o.ToLite(),
-                                            o.Id,
-                                            o.State,
-                                            Customer = o.Customer.ToLite(),
-                                            o.Employee,
-                                            o.OrderDate,
-                                            o.RequiredDate,
-                                            o.ShipAddress,
-                                            o.ShipVia,
-                                        }).ToDynamic();
+                dqm.RegisterQuery(typeof(OrderDN), () =>
+                    from o in Database.Query<OrderDN>()
+                    select new
+                    {
+                        Entity = o.ToLite(),
+                        o.Id,
+                        o.State,
+                        Customer = o.Customer.ToLite(),
+                        o.Employee,
+                        o.OrderDate,
+                        o.RequiredDate,
+                        o.ShipAddress,
+                        o.ShipVia,
+                    });
 
-                dqm[OrderQueries.OrderLines] = (from o in Database.Query<OrderDN>()
-                                                from od in o.Details
-                                                select new
-                                                {
-                                                    Entity = o.ToLite(),
-                                                    o.Id,
-                                                    od.Product,
-                                                    od.Quantity,
-                                                    od.UnitPrice,
-                                                    od.Discount,
-                                                    od.SubTotalPrice,
-                                                }).ToDynamic();
+                dqm.RegisterQuery(OrderQueries.OrderLines, () =>
+                    from o in Database.Query<OrderDN>()
+                    from od in o.Details
+                    select new
+                    {
+                        Entity = o.ToLite(),
+                        o.Id,
+                        od.Product,
+                        od.Quantity,
+                        od.UnitPrice,
+                        od.Discount,
+                        od.SubTotalPrice,
+                    });
 
-             
+
 
                 GraphOrder.Register();
             }
@@ -107,7 +109,7 @@ namespace Southwind.Logic
                 }.Register();
 
                 new Execute(OrderOperation.SaveNew)
-                {  
+                {
                     FromStates = new[] { OrderState.New },
                     ToState = OrderState.Ordered,
                     AllowsNew = true,
@@ -115,7 +117,7 @@ namespace Southwind.Logic
                     Execute = (e, args) =>
                     {
                         e.OrderDate = DateTime.Now;
-                        e.State = OrderState.Ordered; 
+                        e.State = OrderState.Ordered;
                     }
                 }.Register();
 

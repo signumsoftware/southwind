@@ -16,8 +16,8 @@ namespace Southwind.Logic
 {
     public static class EmployeeLogic
     {
-        static Expression<Func<RegionDN, IQueryable<TerritoryDN>>> TerritoriesExpression = 
-            r => Database.Query<TerritoryDN>().Where(a=>a.Region == r); 
+        static Expression<Func<RegionDN, IQueryable<TerritoryDN>>> TerritoriesExpression =
+            r => Database.Query<TerritoryDN>().Where(a => a.Region == r);
         public static IQueryable<TerritoryDN> Territories(this RegionDN r)
         {
             return TerritoriesExpression.Evaluate(r);
@@ -29,48 +29,52 @@ namespace Southwind.Logic
             {
                 sb.Include<EmployeeDN>();
 
-                dqm[typeof(RegionDN)] = (from r in Database.Query<RegionDN>()
-                                         select new
-                                         {
-                                             Entity = r.ToLite(),
-                                             r.Id,
-                                             r.Description,
-                                         }).ToDynamic();
+                dqm.RegisterQuery(typeof(RegionDN), () =>
+                    from r in Database.Query<RegionDN>()
+                    select new
+                    {
+                        Entity = r.ToLite(),
+                        r.Id,
+                        r.Description,
+                    });
 
-                dqm.RegisterExpression((RegionDN r) => r.Territories()); 
+                dqm.RegisterExpression((RegionDN r) => r.Territories());
 
-                dqm[typeof(TerritoryDN)] = (from t in Database.Query<TerritoryDN>()
-                                           select new
-                                           {
-                                               Entity = t.ToLite(),
-                                               t.Id,
-                                               t.Description,
-                                               Region = t.Region.ToLite()
-                                           }).ToDynamic();
-                
-                dqm[typeof(EmployeeDN)] = (from e in Database.Query<EmployeeDN>()
-                                           select new
-                                           {
-                                               Entity = e.ToLite(),
-                                               e.Id,
-                                               e.FirstName,
-                                               e.LastName,
-                                               e.BirthDate,
-                                               e.Photo,
-                                           }).ToDynamic();
+                dqm.RegisterQuery(typeof(TerritoryDN), () =>
+                    from t in Database.Query<TerritoryDN>()
+                    select new
+                    {
+                        Entity = t.ToLite(),
+                        t.Id,
+                        t.Description,
+                        Region = t.Region.ToLite()
+                    });
 
-                dqm[EmployeeQueries.EmployeesByTerritory] = (from e in Database.Query<EmployeeDN>()
-                                                             from t in e.Territories
-                                                             select new
-                                                             {
-                                                                 Entity = e.ToLite(),
-                                                                 e.Id,
-                                                                 e.FirstName,
-                                                                 e.LastName,
-                                                                 e.BirthDate,
-                                                                 e.Photo,
-                                                                 Territory = t.ToLite(),
-                                                             }).ToDynamic();
+                dqm.RegisterQuery(typeof(EmployeeDN), () =>
+                    from e in Database.Query<EmployeeDN>()
+                    select new
+                    {
+                        Entity = e.ToLite(),
+                        e.Id,
+                        e.FirstName,
+                        e.LastName,
+                        e.BirthDate,
+                        e.Photo,
+                    });
+
+                dqm.RegisterQuery(EmployeeQueries.EmployeesByTerritory, () =>
+                    from e in Database.Query<EmployeeDN>()
+                    from t in e.Territories
+                    select new
+                    {
+                        Entity = e.ToLite(),
+                        e.Id,
+                        e.FirstName,
+                        e.LastName,
+                        e.BirthDate,
+                        e.Photo,
+                        Territory = t.ToLite(),
+                    });
 
                 new BasicExecute<EmployeeDN>(EmployeeOperation.Save)
                 {
