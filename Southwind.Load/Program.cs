@@ -36,20 +36,24 @@ namespace Southwind.Load
                     {
                         {"N", NewDatabase},
                         {"S", Synchronize},
-                        {"L", null, "Load"},
+                        {"L", Load},
                     }.Choose();
 
                     if (action == null)
-                        break;
+                        return;
 
                     action();
                 }
+            }
+        }
 
-                Schema.Current.InitializeUntil(InitLevel.Level0SyncEntities);
+        private static void Load()
+        {
+            Schema.Current.InitializeUntil(InitLevel.Level0SyncEntities);
 
-                while (true)
-                {
-                    Action[] actions = new ConsoleSwitch<int, Action>
+            while (true)
+            {
+                Action[] actions = new ConsoleSwitch<int, Action>
                     {
                         {0, EmployeeLoader.LoadRegions},
                         {1, EmployeeLoader.LoadTerritories},
@@ -75,17 +79,16 @@ namespace Southwind.Load
 
                         {30, OrderLoader.UpdateOrdersDate },
 
-                        {40, ImportExportChartScripts},
+                        {40, ChartScriptLogic.ImportExportChartScripts},
                     }.ChooseMultiple();
 
-                    if (actions == null)
-                        return;
+                if (actions == null)
+                    return;
 
-                    foreach (var acc in actions)
-                    {
-                        Console.WriteLine("------- Executing {0} ".Formato(acc.Method.Name.SpacePascal(true)).PadRight(Console.WindowWidth - 2, '-'));
-                        acc();
-                    }
+                foreach (var acc in actions)
+                {
+                    Console.WriteLine("------- Executing {0} ".Formato(acc.Method.Name.SpacePascal(true)).PadRight(Console.WindowWidth - 2, '-'));
+                    acc();
                 }
             }
         }
@@ -131,11 +134,6 @@ namespace Southwind.Load
               .OrderByDescending(a => a.TotalPrice);
 
             OrderDN order = query.First();
-        }
-
-        static void ImportExportChartScripts()
-        {
-            ChartScriptLogic.ImportExportScripts(@"..\..\..\..\..\Extensions\Signum.Engine.Extensions\Chart\ChartScripts");
         }
     }
 }
