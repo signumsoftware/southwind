@@ -74,7 +74,7 @@ namespace Southwind.Logic
                     Execute = (e, _) => { }
                 }.RegisterReplace();
 
-                dqm.RegisterQuery(typeof(CustomerDN), () => DynamicQuery.Manual((QueryRequest request, List<ColumnDescription> descriptions) =>
+                dqm.RegisterQuery(typeof(CustomerDN), () => DynamicQuery.Manual((QueryRequest request, QueryDescription descriptions) =>
                 {
                     var persons = Database.Query<PersonDN>().Select(p => new
                     {
@@ -84,12 +84,7 @@ namespace Southwind.Logic
                         p.Address,
                         p.Phone,
                         p.Fax
-                    }).ToDQueryable(descriptions)
-                     .SelectMany(request.Multiplications)
-                     .Where(request.Filters)
-                     .Select(request.Columns)
-                     .OrderBy(request.Orders)
-                     .TryPaginatePartial(request.MaxElementIndex);
+                    }).ToDQueryable(descriptions).AllQueryOperations(request);
 
                     var companies = Database.Query<CompanyDN>().Select(p => new
                     {
@@ -99,12 +94,7 @@ namespace Southwind.Logic
                         p.Address,
                         p.Phone,
                         p.Fax
-                    }).ToDQueryable(descriptions)
-                     .SelectMany(request.Multiplications)
-                     .Where(request.Filters)
-                     .Select(request.Columns)
-                     .OrderBy(request.Orders)
-                     .TryPaginatePartial(request.MaxElementIndex);
+                    }).ToDQueryable(descriptions).AllQueryOperations(request);
 
                     return persons.Concat(companies)
                         .OrderBy(request.Orders)

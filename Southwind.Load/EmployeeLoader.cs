@@ -37,7 +37,7 @@ namespace Southwind.Load
                                    select new
                                    {
                                        Description = g.Key.Trim(),
-                                       Id = g.Select(t => t.TerritoryID).Order().First(),
+                                       Id = g.Select(t => t.TerritoryID).OrderBy().First(),
                                        RegionID = g.Select(r => r.RegionID).Distinct().Single(),
                                    }).ToList();
 

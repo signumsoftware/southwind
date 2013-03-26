@@ -88,8 +88,8 @@ namespace Southwind.Logic
 
             ExceptionLogic.Start(sb, dqm);
 
-            AlertLogic.Start(sb, dqm);
-            NoteLogic.Start(sb, dqm);
+            AlertLogic.Start(sb, dqm, new []{typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN)} );
+            NoteLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);
