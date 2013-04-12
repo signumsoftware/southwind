@@ -13,6 +13,7 @@ using Signum.Entities;
 using Signum.Engine.Authorization;
 using Signum.Entities.Reflection;
 using Signum.Engine.Chart;
+using Signum.Engine.Operations;
 
 namespace Southwind.Load
 {
@@ -50,6 +51,8 @@ namespace Southwind.Load
         private static void Load()
         {
             Schema.Current.InitializeUntil(InitLevel.Level0SyncEntities);
+            
+            OperationLogic.AllowSaveGlobally = true;
 
             while (true)
             {
