@@ -19,7 +19,7 @@
             <Menu MaxHeight ="{x:Static SystemParameters.MenuBarHeight}" x:Name="menu">
                 <MenuItem Header="Orders">
                     <MenuItem Tag="{m:Explore QueryName={x:Type d:OrderDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Static d:OrderQueries.OrderLines}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Static d:OrderQuery.OrderLines}}"/>
                 </MenuItem>
                 <MenuItem Header="Customers">
                     <MenuItem Tag="{m:Explore QueryName={x:Type d:CustomerDN}}"/>

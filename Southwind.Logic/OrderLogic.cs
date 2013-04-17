@@ -38,7 +38,7 @@ namespace Southwind.Logic
                         o.ShipVia,
                     });
 
-                dqm.RegisterQuery(OrderQueries.OrderLines, () =>
+                dqm.RegisterQuery(OrderQuery.OrderLines, () =>
                     from o in Database.Query<OrderDN>()
                     from od in o.Details
                     select new

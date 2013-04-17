@@ -201,7 +201,7 @@ namespace Southwind.Entities
         Save
     }
 
-    public enum EmployeeQueries
+    public enum EmployeeQuery
     {
         EmployeesByTerritory
     }

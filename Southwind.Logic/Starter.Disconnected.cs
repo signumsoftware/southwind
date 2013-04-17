@@ -50,16 +50,17 @@ namespace Southwind.Logic
 
             //Signum.Entities.Basics
             DisconnectedLogic.Register<TypeConditionNameDN>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<PropertyDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<PropertyRouteDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<FacadeMethodDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<QueryDN>(Download.All, Upload.New).Importer = new QueryImporter();
             
             //Signum.Entities.Notes
             DisconnectedLogic.Register<NoteDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<NoteTypeDN>(Download.All, Upload.None);
             
             //Signum.Entities.Alerts
-            DisconnectedLogic.Register<AlertTypeDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<AlertDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<AlertTypeDN>(Download.All, Upload.None);
 
             //Signum.Entities.Chart
             DisconnectedLogic.Register<ChartColorDN>(Download.All, Upload.None);

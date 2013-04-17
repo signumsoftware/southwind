@@ -62,7 +62,7 @@ namespace Southwind.Logic
                         e.Photo,
                     });
 
-                dqm.RegisterQuery(EmployeeQueries.EmployeesByTerritory, () =>
+                dqm.RegisterQuery(EmployeeQuery.EmployeesByTerritory, () =>
                     from e in Database.Query<EmployeeDN>()
                     from t in e.Territories
                     select new

@@ -88,7 +88,7 @@ namespace Southwind.Entities
 
         public override string IdentifiableIntegrityCheck()
         {
-            using (this.Corrupt ? Corruption.Allow() : null)
+            using (this.Corrupt ? Corruption.AllowScope() : null)
             {
                 return base.IdentifiableIntegrityCheck();
             }

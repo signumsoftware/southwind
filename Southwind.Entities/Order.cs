@@ -311,7 +311,7 @@ namespace Southwind.Entities
         Save,
     }
 
-    public enum OrderQueries
+    public enum OrderQuery
     {
         OrderLines
     }

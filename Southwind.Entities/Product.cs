@@ -219,7 +219,7 @@ namespace Southwind.Entities
         Save
     }
 
-    public enum ProductQueries
+    public enum ProductQuery
     {
         Current
     }

@@ -122,9 +122,10 @@ namespace Southwind.Windows
 
         private static void UploadIfNecessary()
         {
-            var dm = DisconnectedMachineDN.Current.RetrieveAndForget();
+            var dmLite = Server.Return((IDisconnectedServer s) => s.GetDisconnectedMachine(Environment.MachineName));
 
-            switch (dm.State)
+                
+            switch (dmLite.TryCS(t=>t.Retrieve().State))
             {
                 case DisconnectedMachineState.Faulted:
                     {
@@ -154,6 +155,7 @@ namespace Southwind.Windows
                         break;
                     }
 
+                case null:
                 case DisconnectedMachineState.Connected:
                     {
                         if (File.Exists(DisconnectedClient.DownloadBackupFile) || File.Exists(DisconnectedClient.DatabaseFile))

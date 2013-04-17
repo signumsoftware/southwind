@@ -61,7 +61,7 @@ namespace Southwind.Entities
             if (pi.Is(() => PostalCode))
             {
                 if (string.IsNullOrEmpty(postalCode) && Country != "Ireland")
-                    return Signum.Entities.Properties.Resources._0IsNotSet.Formato(pi.NiceName());
+                    return Signum.Entities.ValidationMessage._0IsNotSet.NiceToString().Formato(pi.NiceName());
             }
 
             return null;
