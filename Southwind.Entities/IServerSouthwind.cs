@@ -14,7 +14,7 @@ namespace Southwind.Services
     [ServiceContract(SessionMode = SessionMode.Required)]
     public interface IServerSouthwind : IBaseServer, IDynamicQueryServer, IOperationServer, 
         ILoginServer, IProcessServer, IQueryServer, IChartServer, IExcelReportServer, IUserQueryServer, IControlPanelServer, IProfilerServer,
-        IQueryAuthServer, IPropertyAuthServer, ITypeAuthServer, IFacadeMethodAuthServer, IPermissionAuthServer, IOperationAuthServer,
+        IQueryAuthServer, IPropertyAuthServer, ITypeAuthServer, IPermissionAuthServer, IOperationAuthServer,
         IDisconnectedServer
     {
 

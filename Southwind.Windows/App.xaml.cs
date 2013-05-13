@@ -93,10 +93,9 @@ namespace Southwind.Windows
                 queries: true,
                 permissions: true,
                 operations: true,
-                facadeMethods: true,
                 defaultPasswordExpiresLogic: false);
 
-            LinksWidget.Start();
+            LinksClient.Start(widget: true, contextualMenu: true);
 
             ProcessClient.Start(true, true);
 

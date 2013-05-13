@@ -106,8 +106,7 @@ namespace Southwind.Web
                 properties: true,
                 queries: true, 
                 operations: true,
-                permissions: true,
-                facadeMethods: true);
+                permissions: true);
 
             SessionLogClient.Start();
             ExceptionClient.Start();
@@ -129,7 +128,7 @@ namespace Southwind.Web
 
             NoteClient.Start();
             AlertClient.Start();
-            QuickLinkWidgetHelper.Start();
+            LinksClient.Start(widget: true, contextualItems: true);
 
             SouthwindClient.Start();
 

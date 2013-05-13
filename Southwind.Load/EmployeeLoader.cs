@@ -162,8 +162,8 @@ namespace Southwind.Load
         {
             using (Transaction tr = new Transaction())
             {
-                RoleDN su = new RoleDN() { Name = "Super user" }.Save();
-                RoleDN u = new RoleDN() { Name = "User" }.Save();
+                RoleDN su = new RoleDN() { Name = "Super user", MergeStrategy = MergeStrategy.Intersection }.Save();
+                RoleDN u = new RoleDN() { Name = "User", MergeStrategy = MergeStrategy.Intersection }.Save();
 
                 RoleDN au = new RoleDN()
                 {

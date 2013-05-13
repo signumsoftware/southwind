@@ -52,8 +52,10 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((ControlPanelDN cp) => cp.Related, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.OverrideAttributes((ProcessExecutionDN cp) => cp.ProcessData, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
+            
+            sb.Schema.Settings.OverrideAttributes((ProcessDN cp) => cp.Data, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
             sb.Schema.Settings.OverrideAttributes((PackageLineDN cp) => cp.Package, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
+            sb.Schema.Settings.OverrideAttributes((ProcessExceptionLineDN cp) => cp.Line, new ImplementedByAttribute(typeof(PackageLineDN)));
 
             DynamicQueryManager dqm = new DynamicQueryManager();
 
@@ -68,7 +70,7 @@ namespace Southwind.Logic
             AuthLogic.Start(sb, dqm, "System", null);
             
             ResetPasswordRequestLogic.Start(sb, dqm);
-            AuthLogic.StartAllModules(sb, dqm, typeof(IServerSouthwind));
+            AuthLogic.StartAllModules(sb, dqm);
             UserTicketLogic.Start(sb, dqm);
             SessionLogLogic.Start(sb, dqm);
 

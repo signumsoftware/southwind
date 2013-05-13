@@ -71,76 +71,43 @@ namespace Southwind.Web
 
         private static void RegisterQuickLinks()
         {
-            QuickLinkWidgetHelper.RegisterEntityLinks<UserDN>((entity, partialViewName, prefix) =>
-            {
-                if (entity.IsNew)
-                    return null;
-
-                return new QuickLink[]
+            LinksClient.RegisterEntityLinks<UserDN>((entity, ctx) => new[]
                 {
-                    new QuickLinkFind(typeof(OperationLogDN), "User", entity.ToLite(), true)
-                };
-            });
+                    new QuickLinkFind(typeof(OperationLogDN), "User", entity, true)
+                });
 
-            QuickLinkWidgetHelper.RegisterEntityLinks<EmployeeDN>((entity, partialViewName, prefix) =>
+            LinksClient.RegisterEntityLinks<EmployeeDN>((entity, ctx) =>
             {
-                if (entity.IsNew)
-                    return null;
-
                 var links = new List<QuickLink>()
                 {
-                    new QuickLinkFind(typeof(OrderDN), "Employee", entity.ToLite(), true)  
+                    new QuickLinkFind(typeof(OrderDN), "Employee", entity, true)  
                 };
 
-                var user = Database.Query<UserDN>().Where(u => u.Related.Is(entity)).Select(u => u.ToLite()).FirstOrDefault();
+                var user = Database.Query<UserDN>().Where(u => entity.RefersTo(u.Related)).Select(u => u.ToLite()).FirstOrDefault();
                 if (user != null)
                     links.Add(new QuickLinkView(user));
 
                 return links.ToArray();
             });
 
-            QuickLinkWidgetHelper.RegisterEntityLinks<CategoryDN>((entity, partialViewName, prefix) =>
+            LinksClient.RegisterEntityLinks<CategoryDN>((entity, ctx) =>new []
             {
-                if (entity.IsNew)
-                    return null;
-
-                return new QuickLink[]
-                {
-                    new QuickLinkFind(typeof(ProductDN), "Category", entity.ToLite(), true)
-                };
+                new QuickLinkFind(typeof(ProductDN), "Category", entity, true)
             });
 
-            QuickLinkWidgetHelper.RegisterEntityLinks<SupplierDN>((entity, partialViewName, prefix) =>
+            LinksClient.RegisterEntityLinks<SupplierDN>((entity, ctx) => new[]
             {
-                if (entity.IsNew)
-                    return null;
-
-                return new QuickLink[]
-                {
-                    new QuickLinkFind(typeof(ProductDN), "Supplier", entity.ToLite(), true)
-                };
+                new QuickLinkFind(typeof(ProductDN), "Supplier", entity, true)
             });
 
-            QuickLinkWidgetHelper.RegisterEntityLinks<PersonDN>((entity, partialViewName, prefix) =>
+            LinksClient.RegisterEntityLinks<PersonDN>((entity, ctx) => new[]
             {
-                if (entity.IsNew)
-                    return null;
-
-                return new QuickLink[]
-                {
-                    new QuickLinkFind(typeof(OrderDN), "Customer", entity.ToLite(), true)
-                };
+                new QuickLinkFind(typeof(OrderDN), "Customer", entity, true)
             });
 
-            QuickLinkWidgetHelper.RegisterEntityLinks<CompanyDN>((entity, partialViewName, prefix) =>
+            LinksClient.RegisterEntityLinks<CompanyDN>((entity, ctx) => new[]
             {
-                if (entity.IsNew)
-                    return null;
-
-                return new QuickLink[]
-                {
-                    new QuickLinkFind(typeof(OrderDN), "Customer", entity.ToLite(), true)
-                };
+                new QuickLinkFind(typeof(OrderDN), "Customer", entity, true)
             });
         }
 

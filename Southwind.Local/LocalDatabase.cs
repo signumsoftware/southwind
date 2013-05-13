@@ -55,7 +55,7 @@ namespace Southwind.Local
 
             using (Connector.Override(new SqlConnector(csb.ToString(), null, null)))
             {
-                DisconnectedLogic.LocalBackupManager.BackupDatabase(databaseName, backupFile);
+                DisconnectedLogic.LocalBackupManager.BackupDatabase(new DatabaseName(null, databaseName), backupFile);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Southwind.Local
 
             using (Connector.Override(new SqlConnector(csb.ToString(), null, null)))
             {
-                DisconnectedLogic.LocalBackupManager.DropDatabase(databaseName);
+                DisconnectedLogic.LocalBackupManager.DropDatabase(new DatabaseName(null, databaseName));
             }
         }
 

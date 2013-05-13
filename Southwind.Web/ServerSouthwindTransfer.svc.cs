@@ -34,8 +34,6 @@ namespace Southwind.Web
             {
                 using (AuthLogic.UserSession(user))
                 {
-                    FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
-
                     return function();
                 }
             }

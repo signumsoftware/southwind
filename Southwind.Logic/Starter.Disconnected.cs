@@ -40,18 +40,17 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<ResetPasswordRequestDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<RuleTypeDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<RulePropertyDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RuleFacadeMethodDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<RuleQueryDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<RuleOperationDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<PermissionDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<RulePermissionDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<SessionLogDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<UserTicketDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<LastAuthRulesImportDN>(Download.None, Upload.None);
 
             //Signum.Entities.Basics
             DisconnectedLogic.Register<TypeConditionNameDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<PropertyRouteDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<FacadeMethodDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<QueryDN>(Download.All, Upload.New).Importer = new QueryImporter();
             
             //Signum.Entities.Notes
@@ -69,6 +68,8 @@ namespace Southwind.Logic
 
             //Signum.Entities.Files
             DisconnectedLogic.Register<FileDN>(Download.All, Upload.New);
+
+
 
             //Signum.Entities.ControlPanel
             DisconnectedLogic.Register<ControlPanelDN>(Download.None, Upload.None);
@@ -99,12 +100,13 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<OperationLogDN>(operationLogCondition, Upload.New);
 
             //Signum.Entities.Processes
-            DisconnectedLogic.Register<ProcessDN>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<ProcessExecutionDN>(Download.None, Upload.New);
+            DisconnectedLogic.Register<ProcessAlgorithmDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<ProcessDN>(Download.None, Upload.New);
             DisconnectedLogic.Register<UserProcessSessionDN>(Download.None, Upload.New);
             DisconnectedLogic.Register<PackageDN>(Download.None, Upload.New);
             DisconnectedLogic.Register<PackageOperationDN>(Download.None, Upload.New);
             DisconnectedLogic.Register<PackageLineDN>(Download.None, Upload.New);
+            DisconnectedLogic.Register<ProcessExceptionLineDN>(Download.None, Upload.New);
 
             //Signum.Entities.Exceptions
             DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);

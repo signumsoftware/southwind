@@ -27,9 +27,6 @@ namespace Southwind.Local
             {
                 using (ScopeSessionFactory.OverrideSession(session))
                 {
-                    if (checkLogin)
-                        FacadeMethodAuthLogic.AuthorizeAccess((MethodInfo)mi);
-
                     return function();
                 }
             }
