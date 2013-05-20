@@ -29,7 +29,7 @@ namespace Southwind.Logic
                         a.Phone
                     });
 
-                new BasicExecute<ShipperDN>(ShipperOperations.Save)
+                new BasicExecute<ShipperDN>(ShipperOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
