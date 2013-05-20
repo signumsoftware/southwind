@@ -78,11 +78,12 @@ namespace Southwind.Load
 
                         {22, SnamphotIsolation},
 
-                        {23, ShowOrder},
-
                         {30, OrderLoader.UpdateOrdersDate },
 
                         {40, ChartScriptLogic.ImportExportChartScripts},
+
+                        {100, ShowOrder},
+
                     }.ChooseMultiple();
 
                 if (actions == null)
