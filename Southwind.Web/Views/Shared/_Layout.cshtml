@@ -10,7 +10,7 @@
 
     @{ 
         string currentTheme = (Session == null ? null: (string)Session[SouthwindClient.ThemeSessionKey]) ?? "cupertino"; 
-        @Html.ScriptCss("~/content/jqueryui/{0}/jquery-ui-1.8.16.custom.css".Formato(currentTheme))
+        @Html.ScriptCss("~/content/jqueryui/{0}/jquery-ui-1.10.3.custom.min.css".Formato(currentTheme))
     }
 
     @Html.ScriptCss("~/signum/content/SF_Lines.css",
@@ -20,14 +20,15 @@
        "~/signum/content/SF_Widgets.css",  
        "~/content/site.css")  
 
-    @Html.ScriptsJs("~/scripts/jquery-1.7.2.min.js", "~/scripts/jquery-ui-1.8.16.custom.min.js")
+    @Html.ScriptsJs("~/scripts/jquery-1.9.1.min.js", "~/scripts/jquery-ui-1.10.3.custom.min.js")
     @Html.ScriptsJs("~/signum/resources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
     @Html.ScriptsJs("~/signum/calendarResources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
     @Html.ScriptsJs("~/signum/scripts/SF_Utils.js", 
         "~/signum/scripts/SF_jquery-ui-datepicker-extension.js", 
         "~/scripts/newcontent.js",
         "~/signum/scripts/SF_Globals.js")
-    @Html.ScriptsJs("~/scripts/southwind.js", "~/scripts/menu.js")
+    @Html.ScriptsJs("~/scripts/southwind.js", "~/Omnibox/Scripts/SF_Omnibox.js")
+
     @if (IsSectionDefined("head"))
     {
         @RenderSection("head")

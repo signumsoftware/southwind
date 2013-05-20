@@ -9,7 +9,11 @@
 @*<input name="filter" id="menu_filter" type="text" placeholder="Buscar opción de menú" />
 <br />*@
 <input id="sfOmnibox" name="sfOmnibox" data-url="@Url.Action("Autocomplete", "Omnibox")" type="text" placeholder="Buscar" /> 
-@Html.ScriptsJs("~/Omnibox/Scripts/SF_Omnibox.js")
+<script type="text/javascript">
+    $(function () {
+        SF.Omnibox.initialize($("#sfOmnibox"));
+    });
+</script>
 @(new WebMenuItem
     {
         Children =
