@@ -292,7 +292,7 @@ namespace Southwind.Entities
         }
     }
 
-    public enum ShipperOperations
+    public enum ShipperOperation
     {
         Save,
     }

@@ -160,7 +160,7 @@ namespace Southwind.Entities
         public static CompanyDN Current { get; set; }
     }
 
-    public enum CustomerOperations
+    public enum CustomerOperation
     {
         Save,
     }

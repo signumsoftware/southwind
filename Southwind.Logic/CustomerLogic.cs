@@ -53,21 +53,21 @@ namespace Southwind.Logic
                         r.Address,
                     });
 
-                new BasicExecute<CustomerDN>(CustomerOperations.Save)
+                new BasicExecute<CustomerDN>(CustomerOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new BasicExecute<CompanyDN>(CustomerOperations.Save)
+                new BasicExecute<CompanyDN>(CustomerOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
                 }.RegisterReplace();
 
-                new BasicExecute<PersonDN>(CustomerOperations.Save)
+                new BasicExecute<PersonDN>(CustomerOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
