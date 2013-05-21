@@ -7,6 +7,7 @@ using Signum.Entities;
 using Signum.Entities.Basics;
 using Signum.Services;
 using Signum.Entities.Disconnected;
+using Signum.Utilities;
 
 namespace Southwind.Services
 {
@@ -27,7 +28,8 @@ namespace Southwind.Services
 
     }
 
-    public enum SouthwindGroups
+    [DescriptionOptions(DescriptionOptions.Members)]
+    public enum SouthwindGroup
     {
         UserEntities,
         CurrentCompany,
