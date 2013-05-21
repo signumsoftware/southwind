@@ -36,7 +36,7 @@ namespace Southwind.Windows
         {
             try
             {
-                App app = new App() { ShutdownMode = ShutdownMode.OnMainWindowClose };
+                App app = new App { ShutdownMode = System.Windows.ShutdownMode.OnExplicitShutdown };
 
                 Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
@@ -64,8 +64,7 @@ namespace Southwind.Windows
                     UploadIfNecessary();
                 }
 
-
-             
+                app.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 app.Run(new Main());
             }
             catch (NotConnectedToServerException)
