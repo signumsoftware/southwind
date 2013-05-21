@@ -72,7 +72,6 @@ namespace Southwind.Windows
 
         protected override void OnStartup(StartupEventArgs args)
         {
-            Start();
         }
 
         static bool started = false;
@@ -87,6 +86,7 @@ namespace Southwind.Windows
             Constructor.Start(new ConstructorManager());
 
             OperationClient.Start(new OperationManager());
+
             AuthClient.Start(
                 types: true,
                 property: true,
@@ -94,6 +94,12 @@ namespace Southwind.Windows
                 permissions: true,
                 operations: true,
                 defaultPasswordExpiresLogic: false);
+
+            Navigator.EntitySettings<UserDN>().OverrideView((usr, ctrl) =>
+            {
+                ctrl.Child<EntityLine>("Role").After(new ValueLine().Set(Common.RouteProperty, "[UserMixin].AllowLogin"));
+                return ctrl;
+            });
 
             LinksClient.Start(widget: true, contextualMenu: true);
 

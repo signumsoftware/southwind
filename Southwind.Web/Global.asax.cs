@@ -33,6 +33,7 @@ using Signum.Web.Notes;
 using Signum.Web.Alerts;
 using Signum.Web.Profiler;
 using Signum.Web.Cache;
+using Southwind.Entities;
 
 namespace Southwind.Web
 {
@@ -85,6 +86,16 @@ namespace Southwind.Web
             ProcessLogic.StartBackgroundProcess(5 * 1000);
 
             RegisterRoutes(RouteTable.Routes);
+
+            AuthLogic.UserLogingIn += user =>
+            {
+                AllowLogin required = ScopeSessionFactory.IsOverriden ? AllowLogin.WindowsOnly : AllowLogin.WebOnly;
+
+                AllowLogin current = user.Mixin<UserMixin>().AllowLogin; 
+
+                if (current != AllowLogin.WindowsAndWeb && current != required)
+                    throw new UnauthorizedAccessException("User {0} is {1}".Formato(user, current.NiceToString()));
+            }; 
         }
 
         private void WebStart()
@@ -100,6 +111,9 @@ namespace Southwind.Web
                 queries: true, 
                 resetPassword: true, 
                 passwordExpiration: false);
+
+            Navigator.EntitySettings<UserDN>().ViewOverrides = new ViewOverrides()
+                .AfterLine<UserDN>(u => u.Related, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserMixin>().AllowLogin));
 
             AuthAdminClient.Start(
                 types: true, 

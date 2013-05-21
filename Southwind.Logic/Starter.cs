@@ -56,6 +56,8 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((ProcessDN cp) => cp.Data, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
             sb.Schema.Settings.OverrideAttributes((PackageLineDN cp) => cp.Package, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
             sb.Schema.Settings.OverrideAttributes((ProcessExceptionLineDN cp) => cp.Line, new ImplementedByAttribute(typeof(PackageLineDN)));
+            
+            MixinDeclarations.Register<UserDN, UserMixin>();
 
             DynamicQueryManager dqm = new DynamicQueryManager();
 
@@ -79,14 +81,14 @@ namespace Southwind.Logic
 
             QueryLogic.Start(sb);
             UserQueryLogic.Start(sb, dqm);
-            UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
-            UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
+            UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+            UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             ChartLogic.Start(sb, dqm);
-            UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
-            UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
+            UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+            UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             ControlPanelLogic.Start(sb, dqm);
-            ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroups.UserEntities);
-            ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroups.RoleEntities);
+            ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+            ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
 
             ExceptionLogic.Start(sb, dqm);
 
@@ -99,16 +101,16 @@ namespace Southwind.Logic
             OrderLogic.Start(sb, dqm);
             ShipperLogic.Start(sb, dqm);
 
-            TypeConditionLogic.Register<OrderDN>(SouthwindGroups.UserEntities,
+            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.UserEntities,
                 o => o.Employee.RefersTo((EmployeeDN)UserDN.Current.Related));
 
-            TypeConditionLogic.Register<EmployeeDN>(SouthwindGroups.UserEntities,
+            TypeConditionLogic.Register<EmployeeDN>(SouthwindGroup.UserEntities,
                 e => e == (EmployeeDN)UserDN.Current.Related);
 
-            TypeConditionLogic.Register<OrderDN>(SouthwindGroups.CurrentCompany,
+            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.CurrentCompany,
                 o => o.Customer == CompanyDN.Current);
 
-            TypeConditionLogic.Register<OrderDN>(SouthwindGroups.CurrentPerson,
+            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.CurrentPerson,
                o => o.Customer == PersonDN.Current);
 
             DisconnectedLogic.Start(sb, dqm);

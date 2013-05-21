@@ -206,5 +206,24 @@ namespace Southwind.Entities
         EmployeesByTerritory
     }
 
-    
+
+    [Serializable]
+    public class UserMixin : MixinEntity
+    {
+        UserMixin(IdentifiableEntity mainEntity, MixinEntity next) : base(mainEntity, next) { }
+
+        AllowLogin allowLogin;
+        public AllowLogin AllowLogin
+        {
+            get { return allowLogin; }
+            set { Set(ref allowLogin, value, () => AllowLogin); }
+        }
+    }
+
+    public enum AllowLogin
+    {
+        WindowsAndWeb,
+        WindowsOnly,
+        WebOnly,
+    }
 }
