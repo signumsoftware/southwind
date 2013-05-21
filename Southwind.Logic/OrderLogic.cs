@@ -110,7 +110,7 @@ namespace Southwind.Logic
 
                 new Execute(OrderOperation.SaveNew)
                 {
-                    FromStates = new[] { OrderState.New },
+                    FromStates = { OrderState.New },
                     ToState = OrderState.Ordered,
                     AllowsNew = true,
                     Lite = false,
@@ -123,7 +123,7 @@ namespace Southwind.Logic
 
                 new Execute(OrderOperation.Save)
                 {
-                    FromStates = new[] { OrderState.Ordered },
+                    FromStates = { OrderState.Ordered },
                     ToState = OrderState.Ordered,
                     Lite = false,
                     Execute = (e, _) =>
@@ -134,7 +134,7 @@ namespace Southwind.Logic
                 new Execute(OrderOperation.Ship)
                 {
                     CanExecute = o => o.Details.IsEmpty() ? "No order lines" : null,
-                    FromStates = new[] { OrderState.Ordered },
+                    FromStates = { OrderState.Ordered },
                     ToState = OrderState.Shipped,
                     Execute = (e, args) =>
                     {
@@ -145,7 +145,7 @@ namespace Southwind.Logic
 
                 new Execute(OrderOperation.Cancel)
                 {
-                    FromStates = new[] { OrderState.Ordered, OrderState.Shipped },
+                    FromStates = { OrderState.Ordered, OrderState.Shipped },
                     ToState = OrderState.Canceled,
                     Execute = (e, args) =>
                     {

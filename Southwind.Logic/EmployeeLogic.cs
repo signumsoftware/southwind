@@ -76,21 +76,21 @@ namespace Southwind.Logic
                         Territory = t.ToLite(),
                     });
 
-                new BasicExecute<EmployeeDN>(EmployeeOperation.Save)
+                new Graph<EmployeeDN>.Execute(EmployeeOperation.Save)
                 {
                     Lite = false,
                     AllowsNew = true,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new BasicExecute<TerritoryDN>(TerritoryOperation.Save)
+                new Graph<TerritoryDN>.Execute(TerritoryOperation.Save)
                 {
                     Lite = false,
                     AllowsNew = true,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new BasicExecute<RegionDN>(RegionOperation.Save)
+                new Graph<RegionDN>.Execute(RegionOperation.Save)
                 {
                     Lite = false,
                     AllowsNew = true,

@@ -77,21 +77,21 @@ namespace Southwind.Logic
 
 
 
-                new BasicExecute<ProductDN>(ProductOperation.Save)
+                new Graph<ProductDN>.Execute(ProductOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new BasicExecute<SupplierDN>(SupplierOperation.Save)
+                new Graph<SupplierDN>.Execute(SupplierOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new BasicExecute<CategoryDN>(CategoryOperation.Save)
+                new Graph<CategoryDN>.Execute(CategoryOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
