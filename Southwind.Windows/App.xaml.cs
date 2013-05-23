@@ -114,7 +114,7 @@ namespace Southwind.Windows
 
             NoteClient.Start();
             AlertClient.Start(typeof(OrderDN));
-
+            
             ProfilerClient.Start();
 
             OmniboxClient.Start();

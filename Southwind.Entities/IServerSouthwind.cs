@@ -13,9 +13,9 @@ namespace Southwind.Services
 {
     //Defines the WPF contract between client and server applications
     [ServiceContract(SessionMode = SessionMode.Required)]
-    public interface IServerSouthwind : IBaseServer, IDynamicQueryServer, IOperationServer, 
-        ILoginServer, IProcessServer, IQueryServer, IChartServer, IExcelReportServer, IUserQueryServer, IControlPanelServer, IProfilerServer,
-        IQueryAuthServer, IPropertyAuthServer, ITypeAuthServer, IPermissionAuthServer, IOperationAuthServer,
+    public interface IServerSouthwind : IBaseServer, IDynamicQueryServer, IOperationServer,
+        ILoginServer, IProcessServer, IQueryServer, IChartServer, IExcelReportServer, IUserQueryServer, IControlPanelServer, IUserAssetsServer,
+        IProfilerServer, IQueryAuthServer, IPropertyAuthServer, ITypeAuthServer, IPermissionAuthServer, IOperationAuthServer,
         IDisconnectedServer
     {
 
