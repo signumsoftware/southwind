@@ -10,7 +10,7 @@ namespace Southwind.Windows
 {
     public static class SouthwindImageLoader
     {
-        public static BitmapFrame GetImageSortName(string name)
+        public static BitmapSource GetImageSortName(string name)
         {
             return Signum.Windows.ImageLoader.LoadIcon(PackUriHelper.Reference("Images/" + name, typeof(SouthwindImageLoader)));
         }

@@ -98,7 +98,7 @@ namespace Southwind.Logic
 
                     return persons.Concat(companies)
                         .OrderBy(request.Orders)
-                        .TryPaginate(request.ElementsPerPage, request.CurrentPage);
+                        .TryPaginate(request.Pagination);
 
                 }), entityImplementations: Implementations.By(typeof(PersonDN), typeof(CompanyDN)));
             }
