@@ -32,6 +32,7 @@ using Signum.Engine.Alerts;
 using Signum.Engine.Notes;
 using Signum.Engine.Cache;
 using Signum.Engine.Profiler;
+using Signum.Engine.Translation;
 
 namespace Southwind.Logic
 {
@@ -39,6 +40,9 @@ namespace Southwind.Logic
     //Starts-up the engine for Southwind Entities, used by Web and Load Application
     public static partial class Starter
     {
+        public static ResetLazy<SouthwindConfigurationDN> Configuration;
+
+
         public static void Start(string connectionString)
         {
             string logPostfix = Connector.TryExtractCatalogPostfix(ref connectionString, "_Log");
@@ -56,6 +60,10 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((ProcessDN cp) => cp.Data, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
             sb.Schema.Settings.OverrideAttributes((PackageLineDN cp) => cp.Package, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
             sb.Schema.Settings.OverrideAttributes((ProcessExceptionLineDN cp) => cp.Line, new ImplementedByAttribute(typeof(PackageLineDN)));
+            sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.From.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.Recipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.DefaultFrom.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.AditionalRecipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
             
             MixinDeclarations.Register<UserDN, UserMixin>();
 
@@ -67,7 +75,11 @@ namespace Southwind.Logic
 
             OperationLogic.Start(sb, dqm);
 
-            EmailLogic.Start(sb, dqm);
+
+            CultureInfoLogic.Start(sb, dqm);
+            EmailLogic.Start(sb, dqm,  ()=>Configuration.Value.Email);
+            SmtpConfigurationLogic.Start(sb, dqm);
+            Pop3ConfigurationLogic.Start(sb, dqm); 
 
             AuthLogic.Start(sb, dqm, "System", null);
             
@@ -90,6 +102,7 @@ namespace Southwind.Logic
             ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
 
+
             ExceptionLogic.Start(sb, dqm);
 
             AlertLogic.Start(sb, dqm, new []{typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN)} );
@@ -100,6 +113,8 @@ namespace Southwind.Logic
             CustomerLogic.Start(sb, dqm); 
             OrderLogic.Start(sb, dqm);
             ShipperLogic.Start(sb, dqm);
+
+            StartSouthwindConfiguration(sb, dqm);
 
             TypeConditionLogic.Register<OrderDN>(SouthwindGroup.UserEntities,
                 o => o.Employee.RefersTo((EmployeeDN)UserDN.Current.Related));
@@ -130,7 +145,33 @@ namespace Southwind.Logic
             if (logPostfix.HasText())
                 SetLogDatabase(sb.Schema, new DatabaseName(null, ((SqlConnector)Connector.Current).DatabaseName() + logPostfix));
 
+
             sb.ExecuteWhenIncluded();
+        }
+
+        private static void StartSouthwindConfiguration(SchemaBuilder sb, DynamicQueryManager dqm)
+        {
+            sb.Include<SouthwindConfigurationDN>();
+            Configuration = sb.GlobalLazy<SouthwindConfigurationDN>(
+                () => Database.Query<SouthwindConfigurationDN>().Single(),
+                new InvalidateWith(typeof(SmtpConfigurationDN)));
+
+            new Graph<SouthwindConfigurationDN>.Execute(SouthwindConfigurationOperation.Save)
+            {
+                AllowsNew = true,
+                Lite = false,
+                Execute = (e, _) => { },
+            }.Register();
+
+            dqm.RegisterQuery(typeof(SouthwindConfigurationDN), () =>
+                from s in Database.Query<SouthwindConfigurationDN>()
+                select new
+                {
+                    Entity = s.ToLite(),
+                    s.Id,
+                    s.Email.DefaultCulture,
+                    s.Email.UrlLeft
+                });
         }
 
         private static void SetupCache(SchemaBuilder sb)

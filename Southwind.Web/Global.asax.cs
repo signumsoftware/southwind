@@ -34,6 +34,7 @@ using Signum.Web.Alerts;
 using Signum.Web.Profiler;
 using Signum.Web.Cache;
 using Southwind.Entities;
+using Signum.Web.Mailing;
 
 namespace Southwind.Web
 {
@@ -50,7 +51,7 @@ namespace Southwind.Web
              Navigator.NavigateRouteName,
              "View/{webTypeName}/{id}",
              new { controller = "Signum", action = "View", webTypeName = "", id = "" }
-          );
+            );
 
             routes.MapRoute(
                 Navigator.FindRouteName,
@@ -121,6 +122,11 @@ namespace Southwind.Web
                 queries: true, 
                 operations: true,
                 permissions: true);
+
+            MailingClient.Start(
+                smtpConfig: true, 
+                newsletter: false, 
+                pop3Config: true);
 
             SessionLogClient.Start();
             ExceptionClient.Start();

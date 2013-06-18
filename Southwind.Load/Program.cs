@@ -14,6 +14,9 @@ using Signum.Engine.Authorization;
 using Signum.Entities.Reflection;
 using Signum.Engine.Chart;
 using Signum.Engine.Operations;
+using Signum.Entities.Translation;
+using System.Globalization;
+using Signum.Entities.Mailing;
 
 namespace Southwind.Load
 {
@@ -26,6 +29,7 @@ namespace Southwind.Load
             using (Sync.ChangeCultureUI("en"))
             {
                 Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
+
 
                 Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
                 Console.WriteLine("Database: {0}", Regex.Match(((SqlConnector)Connector.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);
@@ -77,6 +81,8 @@ namespace Southwind.Load
                         {21, EmployeeLoader.CreateSystemUser }, 
 
                         {22, SnamphotIsolation},
+
+                        {23, CreateCultureInfo},
 
                         {30, OrderLoader.UpdateOrdersDate },
 
@@ -138,6 +144,21 @@ namespace Southwind.Load
               .OrderByDescending(a => a.TotalPrice);
 
             OrderDN order = query.First();
+        }
+
+        public static void CreateCultureInfo()
+        {
+            var en = new CultureInfoDN(CultureInfo.GetCultureInfo("en")).Save();
+            var es = new CultureInfoDN(CultureInfo.GetCultureInfo("es")).Save();
+
+            new SouthwindConfigurationDN
+            {
+                Email = new EmailTemplateConfigurationDN
+                {
+                    DefaultCulture = es,
+                    UrlLeft = "http://localhost/Southwind"
+                }
+            }.Save();
         }
     }
 }

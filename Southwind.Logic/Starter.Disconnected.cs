@@ -24,6 +24,7 @@ using Signum.Entities.Files;
 using Signum.Entities.Processes;
 using Signum.Entities.Notes;
 using Signum.Entities.Alerts;
+using Signum.Entities.Translation;
 
 namespace Southwind.Logic
 {
@@ -87,6 +88,14 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<EmailMessageDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<EmailTemplateDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<EmailPackageDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<EmailMasterTemplateDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SmtpConfigurationDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SystemEmailDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<Pop3ReceptionDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<Pop3ConfigurationDN>(Download.All, Upload.None);
+          
+            //Signum.Entities.Translation
+            DisconnectedLogic.Register<CultureInfoDN>(Download.All, Upload.None);
 
             //Signum.Entities.Operations
             DisconnectedLogic.Register<OperationDN>(Download.Replace, Upload.None);
@@ -125,6 +134,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<CompanyDN>(p => Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == p), Upload.New);
             DisconnectedLogic.Register<OrderDN>(o => o.Employee.RefersTo(EmployeeDN.Current));
             DisconnectedLogic.Register<ShipperDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SouthwindConfigurationDN>(Download.All, Upload.None);
         }
     }
 
