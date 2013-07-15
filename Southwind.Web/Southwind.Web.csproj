@@ -532,7 +532,7 @@
     <Content Include="Views\Southwind\Region.cshtml" />
     <Content Include="Views\Southwind\Shipper.cshtml" />
     <Content Include="Views\Southwind\Supplier.cshtml" />
-    <Content Include="Views\Southwind\Territory.cshtml" />
+    <Content Include="Views\Southwind\ApplicationConfiguration.cshtml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\pbckcode\.DS_Store" />
@@ -548,6 +548,7 @@
     <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="Scripts\ckeditor\samples\sample_posteddata.php" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <Content Include="Views\Southwind\Territory.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

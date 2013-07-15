@@ -8,22 +8,28 @@ using Signum.Entities.Mailing;
 namespace Southwind.Entities
 {
     [Serializable, EntityKind(EntityKind.Main)]
-    public class SouthwindConfigurationDN : Entity
+    public class ApplicationConfigurationDN : Entity
     {
-        [UniqueIndex, FieldWithoutProperty]
-        bool unique = true;
+        [NotNullable, SqlDbType(Size = 100), UniqueIndex]
+        string environment;
+        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
+        public string Environment
+        {
+            get { return environment; }
+            set { Set(ref environment, value, () => Environment); }
+        }
 
         [NotNullable]
-        EmailTemplateConfigurationDN email;
+        EmailConfigurationDN email;
         [NotNullValidator]
-        public EmailTemplateConfigurationDN Email
+        public EmailConfigurationDN Email
         {
             get { return email; }
             set { Set(ref email, value, () => Email); }
         }
     }
 
-    public enum SouthwindConfigurationOperation
+    public enum ApplicationConfigurationOperation
     {
         Save
     }

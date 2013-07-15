@@ -134,7 +134,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<CompanyDN>(p => Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == p), Upload.New);
             DisconnectedLogic.Register<OrderDN>(o => o.Employee.RefersTo(EmployeeDN.Current));
             DisconnectedLogic.Register<ShipperDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<SouthwindConfigurationDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<ApplicationConfigurationDN>(Download.All, Upload.None);
         }
     }
 

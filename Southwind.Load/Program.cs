@@ -151,10 +151,11 @@ namespace Southwind.Load
             var en = new CultureInfoDN(CultureInfo.GetCultureInfo("en")).Save();
             var es = new CultureInfoDN(CultureInfo.GetCultureInfo("es")).Save();
 
-            new SouthwindConfigurationDN
+            new ApplicationConfigurationDN
             {
-                Email = new EmailTemplateConfigurationDN
+                Email = new EmailConfigurationDN
                 {
+                    SendEmails = true,
                     DefaultCulture = es,
                     UrlLeft = "http://localhost/Southwind"
                 }

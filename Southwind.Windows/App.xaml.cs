@@ -48,8 +48,9 @@ namespace Southwind.Windows
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.InvariantCulture.IetfLanguageTag)));
 
-            this.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
-            Async.ExceptionHandler = UnhandledAsyncException;
+            this.DispatcherUnhandledException += (sender, args) => Program.HandleException("Unexpected error", args.Exception, App.Current.MainWindow); ;
+            Async.DispatcherUnhandledException += (e, w) => Program.HandleException("Error in async call", e, w);
+            Async.AsyncUnhandledException += (e, w) => Program.HandleException("Error in async call", e, w);
 
             InitializeComponent();
         }
@@ -57,17 +58,6 @@ namespace Southwind.Windows
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //Fix so App.xaml InitializeComponent gets generated
-        }
-
-        void UnhandledAsyncException(Exception e)
-        {
-            Program.HandleException("Error in async call", e);
-        }
-
-        void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            Program.HandleException("Unexpected error", e.Exception);
-            e.Handled = true;
         }
 
         protected override void OnStartup(StartupEventArgs args)
@@ -82,7 +72,7 @@ namespace Southwind.Windows
 
             started = true;
 
-            Navigator.Start(new NavigationManager());
+            Navigator.Start(new NavigationManager(multithreaded:true));
             Constructor.Start(new ConstructorManager());
 
             OperationClient.Start(new OperationManager());

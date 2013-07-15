@@ -72,7 +72,7 @@ namespace Southwind.Windows
             }
             catch (Exception e)
             {
-                HandleException("Start-up error", e);
+                HandleException("Start-up error", e, null);
             }
 
             try
@@ -209,7 +209,7 @@ namespace Southwind.Windows
             }
         }
 
-        public static void HandleException(string errorTitle, Exception e)
+        public static void HandleException(string errorTitle, Exception e, Window w)
         {
             if (e is MessageSecurityException)
             {
@@ -234,7 +234,7 @@ namespace Southwind.Windows
                 finally
                 {
                     var bla = e.FollowC(ex => ex.InnerException);
-                    MessageBox.Show(
+                    MessageBox.Show(w,
                         bla.ToString(ex => "{0} : {1}".Formato(
                             ex.GetType().Name != "FaultException" ? ex.GetType().Name : "Server Error",
                             ex.Message), "\r\n\r\n"),
