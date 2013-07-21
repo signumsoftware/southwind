@@ -7,7 +7,7 @@ using Signum.Entities.Mailing;
 
 namespace Southwind.Entities
 {
-    [Serializable, EntityKind(EntityKind.Main)]
+    [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
     public class ApplicationConfigurationDN : Entity
     {
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]

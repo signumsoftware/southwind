@@ -84,7 +84,7 @@ namespace Southwind.Web
 
             WebStart();
 
-            ProcessLogic.StartBackgroundProcess(5 * 1000);
+            ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
 
             RegisterRoutes(RouteTable.Routes);
 
