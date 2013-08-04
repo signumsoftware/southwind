@@ -74,13 +74,10 @@ namespace Southwind.Windows
             {
                 HandleException("Start-up error", e, null);
             }
-
-            try
+            finally
             {
-                Server.ExecuteNoRetryOnSessionExpired((ILoginServer ls) => ls.Logout());
+                Server.Disconnect();
             }
-            catch
-            { }
         }
 
         private static bool RunLocally()
