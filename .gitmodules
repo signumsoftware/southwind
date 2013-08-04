@@ -1,6 +1,6 @@
 [submodule "Framework"]
 	path = Framework
-	url = http://gitserveriis/WebGit.NET/git/Framework
+	url = https://github.com/signumsoftware/framework.git
 [submodule "Extensions"]
 	path = Extensions
-	url = http://gitserveriis/WebGit.NET/git/Extensions
+	url = https://github.com/signumsoftware/extensions.git
