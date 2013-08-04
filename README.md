@@ -3,7 +3,7 @@
 
 Southwind is an example of a LOB solution using Signum Framework. 
 
-It has a similar schema to the famous Northwind exampel database (Order, OrderLines, Customer, Employees, Suppliers...) and the same data.
+It has a similar schema to the famous Northwind example database (Order, OrderLines, Customer, Employees, Suppliers...) and the same data.
 
 As we complete the application we will upload the sources here and write tutorials in Codeproject.
 

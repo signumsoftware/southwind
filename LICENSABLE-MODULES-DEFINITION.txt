@@ -1,0 +1,6 @@
+SIGNUM EXTENSIONS - LICENSABLE MODULES DEFINITION
+
+This document relates the Licensable Modules with the software assets of Southwind (i.e.: Classes, Views, Images or any other software asset) and should be distributed together with a copy of SIGNUM-DUAL-LICENSE-1.0.txt file. 
+
+ 
+Since Southwind is considered an example for educational purposes, any file is this proyect is not included in any module, and does not require a Usage License in order to make a Production Usage.
