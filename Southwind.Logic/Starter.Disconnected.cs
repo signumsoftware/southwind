@@ -84,9 +84,14 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<DisconnectedExportDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<DisconnectedImportDN>(Download.None, Upload.None);
 
+            //Signum.Entities.Files
+            DisconnectedLogic.Register<FilePathDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<FileTypeDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<FileRepositoryDN>(Download.None, Upload.None);
+
             //Signum.Entities.Mailing
             DisconnectedLogic.Register<EmailMessageDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<EmailTemplateDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<EmailTemplateDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<EmailPackageDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<EmailMasterTemplateDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<SmtpConfigurationDN>(Download.All, Upload.None);

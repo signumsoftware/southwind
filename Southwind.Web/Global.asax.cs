@@ -124,7 +124,6 @@ namespace Southwind.Web
                 permissions: true);
 
             MailingClient.Start(
-                smtpConfig: true, 
                 newsletter: false, 
                 pop3Config: true);
 
@@ -184,9 +183,9 @@ namespace Southwind.Web
             Sync.ChangeBothCultures(new CultureInfo("en-US"));
         }
 
-        protected void Application_Error(object sender, EventArgs e)
+        protected void Application_Error(Object sender, EventArgs e)
         {
-            SignumExceptionHandlerAttribute.HandlerApplication_Error(HttpContext.Current, true);
+            SignumExceptionHandlerAttribute.HandlerApplication_Error(Request, HttpContext.Current, true);
         }
 
         protected void Session_Start(object sender, EventArgs e)

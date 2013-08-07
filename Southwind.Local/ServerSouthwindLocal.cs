@@ -21,7 +21,7 @@ namespace Southwind.Local
 {
     class ServerSouthwindLocal : ServerExtensions, IServerSouthwind
     {
-        protected override T Return<T>(MethodBase mi, string description, Func<T> function, bool checkLogin = true)
+        protected override T Return<T>(MethodBase mi, string description, Func<T> function)
         {
             try
             {

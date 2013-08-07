@@ -33,6 +33,7 @@ using Signum.Engine.Notes;
 using Signum.Engine.Cache;
 using Signum.Engine.Profiler;
 using Signum.Engine.Translation;
+using Signum.Engine.Files;
 
 namespace Southwind.Logic
 {
@@ -74,10 +75,13 @@ namespace Southwind.Logic
 
             CacheLogic.Start(sb);
 
+            TypeLogic.Start(sb, dqm); 
+
             OperationLogic.Start(sb, dqm);
 
 
             CultureInfoLogic.Start(sb, dqm);
+            FilePathLogic.Start(sb, dqm);
             EmailLogic.Start(sb, dqm,  ()=>Configuration.Value.Email);
             Pop3ConfigurationLogic.Start(sb, dqm); 
 
@@ -91,6 +95,8 @@ namespace Southwind.Logic
             ProcessLogic.Start(sb, dqm, userProcessSession: true);
             PackageLogic.Start(sb, dqm, true, true);
 
+           
+
             QueryLogic.Start(sb);
             UserQueryLogic.Start(sb, dqm);
             UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
@@ -101,7 +107,6 @@ namespace Southwind.Logic
             ControlPanelLogic.Start(sb, dqm);
             ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-
 
             ExceptionLogic.Start(sb, dqm);
 
