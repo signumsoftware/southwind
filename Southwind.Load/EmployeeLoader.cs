@@ -143,14 +143,12 @@ namespace Southwind.Load
         {
             using (OperationLogic.AllowSave<UserDN>())
             using (Transaction tr = new Transaction())
-            {
-                RoleDN sys = new RoleDN() { Name = "System" }.Save();
-
+            {              
                 UserDN system = new UserDN
                 {
-                    UserName = "System",
-                    PasswordHash = Security.EncodePassword(Guid.NewGuid().ToString()),
-                    Role = sys,
+                    UserName = "System",                   
+                    PasswordHash = Security.EncodePassword("System"),
+                    Role = Database.Query<RoleDN>().Where(r => r.Name == "Super user").SingleEx(),
                     State = UserState.Created,
                 }.Save(); 
 
