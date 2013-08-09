@@ -125,7 +125,7 @@ namespace Southwind.Web
 
             MailingClient.Start(
                 newsletter: false, 
-                pop3Config: true);
+                pop3Config: false);
 
             SessionLogClient.Start();
             ExceptionClient.Start();

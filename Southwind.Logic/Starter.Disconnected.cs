@@ -96,8 +96,6 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<EmailMasterTemplateDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<SmtpConfigurationDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<SystemEmailDN>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<Pop3ReceptionDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<Pop3ConfigurationDN>(Download.All, Upload.None);
           
             //Signum.Entities.Translation
             DisconnectedLogic.Register<CultureInfoDN>(Download.All, Upload.None);

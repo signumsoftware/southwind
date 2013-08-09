@@ -63,7 +63,6 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((ProcessExceptionLineDN cp) => cp.Line, new ImplementedByAttribute(typeof(PackageLineDN)));
             sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.From.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.Recipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.Reception);
             sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.DefaultFrom.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.AditionalRecipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
             
@@ -83,7 +82,6 @@ namespace Southwind.Logic
             CultureInfoLogic.Start(sb, dqm);
             FilePathLogic.Start(sb, dqm);
             EmailLogic.Start(sb, dqm,  ()=>Configuration.Value.Email);
-            Pop3ConfigurationLogic.Start(sb, dqm); 
 
             AuthLogic.Start(sb, dqm, "System", null);
             
@@ -93,7 +91,7 @@ namespace Southwind.Logic
             SessionLogLogic.Start(sb, dqm);
 
             ProcessLogic.Start(sb, dqm, userProcessSession: true);
-            PackageLogic.Start(sb, dqm, true, true);
+            PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);
 
            
 
