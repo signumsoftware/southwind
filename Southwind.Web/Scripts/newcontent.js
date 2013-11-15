@@ -5,7 +5,6 @@
         SF.NewContentProcessor.defaultButtons($newContent);
         SF.NewContentProcessor.defaultDatepicker($newContent);
         SF.NewContentProcessor.defaultDropdown($newContent);
-        SF.NewContentProcessor.defaultAutocomplete($newContent);
         SF.NewContentProcessor.defaultPlaceholder($newContent);
         SF.NewContentProcessor.defaultTabs($newContent);
         SF.NewContentProcessor.defaultModifiedChecker($newContent);

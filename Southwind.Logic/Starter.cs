@@ -34,6 +34,7 @@ using Signum.Engine.Cache;
 using Signum.Engine.Profiler;
 using Signum.Engine.Translation;
 using Signum.Engine.Files;
+using Southwind.Logic.Properties;
 
 namespace Southwind.Logic
 {
@@ -156,7 +157,7 @@ namespace Southwind.Logic
         {
             sb.Include<ApplicationConfigurationDN>();
             Configuration = sb.GlobalLazy<ApplicationConfigurationDN>(
-                () => Database.Query<ApplicationConfigurationDN>().Single(),
+                () => Database.Query<ApplicationConfigurationDN>().Single(a=>a.Environment == Settings.Default.Environment),
                 new InvalidateWith(typeof(SmtpConfigurationDN)));
 
             new Graph<ApplicationConfigurationDN>.Execute(ApplicationConfigurationOperation.Save)

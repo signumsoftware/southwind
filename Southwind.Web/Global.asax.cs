@@ -114,7 +114,7 @@ namespace Southwind.Web
                 passwordExpiration: false);
 
             Navigator.EntitySettings<UserDN>().ViewOverrides = new ViewOverrides()
-                .AfterLine<UserDN>(u => u.Related, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserMixin>().AllowLogin));
+                .AfterLine((UserDN u) => u.Related, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserMixin>().AllowLogin));
 
             AuthAdminClient.Start(
                 types: true, 
@@ -135,7 +135,7 @@ namespace Southwind.Web
                 file: true, 
                 embeddedFile: false);
             ChartClient.Start();
-            ReportsClient.Start(
+            ReportSpreadsheetClient.Start(
                 toExcelPlain:  true, 
                 excelReport: false);
             ControlPanelClient.Start();

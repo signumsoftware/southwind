@@ -153,6 +153,7 @@ namespace Southwind.Load
 
             new ApplicationConfigurationDN
             {
+                Environment = "Development",
                 Email = new EmailConfigurationDN
                 {
                     SendEmails = true,
