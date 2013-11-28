@@ -230,13 +230,14 @@ namespace Southwind.Windows
                 catch { }
                 finally
                 {
-                    var bla = e.FollowC(ex => ex.InnerException);
-                    MessageBox.Show(w,
-                        bla.ToString(ex => "{0} : {1}".Formato(
+                    string message = e.FollowC(ex => ex.InnerException).ToString(ex => "{0} : {1}".Formato(
                             ex.GetType().Name != "FaultException" ? ex.GetType().Name : "Server Error",
-                            ex.Message), "\r\n\r\n"),
-                        errorTitle + ":",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                            ex.Message), "\r\n\r\n");
+
+                    if (w != null)
+                        MessageBox.Show(w, message, errorTitle + ":", MessageBoxButton.OK, MessageBoxImage.Error);
+                    else
+                        MessageBox.Show(message, errorTitle + ":", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -330,8 +331,6 @@ namespace Southwind.Windows
                 return null;
             }
         }
-
-
 
         static ChannelFactory<IServerSouthwindTransfer> channelFactoryRemote;
         public static IServerSouthwindTransfer RemoteServerTransfer()

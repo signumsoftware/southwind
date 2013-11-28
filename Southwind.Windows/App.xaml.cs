@@ -48,7 +48,7 @@ namespace Southwind.Windows
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.InvariantCulture.IetfLanguageTag)));
 
-            this.DispatcherUnhandledException += (sender, args) => Program.HandleException("Unexpected error", args.Exception, App.Current.MainWindow); ;
+            this.DispatcherUnhandledException += (sender, args) => { Program.HandleException("Unexpected error", args.Exception, App.Current.MainWindow); args.Handled = true; };
             Async.DispatcherUnhandledException += (e, w) => Program.HandleException("Error in async call", e, w);
             Async.AsyncUnhandledException += (e, w) => Program.HandleException("Error in async call", e, w);
 
