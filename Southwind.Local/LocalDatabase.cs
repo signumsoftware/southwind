@@ -14,6 +14,7 @@ using Signum.Engine.Maps;
 using Signum.Entities;
 using System.Data.SqlClient;
 using Signum.Engine.Authorization;
+using Signum.Engine.Cache;
 
 namespace Southwind.Local
 {
@@ -24,6 +25,11 @@ namespace Southwind.Local
             Starter.Start(UserConnections.Replace(connectionString));
 
             DisconnectedLogic.OfflineMode = true;
+
+            var sql = CacheLogic.Synchronize(new Replacements());
+
+            if (sql != null)
+                Executor.ExecuteNonQuery(sql.PlainSql());
 
             Schema.Current.Initialize();
         }
