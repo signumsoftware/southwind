@@ -52,7 +52,7 @@ namespace Southwind.Logic
             //Signum.Entities.Basics
             DisconnectedLogic.Register<TypeConditionNameDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<PropertyRouteDN>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<QueryDN>(Download.Replace, Upload.New).Importer = new QueryImporter();
+            DisconnectedLogic.Register<QueryDN>(Download.Replace, Upload.New);
             
             //Signum.Entities.Notes
             DisconnectedLogic.Register<NoteDN>(Download.None, Upload.None);
@@ -64,7 +64,7 @@ namespace Southwind.Logic
 
             //Signum.Entities.Chart
             DisconnectedLogic.Register<ChartColorDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<UserChartDN>(Download.All, Upload.New).Importer = new UserQueryImporter(); 
+            DisconnectedLogic.Register<UserChartDN>(Download.All, Upload.New); 
             DisconnectedLogic.Register<ChartScriptDN>(Download.All, Upload.New);
 
             //Signum.Entities.Files
@@ -124,7 +124,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
             
             //Signum.Entities.UserQueries
-            DisconnectedLogic.Register<UserQueryDN>(Download.All, Upload.New).Importer = new UserQueryImporter();
+            DisconnectedLogic.Register<UserQueryDN>(Download.All, Upload.New);
 
             //Southwind.Entities
             DisconnectedLogic.Register<EmployeeDN>(Download.All, Upload.None);
@@ -138,103 +138,6 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<OrderDN>(o => o.Employee.RefersTo(EmployeeDN.Current));
             DisconnectedLogic.Register<ShipperDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<ApplicationConfigurationDN>(Download.All, Upload.None);
-        }
-    }
-
-    public class QueryImporter : BasicImporter<QueryDN>
-    {
-        protected override int Insert(DisconnectedMachineDN machine, Table table, IDisconnectedStrategy strategy, SqlConnector newDatabase)
-        {
-            var queries = Database.Query<QueryDN>().Select(a => a.Key).ToHashSet();
-            List<QueryDN> newQueries = null;
-
-            using (Connector.Override(newDatabase))
-            {
-                newQueries = Database.Query<QueryDN>()
-                     .AsEnumerable()
-                     .Where(a => !queries.Contains(a.Key)).ToList();
-            }
-
-            if (newQueries.Any())
-            {
-                foreach (var q in newQueries)
-                {
-                    q.SetId(null);
-                    q.SetNew();
-                }
-                newQueries.SaveList();
-            }
-
-            return newQueries.Count;
-        }
-    }
-
-    public class UserQueryImporter : BasicImporter<UserQueryDN>
-    {
-        protected override int Insert(DisconnectedMachineDN machine, Table table, IDisconnectedStrategy strategy, SqlConnector newDatabase)
-        {
-            var interval = GetNewIdsInterval(table, machine, newDatabase);
-
-            if (interval == null)
-                return 0;
-
-            List<UserQueryDN> list;
-            using (SqlConnector.Override(newDatabase))
-            {
-                list = Database.Query<UserQueryDN>().Where(a => interval.Value.Contains(a.Id)).ToList();
-            }
-
-            var queries = Database.Query<QueryDN>().ToDictionary(a => a.Key);
-
-
-            foreach (var uq in list)
-            {
-                uq.SetNew();
-                uq.Query = queries[uq.Query.Key];
-            }
-
-            using (DisconnectedTools.SaveAndRestoreNextId(table))
-            {
-                using (OperationLogic.AllowSave<UserQueryDN>())
-                {
-                    Administrator.SaveListDisableIdentity(list);
-                }
-            }
-
-            return list.Count;
-        }
-    }
-
-    public class UserChartImporter : BasicImporter<UserChartDN>
-    {
-        protected override int Insert(DisconnectedMachineDN machine, Table table, IDisconnectedStrategy strategy, SqlConnector newDatabase)
-        {
-            var interval = GetNewIdsInterval(table, machine, newDatabase);
-
-            if (interval == null)
-                return 0;
-
-            List<UserChartDN> list;
-            using (SqlConnector.Override(newDatabase))
-            {
-                list = Database.Query<UserChartDN>().Where(a => interval.Value.Contains(a.Id)).ToList();
-            }
-
-            var queries = Database.Query<QueryDN>().ToDictionary(a => a.Key);
-
-            foreach (var uq in list)
-            {
-                uq.SetNew();
-                uq.Query = queries[uq.Query.Key];
-            }
-
-            using (DisconnectedTools.SaveAndRestoreNextId(table))
-            using (OperationLogic.AllowSave<UserChartDN>())
-            {
-                Administrator.SaveListDisableIdentity(list);
-            }
-
-            return list.Count;
         }
     }
 }
