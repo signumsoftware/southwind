@@ -101,7 +101,7 @@ namespace Southwind.Web
 
         private void WebStart()
         {
-            Navigator.Start(new NavigationManager());
+            Navigator.Start(new NavigationManager("haradwaithwinds"));
             Constructor.Start(new ConstructorManager());
 
             OperationsClient.Start(new OperationManager(), true);
