@@ -15,31 +15,59 @@ using Signum.Entities;
 using System.Data.SqlClient;
 using Signum.Engine.Authorization;
 using Signum.Engine.Cache;
+using System.Threading;
+using System.ServiceModel;
 
 namespace Southwind.Local
 {
     public static class LocalServer
     {
+        static Thread hostThread;
+
+        static ManualResetEvent stopEvent;
+        static ManualResetEvent startedEvent;
+
         public static void Start(string connectionString)
         {
             Starter.Start(UserConnections.Replace(connectionString));
 
             DisconnectedLogic.OfflineMode = true;
 
-            var sql = CacheLogic.Synchronize(new Replacements());
-
-            if (sql != null)
-                Executor.ExecuteNonQuery(sql.PlainSql());
-
             Schema.Current.Initialize();
+
+            stopEvent = new ManualResetEvent(false);
+            startedEvent = new ManualResetEvent(false);
+
+            //http://www.johnplummer.com/dotnet/simple-wcf-service-host.html
+            hostThread = new Thread(() =>
+            {
+                using (ServiceHost host = new ServiceHost(typeof(ServerSouthwindLocal)))
+                {
+                    host.Open();
+
+                    startedEvent.Set();
+
+                    stopEvent.WaitOne();
+
+                    host.Close();
+                }
+            });
+
+            hostThread.Start();
+            startedEvent.WaitOne();
         }
 
-        public static IServerSouthwind GetServer()
+        static ChannelFactory<IServerSouthwind> channelFactory;
+        public static IServerSouthwind GetLocalServer()
         {
-            return new ServerSouthwindLocal();
+            if (channelFactory == null)
+                channelFactory = new ChannelFactory<IServerSouthwind>("local");
+
+            IServerSouthwind result = channelFactory.CreateChannel();
+            return result;
         }
 
-        public static IServerSouthwindTransfer GetServerTransfer()
+        public static IServerSouthwindTransfer GetLocalServerTransfer()
         {
             return new ServerSouthwindTransferLocal();
         }
@@ -87,6 +115,12 @@ namespace Southwind.Local
         {
             using (AuthLogic.Disable())
                 return Database.Query<DisconnectedExportDN>().SingleEx();
+        }
+
+        public static void Stop()
+        {
+            stopEvent.Set();
+            hostThread.Join();
         }
     }
 }
