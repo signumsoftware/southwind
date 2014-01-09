@@ -1,23 +1,26 @@
 ﻿/// <reference path="../../framework/signum.web/signum/headers/jquery/jquery.d.ts"/>
 /// <reference path="../../framework/signum.web/signum/scripts/references.ts"/>
+
+
 $(function () {
+
     $("#menu .l1 > span").addClass("ui-widget-header");
 
     var cache, limit = 8;
     var search = function (input) {
         if (!cache) {
+
             cache = [];
             $.map($("#menu ul a"), function (a) {
                 var $this = $(a);
                 cache.push({ url: $this.attr("href"), name: $this.text() });
             });
         }
-
         // make case-insensitive regexp
         var stregexp = new RegExp(input, "i");
 
         var result = [], count = 0;
-
+        // remove appropriate item(s)
         for (var i = 0, l = cache.length; i < l && count < limit; i++) {
             if (cache[i].name.match(stregexp) != null) {
                 result.push(cache[i]);
@@ -53,4 +56,5 @@ $(function () {
         return false;
     });
 });
-//# sourceMappingURL=menu.js.map
+
+
