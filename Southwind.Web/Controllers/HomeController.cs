@@ -54,13 +54,12 @@ namespace Southwind.Web.Controllers
             var now = TimeZoneManager.Now;
             var ts = (int)(now - time).TotalDays;
 
-            int updated = Database.Query<OrderDN>().UnsafeUpdate(o => new OrderDN
-            {
-                OrderDate = o.OrderDate.AddDays(ts),
-                ShippedDate = o.ShippedDate.Value.AddDays(ts),
-                RequiredDate = o.RequiredDate.AddDays(ts),
-                CancelationDate = null,
-            });
+            int updated = Database.Query<OrderDN>().UnsafeUpdate()
+                .Set(o => o.OrderDate, o => o.OrderDate.AddDays(ts))
+                .Set(o => o.ShippedDate, o => o.ShippedDate.Value.AddDays(ts))
+                .Set(o => o.RequiredDate, o => o.RequiredDate.AddDays(ts))
+                .Set(o => o.CancelationDate, o => null)
+                .Execute();
 
             return Content("Removed: {0}\r\nUpdated: {1}".Formato(removed, updated)); 
         }

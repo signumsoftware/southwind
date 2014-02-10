@@ -165,11 +165,11 @@ namespace Southwind.Logic
             {
                 foreach (var od in order.Details)
                 {
-                    int updated = od.Product.InDB().Where(p => p.UnitsInStock >= od.Quantity).UnsafeUpdate(p => new ProductDN
-                    {
-                        UnitsInStock = (short)(p.UnitsInStock - od.Quantity)
-                    });
-
+                    int updated = od.Product.InDB()
+                        .Where(p => p.UnitsInStock >= od.Quantity)
+                        .UnsafeUpdate()
+                        .Set(p => p.UnitsInStock, p => (short)(p.UnitsInStock - od.Quantity))
+                        .Execute();
 
                     if (updated != 1)
                         throw new ApplicationException("There are not enought {0} in stock".Formato(od.Product));

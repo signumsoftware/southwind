@@ -102,13 +102,12 @@ namespace Southwind.Load
             var now = TimeZoneManager.Now;
             var ts = (int)(now - time).TotalDays;
 
-            Database.Query<OrderDN>().UnsafeUpdate(o => new OrderDN
-            {
-                OrderDate = o.OrderDate.AddDays(ts),
-                ShippedDate = o.ShippedDate.Value.AddDays(ts),
-                RequiredDate = o.RequiredDate.AddDays(ts),
-                CancelationDate = null,
-            });
+            Database.Query<OrderDN>().UnsafeUpdate()
+                .Set(o => o.OrderDate, o => o.OrderDate.AddDays(ts))
+                .Set(o => o.ShippedDate, o => o.ShippedDate.Value.AddDays(ts))
+                .Set(o => o.RequiredDate, o => o.RequiredDate.AddDays(ts))
+                .Set(o => o.CancelationDate, o => null)
+                .Execute();
 
 
             var limit = TimeZoneManager.Now.AddDays(-10);
@@ -119,12 +118,11 @@ namespace Southwind.Load
 
             for (int i = 0; i < list.Count * 0.1f; i++)
             {
-                r.NextElement(list).InDB().UnsafeUpdate(o => new OrderDN
-               {
-                   ShippedDate = null,
-                   CancelationDate = o.OrderDate.AddDays(o.Id % 10),
-                   State = OrderState.Canceled
-               });
+                r.NextElement(list).InDB().UnsafeUpdate()
+                .Set(o => o.ShippedDate, o => null)
+                .Set(o => o.CancelationDate, o => o.OrderDate.AddDays(o.Id % 10))
+                .Set(o => o.State, o => OrderState.Canceled)
+                .Execute();
             }
         }
     }
