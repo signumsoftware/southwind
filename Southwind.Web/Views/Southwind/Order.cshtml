@@ -23,8 +23,8 @@
                         @Html.ValueLine(oc, o => o.ShipName)
                         @Html.EntityLine(oc, o => o.Customer, el =>
                         {
-                            el.Finding = "{0}.typedFind({1})".Formato(el.ToJS(),
-                                new JsFindOptions { FindOptions = new FindOptions(typeof(CustomerDN)) }.ToJS());
+                            el.AttachFunction = new JsLineFunction("Order", "attachCustomerEntityLine", 
+                                new FindOptions(typeof(CustomerDN)).ToJS(el.ControlID));
                         })
                     </td>
                     <td>

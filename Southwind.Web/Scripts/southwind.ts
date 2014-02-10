@@ -1,5 +1,4 @@
-﻿/// <reference path="../../framework/signum.web/signum/headers/jquery/jquery.d.ts"/>
-/// <reference path="../../framework/signum.web/signum/scripts/references.ts"/>
+﻿/// <reference path="../../framework/signum.web/signum/scripts/globals.ts"/>
 
 $(function () {
     $("#themeSelector").bind("change", function () {

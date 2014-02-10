@@ -20,14 +20,37 @@
        "~/signum/content/SF_Widgets.css",  
        "~/content/site.css")  
 
-    @Html.ScriptsJs("~/scripts/jquery-1.9.1.min.js", "~/scripts/jquery-ui-1.10.3.custom.min.js")
+        @Html.ScriptsJs(
+        "~/Scripts/promise-0.1.1.js",
+        "~/Scripts/jquery-1.11.0.js",     
+        "~/Scripts/jquery-ui-1.10.3.custom.min.js",
+        "~/Scripts/require.js")  
+     <script>
+         require.config({
+             baseUrl: '@Url.Content("~/Scripts")',
+            paths: {
+                "Framework/Signum.Web": "..",
+                "Extensions/Signum.Web.Extensions": "..",
+
+                "d3": "d3.v3.min",
+                "colorbrewer": "/Scripts/colorbrewer",
+                "ChartUtils": "../Chart/Scripts/ChartUtils",
+            },
+            shim: {
+                d3: { exports: 'd3' },
+                colorbrewer: { exports: 'colorbrewer' },
+                ChartUtils: { exports: 'ChartUtils' }
+            },
+            urlArgs: "v=@ScriptHtmlHelper.Manager.Version"
+        });
+    </script>  
+
     @Html.ScriptsJs("~/signum/resources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
     @Html.ScriptsJs("~/signum/calendarResources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
-    @Html.ScriptsJs("~/signum/scripts/SF_Utils.js", 
-        "~/signum/scripts/SF_jquery-ui-datepicker-extension.js", 
-        "~/scripts/newcontent.js",
-        "~/signum/scripts/SF_Globals.js")
-    @Html.ScriptsJs("~/scripts/southwind.js", "~/Omnibox/Scripts/SF_Omnibox.js")
+    @Html.ScriptsJs("~/Signum/urls/signumCommon.js")
+    @Html.ScriptsJs("~/Signum/Scripts/SF.js", "~/Signum/Scripts/SF.UI.js", "~/Scripts/newcontent.js")    
+
+    @Html.ScriptsJs("~/scripts/southwind.js")
 
     @if (IsSectionDefined("head"))
     {

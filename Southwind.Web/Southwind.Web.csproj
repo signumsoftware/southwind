@@ -437,8 +437,13 @@
     <Content Include="Scripts\CodeMirror\searchcursor.js" />
     <Content Include="Scripts\CodeMirror\simple-hint.js" />
     <Content Include="Scripts\colorbrewer.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\d3.v3.min.js" />
+    <Content Include="Scripts\jquery-1.11.0.js" />
+    <Content Include="Scripts\jquery-1.11.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
+    <TypeScriptCompile Include="Scripts\Order.ts" />
+    <Content Include="Scripts\promise-0.1.1.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="ServerSouthwindTransfer.svc" />
     <Content Include="DocumentFormat.OpenXml.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -448,7 +453,6 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\d3.v2.min.js" />
     <TypeScriptCompile Include="Scripts\menu.ts" />
     <TypeScriptCompile Include="Scripts\newcontent.ts" />
     <TypeScriptCompile Include="Scripts\southwind.ts" />

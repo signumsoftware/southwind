@@ -5,14 +5,12 @@
 @using Signum.Entities.UserQueries
 @using Signum.Entities.ControlPanel
 @using Signum.Entities.Chart
-
+@using Signum.Web.Omnibox
 @*<input name="filter" id="menu_filter" type="text" placeholder="Buscar opción de menú" />
 <br />*@
 <input id="sfOmnibox" name="sfOmnibox" data-url="@Url.Action("Autocomplete", "Omnibox")" type="text" placeholder="Buscar" /> 
 <script type="text/javascript">
-    $(function () {
-        SF.Omnibox.initialize($("#sfOmnibox"));
-    });
+    @(new JsFunction(OmniboxClient.Module, "initialize", "sfOmnibox"))
 </script>
 @(new WebMenuItem
     {

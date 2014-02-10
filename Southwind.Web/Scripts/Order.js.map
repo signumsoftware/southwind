@@ -1,0 +1,1 @@
+{"version":3,"file":"Order.js","sourceRoot":"","sources":["Order.ts"],"names":["attachCustomerEntityLine"],"mappings":"AAAA,4EAA4E;AAA5E;IAQA,SAAgB,wBAAwB,CAAC,EAAoB,EAAE,EAAsB;QACjFA,EAAEA,CAACA,OAAOA,GAAGA,UAACA,MAAMA;mBAAKA,MAAMA,CAACA,IAAIA,CAACA,EAAEA,CAACA;QAAfA,CAAeA;IAC5CA,CAACA;IAFD,4DAEC;GAAA"}
