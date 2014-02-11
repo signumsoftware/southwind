@@ -50,13 +50,13 @@ namespace Southwind.Web
             routes.MapRoute(
              Navigator.NavigateRouteName,
              "View/{webTypeName}/{id}",
-             new { controller = "Signum", action = "View", webTypeName = "", id = "" }
+             new { controller = "Navigator", action = "View", webTypeName = "", id = "" }
             );
 
             routes.MapRoute(
                 Navigator.FindRouteName,
                 "Find/{webQueryName}",
-                new { controller = "Signum", action = "Find", webQueryName = "" }
+                new { controller = "Finder", action = "Find", webQueryName = "" }
             );
 
             RouteTable.Routes.MapRoute(
