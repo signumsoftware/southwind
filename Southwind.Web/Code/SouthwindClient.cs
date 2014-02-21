@@ -23,6 +23,8 @@ namespace Southwind.Web
         public static string ViewPrefix = "~/Views/Southwind/{0}.cshtml";
         public static string ThemeSessionKey = "swCurrentTheme";
 
+        public static string OrderModule = "Order";
+
         public static void Start()
         {
             if (Navigator.Manager.NotDefined(MethodInfo.GetCurrentMethod()))

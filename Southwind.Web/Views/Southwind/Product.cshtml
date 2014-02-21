@@ -1,9 +1,9 @@
 ﻿@using Southwind.Entities
-
-@using (var pc = Html.TypeContext<ProductDN>()) 
+@using Southwind.Web
+@using (var pc = Html.TypeContext<ProductDN>())
 {
-	@Html.ValueLine(pc, p => p.ProductName)
-	@Html.EntityCombo(pc, p => p.Category)
+    @Html.ValueLine(pc, p => p.ProductName)
+    @Html.EntityCombo(pc, p => p.Category)
     @Html.ValueLine(pc, p => p.ReorderLevel)
 
     <div id="productExternal">
@@ -11,15 +11,15 @@
             <table>
                 <tr>
                     <td></td>
-                    <td>@Html.ValueLine(pc, p => p.UnitPrice, vl => vl.ValueHtmlProps["onblur"] = "updateStockValue('" + pc.ControlID + "');")</td>
+                    <td>@Html.ValueLine(pc, p => p.UnitPrice, vl => vl.ValueHtmlProps["onblur"] = new JsFunction(SouthwindClient.OrderModule, "updateStockValue", pc.Prefix).ToString())</td>
                 </tr>
                 <tr id="trMultiply">
                     <td>X</td>
-                    <td>@Html.ValueLine(pc, p => p.UnitsInStock, vl => vl.ValueHtmlProps["onblur"] = "updateStockValue('" + pc.ControlID + "');")</td>
+                    <td>@Html.ValueLine(pc, p => p.UnitsInStock, vl => vl.ValueHtmlProps["onblur"] = new JsFunction(SouthwindClient.OrderModule, "updateStockValue", pc.Prefix).ToString())</td>
                 </tr>
                 <tr>
                     <td>=</td>
-                    <td>@Html.Field(Html.PropertyNiceName(() => pc.Value.ValueInStock), 
+                    <td>@Html.Field(Html.PropertyNiceName(() => pc.Value.ValueInStock),
                             Html.Span(pc.Compose("StockValue"), pc.Value.ValueInStock.ToString("c"), "sf-value-line"))</td>
                 </tr>
             </table>
@@ -27,14 +27,8 @@
     </div>    
     
     @Html.ValueLine(pc, p => p.QuantityPerUnit)
-	@Html.EntityLine(pc, p => p.Supplier)
-	@Html.ValueLine(pc, p => p.Discontinued)
+    @Html.EntityLine(pc, p => p.Supplier)
+    @Html.ValueLine(pc, p => p.Discontinued)
 }
 
-<script type="text/javascript">
-    function updateStockValue(prefix) {
-        var sum = parseFloat($("#" + SF.compose(prefix, "UnitPrice")).val()) *
-            parseFloat($("#" + SF.compose(prefix, "UnitsInStock")).val());
-        $("#" + SF.compose(prefix, "StockValue")).html(sum); 
-    }
-</script>
+

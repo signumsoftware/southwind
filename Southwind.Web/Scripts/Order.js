@@ -6,5 +6,11 @@ define(["require", "exports", "Framework/Signum.Web/Signum/Scripts/Finder"], fun
         };
     }
     exports.attachCustomerEntityLine = attachCustomerEntityLine;
+
+    function updateStockValue(prefix) {
+        var sum = parseFloat($("#" + SF.compose(prefix, "UnitPrice")).val()) * parseFloat($("#" + SF.compose(prefix, "UnitsInStock")).val());
+        $("#" + SF.compose(prefix, "StockValue")).html(sum.toString());
+    }
+    exports.updateStockValue = updateStockValue;
 });
 //# sourceMappingURL=Order.js.map

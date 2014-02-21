@@ -24,7 +24,7 @@
                         @Html.EntityLine(oc, o => o.Customer, el =>
                         {
                             el.AttachFunction = new JsLineFunction("Order", "attachCustomerEntityLine", 
-                                new FindOptions(typeof(CustomerDN)).ToJS(el.ControlID));
+                                new FindOptions(typeof(CustomerDN)).ToJS(el.Prefix));
                         })
                     </td>
                     <td>
