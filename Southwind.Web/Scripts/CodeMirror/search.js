@@ -7,20 +7,48 @@
 // Ctrl-G.
 
 (function() {
+  function searchOverlay(query, caseInsensitive) {
+    var startChar;
+    if (typeof query == "string") {
+      startChar = query.charAt(0);
+      query = new RegExp("^" + query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"),
+                         caseInsensitive ? "i" : "");
+    } else {
+      query = new RegExp("^(?:" + query.source + ")", query.ignoreCase ? "i" : "");
+    }
+    if (typeof query == "string") return {token: function(stream) {
+      if (stream.match(query)) return "searching";
+      stream.next();
+      stream.skipTo(query.charAt(0)) || stream.skipToEnd();
+    }};
+    return {token: function(stream) {
+      if (stream.match(query)) return "searching";
+      while (!stream.eol()) {
+        stream.next();
+        if (startChar)
+          stream.skipTo(startChar) || stream.skipToEnd();
+        if (stream.match(query, false)) break;
+      }
+    }};
+  }
+
   function SearchState() {
     this.posFrom = this.posTo = this.query = null;
-    this.marked = [];
+    this.overlay = null;
   }
   function getSearchState(cm) {
-    return cm._searchState || (cm._searchState = new SearchState());
+    return cm.state.search || (cm.state.search = new SearchState());
+  }
+  function queryCaseInsensitive(query) {
+    return typeof query == "string" && query == query.toLowerCase();
   }
   function getSearchCursor(cm, query, pos) {
     // Heuristic: if the query string is all lowercase, do a case insensitive search.
-    return cm.getSearchCursor(query, pos, typeof query == "string" && query == query.toLowerCase());
+    return cm.getSearchCursor(query, pos, queryCaseInsensitive(query));
   }
-  function dialog(cm, text, shortText, f) {
-    if (cm.openDialog) cm.openDialog(text, f);
-    else f(prompt(shortText, ""));
+  function dialog(cm, text, shortText, deflt, f) {
+    if (cm.openDialog) cm.openDialog(text, f, {value: deflt});
+    else f(prompt(shortText, deflt));
   }
   function confirmDialog(cm, text, shortText, fs) {
     if (cm.openConfirm) cm.openConfirm(text, fs);
@@ -35,14 +63,13 @@
   function doSearch(cm, rev) {
     var state = getSearchState(cm);
     if (state.query) return findNext(cm, rev);
-    dialog(cm, queryDialog, "Search for:", function(query) {
+    dialog(cm, queryDialog, "Search for:", cm.getSelection(), function(query) {
       cm.operation(function() {
         if (!query || state.query) return;
         state.query = parseQuery(query);
-        if (cm.lineCount() < 2000) { // This is too expensive on big documents.
-          for (var cursor = getSearchCursor(cm, state.query); cursor.findNext();)
-            state.marked.push(cm.markText(cursor.from(), cursor.to(), "CodeMirror-searching"));
-        }
+        cm.removeOverlay(state.overlay, queryCaseInsensitive(state.query));
+        state.overlay = searchOverlay(state.query);
+        cm.addOverlay(state.overlay);
         state.posFrom = state.posTo = cm.getCursor();
         findNext(cm, rev);
       });
@@ -52,18 +79,18 @@
     var state = getSearchState(cm);
     var cursor = getSearchCursor(cm, state.query, rev ? state.posFrom : state.posTo);
     if (!cursor.find(rev)) {
-      cursor = getSearchCursor(cm, state.query, rev ? {line: cm.lineCount() - 1} : {line: 0, ch: 0});
+      cursor = getSearchCursor(cm, state.query, rev ? CodeMirror.Pos(cm.lastLine()) : CodeMirror.Pos(cm.firstLine(), 0));
       if (!cursor.find(rev)) return;
     }
     cm.setSelection(cursor.from(), cursor.to());
+    cm.scrollIntoView({from: cursor.from(), to: cursor.to()});
     state.posFrom = cursor.from(); state.posTo = cursor.to();
   });}
   function clearSearch(cm) {cm.operation(function() {
     var state = getSearchState(cm);
     if (!state.query) return;
     state.query = null;
-    for (var i = 0; i < state.marked.length; ++i) state.marked[i].clear();
-    state.marked.length = 0;
+    cm.removeOverlay(state.overlay);
   });}
 
   var replaceQueryDialog =
@@ -71,23 +98,23 @@
   var replacementQueryDialog = 'With: <input type="text" style="width: 10em"/>';
   var doReplaceConfirm = "Replace? <button>Yes</button> <button>No</button> <button>Stop</button>";
   function replace(cm, all) {
-    dialog(cm, replaceQueryDialog, "Replace:", function(query) {
+    dialog(cm, replaceQueryDialog, "Replace:", cm.getSelection(), function(query) {
       if (!query) return;
       query = parseQuery(query);
-      dialog(cm, replacementQueryDialog, "Replace with:", function(text) {
+      dialog(cm, replacementQueryDialog, "Replace with:", "", function(text) {
         if (all) {
-          cm.compoundChange(function() { cm.operation(function() {
+          cm.operation(function() {
             for (var cursor = getSearchCursor(cm, query); cursor.findNext();) {
               if (typeof query != "string") {
                 var match = cm.getRange(cursor.from(), cursor.to()).match(query);
-                cursor.replace(text.replace(/\$(\d)/, function(w, i) {return match[i];}));
+                cursor.replace(text.replace(/\$(\d)/, function(_, i) {return match[i];}));
               } else cursor.replace(text);
             }
-          });});
+          });
         } else {
           clearSearch(cm);
           var cursor = getSearchCursor(cm, query, cm.getCursor());
-          function advance() {
+          var advance = function() {
             var start = cursor.from(), match;
             if (!(match = cursor.findNext())) {
               cursor = getSearchCursor(cm, query);
@@ -95,14 +122,15 @@
                   (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) return;
             }
             cm.setSelection(cursor.from(), cursor.to());
+            cm.scrollIntoView({from: cursor.from(), to: cursor.to()});
             confirmDialog(cm, doReplaceConfirm, "Replace?",
                           [function() {doReplace(match);}, advance]);
-          }
-          function doReplace(match) {
+          };
+          var doReplace = function(match) {
             cursor.replace(typeof query == "string" ? text :
-                           text.replace(/\$(\d)/, function(w, i) {return match[i];}));
+                           text.replace(/\$(\d)/, function(_, i) {return match[i];}));
             advance();
-          }
+          };
           advance();
         }
       });

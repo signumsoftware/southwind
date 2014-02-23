@@ -431,12 +431,13 @@
     <Content Include="Content\CodeMirror\dialog.css" />
     <Content Include="Scripts\CodeMirror\dialog.js" />
     <Content Include="Scripts\CodeMirror\formatting.js" />
+    <Content Include="Scripts\CodeMirror\fullscreen.js" />
     <Content Include="Scripts\CodeMirror\javascript-hint.js" />
     <Content Include="Scripts\CodeMirror\javascript.js" />
     <Content Include="Scripts\CodeMirror\match-highlighter.js" />
     <Content Include="Scripts\CodeMirror\search.js" />
     <Content Include="Scripts\CodeMirror\searchcursor.js" />
-    <Content Include="Scripts\CodeMirror\simple-hint.js" />
+    <Content Include="Scripts\CodeMirror\show-hint.js" />
     <Content Include="Scripts\colorbrewer.js" />
     <Content Include="Scripts\d3.v3.min.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
