@@ -196,6 +196,7 @@
     <Content Include="Content\jqueryui\vader\images\ui-icons_f29a00_256x240.png" />
     <Content Include="Content\jqueryui\vader\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Content\site.css" />
+    <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
