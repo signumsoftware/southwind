@@ -33,6 +33,11 @@ namespace Southwind.Local
 
             DisconnectedLogic.OfflineMode = true;
 
+            var sql = CacheLogic.Synchronize(new Replacements());
+
+            if (sql != null)
+                Executor.ExecuteNonQuery(sql.PlainSql());
+
             Schema.Current.Initialize();
 
             stopEvent = new ManualResetEvent(false);
