@@ -95,6 +95,35 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datepicker\css\datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="Content\bootstrap-timepicker\css\bootstrap-timepicker.css" />
+    <Content Include="Content\bootstrap-timepicker\css\bootstrap-timepicker.min.css" />
+    <Content Include="Content\bootstrap-timepicker\js\bootstrap-timepicker.js" />
+    <Content Include="Content\bootstrap-typeahead\bootstrap3-typeahead.js" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\themes\amelia.css" />
+    <Content Include="Content\bootstrap\themes\cerulean.css" />
+    <Content Include="Content\bootstrap\themes\cosmo.css" />
+    <Content Include="Content\bootstrap\themes\cyborg.css" />
+    <Content Include="Content\bootstrap\themes\darkly.css" />
+    <Content Include="Content\bootstrap\themes\flatly.css" />
+    <Content Include="Content\bootstrap\themes\journal.css" />
+    <Content Include="Content\bootstrap\themes\lumen.css" />
+    <Content Include="Content\bootstrap\themes\readable.css" />
+    <Content Include="Content\bootstrap\themes\shamrock.css" />
+    <Content Include="Content\bootstrap\themes\simplex.css" />
+    <Content Include="Content\bootstrap\themes\slate.css" />
+    <Content Include="Content\bootstrap\themes\spacelab.css" />
+    <Content Include="Content\bootstrap\themes\superhero.css" />
+    <Content Include="Content\bootstrap\themes\united.css" />
+    <Content Include="Content\bootstrap\themes\yeti.css" />
     <Content Include="Content\CodeMirror\codemirror.css" />
     <Content Include="Content\CodeMirror\simple-hint.css" />
     <Content Include="Content\site.css" />
@@ -423,6 +452,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\archivos.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
