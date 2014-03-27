@@ -1,124 +1,64 @@
-/* Default CSS rules are embedded in Signum.Web and are accessible via Signum/Content/LineStyles.css */
-/* Feel free to override them as you wish here */
-body 
+body
 {
-    font-family: Arial, Helvetica, Verdana;
-    font-size: 13px;   
-    border-bottom: 0 !important;
-}
-#wrap
-{
-    margin: 20px;
-    text-align: left;    
-}
-#header
-{
-    height: 40px;
-    padding: 20px;
-}
-#header #title a
-{    
-    font-size: 32px !important;
-    text-shadow: 1px 1px 2px #111;
-    text-decoration: none;
-    color: #000;
-}
-#header #loginControl
-{
-    float: right;    
-    font-size: 16px;    
-    font-weight: bold;    
-}
-#header #loginControl a
-{
-    text-decoration: none;
-}
-#main 
-{
-	height: 100%;
-	-moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-	background-color:#fff;
-    background-image: none;
-	border-top: 0;
-	border-bottom: 0;
-}
-#content
-{
-	padding: 5px;
-	min-height: 542px;
-	border-left: 1px solid #CCC;
-}
-#contentContainer
-{
-	overflow: auto;
-	padding: 5px;
-}
-#footer
-{
-    padding: 5px;
-    text-align: center;    
-    overflow: hidden;
-}
-#footer #themeSelectorContainer
-{
-    float: right;   
-}
-h1 
-{
-    font-size: 1.5em;
-    color: black;
+    padding-top: 50px;
 }
 
+footer
+{
+    /*color: #999999;
+    background-color: #f5f5f5;*/
+}
 
-/*Menu*/
-#menu 
+.footerContainer
 {
-    float: left;
-    width: 160px;
-    margin: 10px 5px;
+    margin: 15px 0;
+    text-align: center;
 }
-#menu .box.menu
+
+.theme-selector
 {
-    padding-bottom: 10px;    
-    border: 0;
+    width: auto;
 }
-#menu_filter
+
+navbar-header
 {
-    margin-bottom: 5px;
+    white-space:nowrap;
 }
-li
+
+.theme-selector
 {
-    padding-left: 5px;    
-    padding-right: 5px;  
+   width: 130px;
+   margin-top: 8px;
 }
-li.l1 > span
+
+#sfOmnibox
 {
-    display: block;
-    font-weight: bold;
-    margin: 20px 0 5px 0;
-    padding: 5px;
-    text-transform: uppercase;
-    color: #555;
-    font-size: 1.2em;
+   width: 150px;
+   margin-top: 8px;
 }
-li.l1:first-child > span
+
+/*Media */
+@media (max-width: 350px)
 {
-    margin: 0px 0 5px 0;
+    .hidden-under-350
+    {
+        display: none !important;
+    }
 }
-li.l2
+
+.visible-under-350
 {
-    text-decoration: none;    
-    padding-top: 3px;
+    display: none !important;
 }
-#menu a
-{
-    text-decoration: none; 
+
+@media (max-width: 350px) {
+  .visible-under-350 {
+    display: block !important;
+  }
 }
 
 /* Southwind specific */
-#territories .sf-field
+/*#territories .sf-field
 {
     min-width: inherit;
 }
@@ -158,29 +98,4 @@ div.photo
 {
     background-color: #FFC;
     border-color: #F3F395;
-}
-
-/*---------------------------
---login page and auth pages--
----------------------------*/
-.sf-login-page h2, .sf-reset-password-container h2
-{
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-.sf-login-page p, .sf-reset-password-container p
-{
-    padding: 10px 0;    
-}
-.sf-login-page td
-{
-    padding: 2px;    
-}
-.sf-login-page .sf-login-reset-password
-{
-    margin-top: 10px; 
-}
-.sf-login-page input[type=submit]
-{
-    margin: 10px 0; 
-}
+}*/

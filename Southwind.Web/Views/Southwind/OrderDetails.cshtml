@@ -2,7 +2,7 @@
 
 @using (var oc = Html.TypeContext<OrderDetailsDN>()) 
 {
-    using (Html.FieldInline())
+    using (Html.FormInline())
     {
         Action<ValueLine> modifier = vl => { vl.ValueHtmlProps["size"] = 7; };
         @Html.EntityLine(oc, o => o.Product, el => { el.Create = false; el.View = false; el.Find = false; el.Remove = false; })

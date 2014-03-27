@@ -6,18 +6,24 @@
         <tr>
             <td>
                 <fieldset>
-                    <legend>Name</legend>
-                    @using (Html.FieldInline())
+                    <legend>Personal Info</legend>
+                    @using (Html.FormInline())
                     {
-                        @Html.ValueLine(ec, e => e.TitleOfCourtesy, vl => 
-                        { 
-                            vl.ValueFirst = true; 
-                            vl.ValueHtmlProps["size"] = 4;
-                            vl.LabelText = "Title"; 
-                        })
-                        @Html.ValueLine(ec, e => e.FirstName, vl => vl.ValueFirst = true)
-                        @Html.ValueLine(ec, e => e.LastName, vl => vl.ValueFirst = true)
+                        using (var ec2 = ec.SubContext())
+                        {
+                            ec2.FormGroupStyle = FormGroupStyle.SrOnly;
+                        
+                        @Html.ValueLine(ec2, e => e.TitleOfCourtesy, vl =>
+                            {
+                                vl.ValueHtmlProps["size"] = 4;
+                                vl.LabelText = "Title";
+                            })
+                        @Html.ValueLine(ec2, e => e.FirstName)
+                        @Html.ValueLine(ec2, e => e.LastName)
+                        }
                     }
+                    @Html.ValueLine(ec, e => e.BirthDate)
+                    @Html.ValueLine(ec, e => e.HomePhone)
                 </fieldset>
             </td>
             <td rowspan="3" style="vertical-align: top">
@@ -37,15 +43,6 @@
         <tr>
             <td>
                 <fieldset>
-                    <legend>Personal Info</legend>
-                    @Html.ValueLine(ec, e => e.BirthDate)
-                    @Html.ValueLine(ec, e => e.HomePhone)
-                </fieldset>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <fieldset>
                     <legend>Company data</legend>
                     @Html.ValueLine(ec, e => e.TitleOfCourtesy)
                     @Html.EntityLine(ec, e => e.ReportsTo)
@@ -56,7 +53,7 @@
             <td id="territories">
                 <fieldset>
                     <legend>@Html.PropertyNiceName(() => ec.Value.Territories)</legend>
-                    @Html.EntityList(ec, e => e.Territories, el => el.LabelVisible = false)
+                    @Html.EntityList(ec, e => e.Territories)
                 </fieldset>
             </td>
         </tr>
@@ -67,7 +64,6 @@
                     @Html.ValueLine(ec, e => e.Notes, vl =>
                {
                    vl.ValueLineType = ValueLineType.TextArea;
-                   vl.LabelVisible = false;
                    vl.ValueHtmlProps["cols"] = "70";
                    vl.ValueHtmlProps["rows"] = "4";
                    vl.ValueHtmlProps["class"] = "notes";

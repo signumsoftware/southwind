@@ -19,7 +19,7 @@
                 </tr>
                 <tr>
                     <td>=</td>
-                    <td>@Html.Field(Html.PropertyNiceName(() => pc.Value.ValueInStock),
+                    <td>@Html.FormGroup(pc, pc.Compose("StockValue"), Html.PropertyNiceName(() => pc.Value.ValueInStock),
                             Html.Span(pc.Compose("StockValue"), pc.Value.ValueInStock.ToString("c"), "sf-value-line"))</td>
                 </tr>
             </table>

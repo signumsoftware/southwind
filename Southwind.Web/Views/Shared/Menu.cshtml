@@ -6,70 +6,86 @@
 @using Signum.Entities.ControlPanel
 @using Signum.Entities.Chart
 @using Signum.Web.Omnibox
-@*<input name="filter" id="menu_filter" type="text" placeholder="Buscar opción de menú" />
-<br />*@
-<input id="sfOmnibox" name="sfOmnibox" data-url="@Url.Action("Autocomplete", "Omnibox")" type="text" placeholder="Buscar" /> 
-<script type="text/javascript">
-    @(new JsFunction(OmniboxClient.Module, "initialize", "sfOmnibox"))
-</script>
-@(new WebMenuItem
+@Html.WebMenu(
+new WebMenuItem
+{
+    Text = "Southwind",
+    Children = 
     {
-        Children =
+        new WebMenuItem 
         {
-            new WebMenuItem 
-            { 
-                Text = "Orders", 
-                Children = 
-                {
-                   new WebMenuItem { Link = new FindOptions(typeof(OrderDN)) },
-                   new WebMenuItem { Link = new FindOptions(OrderQuery.OrderLines) },
-                },
-            },
-            new WebMenuItem 
-            { 
-                Text = "Customers", 
-                Children = 
-                {
-                    new WebMenuItem { Link = new FindOptions(typeof(CustomerDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(PersonDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(CompanyDN)) },
-                }
-            },
-            new WebMenuItem 
-            { 
-                Text = "Products", 
-                Children = 
-                {
-                   new WebMenuItem { Link = new FindOptions(typeof(ProductDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(CategoryDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(SupplierDN)) },
-                }
-            },
-            new WebMenuItem 
-            { 
-                Text = "Employees", 
-                Children = 
-                {
-                   new WebMenuItem { Link = new FindOptions(typeof(EmployeeDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(TerritoryDN)) },
-                   new WebMenuItem { Link = new FindOptions(typeof(RegionDN)) },
-                   
-                }
-            },
-            new WebMenuItem
+            Text = typeof(OrderDN).NicePluralName(),
+            
+            Children = 
             {
-                Text = "Admin",
-                Children = 
-                {
-                    new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },
-                    new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },
-                    new WebMenuItem { Link = new FindOptions(typeof(OperationLogDN)) },
-                    new WebMenuItem { Link = new FindOptions(typeof(SessionLogDN)) },
-                    new WebMenuItem { Link = new FindOptions(typeof(UserQueryDN)) },
-                    new WebMenuItem { Link = new FindOptions(typeof(UserChartDN)) },
-                    new WebMenuItem { Link = new FindOptions(typeof(ChartScriptDN)) },
-                    new WebMenuItem { Link = new FindOptions(typeof(ControlPanelDN)) },
-                }
+                new WebMenuItem { Link = new FindOptions(typeof(OrderDN)) },
+                new WebMenuItem { Link = new FindOptions(OrderQuery.OrderLines) },
             }
-        }
-    }.ToHtml((string)ViewData["current"],"")) 
+        },
+        
+         new WebMenuItem 
+         {
+             Text = typeof(CustomerDN).NicePluralName(),
+             
+             Children = 
+             {
+                new WebMenuItem { Link = new FindOptions(typeof(CustomerDN)) },
+                new WebMenuItem { Link = new FindOptions(typeof(PersonDN)) },
+                new WebMenuItem { Link = new FindOptions(typeof(CompanyDN)) }
+             }
+         },
+         
+         new WebMenuItem 
+         {
+              Text = typeof(ProductDN).NicePluralName(),
+              Children = 
+              {
+                  new WebMenuItem { Link = new FindOptions(typeof(ProductDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(CategoryDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(SupplierDN)) },
+              }
+        
+         },
+        
+         
+         new WebMenuItem 
+         {
+              Text = typeof(EmployeeDN).NicePluralName(),
+              Children = 
+              {
+                  new WebMenuItem { Link = new FindOptions(typeof(EmployeeDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(TerritoryDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(RegionDN)) },
+              }
+         }
+    },
+},
+new WebMenuItem
+{
+    Text = "Admin",
+    Children = 
+    {
+         new WebMenuItem 
+         {
+              Text = "Security",
+              Children = 
+              {
+                  new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(OperationLogDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(SessionLogDN)) },
+              }
+         },
+         new WebMenuItem 
+         {
+              Text = "Assets",
+              Children = 
+              {
+                  new WebMenuItem { Link = new FindOptions(typeof(UserQueryDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(UserChartDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(ChartScriptDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(ControlPanelDN)) },
+              }
+         }
+    }
+})
