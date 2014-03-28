@@ -3,6 +3,11 @@ body
     padding-top: 50px;
 }
 
+.CodeMirror-fullscreen
+{
+    top:50px !important;
+}
+
 footer
 {
     /*color: #999999;
