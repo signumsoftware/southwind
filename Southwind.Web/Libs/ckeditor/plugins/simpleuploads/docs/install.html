@@ -1,0 +1,331 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Simple Uploads plugin</title>
+<link href="styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Simple Uploads Plugin for CKEditor</h1>
+
+<h2>Introduction</h2>
+<p>This is a plugin that automatically uploads to the server the images pasted from the clipboard with Firefox, or with Drag&amp;drop in most current browsers in <a href="http://www.ckeditor.com">CKEditor</a>.</p>
+
+<h3 id="contact">Author:</h3>
+<p><a href="mailto:amla70@gmail.com">Alfonso Mart&iacute;nez de Lizarrondo</a></p>
+
+<h3>Version history: </h3>
+<ol>
+	<li>1.0: 28-September-2011. First public version.</li>
+	<li>2.0: 10-June-2012. Included support for Drag&amp;drop. This version is not open source</li>
+	<li>2.1: 17-June-2012. Added pasting from clipboard in Chrome. Allow dropping multiple files. Clean up non-valid Safari images (webkit-fake-url)</li>
+	<li>2.2: 17-July-2012. Avoid problems in Macs pasting from MS Office into Chrome</li>
+	<li>2.3: 22-September-2012. Show a greyscale animation while uploading a picture (except if it's pasted in Firefox)<br>
+			Compatiblity with CKEditor 4 beta<br>
+			Disabled the check that prevented drops in Opera: if the browser doesn't support an API to detect the correct caret position we'll let it handle that part.</li>
+	<li>2.4: 25-November-2012: Polish the upload notification: show full color image as soon as it has been uploaded, show an overlay with the numeric percentage.<br>
+		Use upload progress also for pasting in Firefox<br>
+		Avoid extra body after pasting in Chrome<br>
+		Drag over effect to highlight the editor.</li>
+	<li>2.5: 20-February-2013. Integrate correctly with the Undo system.</li>
+	<li>2.6: 22-February-2013. More protections in case the user tries to mess with the editor while uploading a file.</li>
+	<li>2.7: 23-February-2013. Protection in case the user switches to Source mode while uploading<br>
+		Unification of code for pasting in Firefox and rest of cases<br>
+		Configuration options for the <a href="cssConfig">drag-over shadows</a>.<br>
+		Integration with CKEditor 4.1 data filtering</li>
+	<li>3.0: 26-April-2013. Two buttons for the toolbar to add files or images for those users that don't like to drag things :-).<br>
+			Fix problems in CKEditor 4 if setData is called on the editor<br>
+			Use correct URL for upload if it lacks query string parameters.
+			</li>
+	<li>3.1: 4-May-2013 Adjusted the ACF for IE8 and IE9<br>
+			The events have been renamed to "<a href='#startUpload'>simpleuploads.startUpload</a>" and "<a href='#endUpload'>simpleuploads.endUpload</a>" and now the startUpload can be used to cancel an upload</li>
+
+	<li>3.2: 1-June-2013 Adjusted the regexp for detection of uploads to take care of systems that lack the status message.<br>
+			Added a console warning if the upload url hasn't been set in the configuration of CKEditor.<br>
+			Add a space to separate links when dropping several files (not images).<br>
+			Fixed bug in IE10 on drop of multiple files.
+			</li>
+
+	<li>3.3.1: 23rd-July-2013 Changed the "100%" text after file has been sent to "Processing..." (it can be modified in the lang file)<br>
+			Readjusted the detection of file upload name to take into account apostrophes again<br>
+			Toolbar buttons didn't work correctly in IE8 since 3.1<br>
+			Fixed Strict mode problems<br>
+			Better detection of failed uploads</li>
+
+	<li>3.3.2: 2nd-August-2013 Compatibility with IE11: adjusted for keep on allowing upload by drag&amp;drop and added pasting from clipboard<br>
+			Add dimensions of the uploaded images as attributes to the created elements.
+	</li>
+	<li>3.3.3: 22-September-2013 Improve detection of failed uploads to correctly show the error message<br>
+			Allow the "<a href='#startUpload'>simpleuploads.startUpload</a>" event to modify the name of the uploaded file (except for uploads in old IEs). If you want full control the best option is to modify your upload script at the server.
+	<li>3.3.4: 5th-October-2013 New event "<a href='#finishedUpload'>simpleuploads.finishedUpload</a>" that it's fired after the final element has been inserted into the page (so you can add for example your custom class or modify any other attribute)
+	</li>
+	<li>3.4 Support for <a href="#CORS">Cross domain requests</a>. Now you can upload your files for example to http://media.example.com and edit the page from http://admin.example.com.</li>
+	<li>4.0: 18-November-2013<br>
+		Renamed from <b>imagepaste</b> to <b>simpleuploads</b><br>
+		According to your previous customizations, the <a href="upgrade.html">upgrade</a> can be very easy or require a little bit of attention.<br>
+		Added support to specify <a href="#extraFields">extra fields during uploads</a> (for example to support anti-CSRF tokens)<br>
+		Replace the QuickUpload buttons in all the CKEditor dialogs with one-click buttons<br>
+		Allow to drop files on the dialogs that have a quick upload of file browser options<br>
+		Those uploads provide an upload progress bar, cancel button and allow the same features as the rest of uploads (verify the file for size, extension, etc.. before starting the upload, modify the upload url, add extra fields...)<br>
+		Handle pasted images for Chrome and IE11 in the Paste dialog (remember that it's easier if you just Ctrl+V on the main document)<br>
+		Added cancel button for images dropped on the editor<br>
+		Added progress and cancel options for files dropped on the editor<br>
+		</li>
+	<li>4.0.1: 20-November-2013<br>
+		Fixed compatibility with IE 11<br>
+		Corrected cancel button for file uploads in IE<br>
+		Improved upload progress for files<br>
+		</li>
+
+	<li>4.0.2: 30-November-2013<br>
+		Support pasting text and images from MS Word in IE 11<br>
+		Avoid a problem with Chrome if the editor is empty and you drop a file below the highlighted body<br>
+		Support Firefox in the Paste dialog<br>
+		Improved compatibility with CKEditor 4.3 and the new Widgets<br>
+		Improved compatibility with IE 11 (several adjustments)<br>
+		</li>
+
+	<li>4.1.0: 7-December-2013<br>
+		Enhance the toolbar buttons to preserve better the existing content:<br>
+		<ul>
+			<li>If an image is selected, picking a new one will preserve its attributes</li>
+			<li>If the selection is in a link, picking a file will change only the href of the link</li>
+			<li>If there's some text selected, picking a file will convert it to a link</li>
+		</ul>
+		Apply similar checks on the drop target:<br>
+		<ul>
+			<li>If an image is dropped over an existing one, replace the source</li>
+			<li>If a file is dropped over a link, replace the href</li>
+		</ul>
+		During a drop, if the Shift key is pressed, create a link (a) instead of an image (img)<br>
+		Added new simpleuploads_hideImageProgress option to use always plain text for the uploads instead of the image preview<br>
+		Handle the third optional parameter in the upload callback for dialogs if it is a function<br>
+		Adjusted the htmlFilter that strips the temporary elements to deal with changes in CKEditor 4.3<br>
+		Don't break the table dialog if the plugin "dialogadvtab" is not included<br>
+		Corrected compatibility in dialogs with IE8<br>
+
+
+</ol>
+
+<h2>Installation</h2>
+<h3>1. Copying the files</h3>
+<p>Extract the contents of the zip in you plugins directory, so it ends up like
+    this<br>
+    <!--<img src="installation.png" alt="Screenshot of installation" width="311" height="346" longdesc="#install">-->
+    </p>
+<pre id="--install">
+ckeditor\
+	...
+	images\
+	lang\
+	plugins\
+		...
+		simpleuploads\
+			plugin.js
+			docs\
+				install.html
+		...
+	skins\
+	themes\
+</pre>
+<h3>2. Adding it to CKEditor</h3>
+<p>Now add the plugin in your <em>config.js</em> or custom js configuration
+file:
+<pre>config.extraPlugins='simpleuploads'; </pre>
+If you are already using other additional plugins, then you must have a single extraPlugins statements with all the plugins separated by commas:
+<pre>config.extraPlugins='confighelper,simpleuploads'; </pre>
+</p>
+
+<h3>3. Configuration</h3>
+<p>Please, refer to the <a href="http://alfonsoml.blogspot.com/p/simpleuploads-plugin-for-ckeditor.html">SimpleUploads page</a> in my blog as well as <a href="http://alfonsoml.blogspot.com/search/label/SimpleUploads">related posts</a> to find further info, examples and updates</p>
+
+<p>You have to configure the <a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/File_Browser_%28Uploader%29/Custom_File_Browser">filebrowserImageUploadUrl and filebrowserUploadUrl</a> entries as you might have already done to allow the user to upload files and images. You can use this <a href="http://alfonsoml.blogspot.com/2013/08/a-basic-upload-script-for-ckeditor.html">basic sample</a> if you want to use some existing code.</p>
+<p>The goal is to send a response like this (using the proper parameters for $funcNum and $url):</p>
+<pre>&lt;script type='text/javascript'&gt; window.parent.CKEDITOR.tools.callFunction($funcNum, '$url', '$message')&lt;/script&gt;</pre>
+
+<p>If you're using <a href="http://www.liferay.com/community/wiki/-/wiki/Main/Paste+images+and+docs+right+into+Wiki+-+CKEditor">Liferay, check these detailed instructions</a></p>
+<p id='cssConfig'>Since 2.7 it's possible to specify the shadows (or whatever CSS effects that you prefer) to use while a file is dragged over the page and an editor.<br>
+The plugin detects those situations and adds/removes the "SimpleUploadsOverEditor" and "SimpleUploadsOverContainer" classes.<br>
+Here "container" refers to the whole CKEditor including toolbar and whatever is part of the UI. This is always an element in the main page, so you can override it also in the page where you're using CKEditor (keep in mind that the plugin might add the rule defined in the configuration after your styles, so check the priority of the CSS rules if you can't get it to work that way.<br>
+This is the default value:
+<pre><b>CKEDITOR.config.simpleuploads_containerover</b> = 'box-shadow: 0 0 10px 1px #99DD99 !important;'</pre>
+Important: the config is picked from CKEDITOR.config, this is a setting shared by all the editor instances. If you want to specify different settings for each editor container you must do it in your page.<br>
+ex:
+<pre>
+#cke_editor1.SimpleUploadsOverContainer {
+	box-shadow: 0 0 10px 1px #99FF99;
+}
+#cke_editor2.SimpleUploadsOverContainer {
+	border:2px solid black; // be careful, styling the container can be tricky to get a good efect
+}
+</pre>
+
+The second class is used when the user drags over an editor, in this case the behavior is different between CKEditor 3 and 4. In CKEditor 3 we're always using an iframe so this setting can be specified for each instance, but in CKEditor 4 due to the introduction of inline editing they've changed the way that addCss works so in a similar way to the previous setting this value is the same for all the instances, but you can easily override it in the styles of your page.<br>
+Default value:
+<pre><b>CKEDITOR.config.simpleuploads_editorover</b> = 'box-shadow: 0 0 10px 1px #999999 inset !important;'</pre>
+You can add different configuration in the config.contentsCss file, or in v4 inline mode in the page itself:
+
+<pre>
+// for v4 inline
+#cke_editor1.SimpleUploadsOverEditor {
+	box-shadow: 0 0 10px 1px #99FF99;
+}
+#cke_editor2.SimpleUploadsOverEditor {
+	background-color: green;
+}
+</pre>
+
+</p>
+<p>Since 3.0 there are two buttons that can be used to provide a single click to launch the file picker and add a file or image to the document.<br>
+The name of such buttons are "addFile" and "addImage" if you want to add them to your toolbar. <br>
+If you use CKEditor 4 they will be added automatically to the "insert" toolbar, if you don't want one or either of them, you can specify those names in a "removeButtons" entry in your config file:
+<pre>
+config.removeButtons = "addFile"; // Removes the "add files" button and leaves the one to add images.
+</pre>
+</p>
+<p>
+These buttons are available for all the browsers, including IE8 and IE9 but in this case it's using a trick to allow the single click browse and upload so it might fail
+in some environments (I guess so, but I have no such data). I might try to fix such problems if you report back to me, but you must realize that I'm already forzing IE
+to work in an unexpected way.<br>
+Anyway, as usual with my plugins, IE6 and IE7 are not supported, nor pages in Quirks mode. It might work, but if it fails I can't try to fix things when the solution is to upgrade to a current browser or make your pages compliant with the standards.
+</p>
+<p>
+Since 4.1 you can opt to always use the plain text upload instead of the image preview with the grayscale by setting the global option simpleuploads_hideImageProgress to true</p>
+<pre><b>CKEDITOR.config.simpleuploads_hideImageProgress</b> = true</pre>
+
+<h3 id="events">4. Events</h3>
+<p>The plugin generates three custom events so you can show a notification like in the demo page while a file is being uploaded.<br>
+This is the signature of the methods:
+<pre>
+ /**
+ * Fired when file starts being uploaded by the "simpleuploads" plugin
+ * @name CKEDITOR.editor#<a name='startUpload'>simpleuploads.startUpload</a>
+ * @event
+ * @param {String} [name] The file name.
+ * @param {String} [url] The url that will be used for the upload. It can be modified to your needs on each upload.
+ * @param {String|Object} [context] Context that caused the upload (a string if it's a pasted image, a DOM event for drag&amp;drop and copied files, the toolbar button for those cases)
+ * @param {Object} [file] The file itself (if available).
+  */
+
+/**
+ * Fired when file upload finishes on the "simpleuploads" plugin
+ * @name CKEDITOR.editor#<a name='endUpload'>simpleuploads.endUpload</a>
+ * @event
+ * @param {String} [name] The file name.
+ * @param {Boolean} [ok] Whether the file has been correctly uploaded or not
+ */
+
+/**
+ * Fired when the final element has been inserted by the "simpleuploads" plugin (after it has been uploaded)
+ * @name CKEDITOR.editor#<a name='finishedUpload'>simpleuploads.finishedUpload</a>
+ * @event
+ * @param {String} [name] The file name.
+ * @param {CKEDITOR.dom.element} [element] The element node that has been inserted
+ */
+ </pre>
+</p>
+<p>Since 3.1 it's possible to use the startUpload event to cancel the upload or change the URL where the file will be uploaded</p>
+<pre>
+// Let's add this to every editor on the page. You can instead add it only to a specific editor.
+CKEDITOR.on('instanceReady', function(e) {
+	// the real listener
+	e.editor.on( 'simpleuploads.startUpload' , function(ev) {
+
+		var name = ev.data.name;
+		if ( (/\.rar$/i).test( name ) )
+		{
+			// Silly example
+			alert("Rar files are outdated, please use 7-Zip");
+			ev.cancel();
+		}
+	});
+});
+</pre>
+<p id='extraFields'>Since 4.0 it's possible to add an "extraFields" property to the event data to specify additional fields that should be send in the upload
+(for example anti-CSRF tokens or extra parameters in the dialog)</p>
+<pre>
+// Let's add this to every editor on the page. You can instead add it only to a specific editor.
+CKEDITOR.on('instanceReady', function(e) {
+	// the real listener
+	e.editor.on( 'simpleuploads.startUpload' , function(ev) {
+
+		// add CSRF tokens
+		var extraFields = {
+			// These is sample code, the CKEDITOR.config.action, CKEDITOR.config.formID and Core objects
+			// are items specific to a custom implementation of CKEditor.
+			// Fill the extraFields object with whatever you might need.
+			"Action" : CKEDITOR.config.action,
+			"FormID" : CKEDITOR.config.formID,
+			"CKEditorFuncNum" : "2"
+		};
+		extraFields[ Core.Config.Get("SessionName") ] = Core.Config.Get("SessionID");
+
+		ev.data.extraFields = extraFields;
+	});
+});
+</pre>
+
+
+<p>The finishedUpload event introduced in 3.3.4 allows to modify the final element, for example removing the dimension attributes and adding our own class:
+<pre>
+// Let's add this to every editor on the page. You can instead add it only to a specific editor.
+CKEDITOR.on('instanceReady', function(e) {
+	// the real listener
+	e.editor.on( 'simpleuploads.finishedUpload' , function(ev) {
+
+		var element = ev.data.element;
+		// remove dimension attributes added in v 3.3.2
+		element.removeAttribute("width");
+		element.removeAttribute("height");
+
+		// add our custom class
+		element.addClass("picture");
+
+	});
+});
+</pre>
+<h3 id='CORS'>5. Cross domain file uploads</h3>
+<p>In version 3.4 I've added support to upload files across domains. <br>
+This is based on the  <a href="https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS ">CORS</a> spec. At the moment this won't work with IE < 10: IE8 doesn't support XHR uploads and IE9 requires the use of the custom XDomainRequest that also seems to be restricted about what it can do; I don't plan to work on those older versions of IE. </p>
+<p>If you don't use cross domain (one server for the uploaded files and another for the editing page) then this change shouldn't affect you. Otherwise you can enable this feature by modifying your uploader to send just two headers in response to an OPTIONS request:
+Some simple PHP code:
+<pre>
+if (isset($_SERVER["HTTP_ORIGIN"])) {
+	$origin = $_SERVER["HTTP_ORIGIN"];
+	// Warning: this is not secure, it allows usage of the page from any domain.
+	// You must verify that the $origin domain is on your white-list
+	header('Access-Control-Allow-Origin: ' . $origin);
+	header('Access-Control-Allow-Credentials: true');
+}
+if ($_SERVER['REQUEST_METHOD']=='OPTIONS')
+{
+	exit(0);
+}
+</pre>
+<p>First: check if the browser has sent an Origin header. That means that it's a cross domain request. You can check that domain with the list of domains that you want to allow, this sample code just repeats back the header so it allows any domain to call this page.<br>
+Second: Send an Access-Control-Allow-Credentials header specifying that the browser is allowed to make a request that will use the credentials of the user at this domain. This means that if the user is logged in, the browser will send the cookies required to allow you check his/her identity.<br>
+Last: as the OPTIONS request doesn't require more data in the response you can stop any further processing here. After this first request the browser will upload the file and you must send back the two Access-Control headers as shown in the sample code.</p>
+<p>You must be careful if you want to allow this feature, after all it opens the possibility of another attack vector. If you're hosting the files in the same physical server, you might be able to get the same functionality by modifying just the URL that it's returned after you upload a file and keeping all your code in the  admin.example.com domain.</p>
+
+
+<h3>6. Use it</h3>
+<p>Using Firefox, paste an image into the body of CKEditor. That image will be uploaded to the server and it will use the correct URL instead of "data:".</p>
+<p>With the rest of the browsers, you can drag & drop a file from your desktop and it will be inserted as an image or a link. <br>
+Supported browsers:</p>
+<ul>
+	<li>Firefox</li>
+	<li>Chrome</li>
+	<li>IE 10+</li>
+</ul>
+<p>(Safari might work or not, but I'm not gonna buy a new computer just to test this plugin)</p>
+<!--
+<h2>Final notes</h2>
+-->
+
+<h2>Disclaimers</h2>
+<p>CKEditor is  &copy; CKSource.com</p>
+<p>File and Image icons by the <a href='http://tango.freedesktop.org/Tango_Desktop_Project'>Tango Desktop Project</a></p>
+</body>
+</html>
