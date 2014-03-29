@@ -6,29 +6,31 @@
     @Html.EntityCombo(pc, p => p.Category)
     @Html.ValueLine(pc, p => p.ReorderLevel)
 
-    <div id="productExternal">
-        <div id="productInternal">
-            <table>
-                <tr>
-                    <td></td>
-                    <td>@Html.ValueLine(pc, p => p.UnitPrice, vl => vl.ValueHtmlProps["onblur"] = new JsFunction(SouthwindClient.OrderModule, "updateStockValue", pc.Prefix).ToString())</td>
-                </tr>
-                <tr id="trMultiply">
-                    <td>X</td>
-                    <td>@Html.ValueLine(pc, p => p.UnitsInStock, vl => vl.ValueHtmlProps["onblur"] = new JsFunction(SouthwindClient.OrderModule, "updateStockValue", pc.Prefix).ToString())</td>
-                </tr>
-                <tr>
-                    <td>=</td>
-                    <td>@Html.FormGroup(pc, pc.Compose("StockValue"), Html.PropertyNiceName(() => pc.Value.ValueInStock),
-                            Html.Span(pc.Compose("StockValue"), pc.Value.ValueInStock.ToString("c"), "sf-value-line"))</td>
-                </tr>
-            </table>
-        </div>
-    </div>    
-    
     @Html.ValueLine(pc, p => p.QuantityPerUnit)
     @Html.EntityLine(pc, p => p.Supplier)
     @Html.ValueLine(pc, p => p.Discontinued)
+
+    using (var sc = pc.SubContext())
+    {
+        sc.LabelColumns = new BsColumn(4);
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            @Html.ValueLine(sc, p => p.UnitPrice, vl => vl.ValueHtmlProps["onblur"] = new JsFunction(SouthwindClient.OrderModule, "updateStockValue", sc.Prefix).ToString())
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            @Html.ValueLine(sc, p => p.UnitsInStock, vl => { vl.UnitText = "×"; vl.ValueHtmlProps["onblur"] = new JsFunction(SouthwindClient.OrderModule, "updateStockValue", sc.Prefix).ToString(); })
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            @Html.ValueLine(sc, p => p.ValueInStock)
+        </div>
+    </div>
+    }
 }
 
 

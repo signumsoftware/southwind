@@ -2,54 +2,33 @@
 
 @using (var pc = Html.TypeContext<PersonDN>())
 {
-    <fieldset>
-        <legend>Name</legend>
-
-        @using (Html.FormInline())
-        {
-            using (var ac = pc.SubContext())
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            @using (Html.FormInline())
             {
-                ac.FormGroupStyle = FormGroupStyle.SrOnly;
-                
-            @Html.ValueLine(ac, p => p.Title)
-            @Html.ValueLine(ac, p => p.FirstName)
-            @Html.ValueLine(ac, p => p.LastName)
+                using (var pc2 = pc.SubContext())
+                {
+                    pc2.FormGroupStyle = FormGroupStyle.SrOnly;
+                    pc2.PlaceholderLabels = true;
+                @Html.ValueLine(pc2, e => e.Title, vl =>
+                                        {
+                                            vl.ValueHtmlProps["size"] = 4;
+                                            vl.LabelText = "Title";
+                                        })
+                @Html.ValueLine(pc2, e => e.FirstName)
+                @Html.ValueLine(pc2, e => e.LastName)
+                }
             }
-        }
-    </fieldset>
-    
-    @Html.EmbeddedControl(pc, p => p.Address)       
+        </div>
+    </div>
+ 
+    @Html.ValueLine(pc, p => p.Phone)              
+    @Html.ValueLine(pc, p => p.Fax)   
+    @Html.ValueLine(pc, p => p.DateOfBirth)            
+    @Html.ValueLine(pc, p => p.Corrupt)
 
-    <fieldset>
-        <table>
-            <tr>
-                <td>
-                    @using (Html.FormInline())
-                    {
-                        @Html.ValueLine(pc, p => p.Phone)
-                    }
-                </td>
-                <td>
-                    @using (Html.FormInline())
-                    {
-                        @Html.ValueLine(pc, p => p.Fax)
-                    }
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @using (Html.FormInline())
-                    {
-                        @Html.ValueLine(pc, p => p.DateOfBirth)
-                    }
-                </td>
-                <td>
-                    @using (Html.FormInline())
-                    {
-                        @Html.ValueLine(pc, p => p.Corrupt)
-                    }
-                </td>
-            </tr>
-        </table>
-    </fieldset>
+    
+    @Html.EmbeddedControl(pc, p => p.Address)  
+            
 }

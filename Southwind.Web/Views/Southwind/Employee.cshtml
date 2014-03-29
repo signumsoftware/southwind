@@ -2,74 +2,69 @@
 @using Southwind.Web.Controllers
 @using (var ec = Html.TypeContext<EmployeeDN>())
 {
-    <table cellpadding="5">
-        <tr>
-            <td>
-                <fieldset>
-                    <legend>Personal Info</legend>
+  
+    <div class="row">
+        <fieldset class="col-sm-9">
+            <legend>Personal Info</legend>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
                     @using (Html.FormInline())
                     {
                         using (var ec2 = ec.SubContext())
                         {
                             ec2.FormGroupStyle = FormGroupStyle.SrOnly;
-                        
+                        ec2.PlaceholderLabels= true;
                         @Html.ValueLine(ec2, e => e.TitleOfCourtesy, vl =>
-                            {
-                                vl.ValueHtmlProps["size"] = 4;
-                                vl.LabelText = "Title";
-                            })
+                                        {
+                                            vl.ValueHtmlProps["size"] = 4;
+                                            vl.LabelText = "Title";
+                                        })
                         @Html.ValueLine(ec2, e => e.FirstName)
                         @Html.ValueLine(ec2, e => e.LastName)
                         }
                     }
-                    @Html.ValueLine(ec, e => e.BirthDate)
-                    @Html.ValueLine(ec, e => e.HomePhone)
-                </fieldset>
-            </td>
-            <td rowspan="3" style="vertical-align: top">
-                @if (!ec.Value.IsNew)
-                {
-                    <div class="photo">
-                        <img src="@(Url.Action<HomeController>(hc => hc.EmployeePhoto(ec.Value.ToLite())))" />
-                    </div>
-                }
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.EmbeddedControl(ec, e => e.Address)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <fieldset>
-                    <legend>Company data</legend>
-                    @Html.ValueLine(ec, e => e.TitleOfCourtesy)
-                    @Html.EntityLine(ec, e => e.ReportsTo)
-                    @Html.ValueLine(ec, e => e.HireDate)
-                    @Html.ValueLine(ec, e => e.Extension)
-                </fieldset>
-            </td>
-            <td id="territories">
-                <fieldset>
-                    <legend>@Html.PropertyNiceName(() => ec.Value.Territories)</legend>
-                    @Html.EntityList(ec, e => e.Territories)
-                </fieldset>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <fieldset>
-                    <legend>@Html.PropertyNiceName(() => ec.Value.Notes)</legend>
-                    @Html.ValueLine(ec, e => e.Notes, vl =>
-               {
-                   vl.ValueLineType = ValueLineType.TextArea;
-                   vl.ValueHtmlProps["cols"] = "70";
-                   vl.ValueHtmlProps["rows"] = "4";
-                   vl.ValueHtmlProps["class"] = "notes";
-               })
-                </fieldset>
-            </td>
-        </tr>
-    </table>
+                </div>
+            </div>
+
+            @Html.ValueLine(ec, e => e.BirthDate)
+            @Html.ValueLine(ec, e => e.HomePhone)
+        </fieldset>
+
+        @if (!ec.Value.IsNew)
+        {
+            <div class="col-sm-3">
+                <img class="img-responsive" src="@(Url.Action<HomeController>(hc => hc.EmployeePhoto(ec.Value.ToLite())))" />
+            </div>
+        }
+    </div>
+    
+    <div class="row">
+        @Html.EmbeddedControl(ec, e => e.Address)
+    </div>
+    <div class="row">
+        <fieldset>
+            <legend>Company data</legend>
+            @Html.ValueLine(ec, e => e.TitleOfCourtesy)
+            @Html.EntityLine(ec, e => e.ReportsTo)
+            @Html.ValueLine(ec, e => e.HireDate)
+            @Html.ValueLine(ec, e => e.Extension)
+            @Html.EntityStrip(ec, e => e.Territories)
+        </fieldset>
+    </div>
+    
+    <div class="row">
+        @using (Html.FormVertical())
+        {
+            @Html.ValueLine(ec, e => e.Notes, vl =>
+        {
+            vl.FormGroupStyle = FormGroupStyle.Basic;
+            vl.ValueLineType = ValueLineType.TextArea;
+            vl.ValueHtmlProps["cols"] = "70";
+            vl.ValueHtmlProps["rows"] = "4";
+            vl.ValueHtmlProps["class"] = "notes";
+        })
+        }
+    </div>
 }
