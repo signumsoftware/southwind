@@ -16,23 +16,23 @@
 
         if (currentTheme == "bootstrap")
         {
-        @Html.ScriptCss("~/Content/bootstrap/css/bootstrap.css");
+        @Html.ScriptCss("~/Libs/bootstrap/css/bootstrap.css");
         }
         else if (currentTheme == "bootstrap + theme")
         {
         @Html.ScriptCss(
-                "~/Content/bootstrap/css/bootstrap.css",
-                "~/Content/bootstrap/css/bootstrap-theme.css");
+                "~/Libs/bootstrap/css/bootstrap.css",
+                "~/Libs/bootstrap/css/bootstrap-theme.css");
         }
         else
         {
-        @Html.ScriptCss("~/Content/bootstrap/themes/{0}.css".Formato(currentTheme))
+        @Html.ScriptCss("~/Libs/bootstrap/themes/{0}.css".Formato(currentTheme))
         }
     }
 
     @Html.ScriptCss(
-        "~/Content/bootstrap-datepicker/css/datepicker3.css",
-        "~/Content/bootstrap-timepicker/css/bootstrap-timepicker.css")
+        "~/Libs/bootstrap-datepicker/css/datepicker3.css",
+        "~/Libs/bootstrap-timepicker/css/bootstrap-timepicker.css")
 
     @Html.ScriptCss(
        "~/signum/content/Lines.css",
@@ -43,14 +43,13 @@
        "~/content/site.css")
 
     @Html.ScriptsJs(
-        "~/Scripts/promise-0.1.1.js",
-        "~/Scripts/jquery-1.11.0.js",
-        "~/Content/bootstrap/js/bootstrap.js",
-        "~/Content/bootstrap-datepicker/js/bootstrap-datepicker.js",
-        "~/Content/bootstrap-timepicker/js/bootstrap-timepicker.js",
-        "~/Content/bootstrap-typeahead/bootstrap3-typeahead.js",
-            // "~/Content/typeahead/typeahead.bundle.js",
-        "~/Scripts/require.js")
+        "~/Libs/promise-0.1.1.js",
+        "~/Libs/jquery-1.11.0.js",
+        "~/Libs/bootstrap/js/bootstrap.js",
+        "~/Libs/bootstrap-datepicker/js/bootstrap-datepicker.js",
+        "~/Libs/bootstrap-timepicker/js/bootstrap-timepicker.js",
+        "~/Libs/bootstrap-typeahead/bootstrap3-typeahead.js",
+        "~/Libs/require.js")
     <script>
         require.config({
             baseUrl: '@Url.Content("~/Scripts")',
@@ -58,14 +57,20 @@
                 "Framework/Signum.Web": "..",
                 "Extensions/Signum.Web.Extensions": "..",
 
-                "d3": "d3.v3.min",
+                "d3": "../Libs/d3.v3.min",
+                "colorbrewer": "../Libs/colorbrewer",
                 "ChartUtils": "../Chart/Scripts/ChartUtils",
-                "ckeditor": "ckeditor/ckeditor",
+
+                "ckeditor": "../Libs/ckeditor/ckeditor",
+                "Libs/CodeMirror": "../Libs/CodeMirror",
+             
             },
             shim: {
                 d3: { exports: 'd3' },
                 colorbrewer: { exports: 'colorbrewer' },
-                ChartUtils: { exports: 'ChartUtils' }
+                ChartUtils: { exports: 'ChartUtils' },
+
+                ckeditor: { exports: 'CKEDITOR' },
             },
             urlArgs: "v=@ScriptHtmlHelper.Manager.Version"
         });
@@ -116,7 +121,6 @@
                     <script type="text/javascript">
                         @(new JsFunction(Signum.Web.Omnibox.OmniboxClient.Module, "initialize", "sfOmnibox", Url.Action("Autocomplete", "Omnibox")))
                     </script>
-                  
                 }
             </div>
             <div class="navbar-collapse collapse">
