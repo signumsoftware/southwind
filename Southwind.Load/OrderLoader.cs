@@ -102,6 +102,8 @@ namespace Southwind.Load
             var now = TimeZoneManager.Now;
             var ts = (int)(now - time).TotalDays;
 
+            ts = (ts / 7) * 7;
+
             Database.Query<OrderDN>().UnsafeUpdate()
                 .Set(o => o.OrderDate, o => o.OrderDate.AddDays(ts))
                 .Set(o => o.ShippedDate, o => o.ShippedDate.Value.AddDays(ts))
