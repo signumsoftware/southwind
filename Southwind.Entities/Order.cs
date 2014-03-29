@@ -233,6 +233,7 @@ namespace Southwind.Entities
 
         static Expression<Func<OrderDetailsDN, decimal>> SubTotalPriceExpression =
             od => od.Quantity * od.UnitPrice * (decimal)(1 - od.Discount);
+        [Unit("€")]
         public decimal SubTotalPrice
         {
             get { return SubTotalPriceExpression.Evaluate(this); }

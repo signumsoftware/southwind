@@ -9,7 +9,7 @@ define(["require", "exports", "Framework/Signum.Web/Signum/Scripts/Finder"], fun
 
     function updateStockValue(prefix) {
         var sum = parseFloat($("#" + SF.compose(prefix, "UnitPrice")).val()) * parseFloat($("#" + SF.compose(prefix, "UnitsInStock")).val());
-        $("#" + SF.compose(prefix, "StockValue")).html(sum.toString());
+        $("#" + SF.compose(prefix, "ValueInStock_sfStaticValue")).html(sum.toString());
     }
     exports.updateStockValue = updateStockValue;
 });

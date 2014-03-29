@@ -1,55 +1,36 @@
 ﻿@using Southwind.Entities
 
-<style type="text/css">
-.order-lines .sf-repeater-element
+@using (var oc = Html.TypeContext<OrderDN>())
 {
-    padding: 2px 10px;
-}
-.order-lines .sf-repeater-element legend
-{
-    float: left;
-    margin-right: 10px;
-}
-</style>
-
-@using (var oc = Html.TypeContext<OrderDN>()) 
-{
-    <div class="sf-tabs">
-        <fieldset id="orderMain">
-            <legend>Order</legend>
-            <table>
-                <tr>
-                    <td>
-                        @Html.ValueLine(oc, o => o.ShipName)
-                        @Html.EntityLine(oc, o => o.Customer, el =>
+    oc.LabelColumns = new BsColumn(4);
+    <div class="col-md-6">
+        @Html.ValueLine(oc, o => o.ShipName)
+        @Html.EntityLine(oc, o => o.Customer, el =>
                         {
-                            el.AttachFunction = new JsLineFunction("Order", "attachCustomerEntityLine", 
+                            el.AttachFunction = new JsLineFunction("Order", "attachCustomerEntityLine",
                                 new FindOptions(typeof(CustomerDN)).ToJS(el.Prefix));
                         })
-                    </td>
-                    <td>
-                        @Html.ValueLine(oc, o => o.TotalPrice)
-                        @Html.EntityLine(oc, o => o.Employee)
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px 0 0 10px">
-                        @Html.EmbeddedControl(oc, o => o.ShipAddress, ec => ec.ViewData = new Dictionary<string, object> { { "Legend", Html.PropertyNiceName(() => oc.Value.ShipAddress) } })                 
-                    </td>
-                    <td style="vertical-align: top; padding: 10px 0 0 10px">
-                        @Html.ValueLine(oc, o => o.OrderDate)
-	                    @Html.ValueLine(oc, o => o.RequiredDate)
-	                    @Html.ValueLine(oc, o => o.ShippedDate)
-	                    @Html.EntityCombo(oc, o => o.ShipVia)
-                        @Html.ValueLine(oc, o => o.Freight)
-                        @Html.ValueLine(oc, o => o.IsLegacy)
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-        <fieldset id="orderDetails">
-            <legend>Details</legend>
-            @Html.EntityRepeater(oc, o => o.Details)
-        </fieldset>
+        @Html.EmbeddedControl(oc, o => o.ShipAddress, ec => ec.ViewData = new Dictionary<string, object> { { "Legend", Html.PropertyNiceName(() => oc.Value.ShipAddress) } })
     </div>
+    
+    <div class="col-md-6">
+        @Html.ValueLine(oc, o => o.TotalPrice)
+        @Html.EntityLine(oc, o => o.Employee)
+        @Html.ValueLine(oc, o => o.OrderDate)
+        @Html.ValueLine(oc, o => o.RequiredDate)
+        @Html.ValueLine(oc, o => o.ShippedDate)
+        @Html.EntityCombo(oc, o => o.ShipVia)
+        @Html.ValueLine(oc, o => o.Freight)
+        @Html.ValueLine(oc, o => o.IsLegacy)
+    </div>
+    
+    using (Html.FormInline())
+    {
+        using (var sc = oc.SubContext())
+        {
+            sc.FormGroupStyle = FormGroupStyle.SrOnly;
+            sc.PlaceholderLabels = true;
+    @Html.EntityRepeater(sc, o => o.Details);
+        }
+    }
 }

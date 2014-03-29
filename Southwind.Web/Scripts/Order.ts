@@ -13,5 +13,5 @@ export function attachCustomerEntityLine(el: Lines.EntityLine, fo: Finder.FindOp
 export function updateStockValue(prefix) {
     var sum = parseFloat($("#" + SF.compose(prefix, "UnitPrice")).val()) *
         parseFloat($("#" + SF.compose(prefix, "UnitsInStock")).val());
-    $("#" + SF.compose(prefix, "StockValue")).html(sum.toString());
+    $("#" + SF.compose(prefix, "ValueInStock_sfStaticValue")).html(sum.toString());
 }
