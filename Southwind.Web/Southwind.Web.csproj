@@ -95,6 +95,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\site.css" />
+    <TypeScriptCompile Include="Scripts\Order.ts" />
     <Content Include="Libs\bootstrap-datepicker\css\datepicker3.css" />
     <Content Include="Libs\bootstrap-datepicker\js\bootstrap-datepicker.js" />
     <Content Include="Libs\bootstrap-timepicker\css\bootstrap-timepicker.css" />
@@ -102,10 +104,15 @@
     <Content Include="Libs\bootstrap-timepicker\js\bootstrap-timepicker.js" />
     <Content Include="Libs\bootstrap-typeahead\bootstrap3-typeahead.js" />
     <Content Include="Libs\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Libs\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="Libs\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Libs\bootstrap\css\bootstrap.css" />
+    <Content Include="Libs\bootstrap\css\bootstrap.css.map" />
     <Content Include="Libs\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Libs\bootstrap\js\bootstrap.js" />
     <Content Include="Libs\bootstrap\js\bootstrap.min.js" />
     <Content Include="Libs\bootstrap\themes\amelia.css" />
@@ -300,6 +307,7 @@
     <Content Include="Libs\ckeditor\skins\moono\images\lock-open.png" />
     <Content Include="Libs\ckeditor\skins\moono\images\lock.png" />
     <Content Include="Libs\ckeditor\skins\moono\images\refresh.png" />
+    <Content Include="Libs\ckeditor\skins\moono\readme.md" />
     <Content Include="Libs\ckeditor\styles.js" />
     <Content Include="Libs\CodeMirror\addon\comment\comment.js" />
     <Content Include="Libs\CodeMirror\addon\comment\continuecomment.js" />
@@ -312,18 +320,16 @@
     <Content Include="Libs\CodeMirror\addon\hint\javascript-hint.js" />
     <Content Include="Libs\CodeMirror\addon\hint\show-hint.css" />
     <Content Include="Libs\CodeMirror\addon\hint\show-hint.js" />
-    <Content Include="Content\site.css" />
     <Content Include="Libs\CodeMirror\addon\search\match-highlighter.js" />
     <Content Include="Libs\CodeMirror\addon\search\search.js" />
     <Content Include="Libs\CodeMirror\addon\search\searchcursor.js" />
-    <Content Include="Libs\CodeMirror\mode\javascript\javascript.js" />
     <Content Include="Libs\CodeMirror\lib\codemirror.css" />
     <Content Include="Libs\CodeMirror\lib\codemirror.js" />
+    <Content Include="Libs\CodeMirror\mode\javascript\javascript.js" />
     <Content Include="Libs\colorbrewer.js" />
     <Content Include="Libs\d3.v3.min.js" />
     <Content Include="Libs\jquery-1.11.0.js" />
     <Content Include="Libs\jquery-1.11.0.min.js" />
-    <TypeScriptCompile Include="Scripts\Order.ts" />
     <Content Include="Libs\promise-0.1.1.js" />
     <Content Include="Libs\require.js" />
     <Content Include="ServerSouthwindTransfer.svc" />
@@ -396,12 +402,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Libs\bootstrap\css\bootstrap-theme.css.map" />
-    <Content Include="Libs\bootstrap\css\bootstrap.css.map" />
-    <Content Include="Libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Libs\ckeditor\skins\moono\readme.md" />
     <None Include="Properties\PublishProfiles\archivos.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
