@@ -100,7 +100,13 @@ namespace Southwind.Logic
                         .OrderBy(request.Orders)
                         .TryPaginate(request.Pagination);
 
-                }), entityImplementations: Implementations.By(typeof(PersonDN), typeof(CompanyDN)));
+                })
+                .Column(a => a.Id, c => { c.OverrideIsAllowed = () => null; })
+                .Column(a => a.Name, c => { c.OverrideIsAllowed = () => null; })
+                .Column(a => a.Address, c => { c.OverrideIsAllowed = () => null; c.PropertyRoutes = new[] { PropertyRoute.Construct((CompanyDN comp) => comp.Address) }; })
+                .Column(a => a.Phone, c => { c.OverrideIsAllowed = () => null; })
+                .Column(a => a.Fax, c => { c.OverrideIsAllowed = () => null; })
+                , entityImplementations: Implementations.By(typeof(PersonDN), typeof(CompanyDN)));
             }
         }
     }
