@@ -125,7 +125,7 @@ namespace Southwind.Windows
             var dmLite = Server.Return((IDisconnectedServer s) => s.GetDisconnectedMachine(Environment.MachineName));
 
                 
-            switch (dmLite.TryCS(t=>t.Retrieve().State))
+            switch (dmLite.Try(t=>t.Retrieve().State))
             {
                 case DisconnectedMachineState.Faulted:
                     {
@@ -218,7 +218,7 @@ namespace Southwind.Windows
             {
                 try
                 {
-                    var exception = new ExceptionDN(e.FollowC(ex => ex.InnerException).Last())
+                    var exception = new ExceptionDN(e.Follow(ex => ex.InnerException).Last())
                     {
                         User = UserDN.Current.ToLite<IUserDN>(),
                         ControllerName = "WindowsClient",
@@ -232,7 +232,7 @@ namespace Southwind.Windows
                 catch { }
                 finally
                 {
-                    string message = e.FollowC(ex => ex.InnerException).ToString(ex => "{0} : {1}".Formato(
+                    string message = e.Follow(ex => ex.InnerException).ToString(ex => "{0} : {1}".Formato(
                             ex.GetType().Name != "FaultException" ? ex.GetType().Name : "Server Error",
                             ex.Message), "\r\n\r\n");
 

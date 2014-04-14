@@ -29,8 +29,8 @@ namespace Southwind.Entities
         }
     }
 
-    public enum ApplicationConfigurationOperation
+    public static class ApplicationConfigurationOperation
     {
-        Save
+        public static readonly ExecuteSymbol<ApplicationConfigurationDN> Save = OperationSymbol.Execute<ApplicationConfigurationDN>();
     }
 }

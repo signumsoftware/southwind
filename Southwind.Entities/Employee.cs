@@ -142,9 +142,9 @@ namespace Southwind.Entities
         }
     }
 
-    public enum EmployeeOperation
+    public static class EmployeeOperation
     {
-        Save
+        public static readonly ExecuteSymbol<EmployeeDN> Save = OperationSymbol.Execute<EmployeeDN>();
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
@@ -173,9 +173,9 @@ namespace Southwind.Entities
         }
     }
 
-    public enum TerritoryOperation
+    public static class TerritoryOperation
     {
-        Save
+        public static readonly ExecuteSymbol<TerritoryDN> Save = OperationSymbol.Execute<TerritoryDN>();
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
@@ -196,9 +196,9 @@ namespace Southwind.Entities
         }
     }
 
-    public enum RegionOperation
+    public static class RegionOperation
     {
-        Save
+        public static readonly ExecuteSymbol<RegionDN> Save = OperationSymbol.Execute<RegionDN>();
     }
 
     public enum EmployeeQuery

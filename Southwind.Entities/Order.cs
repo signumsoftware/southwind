@@ -172,17 +172,15 @@ namespace Southwind.Entities
         Canceled,
     }
 
-    public enum OrderOperation
+    public static class OrderOperation
     {
-        Create,
-        SaveNew, 
-        Save, 
-        Ship,
-        Cancel,
-        [Description("New Order")]
-        CreateOrderFromCustomer,
-        [Description("New Order")]
-        CreateOrderFromProducts,
+        public static readonly ConstructSymbol<OrderDN>.Simple Create = OperationSymbol.Construct<OrderDN>.Simple();
+        public static readonly ExecuteSymbol<OrderDN> SaveNew = OperationSymbol.Execute<OrderDN>();
+        public static readonly ExecuteSymbol<OrderDN> Save = OperationSymbol.Execute<OrderDN>();
+        public static readonly ExecuteSymbol<OrderDN> Ship = OperationSymbol.Execute<OrderDN>();
+        public static readonly ExecuteSymbol<OrderDN> Cancel = OperationSymbol.Execute<OrderDN>();
+        public static readonly ConstructSymbol<OrderDN>.From<CustomerDN> CreateOrderFromCustomer = OperationSymbol.Construct<OrderDN>.From<CustomerDN>();
+        public static readonly ConstructSymbol<OrderDN>.FromMany<ProductDN> CreateOrderFromProducts = OperationSymbol.Construct<OrderDN>.FromMany<ProductDN>();
     }
 
     [Serializable]
@@ -293,9 +291,9 @@ namespace Southwind.Entities
         }
     }
 
-    public enum ShipperOperation
+    public static class ShipperOperation
     {
-        Save,
+        public static readonly ExecuteSymbol<ShipperDN> Save = OperationSymbol.Execute<ShipperDN>();
     }
 
     public enum OrderQuery

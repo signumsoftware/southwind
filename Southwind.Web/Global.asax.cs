@@ -119,7 +119,7 @@ namespace Southwind.Web
                 resetPassword: true, 
                 passwordExpiration: false);
 
-            Navigator.EntitySettings<UserDN>().ViewOverrides = new ViewOverrides()
+            Navigator.EntitySettings<UserDN>().CreateViewOverride()
                 .AfterLine((UserDN u) => u.Related, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserMixin>().AllowLogin));
 
             AuthAdminClient.Start(

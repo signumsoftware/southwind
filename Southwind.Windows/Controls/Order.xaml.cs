@@ -117,7 +117,7 @@ namespace Southwind.Windows.Controls
         private void EntityLine_EntityChanged(object sender, bool userInteraction, object oldValue, object newValue)
         {
             if (userInteraction)
-                this.OrderEntity.ShipAddress = ((CustomerDN)newValue).TryCC(a => a.Address.Clone());
+                this.OrderEntity.ShipAddress = ((CustomerDN)newValue).Try(a => a.Address.Clone());
         }
 
         private object EntityLine_Finding()

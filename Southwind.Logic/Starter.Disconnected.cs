@@ -43,14 +43,14 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<RulePropertyDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<RuleQueryDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<RuleOperationDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<PermissionDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<PermissionSymbol>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<RulePermissionDN>(Download.All, Upload.None);
             DisconnectedLogic.Register<SessionLogDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<UserTicketDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<LastAuthRulesImportDN>(Download.None, Upload.None);
 
             //Signum.Entities.Basics
-            DisconnectedLogic.Register<TypeConditionNameDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<TypeConditionSymbol>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<PropertyRouteDN>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<QueryDN>(Download.Replace, Upload.New);
             
@@ -86,7 +86,7 @@ namespace Southwind.Logic
 
             //Signum.Entities.Files
             DisconnectedLogic.Register<FilePathDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<FileTypeDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<FileTypeSymbol>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<FileRepositoryDN>(Download.None, Upload.None);
 
             //Signum.Entities.Mailing
@@ -101,7 +101,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<CultureInfoDN>(Download.All, Upload.None);
 
             //Signum.Entities.Operations
-            DisconnectedLogic.Register<OperationDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<OperationSymbol>(Download.Replace, Upload.None);
             Expression<Func<OperationLogDN, bool>> operationLogCondition = ol =>
              ol.Target.EntityType == typeof(EmployeeDN) ||
              ol.Target.EntityType == typeof(ProductDN) ||
@@ -112,7 +112,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<OperationLogDN>(operationLogCondition, Upload.New);
 
             //Signum.Entities.Processes
-            DisconnectedLogic.Register<ProcessAlgorithmDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<ProcessAlgorithmSymbol>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<ProcessDN>(Download.None, Upload.New);
             DisconnectedLogic.Register<UserProcessSessionDN>(Download.None, Upload.New);
             DisconnectedLogic.Register<PackageDN>(Download.None, Upload.New);

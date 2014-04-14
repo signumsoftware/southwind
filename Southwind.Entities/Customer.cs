@@ -160,8 +160,8 @@ namespace Southwind.Entities
         public static CompanyDN Current { get; set; }
     }
 
-    public enum CustomerOperation
+    public static class CustomerOperation
     {
-        Save,
+        public static readonly ExecuteSymbol<CustomerDN> Save = OperationSymbol.Execute<CustomerDN>();
     }
 }

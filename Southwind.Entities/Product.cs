@@ -97,9 +97,9 @@ namespace Southwind.Entities
         }
     }
 
-    public enum ProductOperation
+    public static class ProductOperation
     {
-        Save
+        public static readonly ExecuteSymbol<ProductDN> Save = OperationSymbol.Execute<ProductDN>();
     }
 
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
@@ -174,9 +174,9 @@ namespace Southwind.Entities
         }
     }
 
-    public enum SupplierOperation
+    public static class SupplierOperation
     {
-        Save
+        public static readonly ExecuteSymbol<SupplierDN> Save = OperationSymbol.Execute<SupplierDN>();
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
@@ -214,9 +214,9 @@ namespace Southwind.Entities
         }
     }
 
-    public enum CategoryOperation
+    public static class CategoryOperation
     {
-        Save
+        public static readonly ExecuteSymbol<CategoryDN> Save = OperationSymbol.Execute<CategoryDN>();
     }
 
     public enum ProductQuery
