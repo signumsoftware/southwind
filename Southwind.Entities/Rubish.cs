@@ -15,7 +15,7 @@ namespace Southwind.Entities
         public string Name
         {
             get { return name; }
-            set { SetToStr(ref name, value, () => Name); }
+            set { SetToStr(ref name, value); }
         }
 
         ItemExtensionDN extension;
@@ -23,7 +23,7 @@ namespace Southwind.Entities
         public ItemExtensionDN Extension
         {
             get { return extension; }
-            set { Set(ref extension, value, () => Extension); }
+            set { Set(ref extension, value); }
         }
 
         protected override void PostRetrieving()
@@ -58,14 +58,14 @@ namespace Southwind.Entities
         public int Width
         {
             get { return width; }
-            set { Set(ref width, value, () => Width); }
+            set { Set(ref width, value); }
         }
 
         int height;
         public int Height
         {
             get { return height; }
-            set { Set(ref height, value, () => Height); }
+            set { Set(ref height, value); }
         }
     }
 
@@ -78,14 +78,14 @@ namespace Southwind.Entities
         public ItemDN Item
         {
             get { return item; }
-            set { Set(ref item, value, () => Item); }
+            set { Set(ref item, value); }
         }
 
         string notes;
         public string Notes
         {
             get { return notes; }
-            set { Set(ref notes, value, () => Notes); }
+            set { Set(ref notes, value); }
         }
     }
 

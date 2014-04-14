@@ -17,7 +17,7 @@ namespace Southwind.Entities
         public string ProductName
         {
             get { return productName; }
-            set { SetToStr(ref productName, value, () => ProductName); }
+            set { SetToStr(ref productName, value); }
         }
 
         Lite<SupplierDN> supplier;
@@ -25,7 +25,7 @@ namespace Southwind.Entities
         public Lite<SupplierDN> Supplier
         {
             get { return supplier; }
-            set { Set(ref supplier, value, () => Supplier); }
+            set { Set(ref supplier, value); }
         }
 
         Lite<CategoryDN> category;
@@ -33,7 +33,7 @@ namespace Southwind.Entities
         public Lite<CategoryDN> Category
         {
             get { return category; }
-            set { Set(ref category, value, () => Category); }
+            set { Set(ref category, value); }
         }
 
         [NotNullable, SqlDbType(Size = 20)]
@@ -42,7 +42,7 @@ namespace Southwind.Entities
         public string QuantityPerUnit
         {   
             get { return quantityPerUnit; }
-            set { Set(ref quantityPerUnit, value, () => QuantityPerUnit); }
+            set { Set(ref quantityPerUnit, value); }
         }
 
         decimal unitPrice;
@@ -52,7 +52,7 @@ namespace Southwind.Entities
             get { return unitPrice; }
             set
             {
-                if (Set(ref unitPrice, value, () => UnitPrice))
+                if (Set(ref unitPrice, value))
                     Notify(() => ValueInStock);
             }
         }
@@ -64,7 +64,7 @@ namespace Southwind.Entities
             get { return unitsInStock; }
             set
             {
-                if (Set(ref unitsInStock, value, () => UnitsInStock))
+                if (Set(ref unitsInStock, value))
                     Notify(() => ValueInStock);
             }
         }
@@ -73,14 +73,14 @@ namespace Southwind.Entities
         public int ReorderLevel
         {
             get { return reorderLevel; }
-            set { Set(ref reorderLevel, value, () => ReorderLevel); }
+            set { Set(ref reorderLevel, value); }
         }
 
         bool discontinued;
         public bool Discontinued
         {
             get { return discontinued; }
-            set { Set(ref discontinued, value, () => Discontinued); }
+            set { Set(ref discontinued, value); }
         }
 
         static Expression<Func<ProductDN, decimal>> ValueInStockExpression =
@@ -111,7 +111,7 @@ namespace Southwind.Entities
         public string CompanyName
         {
             get { return companyName; }
-            set { SetToStr(ref companyName, value, () => CompanyName); }
+            set { SetToStr(ref companyName, value); }
         }
 
         [SqlDbType(Size = 30)]
@@ -120,7 +120,7 @@ namespace Southwind.Entities
         public string ContactName
         {
             get { return contactName; }
-            set { Set(ref contactName, value, () => ContactName); }
+            set { Set(ref contactName, value); }
         }
 
         [SqlDbType(Size = 30)]
@@ -129,7 +129,7 @@ namespace Southwind.Entities
         public string ContactTitle
         {
             get { return contactTitle; }
-            set { Set(ref contactTitle, value, () => ContactTitle); }
+            set { Set(ref contactTitle, value); }
         }
 
         [NotNullable]
@@ -138,7 +138,7 @@ namespace Southwind.Entities
         public AddressDN Address
         {
             get { return address; }
-            set { Set(ref address, value, () => Address); }
+            set { Set(ref address, value); }
         }
 
         [NotNullable, SqlDbType(Size = 24)]
@@ -147,7 +147,7 @@ namespace Southwind.Entities
         public string Phone
         {
             get { return phone; }
-            set { Set(ref phone, value, () => Phone); }
+            set { Set(ref phone, value); }
         }
 
         [NotNullable, SqlDbType(Size = 24)]
@@ -156,7 +156,7 @@ namespace Southwind.Entities
         public string Fax
         {
             get { return fax; }
-            set { Set(ref fax, value, () => Fax); }
+            set { Set(ref fax, value); }
         }
 
         [SqlDbType(Size = int.MaxValue)]
@@ -165,7 +165,7 @@ namespace Southwind.Entities
         public string HomePage
         {
             get { return homePage; }
-            set { Set(ref homePage, value, () => HomePage); }
+            set { Set(ref homePage, value); }
         }
 
         public override string ToString()
@@ -188,7 +188,7 @@ namespace Southwind.Entities
         public string CategoryName
         {
             get { return categoryName; }
-            set { SetToStr(ref categoryName, value, () => CategoryName); }
+            set { SetToStr(ref categoryName, value); }
         }
 
         [NotNullable, SqlDbType(Size = int.MaxValue)]
@@ -197,14 +197,14 @@ namespace Southwind.Entities
         public string Description
         {
             get { return description; }
-            set { Set(ref description, value, () => Description); }
+            set { Set(ref description, value); }
         }
 
         byte[] picture;
         public byte[] Picture
         {
             get { return picture; }
-            set { Set(ref picture, value, () => Picture); }
+            set { Set(ref picture, value); }
         }
 
         static Expression<Func<CategoryDN, string>> ToStringExpression = e => e.CategoryName;

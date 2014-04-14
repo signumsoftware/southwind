@@ -16,7 +16,7 @@ namespace Southwind.Entities
         public string Environment
         {
             get { return environment; }
-            set { Set(ref environment, value, () => Environment); }
+            set { Set(ref environment, value); }
         }
 
         [NotNullable]
@@ -25,7 +25,7 @@ namespace Southwind.Entities
         public EmailConfigurationDN Email
         {
             get { return email; }
-            set { Set(ref email, value, () => Email); }
+            set { Set(ref email, value); }
         }
     }
 

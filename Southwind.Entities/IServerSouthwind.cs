@@ -28,12 +28,11 @@ namespace Southwind.Services
 
     }
 
-    [DescriptionOptions(DescriptionOptions.Members)]
-    public enum SouthwindGroup
+    public static class SouthwindGroup
     {
-        UserEntities,
-        CurrentCompany,
-        CurrentPerson,
-        RoleEntities
+        public static TypeConditionSymbol UserEntities = new TypeConditionSymbol();
+        public static TypeConditionSymbol CurrentCompany = new TypeConditionSymbol();
+        public static TypeConditionSymbol CurrentPerson = new TypeConditionSymbol();
+        public static TypeConditionSymbol RoleEntities = new TypeConditionSymbol();
     }
 }

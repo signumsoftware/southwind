@@ -17,7 +17,7 @@ namespace Southwind.Entities
         public string Address
         {
             get { return address; }
-            set { Set(ref address, value, () => Address); }
+            set { Set(ref address, value); }
         }
 
         [NotNullable, SqlDbType(Size = 15)]
@@ -26,7 +26,7 @@ namespace Southwind.Entities
         public string City
         {
             get { return city; }
-            set { Set(ref city, value, () => City); }
+            set { Set(ref city, value); }
         }
 
         [SqlDbType(Size = 15)]
@@ -35,7 +35,7 @@ namespace Southwind.Entities
         public string Region
         {
             get { return region; }
-            set { Set(ref region, value, () => Region); }
+            set { Set(ref region, value); }
         }
 
         [SqlDbType(Size = 10)]
@@ -44,7 +44,7 @@ namespace Southwind.Entities
         public string PostalCode
         {
             get { return postalCode; }
-            set { Set(ref postalCode, value, () => PostalCode); }
+            set { Set(ref postalCode, value); }
         }
 
         [NotNullable, SqlDbType(Size = 15)]
@@ -53,7 +53,7 @@ namespace Southwind.Entities
         public string Country
         {
             get { return country; }
-            set { Set(ref country, value, () => Country); }
+            set { Set(ref country, value); }
         }
 
         protected override string PropertyValidation(PropertyInfo pi)

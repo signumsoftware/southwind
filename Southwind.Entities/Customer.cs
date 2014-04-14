@@ -16,7 +16,7 @@ namespace Southwind.Entities
         public AddressDN Address
         {
             get { return address; }
-            set { Set(ref address, value, () => Address); }
+            set { Set(ref address, value); }
         }
 
         [NotNullable, SqlDbType(Size = 24)]
@@ -25,7 +25,7 @@ namespace Southwind.Entities
         public string Phone
         {
             get { return phone; }
-            set { Set(ref phone, value, () => Phone); }
+            set { Set(ref phone, value); }
         }
 
         [SqlDbType(Size = 24)]
@@ -34,7 +34,7 @@ namespace Southwind.Entities
         public string Fax
         {
             get { return fax; }
-            set { Set(ref fax, value, () => Fax); }
+            set { Set(ref fax, value); }
         }
 
         
@@ -50,7 +50,7 @@ namespace Southwind.Entities
         public string FirstName
         {
             get { return firstName; }
-            set { Set(ref firstName, value, () => FirstName); }
+            set { Set(ref firstName, value); }
         }
 
         [NotNullable, SqlDbType(Size = 40)]
@@ -59,7 +59,7 @@ namespace Southwind.Entities
         public string LastName
         {
             get { return lastName; }
-            set { Set(ref lastName, value, () => LastName); }
+            set { Set(ref lastName, value); }
         }
 
         [SqlDbType(Size = 10)]
@@ -68,7 +68,7 @@ namespace Southwind.Entities
         public string Title
         {
             get { return title; }
-            set { Set(ref title, value, () => Title); }
+            set { Set(ref title, value); }
         }
 
         DateTime? dateOfBirth;
@@ -76,14 +76,14 @@ namespace Southwind.Entities
         public DateTime? DateOfBirth
         {
             get { return dateOfBirth; }
-            set { Set(ref dateOfBirth, value, () => DateOfBirth); }
+            set { Set(ref dateOfBirth, value); }
         }
 
         bool corrupt;
         public bool Corrupt
         {
             get { return corrupt; }
-            set { Set(ref corrupt, value, () => Corrupt); }
+            set { Set(ref corrupt, value); }
         }
 
         public override string IdentifiableIntegrityCheck()
@@ -131,7 +131,7 @@ namespace Southwind.Entities
         public string CompanyName
         {
             get { return companyName; }
-            set { Set(ref companyName, value, () => CompanyName); }
+            set { Set(ref companyName, value); }
         }
 
         [NotNullable, SqlDbType(Size = 30)]
@@ -140,7 +140,7 @@ namespace Southwind.Entities
         public string ContactName
         {
             get { return contactName; }
-            set { Set(ref contactName, value, () => ContactName); }
+            set { Set(ref contactName, value); }
         }
 
         [NotNullable, SqlDbType(Size = 30)]
@@ -149,7 +149,7 @@ namespace Southwind.Entities
         public string ContactTitle
         {
             get { return contactTitle; }
-            set { Set(ref contactTitle, value, () => ContactTitle); }
+            set { Set(ref contactTitle, value); }
         }
 
         public override string ToString()

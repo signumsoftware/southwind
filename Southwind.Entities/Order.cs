@@ -21,7 +21,7 @@ namespace Southwind.Entities
         public CustomerDN Customer
         {
             get { return customer; }
-            set { Set(ref customer, value, () => Customer); }
+            set { Set(ref customer, value); }
         }
 
         Lite<EmployeeDN> employee;
@@ -29,42 +29,42 @@ namespace Southwind.Entities
         public Lite<EmployeeDN> Employee
         {
             get { return employee; }
-            set { Set(ref employee, value, () => Employee); }
+            set { Set(ref employee, value); }
         }
 
         DateTime orderDate;
         public DateTime OrderDate
         {
             get { return orderDate; }
-            set { Set(ref orderDate, value, () => OrderDate); }
+            set { Set(ref orderDate, value); }
         }
 
         DateTime requiredDate;
         public DateTime RequiredDate
         {
             get { return requiredDate; }
-            set { Set(ref requiredDate, value, () => RequiredDate); }
+            set { Set(ref requiredDate, value); }
         }
 
         DateTime? shippedDate;
         public DateTime? ShippedDate
         {
             get { return shippedDate; }
-            set { Set(ref shippedDate, value, () => ShippedDate); }
+            set { Set(ref shippedDate, value); }
         }
 
         DateTime? cancelationDate;
         public DateTime? CancelationDate
         {
             get { return cancelationDate; }
-            set { Set(ref cancelationDate, value, () => CancelationDate); }
+            set { Set(ref cancelationDate, value); }
         }
 
         Lite<ShipperDN> shipVia;
         public Lite<ShipperDN> ShipVia
         {
             get { return shipVia; }
-            set { Set(ref shipVia, value, () => ShipVia); }
+            set { Set(ref shipVia, value); }
         }
 
         [SqlDbType(Size = 40)]
@@ -73,7 +73,7 @@ namespace Southwind.Entities
         public string ShipName
         {
             get { return shipName; }
-            set { Set(ref shipName, value, () => ShipName); }
+            set { Set(ref shipName, value); }
         }
 
         [NotNullable]
@@ -82,7 +82,7 @@ namespace Southwind.Entities
         public AddressDN ShipAddress
         {
             get { return shipAddress; }
-            set { Set(ref shipAddress, value, () => ShipAddress); }
+            set { Set(ref shipAddress, value); }
         }
 
         decimal freight;
@@ -90,7 +90,7 @@ namespace Southwind.Entities
         public decimal Freight
         {
             get { return freight; }
-            set { Set(ref freight, value, () => Freight); }
+            set { Set(ref freight, value); }
         }
 
         [ValidateChildProperty, NotifyChildProperty, NotifyCollectionChanged]
@@ -98,7 +98,7 @@ namespace Southwind.Entities
         public MList<OrderDetailsDN> Details
         {
             get { return details; }
-            set { Set(ref details, value, () => Details); }
+            set { Set(ref details, value); }
         }
 
         static Expression<Func<OrderDN, decimal>> TotalPriceExpression =
@@ -113,14 +113,14 @@ namespace Southwind.Entities
         public bool IsLegacy
         {
             get { return isLegacy; }
-            set { Set(ref isLegacy, value, () => IsLegacy); }
+            set { Set(ref isLegacy, value); }
         }
 
         OrderState state;
         public OrderState State
         {
             get { return state; }
-            set { Set(ref state, value, () => State); }
+            set { Set(ref state, value); }
         }
 
         protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi)
@@ -193,7 +193,7 @@ namespace Southwind.Entities
         public Lite<ProductDN> Product
         {
             get { return product; }
-            set { Set(ref product, value, () => Product); }
+            set { Set(ref product, value); }
         }
 
         decimal unitPrice;
@@ -203,7 +203,7 @@ namespace Southwind.Entities
             get { return unitPrice; }
             set
             {
-                if (Set(ref unitPrice, value, () => UnitPrice))
+                if (Set(ref unitPrice, value))
                     Notify(() => SubTotalPrice);
             }
         }
@@ -214,7 +214,7 @@ namespace Southwind.Entities
             get { return quantity; }
             set
             {
-                if (Set(ref quantity, value, () => Quantity))
+                if (Set(ref quantity, value))
                     Notify(() => SubTotalPrice);
             }
         }
@@ -226,7 +226,7 @@ namespace Southwind.Entities
             get { return discount; }
             set
             {
-                if (Set(ref discount, value, () => Discount))
+                if (Set(ref discount, value))
                     Notify(() => SubTotalPrice);
             }
         }
@@ -275,7 +275,7 @@ namespace Southwind.Entities
         public string CompanyName
         {
             get { return companyName; }
-            set { SetToStr(ref companyName, value, () => CompanyName); }
+            set { SetToStr(ref companyName, value); }
         }
 
         [NotNullable, SqlDbType(Size = 24)]
@@ -284,7 +284,7 @@ namespace Southwind.Entities
         public string Phone
         {
             get { return phone; }
-            set { Set(ref phone, value, () => Phone); }
+            set { Set(ref phone, value); }
         }
 
         public override string ToString()

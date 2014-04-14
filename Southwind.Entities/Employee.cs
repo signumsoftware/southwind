@@ -19,7 +19,7 @@ namespace Southwind.Entities
         public string LastName
         {
             get { return lastName; }
-            set { SetToStr(ref lastName, value, () => LastName); }
+            set { SetToStr(ref lastName, value); }
         }
 
         [NotNullable, SqlDbType(Size = 10)]
@@ -28,7 +28,7 @@ namespace Southwind.Entities
         public string FirstName
         {
             get { return firstName; }
-            set { SetToStr(ref firstName, value, () => FirstName); }
+            set { SetToStr(ref firstName, value); }
         }
 
         [SqlDbType(Size = 30)]
@@ -37,7 +37,7 @@ namespace Southwind.Entities
         public string Title
         {
             get { return title; }
-            set { Set(ref title, value, () => Title); }
+            set { Set(ref title, value); }
         }
 
         [SqlDbType(Size = 25)]
@@ -46,7 +46,7 @@ namespace Southwind.Entities
         public string TitleOfCourtesy
         {
             get { return titleOfCourtesy; }
-            set { Set(ref titleOfCourtesy, value, () => TitleOfCourtesy); }
+            set { Set(ref titleOfCourtesy, value); }
         }
 
         DateTime? birthDate;
@@ -54,14 +54,14 @@ namespace Southwind.Entities
         public DateTime? BirthDate
         {
             get { return birthDate; }
-            set { Set(ref birthDate, value, () => BirthDate); }
+            set { Set(ref birthDate, value); }
         }
 
         DateTime? hireDate;
         public DateTime? HireDate
         {
             get { return hireDate; }
-            set { Set(ref hireDate, value, () => HireDate); }
+            set { Set(ref hireDate, value); }
         }
 
         [NotNullable]
@@ -70,7 +70,7 @@ namespace Southwind.Entities
         public AddressDN Address
         {
             get { return address; }
-            set { Set(ref address, value, () => Address); }
+            set { Set(ref address, value); }
         }
 
         [SqlDbType(Size = 25)]
@@ -79,7 +79,7 @@ namespace Southwind.Entities
         public string HomePhone
         {
             get { return homePhone; }
-            set { Set(ref homePhone, value, () => HomePhone); }
+            set { Set(ref homePhone, value); }
         }
 
         [SqlDbType(Size = 4)]
@@ -88,7 +88,7 @@ namespace Southwind.Entities
         public string Extension
         {
             get { return extension; }
-            set { Set(ref extension, value, () => Extension); }
+            set { Set(ref extension, value); }
         }
 
         [SqlDbType(Size = int.MaxValue)]
@@ -96,7 +96,7 @@ namespace Southwind.Entities
         public byte[] Photo
         {
             get { return photo; }
-            set { Set(ref photo, value, () => Photo); }
+            set { Set(ref photo, value); }
         }
 
         [SqlDbType(Size = int.MaxValue), ]
@@ -105,14 +105,14 @@ namespace Southwind.Entities
         public string Notes
         {
             get { return notes; }
-            set { Set(ref notes, value, () => Notes); }
+            set { Set(ref notes, value); }
         }
 
         Lite<EmployeeDN> reportsTo;
         public Lite<EmployeeDN> ReportsTo
         {
             get { return reportsTo; }
-            set { Set(ref reportsTo, value, () => ReportsTo); }
+            set { Set(ref reportsTo, value); }
         }
 
         [NotNullable, SqlDbType(Size = 255)]
@@ -121,14 +121,14 @@ namespace Southwind.Entities
         public string PhotoPath
         {
             get { return photoPath; }
-            set { Set(ref photoPath, value, () => PhotoPath); }
+            set { Set(ref photoPath, value); }
         }
 
         MList<TerritoryDN> territories;
         public MList<TerritoryDN> Territories
         {
             get { return territories; }
-            set { Set(ref territories, value, () => Territories); }
+            set { Set(ref territories, value); }
         }
 
         public override string ToString()
@@ -155,7 +155,7 @@ namespace Southwind.Entities
         public RegionDN Region
         {
             get { return region; }
-            set { Set(ref region, value, () => Region); }
+            set { Set(ref region, value); }
         }
 
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
@@ -164,7 +164,7 @@ namespace Southwind.Entities
         public string Description
         {
             get { return description; }
-            set { SetToStr(ref description, value, () => Description); }
+            set { SetToStr(ref description, value); }
         }
 
         public override string ToString()
@@ -187,7 +187,7 @@ namespace Southwind.Entities
         public string Description
         {
             get { return description; }
-            set { SetToStr(ref description, value, () => Description); }
+            set { SetToStr(ref description, value); }
         }
 
         public override string ToString()
@@ -216,7 +216,7 @@ namespace Southwind.Entities
         public AllowLogin AllowLogin
         {
             get { return allowLogin; }
-            set { Set(ref allowLogin, value, () => AllowLogin); }
+            set { Set(ref allowLogin, value); }
         }
     }
 
