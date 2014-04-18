@@ -352,7 +352,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Libs\ckeditor\plugins\pbckcode\dialogs\ace\" />
   </ItemGroup>
   <ItemGroup>

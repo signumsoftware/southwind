@@ -82,12 +82,12 @@ namespace Southwind.Logic
 
             CultureInfoLogic.Start(sb, dqm);
             FilePathLogic.Start(sb, dqm);
-            EmailLogic.Start(sb, dqm,  ()=>Configuration.Value.Email);
+            EmailLogic.Start(sb, dqm, () => Configuration.Value.Email);
 
             AuthLogic.Start(sb, dqm, "System", null);
-            
-            ResetPasswordRequestLogic.Start(sb, dqm);
+       
             AuthLogic.StartAllModules(sb, dqm);
+            ResetPasswordRequestLogic.Start(sb, dqm);
             UserTicketLogic.Start(sb, dqm);
             SessionLogLogic.Start(sb, dqm);
 
@@ -109,7 +109,7 @@ namespace Southwind.Logic
 
             ExceptionLogic.Start(sb, dqm);
 
-            AlertLogic.Start(sb, dqm, new []{typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN)} );
+            AlertLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
             NoteLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
 
             EmployeeLogic.Start(sb, dqm);
@@ -149,7 +149,6 @@ namespace Southwind.Logic
             if (logPostfix.HasText())
                 SetLogDatabase(sb.Schema, new DatabaseName(null, ((SqlConnector)Connector.Current).DatabaseName() + logPostfix));
 
-
             sb.ExecuteWhenIncluded();
         }
 
@@ -187,7 +186,6 @@ namespace Southwind.Logic
             CacheLogic.CacheTable<ProductDN>(sb);
         }
 
-        
         public static void SetLogDatabase(Schema schema, DatabaseName logDatabaseName)
         {
             schema.Table<OperationLogDN>().ToDatabase(logDatabaseName);

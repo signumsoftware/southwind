@@ -77,7 +77,7 @@ namespace Southwind.Web
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-        }
+        }//RegisterRoutes
 
         protected void Application_Start()
         {
@@ -102,7 +102,7 @@ namespace Southwind.Web
 
                 if (current != AllowLogin.WindowsAndWeb && current != required)
                     throw new UnauthorizedAccessException("User {0} is {1}".Formato(user, current.NiceToString()));
-            }; 
+            }; //UserLogingIn
         }
 
         private void WebStart()
@@ -182,12 +182,7 @@ namespace Southwind.Web
             OmniboxClient.Register(new UserChartOmniboxProvider());
 
             ContextualItemsHelper.Start();
-        }
-
-        protected void Application_AcquireRequestState(object sender, EventArgs e)
-        {
-            Sync.ChangeBothCultures(new CultureInfo("en-US"));
-        }
+        } //WebStart
 
         protected void Application_Error(Object sender, EventArgs e)
         {

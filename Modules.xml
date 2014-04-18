@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Modules>
+  
+  <Module Name="Windows">
+    <RemoveFiles Path="Southwind.Windows"/>
+    <RemoveFiles Path="Southwind.Entities\IServerSouthwind.cs"/>
+  </Module>
+  
+  <Module Name="Web">
+    <RemoveFiles Path="Southwind.Web\Code\SouthwindClient.cs"/>
+    <RemoveFiles Path="Southwind.Web\Scripts\Order.ts"/>
+    <RemoveFiles Path="Southwind.Web\Views\Southwind"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" From="private static void SetupCache(SchemaBuilder sb)" To="}"/>
+    <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" From="new WebMenuItem //Southwind" To="}, //Southwind"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SouthwindClient.Start();"/>
+  </Module>
+  
+  <Module Name="Disconnected" DependsOn="Windows">
+    <RemoveFiles Path="Southwind.Load"/>
+    <RemoveFiles Path="Southwind.Logic\Starter.Disconnected.cs"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="DisconnectedClient.Start();"/>
+  </Module>
+
+  <Module Name="LoadNorthwind">
+    <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
+    <RemoveFiles Path="Southwind.Load\EmployeeLoader.cs"/>
+    <RemoveFiles Path="Southwind.Load\Northwind.dbml"/>
+    <RemoveFiles Path="Southwind.Load\Northwind.dbml.layout"/>
+    <RemoveFiles Path="Southwind.Load\Northwind.designer.cs"/>
+    <RemoveFiles Path="Southwind.Load\NorthwindPartials.cs"/>
+    <RemoveFiles Path="Southwind.Load\OrderLoader.cs"/>
+    <RemoveFiles Path="Southwind.Load\ProductLoader.cs"/>
+    <RemoveFiles Path="Southwind.Load\SupplierFaxes.csv"/>
+  </Module>
+
+  <Module Name="UserQuery">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.Start(sb, dqm);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="UserQueriesClient.Start();"/>
+  </Module>
+
+  <Module Name="Chart" DependsOn="Files">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ChartLogic.Start(sb, dqm);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+    <RemoveFiles Path="Southwind.Web\Libs\CodeMirror\"/>
+    <RemoveFiles Path="Southwind.Web\Libs\d3.v3.min.js"/>
+    <RemoveFiles Path="Southwind.Web\Libs\colorbrewer.js"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ChartClient.Start();"/>
+  </Module>
+
+  <Module Name="Files" >
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FilePathLogic.Start(sb, dqm);"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" From="FilesClient.Start(" To="embeddedFile: false);"/>
+  </Module>
+
+  <Module Name="Excel">
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ReportSpreadsheetClient.Start(" To="excelReport: false);"/>
+  </Module>
+  
+  <Module Name="ControlPanel">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((ControlPanelDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.Start(sb, dqm);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+    <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" Line="var panel = ControlPanelLogic.GetHomePageControlPanel();"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ControlPanelClient.Start();"/>
+  </Module>
+
+
+  <Module Name="Process">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((ProcessDN cp) => cp.Data, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((PackageLineDN cp) => cp.Package, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((ProcessExceptionLineDN cp) => cp.Line, new ImplementedByAttribute(typeof(PackageLineDN)));"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ProcessRunnerLogic.StartRunningProcesses(5 * 1000);"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ProcessesClient.Start(" To="packageOperations: true);"/>
+  </Module>
+
+  <Module Name="Mailing">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.From.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.Recipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.DefaultFrom.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.AditionalRecipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email);"/>
+    <RemoveFiles Path="Southwind.Web\Libs\ckeditor"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" From="MailingClient.Start(" To="pop3Config: false);" />
+  </Module>
+
+  <Module Name="Auth">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.Start(sb, dqm, &quot;System&quot;, null);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.StartAllModules(sb, dqm);"/>
+    <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserDN)"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthClient.Start(" To="passwordExpiration: false);" />
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthAdminClient.Start(" To="permissions: true);" />
+  </Module>
+
+  <Module Name="Auth_ResetPasswordRequest" DependsOn="Auth">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ResetPasswordRequestLogic.Start(sb, dqm);"/>
+  </Module>
+
+  <Module Name="Auth_UserTicket" DependsOn="Auth">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserTicketLogic.Start(sb, dqm);"/>
+  </Module>
+ 
+  <Module Name="SessionLog" DependsOn="Auth">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SessionLogLogic.Start(sb, dqm);"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SessionLogClient.Start();"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SessionLogClient.LogSessionEnd((UserDN)Session[UserHolder.UserSessionKey], TimeSpan.FromMinutes(Session.Timeout));"/>
+  </Module>
+  
+  <Module Name="Auth_UserMixin" DepentdsOn="Auth">
+    <RemoveFiles Path="Southwind.Entities\UserMixin.cs"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserDN, UserMixin&gt;();"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthLogic.UserLogingIn += user =>" To="}; //UserLogingIn" />
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().CreateViewOverride()" To=".AfterLine((UserDN u) => u.Related, (html, tc) => html.ValueLine(tc, u => u.Mixin&lt;UserMixin&gt;().AllowLogin));" />
+  </Module>
+
+  <Module Name="Alerts">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AlertLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="AlertClient.Start();"/>
+  </Module>
+
+  <Module Name="Notes">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="NoteLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="NoteClient.Start();"/>
+  </Module>
+
+
+  <Module Name="Cache">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="CacheLogic.Start(sb);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetupCache(sb);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" From="private static void SetupCache(SchemaBuilder sb)" To="}"/>
+  </Module>
+
+  <Module Name="SplitDB">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="string logPostfix = Connector.TryExtractCatalogPostfix(ref connectionString, &quot;_Log&quot;);"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="if (logPostfix.HasText())"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetLogDatabase(sb.Schema, new DatabaseName(null, ((SqlConnector)Connector.Current).DatabaseName() + logPostfix));"/>
+    <RemoveLine Path="Southwind.Logic\Starter.cs" From="public static void SetLogDatabase(Schema schema, DatabaseName logDatabaseName)" To="}"/>
+  </Module>
+
+
+  <Module Name="ThemeSelector">
+    <RemoveFiles Path="Southwind.Web\Libs\bootstrap\themes"/>
+    <RemoveFiles Path="Southwind.Web\Scripts\southwind.ts"/>
+    <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="&lt;li class=&quot;theme-selector&quot;&gt;" To="&lt;/li&gt;"/>
+  </Module>
+
+  <Module Name="Profiler">
+    <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProfilerLogic.Start(sb, dqm," To="overrideSessionTimeout: true);"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SignumControllerFactory.EveryController().AddFilters(new ProfilerFilterAttribute());"/>
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ProfilerClient.Start();"/>
+  </Module>
+
+  <Module Name="Omnibox">
+    <RemoveLine Path="Southwind.Web\Global.asax.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new UserChartOmniboxProvider());"/>
+  </Module>
+</Modules>

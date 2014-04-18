@@ -80,13 +80,11 @@ namespace Southwind.Load
                         {20, EmployeeLoader.CreateUsers },
                         {21, EmployeeLoader.CreateSystemUser }, 
 
-                        {22, SnamphotIsolation},
-
-                        {23, CreateCultureInfo},
-
                         {30, OrderLoader.UpdateOrdersDate },
 
-                        {40, ChartScriptLogic.ImportExportChartScripts},
+                        {40, SnamphotIsolation},
+                        {41, CreateCultureInfo},
+                        {42, ChartScriptLogic.ImportExportChartScripts},
 
                         {100, ShowOrder},
 

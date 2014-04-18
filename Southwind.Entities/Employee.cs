@@ -99,7 +99,7 @@ namespace Southwind.Entities
             set { Set(ref photo, value); }
         }
 
-        [SqlDbType(Size = int.MaxValue), ]
+        [SqlDbType(Size = int.MaxValue),]
         string notes;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
         public string Notes
@@ -204,26 +204,5 @@ namespace Southwind.Entities
     public enum EmployeeQuery
     {
         EmployeesByTerritory
-    }
-
-
-    [Serializable]
-    public class UserMixin : MixinEntity
-    {
-        UserMixin(IdentifiableEntity mainEntity, MixinEntity next) : base(mainEntity, next) { }
-
-        AllowLogin allowLogin;
-        public AllowLogin AllowLogin
-        {
-            get { return allowLogin; }
-            set { Set(ref allowLogin, value); }
-        }
-    }
-
-    public enum AllowLogin
-    {
-        WindowsAndWeb,
-        WindowsOnly,
-        WebOnly,
     }
 }
