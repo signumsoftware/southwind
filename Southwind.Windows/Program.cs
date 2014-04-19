@@ -48,7 +48,7 @@ namespace Southwind.Windows
                     Program.GetServer = LocalServer.GetLocalServer;
                     DisconnectedClient.GetTransferServer = LocalServer.GetLocalServerTransfer;
                 }
-                else
+                else //Run remotely
                 {
                     Program.GetServer = RemoteServer;
                     DisconnectedClient.GetTransferServer = RemoteServerTransfer;
@@ -118,7 +118,7 @@ namespace Southwind.Windows
             {
                 return false;
             }
-        }
+        }//RunLocally
 
         private static void UploadIfNecessary()
         {
@@ -206,7 +206,7 @@ namespace Southwind.Windows
                         break;
                     }
             }
-        }
+        }//UploadIfNecessary
 
         public static void HandleException(string errorTitle, Exception e, Window w)
         {

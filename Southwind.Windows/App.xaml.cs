@@ -35,6 +35,7 @@ using Signum.Windows.Processes;
 using Signum.Windows.Notes;
 using Signum.Windows.Alerts;
 using Signum.Windows.Profiler;
+using Southwind.Windows.Code;
 
 namespace Southwind.Windows
 {
@@ -72,7 +73,7 @@ namespace Southwind.Windows
 
             started = true;
 
-            Navigator.Start(new NavigationManager(multithreaded:true));
+            Navigator.Start(new NavigationManager(multithreaded: true));
             Constructor.Start(new ConstructorManager());
 
             OperationClient.Start(new OperationManager());
@@ -93,9 +94,9 @@ namespace Southwind.Windows
 
             LinksClient.Start(widget: true, contextualMenu: true);
 
-            ProcessClient.Start(true, true);
+            ProcessClient.Start(package: true, packageOperation: true);
 
-            ReportClient.Start(true, false);
+            ReportClient.Start(toExcel: true, excelReport: false);
             UserQueryClient.Start();
             ChartClient.Start();
             ControlPanelClient.Start();
@@ -115,50 +116,7 @@ namespace Southwind.Windows
             OmniboxClient.Register(new UserChartOmniboxProvider());
             OmniboxClient.Register(new ChartOmniboxProvider());
 
-            Navigator.AddSettings(new List<EntitySettings>
-            {
-                new EntitySettings<EmployeeDN>() { View = e => new Employee()},
-                new EntitySettings<TerritoryDN>() { View = e => new Territory() },
-                new EntitySettings<RegionDN>() { View = e => new Region() },
-
-                new EntitySettings<ProductDN>() { View = e => new Product() },
-                new EntitySettings<CategoryDN>() { View = e => new Category() },
-                new EntitySettings<SupplierDN>() { View = e => new Supplier() },
-
-                new EntitySettings<CompanyDN>() { View = e => new Company() },
-                new EntitySettings<PersonDN>() { View = e => new Person() },
-
-                new EntitySettings<OrderDN>() { View = e => new Order()},
-            });
-
-            Constructor.Register(elem => new OrderDN
-            {
-                OrderDate = DateTime.Now,
-                RequiredDate = DateTime.Now.AddDays(2),
-                Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
-                Details = new MList<OrderDetailsDN>()
-            });
-
-            Constructor.Register(elem => new PersonDN
-            {
-                Address = new AddressDN()
-            });
-
-            Constructor.Register(elem => new CompanyDN
-            {
-                Address = new AddressDN()
-            });
-
-            Func<Binding, DataTemplate> formatter = b =>
-            {
-                b.Converter = SouthwindConverters.ImageConverter;
-                return Fluent.GetDataTemplate(() => new Image { MaxHeight = 32.0, Stretch = Stretch.Uniform }
-                    .Bind(Image.SourceProperty, b)
-                    .Set(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Linear));
-            };
-
-            QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, formatter);
-            QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture, formatter);
+            SouthwindClient.Start();
 
             DisconnectedClient.Start();
 
@@ -171,7 +129,7 @@ namespace Southwind.Windows
                     LocalServer.LastExport(),    
                     DisconnectedMachineDN.Current.Retrieve(),
                     Server.ServerTypes.ToDictionary(k => k.Value.ToLite(), k => k.Key));
-            }
+            }//OfflineMode 
         }
     }
 }
