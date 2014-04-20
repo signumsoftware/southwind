@@ -154,7 +154,7 @@
     <Module Name="Notes">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="NoteLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="NoteClient.Start();"/>
-      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="AlertClient.Start(typeof(OrderDN));"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="NoteClient.Start();"/>
     </Module>
 
     <Module Name="Cache">
