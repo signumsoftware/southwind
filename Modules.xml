@@ -72,6 +72,7 @@
       <RemoveFiles Path="Southwind.Web\Libs\d3.v3.min.js"/>
       <RemoveFiles Path="Southwind.Web\Libs\colorbrewer.js"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ChartClient.Start();"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ChartClient.Start();"/>
     </Module>
 
     <Module Name="Files" >
