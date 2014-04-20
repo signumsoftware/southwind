@@ -6,7 +6,7 @@
       <RemoveFiles Path="Southwind.Entities\IServerSouthwind.cs"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwind.svc"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwind.svc.cs"/>
-      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;system.web&gt;" To="&lt;/system.diagnostics&gt;--&gt;"/>
+      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;system.serviceModel&gt;" To="&lt;/system.diagnostics&gt;--&gt;"/>
     </Module>
 
     <Module Name="Web">
@@ -139,10 +139,10 @@
     <Module Name="Auth_UserMixin" DepentdsOn="Auth">
       <RemoveFiles Path="Southwind.Entities\UserMixin.cs"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserDN, UserMixin&gt;();"/>
-      <RemoveLine Path="Southwind.Web\ServerSouthwind.svc.cs" From="public virtual void Login(string username, string passwordHash)" To="} //Login"/>
+      <RemoveLine Path="Southwind.Web\ServerSouthwind.svc.cs" From="public override void Login(string username, string passwordHash)" To="} //Login"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthLogic.UserLogingIn += user =>" To="}; //UserLogingIn" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().CreateViewOverride()" To=".AfterLine((UserDN u) => u.Related, (html, tc) => html.ValueLine(tc, u => u.Mixin&lt;UserMixin&gt;().AllowLogin));" />
-      <RemoveLine Path="Southwind.Web\App.xaml.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().OverrideView((usr, ctrl) =>" To="});" />
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().OverrideView((usr, ctrl) =>" To="});" />
     </Module>
 
     <Module Name="Alerts">
