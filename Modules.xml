@@ -17,14 +17,18 @@
 
     <Module Name="Disconnected" DependsOn="Windows">
       <RemoveFiles Path="Southwind.Local"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetupDisconnectedStrategies(sb);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="SetupDisconnectedStrategies(sb);"/>
       <RemoveFiles Path="Southwind.Logic\Starter.Disconnected.cs"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="DisconnectedClient.Start();"/>
+      <RemoveLine Path="Southwind.Windows\Program.cs" Line="using Southwind.Local;"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="public enum StartOption" To="}"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="if (RunLocally())" To="else //Run remotely"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="if (!DisconnectedClient.OfflineMode)" To="}"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="if (DisconnectedClient.OfflineMode)" To="LocalServer.Stop();"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="private static bool RunLocally()" To="}//RunLocally"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="private static void UploadIfNecessary()" To="}//UploadIfNecessary"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="using Southwind.Local;"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DisconnectedClient.Start();"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="if (DisconnectedClient.OfflineMode)" To="}//OfflineMode "/>
     </Module>
