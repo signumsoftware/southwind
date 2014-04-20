@@ -20,6 +20,7 @@ using Signum.Engine.Disconnected;
 using Signum.Utilities;
 using Signum.Engine.Exceptions;
 using Signum.Engine.Basics;
+using Southwind.Entities;
 
 namespace Southwind.Web
 {
@@ -51,6 +52,19 @@ namespace Southwind.Web
                 Statics.CleanThreadContextAndAssert();
             }
         }
+
+        public override void Login(string username, string passwordHash)
+        {
+            Execute(MethodInfo.GetCurrentMethod(), null, () =>
+            {
+                var user = AuthLogic.Login(username, passwordHash);
+
+                if(user.Mixin<UserMixin>().AllowLogin == AllowLogin.WebOnly)
+                    throw new UnauthorizedAccessException("Windows login not allowed"); 
+
+                UserDN.Current = user;
+            });
+        } //Login
 
         public DisconnectedExportDN GetDownloadEstimation(Lite<DisconnectedMachineDN> machine)
         {
