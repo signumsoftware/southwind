@@ -25,7 +25,6 @@ using Signum.Entities.UserQueries;
 using Signum.Utilities;
 using Signum.Utilities.ExpressionTrees;
 using Southwind.Entities;
-using Southwind.Services;
 using Signum.Engine.Processes;
 using Signum.Entities.Processes;
 using Signum.Engine.Alerts;

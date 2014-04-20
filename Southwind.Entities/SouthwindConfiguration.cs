@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Signum.Entities;
+using Signum.Entities.Basics;
 using Signum.Entities.Mailing;
 
 namespace Southwind.Entities
@@ -32,5 +33,13 @@ namespace Southwind.Entities
     public static class ApplicationConfigurationOperation
     {
         public static readonly ExecuteSymbol<ApplicationConfigurationDN> Save = OperationSymbol.Execute<ApplicationConfigurationDN>();
+    }
+
+    public static class SouthwindGroup
+    {
+        public static TypeConditionSymbol UserEntities = new TypeConditionSymbol();
+        public static TypeConditionSymbol CurrentCompany = new TypeConditionSymbol();
+        public static TypeConditionSymbol CurrentPerson = new TypeConditionSymbol();
+        public static TypeConditionSymbol RoleEntities = new TypeConditionSymbol();
     }
 }

@@ -4,6 +4,11 @@
     <Module Name="Windows">
       <RemoveFiles Path="Southwind.Windows"/>
       <RemoveFiles Path="Southwind.Entities\IServerSouthwind.cs"/>
+      <RemoveFiles Path="Southwind.Web\ServerSouthwind.svc"/>
+      <RemoveFiles Path="Southwind.Web\ServerSouthwind.svc.cs"/>
+      <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc"/>
+      <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc.cs"/>
+      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;system.web&gt;" To="&lt;/system.diagnostics&gt;--&gt;"/>
     </Module>
 
     <Module Name="Web">

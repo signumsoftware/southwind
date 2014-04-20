@@ -27,12 +27,4 @@ namespace Southwind.Services
     {
 
     }
-
-    public static class SouthwindGroup
-    {
-        public static TypeConditionSymbol UserEntities = new TypeConditionSymbol();
-        public static TypeConditionSymbol CurrentCompany = new TypeConditionSymbol();
-        public static TypeConditionSymbol CurrentPerson = new TypeConditionSymbol();
-        public static TypeConditionSymbol RoleEntities = new TypeConditionSymbol();
-    }
 }
