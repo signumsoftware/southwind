@@ -12,7 +12,8 @@ using Signum.Entities.Disconnected;
 
 namespace Southwind.Entities
 {
-    [Serializable, EntityKind(EntityKind.Main, EntityData.Transactional), Mixin(typeof(DisconnectedMixin))]
+    [Mixin(typeof(DisconnectedMixin))]
+    [Serializable, EntityKind(EntityKind.Main, EntityData.Transactional)]
     public class OrderDN : Entity
     {
         [ImplementedBy(typeof(CompanyDN), typeof(PersonDN))]

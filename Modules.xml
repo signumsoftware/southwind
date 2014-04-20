@@ -6,8 +6,6 @@
       <RemoveFiles Path="Southwind.Entities\IServerSouthwind.cs"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwind.svc"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwind.svc.cs"/>
-      <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc"/>
-      <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc.cs"/>
       <RemoveLine Path="Southwind.Web\Web.config" From="&lt;system.web&gt;" To="&lt;/system.diagnostics&gt;--&gt;"/>
     </Module>
 
@@ -37,6 +35,11 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DisconnectedClient.Start();"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="if (DisconnectedClient.OfflineMode)" To="}//OfflineMode"/>
       <RemoveLine Path="Southwind.Entities\Order.cs" Line="[Mixin(typeof(DisconnectedMixin))]"/>
+      <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc"/>
+      <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc.cs"/>
+      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;basicHttpBinding&gt;" To="&lt;/basicHttpBinding&gt;"/>
+      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;service name=&quot;Southwind.Web.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
+      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
     </Module>
 
     <Module Name="LoadNorthwind">
