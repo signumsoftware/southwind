@@ -89,7 +89,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
-      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" Line="var panel = ControlPanelLogic.GetHomePageControlPanel();"/>
+      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="var panel = ControlPanelLogic.GetHomePageControlPanel();" To="return View(ControlPanelClient.ViewPrefix.Formato(&quot;ControlPanel&quot;), panel);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ControlPanelClient.Start();"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ControlPanelClient.Start();"/>
     </Module>

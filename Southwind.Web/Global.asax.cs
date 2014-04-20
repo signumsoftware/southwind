@@ -191,7 +191,7 @@ namespace Southwind.Web
 
         protected void Session_Start(object sender, EventArgs e)
         {
-            AuthController.LoginFromCookie();
+            UserTicketClient.LoginFromCookie();
         }
 
         protected void Session_End(object sender, EventArgs e)
