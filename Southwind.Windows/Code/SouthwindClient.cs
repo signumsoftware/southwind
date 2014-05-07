@@ -38,7 +38,7 @@ namespace Southwind.Windows.Code
                     new EntitySettings<OrderDN>() { View = e => new Order()},
                 });
 
-                Constructor.Register(elem => new OrderDN
+                Constructor.Register((elem, args) => new OrderDN
                 {
                     OrderDate = DateTime.Now,
                     RequiredDate = DateTime.Now.AddDays(2),
@@ -46,12 +46,12 @@ namespace Southwind.Windows.Code
                     Details = new MList<OrderDetailsDN>()
                 });
 
-                Constructor.Register(elem => new PersonDN
+                Constructor.Register((elem, args) => new PersonDN
                 {
                     Address = new AddressDN()
                 });
 
-                Constructor.Register(elem => new CompanyDN
+                Constructor.Register((elem, args) => new CompanyDN
                 {
                     Address = new AddressDN()
                 });
