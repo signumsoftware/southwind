@@ -50,6 +50,9 @@ namespace Southwind.Logic
         {
             string logPostfix = Connector.TryExtractCatalogPostfix(ref connectionString, "_Log");
 
+            MixinDeclarations.Register<UserDN, UserMixin>();
+            MixinDeclarations.Register<ProcessDN, UserProcessSessionMixin>();
+
             SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2012);
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
@@ -65,14 +68,12 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((ProcessDN cp) => cp.Data, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
             sb.Schema.Settings.OverrideAttributes((PackageLineDN cp) => cp.Package, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
             sb.Schema.Settings.OverrideAttributes((ProcessExceptionLineDN cp) => cp.Line, new ImplementedByAttribute(typeof(PackageLineDN)));
-            sb.Schema.Settings.OverrideAttributes((UserProcessSessionDN s) => s.User, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((ProcessDN s) => s.Mixin<UserProcessSessionMixin>().User, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.From.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.Recipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.DefaultFrom.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.AditionalRecipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
             
-            MixinDeclarations.Register<UserDN, UserMixin>();
-
             DynamicQueryManager dqm = new DynamicQueryManager();
 
             Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm);
