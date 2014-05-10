@@ -24,13 +24,12 @@
         @Html.ValueLine(oc, o => o.IsLegacy)
     </div>
     
-    using (Html.FormInline())
-    {
-        using (var sc = oc.SubContext())
+    <div class="form-inline">
+        @using (var sc = oc.SubContext())
         {
             sc.FormGroupStyle = FormGroupStyle.SrOnly;
             sc.PlaceholderLabels = true;
-    @Html.EntityRepeater(sc, o => o.Details);
+            @Html.EntityRepeater(sc, o => o.Details);
         }
-    }
+    </div>
 }

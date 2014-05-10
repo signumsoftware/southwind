@@ -5,21 +5,20 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Name</label>
         <div class="col-sm-10">
-            @using (Html.FormInline())
-            {
-                using (var pc2 = pc.SubContext())
+            <div class="form-inline">
+                @using (var pc2 = pc.SubContext())
                 {
                     pc2.FormGroupStyle = FormGroupStyle.SrOnly;
                     pc2.PlaceholderLabels = true;
-                @Html.ValueLine(pc2, e => e.Title, vl =>
+                    @Html.ValueLine(pc2, e => e.Title, vl =>
                                         {
                                             vl.ValueHtmlProps["size"] = 4;
                                             vl.LabelText = "Title";
                                         })
-                @Html.ValueLine(pc2, e => e.FirstName)
-                @Html.ValueLine(pc2, e => e.LastName)
+                    @Html.ValueLine(pc2, e => e.FirstName)
+                    @Html.ValueLine(pc2, e => e.LastName)
                 }
-            }
+            </div>
         </div>
     </div>
  

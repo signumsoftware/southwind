@@ -2,16 +2,15 @@
 
 @using (var oc = Html.TypeContext<OrderDetailsDN>())
 {
-    using (Html.FormVertical())
-    {
-    <div class="row">
-        <div class="col-sm-4">
-            @Html.EntityLine(oc, o => o.Product, el => { el.Create = false; el.View = false; el.Find = false; el.Remove = false; })
+    <div class="form-vertical">
+        <div class="row">
+            <div class="col-sm-4">
+                @Html.EntityLine(oc, o => o.Product, el => { el.Create = false; el.View = false; el.Find = false; el.Remove = false; })
+            </div>
+            <div class="col-sm-2">@Html.ValueLine(oc, o => o.UnitPrice)</div>
+            <div class="col-sm-1">@Html.ValueLine(oc, o => o.Quantity)</div>
+            <div class="col-sm-2">@Html.ValueLine(oc, o => o.Discount)</div>
+            <div class="col-sm-2">@Html.ValueLine(oc, o => o.SubTotalPrice)</div>
         </div>
-        <div class="col-sm-2">@Html.ValueLine(oc, o => o.UnitPrice)</div>
-        <div class="col-sm-1">@Html.ValueLine(oc, o => o.Quantity)</div>
-        <div class="col-sm-2">@Html.ValueLine(oc, o => o.Discount)</div>
-        <div class="col-sm-2">@Html.ValueLine(oc, o => o.SubTotalPrice)</div>
     </div>
-    }
 }
