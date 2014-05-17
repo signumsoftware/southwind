@@ -10,8 +10,9 @@ export function attachCustomerEntityLine(el: Lines.EntityLine, fo: Finder.FindOp
     el.finding = (prefix) => Finder.find(fo);
 }
 
-export function updateStockValue(prefix) {
-    var sum = parseFloat($("#" + SF.compose(prefix, "UnitPrice")).val()) *
-        parseFloat($("#" + SF.compose(prefix, "UnitsInStock")).val());
-    $("#" + SF.compose(prefix, "ValueInStock_sfStaticValue")).html(sum.toString());
+export function updateStockValue(prefix: string) {
+    var sum = parseFloat(prefix.child("UnitPrice").get().val()) *
+              parseFloat(prefix.child("UnitsInStock").get().val());
+
+    prefix.child("ValueInStock_sfStaticValue").get().html(sum.toString());
 }

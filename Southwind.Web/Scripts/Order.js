@@ -8,8 +8,9 @@ define(["require", "exports", "Framework/Signum.Web/Signum/Scripts/Finder"], fun
     exports.attachCustomerEntityLine = attachCustomerEntityLine;
 
     function updateStockValue(prefix) {
-        var sum = parseFloat($("#" + SF.compose(prefix, "UnitPrice")).val()) * parseFloat($("#" + SF.compose(prefix, "UnitsInStock")).val());
-        $("#" + SF.compose(prefix, "ValueInStock_sfStaticValue")).html(sum.toString());
+        var sum = parseFloat(prefix.child("UnitPrice").get().val()) * parseFloat(prefix.child("UnitsInStock").get().val());
+
+        prefix.child("ValueInStock_sfStaticValue").get().html(sum.toString());
     }
     exports.updateStockValue = updateStockValue;
 });
