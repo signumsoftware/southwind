@@ -23,7 +23,7 @@ namespace Southwind.Web
         public static string ViewPrefix = "~/Views/Southwind/{0}.cshtml";
         public static string ThemeSessionKey = "swCurrentTheme";
 
-        public static string OrderModule = "Order";
+        public static JsModule OrderModule = new JsModule("Order");
 
         public static void Start()
         {
@@ -57,15 +57,16 @@ namespace Southwind.Web
                     obj == null ? null :
                     new MvcHtmlString("<img src=\"data:image/jpg;base64," + Base64Thumbnail((byte[])obj) + "\" />"));
 
-                Constructor.ConstructorManager.Constructors.Add(typeof(EmployeeDN), () => new EmployeeDN { Address = new AddressDN() });
-                Constructor.ConstructorManager.Constructors.Add(typeof(OrderDN), () => new OrderDN { 
+                Constructor.Register(ctx => new EmployeeDN { Address = new AddressDN() });
+                Constructor.Register(ctx => new OrderDN
+                { 
                     ShipAddress = new AddressDN(),
                     Details = new MList<OrderDetailsDN>()
                 
                 });
-                Constructor.ConstructorManager.Constructors.Add(typeof(PersonDN), () => new PersonDN { Address = new AddressDN() });
-                Constructor.ConstructorManager.Constructors.Add(typeof(CompanyDN), () => new CompanyDN { Address = new AddressDN() });
-                Constructor.ConstructorManager.Constructors.Add(typeof(SupplierDN), () => new SupplierDN { Address = new AddressDN() });
+                Constructor.Register(ctx => new PersonDN { Address = new AddressDN() });
+                Constructor.Register(ctx => new CompanyDN { Address = new AddressDN() });
+                Constructor.Register(ctx => new SupplierDN { Address = new AddressDN() });
 
                 Navigator.EntitySettings<EmployeeDN>().MappingMain.AsEntityMapping().RemoveProperty(a => a.Photo);
 

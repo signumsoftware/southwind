@@ -119,7 +119,7 @@
                 {
                     <input id="sfOmnibox" name="sfOmnibox" type="text" class="form-control" placeholder="@Signum.Entities.Omnibox.OmniboxMessage.Search.NiceToString()" />
                     <script type="text/javascript">
-                        @(new JsFunction(Signum.Web.Omnibox.OmniboxClient.Module, "initialize", "sfOmnibox", Url.Action("Autocomplete", "Omnibox")))
+                        @(Signum.Web.Omnibox.OmniboxClient.Module["initialize"]("sfOmnibox", Url.Action("Autocomplete", "Omnibox")))
                     </script>
                 }
             </div>
@@ -132,7 +132,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li class="theme-selector">
+                    <li>
                         @{  
                             var themes = new List<string> 
             { 

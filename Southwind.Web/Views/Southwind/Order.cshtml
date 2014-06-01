@@ -7,8 +7,7 @@
         @Html.ValueLine(oc, o => o.ShipName)
         @Html.EntityLine(oc, o => o.Customer, el =>
                         {
-                            el.AttachFunction = new JsLineFunction("Order", "attachCustomerEntityLine",
-                                new FindOptions(typeof(CustomerDN)).ToJS(el.Prefix));
+                            el.AttachFunction = Southwind.Web.SouthwindClient.OrderModule["attachCustomerEntityLine"](el, new FindOptions(typeof(CustomerDN)).ToJS(el.Prefix));
                         })
         @Html.EmbeddedControl(oc, o => o.ShipAddress, ec => ec.ViewData = new Dictionary<string, object> { { "Legend", Html.PropertyNiceName(() => oc.Value.ShipAddress) } })
     </div>
