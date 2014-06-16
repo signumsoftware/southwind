@@ -188,8 +188,11 @@
     <Module Name="ThemeSelector">
       <RemoveFiles Path="Southwind.Web\Libs\bootstrap\themes"/>
       <RemoveFiles Path="Southwind.Web\Scripts\southwind.ts"/>
+      <RemoveFiles Path="Southwind.Web\Scripts\southwind.js"/>      
       <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="&lt;li class=&quot;theme-selector-container&quot;&gt;" To="&lt;/li&gt;"/>
-    </Module>
+	  <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeTheme()" To="}"/>
+	  <RemoveLine Path="Southwind.Web\Code\PortalClient.cs" Line="public static string ThemeSessionKey = &quot;swCurrentTheme&quot;;"/>
+	  </Module>
 
     <Module Name="Profiler">
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProfilerLogic.Start(sb, dqm," To="overrideSessionTimeout: true);"/>

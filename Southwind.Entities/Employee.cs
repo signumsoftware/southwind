@@ -7,6 +7,7 @@ using Signum.Utilities;
 using Signum.Entities.Basics;
 using System.Data;
 using Signum.Entities.Authorization;
+using System.Linq.Expressions;
 
 namespace Southwind.Entities
 {
@@ -124,7 +125,9 @@ namespace Southwind.Entities
             set { Set(ref photoPath, value); }
         }
 
-        MList<TerritoryDN> territories;
+        [NotNullable]
+        MList<TerritoryDN> territories = new MList<TerritoryDN>();
+        [NoRepeatValidator]
         public MList<TerritoryDN> Territories
         {
             get { return territories; }
@@ -167,9 +170,10 @@ namespace Southwind.Entities
             set { SetToStr(ref description, value); }
         }
 
+        static Expression<Func<TerritoryDN, string>> ToStringExpression = e => e.Description;
         public override string ToString()
         {
-            return description;
+            return ToStringExpression.Evaluate(this);
         }
     }
 
@@ -190,9 +194,10 @@ namespace Southwind.Entities
             set { SetToStr(ref description, value); }
         }
 
+        static Expression<Func<RegionDN, string>> ToStringExpression = e => e.Description;
         public override string ToString()
         {
-            return description;
+            return ToStringExpression.Evaluate(this);
         }
     }
 

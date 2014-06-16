@@ -149,7 +149,7 @@ namespace Southwind.Load
                     UserName = "System",                   
                     PasswordHash = Security.EncodePassword("System"),
                     Role = Database.Query<RoleDN>().Where(r => r.Name == "Super user").SingleEx(),
-                    State = UserState.Created,
+                    State = UserState.Saved,
                 }.Save(); 
 
                 tr.Commit();
@@ -182,7 +182,7 @@ namespace Southwind.Load
                             PasswordHash = Security.EncodePassword(employee.FirstName),
                             Role = i < 2 ? su :
                                    i < 5 ? au : u,
-                            State = UserState.Created,
+                            State = UserState.Saved,
 
                         }.Save();
                     }

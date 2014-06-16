@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using Signum.Entities;
 using Signum.Utilities;
@@ -152,9 +153,10 @@ namespace Southwind.Entities
             set { Set(ref contactTitle, value); }
         }
 
+        static Expression<Func<CompanyDN, string>> ToStringExpression = e => e.CompanyName;
         public override string ToString()
         {
-            return companyName;
+            return ToStringExpression.Evaluate(this);
         }
 
         public static CompanyDN Current { get; set; }

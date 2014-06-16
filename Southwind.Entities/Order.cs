@@ -94,8 +94,9 @@ namespace Southwind.Entities
             set { Set(ref freight, value); }
         }
 
-        [ValidateChildProperty, NotifyChildProperty, NotifyCollectionChanged]
+        [NotNullable, ValidateChildProperty, NotifyChildProperty, NotifyCollectionChanged]
         MList<OrderDetailsDN> details = new MList<OrderDetailsDN>();
+        [NoRepeatValidator]
         public MList<OrderDetailsDN> Details
         {
             get { return details; }
@@ -286,9 +287,10 @@ namespace Southwind.Entities
             set { Set(ref phone, value); }
         }
 
+        static Expression<Func<ShipperDN, string>> ToStringExpression = e => e.CompanyName;
         public override string ToString()
         {
-            return companyName;
+            return ToStringExpression.Evaluate(this);
         }
     }
 

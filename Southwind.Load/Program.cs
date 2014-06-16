@@ -17,6 +17,7 @@ using Signum.Engine.Operations;
 using Signum.Entities.Translation;
 using System.Globalization;
 using Signum.Entities.Mailing;
+using Signum.Entities.Files;
 
 namespace Southwind.Load
 {
@@ -24,6 +25,7 @@ namespace Southwind.Load
     {
         static void Main(string[] args)
         {
+
             using (AuthLogic.Disable())
             using (Sync.ChangeCulture("en"))
             using (Sync.ChangeCultureUI("en"))
@@ -122,7 +124,7 @@ namespace Southwind.Load
             SqlPreCommand command = Administrator.TotalSynchronizeScript();
             if (command == null)
             {
-                Console.WriteLine("Already synchronized!");
+                SafeConsole.WriteLineColor(ConsoleColor.Green, "Already synchronized!");
                 return;
             }
 

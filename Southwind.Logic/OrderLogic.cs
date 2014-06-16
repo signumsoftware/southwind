@@ -30,7 +30,7 @@ namespace Southwind.Logic
                         Entity = o.ToLite(),
                         o.Id,
                         o.State,
-                        Customer = o.Customer.ToLite(),
+                        o.Customer,
                         o.Employee,
                         o.OrderDate,
                         o.RequiredDate,
@@ -52,13 +52,11 @@ namespace Southwind.Logic
                         od.SubTotalPrice,
                     });
 
-
-
-                GraphOrder.Register();
+                OrderGraph.Register();
             }
         }
 
-        public class GraphOrder : Graph<OrderDN, OrderState>
+        public class OrderGraph : Graph<OrderDN, OrderState>
         {
             public static void Register()
             {

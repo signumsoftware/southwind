@@ -91,9 +91,10 @@ namespace Southwind.Entities
             get { return ValueInStockExpression.Evaluate(this); }
         }
 
+        static Expression<Func<ProductDN, string>> ToStringExpression = e => e.ProductName;
         public override string ToString()
         {
-            return productName;
+            return ToStringExpression.Evaluate(this);
         }
     }
 
@@ -168,9 +169,10 @@ namespace Southwind.Entities
             set { Set(ref homePage, value); }
         }
 
+        static Expression<Func<SupplierDN, string>> ToStringExpression = e => e.CompanyName;
         public override string ToString()
         {
-            return companyName;
+            return ToStringExpression.Evaluate(this);
         }
     }
 
