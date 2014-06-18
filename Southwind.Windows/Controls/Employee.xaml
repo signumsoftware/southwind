@@ -57,15 +57,13 @@
         <GroupBox Header="Company data" Grid.Row="1">
             <StackPanel>
                 <m:ValueLine m:Common.Route="Title" />
-                <m:EntityLine m:Common.Route="ReportsTo"></m:EntityLine>
+                <m:EntityLine m:Common.Route="ReportsTo"/>
                 <m:ValueLine m:Common.Route="HireDate" />
                 <m:ValueLine m:Common.Route="Extension" />
+                <m:EntityStrip m:Common.Route="Territories"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox m:Common.LabelOnlyRoute="Territories" Grid.Column="1" Grid.Row="1">
-            <m:EntityList m:Common.Route="Territories" HorizontalAlignment="Stretch"/>
-        </GroupBox>
-        <GroupBox m:Common.LabelOnlyRoute="Notes" Background="#FFFFEEBB" Grid.Row="2" Grid.ColumnSpan="2" >
+        <GroupBox m:Common.LabelOnlyRoute="Notes" Grid.Column="1" Grid.Row="1">
             <m:ShyBorder Horizontal="True" Vertical="False">
                 <m:TextArea m:Common.Route="Notes" MinHeight="100" />
             </m:ShyBorder>

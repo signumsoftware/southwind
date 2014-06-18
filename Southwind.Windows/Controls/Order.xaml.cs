@@ -42,7 +42,7 @@ namespace Southwind.Windows.Controls
             InitializeComponent();
         }
 
-        private IEnumerable AutoCompleteTextBox_AutoCompleting(string arg, CancellationToken ct)
+        private IEnumerable AutocompleteTextBox_AutoCompleting(string arg, CancellationToken ct)
         {
             return Server.Return((IBaseServer s) => s.FindLiteLike(Implementations.By(typeof(ProductDN)), arg, 5)); 
         }    
@@ -85,9 +85,9 @@ namespace Southwind.Windows.Controls
             Navigator.Navigate(CurrentOrderDetails.Product);
         }
 
-        private void AutoCompleteTextBox_Closed(object sender, RoutedEventArgs e)
+        private void AutocompleteTextBox_Closed(object sender, RoutedEventArgs e)
         {
-            AutoCompleteTextBox autoComplete = (AutoCompleteTextBox)sender;
+            AutocompleteTextBox autoComplete = (AutocompleteTextBox)sender;
             OrderDetailsDN orderDetails = (OrderDetailsDN)autoComplete.DataContext;
             Lite<ProductDN> product = (Lite<ProductDN>)autoComplete.SelectedItem;
 
@@ -106,9 +106,9 @@ namespace Southwind.Windows.Controls
         }
 
 
-        private void AutoCompleteTextBox_Loaded(object sender, RoutedEventArgs e)
+        private void AutocompleteTextBox_Loaded(object sender, RoutedEventArgs e)
         {
-            var actb = (AutoCompleteTextBox)sender;
+            var actb = (AutocompleteTextBox)sender;
             actb.Text = CurrentOrderDetails.Product.TryToString();
             actb.Text = CurrentOrderDetails.Product.TryToString();
             actb.SelectAndFocus();

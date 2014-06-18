@@ -11,23 +11,21 @@
     <fieldset>
         <legend>@(ViewData["Legend"] ?? typeof(AddressDN).NiceName())</legend>
 
-        <div class="row">
-            <div class="col-md-12">
-                @Html.ValueLine(ac, a => a.Address)
-            </div>
+        <div class="col-sm-12">
+            @Html.ValueLine(ac, a => a.Address, a => a.FormGroupStyle = FormGroupStyle.SrOnly)
         </div>
         <div class="row">
-            @using(var ac2 = ac.SubContext())
+            @using (var ac2 = ac.SubContext())
             {
-                ac2.LabelColumns = new BsColumn(4);
-            <div class="col-md-6">
-                @Html.ValueLine(ac2, a => a.City)
-                @Html.ValueLine(ac2, a => a.Region)
-            </div>
-            <div class="col-md-6">
-                @Html.ValueLine(ac2, a => a.PostalCode)
-                @Html.ValueLine(ac2, a => a.Country)
-            </div>
+                ac2.LabelColumns = new BsColumn(5);
+                <div class="col-sm-6">
+                    @Html.ValueLine(ac2, a => a.City)
+                    @Html.ValueLine(ac2, a => a.PostalCode)
+                </div>
+                <div class="col-sm-6">                    
+                    @Html.ValueLine(ac2, a => a.Region)
+                    @Html.ValueLine(ac2, a => a.Country)
+                </div>
             }
         </div>
     </fieldset>

@@ -2,33 +2,50 @@
 
 @using (var oc = Html.TypeContext<OrderDN>())
 {
+    oc.FormGroupSize = FormGroupSize.Small;
+    
+    @Html.ValueLine(oc, o => o.ShipName)
     oc.LabelColumns = new BsColumn(4);
-    <div class="col-md-6">
-        @Html.ValueLine(oc, o => o.ShipName)
-        @Html.EntityLine(oc, o => o.Customer, el =>
-                        {
-                            el.AttachFunction = Southwind.Web.SouthwindClient.OrderModule["attachCustomerEntityLine"](el, new FindOptions(typeof(CustomerDN)).ToJS(el.Prefix));
-                        })
-        @Html.EmbeddedControl(oc, o => o.ShipAddress, ec => ec.ViewData = new Dictionary<string, object> { { "Legend", Html.PropertyNiceName(() => oc.Value.ShipAddress) } })
+    <div class="row">
+        <div class="col-sm-6">
+
+            @Html.EntityLine(oc, o => o.Customer, el =>
+            {
+                el.AttachFunction = Southwind.Web.SouthwindClient.OrderModule["attachCustomerEntityLine"](el, new FindOptions(typeof(CustomerDN)).ToJS(el.Prefix));
+            })
+            @Html.EmbeddedControl(oc, o => o.ShipAddress, ec => ec.ViewData = new Dictionary<string, object> { { "Legend", Html.PropertyNiceName(() => oc.Value.ShipAddress) } })
+        </div>
+
+        <div class="col-sm-6">
+            @using (var sc = oc.SubContext())
+            {
+                sc.LabelColumns = new BsColumn(3);
+                @Html.ValueLine(sc, o => o.IsLegacy)
+                @Html.ValueLine(sc, o => o.OrderDate)
+                @Html.ValueLine(sc, o => o.RequiredDate)
+                @Html.ValueLine(sc, o => o.ShippedDate)
+                @Html.EntityCombo(sc, o => o.ShipVia)
+            }
+        </div>
     </div>
-    
-    <div class="col-md-6">
-        @Html.ValueLine(oc, o => o.TotalPrice)
-        @Html.EntityLine(oc, o => o.Employee)
-        @Html.ValueLine(oc, o => o.OrderDate)
-        @Html.ValueLine(oc, o => o.RequiredDate)
-        @Html.ValueLine(oc, o => o.ShippedDate)
-        @Html.EntityCombo(oc, o => o.ShipVia)
-        @Html.ValueLine(oc, o => o.Freight)
-        @Html.ValueLine(oc, o => o.IsLegacy)
-    </div>
-    
-    <div class="form-inline">
+    <div class="form-inline repeater-inline order-detail">
         @using (var sc = oc.SubContext())
         {
             sc.FormGroupStyle = FormGroupStyle.SrOnly;
             sc.PlaceholderLabels = true;
             @Html.EntityRepeater(sc, o => o.Details);
         }
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.EntityLine(oc, o => o.Employee, vl => vl.LabelColumns = new BsColumn(4))
+        </div>
+        <div class="col-sm-4">
+            @Html.ValueLine(oc, o => o.Freight, vl => vl.LabelColumns = new BsColumn(4))
+        </div>
+        <div class="col-sm-4">
+            @Html.ValueLine(oc, o => o.TotalPrice, vl => vl.LabelColumns = new BsColumn(4))
+        </div>
     </div>
 }

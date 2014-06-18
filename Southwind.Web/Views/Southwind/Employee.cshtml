@@ -2,9 +2,8 @@
 @using Southwind.Web.Controllers
 @using (var ec = Html.TypeContext<EmployeeDN>())
 {
-  
-    <div class="row">
-        <fieldset class="col-sm-9">
+    <div class="col-sm-9">
+        <fieldset>
             <legend>Personal Info</legend>
 
             <div class="form-group">
@@ -31,18 +30,8 @@
             @Html.ValueLine(ec, e => e.HomePhone)
         </fieldset>
 
-        @if (!ec.Value.IsNew)
-        {
-            <div class="col-sm-3">
-                <img class="img-responsive" src="@(Url.Action<HomeController>(hc => hc.EmployeePhoto(ec.Value.ToLite())))" />
-            </div>
-        }
-    </div>
-    
-    <div class="row">
         @Html.EmbeddedControl(ec, e => e.Address)
-    </div>
-    <div class="row">
+
         <fieldset>
             <legend>Company data</legend>
             @Html.ValueLine(ec, e => e.TitleOfCourtesy)
@@ -52,15 +41,18 @@
             @Html.EntityStrip(ec, e => e.Territories)
         </fieldset>
     </div>
-    
-    <div class="row">
+   
+    <div class="col-sm-3">
+        @if (!ec.Value.IsNew)
+        {
+            <img class="img-responsive" src="@(Url.Action<HomeController>(hc => hc.EmployeePhoto(ec.Value.ToLite())))" />
+        }
         <div class="form-vertical">
             @Html.ValueLine(ec, e => e.Notes, vl =>
             {
                 vl.FormGroupStyle = FormGroupStyle.Basic;
                 vl.ValueLineType = ValueLineType.TextArea;
-                vl.ValueHtmlProps["cols"] = "70";
-                vl.ValueHtmlProps["rows"] = "4";
+                vl.ValueHtmlProps["rows"] = "10";
                 vl.ValueHtmlProps["class"] = "notes";
             })
         </div>

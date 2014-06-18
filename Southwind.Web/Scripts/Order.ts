@@ -8,6 +8,23 @@ import Lines = require("Framework/Signum.Web/Signum/Scripts/Lines")
 
 export function attachCustomerEntityLine(el: Lines.EntityLine, fo: Finder.FindOptions) {
     el.finding = (prefix) => Finder.find(fo);
+
+    el.entityChanged = () =>
+    {
+        el.getOrRequestEntityHtml().then(e=> {
+
+            var shipAddress = el.prefix.parent("Customer").child("ShipAddress"); 
+
+            var copy = (part: string) =>
+                shipAddress.child(part).get().val(e == null ? "" : e.getChild("Address_" + part).val());
+
+            copy("Address");
+            copy("City");
+            copy("Region");
+            copy("PostalCode");
+            copy("Country");
+        }); 
+    };
 }
 
 export function updateStockValue(prefix: string) {

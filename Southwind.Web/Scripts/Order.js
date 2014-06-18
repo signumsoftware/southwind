@@ -4,6 +4,22 @@ define(["require", "exports", "Framework/Signum.Web/Signum/Scripts/Finder"], fun
         el.finding = function (prefix) {
             return Finder.find(fo);
         };
+
+        el.entityChanged = function () {
+            el.getOrRequestEntityHtml().then(function (e) {
+                var shipAddress = el.prefix.parent("Customer").child("ShipAddress");
+
+                var copy = function (part) {
+                    return shipAddress.child(part).get().val(e == null ? "" : e.getChild("Address_" + part).val());
+                };
+
+                copy("Address");
+                copy("City");
+                copy("Region");
+                copy("PostalCode");
+                copy("Country");
+            });
+        };
     }
     exports.attachCustomerEntityLine = attachCustomerEntityLine;
 

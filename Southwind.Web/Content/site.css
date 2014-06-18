@@ -62,45 +62,25 @@ navbar-header
   }
 }
 
-/* Southwind specific */
-/*#territories .sf-field
+
+div.order-detail input.form-control
 {
-    min-width: inherit;
+    width: 100%;
 }
 
-#productExternal
+div.order-detail
 {
-    padding: 0 30px;    
-    margin: 10px 0;
-}
-#productInternal
-{
-    border: solid 1px gray;    
-    padding: 5px;
-    display: table;
-}
-#productInternal td
-{
-    padding: 0 5px;    
-}
-#productInternal td:first-child
-{
-    padding-top: 5px;
-    vertical-align: top;
-}
-#trMultiply
-{
-    border-bottom: solid 2px #000;    
+
 }
 
-div.photo
-{
-    border:1px solid black;
-    padding: 4px;
-    margin: 5px; 
+div.order-detail.repeater-inline .sf-repeater-element legend {
+    float: left;
+    margin-left: -10px;
+    margin-right: -14px;
+    border: 0px;
+    margin-top: -4px;
 }
-.notes
-{
-    background-color: #FFC;
-    border-color: #F3F395;
-}*/
+
+div.order-detail.repeater-inline .form-group.form-sm {
+  margin-bottom: 0px;
+}
