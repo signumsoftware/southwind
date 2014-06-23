@@ -12,8 +12,8 @@ using Southwind.Logic;
 using Southwind.Web;
 using Signum.Entities.Authorization;
 using Signum.Engine.Authorization;
-using Signum.Engine.ControlPanel;
-using Signum.Web.ControlPanel;
+using Signum.Engine.Dashboard;
+using Signum.Web.Dashboard;
 
 namespace Southwind.Web.Controllers
 {
@@ -22,9 +22,9 @@ namespace Southwind.Web.Controllers
     {
         public ActionResult Index()
         {
-            var panel = ControlPanelLogic.GetHomePageControlPanel();
+            var panel = DashboardLogic.GetHomePageDashboard();
             if (panel != null)
-                return View(ControlPanelClient.ViewPrefix.Formato("ControlPanel"), panel);
+                return View(DashboardClient.ViewPrefix.Formato("Dashboard"), panel);
             
             return View();
         }

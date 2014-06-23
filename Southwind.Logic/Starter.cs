@@ -6,7 +6,7 @@ using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Engine.Basics;
 using Signum.Engine.Chart;
-using Signum.Engine.ControlPanel;
+using Signum.Engine.Dashboard;
 using Signum.Engine.Disconnected;
 using Signum.Engine.DynamicQuery;
 using Signum.Engine.Exceptions;
@@ -18,7 +18,7 @@ using Signum.Entities;
 using Signum.Entities.Authorization;
 using Signum.Entities.Basics;
 using Signum.Entities.Chart;
-using Signum.Entities.ControlPanel;
+using Signum.Entities.Dashboard;
 using Signum.Entities.Disconnected;
 using Signum.Entities.Mailing;
 using Signum.Entities.UserQueries;
@@ -61,7 +61,7 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.OverrideAttributes((ControlPanelDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((DashboardDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((NoteDN n) => n.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.AttendedBy, new ImplementedByAttribute(typeof(UserDN)));
@@ -108,9 +108,9 @@ namespace Southwind.Logic
             ChartLogic.Start(sb, dqm);
             UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-            ControlPanelLogic.Start(sb, dqm);
-            ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-            ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+            DashboardLogic.Start(sb, dqm);
+            DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+            DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
 
             ExceptionLogic.Start(sb, dqm);
 

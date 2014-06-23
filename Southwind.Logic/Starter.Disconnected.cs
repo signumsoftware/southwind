@@ -9,7 +9,7 @@ using Signum.Engine.Disconnected;
 using Signum.Entities.Authorization;
 using Signum.Entities.Basics;
 using Signum.Entities.Chart;
-using Signum.Entities.ControlPanel;
+using Signum.Entities.Dashboard;
 using Signum.Entities.Mailing;
 using Southwind.Entities;
 using Signum.Entities.UserQueries;
@@ -73,7 +73,7 @@ namespace Southwind.Logic
 
 
             //Signum.Entities.ControlPanel
-            DisconnectedLogic.Register<ControlPanelDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DashboardDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<UserChartPartDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<UserQueryPartDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<CountSearchControlPartDN>(Download.None, Upload.None);

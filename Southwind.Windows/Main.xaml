@@ -6,11 +6,11 @@
     xmlns:seb="clr-namespace:Signum.Entities.Basics;assembly=Signum.Entities"
     xmlns:sea="clr-namespace:Signum.Entities.Authorization;assembly=Signum.Entities.Extensions"
     xmlns:sec="clr-namespace:Signum.Entities.Chart;assembly=Signum.Entities.Extensions"
-    xmlns:secp="clr-namespace:Signum.Entities.ControlPanel;assembly=Signum.Entities.Extensions"
+    xmlns:sedb="clr-namespace:Signum.Entities.Dashboard;assembly=Signum.Entities.Extensions"
     xmlns:seu="clr-namespace:Signum.Entities.UserQueries;assembly=Signum.Entities.Extensions"
     xmlns:sed="clr-namespace:Signum.Entities.Disconnected;assembly=Signum.Entities.Extensions"
     xmlns:swo="clr-namespace:Signum.Windows.Omnibox;assembly=Signum.Windows.Extensions"
-    xmlns:swcp="clr-namespace:Signum.Windows.ControlPanels;assembly=Signum.Windows.Extensions"
+    xmlns:swdb="clr-namespace:Signum.Windows.Dashboard;assembly=Signum.Windows.Extensions"
     Title="Southwind Application"  SizeToContent="WidthAndHeight">
     <DockPanel LastChildFill="True">
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
@@ -53,6 +53,6 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <swcp:ControlPanelView />
+        <swdb:DashboardView />
     </DockPanel>
 </Window> 

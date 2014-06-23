@@ -20,7 +20,7 @@ using System.Windows.Media;
 using System.Windows.Data;
 using Signum.Windows.Operations;
 using Signum.Windows.Authorization;
-using Signum.Windows.Reports;
+using Signum.Windows.Excel;
 using Signum.Windows.Chart;
 using Signum.Entities.Authorization;
 using Signum.Windows.UserQueries;
@@ -29,7 +29,7 @@ using Southwind.Local;
 using Southwind.Windows.Properties;
 using System.IO;
 using Signum.Windows.Omnibox;
-using Signum.Windows.ControlPanels;
+using Signum.Windows.Dashboard;
 using Signum.Entities.Disconnected;
 using Signum.Windows.Processes;
 using Signum.Windows.Notes;
@@ -99,7 +99,7 @@ namespace Southwind.Windows
             ReportClient.Start(toExcel: true, excelReport: false);
             UserQueryClient.Start();
             ChartClient.Start();
-            ControlPanelClient.Start();
+            DashboardClient.Start();
 
             ExceptionClient.Start();
 

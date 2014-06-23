@@ -17,11 +17,11 @@ using Signum.Web.Operations;
 using Signum.Entities.Authorization;
 using System.Threading;
 using Signum.Web.UserQueries;
-using Signum.Web.Reports;
+using Signum.Web.Excel;
 using Signum.Utilities;
 using System.Globalization;
 using Signum.Web.Chart;
-using Signum.Web.ControlPanel;
+using Signum.Web.Dashboard;
 using Signum.Web.Exceptions;
 using Signum.Web.Omnibox;
 using Signum.Web.Files;
@@ -141,10 +141,10 @@ namespace Southwind.Web
                 file: true, 
                 embeddedFile: false);
             ChartClient.Start();
-            ReportSpreadsheetClient.Start(
+            ExcelClient.Start(
                 toExcelPlain:  true, 
                 excelReport: false);
-            ControlPanelClient.Start();
+            DashboardClient.Start();
 
             DisconnectedClient.Start();
             ProcessesClient.Start(
