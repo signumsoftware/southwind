@@ -122,9 +122,8 @@ namespace Southwind.Windows
 
             Navigator.Initialize();
 
-            if (DisconnectedClient.OfflineMode)
+            if (Server.OfflineMode)
             {
-                LocalServer.OverrideCommonEvents();
                 DisconnectedExportRanges.Initialize(
                     LocalServer.LastExport(),    
                     DisconnectedMachineDN.Current.Retrieve(),

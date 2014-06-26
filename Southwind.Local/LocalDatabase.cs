@@ -110,12 +110,6 @@ namespace Southwind.Local
             }
         }
 
-        public static void OverrideCommonEvents()
-        {
-            QueryToken.EntityExtensions = parent => DynamicQueryManager.Current.GetExtensions(parent);
-            PropertyRoute.SetFindImplementationsCallback(Schema.Current.FindImplementations);
-        }
-
         public static DisconnectedExportDN LastExport()
         {
             using (AuthLogic.Disable())

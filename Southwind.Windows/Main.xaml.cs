@@ -33,7 +33,7 @@ namespace Southwind.Windows
         {
             MenuManager.ProcessMenu(menu);
 
-            if (DisconnectedClient.OfflineMode)
+            if (Server.OfflineMode)
             {
                 miDisconnected.Header = "(Local)";
                 miDownload.IsEnabled = false;

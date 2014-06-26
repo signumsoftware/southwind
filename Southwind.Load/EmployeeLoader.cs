@@ -67,6 +67,17 @@ namespace Southwind.Load
 
                 var territoriesDic = Database.RetrieveAll<TerritoryDN>().ToDictionary(a => a.Id);
 
+
+                var exmployeeTerritories = (from e in db.Employees
+                                            from t in e.EmployeeTerritories
+                                            select new { e.EmployeeID, t.TerritoryID }).ToList()
+                          .AgGroupToDictionary(a => a.EmployeeID, gr =>
+                              gr.Select(a => int.Parse(a.TerritoryID))
+                              .Select(id => duplicateMapping.TryGet(id, id))
+                              .Select(id => territoriesDic[id])
+                              .Distinct().ToMList());
+
+
                 Administrator.SaveListDisableIdentity(
                     from e in db.Employees
                     select new EmployeeDN
@@ -89,8 +100,7 @@ namespace Southwind.Load
                             PostalCode = e.PostalCode,
                         },
                         Notes = e.Notes,
-                        Territories = (from id in e.EmployeeTerritories.Select(a => int.Parse(a.TerritoryID)).ToList()
-                                       select territoriesDic[duplicateMapping.TryGet(id, id)]).Distinct().ToMList(),
+                        Territories = exmployeeTerritories[e.EmployeeID],
                     }.SetId(e.EmployeeID));
 
                 var pairs = (from e in db.Employees
