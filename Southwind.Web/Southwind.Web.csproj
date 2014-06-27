@@ -100,6 +100,15 @@
   <ItemGroup>
     <Content Include="Content\site.css" />
     <TypeScriptCompile Include="Scripts\Order.ts" />
+    <Content Include="Libs\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="Libs\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Libs\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Libs\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Libs\bootstrap-colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Libs\bootstrap-colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Libs\bootstrap-colorpicker\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Libs\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="Libs\bootstrap-colorpicker\js\bootstrap-colorpicker.min.js" />
     <Content Include="Libs\bootstrap-datepicker\css\datepicker3.css" />
     <Content Include="Libs\bootstrap-datepicker\js\bootstrap-datepicker.js" />
     <Content Include="Libs\bootstrap-timepicker\css\bootstrap-timepicker.css" />
