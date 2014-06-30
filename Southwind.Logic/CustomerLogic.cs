@@ -107,6 +107,11 @@ namespace Southwind.Logic
                 .Column(a => a.Phone, c => { c.OverrideIsAllowed = () => null; })
                 .Column(a => a.Fax, c => { c.OverrideIsAllowed = () => null; })
                 , entityImplementations: Implementations.By(typeof(PersonDN), typeof(CompanyDN)));
+
+                dqm.RegisterExpression((CustomerDN c) => c.Address).ForcePropertyRoute = PropertyRoute.Construct((PersonDN p) => p.Address);
+                dqm.RegisterExpression((CustomerDN c) => c.Phone).ForcePropertyRoute = PropertyRoute.Construct((PersonDN p) => p.Address);
+                dqm.RegisterExpression((CustomerDN c) => c.Fax).ForcePropertyRoute = PropertyRoute.Construct((PersonDN p) => p.Address);
+
             }
         }
     }
