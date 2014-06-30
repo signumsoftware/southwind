@@ -65,7 +65,7 @@
 
                 "ckeditor": "../Libs/ckeditor/ckeditor",
                 "Libs/CodeMirror": "../Libs/CodeMirror",
-             
+
             },
             shim: {
                 d3: { exports: 'd3' },
@@ -106,7 +106,7 @@
 </head>
 <body>
 
-    <header class="navbar navbar-default navbar-fixed-top">
+    <header class="navbar navbar-default navbar-static">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -164,6 +164,13 @@
 
     <div class="container">
         @RenderBody()
-    </div
+    </div>
+    <footer class="navbar navbar-default navbar-static">
+        <div class="container">
+            <div class="footerContainer">
+                Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

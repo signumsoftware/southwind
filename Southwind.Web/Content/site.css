@@ -1,17 +1,23 @@
 body
 {
-    padding-top: 50px;
+}
+
+footer.navbar
+{
+    position: absolute;
+    bottom: 0;
+    width:100%
+}
+
+.navbar
+{
+    margin: 0px;
+    border-radius: 0px;
 }
 
 .CodeMirror-fullscreen
 {
-    top:50px !important;
-}
-
-footer
-{
-    /*color: #999999;
-    background-color: #f5f5f5;*/
+    top: 50px !important;
 }
 
 .footerContainer
@@ -27,19 +33,19 @@ footer
 
 navbar-header
 {
-    white-space:nowrap;
+    white-space: nowrap;
 }
 
 .theme-selector
 {
-   width: 130px;
-   margin-top: 8px;
+    width: 130px;
+    margin-top: 8px;
 }
 
 #sfOmnibox
 {
-   width: 150px;
-   margin-top: 8px;
+    width: 150px;
+    margin-top: 8px;
 }
 
 /*Media */
@@ -56,10 +62,12 @@ navbar-header
     display: none !important;
 }
 
-@media (max-width: 350px) {
-  .visible-under-350 {
-    display: block !important;
-  }
+@media (max-width: 350px)
+{
+    .visible-under-350
+    {
+        display: block !important;
+    }
 }
 
 
@@ -70,17 +78,18 @@ div.order-detail input.form-control
 
 div.order-detail
 {
-
 }
 
-div.order-detail.repeater-inline .sf-repeater-element legend {
-    float: left;
-    margin-left: -10px;
-    margin-right: -14px;
-    border: 0px;
-    margin-top: -4px;
-}
+    div.order-detail.repeater-inline .sf-repeater-element legend
+    {
+        float: left;
+        margin-left: -10px;
+        margin-right: -14px;
+        border: 0px;
+        margin-top: -4px;
+    }
 
-div.order-detail.repeater-inline .form-group.form-sm {
-  margin-bottom: 0px;
-}
+    div.order-detail.repeater-inline .form-group.form-sm
+    {
+        margin-bottom: 0px;
+    }
