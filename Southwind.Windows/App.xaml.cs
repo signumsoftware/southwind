@@ -96,7 +96,7 @@ namespace Southwind.Windows
 
             ProcessClient.Start(package: true, packageOperation: true);
 
-            ReportClient.Start(toExcel: true, excelReport: false);
+            ExcelClient.Start(toExcel: true, excelReport: false);
             UserQueryClient.Start();
             ChartClient.Start();
             DashboardClient.Start();

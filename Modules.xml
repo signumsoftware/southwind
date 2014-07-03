@@ -27,13 +27,13 @@
       <RemoveLine Path="Southwind.Windows\Program.cs" Line="using Southwind.Local;"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="public enum StartOption" To="}"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="if (RunLocally())" To="else //Run remotely"/>
-      <RemoveLine Path="Southwind.Windows\Program.cs" From="if (!DisconnectedClient.OfflineMode)" To="}"/>
-      <RemoveLine Path="Southwind.Windows\Program.cs" From="if (DisconnectedClient.OfflineMode)" To="LocalServer.Stop();"/>
+      <RemoveLine Path="Southwind.Windows\Program.cs" From="if (!Server.OfflineMode)" To="}"/>
+      <RemoveLine Path="Southwind.Windows\Program.cs" From="if (Server.OfflineMode)" To="LocalServer.Stop();"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="private static bool RunLocally()" To="}//RunLocally"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="private static void UploadIfNecessary()" To="}//UploadIfNecessary"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="using Southwind.Local;"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DisconnectedClient.Start();"/>
-      <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="if (DisconnectedClient.OfflineMode)" To="}//OfflineMode"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="if (Server.OfflineMode)" To="}//OfflineMode"/>
       <RemoveLine Path="Southwind.Entities\Order.cs" Line="[Mixin(typeof(DisconnectedMixin))]"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc.cs"/>
@@ -43,7 +43,7 @@
     </Module>
 
     <Module Name="LoadNorthwind">	  
-	  <RemoveLine Path="Portal.Load\Program.cs"
+	  <RemoveLine Path="Southwind.Load\Program.cs"
 	    From="{0, EmployeeLoader.LoadRegions}," 
 	    To="{30, OrderLoader.UpdateOrdersDate },"/>
       <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
@@ -84,18 +84,18 @@
     </Module>
 
     <Module Name="Excel">
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ReportSpreadsheetClient.Start(" To="excelReport: false);"/>
-      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ReportClient.Start(toExcel: true, excelReport: false);"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ExcelClient.Start(" To="excelReport: false);"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ExcelClient.Start(toExcel: true, excelReport: false);"/>
     </Module>
 
-    <Module Name="ControlPanel">
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((ControlPanelDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
-      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="var panel = ControlPanelLogic.GetHomePageControlPanel();" To="return View(ControlPanelClient.ViewPrefix.Formato(&quot;ControlPanel&quot;), panel);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ControlPanelClient.Start();"/>
-      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ControlPanelClient.Start();"/>
+    <Module Name="Dashboard">
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((DashboardDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="var panel = DashboardLogic.GetHomePageDashboard();" To="return View(DashboardClient.ViewPrefix.Formato(&quot;Dashboard&quot;), panel);"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="DashboardClient.Start();"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DashboardClient.Start();"/>
     </Module>
 
     <Module Name="Process">
@@ -130,8 +130,8 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ControlPanelLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
     </Module>
 
     <Module Name="Auth_ResetPasswordRequest" DependsOn="Auth">
@@ -191,7 +191,7 @@
       <RemoveFiles Path="Southwind.Web\Scripts\southwind.js"/>      
       <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="&lt;li class=&quot;theme-selector-container&quot;&gt;" To="&lt;/li&gt;"/>
 	  <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeTheme()" To="}"/>
-	  <RemoveLine Path="Southwind.Web\Code\PortalClient.cs" Line="public static string ThemeSessionKey = &quot;swCurrentTheme&quot;;"/>
+	  <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="public static string ThemeSessionKey = &quot;swCurrentTheme&quot;;"/>
 	  </Module>
 
     <Module Name="Profiler">
