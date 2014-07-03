@@ -115,6 +115,7 @@ namespace Southwind.Windows
             OmniboxClient.Register(new UserQueryOmniboxProvider());
             OmniboxClient.Register(new UserChartOmniboxProvider());
             OmniboxClient.Register(new ChartOmniboxProvider());
+            OmniboxClient.Register(new DashboardOmniboxProvider());
 
             SouthwindClient.Start();
 

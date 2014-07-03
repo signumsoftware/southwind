@@ -36,6 +36,8 @@ using Signum.Engine.Files;
 using Southwind.Logic.Properties;
 using Signum.Entities.Alerts;
 using Signum.Entities.Notes;
+using Signum.Entities.UserAssets;
+using Signum.Engine.UserAssets;
 
 namespace Southwind.Logic
 {
@@ -62,6 +64,8 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((DashboardDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((UserAssetLogDN cp) => cp.User, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((UserAssetLogDN cp) => cp.Asset, new ImplementedByAttribute(typeof(UserQueryDN), typeof(UserChartDN), typeof(DashboardDN)));
             sb.Schema.Settings.OverrideAttributes((NoteDN n) => n.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.AttendedBy, new ImplementedByAttribute(typeof(UserDN)));
@@ -111,6 +115,7 @@ namespace Southwind.Logic
             DashboardLogic.Start(sb, dqm);
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+            UserAssetLogLogic.Start(sb, dqm); 
 
             ExceptionLogic.Start(sb, dqm);
 
@@ -151,10 +156,10 @@ namespace Southwind.Logic
 
             SetupCache(sb);
 
+            sb.ExecuteWhenIncluded();
+
             if (logPostfix.HasText())
                 SetLogDatabase(sb.Schema, new DatabaseName(null, ((SqlConnector)Connector.Current).DatabaseName() + logPostfix));
-
-            sb.ExecuteWhenIncluded();
         }
 
         private static void StartSouthwindConfiguration(SchemaBuilder sb, DynamicQueryManager dqm)

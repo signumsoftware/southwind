@@ -25,6 +25,7 @@ using Signum.Entities.Processes;
 using Signum.Entities.Notes;
 using Signum.Entities.Alerts;
 using Signum.Entities.Translation;
+using Signum.Entities.UserAssets;
 
 namespace Southwind.Logic
 {
@@ -121,7 +122,10 @@ namespace Southwind.Logic
 
             //Signum.Entities.Exceptions
             DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
-            
+
+            //Signum.Entities.UserAssets
+            DisconnectedLogic.Register<UserAssetLogDN>(Download.None, Upload.New);
+
             //Signum.Entities.UserQueries
             DisconnectedLogic.Register<UserQueryDN>(Download.All, Upload.New);
 
