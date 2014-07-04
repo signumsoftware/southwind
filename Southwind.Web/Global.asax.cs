@@ -180,6 +180,7 @@ namespace Southwind.Web
             OmniboxClient.Register(new UserQueriesOmniboxProvider());
             OmniboxClient.Register(new ChartOmniboxProvider());
             OmniboxClient.Register(new UserChartOmniboxProvider());
+            OmniboxClient.Register(new DashboardOmniboxProvider());
 
             ContextualItemsHelper.Start();
         } //WebStart
