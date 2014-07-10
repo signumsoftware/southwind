@@ -41,11 +41,6 @@ body {
     border-radius: 0px;
 }
 
-.CodeMirror-fullscreen
-{
-    top: 50px !important;
-}
-
 .footerContainer
 {
     margin: 15px 0;
