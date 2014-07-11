@@ -88,7 +88,10 @@ namespace Southwind.Windows
 
             Navigator.EntitySettings<UserDN>().OverrideView((usr, ctrl) =>
             {
-                ctrl.Child<EntityLine>("Role").After(new ValueLine().Set(Common.RouteProperty, "[UserMixin].AllowLogin"));
+                using (Common.DelayRoutes())
+                {
+                    ctrl.Child<EntityLine>("Role").After(new ValueLine().Set(Common.RouteProperty, "[UserMixin].AllowLogin"));
+                }
                 return ctrl;
             });
 
