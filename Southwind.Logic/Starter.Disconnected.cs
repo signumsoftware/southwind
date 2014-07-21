@@ -26,6 +26,7 @@ using Signum.Entities.Notes;
 using Signum.Entities.Alerts;
 using Signum.Entities.Translation;
 using Signum.Entities.UserAssets;
+using Signum.Entities.Scheduler;
 
 namespace Southwind.Logic
 {

@@ -35,6 +35,8 @@ using Signum.Web.Profiler;
 using Signum.Web.Cache;
 using Southwind.Entities;
 using Signum.Web.Mailing;
+using Signum.Web.Scheduler;
+using Signum.Engine.Scheduler;
 
 namespace Southwind.Web
 {
