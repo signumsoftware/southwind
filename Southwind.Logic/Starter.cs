@@ -38,6 +38,8 @@ using Signum.Entities.Alerts;
 using Signum.Entities.Notes;
 using Signum.Entities.UserAssets;
 using Signum.Engine.UserAssets;
+using Signum.Engine.Scheduler;
+using Signum.Entities.Scheduler;
 
 namespace Southwind.Logic
 {
@@ -72,7 +74,6 @@ namespace Southwind.Logic
             TypeLogic.Start(sb, dqm); 
 
             OperationLogic.Start(sb, dqm);
-
 
             CultureInfoLogic.Start(sb, dqm);
             FilePathLogic.Start(sb, dqm);
@@ -200,7 +201,6 @@ namespace Southwind.Logic
         private static void SetupCache(SchemaBuilder sb)
         {
             CacheLogic.CacheTable<ShipperDN>(sb);
-            CacheLogic.CacheTable<ProductDN>(sb);
         }
 
         public static void SetLogDatabase(Schema schema, DatabaseName logDatabaseName)

@@ -15,11 +15,16 @@ namespace Southwind.Logic
 {
     public static class ProductLogic
     {
+        public static ResetLazy<List<ProductDN>> ActiveProducts;
+
         public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
                 sb.Include<ProductDN>();
+
+                ActiveProducts = sb.GlobalLazy(() => Database.Query<ProductDN>().Where(a => !a.Discontinued).ToList(), 
+                    new InvalidateWith(typeof(ProductDN)));
 
                 dqm.RegisterQuery(typeof(ProductDN), () =>
                     from p in Database.Query<ProductDN>()
