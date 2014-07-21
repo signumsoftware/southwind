@@ -4,11 +4,12 @@
 {
 	@Html.ValueLine(cc, c => c.CompanyName)
 
-    @Html.EmbeddedControl(cc, c => c.Address)     
-    
 	@Html.ValueLine(cc, c => c.ContactName)
 	@Html.ValueLine(cc, c => c.ContactTitle)
   
 	@Html.ValueLine(cc, c => c.Phone)
 	@Html.ValueLine(cc, c => c.Fax)
+
+    
+    @Html.EmbeddedControl(cc, c => c.Address)  
 }
