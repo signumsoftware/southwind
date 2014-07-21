@@ -99,9 +99,16 @@
     </Module>
 
     <Module Name="Process">
+      <RemoveLine Path="Southwind.Entities\Order.cs" Line="public static readonly ConstructSymbol&lt;ProcessDN&gt;.FromMany&lt;OrderDN&gt; CancelWithProcess = OperationSymbol.Construct&lt;ProcessDN&gt;.FromMany&lt;OrderDN&gt;();"/>
+      <RemoveLine Path="Southwind.Entities\Order.cs" From="public static class OrderProcess" To="}"/>
+      <RemoveLine Path="Southwind.Logic\OrderLogic.cs" Line="ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());"/>
+      <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="public class CancelOrderAlgorithm : PackageExecuteAlgorithm&lt;OrderDN&gt;" To="} //CancelOrderAlgorithm"/>
+      <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="new Graph&lt;ProcessDN&gt;.ConstructFromMany&lt;OrderDN&gt;(OrderOperation.CancelWithProcess)" To="}.Register();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;ProcessDN, UserProcessSessionMixin&gt;();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="sb.Schema.Settings.OverrideAttributes((ProcessDN cp) => cp.Data, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));"
                   To="sb.Schema.Settings.OverrideAttributes((ProcessDN s) => s.Mixin&lt;UserProcessSessionMixin&gt;().User, new ImplementedByAttribute(typeof(UserDN)));"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProcessLogic.Start(sb, dqm, userProcessSession: true);"
+                  To="PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ProcessRunnerLogic.StartRunningProcesses(5 * 1000);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ProcessesClient.Start(" To="packageOperations: true);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ProcessClient.Start(package: true, packageOperation: true);"/>

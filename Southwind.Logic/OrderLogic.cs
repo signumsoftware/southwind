@@ -12,6 +12,8 @@ using System.Reflection;
 using Signum.Utilities;
 using Signum.Engine.Operations;
 using Signum.Entities.Authorization;
+using Signum.Engine.Processes;
+using Signum.Entities.Processes;
 
 namespace Southwind.Logic
 {
@@ -53,8 +55,21 @@ namespace Southwind.Logic
                     });
 
                 OrderGraph.Register();
+
+                ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());
+
             }
         }
+
+        public class CancelOrderAlgorithm : PackageExecuteAlgorithm<OrderDN>
+        {
+            public CancelOrderAlgorithm() : base(OrderOperation.Cancel) { }
+
+            public override void Execute(ExecutingProcess executingProcess)
+            {
+                base.Execute(executingProcess); // Override if necessary
+            }
+        } //CancelOrderAlgorithm
 
         public class OrderGraph : Graph<OrderDN, OrderState>
         {
@@ -103,6 +118,14 @@ namespace Southwind.Logic
                                 Quantity = 1,
                             }).ToMList()
                         };
+                    }
+                }.Register();
+
+                new Graph<ProcessDN>.ConstructFromMany<OrderDN>(OrderOperation.CancelWithProcess)
+                {
+                    Construct = (orders, _) =>
+                    {
+                        return ProcessLogic.Create(OrderProcess.CancelOrders, new PackageDN().CreateLines(orders));
                     }
                 }.Register();
 

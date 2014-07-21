@@ -9,6 +9,7 @@ using Signum.Utilities;
 using System.ComponentModel;
 using System.Collections.Specialized;
 using Signum.Entities.Disconnected;
+using Signum.Entities.Processes;
 
 namespace Southwind.Entities
 {
@@ -183,6 +184,7 @@ namespace Southwind.Entities
         public static readonly ExecuteSymbol<OrderDN> Cancel = OperationSymbol.Execute<OrderDN>();
         public static readonly ConstructSymbol<OrderDN>.From<CustomerDN> CreateOrderFromCustomer = OperationSymbol.Construct<OrderDN>.From<CustomerDN>();
         public static readonly ConstructSymbol<OrderDN>.FromMany<ProductDN> CreateOrderFromProducts = OperationSymbol.Construct<OrderDN>.FromMany<ProductDN>();
+        public static readonly ConstructSymbol<ProcessDN>.FromMany<OrderDN> CancelWithProcess = OperationSymbol.Construct<ProcessDN>.FromMany<OrderDN>();
     }
 
     [Serializable]
@@ -302,5 +304,10 @@ namespace Southwind.Entities
     public enum OrderQuery
     {
         OrderLines
+    }
+
+    public static class OrderProcess
+    {
+        public static readonly ProcessAlgorithmSymbol CancelOrders = new ProcessAlgorithmSymbol();
     }
 }
