@@ -30,8 +30,11 @@ namespace Southwind.Web
         {
             try
             {
+                string longDescription = mi.Name + description == null ? null : (" " + description);
+
+                using (TimeTracker.Start(longDescription))
+                using (HeavyProfiler.Log("WCF", () => longDescription))
                 using (ScopeSessionFactory.OverrideSession(session))
-                using (HeavyProfiler.Log("WCF", () => mi.Name + ": " + description))
                 {
                     return function();
                 }

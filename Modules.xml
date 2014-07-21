@@ -122,7 +122,6 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ProcessRunnerLogic.StartRunningProcesses(5 * 1000);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SchedulerClient.Start(simpleTask: true);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SchedulerClient.Start();"/>
-      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SchedulerClient.Start();"/>
     </Module>
 
     <Module Name="Mailing">
@@ -213,6 +212,7 @@
 	  </Module>
 
     <Module Name="Profiler">
+      <RemoveLine Path="Southwind.Web/ServerSouthwind.svc.cs" From="string longDescription = mi.Name + description == null ? null : (&quot; &quot; + description);" To="using (HeavyProfiler.Log(&quot;WCF&quot;, () => longDescription))"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProfilerLogic.Start(sb, dqm," To="overrideSessionTimeout: true);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SignumControllerFactory.EveryController().AddFilters(new ProfilerFilterAttribute());"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ProfilerClient.Start();"/>
