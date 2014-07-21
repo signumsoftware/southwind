@@ -120,6 +120,17 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<PackageLineDN>(Download.None, Upload.New);
             DisconnectedLogic.Register<ProcessExceptionLineDN>(Download.None, Upload.New);
 
+            //Signum.Entities.Scheduler
+            DisconnectedLogic.Register<SimpleTaskSymbol>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<ScheduledTaskDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleDailyDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleWeeklyDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleWeekDaysDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<HolidayCalendarDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleMinutelyDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleHourlyDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduledTaskLogDN>(Download.None, Upload.None);
+
             //Signum.Entities.Exceptions
             DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
 

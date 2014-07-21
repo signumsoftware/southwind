@@ -9,6 +9,7 @@ using Signum.Utilities;
 using System.ComponentModel;
 using System.Collections.Specialized;
 using Signum.Entities.Disconnected;
+using Signum.Entities.Scheduler;
 using Signum.Entities.Processes;
 
 namespace Southwind.Entities
@@ -304,6 +305,12 @@ namespace Southwind.Entities
     public enum OrderQuery
     {
         OrderLines
+    }
+
+    public static class OrderTasks
+    {
+        public static readonly SimpleTaskSymbol CancelOldOrdersWithProcess = new SimpleTaskSymbol();
+        public static readonly SimpleTaskSymbol CancelOldOrdersWithUnsafeUpdate = new SimpleTaskSymbol();
     }
 
     public static class OrderProcess

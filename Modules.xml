@@ -114,6 +114,17 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ProcessClient.Start(package: true, packageOperation: true);"/>
     </Module>
 
+    <Module Name="Scheduler" DependsOn="Process">
+      <RemoveLine Path="Southwind.Entities\Order.cs" From="public static class OrderTasks" To="}"/>
+      <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="SimpleTaskLogic.Register(OrderTasks.CancelOldOrdersWithProcess, () =>" To="});//CancelOldOrdersProcess"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((ScheduledTaskLogDN a) => a.User, new ImplementedByAttribute(typeof(UserDN)));"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SchedulerLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ProcessRunnerLogic.StartRunningProcesses(5 * 1000);"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SchedulerClient.Start(simpleTask: true);"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SchedulerClient.Start();"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SchedulerClient.Start();"/>
+    </Module>
+
     <Module Name="Mailing">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.From.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.Recipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));"/>

@@ -36,6 +36,7 @@ using Signum.Windows.Notes;
 using Signum.Windows.Alerts;
 using Signum.Windows.Profiler;
 using Southwind.Windows.Code;
+using Signum.Windows.Scheduler;
 
 namespace Southwind.Windows
 {
@@ -98,6 +99,7 @@ namespace Southwind.Windows
             LinksClient.Start(widget: true, contextualMenu: true);
 
             ProcessClient.Start(package: true, packageOperation: true);
+            SchedulerClient.Start();
 
             ExcelClient.Start(toExcel: true, excelReport: false);
             UserQueryClient.Start();

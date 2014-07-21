@@ -13,6 +13,7 @@ using Signum.Utilities;
 using Signum.Engine.Operations;
 using Signum.Entities.Authorization;
 using Signum.Engine.Processes;
+using Signum.Engine.Scheduler;
 using Signum.Entities.Processes;
 
 namespace Southwind.Logic
@@ -58,6 +59,28 @@ namespace Southwind.Logic
 
                 ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());
 
+                SimpleTaskLogic.Register(OrderTasks.CancelOldOrdersWithProcess, () =>
+                {
+                    var package = new PackageDN().CreateLines(Database.Query<OrderDN>().Where(a => a.OrderDate < DateTime.Now.AddDays(-7)));
+
+                    var process = ProcessLogic.Create(OrderProcess.CancelOrders, package);
+                        
+                    process.Execute(ProcessOperation.Execute);
+                    
+                    return process.ToLite();
+                });
+ 
+                SimpleTaskLogic.Register(OrderTasks.CancelOldOrdersWithUnsafeUpdate, () =>
+                {
+                    Database.Query<OrderDN>()
+                        .Where(a => a.OrderDate < DateTime.Now.AddDays(-7))
+                        .UnsafeUpdate()
+                        .Set(o => o.CancelationDate, o => DateTime.Now)
+                        .Set(o => o.State, o => OrderState.Canceled)
+                        .Execute();
+
+                    return null;
+                });//CancelOldOrdersProcess 
             }
         }
 

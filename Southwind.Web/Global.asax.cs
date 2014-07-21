@@ -92,6 +92,8 @@ namespace Southwind.Web
 
             ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
 
+            SchedulerLogic.StartScheduledTasks();
+
             RegisterRoutes(RouteTable.Routes);
 
             AuthLogic.UserLogingIn += user =>
@@ -150,6 +152,8 @@ namespace Southwind.Web
             ProcessesClient.Start(
                 packages: true,
                 packageOperations: true);
+
+            SchedulerClient.Start(simpleTask: true);
 
             NoteClient.Start();
             AlertClient.Start();

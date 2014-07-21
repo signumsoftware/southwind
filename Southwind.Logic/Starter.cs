@@ -58,26 +58,11 @@ namespace Southwind.Logic
             SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2012);
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
-            sb.Schema.Settings.OverrideAttributes((ExceptionDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((OperationLogDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
-            sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.OverrideAttributes((DashboardDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.OverrideAttributes((UserAssetLogDN cp) => cp.User, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((UserAssetLogDN cp) => cp.Asset, new ImplementedByAttribute(typeof(UserQueryDN), typeof(UserChartDN), typeof(DashboardDN)));
-            sb.Schema.Settings.OverrideAttributes((NoteDN n) => n.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.AttendedBy, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((ProcessDN cp) => cp.Data, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
-            sb.Schema.Settings.OverrideAttributes((PackageLineDN cp) => cp.Package, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
-            sb.Schema.Settings.OverrideAttributes((ProcessExceptionLineDN cp) => cp.Line, new ImplementedByAttribute(typeof(PackageLineDN)));
-            sb.Schema.Settings.OverrideAttributes((ProcessDN s) => s.Mixin<UserProcessSessionMixin>().User, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.From.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.Recipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.DefaultFrom.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.AditionalRecipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
-            
+
+            OverrideAttributes(sb);
+
+            SetupDisconnectedStrategies(sb);
+
             DynamicQueryManager dqm = new DynamicQueryManager();
 
             Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm);
@@ -103,7 +88,7 @@ namespace Southwind.Logic
             ProcessLogic.Start(sb, dqm, userProcessSession: true);
             PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);
 
-           
+            SchedulerLogic.Start(sb, dqm);
 
             QueryLogic.Start(sb);
             UserQueryLogic.Start(sb, dqm);
@@ -147,8 +132,6 @@ namespace Southwind.Logic
             DisconnectedLogic.BackupNetworkFolder = @"D:\SouthwindTemp\Backups";
             DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Database";
 
-            SetupDisconnectedStrategies(sb);
-
             ProfilerLogic.Start(sb, dqm, 
                 timeTracker: true, 
                 heavyProfiler: true, 
@@ -160,6 +143,30 @@ namespace Southwind.Logic
 
             if (logPostfix.HasText())
                 SetLogDatabase(sb.Schema, new DatabaseName(null, ((SqlConnector)Connector.Current).DatabaseName() + logPostfix));
+        }
+
+        private static void OverrideAttributes(SchemaBuilder sb)
+        {
+            sb.Schema.Settings.OverrideAttributes((ExceptionDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((OperationLogDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
+            sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((DashboardDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
+            sb.Schema.Settings.OverrideAttributes((UserAssetLogDN cp) => cp.User, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((UserAssetLogDN cp) => cp.Asset, new ImplementedByAttribute(typeof(UserQueryDN), typeof(UserChartDN), typeof(DashboardDN)));
+            sb.Schema.Settings.OverrideAttributes((NoteDN n) => n.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.AttendedBy, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((ProcessDN cp) => cp.Data, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
+            sb.Schema.Settings.OverrideAttributes((PackageLineDN cp) => cp.Package, new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
+            sb.Schema.Settings.OverrideAttributes((ProcessExceptionLineDN cp) => cp.Line, new ImplementedByAttribute(typeof(PackageLineDN)));
+            sb.Schema.Settings.OverrideAttributes((ProcessDN s) => s.Mixin<UserProcessSessionMixin>().User, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.From.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((EmailMessageDN em) => em.Recipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.DefaultFrom.EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((SmtpConfigurationDN sc) => sc.AditionalRecipients.First().EmailOwner, new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.OverrideAttributes((ScheduledTaskLogDN a) => a.User, new ImplementedByAttribute(typeof(UserDN)));
         }
 
         private static void StartSouthwindConfiguration(SchemaBuilder sb, DynamicQueryManager dqm)
