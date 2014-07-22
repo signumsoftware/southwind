@@ -157,8 +157,8 @@ namespace Southwind.Web
 
             SchedulerClient.Start(simpleTask: true);
 
-            NoteClient.Start();
-            AlertClient.Start();
+            NoteClient.Start(typeof(OrderDN));
+            AlertClient.Start(typeof(OrderDN));
             LinksClient.Start(widget: true, contextualItems: true);
 
             SouthwindClient.Start();
