@@ -27,6 +27,7 @@ using Signum.Entities.Alerts;
 using Signum.Entities.Translation;
 using Signum.Entities.UserAssets;
 using Signum.Entities.Scheduler;
+using Signum.Entities.SMS;
 
 namespace Southwind.Logic
 {
@@ -131,6 +132,12 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<ScheduleRuleMinutelyDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<ScheduleRuleHourlyDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<ScheduledTaskLogDN>(Download.None, Upload.None);
+
+            //Signum.Entities.SMS
+            DisconnectedLogic.Register<SMSMessageDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<SMSTemplateDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<SMSSendPackageDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<SMSUpdatePackageDN>(Download.None, Upload.None);
 
             //Signum.Entities.Exceptions
             DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);

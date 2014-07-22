@@ -1,10 +1,14 @@
 ﻿@using Southwind.Entities
 
-@using (var tc = Html.TypeContext<ApplicationConfigurationDN>()) 
+@using (var tc = Html.TypeContext<ApplicationConfigurationDN>())
 {
-	@Html.ValueLine(tc, t => t.Environment)
-     <fieldset id="email">
+    @Html.ValueLine(tc, t => t.Environment)
+    <fieldset id="email">
         <legend>Email</legend>
-         @Html.EmbeddedControl(tc, c=>c.Email)
+        @Html.EmbeddedControl(tc, c => c.Email)
+    </fieldset>
+    <fieldset id="sms">
+        <legend>SMS</legend>
+        @Html.EmbeddedControl(tc, c => c.Sms)
     </fieldset>
 }

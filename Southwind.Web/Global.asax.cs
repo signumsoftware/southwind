@@ -37,6 +37,7 @@ using Southwind.Entities;
 using Signum.Web.Mailing;
 using Signum.Web.Scheduler;
 using Signum.Engine.Scheduler;
+using Signum.Web.SMS;
 
 namespace Southwind.Web
 {
@@ -136,6 +137,8 @@ namespace Southwind.Web
             MailingClient.Start(
                 newsletter: false, 
                 pop3Config: false);
+
+            SMSClient.Start();
 
             SessionLogClient.Start();
             ExceptionClient.Start();

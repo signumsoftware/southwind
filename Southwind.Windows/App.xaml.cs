@@ -37,6 +37,7 @@ using Signum.Windows.Alerts;
 using Signum.Windows.Profiler;
 using Southwind.Windows.Code;
 using Signum.Windows.Scheduler;
+using Signum.Windows.SMS;
 
 namespace Southwind.Windows
 {
@@ -110,6 +111,7 @@ namespace Southwind.Windows
 
             NoteClient.Start(typeof(OrderDN));
             AlertClient.Start(typeof(OrderDN));
+            SMSClient.Start();
             
             ProfilerClient.Start();
 

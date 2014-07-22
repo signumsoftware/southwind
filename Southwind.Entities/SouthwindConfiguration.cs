@@ -5,6 +5,7 @@ using System.Text;
 using Signum.Entities;
 using Signum.Entities.Basics;
 using Signum.Entities.Mailing;
+using Signum.Entities.SMS;
 
 namespace Southwind.Entities
 {
@@ -27,6 +28,15 @@ namespace Southwind.Entities
         {
             get { return email; }
             set { Set(ref email, value); }
+        }
+
+        [NotNullable]
+        SMSConfigurationDN sms;
+        [NotNullValidator]
+        public SMSConfigurationDN Sms
+        {
+            get { return sms; }
+            set { Set(ref sms, value); }
         }
     }
 

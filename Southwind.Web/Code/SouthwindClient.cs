@@ -15,6 +15,8 @@ using Signum.Entities;
 using Signum.Entities.Authorization;
 using Signum.Engine;
 using Signum.Entities.Basics;
+using Signum.Entities.SMS;
+using Signum.Entities.Mailing;
 
 namespace Southwind.Web
 {
@@ -47,7 +49,10 @@ namespace Southwind.Web
                     new EntitySettings<OrderDN>() { PartialViewName = e => ViewPrefix.Formato("Order") },
                     new EmbeddedEntitySettings<OrderDetailsDN> { PartialViewName = e => ViewPrefix.Formato("OrderDetails") },
                     new EntitySettings<ShipperDN>() { PartialViewName = e => ViewPrefix.Formato("Shipper") },
+                    new EntitySettings<ApplicationConfigurationDN>() { PartialViewName = e => ViewPrefix.Formato("ApplicationConfiguration") },
                 });
+
+                Constructor.Register(ctx => new ApplicationConfigurationDN { Sms = new SMSConfigurationDN(), Email = new EmailConfigurationDN() });
 
                 QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, (html, obj) =>
                     obj == null ? null :

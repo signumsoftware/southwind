@@ -40,6 +40,7 @@ using Signum.Entities.UserAssets;
 using Signum.Engine.UserAssets;
 using Signum.Engine.Scheduler;
 using Signum.Entities.Scheduler;
+using Signum.Engine.SMS;
 
 namespace Southwind.Logic
 {
@@ -104,6 +105,11 @@ namespace Southwind.Logic
             UserAssetLogLogic.Start(sb, dqm); 
 
             ExceptionLogic.Start(sb, dqm);
+
+            SMSLogic.Start(sb, dqm, null, () => Configuration.Value.Sms);
+            SMSLogic.RegisterPhoneNumberProvider<PersonDN>(p => p.Phone, p => null);
+            SMSLogic.RegisterDataObjectProvider((PersonDN p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
+            SMSLogic.RegisterPhoneNumberProvider<CompanyDN>(p => p.Phone, p => null);
 
             AlertLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
             NoteLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
@@ -175,7 +181,7 @@ namespace Southwind.Logic
             sb.Include<ApplicationConfigurationDN>();
             Configuration = sb.GlobalLazy<ApplicationConfigurationDN>(
                 () => Database.Query<ApplicationConfigurationDN>().Single(a=>a.Environment == Settings.Default.Environment),
-                new InvalidateWith(typeof(SmtpConfigurationDN)));
+                new InvalidateWith(typeof(ApplicationConfigurationDN)));
 
             new Graph<ApplicationConfigurationDN>.Execute(ApplicationConfigurationOperation.Save)
             {

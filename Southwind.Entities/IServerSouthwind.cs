@@ -8,6 +8,7 @@ using Signum.Entities.Basics;
 using Signum.Services;
 using Signum.Entities.Disconnected;
 using Signum.Utilities;
+using Signum.Entities.SMS;
 
 namespace Southwind.Services
 {
@@ -16,7 +17,7 @@ namespace Southwind.Services
     public interface IServerSouthwind : IBaseServer, IDynamicQueryServer, IOperationServer,
         ILoginServer, IProcessServer, IQueryServer, IChartServer, IExcelReportServer, IUserQueryServer, IDashboardServer, IUserAssetsServer,
         IProfilerServer, IQueryAuthServer, IPropertyAuthServer, ITypeAuthServer, IPermissionAuthServer, IOperationAuthServer,
-        IDisconnectedServer
+        IDisconnectedServer, ISmsServer
     {
 
     }

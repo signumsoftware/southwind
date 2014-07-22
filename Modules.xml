@@ -134,6 +134,12 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="MailingClient.Start(" To="pop3Config: false);" />
     </Module>
 
+    <Module Name="SMS">
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="SMSLogic.Start(sb, dqm, null, () => Configuration.Value.Sms);" To="SMSLogic.RegisterPhoneNumberProvider&lt;CompanyDN&gt;(p => p.Phone, p => null);"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SMSClient.Start();" />
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SMSClient.Start();" />
+    </Module>
+
     <Module Name="Auth">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.Start(sb, dqm, &quot;System&quot;, null);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.StartAllModules(sb, dqm);"/>

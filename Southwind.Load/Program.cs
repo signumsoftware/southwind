@@ -18,6 +18,8 @@ using Signum.Entities.Translation;
 using System.Globalization;
 using Signum.Entities.Mailing;
 using Signum.Entities.Files;
+using Signum.Entities.SMS;
+using Signum.Entities.Basics;
 
 namespace Southwind.Load
 {
@@ -157,8 +159,12 @@ namespace Southwind.Load
                 Email = new EmailConfigurationDN
                 {
                     SendEmails = true,
-                    DefaultCulture = es,
+                    DefaultCulture = en,
                     UrlLeft = "http://localhost/Southwind"
+                },
+                Sms = new SMSConfigurationDN
+                {
+                    DefaultCulture = en,
                 }
             }.Save();
         }
