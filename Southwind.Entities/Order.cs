@@ -310,7 +310,7 @@ namespace Southwind.Entities
     public static class OrderTasks
     {
         public static readonly SimpleTaskSymbol CancelOldOrdersWithProcess = new SimpleTaskSymbol();
-        public static readonly SimpleTaskSymbol CancelOldOrdersWithUnsafeUpdate = new SimpleTaskSymbol();
+        public static readonly SimpleTaskSymbol CancelOldOrders = new SimpleTaskSymbol();
     }
 
     public static class OrderProcess

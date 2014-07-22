@@ -70,7 +70,7 @@ namespace Southwind.Logic
                     return process.ToLite();
                 });
  
-                SimpleTaskLogic.Register(OrderTasks.CancelOldOrdersWithUnsafeUpdate, () =>
+                SimpleTaskLogic.Register(OrderTasks.CancelOldOrders, () =>
                 {
                     Database.Query<OrderDN>()
                         .Where(a => a.OrderDate < DateTime.Now.AddDays(-7))
