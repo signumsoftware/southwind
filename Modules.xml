@@ -228,8 +228,9 @@
 	  </Module>
 
     <Module Name="Translation">
-      <RemoveLine Path="D:\Signum\Southwind\Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column"/>
-      <RemoveLine Path="D:\Signum\Southwind\Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column"/>
+      <RemoveFiles Path="Southwind\Southwind.Load\Category.es.View.xlsx"/>
+      <RemoveLine Path="Southwind\Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column"/>
+      <RemoveLine Path="Southwind\Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column"/>
       <RemoveLine Path="Southwind.Web\Scripts\southwind.ts" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
       <RemoveLine Path="Southwind.Web\Scripts\southwind.js" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
       <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeLanguage()" To="} //ChangeLanguage"/>
