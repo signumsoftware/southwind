@@ -235,6 +235,15 @@
       <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeLanguage()" To="} //ChangeLanguage"/>
      
     </Module>
+
+    <Module Name="PublicCatalog" DependsOn="Translation,Cache">
+      <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryDN, List&lt;ProductDN&gt;&gt;&gt; ActiveProducts;"/>
+      <RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductDN)));"/>
+      <RemoveFiles Path="Southwind.Web\Views\Home\PublicCatalog.cshtml"/>
+      <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="&lt;li class=&quot;language-selector-container&quot;&gt;" To="&lt;/li&gt;"/>
+      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" From="new WebMenuItem  //Catalog" To="}, //Catalog"/>
+      <RemoveSpanInLines Path="Southwind.Web\Controllers\HomeController.cs" Span="[AuthenticationRequired(false)]"/>
+      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult PublicCatalog()" To="} //PublicCatalog"/>
     </Module>
 
     <Module Name="Profiler">

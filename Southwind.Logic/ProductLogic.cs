@@ -15,7 +15,7 @@ namespace Southwind.Logic
 {
     public static class ProductLogic
     {
-        public static ResetLazy<List<ProductDN>> ActiveProducts;
+        public static ResetLazy<Dictionary<CategoryDN, List<ProductDN>>> ActiveProducts;
 
         public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
         {
@@ -23,7 +23,11 @@ namespace Southwind.Logic
             {
                 sb.Include<ProductDN>();
 
-                ActiveProducts = sb.GlobalLazy(() => Database.Query<ProductDN>().Where(a => !a.Discontinued).ToList(), 
+                ActiveProducts = sb.GlobalLazy(() =>
+                    Database.Query<ProductDN>()
+                    .Where(a => !a.Discontinued)
+                    .Select(p => new { Category = p.Category.Entity, Product = p })
+                    .GroupToDictionary(a => a.Category, a => a.Product),
                     new InvalidateWith(typeof(ProductDN)));
 
                 dqm.RegisterQuery(typeof(ProductDN), () =>

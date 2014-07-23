@@ -466,6 +466,7 @@
     <None Include="Service References\BingTranslationService\V2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Home\PublicCatalog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

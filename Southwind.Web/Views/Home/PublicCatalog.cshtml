@@ -1,0 +1,48 @@
+﻿@using Signum.Engine;
+@using Signum.Engine.Translation;
+@using Southwind.Entities;
+@{
+    ViewBag.Title = "PublicCatalog";
+}
+
+<h2>Southwind Product Catalog</h2>
+
+@foreach (var item in Southwind.Logic.ProductLogic.ActiveProducts.Value.OrderBy(g => g.Key.Id))
+{
+    <div class="media">
+        @if (item.Key.Picture != null)
+        {
+            <a class="pull-left" href="#">
+                <img src="data:image/jpg;base64,@Southwind.Web.SouthwindClient.Base64Thumbnail(item.Key.Picture, new System.Drawing.Size(96, 96))" />
+            </a>
+        }
+        <div class="media-body">
+            <h4 class="media-heading">@item.Key.TranslatedField(a => a.CategoryName)</h4>
+            @item.Key.TranslatedField(a => a.Description)
+        </div>
+    </div>
+    
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>@Html.PropertyNiceName((ProductDN p) => p.ProductName)</th>
+                <th>@Html.PropertyNiceName((ProductDN p) => p.UnitPrice)</th>
+                <th>@Html.PropertyNiceName((ProductDN p) => p.QuantityPerUnit)</th>
+                <th>@Html.PropertyNiceName((ProductDN p) => p.UnitsInStock)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in item.Value.OrderBy(a => a.ReorderLevel).ThenBy(a => a.Id))
+            {
+                <tr>
+                    <td>@p.ProductName</td>
+                    <td>@p.UnitPrice.ToString("c")</td>
+                    <td>@p.QuantityPerUnit</td>
+                    <td>@p.UnitsInStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}

@@ -12,6 +12,18 @@ new WebMenuItem //Southwind
     Text = "Southwind",
     Children = 
     {
+        new WebMenuItem  //Catalog
+        {
+            Text = "Catalog",
+            Children = 
+            { new WebMenuItem 
+                {
+                    Text = "Public Catalog",
+                    Link = Url.Action((Southwind.Web.Controllers.HomeController a)=>a.PublicCatalog())    
+                }
+            }
+        }, //Catalog
+        
         new WebMenuItem 
         {
             Text = typeof(OrderDN).NicePluralName(),

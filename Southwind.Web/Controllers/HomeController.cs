@@ -14,14 +14,20 @@ using Signum.Entities.Authorization;
 using Signum.Engine.Authorization;
 using Signum.Engine.Dashboard;
 using Signum.Web.Dashboard;
+using System.Globalization;
+using Signum.Engine.Basics;
 
 namespace Southwind.Web.Controllers
 {
     [HandleError]
     public class HomeController : Controller
     {
+        [AuthenticationRequired(false)]
         public ActionResult Index()
         {
+            if (UserDN.Current == null)
+                return RedirectToAction("PublicCatalog");
+
             var panel = DashboardLogic.GetHomePageDashboard();
             if (panel != null)
                 return View(DashboardClient.ViewPrefix.Formato("Dashboard"), panel);
@@ -29,6 +35,7 @@ namespace Southwind.Web.Controllers
             return View();
         }
 
+        [AuthenticationRequired(false)]
         public ActionResult ChangeLanguage()
         {
             var ci = CultureInfo.GetCultureInfo(Request.Params["culture"]);
@@ -40,6 +47,14 @@ namespace Southwind.Web.Controllers
 
             return Redirect(Request.UrlReferrer.ToString());
         } //ChangeLanguage
+
+        [AuthenticationRequired(false)]
+        public ActionResult PublicCatalog()
+        {
+            return View();
+        } //PublicCatalog
+
+        [AuthenticationRequired(false)]
         public ActionResult ChangeTheme()
         {
             Session[SouthwindClient.ThemeSessionKey] = Request.Params["themeSelector"];
