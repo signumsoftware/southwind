@@ -34,7 +34,8 @@
         {
             sc.FormGroupStyle = FormGroupStyle.SrOnly;
             sc.PlaceholderLabels = true;
-            @Html.EntityRepeater(sc, o => o.Details);
+            @Html.EntityRepeater(sc, o => o.Details, ed =>
+        ed.AttachFunction = SouthwindClient.OrderModule["attachDetails"](ed, System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator));
         }
     </div>
     
