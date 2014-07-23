@@ -54,13 +54,13 @@ namespace Southwind.Web
 
                 Constructor.Register(ctx => new ApplicationConfigurationDN { Sms = new SMSConfigurationDN(), Email = new EmailConfigurationDN() });
 
-                QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, (html, obj) =>
+                QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, new CellFormatter((html, obj) =>
                     obj == null ? null :
-                    new MvcHtmlString("<img src=\"data:image/jpg;base64," + Base64Thumbnail((byte[])obj) + "\" />"));
+                    new MvcHtmlString("<img src=\"data:image/jpg;base64," + Base64Thumbnail((byte[])obj, new Size(48, 48)) + "\" />")));
 
-                QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture, (html, obj) =>
+                QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture, new CellFormatter((html, obj) =>
                     obj == null ? null :
-                    new MvcHtmlString("<img src=\"data:image/jpg;base64," + Base64Thumbnail((byte[])obj) + "\" />"));
+                    new MvcHtmlString("<img src=\"data:image/jpg;base64," + Base64Thumbnail((byte[])obj, new Size(48, 48)) + "\" />")));
 
                 Constructor.Register(ctx => new EmployeeDN { Address = new AddressDN() });
                 Constructor.Register(ctx => new OrderDN
@@ -74,6 +74,7 @@ namespace Southwind.Web
                 Constructor.Register(ctx => new SupplierDN { Address = new AddressDN() });
 
                 Navigator.EntitySettings<EmployeeDN>().MappingMain.AsEntityMapping().RemoveProperty(a => a.Photo);
+                Navigator.EntitySettings<CategoryDN>().MappingMain.AsEntityMapping().RemoveProperty(a => a.Picture);
 
                 RegisterQuickLinks();
             }       
@@ -121,11 +122,11 @@ namespace Southwind.Web
             });
         }
 
-        public static string Base64Thumbnail(byte[] image)
+        public static string Base64Thumbnail(byte[] image, Size size)
         {
             using(MemoryStream ms = new MemoryStream(image))
             using(Bitmap bmp = new Bitmap(ms))
-            using(Bitmap target =  Resize(bmp, new Size(48,48)))
+            using(Bitmap target =  Resize(bmp, size))
             {
                 return Convert.ToBase64String(target.SaveJPG100()); 
             }
