@@ -120,8 +120,8 @@ namespace Southwind.Windows
             OmniboxClient.Register(new EntityOmniboxProvider());
             OmniboxClient.Register(new DynamicQueryOmniboxProvider());
             OmniboxClient.Register(new UserQueryOmniboxProvider());
-            OmniboxClient.Register(new UserChartOmniboxProvider());
             OmniboxClient.Register(new ChartOmniboxProvider());
+            OmniboxClient.Register(new UserChartOmniboxProvider());
             OmniboxClient.Register(new DashboardOmniboxProvider());
 
             SouthwindClient.Start();

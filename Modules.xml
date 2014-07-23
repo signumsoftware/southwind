@@ -246,8 +246,8 @@
     </Module>
 
     <Module Name="Omnibox">
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new UserChartOmniboxProvider());"/>
-      <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new ChartOmniboxProvider());"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new DashboardOmniboxProvider());"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new DashboardOmniboxProvider());"/>
     </Module>
   </Modules>
 
