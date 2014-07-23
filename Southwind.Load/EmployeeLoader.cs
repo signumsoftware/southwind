@@ -171,12 +171,13 @@ namespace Southwind.Load
             using (Transaction tr = new Transaction())
             {
                 RoleDN su = new RoleDN() { Name = "Super user", MergeStrategy = MergeStrategy.Intersection }.Save();
-                RoleDN u = new RoleDN() { Name = "User", MergeStrategy = MergeStrategy.Intersection }.Save();
+                RoleDN u = new RoleDN() { Name = "User", MergeStrategy = MergeStrategy.Union }.Save();
 
                 RoleDN au = new RoleDN()
                 {
                     Name = "Advanced user",
                     Roles = new MList<Lite<RoleDN>> { u.ToLite() },
+                    MergeStrategy = MergeStrategy.Union
                 }.Save();
 
                 var employees = Database.Query<EmployeeDN>().OrderByDescending(a => a.Notes.Length).ToList();

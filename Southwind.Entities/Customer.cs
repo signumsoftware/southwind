@@ -38,7 +38,12 @@ namespace Southwind.Entities
             set { Set(ref fax, value); }
         }
 
-        
+        public static readonly SessionVariable<CustomerDN> CurrentCustomerVariable = Statics.SessionVariable<CustomerDN>("Customer");
+        public static CustomerDN Current
+        {
+            get { return CurrentCustomerVariable.Value; }
+            set { CurrentCustomerVariable.Value = value; }
+        }
     }
 
 
@@ -114,8 +119,6 @@ namespace Southwind.Entities
             return "{0} {1}".Formato(firstName, lastName);
         }
 
-        public static PersonDN Current { get; set; }
-
         static PersonDN()
         {
             Validator.PropertyValidator((PersonDN p) => p.DateOfBirth).IsApplicableValidator<DateTimePrecissionValidatorAttribute>(p => Corruption.Strict);
@@ -158,8 +161,6 @@ namespace Southwind.Entities
         {
             return ToStringExpression.Evaluate(this);
         }
-
-        public static CompanyDN Current { get; set; }
     }
 
     public static class CustomerOperation

@@ -125,17 +125,12 @@ namespace Southwind.Logic
 
             StartSouthwindConfiguration(sb, dqm);
 
-            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.UserEntities,
-                o => o.Employee.RefersTo((EmployeeDN)UserDN.Current.Related));
+            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.UserEntities, o => o.Employee.RefersTo((EmployeeDN)UserDN.Current.Related));
+            TypeConditionLogic.Register<EmployeeDN>(SouthwindGroup.UserEntities, e => e == (EmployeeDN)UserDN.Current.Related);
 
-            TypeConditionLogic.Register<EmployeeDN>(SouthwindGroup.UserEntities,
-                e => e == (EmployeeDN)UserDN.Current.Related);
-
-            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.CurrentCompany,
-                o => o.Customer == CompanyDN.Current);
-
-            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.CurrentPerson,
-               o => o.Customer == PersonDN.Current);
+            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerDN.Current);
+            TypeConditionLogic.Register<PersonDN>(SouthwindGroup.CurrentCustomer, o => o == CustomerDN.Current);
+            TypeConditionLogic.Register<CompanyDN>(SouthwindGroup.CurrentCustomer, o => o == CustomerDN.Current);
 
             DisconnectedLogic.Start(sb, dqm);
             DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";

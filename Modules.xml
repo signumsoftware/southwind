@@ -155,6 +155,9 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{42, AuthLogic.ImportExportAuthRules},"/>
+      <RemoveFiles Path="Southwind.Load\AuthRules.xml"/>
+      
     </Module>
 
     <Module Name="Translation">

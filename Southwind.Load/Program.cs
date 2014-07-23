@@ -89,6 +89,7 @@ namespace Southwind.Load
                         {40, SnamphotIsolation},
                         {41, CreateCultureInfo},
                         {42, ChartScriptLogic.ImportExportChartScripts},
+                        {42, AuthLogic.ImportExportAuthRules},
 
                         {100, ShowOrder},
 
