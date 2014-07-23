@@ -134,7 +134,7 @@ namespace Southwind.Entities
             if (details != null && !IsLegacy &&  pi.Is(() => details.Discount))
             {
                 if ((details.Discount * 100.0m) % 5.0m != 0)
-                    return "Discount should be multiple of 5%";
+                    return OrderMessage.DiscountShouldBeMultpleOf5.NiceToString();
             }
 
             return base.ChildPropertyValidation(sender, pi);
@@ -165,6 +165,12 @@ namespace Southwind.Entities
                 {OrderState.Shipped, true, true,  null},
                 {OrderState.Canceled, null, null, true},
             };
+    }
+
+    public enum OrderMessage
+    {
+        [Description("Discount should be multiple of 5%")]
+        DiscountShouldBeMultpleOf5
     }
 
     public enum OrderState

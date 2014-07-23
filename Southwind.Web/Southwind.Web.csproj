@@ -49,6 +49,7 @@
       <Private>True</Private>
       <HintPath>C:/Program%20Files%20(x86)/Microsoft%20SQL%20Server/100/SDK/Assemblies/Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -95,6 +96,11 @@
     </Compile>
     <Compile Include="ServerSouthwind.svc.cs">
       <DependentUpon>ServerSouthwind.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\BingTranslationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -349,6 +355,12 @@
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="Scripts\southwind.ts" />
     <Content Include="ServerSouthwind.svc" />
+    <Content Include="Service References\BingTranslationService\configuration91.svcinfo" />
+    <Content Include="Service References\BingTranslationService\configuration.svcinfo" />
+    <Content Include="Service References\BingTranslationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Menu.cshtml" />
@@ -431,6 +443,35 @@
     <Content Include="Views\Southwind\Supplier.cshtml" />
     <Content Include="Views\Southwind\ApplicationConfiguration.cshtml" />
     <Content Include="Views\Southwind\Territory.cshtml" />
+    <None Include="Service References\BingTranslationService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BingTranslationService\Microsoft.MT.Web.Service.V2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\BingTranslationService\service.wsdl" />
+    <None Include="Service References\BingTranslationService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.GetTranslationsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.TranslateArray2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.TranslateArrayResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BingTranslationService\V2.wsdl" />
+    <None Include="Service References\BingTranslationService\V2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\BingTranslationService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

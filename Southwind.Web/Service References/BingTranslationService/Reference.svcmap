@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2a78845d-ddd1-4f5a-a3d8-a8b6ab73718a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://api.microsofttranslator.com/V2/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="V2.wsdl" MetadataType="Wsdl" ID="e095b9c1-5202-41ff-83a2-a0bfaaa83f74" SourceId="1" SourceUrl="http://api.microsofttranslator.com/V2/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="35e12aba-fbf4-446e-83ea-6d830d96c026" SourceId="1" SourceUrl="http://api.microsofttranslator.com/V2/mex" />
+    <MetadataFile FileName="V2.xsd" MetadataType="Schema" ID="000ca1d5-2647-40ab-ab90-e5144e0b4b91" SourceId="1" SourceUrl="http://api.microsofttranslator.com/V2/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="8d08896f-d922-4e9c-abf5-225a3eddf094" SourceId="1" SourceUrl="http://api.microsofttranslator.com/V2/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="500453e6-c55f-49bb-bb81-ac2d016ba3fc" SourceId="1" SourceUrl="http://api.microsofttranslator.com/V2/mex" />
+    <MetadataFile FileName="Microsoft.MT.Web.Service.V2.xsd" MetadataType="Schema" ID="4ae55eb3-97e6-4c97-a8de-ef09a6a5396a" SourceId="1" SourceUrl="http://api.microsofttranslator.com/V2/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -114,6 +114,9 @@ namespace Southwind.Logic
             AlertLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
             NoteLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
 
+            TranslationLogic.Start(sb, dqm);
+            TranslatedInstanceLogic.Start(sb, dqm, "en"); 
+
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);
             CustomerLogic.Start(sb, dqm); 

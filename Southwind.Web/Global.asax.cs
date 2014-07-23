@@ -38,6 +38,11 @@ using Signum.Web.Mailing;
 using Signum.Web.Scheduler;
 using Signum.Engine.Scheduler;
 using Signum.Web.SMS;
+using Signum.Web.Translation;
+using Southwind.Web.BingTranslationService;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using Signum.Engine.Basics;
 
 namespace Southwind.Web
 {
@@ -158,6 +163,11 @@ namespace Southwind.Web
                 packages: true,
                 packageOperations: true);
 
+            TranslationClient.Start(new BingTranslator(),
+                translatorUser: true,
+                translationReplacement: false,
+                instanceTranslator: true);
+
             SchedulerClient.Start(simpleTask: true);
 
             NoteClient.Start(typeof(OrderDN));
@@ -212,6 +222,63 @@ namespace Southwind.Web
         protected void Application_ReleaseRequestState(object sender, EventArgs e)
         {
             Statics.CleanThreadContextAndAssert();
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = DefaultCulture;
+        }
+
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = GetCulture(this.Request);
+        }
+
+        static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en-GB"); 
+
+        public static CultureInfo GetCulture(HttpRequest request)
+        {
+            // 1 user preference
+            if (UserDN.Current.Try(u => u.CultureInfo) != null)
+                return UserDN.Current.CultureInfo.ToCultureInfo();
+
+            // 2 cookie (temporary)
+            if (request.Cookies["language"] != null)
+                return new CultureInfo(request.Cookies["language"].Value);
+
+            //3 requestCulture or default
+            CultureInfo ciRequest = TranslationClient.GetCultureRequest(request);
+            if (ciRequest != null)
+                return ciRequest;
+
+            return DefaultCulture;
         }
     }
+
+    public class BingTranslator : ITranslator
+    {
+        public List<string> TranslateBatch(List<string> list, string from, string to)
+        {
+            string token = AdmAuthentication.GetAccessToken("ClientId", "Secret"); //find one in https://datamarket.azure.com/developer/applications/register
+           
+            LanguageServiceClient client = new LanguageServiceClient();
+            using (OperationContextScope scope = new OperationContextScope(client.InnerChannel))
+            {
+                System.ServiceModel.OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name] = new HttpRequestMessageProperty
+                {
+                    Method = "POST",
+                    Headers = { { "Authorization", "Bearer " + token } }
+                };
+
+                return list.GroupsOf(50).SelectMany(gr =>
+                {
+                    TranslateArrayResponse[] result = client.TranslateArray("", gr.ToArray(), from, to, new TranslateOptions());
+
+                    return result.Select(a => a.TranslatedText).ToList();
+
+                }).ToList();
+            }
+        }
+
+        public bool AutoSelect()
+        {
+            return true;
+        }
+    } // BingTranslator
 }

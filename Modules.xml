@@ -157,6 +157,16 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
     </Module>
 
+    <Module Name="Translation">
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="TranslationLogic.Start(sb, dqm);" To="TranslatedInstanceLogic.Start(sb, dqm, &quot;en&quot;);"/>
+      <RemoveFiles Path="Southwind.Entities\Translations" />
+      <RemoveFiles Path="Southwind.Web\Service References" />
+      <RemoveFiles Path="Southwind.Web\Translations" />
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="TranslationClient.Start(new BingTranslator()," To="instanceTranslator: true);" />
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = DefaultCulture;" To="} // BingTranslator" />
+      <RemoveLine Path="Southwind\Southwind.Entities\Product.cs" From="[TranslateField]" />
+    </Module>
+
     <Module Name="Auth_ResetPasswordRequest" DependsOn="Auth">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ResetPasswordRequestLogic.Start(sb, dqm);"/>
     </Module>

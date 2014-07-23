@@ -139,6 +139,10 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<SMSSendPackageDN>(Download.None, Upload.None);
             DisconnectedLogic.Register<SMSUpdatePackageDN>(Download.None, Upload.None);
 
+            //Signum.Entities.Translation
+            DisconnectedLogic.Register<TranslatorUserDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<TranslatedInstanceDN>(Download.None, Upload.None);
+
             //Signum.Entities.Exceptions
             DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
 

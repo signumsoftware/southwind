@@ -5,6 +5,7 @@ using System.Text;
 using Signum.Entities;
 using System.Linq.Expressions;
 using Signum.Utilities;
+using Signum.Entities.Translation;
 
 namespace Southwind.Entities
 {
@@ -184,6 +185,7 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
     public class CategoryDN : Entity
     {
+        [TranslateField]
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
         string categoryName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
