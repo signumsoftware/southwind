@@ -140,6 +140,21 @@
                             }
                         </li>
 
+                        <li class="language-selector-container">
+                            @{  
+                              
+                
+                                @Html.DropDownList(
+                "languageSelector",
+                Signum.Engine.Basics.CultureInfoLogic.CultureInfoDNToCultureInfo.Value.Values
+                .Select(s => new SelectListItem { Text = s.DisplayName, Value = s.Name, Selected = s.Name == Culture }),
+                new Dictionary<string, object> { 
+                    {"data-url", Url.Action< HomeController>(hc => hc.ChangeLanguage()) }, 
+                    {"class", "form-control theme-selector" }   
+                })
+                            }
+                        </li>
+
                         <li>
                             @{ Html.RenderPartial(AuthClient.LoginUserControlView);}
                         </li>

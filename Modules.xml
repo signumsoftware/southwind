@@ -220,12 +220,22 @@
 
     <Module Name="ThemeSelector">
       <RemoveFiles Path="Southwind.Web\Libs\bootstrap\themes"/>
-      <RemoveFiles Path="Southwind.Web\Scripts\southwind.ts"/>
-      <RemoveFiles Path="Southwind.Web\Scripts\southwind.js"/>      
+      <RemoveLine Path="Southwind.Web\Scripts\southwind.ts" From="$(&quot;#themeSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
+      <RemoveLine Path="Southwind.Web\Scripts\southwind.js" From="$(&quot;#themeSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="&lt;li class=&quot;theme-selector-container&quot;&gt;" To="&lt;/li&gt;"/>
-	  <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeTheme()" To="}"/>
-	  <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="public static string ThemeSessionKey = &quot;swCurrentTheme&quot;;"/>
+	    <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeTheme()" To="}"/>
+	    <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="public static string ThemeSessionKey = &quot;swCurrentTheme&quot;;"/>
 	  </Module>
+
+    <Module Name="Translation">
+      <RemoveLine Path="D:\Signum\Southwind\Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column"/>
+      <RemoveLine Path="D:\Signum\Southwind\Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column"/>
+      <RemoveLine Path="Southwind.Web\Scripts\southwind.ts" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
+      <RemoveLine Path="Southwind.Web\Scripts\southwind.js" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
+      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeLanguage()" To="} //ChangeLanguage"/>
+     
+    </Module>
+    </Module>
 
     <Module Name="Profiler">
       <RemoveLine Path="Southwind.Web/ServerSouthwind.svc.cs" From="string longDescription = mi.Name + description == null ? null : (&quot; &quot; + description);" To="using (HeavyProfiler.Log(&quot;WCF&quot;, () => longDescription))"/>

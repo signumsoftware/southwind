@@ -29,10 +29,21 @@ namespace Southwind.Web.Controllers
             return View();
         }
 
+        public ActionResult ChangeLanguage()
+        {
+            var ci = CultureInfo.GetCultureInfo(Request.Params["culture"]);
+
+            if (UserDN.Current == null)
+                this.Response.Cookies.Add(new HttpCookie("language", ci.Name) { Expires = DateTime.Now.AddMonths(6) });
+            else
+                UserDN.Current.CultureInfo = ci.ToCultureInfoDN();
+
+            return Redirect(Request.UrlReferrer.ToString());
+        } //ChangeLanguage
         public ActionResult ChangeTheme()
         {
             Session[SouthwindClient.ThemeSessionKey] = Request.Params["themeSelector"];
-            return Redirect(Request.UrlReferrer.AbsolutePath);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public FileResult EmployeePhoto(Lite<EmployeeDN> employee)

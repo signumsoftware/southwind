@@ -185,7 +185,7 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
     public class CategoryDN : Entity
     {
-        [TranslateField]
+        [TranslateField] //Localize categoryName column
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
         string categoryName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
@@ -195,6 +195,7 @@ namespace Southwind.Entities
             set { SetToStr(ref categoryName, value); }
         }
 
+        [TranslateField] //Localize description column
         [NotNullable, SqlDbType(Size = int.MaxValue)]
         string description;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = int.MaxValue)]

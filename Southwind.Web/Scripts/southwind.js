@@ -4,5 +4,10 @@ $(function () {
         var $this = $(this);
         SF.submitOnly($this.attr("data-url"), { themeSelector: $this.val() });
     });
+
+    $("#languageSelector").bind("change", function () {
+        var $this = $(this);
+        SF.submitOnly($this.attr("data-url"), { culture: $this.val() });
+    });
 });
 //# sourceMappingURL=southwind.js.map
