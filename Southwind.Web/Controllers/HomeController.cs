@@ -16,6 +16,7 @@ using Signum.Engine.Dashboard;
 using Signum.Web.Dashboard;
 using System.Globalization;
 using Signum.Engine.Basics;
+using Signum.Engine.Operations;
 
 namespace Southwind.Web.Controllers
 {
@@ -43,7 +44,12 @@ namespace Southwind.Web.Controllers
             if (UserDN.Current == null)
                 this.Response.Cookies.Add(new HttpCookie("language", ci.Name) { Expires = DateTime.Now.AddMonths(6) });
             else
+            {
                 UserDN.Current.CultureInfo = ci.ToCultureInfoDN();
+                using (AuthLogic.Disable())
+                using (OperationLogic.AllowSave<UserDN>())
+                    UserDN.Current.Save();
+            }
 
             return Redirect(Request.UrlReferrer.ToString());
         } //ChangeLanguage

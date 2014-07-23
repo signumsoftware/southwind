@@ -294,6 +294,9 @@ namespace Southwind.Windows
 
                     UserDN.Current = result.GetCurrentUser();
 
+                    if (UserDN.Current.CultureInfo != null)
+                        Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(UserDN.Current.CultureInfo.Name);
+
                     // verificar el tiempo de expiracion
                     var alerta = result.PasswordNearExpired();
                     if (alerta.HasText())
