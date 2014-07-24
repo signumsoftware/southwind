@@ -8,6 +8,7 @@ using Signum.Entities.Basics;
 using System.Data;
 using Signum.Entities.Authorization;
 using System.Linq.Expressions;
+using Signum.Entities.Files;
 
 namespace Southwind.Entities
 {
@@ -92,9 +93,8 @@ namespace Southwind.Entities
             set { Set(ref extension, value); }
         }
 
-        [SqlDbType(Size = int.MaxValue)]
-        byte[] photo;
-        public byte[] Photo
+        Lite<FileDN> photo;
+        public Lite<FileDN> Photo
         {
             get { return photo; }
             set { Set(ref photo, value); }
@@ -116,9 +116,9 @@ namespace Southwind.Entities
             set { Set(ref reportsTo, value); }
         }
 
-        [NotNullable, SqlDbType(Size = 255)]
+        [SqlDbType(Size = 255)]
         string photoPath;
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 255), URLValidator]
+        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 255), URLValidator]
         public string PhotoPath
         {
             get { return photoPath; }

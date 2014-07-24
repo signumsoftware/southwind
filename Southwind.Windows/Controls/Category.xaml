@@ -5,13 +5,15 @@
     xmlns:d="clr-namespace:Southwind.Entities;assembly=Southwind.Entities"
     xmlns:s="clr-namespace:Southwind.Windows"
     xmlns:sc="clr-namespace:Southwind.Windows.Controls"
+    xmlns:f="clr-namespace:Signum.Windows.Files;assembly=Signum.Windows.Extensions"
     m:Common.TypeContext="{x:Type d:CategoryDN}"
     MinWidth="300">
     <StackPanel>
         <m:ValueLine m:Common.Route="CategoryName" />
         <m:ValueLine m:Common.Route="Description" />
+        <f:FileLine m:Common.Route="Picture" />
         <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image x:Name="image" Source="{Binding Picture, Converter={x:Static s:SouthwindConverters.ImageConverter}}" Stretch="None" MinHeight="100" MinWidth="100" MouseDown="image_MouseDown"  />
+            <Image x:Name="image" Source="{Binding Picture, Converter={x:Static s:SouthwindConverters.EmbeddedImageConverter}}" Stretch="None" MinHeight="100" MinWidth="100" />
         </Border>
     </StackPanel>
 </UserControl>

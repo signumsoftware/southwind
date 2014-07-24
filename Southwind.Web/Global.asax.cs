@@ -151,7 +151,7 @@ namespace Southwind.Web
             FilesClient.Start(
                 filePath: false, 
                 file: true, 
-                embeddedFile: false);
+                embeddedFile: true);
             ChartClient.Start();
             ExcelClient.Start(
                 toExcelPlain:  true, 

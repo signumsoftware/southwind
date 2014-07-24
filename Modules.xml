@@ -80,7 +80,23 @@
 
     <Module Name="Files" >
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FilePathLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="FilesClient.Start(" To="embeddedFile: false);"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="FilesClient.Start(" To="embeddedFile: true);"/>
+      <RemoveLine Path="Southwind.Entities\Employee.cs" From="Lite&lt;FileDN&gt; photo;" To="}"/>
+      <RemoveLine Path="Southwind.Entities\Product.cs" From="EmbeddedFileDN picture;" To="}"/>
+      <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" Line="Photo = new FileDN { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),"/>
+      <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" From="public static byte[] RemoveOlePrefix(byte[] bytes)" To="} //RemoveOlePrefix"/>
+      <RemoveLine Path="Southwind.Load\ProductLoader.cs" Line="Picture = new EmbeddedFileDN { FileName = s.CategoryName + &quot;.jpg=&quot;, BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },"/>
+      <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="s.Picture"/>
+      <RemoveLine Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo,"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FileLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" From="QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture," To=".Attr(&quot;style&quot;, &quot;width:48px&quot;).ToHtmlSelf()) { TextAlign = &quot;center&quot; });"/>
+      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" From="public static string Base64Data(EmbeddedFileDN file)" To="} //Base64Data"/>
+      <RemoveLine Path="Southwind.Web\Views\Southwind\Category.cshtml" From="@Html.FileLine(cc, a => a.Picture)" To="} //Picture"/>
+      <RemoveLine Path="Southwind.Web\Views\Southwind\Employee.cshtml" From="@Html.FileLine(ec, a => a.Photo.Try(p => p.Retrieve()))" To="} //Photo"/>
+      <RemoveLine Path="Southwind.Windows\Code\SouthwindClient.cs" From="QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, b =>" To="}); //Picture"/>
+      <RemoveLine Path="Southwind.Windows\Controls\Category.xaml" From="&lt;f:FileLine m:Common.Route=&quot;Picture&quot; />" To="&lt;/Border>"/>
+      <RemoveLine Path="Southwind.Windows\Controls\Employee.xaml" From="&lt;StackPanel  Grid.Column=&quot;1&quot; Grid.Row=&quot;0&quot;>" To="&lt;/StackPanel>"/>
+      <RemoveFiles Path="Southwind.Windows\SouthwindConverters.cs"/>
     </Module>
 
     <Module Name="Excel">

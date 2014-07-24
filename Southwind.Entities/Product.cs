@@ -6,6 +6,7 @@ using Signum.Entities;
 using System.Linq.Expressions;
 using Signum.Utilities;
 using Signum.Entities.Translation;
+using Signum.Entities.Files;
 
 namespace Southwind.Entities
 {
@@ -205,8 +206,8 @@ namespace Southwind.Entities
             set { Set(ref description, value); }
         }
 
-        byte[] picture;
-        public byte[] Picture
+        EmbeddedFileDN picture;
+        public EmbeddedFileDN Picture
         {
             get { return picture; }
             set { Set(ref picture, value); }

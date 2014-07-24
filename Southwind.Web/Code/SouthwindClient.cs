@@ -17,6 +17,8 @@ using Signum.Engine;
 using Signum.Entities.Basics;
 using Signum.Entities.SMS;
 using Signum.Entities.Mailing;
+using Signum.Entities.Files;
+using Signum.Web.Files;
 
 namespace Southwind.Web
 {
@@ -54,30 +56,33 @@ namespace Southwind.Web
 
                 Constructor.Register(ctx => new ApplicationConfigurationDN { Sms = new SMSConfigurationDN(), Email = new EmailConfigurationDN() });
 
-                QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, new CellFormatter((html, obj) =>
-                    obj == null ? null :
-                    new MvcHtmlString("<img src=\"data:image/jpg;base64," + Base64Thumbnail((byte[])obj, new Size(48, 48)) + "\" />")));
+                QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture,
+                    new CellFormatter((html, obj) => obj == null ? null :
+                        new HtmlTag("img")
+                       .Attr("src", Base64Data((EmbeddedFileDN)obj))
+                      .Attr("alt", obj.ToString())
+                      .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" });
 
-                QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture, new CellFormatter((html, obj) =>
-                    obj == null ? null :
-                    new MvcHtmlString("<img src=\"data:image/jpg;base64," + Base64Thumbnail((byte[])obj, new Size(48, 48)) + "\" />")));
+                QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo,
+                    new CellFormatter((html, obj) => obj == null ? null :
+                      new HtmlTag("img")
+                      .Attr("src", RouteHelper.New().Action((FileController c) => c.Download(new RuntimeInfo((Lite<FileDN>)obj).ToString())))
+                      .Attr("alt", obj.ToString())
+                      .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" });
 
                 Constructor.Register(ctx => new EmployeeDN { Address = new AddressDN() });
                 Constructor.Register(ctx => new OrderDN
-                { 
+                {
                     ShipAddress = new AddressDN(),
                     Details = new MList<OrderDetailsDN>()
-                
+
                 });
                 Constructor.Register(ctx => new PersonDN { Address = new AddressDN() });
                 Constructor.Register(ctx => new CompanyDN { Address = new AddressDN() });
                 Constructor.Register(ctx => new SupplierDN { Address = new AddressDN() });
 
-                Navigator.EntitySettings<EmployeeDN>().MappingMain.AsEntityMapping().RemoveProperty(a => a.Photo);
-                Navigator.EntitySettings<CategoryDN>().MappingMain.AsEntityMapping().RemoveProperty(a => a.Picture);
-
                 RegisterQuickLinks();
-            }       
+            }
         }
 
         private static void RegisterQuickLinks()
@@ -101,7 +106,7 @@ namespace Southwind.Web
                 return links.ToArray();
             });
 
-            LinksClient.RegisterEntityLinks<CategoryDN>((entity, ctx) =>new []
+            LinksClient.RegisterEntityLinks<CategoryDN>((entity, ctx) => new[]
             {
                 new QuickLinkFind(typeof(ProductDN), "Category", entity, true)
             });
@@ -122,60 +127,9 @@ namespace Southwind.Web
             });
         }
 
-        public static string Base64Thumbnail(byte[] image, Size size)
+        public static string Base64Data(EmbeddedFileDN file)
         {
-            using(MemoryStream ms = new MemoryStream(image))
-            using(Bitmap bmp = new Bitmap(ms))
-            using(Bitmap target =  Resize(bmp, size))
-            {
-                return Convert.ToBase64String(target.SaveJPG100()); 
-            }
-        }
-
-        public static Bitmap Resize(Bitmap bmpOriginal, Size limit)
-        {
-            if (bmpOriginal.Size == limit)
-            {
-                return bmpOriginal;
-            }
-
-            Size size = Resize(bmpOriginal.Size, limit);
-
-            Bitmap bmpResized = new Bitmap(size.Width, size.Height);
-            using (Graphics g = Graphics.FromImage(bmpResized))
-            {
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                g.DrawImage(bmpOriginal,
-                    new Rectangle(Point.Empty, bmpResized.Size),
-                    new Rectangle(Point.Empty, bmpOriginal.Size),
-                    GraphicsUnit.Pixel);
-
-                return bmpResized;
-            }
-        }
-
-
-        internal static Size Resize(Size original, Size limit)
-        {
-            if (original.Height < limit.Height && original.Width < limit.Width)
-                return original;
-
-            Size r = new Size(limit.Width, original.Height * limit.Width / original.Width);
-            if (r.Height <= limit.Height) // Height resize if necessary
-                return r;
-            return new Size(limit.Height * original.Width / original.Height, limit.Height);
-        }
-
-        public static byte[] SaveJPG100(this Bitmap bmp)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                EncoderParameters encoderParameters = new EncoderParameters(1);
-                encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
-                bmp.Save(ms, ImageCodecInfo.GetImageDecoders().First(a=>a.FormatID == ImageFormat.Jpeg.Guid), encoderParameters);
-                return ms.ToArray();
-            }
-        }
+            return "data:" + MimeType.FromFileName(file.FileName) + ";base64," + Convert.ToBase64String(file.BinaryFile);
+        } //Base64Data
     }
 }

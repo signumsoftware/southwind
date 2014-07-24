@@ -113,6 +113,7 @@ namespace Southwind.Logic
 
             AlertLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
             NoteLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
+            FileLogic.Start(sb, dqm);
 
             TranslationLogic.Start(sb, dqm);
             TranslatedInstanceLogic.Start(sb, dqm, "en"); 

@@ -56,16 +56,21 @@ namespace Southwind.Windows.Code
                     Address = new AddressDN()
                 });
 
-                Func<Binding, DataTemplate> formatter = b =>
+                QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, b =>
                 {
                     b.Converter = SouthwindConverters.ImageConverter;
                     return Fluent.GetDataTemplate(() => new Image { MaxHeight = 32.0, Stretch = Stretch.Uniform }
                         .Bind(Image.SourceProperty, b)
                         .Set(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Linear));
-                };
+                }); //Photo
 
-                QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, formatter);
-                QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture, formatter);
+                QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture,  b =>
+                {
+                    b.Converter = SouthwindConverters.EmbeddedImageConverter;
+                    return Fluent.GetDataTemplate(() => new Image { MaxHeight = 32.0, Stretch = Stretch.Uniform }
+                        .Bind(Image.SourceProperty, b)
+                        .Set(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Linear));
+                }); //Picture
 
             }
         }

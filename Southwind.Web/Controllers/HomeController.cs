@@ -67,16 +67,6 @@ namespace Southwind.Web.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        public FileResult EmployeePhoto(Lite<EmployeeDN> employee)
-        {
-            return File(employee.InDB().Select(e => e.Photo).Single(), "image/jpeg");
-        }
-
-        public FileResult CategoryPhoto(Lite<CategoryDN> employee)
-        {
-            return File(employee.InDB().Select(e => e.Picture).Single(), "image/jpeg");
-        }
-
         public ContentResult UpdateOrders()
         {
             int removed = Database.Query<OrderDN>().Where(a => a.Id > 11077).UnsafeDelete(); 

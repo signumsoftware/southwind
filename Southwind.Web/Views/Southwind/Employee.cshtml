@@ -1,5 +1,7 @@
 ﻿@using Southwind.Entities
 @using Southwind.Web.Controllers
+@using Signum.Web.Files
+@using Signum.Engine
 @using (var ec = Html.TypeContext<EmployeeDN>())
 {
     <div class="col-sm-9">
@@ -43,10 +45,11 @@
     </div>
    
     <div class="col-sm-3">
-        @if (!ec.Value.IsNew)
+        @Html.FileLine(ec, a => a.Photo.Try(p => p.Retrieve()))
+        @if (ec.Value.Photo != null)
         {
-            <img class="img-responsive" src="@(Url.Action<HomeController>(hc => hc.EmployeePhoto(ec.Value.ToLite())))" />
-        }
+            <img class="img-responsive" src="@(Url.Action<FileController>(hc => hc.Download(new RuntimeInfo(ec.Value.Photo).ToString())))" />
+        } //Photo
         <div class="form-vertical">
             @Html.ValueLine(ec, e => e.Notes, vl =>
             {

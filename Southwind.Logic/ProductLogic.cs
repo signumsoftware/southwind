@@ -82,6 +82,7 @@ namespace Southwind.Logic
                         s.Id,
                         s.CategoryName,
                         s.Description,
+                        s.Picture
                     });
 
 

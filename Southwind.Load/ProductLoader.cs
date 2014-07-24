@@ -8,6 +8,7 @@ using Signum.Utilities;
 using Signum.Entities;
 using Signum.Services;
 using System.Globalization;
+using Signum.Entities.Files;
 
 namespace Southwind.Load
 {
@@ -57,7 +58,7 @@ namespace Southwind.Load
                     {
                         CategoryName = s.CategoryName,
                         Description = s.Description,
-                        Picture = s.Picture.ToArray(),
+                        Picture = new EmbeddedFileDN { FileName = s.CategoryName + ".jpg", BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },
                     }.SetId(s.CategoryID)));
             }
         }

@@ -5,6 +5,7 @@
     xmlns:d="clr-namespace:Southwind.Entities;assembly=Southwind.Entities"
     xmlns:s="clr-namespace:Southwind.Windows"
     xmlns:sc="clr-namespace:Southwind.Windows.Controls"
+    xmlns:f="clr-namespace:Signum.Windows.Files;assembly=Signum.Windows.Extensions"
     m:Common.TypeContext="{x:Type d:EmployeeDN}"
     MinWidth="500">
     <Grid>
@@ -50,10 +51,12 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-
-        <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image x:Name="image" Source="{Binding Photo, Converter={x:Static s:SouthwindConverters.ImageConverter}}" Stretch="None" MinWidth="150" MinHeight="180" MouseDown="image_MouseDown"  />
-        </Border>
+        <StackPanel  Grid.Column="1" Grid.Row="0">
+            <f:FileLine m:Common.Route="Photo" m:Common.MinLabelWidth="50"/>
+            <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image x:Name="image" Source="{Binding Photo, Converter={x:Static s:SouthwindConverters.ImageConverter}}" Stretch="None" MinWidth="150" MinHeight="180" />
+            </Border>
+        </StackPanel>
         <GroupBox Header="Company data" Grid.Row="1">
             <StackPanel>
                 <m:ValueLine m:Common.Route="Title" />

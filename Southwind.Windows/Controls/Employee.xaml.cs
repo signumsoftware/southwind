@@ -28,20 +28,5 @@ namespace Southwind.Windows.Controls
         {
             InitializeComponent();
         }
-
-        private void image_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ClickCount != 2)
-                return;
-
-            OpenFileDialog ofd = new OpenFileDialog()
-            {
-                Filter = "Bitmap Image | *.bmp| Jpeg Image  |*.jpg,*.jpeg| Png Image |*.png"
-            };
-            if (ofd.ShowDialog(Window.GetWindow(this)) != true)
-                return;
-
-            ((EmployeeDN)DataContext).Photo = File.ReadAllBytes(ofd.FileName); 
-        }
     }
 }

@@ -9,6 +9,7 @@ using Signum.Entities;
 using Signum.Services;
 using Signum.Entities.Authorization;
 using Signum.Engine.Operations;
+using Signum.Entities.Files;
 
 namespace Southwind.Load
 {
@@ -89,7 +90,7 @@ namespace Southwind.Load
                         HomePhone = e.HomePhone,
                         Extension = e.Extension,
                         HireDate = e.HireDate,
-                        Photo = e.Photo.ToArray(),
+                        Photo = new FileDN { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),
                         PhotoPath = e.PhotoPath,
                         Address = new AddressDN
                         {
@@ -116,38 +117,12 @@ namespace Southwind.Load
             }
         }
 
-        public static void FixEmployeeImages()
-        {
-            foreach (var employee in Database.RetrieveAll<EmployeeDN>())
-            {
-                if (employee.Photo != null)
-                {
-                    employee.Photo = RemoveOlePrefix(employee.Photo); // employee.Photo.Skip(78).ToArray();
-
-                    employee.Save();
-                }
-            }
-        }
-
-        public static void FixCategoryImages()
-        {
-            foreach (var category in Database.RetrieveAll<CategoryDN>())
-            {
-                if (category.Picture != null)
-                {
-                    category.Picture = RemoveOlePrefix(category.Picture);
-
-                    category.Save();
-                }
-            }
-        }
-
-        static byte[] RemoveOlePrefix(byte[] bytes)
+        public static byte[] RemoveOlePrefix(byte[] bytes)
         {
             byte[] clean = new byte[bytes.Length - 78];
             Array.Copy(bytes, 78, clean, 0, bytes.Length - 78);
             return clean;
-        }
+        } //RemoveOlePrefix
 
         internal static void CreateSystemUser()
         {
