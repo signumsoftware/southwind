@@ -278,6 +278,10 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new DashboardOmniboxProvider());"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new DashboardOmniboxProvider());"/>
     </Module>
+
+    <Module Name="Test.Environment">
+      <RemoveFiles Path="Southwind.Test.Environment\Southwind.Test.Environment"/>
+    </Module>
   </Modules>
 
   <Projects>
