@@ -4,27 +4,27 @@
   <Roles>
     <Role Name="Super user" MergeStrategy="Intersection" Contains="" />
     <Role Name="User" Contains="" />
-    <Role Name="Advanced users" Contains="User" />
+    <Role Name="Advanced user" Contains="User" />
   </Roles>
   <Operations>
     <Role Name="Super user" />
     <Role Name="User" />
-    <Role Name="Advanced users" />
+    <Role Name="Advanced user" />
   </Operations>
   <Permissions>
     <Role Name="Super user" />
     <Role Name="User" />
-    <Role Name="Advanced users" />
+    <Role Name="Advanced user" />
   </Permissions>
   <Properties>
     <Role Name="Super user" />
     <Role Name="User" />
-    <Role Name="Advanced users" />
+    <Role Name="Advanced user" />
   </Properties>
   <Queries>
     <Role Name="Super user" />
     <Role Name="User" />
-    <Role Name="Advanced users" />
+    <Role Name="Advanced user" />
   </Queries>
   <Types>
     <Role Name="Super user" />
@@ -88,7 +88,7 @@
         <Condition Name="SouthwindGroup.UserEntities" Allowed="Create" />
       </Type>
     </Role>
-    <Role Name="Advanced users">
+    <Role Name="Advanced user">
       <Type Resource="AlertType" Allowed="Create" />
       <Type Resource="Category" Allowed="Create" />
       <Type Resource="Product" Allowed="Create" />

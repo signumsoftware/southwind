@@ -171,9 +171,8 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{42, AuthLogic.ImportExportAuthRules},"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
       <RemoveFiles Path="Southwind.Load\AuthRules.xml"/>
-      
     </Module>
 
     <Module Name="Translation">
@@ -184,6 +183,7 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="TranslationClient.Start(new BingTranslator()," To="instanceTranslator: true);" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = DefaultCulture;" To="} // BingTranslator" />
       <RemoveLine Path="Southwind\Southwind.Entities\Product.cs" From="[TranslateField]" />
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{44, AuthLogic.ImportSpanishInstanceTranslations},"/>
     </Module>
 
     <Module Name="Auth_ResetPasswordRequest" DependsOn="Auth">
@@ -256,7 +256,7 @@
      
     </Module>
 
-    <Module Name="PublicCatalog" DependsOn="Translation,Cache">
+    <Module Name="PublicCatalog" DependsOn="Translation,Cache,Files">
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryDN, List&lt;ProductDN&gt;&gt;&gt; ActiveProducts;"/>
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductDN)));"/>
       <RemoveFiles Path="Southwind.Web\Views\Home\PublicCatalog.cshtml"/>

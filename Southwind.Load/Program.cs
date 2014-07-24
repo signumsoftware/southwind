@@ -20,6 +20,7 @@ using Signum.Entities.Mailing;
 using Signum.Entities.Files;
 using Signum.Entities.SMS;
 using Signum.Entities.Basics;
+using Signum.Engine.Translation;
 
 namespace Southwind.Load
 {
@@ -58,42 +59,38 @@ namespace Southwind.Load
 
         private static void Load()
         {
-            Schema.Current.InitializeUntil(InitLevel.Level0SyncEntities);
-            
+            Schema.Current.Initialize();
+
             OperationLogic.AllowSaveGlobally = true;
 
             while (true)
             {
                 Action[] actions = new ConsoleSwitch<int, Action>
-                    {
-                        {0, EmployeeLoader.LoadRegions},
-                        {1, EmployeeLoader.LoadTerritories},
-                        {2, EmployeeLoader.LoadEmployees},
-                        {3, ProductLoader.LoadSuppliers },
-                        {4, ProductLoader.LoadCategories },
-                        {5, ProductLoader.LoadProducts },
-                        {6, CustomerLoader.LoadCompanies },
-                        {7, CustomerLoader.LoadPersons },
-                        {8, OrderLoader.LoadShippers },
-                        {9, OrderLoader.LoadOrders },
+                {
+                    {0, EmployeeLoader.LoadRegions},
+                    {1, EmployeeLoader.LoadTerritories},
+                    {2, EmployeeLoader.LoadEmployees},
+                    {3, ProductLoader.LoadSuppliers },
+                    {4, ProductLoader.LoadCategories },
+                    {5, ProductLoader.LoadProducts },
+                    {6, CustomerLoader.LoadCompanies },
+                    {7, CustomerLoader.LoadPersons },
+                    {8, OrderLoader.LoadShippers },
+                    {9, OrderLoader.LoadOrders },
 
-                        {10, EmployeeLoader.FixEmployeeImages },
-                        {11, EmployeeLoader.FixCategoryImages },
-                 
+                    {20, EmployeeLoader.CreateUsers },
+                    {21, EmployeeLoader.CreateSystemUser }, 
 
-                        {20, EmployeeLoader.CreateUsers },
-                        {21, EmployeeLoader.CreateSystemUser }, 
+                    {30, OrderLoader.UpdateOrdersDate },
 
-                        {30, OrderLoader.UpdateOrdersDate },
+                    {40, SnamphotIsolation},
+                    {41, CreateCultureInfo},
+                    {42, ChartScriptLogic.ImportExportChartScripts},
+                    {43, AuthLogic.ImportExportAuthRules},
+                    {44, ImportSpanishInstanceTranslations},
+                    {100, ShowOrder},
 
-                        {40, SnamphotIsolation},
-                        {41, CreateCultureInfo},
-                        {42, ChartScriptLogic.ImportExportChartScripts},
-                        {42, AuthLogic.ImportExportAuthRules},
-
-                        {100, ShowOrder},
-
-                    }.ChooseMultiple();
+                }.ChooseMultiple();
 
                 if (actions == null)
                     return;
@@ -169,5 +166,11 @@ namespace Southwind.Load
                 }
             }.Save();
         }
+
+        public static void ImportSpanishInstanceTranslations()
+        {
+            TranslatedInstanceLogic.ImportExcelFile("../../Category.es.View.xlsx");
+        }
+
     }
 }
