@@ -230,7 +230,7 @@ namespace Southwind.Web
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = GetCulture(this.Request);
         }
 
-        static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en-GB"); 
+        static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en-US"); 
 
         public static CultureInfo GetCulture(HttpRequest request)
         {

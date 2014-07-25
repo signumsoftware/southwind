@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Signum.Engine;
 using Signum.Engine.Maps;
 using Signum.Entities;
 using Signum.Entities.Authorization;
+using Signum.Entities.Basics;
 using Signum.Services;
 using Signum.Utilities;
 using Southwind.Entities;
@@ -204,6 +206,12 @@ namespace Southwind.Test.Environment
         {
             Start();
             Schema.Current.Initialize(); 
+        }
+
+        internal static void LoadBasics()
+        {
+            var en = new CultureInfoDN(CultureInfo.GetCultureInfo("en")).Save();
+            var es = new CultureInfoDN(CultureInfo.GetCultureInfo("es")).Save(); 
         }
     }
 }

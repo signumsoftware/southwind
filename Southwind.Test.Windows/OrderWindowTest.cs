@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Entities;
+using Signum.Entities.DynamicQuery;
 using Signum.Utilities;
 using Signum.Windows.UIAutomation;
 using Southwind.Entities;
@@ -32,13 +33,12 @@ namespace Southwind.Test.Windows
                     using (SearchWindowProxy persons = win.SelectQuery(typeof(PersonDN)))
                     {
                         persons.Search();
+                        persons.SearchControl.SortColumn("Id", OrderType.Ascending);
 
                         using (NormalWindowProxy<PersonDN> john = persons.ViewElementAt<PersonDN>(1))
                         {
                             using (NormalWindowProxy<OrderDN> order = john.ConstructFrom(OrderOperation.CreateOrderFromCustomer))
                             {
-                                order.EntityLine(a => a.Employee).Autocomplete("Advanced");
-
                                 order.ValueLineValue(a => a.ShipName, Guid.NewGuid().ToString());
                                 order.EntityCombo(a => a.ShipVia).SelectToString("FedEx");
 

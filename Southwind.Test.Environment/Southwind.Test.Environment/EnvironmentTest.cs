@@ -31,6 +31,8 @@ namespace Southwind.Test.Environment
 
             using (AuthLogic.Disable())
             {
+                SouthwindEnvironment.LoadBasics();
+
                 AuthLogic.LoadRoles(authRules);
                 SouthwindEnvironment.LoadEmployees();
                 SouthwindEnvironment.LoadProducts(); 

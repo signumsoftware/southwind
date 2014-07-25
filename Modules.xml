@@ -290,6 +290,10 @@
     <Module Name="Test.Windows" DependsOn="Test.Environment">
       <RemoveFiles Path="Southwind.Test.Windows"/>
     </Module>
+
+    <Module Name="Test.Web" DependsOn="Test.Environment">
+      <RemoveFiles Path="Southwind.Test.Web"/>
+    </Module>
   </Modules>
 
   <Projects>
