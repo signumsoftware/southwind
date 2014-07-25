@@ -280,7 +280,12 @@
     </Module>
 
     <Module Name="Test.Environment">
-      <RemoveFiles Path="Southwind.Test.Environment\Southwind.Test.Environment"/>
+      <RemoveFiles Path="Southwind.Test.Environment"/>
+    </Module>
+
+    <Module Name="Test.Logic" DependsOn="Test.Environment">
+      <RemoveFiles Path="Southwind.Test.Logic"/>
+    </Module>
     </Module>
   </Modules>
 
