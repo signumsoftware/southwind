@@ -286,6 +286,9 @@
     <Module Name="Test.Logic" DependsOn="Test.Environment">
       <RemoveFiles Path="Southwind.Test.Logic"/>
     </Module>
+
+    <Module Name="Test.Windows" DependsOn="Test.Environment">
+      <RemoveFiles Path="Southwind.Test.Windows"/>
     </Module>
   </Modules>
 
