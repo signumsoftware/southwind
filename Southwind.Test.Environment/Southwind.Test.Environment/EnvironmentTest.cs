@@ -35,9 +35,9 @@ namespace Southwind.Test.Environment
                 SouthwindEnvironment.LoadEmployees();
                 SouthwindEnvironment.LoadProducts(); 
                 SouthwindEnvironment.LoadCustomers(); 
-                SouthwindEnvironment.LoadShippers(); 
+                SouthwindEnvironment.LoadShippers();
 
-                AuthLogic.ImportRulesScript(authRules);
+                Executor.ExecuteNonQuery(AuthLogic.ImportRulesScript(authRules).PlainSql());
             }
 
             OperationLogic.AllowSaveGlobally = false;

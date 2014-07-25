@@ -5,9 +5,9 @@
     <Setting Name="ConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=localhost;Initial Catalog=SouthwindTest;Integrated Security=true&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=localhost;Initial Catalog=Southwind;Integrated Security=true&lt;/ConnectionString&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=localhost;Initial Catalog=SouthwindTest;Integrated Security=true</Value>
+      <Value Profile="(Default)">Data Source=localhost;Initial Catalog=Southwind;Integrated Security=true</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -106,7 +106,8 @@ namespace Southwind.Logic
                     Construct = (_) => new OrderDN
                     {
                         State = OrderState.New,
-                        Employee = EmployeeDN.Current.ToLite()
+                        Employee = EmployeeDN.Current.ToLite(),
+                        RequiredDate = DateTime.Now.AddDays(3),
                     }
                 }.Register();
 
@@ -118,6 +119,8 @@ namespace Southwind.Logic
                         State = OrderState.New,
                         Customer = c,
                         Employee = EmployeeDN.Current.ToLite(),
+                        ShipAddress = c.Address,
+                        RequiredDate = DateTime.Now.AddDays(3),
                     }
                 }.Register();
 
@@ -134,6 +137,7 @@ namespace Southwind.Logic
                         {
                             State = OrderState.New,
                             Employee = EmployeeDN.Current.ToLite(),
+                            RequiredDate = DateTime.Now.AddDays(3),
                             Details = prods.Select(p => new OrderDetailsDN
                             {
                                 Product = p,

@@ -60,6 +60,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SouthwindEnvironment.cs" />
+    <Compile Include="SouthwindExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
