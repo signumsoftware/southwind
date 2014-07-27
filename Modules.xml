@@ -13,7 +13,6 @@
       <RemoveFiles Path="Southwind.Web\Code\SouthwindClient.cs"/>
       <RemoveFiles Path="Southwind.Web\Scripts\Order.ts"/>
       <RemoveFiles Path="Southwind.Web\Views\Southwind"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="private static void SetupCache(SchemaBuilder sb)" To="}"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" From="new WebMenuItem //Southwind" To="}, //Southwind"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SouthwindClient.Start();"/>
     </Module>
@@ -43,9 +42,7 @@
     </Module>
 
     <Module Name="LoadNorthwind">	  
-	  <RemoveLine Path="Southwind.Load\Program.cs"
-	    From="{0, EmployeeLoader.LoadRegions}," 
-	    To="{30, OrderLoader.UpdateOrdersDate },"/>
+	  <RemoveLine Path="Southwind.Load\Program.cs" From="{0, EmployeeLoader.LoadRegions}," To="{30, OrderLoader.UpdateOrdersDate },"/>
       <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\EmployeeLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\Northwind.dbml"/>
@@ -85,9 +82,10 @@
       <RemoveLine Path="Southwind.Entities\Product.cs" From="EmbeddedFileDN picture;" To="}"/>
       <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" Line="Photo = new FileDN { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),"/>
       <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" From="public static byte[] RemoveOlePrefix(byte[] bytes)" To="} //RemoveOlePrefix"/>
-      <RemoveLine Path="Southwind.Load\ProductLoader.cs" Line="Picture = new EmbeddedFileDN { FileName = s.CategoryName + &quot;.jpg=&quot;, BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },"/>
+      <RemoveLine Path="Southwind.Load\ProductLoader.cs" Line="Picture = new EmbeddedFileDN { FileName = s.CategoryName + &quot;.jpg&quot;, BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },"/>
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="s.Picture"/>
-      <RemoveLine Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo,"/>
+      <RemoveLine Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //1"/>
+      <RemoveLine Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //2"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FileLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" From="QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture," To=".Attr(&quot;style&quot;, &quot;width:48px&quot;).ToHtmlSelf()) { TextAlign = &quot;center&quot; });"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" From="public static string Base64Data(EmbeddedFileDN file)" To="} //Base64Data"/>
@@ -104,7 +102,7 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ExcelClient.Start(toExcel: true, excelReport: false);"/>
     </Module>
 
-    <Module Name="Dashboard">
+    <Module Name="Dashboard" DependsOn="Chart,UserQuery">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((DashboardDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
@@ -182,11 +180,16 @@
       <RemoveFiles Path="Southwind.Web\Translations" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="TranslationClient.Start(new BingTranslator()," To="instanceTranslator: true);" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = DefaultCulture;" To="} // BingTranslator" />
-      <RemoveLine Path="Southwind\Southwind.Entities\Product.cs" From="[TranslateField]" />
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{44, AuthLogic.ImportSpanishInstanceTranslations},"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{44, ImportSpanishInstanceTranslations},"/>
+      <RemoveFiles Path="Southwind.Load\Category.es.View.xlsx"/>
+      <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column"/>
+      <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column"/>
+      <RemoveLine Path="Southwind.Web\Scripts\southwind.ts" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
+      <RemoveLine Path="Southwind.Web\Scripts\southwind.js" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
+      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeLanguage()" To="} //ChangeLanguage"/>
     </Module>
-
-    <Module Name="Auth_ResetPasswordRequest" DependsOn="Auth">
+    
+    <Module Name="Auth_ResetPasswordRequest" DependsOn="Auth,Mailing">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ResetPasswordRequestLogic.Start(sb, dqm);"/>
     </Module>
 
@@ -213,15 +216,15 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AlertLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.AttendedBy, new ImplementedByAttribute(typeof(UserDN)));"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="AlertClient.Start();"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="AlertClient.Start(typeof(OrderDN));"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="AlertClient.Start(typeof(OrderDN));"/>
     </Module>
 
     <Module Name="Notes">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="NoteLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((NoteDN n) => n.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="NoteClient.Start();"/>
-      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="NoteClient.Start();"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="NoteClient.Start(typeof(OrderDN));"/>
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="NoteClient.Start(typeof(OrderDN));"/>
     </Module>
 
     <Module Name="Cache">
@@ -246,15 +249,7 @@
 	    <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="public static string ThemeSessionKey = &quot;swCurrentTheme&quot;;"/>
 	  </Module>
 
-    <Module Name="Translation">
-      <RemoveFiles Path="Southwind\Southwind.Load\Category.es.View.xlsx"/>
-      <RemoveLine Path="Southwind\Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column"/>
-      <RemoveLine Path="Southwind\Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column"/>
-      <RemoveLine Path="Southwind.Web\Scripts\southwind.ts" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
-      <RemoveLine Path="Southwind.Web\Scripts\southwind.js" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
-      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeLanguage()" To="} //ChangeLanguage"/>
-     
-    </Module>
+
 
     <Module Name="PublicCatalog" DependsOn="Translation,Cache,Files">
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryDN, List&lt;ProductDN&gt;&gt;&gt; ActiveProducts;"/>
@@ -287,11 +282,11 @@
       <RemoveFiles Path="Southwind.Test.Logic"/>
     </Module>
 
-    <Module Name="Test.Windows" DependsOn="Test.Environment">
+    <Module Name="Test.Windows" DependsOn="Test.Environment, Windows">
       <RemoveFiles Path="Southwind.Test.Windows"/>
     </Module>
 
-    <Module Name="Test.Web" DependsOn="Test.Environment">
+    <Module Name="Test.Web" DependsOn="Test.Environment, Web">
       <RemoveFiles Path="Southwind.Test.Web"/>
     </Module>
   </Modules>

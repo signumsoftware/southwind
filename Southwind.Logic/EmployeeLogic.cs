@@ -59,7 +59,7 @@ namespace Southwind.Logic
                         e.FirstName,
                         e.LastName,
                         e.BirthDate,
-                        e.Photo,
+                        e.Photo, //1
                     });
 
                 dqm.RegisterQuery(EmployeeQuery.EmployeesByTerritory, () =>
@@ -72,7 +72,7 @@ namespace Southwind.Logic
                         e.FirstName,
                         e.LastName,
                         e.BirthDate,
-                        e.Photo,
+                        e.Photo, //2
                         Territory = t.ToLite(),
                     });
 
