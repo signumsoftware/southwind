@@ -171,6 +171,12 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
       <RemoveFiles Path="Southwind.Load\AuthRules.xml"/>
+      <RemoveFiles Path="Southwind.Entities\UserEmployeeMixin.cs"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserDN, UserEmployeeMixin&gt;();"/>
+      <RemoveLine Path="Southwind.Web\ServerSouthwind.svc.cs" From="public override void Login(string username, string passwordHash)" To="} //Login"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthLogic.UserLogingIn += user =>" To="}; //UserLogingIn" />
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().CreateViewOverride()" To=".AfterLine((UserDN u) => u.Role, (html, tc) => html.EntityLine(tc, u => u.Mixin&lt;UserEmployeeMixin>().Employee));" />
+      <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().OverrideView((usr, ctrl) =>" To="});" />
     </Module>
 
     <Module Name="Translation">
@@ -203,14 +209,6 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SessionLogClient.LogSessionEnd((UserDN)Session[UserHolder.UserSessionKey], TimeSpan.FromMinutes(Session.Timeout));"/>
     </Module>
 
-    <Module Name="Auth_UserMixin" DepentdsOn="Auth">
-      <RemoveFiles Path="Southwind.Entities\UserMixin.cs"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserDN, UserMixin&gt;();"/>
-      <RemoveLine Path="Southwind.Web\ServerSouthwind.svc.cs" From="public override void Login(string username, string passwordHash)" To="} //Login"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthLogic.UserLogingIn += user =>" To="}; //UserLogingIn" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().CreateViewOverride()" To=".AfterLine((UserDN u) => u.Related, (html, tc) => html.ValueLine(tc, u => u.Mixin&lt;UserMixin&gt;().AllowLogin));" />
-      <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().OverrideView((usr, ctrl) =>" To="});" />
-    </Module>
 
     <Module Name="Alerts">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AlertLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });"/>
