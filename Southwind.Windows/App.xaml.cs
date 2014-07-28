@@ -92,7 +92,7 @@ namespace Southwind.Windows
             {
                 using (Common.DelayRoutes())
                 {
-                    ctrl.Child<EntityLine>("Role").After(new ValueLine().Set(Common.RouteProperty, "[UserMixin].AllowLogin"));
+                    ctrl.Child<EntityLine>("Role").After(new ValueLine().Set(Common.RouteProperty, "[UserEmployeeMixin].AllowLogin"));
                     ctrl.Child<EntityLine>("Role").After(new EntityLine().Set(Common.RouteProperty, "[UserEmployeeMixin].Employee"));
                 }
                 return ctrl;

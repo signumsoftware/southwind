@@ -55,7 +55,6 @@ namespace Southwind.Logic
         {
             string logPostfix = Connector.TryExtractCatalogPostfix(ref connectionString, "_Log");
 
-            MixinDeclarations.Register<UserDN, UserMixin>();
             MixinDeclarations.Register<UserDN, UserEmployeeMixin>();
             MixinDeclarations.Register<ProcessDN, UserProcessSessionMixin>();
 
@@ -156,7 +155,6 @@ namespace Southwind.Logic
         {
             sb.Schema.Settings.OverrideAttributes((ExceptionDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((OperationLogDN ua) => ua.User, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((UserDN ua) => ua.Related, new ImplementedByAttribute(typeof(EmployeeDN)));
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((DashboardDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));

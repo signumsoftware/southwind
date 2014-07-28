@@ -62,7 +62,7 @@ namespace Southwind.Web
             {
                 var user = AuthLogic.Login(username, passwordHash);
 
-                if(user.Mixin<UserMixin>().AllowLogin == AllowLogin.WebOnly)
+                if(user.Mixin<UserEmployeeMixin>().AllowLogin == AllowLogin.WebOnly)
                     throw new UnauthorizedAccessException("Windows login not allowed"); 
 
                 UserDN.Current = user;

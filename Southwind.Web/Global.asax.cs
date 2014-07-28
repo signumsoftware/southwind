@@ -108,7 +108,7 @@ namespace Southwind.Web
             {
                 AllowLogin required = ScopeSessionFactory.IsOverriden ? AllowLogin.WindowsOnly : AllowLogin.WebOnly;
 
-                AllowLogin current = user.Mixin<UserMixin>().AllowLogin; 
+                AllowLogin current = user.Mixin<UserEmployeeMixin>().AllowLogin; 
 
                 if (current != AllowLogin.WindowsAndWeb && current != required)
                     throw new UnauthorizedAccessException("User {0} is {1}".Formato(user, current.NiceToString()));
@@ -130,7 +130,7 @@ namespace Southwind.Web
                 passwordExpiration: false);
 
             Navigator.EntitySettings<UserDN>().CreateViewOverride()
-                .AfterLine((UserDN u) => u.Related, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserMixin>().AllowLogin));
+                .AfterLine((UserDN u) => u.Role, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserEmployeeMixin>().AllowLogin))
                 .AfterLine((UserDN u) => u.Role, (html, tc) => html.EntityLine(tc, u => u.Mixin<UserEmployeeMixin>().Employee));
 
             AuthAdminClient.Start(

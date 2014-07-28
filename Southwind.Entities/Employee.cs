@@ -158,6 +158,14 @@ namespace Southwind.Entities
             : base(mainEntity, next)
         {
         }
+
+        AllowLogin allowLogin;
+        public AllowLogin AllowLogin
+        {
+            get { return allowLogin; }
+            set { Set(ref allowLogin, value); }
+        }
+       
         EmployeeDN employee;
         public EmployeeDN Employee
         {
@@ -165,6 +173,14 @@ namespace Southwind.Entities
             set { Set(ref employee, value); }
         }
     }
+
+    public enum AllowLogin
+    {
+        WindowsAndWeb,
+        WindowsOnly,
+        WebOnly,
+    }
+
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
     public class TerritoryDN : IdentifiableEntity
     {
