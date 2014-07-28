@@ -61,18 +61,15 @@ namespace Southwind.Test.Environment
 
         }
 
-   
-
         private static void CreateUser(EmployeeDN emp, RoleDN role)
         {
             new UserDN
             {
                 UserName = emp.FirstName,
                 PasswordHash = Security.EncodePassword(emp.FirstName),
-                Related = emp,
                 Role = role,
                 State = UserState.Saved,
-            }.Save();
+            }.SetMixin((UserEmployeeMixin e)=>e.Employee, emp).Save();
         }
 
         internal static void LoadProducts()

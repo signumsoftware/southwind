@@ -141,7 +141,7 @@ namespace Southwind.Entities
 
         public static EmployeeDN Current
         {
-            get { return ((EmployeeDN)UserDN.Current.Related); }
+            get { return UserDN.Current.Mixin<UserEmployeeMixin>().Employee; }
         }
     }
 
@@ -150,6 +150,21 @@ namespace Southwind.Entities
         public static readonly ExecuteSymbol<EmployeeDN> Save = OperationSymbol.Execute<EmployeeDN>();
     }
 
+
+    [Serializable]
+    public class UserEmployeeMixin : MixinEntity
+    {
+        protected UserEmployeeMixin(IdentifiableEntity mainEntity, MixinEntity next)
+            : base(mainEntity, next)
+        {
+        }
+        EmployeeDN employee;
+        public EmployeeDN Employee
+        {
+            get { return employee; }
+            set { Set(ref employee, value); }
+        }
+    }
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
     public class TerritoryDN : IdentifiableEntity
     {

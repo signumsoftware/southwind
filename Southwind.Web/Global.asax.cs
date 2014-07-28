@@ -131,6 +131,7 @@ namespace Southwind.Web
 
             Navigator.EntitySettings<UserDN>().CreateViewOverride()
                 .AfterLine((UserDN u) => u.Related, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserMixin>().AllowLogin));
+                .AfterLine((UserDN u) => u.Role, (html, tc) => html.EntityLine(tc, u => u.Mixin<UserEmployeeMixin>().Employee));
 
             AuthAdminClient.Start(
                 types: true, 

@@ -163,14 +163,13 @@ namespace Southwind.Load
                         var employee = employees[i];
                         new UserDN
                         {
-                            Related = employee,
                             UserName = employee.FirstName,
                             PasswordHash = Security.EncodePassword(employee.FirstName),
                             Role = i < 2 ? su :
                                    i < 5 ? au : u,
                             State = UserState.Saved,
 
-                        }.Save();
+                        }.SetMixin((UserEmployeeMixin e)=>e.Employee, employee).Save();
                     }
 
                 tr.Commit();

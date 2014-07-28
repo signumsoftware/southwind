@@ -56,6 +56,7 @@ namespace Southwind.Logic
             string logPostfix = Connector.TryExtractCatalogPostfix(ref connectionString, "_Log");
 
             MixinDeclarations.Register<UserDN, UserMixin>();
+            MixinDeclarations.Register<UserDN, UserEmployeeMixin>();
             MixinDeclarations.Register<ProcessDN, UserProcessSessionMixin>();
 
             SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2012);
@@ -126,8 +127,8 @@ namespace Southwind.Logic
 
             StartSouthwindConfiguration(sb, dqm);
 
-            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.UserEntities, o => o.Employee.RefersTo((EmployeeDN)UserDN.Current.Related));
-            TypeConditionLogic.Register<EmployeeDN>(SouthwindGroup.UserEntities, e => e == (EmployeeDN)UserDN.Current.Related);
+            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.UserEntities, o => o.Employee.RefersTo(EmployeeDN.Current));
+            TypeConditionLogic.Register<EmployeeDN>(SouthwindGroup.UserEntities, e => e == EmployeeDN.Current);
 
             TypeConditionLogic.Register<OrderDN>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerDN.Current);
             TypeConditionLogic.Register<PersonDN>(SouthwindGroup.CurrentCustomer, o => o == CustomerDN.Current);

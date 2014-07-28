@@ -42,7 +42,7 @@ namespace Southwind.Windows.Code
                 {
                     OrderDate = DateTime.Now,
                     RequiredDate = DateTime.Now.AddDays(2),
-                    Employee = ((EmployeeDN)UserDN.Current.Related).ToLite(),
+                    Employee = EmployeeDN.Current.ToLite(),
                     Details = new MList<OrderDetailsDN>()
                 });
 

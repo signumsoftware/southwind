@@ -99,7 +99,7 @@ namespace Southwind.Web
                     new QuickLinkFind(typeof(OrderDN), "Employee", entity, true)  
                 };
 
-                var user = Database.Query<UserDN>().Where(u => entity.RefersTo(u.Related)).Select(u => u.ToLite()).FirstOrDefault();
+                var user = Database.Query<UserDN>().Where(u => entity.RefersTo(u.Mixin<UserEmployeeMixin>().Employee)).Select(u => u.ToLite()).FirstOrDefault();
                 if (user != null)
                     links.Add(new QuickLinkView(user));
 
