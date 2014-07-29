@@ -248,7 +248,7 @@ namespace Southwind.Web
             if (ciRequest != null)
                 return ciRequest;
 
-            return DefaultCulture;
+            return DefaultCulture; //Translation
         }
     }
 

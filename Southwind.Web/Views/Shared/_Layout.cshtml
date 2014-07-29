@@ -12,12 +12,13 @@
     <title>@ViewBag.Title</title>
 
     @{ 
+        //theme0
         string currentTheme = (Session == null ? null : (string)Session[SouthwindClient.ThemeSessionKey]) ?? "bootstrap";
 
         if (currentTheme == "bootstrap")
-        {
+        { //theme1
         @Html.ScriptCss("~/Libs/bootstrap/css/bootstrap.css");
-        }
+        } //theme2
         else if (currentTheme == "bootstrap + theme")
         {
         @Html.ScriptCss(
@@ -27,7 +28,7 @@
         else
         {
         @Html.ScriptCss("~/Libs/bootstrap/themes/{0}.css".Formato(currentTheme))
-        }
+        } //theme3
     }
 
     @Html.ScriptCss(

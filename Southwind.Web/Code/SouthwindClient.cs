@@ -125,7 +125,7 @@ namespace Southwind.Web
             {
                 new QuickLinkFind(typeof(OrderDN), "Customer", entity, true)
             });
-        }
+        } //RegisterQuickLinks
 
         public static string Base64Data(EmbeddedFileDN file)
         {
