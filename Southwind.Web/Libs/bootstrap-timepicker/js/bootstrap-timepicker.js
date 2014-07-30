@@ -328,16 +328,22 @@
                 return;
             }
 
+            var obj = {
+                'value': this.getTime(),
+                'hours': this.hour,
+                'minutes': this.minute,
+                'seconds': this.second,
+                'meridian': this.meridian,
+                'cancel': false
+            }; 
+
             this.$element.trigger({
                 'type': 'hide.timepicker',
-                'time': {
-                    'value': this.getTime(),
-                    'hours': this.hour,
-                    'minutes': this.minute,
-                    'seconds': this.second,
-                    'meridian': this.meridian
-                }
+                'time': obj
             });
+
+            if (obj.cancel)
+                return;
 
             if (this.template === 'modal' && this.$widget.modal) {
                 this.$widget.modal('hide');
@@ -865,16 +871,22 @@
                 }
             });
 
+            var obj = {
+                'value': this.getTime(),
+                'hours': this.hour,
+                'minutes': this.minute,
+                'seconds': this.second,
+                'meridian': this.meridian,
+                'cancel': false
+            };
+
             this.$element.trigger({
                 'type': 'show.timepicker',
-                'time': {
-                    'value': this.getTime(),
-                    'hours': this.hour,
-                    'minutes': this.minute,
-                    'seconds': this.second,
-                    'meridian': this.meridian
-                }
+                'time': obj
             });
+
+            if (obj.cancel)
+                return;
 
             this.place();
             if (this.disableFocus) {
