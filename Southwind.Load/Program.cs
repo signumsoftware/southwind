@@ -83,7 +83,6 @@ namespace Southwind.Load
 
                     {30, OrderLoader.UpdateOrdersDate },
 
-                    {40, SnamphotIsolation},
                     {41, CreateCultureInfo},
                     {42, ChartScriptLogic.ImportExportChartScripts},
                     {43, AuthLogic.ImportExportAuthRules},
@@ -129,12 +128,6 @@ namespace Southwind.Load
             }
 
             command.OpenSqlFileRetry();
-        }
-
-        static void SnamphotIsolation()
-        {
-            Administrator.SetSnapshotIsolation(true);
-            Administrator.MakeSnapshotIsolationDefault(true);
         }
 
         static void ShowOrder()

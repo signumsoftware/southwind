@@ -108,20 +108,20 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        @if (UserDN.Current != null)
+                        @if (UserDN.Current != null) //Omnibox
                         { 
-                            <li>
+                            <li> @*Omnibox*@
                                 <input id="sfOmnibox" name="sfOmnibox" type="text" class="form-control" placeholder="@Signum.Entities.Omnibox.OmniboxMessage.Search.NiceToString()" />
                                 <script type="text/javascript">
                                     @(Signum.Web.Omnibox.OmniboxClient.Module["initialize"]("sfOmnibox", Url.Action("Autocomplete", "Omnibox")))
                                 </script>
                             </li>
-                        }
+                        } //UserDN.Current
 
-                        @if (UserDN.Current != null)
+                        @if (UserDN.Current != null) //Menu
                         {
-                            Html.RenderPartial("Menu");
-                        }
+                            @Html.Partial("Menu")
+                        } //UserDN.Current
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
 

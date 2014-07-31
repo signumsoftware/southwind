@@ -61,14 +61,14 @@ namespace Southwind.Web
                         new HtmlTag("img")
                        .Attr("src", Base64Data((EmbeddedFileDN)obj))
                       .Attr("alt", obj.ToString())
-                      .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" });
+                      .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" }); // Category
 
                 QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo,
                     new CellFormatter((html, obj) => obj == null ? null :
                       new HtmlTag("img")
                       .Attr("src", RouteHelper.New().Action((FileController c) => c.Download(new RuntimeInfo((Lite<FileDN>)obj).ToString())))
                       .Attr("alt", obj.ToString())
-                      .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" });
+                      .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" }); //Emmployee
 
                 Constructor.Register(ctx => new EmployeeDN { Address = new AddressDN() });
                 Constructor.Register(ctx => new OrderDN

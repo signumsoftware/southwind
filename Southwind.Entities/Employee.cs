@@ -141,7 +141,7 @@ namespace Southwind.Entities
 
         public static EmployeeDN Current
         {
-            get { return UserDN.Current.Mixin<UserEmployeeMixin>().Employee; }
+            get { return UserDN.Current.Mixin<UserEmployeeMixin>().Employee; } //get { return null; }
         } //Current
     }
 
