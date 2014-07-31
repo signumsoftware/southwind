@@ -202,7 +202,7 @@
       <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" Line="@{ Html.RenderPartial(AuthClient.LoginUserControlView);}" />
       <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="@if (UserDN.Current != null) //Omnibox" To="{" />
       <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="@if (UserDN.Current != null) //Menu" To="{" />
-      <RemoveSpanInLines Path="Southwind.Web\Views\Shared\_Layout.cshtml" Span="} //UserDN.Current" />
+      <RemoveSpanInLines Path="Southwind.Web\Views\Shared\_Layout.cshtml" Span="} @*UserDN.Current*@" />
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" From="var user = Database.Query&lt;UserDN>()" To="links.Add(new QuickLinkView(user));"/>

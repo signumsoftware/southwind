@@ -116,12 +116,12 @@
                                     @(Signum.Web.Omnibox.OmniboxClient.Module["initialize"]("sfOmnibox", Url.Action("Autocomplete", "Omnibox")))
                                 </script>
                             </li>
-                        } //UserDN.Current
+                        } @*UserDN.Current*@
 
                         @if (UserDN.Current != null) //Menu
                         {
                             @Html.Partial("Menu")
-                        } //UserDN.Current
+                        } @*UserDN.Current*@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
 
