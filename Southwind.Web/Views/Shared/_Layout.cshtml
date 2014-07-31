@@ -104,16 +104,20 @@
                     </button>
                     @(Html.ActionLink<HomeController>("Southwind", c => c.Index(), new { @class = "navbar-brand hidden-under-350" }))
                     @(Html.ActionLink<HomeController>("SW", c => c.Index(), new { @class = "navbar-brand visible-under-350" }))
-                    @if (UserDN.Current != null)
-                    {
-                        <input id="sfOmnibox" name="sfOmnibox" type="text" class="form-control" placeholder="@Signum.Entities.Omnibox.OmniboxMessage.Search.NiceToString()" />
-                        <script type="text/javascript">
-                            @(Signum.Web.Omnibox.OmniboxClient.Module["initialize"]("sfOmnibox", Url.Action("Autocomplete", "Omnibox")))
-                        </script>
-                    }
+
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        @if (UserDN.Current != null)
+                        { 
+                            <li>
+                                <input id="sfOmnibox" name="sfOmnibox" type="text" class="form-control" placeholder="@Signum.Entities.Omnibox.OmniboxMessage.Search.NiceToString()" />
+                                <script type="text/javascript">
+                                    @(Signum.Web.Omnibox.OmniboxClient.Module["initialize"]("sfOmnibox", Url.Action("Autocomplete", "Omnibox")))
+                                </script>
+                            </li>
+                        }
+
                         @if (UserDN.Current != null)
                         {
                             Html.RenderPartial("Menu");
