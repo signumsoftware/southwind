@@ -42,7 +42,7 @@ namespace Southwind.Windows
             {
                 miDisconnected.Header = "(Server)";
                 miUpload.IsEnabled = false;
-            }
+            } //OfflineMode
         }
 
         private void miDownload_Click(object sender, RoutedEventArgs e)
@@ -59,6 +59,6 @@ namespace Southwind.Windows
             {
                 Application.Current.Shutdown();
             }
-        }
+        } //Disconnected
     }
 }

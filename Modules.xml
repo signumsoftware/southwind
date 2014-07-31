@@ -48,6 +48,9 @@
       <RemoveLine Path="Southwind.Web\Web.config" From="&lt;basicHttpBinding&gt;" To="&lt;/basicHttpBinding&gt;"/>
       <RemoveLine Path="Southwind.Web\Web.config" From="&lt;service name=&quot;Southwind.Web.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
       <RemoveLine Path="Southwind.Web\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
+      <RemoveLine Path="Southwind\Southwind.Windows\Main.xaml" From="&lt;MenuItem Header=&quot;Disconnected&quot; x:Name=&quot;miDisconnected&quot;>" To="&lt;/MenuItem>"/>
+      <RemoveLine Path="Southwind\Southwind.Windows\Main.xaml.cs" From="if (Server.OfflineMode)" To="} //OfflineMode"/>
+      <RemoveLine Path="Southwind\Southwind.Windows\Main.xaml.cs" From="private void miDownload_Click(object sender, RoutedEventArgs e)" To="} //Disconnected"/>
     </Module>
 
     <Module Name="LoadNorthwind">	  
@@ -71,6 +74,8 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="UserQueriesClient.Start();"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="UserQueryClient.Start();"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(UserQueryDN)) },"/>
+      <RemoveLine Path="Southwind\Southwind.Windows\Main.xaml" From="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type seu:UserQueryDN}}&quot;/>"/>
+
     </Module>
 
     <Module Name="Chart" DependsOn="Files">
@@ -86,6 +91,7 @@
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{42, ChartScriptLogic.ImportExportChartScripts},"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(UserChartDN)) },"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(ChartScriptDN)) },"/>
+      <RemoveLine Path="Southwind\Southwind.Windows\Main.xaml" From="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sec:UserChartDN}}&quot;/>"/>
     </Module>
 
     <Module Name="Files" >
@@ -125,6 +131,7 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="DashboardClient.Start();"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DashboardClient.Start();"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(DashboardDN)) },"/>
+      <RemoveLine Path="Southwind\Southwind.Windows\Main.xaml" Line="&lt;swdb:DashboardView />"/>
     </Module>
 
     <Module Name="Process">
@@ -181,6 +188,9 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthAdminClient.Start(" To="permissions: true);" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="AuthClient.Start(" To="defaultPasswordExpiresLogic: false);" />
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{20, EmployeeLoader.CreateUsers },"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{21, EmployeeLoader.CreateSystemUser }, "/>
+      <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" From="internal static void CreateSystemUser()" To="} //CreateUsers"/>
       <RemoveFiles Path="Southwind.Load\AuthRules.xml"/>
       <RemoveFiles Path="Southwind.Entities\UserEmployeeMixin.cs"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserDN, UserEmployeeMixin&gt;();"/>
@@ -195,6 +205,11 @@
       <RemoveSpanInLines Path="Southwind.Web\Views\Shared\_Layout.cshtml" Span="} //UserDN.Current" />
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },"/>
+      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" From="var user = Database.Query&lt;UserDN>()" To="links.Add(new QuickLinkView(user));"/>
+      <RemoveLine Path="Southwind.Windows\Program.cs" From="static IServerSouthwind Login(IServerSouthwind result)" To="} //Login"/>
+      <RemoveLine Path="Southwind.Windows\Program.cs" From="if (Application.Current == null || Application.Current.CheckAccess())" To="});"/>
+      <RemoveLine Path="Southwind\Southwind.Windows\Main.xaml" From="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sea:UserDN}}&quot;/>"/>
+      <RemoveLine Path="Southwind\Southwind.Windows\Main.xaml" From="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sea:RoleDN}}&quot;/>"/>
     </Module>
 
     <Module Name="Translation">
@@ -293,6 +308,7 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new DashboardOmniboxProvider());"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new DashboardOmniboxProvider());"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="&lt;li> @*Omnibox*@" To="&lt;/li>"/>
+      <RemoveLine Path="Southwind\Southwind.Windows\Main.xaml" From="&lt;swo:OmniboxAutocomplete MinWidth=&quot;200&quot; DockPanel.Dock=&quot;Right&quot;/>/>"/>
     </Module>
 
     <Module Name="Test.Environment">

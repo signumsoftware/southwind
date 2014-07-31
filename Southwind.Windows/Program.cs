@@ -335,7 +335,7 @@ namespace Southwind.Windows
             {
                 return null;
             }
-        }
+        } //Login
 
         static ChannelFactory<IServerSouthwindTransfer> channelFactoryRemote;
         public static IServerSouthwindTransfer RemoteServerTransfer()
