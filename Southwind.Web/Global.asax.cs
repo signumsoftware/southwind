@@ -267,7 +267,7 @@ namespace Southwind.Web
                     Headers = { { "Authorization", "Bearer " + token } }
                 };
 
-                return list.GroupsOf(50).SelectMany(gr =>
+                return list.GroupsOf(a => a.Length, 10000).SelectMany(gr =>
                 {
                     TranslateArrayResponse[] result = client.TranslateArray("", gr.ToArray(), from, to, new TranslateOptions());
 
