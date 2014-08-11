@@ -28,10 +28,9 @@ namespace Southwind.Load
     {
         static void Main(string[] args)
         {
-
             using (AuthLogic.Disable())
-            using (Sync.ChangeCulture("en"))
-            using (Sync.ChangeCultureUI("en"))
+            using (CultureInfoUtils.ChangeCulture("en"))
+            using (CultureInfoUtils.ChangeCultureUI("en"))
             {
                 Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 
