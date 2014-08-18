@@ -35,6 +35,7 @@ namespace Southwind.Test.Environment
 
                 AuthLogic.LoadRoles(authRules);
                 SouthwindEnvironment.LoadEmployees();
+                SouthwindEnvironment.LoadUsers();
                 SouthwindEnvironment.LoadProducts(); 
                 SouthwindEnvironment.LoadCustomers(); 
                 SouthwindEnvironment.LoadShippers();

@@ -26,8 +26,6 @@ namespace Southwind.Test.Environment
             var east = new TerritoryDN { Description = "East coast", Region = america }.Save();
             var west = new TerritoryDN { Description = "South coast", Region = america }.Save();
 
-            var roles = Database.Query<RoleDN>().ToDictionary(a=>a.Name);
-
             var super = new EmployeeDN
             {
                 FirstName = "Super",
@@ -35,11 +33,9 @@ namespace Southwind.Test.Environment
                 Address = RandomAddress(1),
                 HomePhone = RandomPhone(1),
                 Territories = { east, west },
-            };
+            }.Save();
 
-            CreateUser(super, roles["Super user"]);
-
-            CreateUser(new EmployeeDN
+            new EmployeeDN
             {
                 FirstName = "Advanced",
                 LastName = "User",
@@ -47,9 +43,9 @@ namespace Southwind.Test.Environment
                 HomePhone = RandomPhone(2),
                 Territories = { west },
                 ReportsTo = super.ToLite(),
-            }, roles["Advanced user"]);
+            }.Save();
 
-            CreateUser(new EmployeeDN
+            new EmployeeDN
             {
                 FirstName = "Normal",
                 LastName = "User",
@@ -57,20 +53,30 @@ namespace Southwind.Test.Environment
                 HomePhone = RandomPhone(4),
                 Territories = {  east },
                 ReportsTo = super.ToLite(),
-            }, roles["User"]);
+            }.Save();
 
         }
 
-        private static void CreateUser(EmployeeDN emp, RoleDN role)
+        internal static void LoadUsers()
         {
-            new UserDN
+            var roles = Database.Query<RoleDN>().ToDictionary(a => a.Name);
+
+            foreach (var emp in Database.Query<EmployeeDN>())
             {
-                UserName = emp.FirstName,
-                PasswordHash = Security.EncodePassword(emp.FirstName),
-                Role = role,
-                State = UserState.Saved,
-            }.SetMixin((UserEmployeeMixin e)=>e.Employee, emp).Save();
-        }
+                var role = emp.FirstName == "Super" ? roles.GetOrThrow("Super user") :
+                      emp.FirstName == "Advanced" ? roles.GetOrThrow("Advanced user") :
+                      emp.FirstName == "Normal" ? roles.GetOrThrow("User") :
+                      new InvalidOperationException("Unexpected FirstName {0}".Formato(emp.FirstName)).Throw<RoleDN>();
+
+                new UserDN
+                {
+                    UserName = emp.FirstName,
+                    PasswordHash = Security.EncodePassword(emp.FirstName),
+                    Role = role,
+                    State = UserState.Saved,
+                }.SetMixin((UserEmployeeMixin e) => e.Employee, emp).Save();
+            };
+        }//LoadUsers
 
         internal static void LoadProducts()
         {
