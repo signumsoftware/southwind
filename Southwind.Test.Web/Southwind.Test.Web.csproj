@@ -102,7 +102,7 @@
       <Project>{2DA0D6C7-53DB-45F3-BA86-F4FDEB6924FA}</Project>
       <Name>Southwind.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Southwind.Test.Environment\Southwind.Test.Environment\Southwind.Test.Environment.csproj">
+    <ProjectReference Include="..\Southwind.Test.Environment\Southwind.Test.Environment.csproj">
       <Project>{A6014F4A-A27F-4B48-804C-F4664082EF01}</Project>
       <Name>Southwind.Test.Environment</Name>
     </ProjectReference>
