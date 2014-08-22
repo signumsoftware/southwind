@@ -102,7 +102,7 @@ namespace Southwind.Logic
             DashboardLogic.Start(sb, dqm);
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-            UserAssetLogLogic.Start(sb, dqm); 
+            ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryDN), typeof(UserChartDN), typeof(DashboardDN) }); 
 
             ExceptionLogic.Start(sb, dqm);
 
@@ -158,8 +158,7 @@ namespace Southwind.Logic
             sb.Schema.Settings.OverrideAttributes((UserQueryDN uq) => uq.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((UserChartDN uc) => uc.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
             sb.Schema.Settings.OverrideAttributes((DashboardDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.OverrideAttributes((UserAssetLogDN cp) => cp.User, new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.OverrideAttributes((UserAssetLogDN cp) => cp.Asset, new ImplementedByAttribute(typeof(UserQueryDN), typeof(UserChartDN), typeof(DashboardDN)));
+            sb.Schema.Settings.OverrideAttributes((ViewLogDN cp) => cp.User, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((NoteDN n) => n.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.CreatedBy, new ImplementedByAttribute(typeof(UserDN)));
             sb.Schema.Settings.OverrideAttributes((AlertDN a) => a.AttendedBy, new ImplementedByAttribute(typeof(UserDN)));
