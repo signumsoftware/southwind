@@ -41,6 +41,9 @@ using Signum.Engine.UserAssets;
 using Signum.Engine.Scheduler;
 using Signum.Entities.Scheduler;
 using Signum.Engine.SMS;
+using Signum.Engine.ViewLog;
+using System.Collections.Generic;
+using Signum.Entities.ViewLog;
 
 namespace Southwind.Logic
 {
@@ -53,7 +56,7 @@ namespace Southwind.Logic
 
         public static void Start(string connectionString)
         {
-            string logPostfix = Connector.TryExtractCatalogPostfix(ref connectionString, "_Log");
+            string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
             MixinDeclarations.Register<UserDN, UserEmployeeMixin>();
             MixinDeclarations.Register<ProcessDN, UserProcessSessionMixin>();
@@ -147,8 +150,8 @@ namespace Southwind.Logic
 
             sb.ExecuteWhenIncluded();
 
-            if (logPostfix.HasText())
-                SetLogDatabase(sb.Schema, new DatabaseName(null, ((SqlConnector)Connector.Current).DatabaseName() + logPostfix));
+            if (logDatabase.HasText())
+                SetLogDatabase(sb.Schema, new DatabaseName(null, logDatabase));
         }
 
         private static void OverrideAttributes(SchemaBuilder sb)
