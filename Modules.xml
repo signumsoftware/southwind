@@ -124,7 +124,7 @@
     <Module Name="Dashboard" DependsOn="Chart,UserQuery">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.OverrideAttributes((DashboardDN cp) => cp.Owner, new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserAssetLogLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, dqm, new HashSet&lt;Type> { typeof(UserQueryDN), typeof(UserChartDN), typeof(DashboardDN) }); "/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
       <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="var panel = DashboardLogic.GetHomePageDashboard();" To="return View(DashboardClient.ViewPrefix.Formato(&quot;Dashboard&quot;), panel);"/>
@@ -212,6 +212,11 @@
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sea:RoleDN}}&quot;/>"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
+      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;D:\Signum\Southwind\Southwind.Load\AuthRules.xml&quot;); //Change this route if necessary. Only god knows where MSTest is running."/>
+      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
+      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="Executor.ExecuteNonQuery(AuthLogic.ImportRulesScript(authRules).PlainSql());"/>
+
+      
     </Module>
 
     <Module Name="Translation">
@@ -270,9 +275,9 @@
     </Module>
 
     <Module Name="SplitDB">
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="string logPostfix = Connector.TryExtractCatalogPostfix(ref connectionString, &quot;_Log&quot;);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="if (logPostfix.HasText())"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetLogDatabase(sb.Schema, new DatabaseName(null, ((SqlConnector)Connector.Current).DatabaseName() + logPostfix));"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, &quot;_Log&quot;);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="if (logDatabase.HasText())"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetLogDatabase(sb.Schema, new DatabaseName(null, logDatabase));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="public static void SetLogDatabase(Schema schema, DatabaseName logDatabaseName)" To="}"/>
     </Module>
 

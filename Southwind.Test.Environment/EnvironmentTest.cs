@@ -22,9 +22,6 @@ namespace Southwind.Test.Environment
 
             Administrator.TotalGeneration();
 
-            Administrator.SetSnapshotIsolation(true);
-            Administrator.MakeSnapshotIsolationDefault(true);
-
             Schema.Current.Initialize();
 
             OperationLogic.AllowSaveGlobally = true;
