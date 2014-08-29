@@ -153,8 +153,7 @@
     <Member Name="Save" Description="Guardar" />
   </Type>
   <Type Name="SouthwindGroup">
-    <Member Name="CurrentCompany" Description="Entidades compañia" />
-    <Member Name="CurrentPerson" Description="Persona actual" />
+    <Member Name="CurrentCustomer" Description="Cliente actual" />
     <Member Name="RoleEntities" Description="Entidades del Rol" />
     <Member Name="UserEntities" Description="Entidades Usuario" />
   </Type>
@@ -177,7 +176,8 @@
   <Type Name="TerritoryOperation">
     <Member Name="Save" Description="Salvar" />
   </Type>
-  <Type Name="UserMixin">
-    <Member Name="AllowLogin" Description="Permitir inicio de sesión" />
+  <Type Name="UserEmployeeMixin">
+    <Member Name="AllowLogin" Description="Permitir login" />
+    <Member Name="Employee" Description="Empleado" />
   </Type>
 </Translations>
