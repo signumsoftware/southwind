@@ -29,3 +29,5 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.js.map
 Southwind.Web/Translations
+packages/*
+!packages/repositories.config
