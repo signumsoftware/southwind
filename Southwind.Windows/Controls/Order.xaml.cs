@@ -49,7 +49,7 @@ namespace Southwind.Windows.Controls
 
         private void ebDetails_Finding(object sender, RoutedEventArgs e)
         {
-            var product = Navigator.Find<ProductDN>();
+            var product = Finder.Find<ProductDN>();
             if (product == null)
                 return;
 
@@ -122,7 +122,7 @@ namespace Southwind.Windows.Controls
 
         private object EntityLine_Finding()
         {
-            return Navigator.Find(new FindOptions(typeof(CustomerDN))); 
+            return Finder.Find(new FindOptions(typeof(CustomerDN))); 
         }
     }
 }

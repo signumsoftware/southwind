@@ -76,6 +76,7 @@ namespace Southwind.Windows
             started = true;
 
             Navigator.Start(new NavigationManager(multithreaded: true));
+            Finder.Start(new FinderManager());
             Constructor.Start(new ConstructorManager());
 
             OperationClient.Start(new OperationManager());
