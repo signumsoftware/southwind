@@ -113,7 +113,7 @@ namespace Southwind.Logic
 
                 new ConstructFrom<CustomerDN>(OrderOperation.CreateOrderFromCustomer)
                 {
-                    ToState = OrderState.New,
+                    ToState = OrderState.New,  
                     Construct = (c, _) => new OrderDN
                     {
                         State = OrderState.New,
@@ -162,10 +162,10 @@ namespace Southwind.Logic
                     ToState = OrderState.Ordered,
                     AllowsNew = true,
                     Lite = false,
-                    Execute = (e, args) =>
+                    Execute = (o, args) =>
                     {
-                        e.OrderDate = DateTime.Now;
-                        e.State = OrderState.Ordered;
+                        o.OrderDate = DateTime.Now;
+                        o.State = OrderState.Ordered;
                     }
                 }.Register();
 
@@ -174,7 +174,7 @@ namespace Southwind.Logic
                     FromStates = { OrderState.Ordered },
                     ToState = OrderState.Ordered,
                     Lite = false,
-                    Execute = (e, _) =>
+                    Execute = (o, _) =>
                     {
                     }
                 }.Register();
@@ -184,10 +184,10 @@ namespace Southwind.Logic
                     CanExecute = o => o.Details.IsEmpty() ? "No order lines" : null,
                     FromStates = { OrderState.Ordered },
                     ToState = OrderState.Shipped,
-                    Execute = (e, args) =>
+                    Execute = (o, args) =>
                     {
-                        e.ShippedDate = DateTime.Now;
-                        e.State = OrderState.Shipped;
+                        o.ShippedDate = args.TryGetArgS<DateTime>() ?? DateTime.Now;
+                        o.State = OrderState.Shipped;
                     }
                 }.Register();
 
@@ -195,10 +195,19 @@ namespace Southwind.Logic
                 {
                     FromStates = { OrderState.Ordered, OrderState.Shipped },
                     ToState = OrderState.Canceled,
-                    Execute = (e, args) =>
+                    Execute = (o, args) =>
                     {
-                        e.CancelationDate = DateTime.Now;
-                        e.State = OrderState.Canceled;
+                        o.CancelationDate = DateTime.Now;
+                        o.State = OrderState.Canceled;
+                    }
+                }.Register();
+
+                new Delete(OrderOperation.Delete)
+                {
+                    FromStates = { OrderState.Ordered},
+                    Delete = (o, args) =>
+                    {
+                        o.Delete();
                     }
                 }.Register();
             }
