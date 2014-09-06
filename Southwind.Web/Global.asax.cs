@@ -68,7 +68,7 @@ namespace Southwind.Web
             );
 
             routes.MapRoute(
-                Navigator.FindRouteName,
+                Finder.FindRouteName,
                 "Find/{webQueryName}",
                 new { controller = "Finder", action = "Find", webQueryName = "" }
             );
@@ -118,6 +118,7 @@ namespace Southwind.Web
         private void WebStart()
         {
             Navigator.Start(new NavigationManager("haradwaithwinds"));
+            Finder.Start(new FinderManager());
             Constructor.Start(new ConstructorManager(), new ClientConstructorManager());
 
             OperationClient.Start(new OperationManager(), true);
