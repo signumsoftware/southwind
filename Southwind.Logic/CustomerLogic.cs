@@ -101,11 +101,22 @@ namespace Southwind.Logic
                         .TryPaginate(request.Pagination);
 
                 })
-                .Column(a => a.Id, c => { c.OverrideIsAllowed = () => null; })
-                .Column(a => a.Name, c => { c.OverrideIsAllowed = () => null; })
-                .Column(a => a.Address, c => { c.OverrideIsAllowed = () => null; c.PropertyRoutes = new[] { PropertyRoute.Construct((CompanyDN comp) => comp.Address) }; })
-                .Column(a => a.Phone, c => { c.OverrideIsAllowed = () => null; })
-                .Column(a => a.Fax, c => { c.OverrideIsAllowed = () => null; })
+                .ColumnProperyRoutes(a => a.Id, 
+                    PropertyRoute.Construct((PersonDN comp) => comp.Id), 
+                    PropertyRoute.Construct((CompanyDN p) => p.Id))
+                .ColumnProperyRoutes(a => a.Name, 
+                    PropertyRoute.Construct((PersonDN comp) => comp.FirstName), 
+                    PropertyRoute.Construct((PersonDN comp) => comp.LastName), 
+                    PropertyRoute.Construct((CompanyDN p) => p.CompanyName))
+                .ColumnProperyRoutes(a => a.Address, 
+                    PropertyRoute.Construct((PersonDN comp) => comp.Address), 
+                    PropertyRoute.Construct((PersonDN comp) => comp.Address))
+                .ColumnProperyRoutes(a => a.Phone, 
+                    PropertyRoute.Construct((PersonDN comp) => comp.Phone), 
+                    PropertyRoute.Construct((CompanyDN p) => p.Phone))
+                .ColumnProperyRoutes(a => a.Fax, 
+                    PropertyRoute.Construct((PersonDN comp) => comp.Fax), 
+                    PropertyRoute.Construct((CompanyDN p) => p.Fax))
                 , entityImplementations: Implementations.By(typeof(PersonDN), typeof(CompanyDN)));
 
                 dqm.RegisterExpression((CustomerDN c) => c.Address).ForcePropertyRoute = PropertyRoute.Construct((PersonDN p) => p.Address);

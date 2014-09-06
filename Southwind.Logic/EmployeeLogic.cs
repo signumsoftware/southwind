@@ -38,7 +38,7 @@ namespace Southwind.Logic
                         r.Description,
                     });
 
-                dqm.RegisterExpression((RegionDN r) => r.Territories());
+                dqm.RegisterExpression((RegionDN r) => r.Territories(), () => typeof(TerritoryDN).NiceName());
 
                 dqm.RegisterQuery(typeof(TerritoryDN), () =>
                     from t in Database.Query<TerritoryDN>()
