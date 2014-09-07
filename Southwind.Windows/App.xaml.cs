@@ -89,13 +89,13 @@ namespace Southwind.Windows
                 operations: true,
                 defaultPasswordExpiresLogic: false);
 
-            Navigator.EntitySettings<UserDN>().OverrideView((usr, ctrl) =>
+            Navigator.EntitySettings<UserDN>().OverrideView += (usr, ctrl) =>
             {
                 ctrl.Child<EntityLine>("Role").After(new ValueLine().Set(Common.RouteProperty, "[UserEmployeeMixin].AllowLogin"));
                 ctrl.Child<EntityLine>("Role").After(new EntityLine().Set(Common.RouteProperty, "[UserEmployeeMixin].Employee"));
-                
+
                 return ctrl;
-            });
+            };
 
             LinksClient.Start(widget: true, contextualMenu: true);
 
