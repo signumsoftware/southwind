@@ -59,7 +59,7 @@
                     <DataGridTemplateColumn m:Common.LabelOnlyRoute="Product" MinWidth="300" x:Name="colProduct">
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <m:AutocompleteTextBox AutoCompleting="AutocompleteTextBox_AutoCompleting" 
+                                <m:AutocompleteTextBox Autocompleting="AutocompleteTextBox_AutoCompleting" 
                                                        SelectedItem="{Binding Product, Mode=TwoWay}"
                                                        Closed="AutocompleteTextBox_Closed"
                                                         Loaded="AutocompleteTextBox_Loaded" />

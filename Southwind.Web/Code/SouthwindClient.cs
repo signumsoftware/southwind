@@ -89,14 +89,14 @@ namespace Southwind.Web
         {
             LinksClient.RegisterEntityLinks<UserDN>((entity, ctx) => new[]
                 {
-                    new QuickLinkFind(typeof(OperationLogDN), "User", entity, true)
+                    new QuickLinkExplore(typeof(OperationLogDN), "User", entity)
                 });
 
             LinksClient.RegisterEntityLinks<EmployeeDN>((entity, ctx) =>
             {
                 var links = new List<QuickLink>()
                 {
-                    new QuickLinkFind(typeof(OrderDN), "Employee", entity, true)  
+                    new QuickLinkExplore(typeof(OrderDN), "Employee", entity)  
                 };
 
                 var user = Database.Query<UserDN>()
@@ -111,22 +111,22 @@ namespace Southwind.Web
 
             LinksClient.RegisterEntityLinks<CategoryDN>((entity, ctx) => new[]
             {
-                new QuickLinkFind(typeof(ProductDN), "Category", entity, true)
+                new QuickLinkExplore(typeof(ProductDN), "Category", entity)
             });
 
             LinksClient.RegisterEntityLinks<SupplierDN>((entity, ctx) => new[]
             {
-                new QuickLinkFind(typeof(ProductDN), "Supplier", entity, true)
+                new QuickLinkExplore(typeof(ProductDN), "Supplier", entity)
             });
 
             LinksClient.RegisterEntityLinks<PersonDN>((entity, ctx) => new[]
             {
-                new QuickLinkFind(typeof(OrderDN), "Customer", entity, true)
+                new QuickLinkExplore(typeof(OrderDN), "Customer", entity)
             });
 
             LinksClient.RegisterEntityLinks<CompanyDN>((entity, ctx) => new[]
             {
-                new QuickLinkFind(typeof(OrderDN), "Customer", entity, true)
+                new QuickLinkExplore(typeof(OrderDN), "Customer", entity)
             });
         } //RegisterQuickLinks
 
