@@ -130,7 +130,7 @@ namespace Southwind.Web
                 resetPassword: true, 
                 passwordExpiration: false);
 
-            Navigator.EntitySettings<UserDN>().CreateViewOverride()
+            Navigator.EntitySettings<UserDN>().CreateViewOverrides()
                 .AfterLine((UserDN u) => u.Role, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserEmployeeMixin>().AllowLogin))
                 .AfterLine((UserDN u) => u.Role, (html, tc) => html.EntityLine(tc, u => u.Mixin<UserEmployeeMixin>().Employee));
 
