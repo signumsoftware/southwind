@@ -170,7 +170,10 @@ namespace Southwind.Entities
     public enum OrderMessage
     {
         [Description("Discount should be multiple of 5%")]
-        DiscountShouldBeMultpleOf5
+        DiscountShouldBeMultpleOf5,
+        [Description("Cancel shipped order {0}?")]
+        CancelShippedOrder0,
+        SelectAShipper
     }
 
     public enum OrderState
