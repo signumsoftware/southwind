@@ -196,7 +196,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserDN, UserEmployeeMixin&gt;();"/>
       <RemoveLine Path="Southwind.Web\ServerSouthwind.svc.cs" From="public override void Login(string username, string passwordHash)" To="} //Login"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthLogic.UserLogingIn += user =>" To="}; //UserLogingIn" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().CreateViewOverride()" To=".AfterLine((UserDN u) => u.Role, (html, tc) => html.EntityLine(tc, u => u.Mixin&lt;UserEmployeeMixin>().Employee));" />
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().CreateViewOverrides()" To=".AfterLine((UserDN u) => u.Role, (html, tc) => html.EntityLine(tc, u => u.Mixin&lt;UserEmployeeMixin>().Employee));" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="Navigator.EntitySettings&lt;UserDN&gt;().OverrideView += (usr, ctrl) =>" To="};" />
       <RemoveSpanInLines Path="Southwind.Entities\Employee.cs" Span="get { return UserDN.Current.Mixin&lt;UserEmployeeMixin>().Employee; } //" />
       <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" Line="@{ Html.RenderPartial(AuthClient.LoginUserControlView);}" />
