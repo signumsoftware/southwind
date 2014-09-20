@@ -161,7 +161,7 @@ namespace Southwind.Web
             DashboardClient.Start();
 
             DisconnectedClient.Start();
-            ProcessesClient.Start(
+            ProcessClient.Start(
                 packages: true,
                 packageOperations: true);
 

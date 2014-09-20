@@ -71,12 +71,6 @@ namespace Southwind.Web
                       .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" }); //Emmployee
 
                 Constructor.Register(ctx => new EmployeeDN { Address = new AddressDN() });
-                Constructor.Register(ctx => new OrderDN
-                {
-                    ShipAddress = new AddressDN(),
-                    Details = new MList<OrderDetailsDN>()
-
-                });
                 Constructor.Register(ctx => new PersonDN { Address = new AddressDN() });
                 Constructor.Register(ctx => new CompanyDN { Address = new AddressDN() });
                 Constructor.Register(ctx => new SupplierDN { Address = new AddressDN() });

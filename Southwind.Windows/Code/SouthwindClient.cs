@@ -78,15 +78,27 @@ namespace Southwind.Windows.Code
 
                 OperationClient.AddSettings(new List<OperationSettings>()
                 {
-                    new EntityOperationSettings(OrderOperation.SaveNew){ IsVisible = ctx=> ctx.Entity.IsNew }, 
-                    new EntityOperationSettings(OrderOperation.Save){ IsVisible = ctx=> !ctx.Entity.IsNew }, 
+                    new ContextualOperationSettings<ProductDN>(OrderOperation.CreateOrderFromProducts)
+                    {
+                         Click = ctx =>
+                         {
+                             var cust = Finder.Find<CustomerDN>(); // could return null, but we let it continue 
 
-                    new EntityOperationSettings(OrderOperation.Cancel)
+                             var result = OperationServer.ConstructFromMany(ctx.Entities, OrderOperation.CreateOrderFromProducts, cust);
+
+                             Navigator.Navigate(result);
+                         },
+                    },
+
+                    new EntityOperationSettings<OrderDN>(OrderOperation.SaveNew){ IsVisible = ctx=> ctx.Entity.IsNew }, 
+                    new EntityOperationSettings<OrderDN>(OrderOperation.Save){ IsVisible = ctx=> !ctx.Entity.IsNew }, 
+
+                    new EntityOperationSettings<OrderDN>(OrderOperation.Cancel)
                     { 
                         ConfirmMessage = ctx=> ((OrderDN)ctx.Entity).State == OrderState.Shipped ? OrderMessage.CancelShippedOrder0.NiceToString(ctx.Entity) : null 
                     }, 
 
-                    new EntityOperationSettings(OrderOperation.Ship)
+                    new EntityOperationSettings<OrderDN>(OrderOperation.Ship)
                     { 
                         Click = ctx=>
                         {
@@ -100,6 +112,20 @@ namespace Southwind.Windows.Code
                                 return null;
 
                             return order.Execute(OrderOperation.Ship, shipDate); 
+                        },
+
+                        Contextual = 
+                        { 
+                            Click = ctx =>
+                            {
+                                Lite<OrderDN> orderLite = (Lite<OrderDN>)ctx.Entities.SingleEx();
+
+                                DateTime shipDate = DateTime.Now;
+                                if (!ValueLineBox.Show(ref shipDate, labelText: DescriptionManager.NiceName((OrderDN o) => o.ShippedDate)))
+                                    return;
+
+                                orderLite.ExecuteLite(OrderOperation.Ship, shipDate); 
+                            }
                         }
                     }, 
                 }); 

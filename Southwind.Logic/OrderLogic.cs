@@ -108,6 +108,7 @@ namespace Southwind.Logic
                         State = OrderState.New,
                         Employee = EmployeeDN.Current.ToLite(),
                         RequiredDate = DateTime.Now.AddDays(3),
+                        ShipAddress = new AddressDN(),
                     }
                 }.Register();
 
@@ -127,14 +128,18 @@ namespace Southwind.Logic
                 new ConstructFromMany<ProductDN>(OrderOperation.CreateOrderFromProducts)
                 {
                     ToState = OrderState.New,
-                    Construct = (prods, _) =>
+                    Construct = (prods, args) =>
                     {
                         var dic = Database.Query<ProductDN>()
                             .Where(p => prods.Contains(p.ToLite()))
                             .Select(p => new KeyValuePair<Lite<ProductDN>, decimal>(p.ToLite(), p.UnitPrice)).ToDictionary();
 
+                        var customer = args.TryGetArgC<Lite<CustomerDN>>().Try(c => c.Retrieve());
+
                         return new OrderDN
                         {
+                            Customer = customer,
+                            ShipAddress = customer.Try(c => c.Address.Clone()),
                             State = OrderState.New,
                             Employee = EmployeeDN.Current.ToLite(),
                             RequiredDate = DateTime.Now.AddDays(3),
