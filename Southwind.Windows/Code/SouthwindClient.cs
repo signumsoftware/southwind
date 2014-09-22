@@ -41,24 +41,7 @@ namespace Southwind.Windows.Code
                     new EntitySettings<OrderDN>() { View = e => new Order()},
                 });
 
-                Constructor.Register(ctx => new OrderDN
-                {
-                    OrderDate = DateTime.Now,
-                    RequiredDate = DateTime.Now.AddDays(2),
-                    Employee = EmployeeDN.Current.ToLite(),
-                    Details = new MList<OrderDetailsDN>()
-                });
-
-                Constructor.Register(ctx => new PersonDN
-                {
-                    Address = new AddressDN()
-                });
-
-                Constructor.Register(ctx => new CompanyDN
-                {
-                    Address = new AddressDN()
-                });
-
+         
                 QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, b =>
                 {
                     b.Converter = SouthwindConverters.ImageConverter;
@@ -75,9 +58,24 @@ namespace Southwind.Windows.Code
                         .Set(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Linear));
                 }); //Picture
 
+                Constructor.Register(ctx => new EmployeeDN { Address = new AddressDN() });
+                Constructor.Register(ctx => new PersonDN { Address = new AddressDN() });
+                Constructor.Register(ctx => new CompanyDN { Address = new AddressDN() });
+                Constructor.Register(ctx => new SupplierDN { Address = new AddressDN() });
 
                 OperationClient.AddSettings(new List<OperationSettings>()
                 {
+                    new ConstructorOperationSettings<OrderDN>(OrderOperation.Create)
+                    {
+                        Constructor = ctx=>
+                        {
+                            var cust = Finder.Find<CustomerDN>(); // could return null, but we let it continue 
+
+                            return OperationServer.Construct(OrderOperation.Create, cust);
+                        },
+                    },
+
+
                     new ContextualOperationSettings<ProductDN>(OrderOperation.CreateOrderFromProducts)
                     {
                          Click = ctx =>
@@ -100,31 +98,31 @@ namespace Southwind.Windows.Code
 
                     new EntityOperationSettings<OrderDN>(OrderOperation.Ship)
                     { 
-                        Click = ctx=>
+                        Click = ctx =>
                         {
-                            OrderDN order = (OrderDN)ctx.Entity;
- 
                             if (!ctx.EntityControl.LooseChangesIfAny())
                                 return null;
 
                             DateTime shipDate = DateTime.Now;
-                            if (!ValueLineBox.Show(ref shipDate, labelText: DescriptionManager.NiceName(() => order.ShippedDate)))
+                            if (!ValueLineBox.Show(ref shipDate, 
+                                labelText: DescriptionManager.NiceName((OrderDN o) => o.ShippedDate), 
+                                owner: Window.GetWindow(ctx.EntityControl)))
                                 return null;
 
-                            return order.Execute(OrderOperation.Ship, shipDate); 
+                            return ctx.Entity.Execute(OrderOperation.Ship, shipDate); 
                         },
 
                         Contextual = 
                         { 
                             Click = ctx =>
                             {
-                                Lite<OrderDN> orderLite = (Lite<OrderDN>)ctx.Entities.SingleEx();
-
                                 DateTime shipDate = DateTime.Now;
-                                if (!ValueLineBox.Show(ref shipDate, labelText: DescriptionManager.NiceName((OrderDN o) => o.ShippedDate)))
+                                if (!ValueLineBox.Show(ref shipDate, 
+                                    labelText: DescriptionManager.NiceName((OrderDN o) => o.ShippedDate), 
+                                    owner: Window.GetWindow(ctx.SearchControl)))
                                     return;
 
-                                orderLite.ExecuteLite(OrderOperation.Ship, shipDate); 
+                                ctx.Entities.SingleEx().ExecuteLite(OrderOperation.Ship, shipDate); 
                             }
                         }
                     }, 

@@ -103,12 +103,18 @@ namespace Southwind.Logic
                 new Construct(OrderOperation.Create)
                 {
                     ToState = OrderState.New,
-                    Construct = (_) => new OrderDN
+                    Construct = (args) => 
                     {
-                        State = OrderState.New,
-                        Employee = EmployeeDN.Current.ToLite(),
-                        RequiredDate = DateTime.Now.AddDays(3),
-                        ShipAddress = new AddressDN(),
+                        var customer = args.TryGetArgC<Lite<CustomerDN>>().Try(c => c.Retrieve());
+
+                        return new OrderDN
+                        {
+                            Customer = customer,
+                            ShipAddress = customer.Try(c => c.Address.Clone()),
+                            State = OrderState.New,
+                            Employee = EmployeeDN.Current.ToLite(),
+                            RequiredDate = DateTime.Now.AddDays(3),
+                        };
                     }
                 }.Register();
 
