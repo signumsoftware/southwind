@@ -19,6 +19,9 @@ using Signum.Entities.SMS;
 using Signum.Entities.Mailing;
 using Signum.Entities.Files;
 using Signum.Web.Files;
+using Signum.Web.Operations;
+using Southwind.Web.Controllers;
+using Signum.Engine.Operations;
 
 namespace Southwind.Web
 {
@@ -28,6 +31,7 @@ namespace Southwind.Web
         public static string ThemeSessionKey = "swCurrentTheme";
 
         public static JsModule OrderModule = new JsModule("Order");
+        public static JsModule ProductModule = new JsModule("Product");
 
         public static void Start()
         {
@@ -75,8 +79,64 @@ namespace Southwind.Web
                 Constructor.Register(ctx => new CompanyDN { Address = new AddressDN() });
                 Constructor.Register(ctx => new SupplierDN { Address = new AddressDN() });
 
+                OperationClient.AddSettings(new List<OperationSettings>()
+                {
+                    new ConstructorOperationSettings<OrderDN>(OrderOperation.Create)
+                    {
+                         ClientConstructor = ctx => OrderModule["createOrder"](ClientConstructorManager.ExtraJsonParams, 
+                             new FindOptions(typeof(CustomerDN)){ SearchOnLoad = true }.ToJS(ctx.ClientConstructorContext.Prefix, "cust")),
+                         Constructor = ctx=>
+                         {
+                             var cust = ctx.ConstructorContext.Controller.TryParseLite<CustomerDN>("customer");
+
+                             return OperationLogic.Construct(OrderOperation.Create, cust);
+                         }
+                    },
+
+                    new ContextualOperationSettings<ProductDN>(OrderOperation.CreateOrderFromProducts)
+                    {
+                         Click = ctx => OrderModule["createOrderFromProducts"](ctx.Options(), 
+                             new FindOptions(typeof(CustomerDN)){ SearchOnLoad = true }.ToJS(ctx.Prefix, "cust"), 
+                              ctx.Url.Action((HomeController c)=>c.CreateOrderFromProducts()), 
+                             JsFunction.Event)
+                    },
+
+                    new EntityOperationSettings<OrderDN>(OrderOperation.SaveNew){ IsVisible = ctx=> ctx.Entity.IsNew }, 
+                    new EntityOperationSettings<OrderDN>(OrderOperation.Save){ IsVisible = ctx=> !ctx.Entity.IsNew }, 
+
+                    new EntityOperationSettings<OrderDN>(OrderOperation.Cancel)
+                    { 
+                        ConfirmMessage = ctx => ((OrderDN)ctx.Entity).State == OrderState.Shipped ? OrderMessage.CancelShippedOrder0.NiceToString(ctx.Entity) : null 
+                    }, 
+
+                    new EntityOperationSettings<OrderDN>(OrderOperation.Ship)
+                    { 
+                        Click = ctx => OrderModule["shipOrder"](ctx.Options(), 
+                            ctx.Url.Action((HomeController c)=>c.ShipOrder()), 
+                            GetValueLineOptions(ctx.Prefix), 
+                            false),
+
+                        Contextual = 
+                        { 
+                            Click = ctx => OrderModule["shipOrder"](ctx.Options(), 
+                                ctx.Url.Action((HomeController c)=>c.ShipOrder()), 
+                                GetValueLineOptions(ctx.Prefix), 
+                                true),
+                        }
+                    }, 
+                });
+
                 RegisterQuickLinks();
             }
+        }
+
+        private static ValueLineBoxOptions GetValueLineOptions(string prefix)
+        {
+            return new ValueLineBoxOptions(ValueLineType.DateTime, prefix)
+            {
+                labelText = DescriptionManager.NiceName((OrderDN o) => o.ShippedDate),
+                value = DateTime.Now
+            };
         }
 
         private static void RegisterQuickLinks()

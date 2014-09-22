@@ -4,6 +4,7 @@ import Entities = require("Framework/Signum.Web/Signum/Scripts/Entities")
 import Navigator = require("Framework/Signum.Web/Signum/Scripts/Navigator")
 import Finder = require("Framework/Signum.Web/Signum/Scripts/Finder")
 import Lines = require("Framework/Signum.Web/Signum/Scripts/Lines")
+import Operations = require("Framework/Signum.Web/Signum/Scripts/Operations")
 
 
 export function attachCustomerEntityLine(el: Lines.EntityLine, fo: Finder.FindOptions) {
@@ -77,9 +78,49 @@ function toStringLoc(val: number, comma: string) {
     return Number(val).toFixed(2).replace(".", comma);
 }
 
-export function updateStockValue(prefix: string) {
-    var sum = parseFloat(prefix.child("UnitPrice").get().val()) *
-              parseFloat(prefix.child("UnitsInStock").get().val());
 
-    prefix.child("ValueInStock").get().html(sum.toString());
+export function shipOrder(options: Operations.EntityOperationOptions, url: string,
+    valueLineOptions: Navigator.ValueLineBoxOptions, contextual: boolean) : Promise<void> {
+
+    return Navigator.valueLineBox(valueLineOptions).then(shipDate =>
+    {
+        if (!shipDate)
+            return null;
+
+        options.requestExtraJsonData = { shipDate: shipDate };
+
+        options.controllerUrl = url;
+
+        if (contextual)
+            return Operations.executeDefaultContextual(options);
+        else
+            return Operations.executeDefault(options);
+    }); 
 }
+
+
+export function createOrderFromProducts(options: Operations.OperationOptions, findOptions: Finder.FindOptions, url: string, openNewWindowOrEvent: any): Promise<void> {
+
+    options.controllerUrl = url;
+
+    return Finder.find(findOptions).then(cust=> {
+
+        if (cust)// could return null, but we let it continue 
+            options.requestExtraJsonData = { customer: cust.key() };
+
+        return Operations.constructFromManyDefault(options, openNewWindowOrEvent);
+    });
+}
+
+
+export function createOrder(extraJsonArgs: FormObject, findOptions: Finder.FindOptions): Promise<FormObject> {
+
+    return Finder.find(findOptions).then(cust=> {
+
+        if (cust)// could return null, but we let it continue 
+            extraJsonArgs = $.extend(extraJsonArgs, { customer: cust.key() });
+
+        return extraJsonArgs;
+    });
+}
+

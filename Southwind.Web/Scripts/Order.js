@@ -1,5 +1,5 @@
 /// <reference path="../../framework/signum.web/signum/scripts/globals.ts"/>
-define(["require", "exports", "Framework/Signum.Web/Signum/Scripts/Finder"], function(require, exports, Finder) {
+define(["require", "exports", "Framework/Signum.Web/Signum/Scripts/Navigator", "Framework/Signum.Web/Signum/Scripts/Finder", "Framework/Signum.Web/Signum/Scripts/Operations"], function(require, exports, Navigator, Finder, Operations) {
     function attachCustomerEntityLine(el, fo) {
         el.finding = function (prefix) {
             return Finder.find(fo);
@@ -75,11 +75,43 @@ define(["require", "exports", "Framework/Signum.Web/Signum/Scripts/Finder"], fun
         return Number(val).toFixed(2).replace(".", comma);
     }
 
-    function updateStockValue(prefix) {
-        var sum = parseFloat(prefix.child("UnitPrice").get().val()) * parseFloat(prefix.child("UnitsInStock").get().val());
+    function shipOrder(options, url, valueLineOptions, contextual) {
+        return Navigator.valueLineBox(valueLineOptions).then(function (shipDate) {
+            if (!shipDate)
+                return null;
 
-        prefix.child("ValueInStock").get().html(sum.toString());
+            options.requestExtraJsonData = { shipDate: shipDate };
+
+            options.controllerUrl = url;
+
+            if (contextual)
+                return Operations.executeDefaultContextual(options);
+            else
+                return Operations.executeDefault(options);
+        });
     }
-    exports.updateStockValue = updateStockValue;
+    exports.shipOrder = shipOrder;
+
+    function createOrderFromProducts(options, findOptions, url, openNewWindowOrEvent) {
+        options.controllerUrl = url;
+
+        return Finder.find(findOptions).then(function (cust) {
+            if (cust)
+                options.requestExtraJsonData = { customer: cust.key() };
+
+            return Operations.constructFromManyDefault(options, openNewWindowOrEvent);
+        });
+    }
+    exports.createOrderFromProducts = createOrderFromProducts;
+
+    function createOrder(extraJsonArgs, findOptions) {
+        return Finder.find(findOptions).then(function (cust) {
+            if (cust)
+                extraJsonArgs = $.extend(extraJsonArgs, { customer: cust.key() });
+
+            return extraJsonArgs;
+        });
+    }
+    exports.createOrder = createOrder;
 });
 //# sourceMappingURL=Order.js.map

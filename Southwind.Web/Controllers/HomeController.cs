@@ -17,6 +17,7 @@ using Signum.Web.Dashboard;
 using System.Globalization;
 using Signum.Engine.Basics;
 using Signum.Engine.Operations;
+using Signum.Web.Operations;
 
 namespace Southwind.Web.Controllers
 {
@@ -67,7 +68,7 @@ namespace Southwind.Web.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        public ContentResult UpdateOrders()
+        public ContentResult UpdateOrders() //To move orders to the present
         {
             int removed = Database.Query<OrderDN>().Where(a => a.Id > 11077).UnsafeDelete(); 
 
@@ -84,6 +85,28 @@ namespace Southwind.Web.Controllers
                 .Execute();
 
             return Content("Removed: {0}\r\nUpdated: {1}".Formato(removed, updated)); 
+        }
+
+        public ActionResult CreateOrderFromProducts()
+        {
+            Lite<CustomerDN> customer = this.TryParseLite<CustomerDN>("customer");
+
+            var products = this.ParseLiteKeys<ProductDN>(); 
+
+            var order = OperationLogic.ConstructFromMany(products, OrderOperation.CreateOrderFromProducts, customer);
+
+            return this.DefaultConstructResult(order);
+        }
+
+        public ActionResult ShipOrder()
+        {
+            var order = this.ExtractEntity<OrderDN>();
+
+            var shipDate = this.ParseValue<DateTime>("shipDate");
+
+            order.Execute(OrderOperation.Ship, shipDate);
+
+            return this.DefaultExecuteResult(order);
         }
     }
 }
