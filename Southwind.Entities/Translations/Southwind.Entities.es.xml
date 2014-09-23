@@ -87,7 +87,9 @@
     <Member Name="TotalPrice" Description="Precio total" />
   </Type>
   <Type Name="OrderMessage">
+    <Member Name="CancelShippedOrder0" Description="Cancelar pedido enviado {0}." />
     <Member Name="DiscountShouldBeMultpleOf5" Description="Descuento debe ser múltiplo de 5%" />
+    <Member Name="SelectAShipper" Description="Seleccione un cargador" />
   </Type>
   <Type Name="OrderOperation">
     <Member Name="Cancel" Description="Cancelar" />
@@ -95,6 +97,7 @@
     <Member Name="Create" Description="Crear" />
     <Member Name="CreateOrderFromCustomer" Description="Crear orden desde cliente" />
     <Member Name="CreateOrderFromProducts" Description="Crear pedido desde productos" />
+    <Member Name="Delete" Description="Borrar" />
     <Member Name="Save" Description="Guardar" />
     <Member Name="SaveNew" Description="Guardar nuevo" />
     <Member Name="Ship" Description="Enviar" />
