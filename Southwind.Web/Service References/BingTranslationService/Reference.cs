@@ -716,51 +716,100 @@ namespace Southwind.Web.BingTranslationService {
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/AddTranslation", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationResponse")]
         void AddTranslation(string appId, string originalText, string translatedText, string from, string to, int rating, string contentType, string category, string user, string uri);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/AddTranslation", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationResponse")]
+        System.Threading.Tasks.Task AddTranslationAsync(string appId, string originalText, string translatedText, string from, string to, int rating, string contentType, string category, string user, string uri);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/BreakSentences", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/BreakSentencesResponse")]
         int[] BreakSentences(string appId, string text, string language);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/BreakSentences", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/BreakSentencesResponse")]
+        System.Threading.Tasks.Task<int[]> BreakSentencesAsync(string appId, string text, string language);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Detect", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/DetectResponse")]
         string Detect(string appId, string text);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Detect", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/DetectResponse")]
+        System.Threading.Tasks.Task<string> DetectAsync(string appId, string text);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/DetectArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/DetectArrayResponse")]
         string[] DetectArray(string appId, string[] texts);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/DetectArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/DetectArrayResponse")]
+        System.Threading.Tasks.Task<string[]> DetectArrayAsync(string appId, string[] texts);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetAppIdToken", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetAppIdTokenResponse")]
         string GetAppIdToken(string appId, int minRatingRead, int maxRatingWrite, int expireSeconds);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetAppIdToken", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetAppIdTokenResponse")]
+        System.Threading.Tasks.Task<string> GetAppIdTokenAsync(string appId, int minRatingRead, int maxRatingWrite, int expireSeconds);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguageNames", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguageNamesResponse")]
         string[] GetLanguageNames(string appId, string locale, string[] languageCodes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguageNames", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguageNamesResponse")]
+        System.Threading.Tasks.Task<string[]> GetLanguageNamesAsync(string appId, string locale, string[] languageCodes);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForSpeak", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForSpeakRespons" +
             "e")]
         string[] GetLanguagesForSpeak(string appId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForSpeak", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForSpeakRespons" +
+            "e")]
+        System.Threading.Tasks.Task<string[]> GetLanguagesForSpeakAsync(string appId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForTranslate", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForTranslateRes" +
             "ponse")]
         string[] GetLanguagesForTranslate(string appId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForTranslate", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetLanguagesForTranslateRes" +
+            "ponse")]
+        System.Threading.Tasks.Task<string[]> GetLanguagesForTranslateAsync(string appId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetTranslations", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsResponse")]
         Southwind.Web.BingTranslationService.GetTranslationsResponse GetTranslations(string appId, string text, string from, string to, int maxTranslations, Southwind.Web.BingTranslationService.TranslateOptions options);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetTranslations", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsResponse")]
+        System.Threading.Tasks.Task<Southwind.Web.BingTranslationService.GetTranslationsResponse> GetTranslationsAsync(string appId, string text, string from, string to, int maxTranslations, Southwind.Web.BingTranslationService.TranslateOptions options);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Translate", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateResponse")]
         string Translate(string appId, string text, string from, string to, string contentType, string category);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Translate", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateResponse")]
+        System.Threading.Tasks.Task<string> TranslateAsync(string appId, string text, string from, string to, string contentType, string category);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationArrayResponse" +
             "")]
         void AddTranslationArray(string appId, Southwind.Web.BingTranslationService.Translation[] translations, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/AddTranslationArrayResponse" +
+            "")]
+        System.Threading.Tasks.Task AddTranslationArrayAsync(string appId, Southwind.Web.BingTranslationService.Translation[] translations, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsArrayRespons" +
             "e")]
         Southwind.Web.BingTranslationService.GetTranslationsResponse[] GetTranslationsArray(string appId, string[] texts, string from, string to, int maxTranslations, Southwind.Web.BingTranslationService.TranslateOptions options);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/GetTranslationsArrayRespons" +
+            "e")]
+        System.Threading.Tasks.Task<Southwind.Web.BingTranslationService.GetTranslationsResponse[]> GetTranslationsArrayAsync(string appId, string[] texts, string from, string to, int maxTranslations, Southwind.Web.BingTranslationService.TranslateOptions options);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Speak", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/SpeakResponse")]
         string Speak(string appId, string text, string language, string format, string options);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/Speak", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/SpeakResponse")]
+        System.Threading.Tasks.Task<string> SpeakAsync(string appId, string text, string language, string format, string options);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateArrayResponse")]
         Southwind.Web.BingTranslationService.TranslateArrayResponse[] TranslateArray(string appId, string[] texts, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateArrayResponse")]
+        System.Threading.Tasks.Task<Southwind.Web.BingTranslationService.TranslateArrayResponse[]> TranslateArrayAsync(string appId, string[] texts, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray2", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray2Response")]
         Southwind.Web.BingTranslationService.TranslateArray2Response[] TranslateArray2(string appId, string[] texts, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray2", ReplyAction="http://api.microsofttranslator.com/V2/LanguageService/TranslateArray2Response")]
+        System.Threading.Tasks.Task<Southwind.Web.BingTranslationService.TranslateArray2Response[]> TranslateArray2Async(string appId, string[] texts, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -794,60 +843,120 @@ namespace Southwind.Web.BingTranslationService {
             base.Channel.AddTranslation(appId, originalText, translatedText, from, to, rating, contentType, category, user, uri);
         }
         
+        public System.Threading.Tasks.Task AddTranslationAsync(string appId, string originalText, string translatedText, string from, string to, int rating, string contentType, string category, string user, string uri) {
+            return base.Channel.AddTranslationAsync(appId, originalText, translatedText, from, to, rating, contentType, category, user, uri);
+        }
+        
         public int[] BreakSentences(string appId, string text, string language) {
             return base.Channel.BreakSentences(appId, text, language);
+        }
+        
+        public System.Threading.Tasks.Task<int[]> BreakSentencesAsync(string appId, string text, string language) {
+            return base.Channel.BreakSentencesAsync(appId, text, language);
         }
         
         public string Detect(string appId, string text) {
             return base.Channel.Detect(appId, text);
         }
         
+        public System.Threading.Tasks.Task<string> DetectAsync(string appId, string text) {
+            return base.Channel.DetectAsync(appId, text);
+        }
+        
         public string[] DetectArray(string appId, string[] texts) {
             return base.Channel.DetectArray(appId, texts);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> DetectArrayAsync(string appId, string[] texts) {
+            return base.Channel.DetectArrayAsync(appId, texts);
         }
         
         public string GetAppIdToken(string appId, int minRatingRead, int maxRatingWrite, int expireSeconds) {
             return base.Channel.GetAppIdToken(appId, minRatingRead, maxRatingWrite, expireSeconds);
         }
         
+        public System.Threading.Tasks.Task<string> GetAppIdTokenAsync(string appId, int minRatingRead, int maxRatingWrite, int expireSeconds) {
+            return base.Channel.GetAppIdTokenAsync(appId, minRatingRead, maxRatingWrite, expireSeconds);
+        }
+        
         public string[] GetLanguageNames(string appId, string locale, string[] languageCodes) {
             return base.Channel.GetLanguageNames(appId, locale, languageCodes);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetLanguageNamesAsync(string appId, string locale, string[] languageCodes) {
+            return base.Channel.GetLanguageNamesAsync(appId, locale, languageCodes);
         }
         
         public string[] GetLanguagesForSpeak(string appId) {
             return base.Channel.GetLanguagesForSpeak(appId);
         }
         
+        public System.Threading.Tasks.Task<string[]> GetLanguagesForSpeakAsync(string appId) {
+            return base.Channel.GetLanguagesForSpeakAsync(appId);
+        }
+        
         public string[] GetLanguagesForTranslate(string appId) {
             return base.Channel.GetLanguagesForTranslate(appId);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetLanguagesForTranslateAsync(string appId) {
+            return base.Channel.GetLanguagesForTranslateAsync(appId);
         }
         
         public Southwind.Web.BingTranslationService.GetTranslationsResponse GetTranslations(string appId, string text, string from, string to, int maxTranslations, Southwind.Web.BingTranslationService.TranslateOptions options) {
             return base.Channel.GetTranslations(appId, text, from, to, maxTranslations, options);
         }
         
+        public System.Threading.Tasks.Task<Southwind.Web.BingTranslationService.GetTranslationsResponse> GetTranslationsAsync(string appId, string text, string from, string to, int maxTranslations, Southwind.Web.BingTranslationService.TranslateOptions options) {
+            return base.Channel.GetTranslationsAsync(appId, text, from, to, maxTranslations, options);
+        }
+        
         public string Translate(string appId, string text, string from, string to, string contentType, string category) {
             return base.Channel.Translate(appId, text, from, to, contentType, category);
+        }
+        
+        public System.Threading.Tasks.Task<string> TranslateAsync(string appId, string text, string from, string to, string contentType, string category) {
+            return base.Channel.TranslateAsync(appId, text, from, to, contentType, category);
         }
         
         public void AddTranslationArray(string appId, Southwind.Web.BingTranslationService.Translation[] translations, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options) {
             base.Channel.AddTranslationArray(appId, translations, from, to, options);
         }
         
+        public System.Threading.Tasks.Task AddTranslationArrayAsync(string appId, Southwind.Web.BingTranslationService.Translation[] translations, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options) {
+            return base.Channel.AddTranslationArrayAsync(appId, translations, from, to, options);
+        }
+        
         public Southwind.Web.BingTranslationService.GetTranslationsResponse[] GetTranslationsArray(string appId, string[] texts, string from, string to, int maxTranslations, Southwind.Web.BingTranslationService.TranslateOptions options) {
             return base.Channel.GetTranslationsArray(appId, texts, from, to, maxTranslations, options);
+        }
+        
+        public System.Threading.Tasks.Task<Southwind.Web.BingTranslationService.GetTranslationsResponse[]> GetTranslationsArrayAsync(string appId, string[] texts, string from, string to, int maxTranslations, Southwind.Web.BingTranslationService.TranslateOptions options) {
+            return base.Channel.GetTranslationsArrayAsync(appId, texts, from, to, maxTranslations, options);
         }
         
         public string Speak(string appId, string text, string language, string format, string options) {
             return base.Channel.Speak(appId, text, language, format, options);
         }
         
+        public System.Threading.Tasks.Task<string> SpeakAsync(string appId, string text, string language, string format, string options) {
+            return base.Channel.SpeakAsync(appId, text, language, format, options);
+        }
+        
         public Southwind.Web.BingTranslationService.TranslateArrayResponse[] TranslateArray(string appId, string[] texts, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options) {
             return base.Channel.TranslateArray(appId, texts, from, to, options);
         }
         
+        public System.Threading.Tasks.Task<Southwind.Web.BingTranslationService.TranslateArrayResponse[]> TranslateArrayAsync(string appId, string[] texts, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options) {
+            return base.Channel.TranslateArrayAsync(appId, texts, from, to, options);
+        }
+        
         public Southwind.Web.BingTranslationService.TranslateArray2Response[] TranslateArray2(string appId, string[] texts, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options) {
             return base.Channel.TranslateArray2(appId, texts, from, to, options);
+        }
+        
+        public System.Threading.Tasks.Task<Southwind.Web.BingTranslationService.TranslateArray2Response[]> TranslateArray2Async(string appId, string[] texts, string from, string to, Southwind.Web.BingTranslationService.TranslateOptions options) {
+            return base.Channel.TranslateArray2Async(appId, texts, from, to, options);
         }
     }
 }

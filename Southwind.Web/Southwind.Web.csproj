@@ -135,6 +135,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\site.css" />
+    <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.GetTranslationsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.TranslateArray2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.TranslateArrayResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="Scripts\Order.ts" />
     <Content Include="Libs\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Libs\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
@@ -475,30 +484,21 @@
     <Content Include="Views\Southwind\Supplier.cshtml" />
     <Content Include="Views\Southwind\ApplicationConfiguration.cshtml" />
     <Content Include="Views\Southwind\Territory.cshtml" />
-    <None Include="Service References\BingTranslationService\Arrays.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\BingTranslationService\Microsoft.MT.Web.Service.V2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\BingTranslationService\service.wsdl" />
-    <None Include="Service References\BingTranslationService\service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.GetTranslationsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.TranslateArray2Response.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.TranslateArrayResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Service References\BingTranslationService\V2.wsdl" />
-    <None Include="Service References\BingTranslationService\V2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Views\Home\PublicCatalog.cshtml" />
+    <None Include="Service References\BingTranslationService\soap.wsdl" />
+    <None Include="Service References\BingTranslationService\soap.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BingTranslationService\soap1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BingTranslationService\soap2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BingTranslationService\soap3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BingTranslationService\SoapService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

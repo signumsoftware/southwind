@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://api.microsofttranslator.com/V2" elementFormDefault="qualified" targetNamespace="http://api.microsofttranslator.com/V2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-  <xs:import schemaLocation="" namespace="http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2" />
+  <xs:import schemaLocation="http://api.microsofttranslator.com/V2/soap.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://api.microsofttranslator.com/V2/soap.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2" />
   <xs:element name="AddTranslation">
     <xs:complexType>
       <xs:sequence>
