@@ -45,7 +45,7 @@
       <RemoveLine Path="Southwind.Entities\Order.cs" Line="[Mixin(typeof(DisconnectedMixin))]"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc.cs"/>
-      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;basicHttpBinding&gt;" To="&lt;/basicHttpBinding&gt;"/>
+      <RemoveLine Path="Southwind.Web\Web.config" Line="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot; transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot; />"/>
       <RemoveLine Path="Southwind.Web\Web.config" From="&lt;service name=&quot;Southwind.Web.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
       <RemoveLine Path="Southwind.Web\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" From="&lt;MenuItem Header=&quot;Disconnected&quot; x:Name=&quot;miDisconnected&quot;>" To="&lt;/MenuItem>"/>
