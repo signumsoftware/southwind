@@ -202,8 +202,6 @@ namespace Southwind.Web
             OmniboxClient.Register(new ChartOmniboxProvider());
             OmniboxClient.Register(new UserChartOmniboxProvider());
             OmniboxClient.Register(new DashboardOmniboxProvider());
-
-            ContextualItemsHelper.Start();
         } //WebStart
 
         protected void Application_Error(Object sender, EventArgs e)

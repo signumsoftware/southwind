@@ -85,6 +85,7 @@ namespace Southwind.Web
                     {
                          ClientConstructor = ctx => OrderModule["createOrder"](ClientConstructorManager.ExtraJsonParams, 
                              new FindOptions(typeof(CustomerDN)){ SearchOnLoad = true }.ToJS(ctx.ClientConstructorContext.Prefix, "cust")),
+                         
                          Constructor = ctx=>
                          {
                              var cust = ctx.ConstructorContext.Controller.TryParseLite<CustomerDN>("customer");
