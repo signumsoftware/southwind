@@ -61,7 +61,7 @@ namespace Southwind.Logic
             MixinDeclarations.Register<UserDN, UserEmployeeMixin>();
             MixinDeclarations.Register<ProcessDN, UserProcessSessionMixin>();
 
-            SchemaBuilder sb = new SchemaBuilder(DBMS.SqlServer2012);
+            SchemaBuilder sb = new SchemaBuilder();
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
@@ -71,7 +71,7 @@ namespace Southwind.Logic
 
             DynamicQueryManager dqm = new DynamicQueryManager();
 
-            Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm);
+            Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm, SqlServerVersion.SqlServer2012);
 
             CacheLogic.Start(sb);
 
