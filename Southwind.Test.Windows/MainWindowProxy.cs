@@ -26,7 +26,7 @@ namespace Southwind.Test.Windows
             return OmniBox.SelectQuery(queryName);
         }
 
-        public NormalWindowProxy<T> SelectEntity<T>(Lite<T> lite) where T : IdentifiableEntity
+        public NormalWindowProxy<T> SelectEntity<T>(Lite<T> lite) where T : Entity
         {
             return OmniBox.SelectEntity<T>(lite);
         }

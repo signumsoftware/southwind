@@ -122,7 +122,7 @@ namespace Southwind.Load
             {
                 r.NextElement(list).InDB().UnsafeUpdate()
                 .Set(o => o.ShippedDate, o => null)
-                .Set(o => o.CancelationDate, o => o.OrderDate.AddDays(o.Id % 10))
+                .Set(o => o.CancelationDate, o => o.OrderDate.AddDays((int)o.Id % 10))
                 .Set(o => o.State, o => OrderState.Canceled)
                 .Execute();
             }

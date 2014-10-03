@@ -9,7 +9,7 @@ namespace Southwind.Entities
     [Serializable]
     public class UserEmployeeMixin : MixinEntity
     {
-        protected UserEmployeeMixin(IdentifiableEntity mainEntity, MixinEntity next)
+        protected UserEmployeeMixin(Entity mainEntity, MixinEntity next)
             : base(mainEntity, next)
         {
         }

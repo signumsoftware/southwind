@@ -151,7 +151,7 @@ namespace Southwind.Entities
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
-    public class TerritoryDN : IdentifiableEntity
+    public class TerritoryDN : Entity
     {
         RegionDN region;
         [NotNullValidator]
@@ -183,7 +183,7 @@ namespace Southwind.Entities
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
-    public class RegionDN : IdentifiableEntity
+    public class RegionDN : Entity
     {
         [NotNullable, SqlDbType(Size = 50), UniqueIndex]
         string description;
