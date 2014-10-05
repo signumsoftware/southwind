@@ -8,7 +8,7 @@ using Signum.Utilities;
 
 namespace Southwind.Entities
 {
-    [Serializable]
+    [Serializable, PrimaryKey(typeof(Guid))]
     public abstract class CustomerDN : Entity
     {
         [NotNullable]
