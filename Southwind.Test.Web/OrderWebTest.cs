@@ -28,7 +28,7 @@ namespace Southwind.Test.Web
         }
 
         [TestMethod]
-        public void OrderWwbTestExample()
+        public void OrderWebTestExample()
         {
             Login("Normal", "Normal");
             Lite<OrderDN> lite = null;
@@ -72,6 +72,6 @@ namespace Southwind.Test.Web
                 if (lite != null)
                     lite.Delete();
             }
-        }
+        }//OrderWebTestExample
     }
 }

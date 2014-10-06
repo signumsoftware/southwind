@@ -109,8 +109,8 @@ namespace Southwind.Windows
 
             ExceptionClient.Start();
 
-            NoteClient.Start(typeof(OrderDN));
-            AlertClient.Start(typeof(OrderDN));
+            NoteClient.Start(typeof(UserDN), /*Note*/typeof(OrderDN));
+            AlertClient.Start(typeof(UserDN), /*Alert*/typeof(OrderDN));
             SMSClient.Start();
             
             ProfilerClient.Start();

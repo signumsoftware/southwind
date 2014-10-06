@@ -114,8 +114,8 @@ namespace Southwind.Logic
             SMSLogic.RegisterDataObjectProvider((PersonDN p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
             SMSLogic.RegisterPhoneNumberProvider<CompanyDN>(p => p.Phone, p => null);
 
-            AlertLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
-            NoteLogic.Start(sb, dqm, new[] { typeof(PersonDN), typeof(CompanyDN), typeof(OrderDN) });
+            NoteLogic.Start(sb, dqm, typeof(UserDN), /*Note*/typeof(OrderDN));
+            AlertLogic.Start(sb, dqm, typeof(UserDN), /*Alert*/typeof(OrderDN));
             FileLogic.Start(sb, dqm);
 
             TranslationLogic.Start(sb, dqm);

@@ -107,11 +107,11 @@ namespace Southwind.Logic
             //Signum.Entities.Operations
             DisconnectedLogic.Register<OperationSymbol>(Download.Replace, Upload.None);
             Expression<Func<OperationLogDN, bool>> operationLogCondition = ol =>
-             ol.Target.EntityType == typeof(EmployeeDN) ||
-             ol.Target.EntityType == typeof(ProductDN) ||
              ol.Target.EntityType == typeof(OrderDN) && ((OrderDN)ol.Target.Entity).Employee.RefersTo(EmployeeDN.Current) ||
              ol.Target.EntityType == typeof(PersonDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((PersonDN)ol.Target.Entity)) ||
-             ol.Target.EntityType == typeof(CompanyDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((CompanyDN)ol.Target.Entity));
+             ol.Target.EntityType == typeof(CompanyDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((CompanyDN)ol.Target.Entity) || 
+             ol.Target.EntityType == typeof(EmployeeDN) ||
+             ol.Target.EntityType == typeof(ProductDN));
 
             DisconnectedLogic.Register<OperationLogDN>(operationLogCondition, Upload.New);
 
@@ -145,7 +145,8 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<TranslatedInstanceDN>(Download.None, Upload.None);
 
             //Signum.Entities.Exceptions
-            DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>().Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
+            DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>()
+                .Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
 
             //Signum.Entities.ViewLog
             DisconnectedLogic.Register<ViewLogDN>(Download.None, Upload.New);

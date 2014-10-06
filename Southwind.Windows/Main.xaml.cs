@@ -12,7 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Signum.Windows;
 using Signum.Utilities;
-using Southwind.Windows.Controls;
 using Southwind.Entities;
 using Signum.Windows.Disconnected;
 

@@ -62,7 +62,7 @@ namespace Southwind.Test.Windows
             var grid = container.Element.Element(TreeScope.Descendants, a => a.Current.ClassName == "ImmediateGrid" && a.Current.Name == route.ToString());
 
             return new DetailGridProxy(grid);
-        }
+        }//DetailGrid
     }
 
     public class DetailGridProxy
@@ -146,5 +146,5 @@ namespace Southwind.Test.Windows
 
             return this;
         }
-    }
+    }//DetailGridRowProxy
 }

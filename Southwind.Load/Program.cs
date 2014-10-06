@@ -136,7 +136,7 @@ namespace Southwind.Load
               .OrderByDescending(a => a.TotalPrice);
 
             OrderDN order = query.First();
-        }
+        }//ShowOrder
 
         public static void CreateCultureInfo()
         {

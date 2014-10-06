@@ -51,31 +51,34 @@ namespace Southwind.Test.Environment
                 LastName = "User",
                 Address = RandomAddress(3),
                 HomePhone = RandomPhone(4),
-                Territories = {  east },
+                Territories = { east },
                 ReportsTo = super.ToLite(),
             }.Save();
 
-        }
+        } //LoadEmployees
 
         internal static void LoadUsers()
         {
             var roles = Database.Query<RoleDN>().ToDictionary(a => a.Name);
 
-            foreach (var emp in Database.Query<EmployeeDN>())
-            {
-                var role = emp.FirstName == "Super" ? roles.GetOrThrow("Super user") :
-                      emp.FirstName == "Advanced" ? roles.GetOrThrow("Advanced user") :
-                      emp.FirstName == "Normal" ? roles.GetOrThrow("User") :
-                      new InvalidOperationException("Unexpected FirstName {0}".Formato(emp.FirstName)).Throw<RoleDN>();
+            CreateUser("Super", roles.GetOrThrow("Super user"));
+            CreateUser("Advanced", roles.GetOrThrow("Advanced user"));
+            CreateUser("Normal", roles.GetOrThrow("User"));
+        }
 
-                new UserDN
-                {
-                    UserName = emp.FirstName,
-                    PasswordHash = Security.EncodePassword(emp.FirstName),
-                    Role = role,
-                    State = UserState.Saved,
-                }.SetMixin((UserEmployeeMixin e) => e.Employee, emp).Save();
+        static void CreateUser(string userName, RoleDN role)
+        {
+            var user = new UserDN
+            {
+                UserName = userName,
+                PasswordHash = Security.EncodePassword(userName),
+                Role = role,
+                State = UserState.Saved,
             };
+
+            user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query<EmployeeDN>().Single(e => e.FirstName == userName));
+
+            user.Save();
         }//LoadUsers
 
         internal static void LoadProducts()
@@ -159,7 +162,7 @@ namespace Southwind.Test.Environment
                 ContactTitle = "Dr.",
                 Phone = RandomPhone(7),
                 Address = RandomAddress(7),
-            }.Save(); 
+            }.Save();
         }
 
         private static AddressDN RandomAddress(int seed)
@@ -188,7 +191,7 @@ namespace Southwind.Test.Environment
                 CompanyName = "FedEx",
                 Phone = RandomPhone(11),
             }.Save();
-        }
+        }//LoadShippers
 
         static bool started = false;
         public static void Start()
@@ -208,13 +211,13 @@ namespace Southwind.Test.Environment
         public static void StartAndInitialize()
         {
             Start();
-            Schema.Current.Initialize(); 
+            Schema.Current.Initialize();
         }
 
         internal static void LoadBasics()
         {
             var en = new CultureInfoDN(CultureInfo.GetCultureInfo("en")).Save();
-            var es = new CultureInfoDN(CultureInfo.GetCultureInfo("es")).Save(); 
+            var es = new CultureInfoDN(CultureInfo.GetCultureInfo("es")).Save();
         }
     }
 }

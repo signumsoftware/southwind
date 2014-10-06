@@ -35,6 +35,9 @@
                     <MenuItem Tag="{m:Explore QueryName={x:Type d:EmployeeDN}}"/>
                     <MenuItem Tag="{m:Explore QueryName={x:Type d:TerritoryDN}}"/>
                     <MenuItem Tag="{m:Explore QueryName={x:Type d:RegionDN}}"/>
+                </MenuItem>
+                <!--Admin-->
+                <MenuItem Header="Admin">
                     <MenuItem Tag="{m:Explore QueryName={x:Type sea:UserDN}}"/>
                     <MenuItem Tag="{m:Explore QueryName={x:Type sea:RoleDN}}"/>
                     <MenuItem Tag="{m:Explore QueryName={x:Type seb:OperationLogDN}}"/>

@@ -42,6 +42,6 @@ namespace Southwind.Test.Logic
                     //tr.Commit();
                 }
             }
-        }
+        }//OrderTestExample
     }
 }

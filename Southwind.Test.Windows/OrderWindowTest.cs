@@ -68,6 +68,6 @@ namespace Southwind.Test.Windows
                 if(lite != null)
                     lite.Delete();
             }
-        }
+        }//OrderWindowsTestExample
     }
 }
