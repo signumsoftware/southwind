@@ -38,6 +38,7 @@ using Signum.Windows.Profiler;
 using Southwind.Windows.Code;
 using Signum.Windows.Scheduler;
 using Signum.Windows.SMS;
+using Signum.Windows.Files;
 
 namespace Southwind.Windows
 {
@@ -102,6 +103,7 @@ namespace Southwind.Windows
             ProcessClient.Start(package: true, packageOperation: true);
             SchedulerClient.Start();
 
+            FilePathClient.Start();
             ExcelClient.Start(toExcel: true, excelReport: false);
             UserQueryClient.Start();
             ChartClient.Start();
