@@ -161,7 +161,7 @@ namespace Southwind.Load
 
         public static void ImportSpanishInstanceTranslations()
         {
-            TranslatedInstanceLogic.ImportExcelFile("../../Category.es.View.xlsx");
+            TranslatedInstanceLogic.ImportExcelFile("Category.es.View.xlsx");
         }
 
     }
