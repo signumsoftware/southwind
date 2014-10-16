@@ -19,8 +19,8 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Settings.OverrideAttributes((OrderDN o) => o.Customer,
-                    new ImplementedByAttribute(typeof(CompanyDN), typeof(PersonDN)));
+                sb.Settings.AssertImplementedBy((OrderDN o) => o.Customer, typeof(CompanyDN));
+                sb.Settings.AssertImplementedBy((OrderDN o) => o.Customer, typeof(PersonDN));
 
                 sb.Include<PersonDN>();
                 sb.Include<CompanyDN>();
