@@ -103,11 +103,8 @@ div.order-detail
 
     div.order-detail.repeater-inline .sf-repeater-element legend
     {
-        float: left;
         margin-left: -10px;
         margin-right: -14px;
-        border: 0px;
-        margin-top: -4px;
     }
 
     div.order-detail.repeater-inline .form-group.form-sm
