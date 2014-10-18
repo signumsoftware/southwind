@@ -131,14 +131,6 @@ namespace Southwind.Windows
             DisconnectedClient.Start();
 
             Navigator.Initialize();
-
-            if (Server.OfflineMode)
-            {
-                DisconnectedExportRanges.Initialize(
-                    LocalServer.LastExport(),    
-                    DisconnectedMachineDN.Current.Retrieve(),
-                    Server.ServerTypes.ToDictionary(k => k.Value.ToLite(), k => k.Key));
-            }//OfflineMode 
         }
     }
 }

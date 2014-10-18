@@ -14,7 +14,6 @@ using Signum.Entities.Processes;
 
 namespace Southwind.Entities
 {
-    [Mixin(typeof(DisconnectedMixin))]
     [Serializable, EntityKind(EntityKind.Main, EntityData.Transactional)]
     public class OrderDN : Entity
     {

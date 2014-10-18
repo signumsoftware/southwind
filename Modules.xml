@@ -107,8 +107,6 @@
       <RemoveLine Path="Southwind.Windows\Program.cs" From="private static void UploadIfNecessary()" To="}//UploadIfNecessary"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="using Southwind.Local;"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DisconnectedClient.Start();"/>
-      <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="if (Server.OfflineMode)" To="}//OfflineMode"/>
-      <RemoveLine Path="Southwind.Entities\Order.cs" Line="[Mixin(typeof(DisconnectedMixin))]"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc.cs"/>
       <RemoveLine Path="Southwind.Web\Web.config" Line="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot; transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot; />"/>
