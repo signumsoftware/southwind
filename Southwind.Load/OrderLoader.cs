@@ -33,31 +33,27 @@ namespace Southwind.Load
             {
                 var northwind = db.Customers.Select(a => new { a.CustomerID, a.ContactName }).ToList();
 
-                var companies = Database.Query<CompanyDN>().Select(c => new 
-                { 
-                    Lite = c.ToLite<CustomerDN>(), 
-                    c.ContactName 
+                var companies = Database.Query<CompanyDN>().Select(c => new
+                {
+                    Lite = c.ToLite<CustomerDN>(),
+                    c.ContactName
                 }).ToList();
 
-                var persons = Database.Query<PersonDN>().Select(p => new 
-                { 
-                    Lite = p.ToLite<CustomerDN>(), 
-                    ContactName = p.FirstName + " " + p.LastName 
+                var persons = Database.Query<PersonDN>().Select(p => new
+                {
+                    Lite = p.ToLite<CustomerDN>(),
+                    ContactName = p.FirstName + " " + p.LastName
                 }).ToList();
 
-                Dictionary<string, Lite<CustomerDN>> customerMapping = 
+                Dictionary<string, Lite<CustomerDN>> customerMapping =
                     (from n in northwind
                      join s in companies.Concat(persons) on n.ContactName equals s.ContactName
                      select new KeyValuePair<string, Lite<CustomerDN>>(n.CustomerID, s.Lite)).ToDictionary();
 
-                using (Transaction tr = new Transaction())
-                using (Administrator.DisableIdentity<OrderDN>())
-                using (OperationLogic.AllowSave<OrderDN>())
+                db.Orders.GroupsOf(10).ProgressForeachDisableIdentity(typeof(OrderDN), l => l.ToInterval(a => a.OrderID).ToString(), null, (orders, writer) =>
                 {
-                    IProgressInfo info;
-                    foreach (Order o in db.Orders.ToProgressEnumerator(out info))
-                    {
-                        new OrderDN
+                    using (OperationLogic.AllowSave<OrderDN>())
+                        orders.Select(o => new OrderDN
                         {
 
                             Employee = Lite.Create<EmployeeDN>(o.EmployeeID.Value),
@@ -85,13 +81,9 @@ namespace Southwind.Load
                             }).ToMList(),
                             Customer = customerMapping[o.CustomerID].RetrieveAndForget(),
                             IsLegacy = true,
-                        }.SetId(o.OrderID).Save();
+                        }.SetId(o.OrderID)).SaveList();
+                });
 
-                        SafeConsole.WriteSameLine(info.ToString());
-                    }
-
-                    tr.Commit();
-                }
             }
         }
 
