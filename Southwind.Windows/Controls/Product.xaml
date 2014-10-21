@@ -7,7 +7,7 @@
     MinWidth="300">
 <StackPanel>
     <m:ValueLine m:Common.Route="ProductName" />
-    <m:EntityCombo m:Common.Route="Category" />
+    <m:EntityCombo m:Common.Route="Category"  Creating="EntityCombo_Creating" x:Name="category"/>
     <m:ValueLine m:Common.Route="ReorderLevel" />
     <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" Padding="3">
         <Grid m:Common.LabelVisible="False" >

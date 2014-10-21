@@ -32,7 +32,7 @@ namespace Southwind.Windows.Code
                     new EntitySettings<RegionDN>() { View = e => new Region() },
 
                     new EntitySettings<ProductDN>() { View = e => new Product() },
-                    new EntitySettings<CategoryDN>() { View = e => new Category() },
+                    new EntitySettings<CategoryDN>() { View = e => new Category(), IsViewable = true },
                     new EntitySettings<SupplierDN>() { View = e => new Supplier() },
 
                     new EntitySettings<CompanyDN>() { View = e => new Company() },

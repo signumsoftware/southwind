@@ -14,3 +14,20 @@ export function updateStockValue(prefix: string) {
     prefix.child("ValueInStock").get().html(sum.toString());
 }
 
+export function attachCategory(ec: Lines.EntityCombo)
+{
+    ec.creating = prefix =>
+    {
+        var newEntity = new Entities.EntityHtml(prefix, new Entities.RuntimeInfo(ec.singleType(), null, true), lang.signum.newEntity);
+
+        var productName = ec.prefix.parent().child("ProductName").get().val(); 
+
+        var options = ec.defaultViewOptions(null);
+
+        options.onPopupLoaded = div => prefix.child("CategoryName").get(div).val(productName); 
+
+        return Navigator.viewPopup(newEntity, options);
+    };
+}
+
+

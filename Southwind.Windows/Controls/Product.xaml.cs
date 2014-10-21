@@ -25,6 +25,16 @@ namespace Southwind.Windows.Controls
         public Product()
         {
             InitializeComponent();
+            this.category.Remove = true;
+            this.category.Create = Navigator.IsCreable(typeof(CategoryDN), isSearch: true); 
+        }
+
+        private object EntityCombo_Creating()
+        {
+            return Navigator.View(new CategoryDN
+            {
+                CategoryName = ((ProductDN)this.DataContext).ProductName
+            });
         }
     }
 }

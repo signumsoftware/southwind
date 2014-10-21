@@ -3,7 +3,12 @@
 @using (var pc = Html.TypeContext<ProductDN>())
 {
     @Html.ValueLine(pc, p => p.ProductName)
-    @Html.EntityCombo(pc, p => p.Category)
+    @Html.EntityCombo(pc, p => p.Category, ec =>
+    {
+        ec.AttachFunction = SouthwindClient.ProductModule["attachCategory"](ec);
+        ec.Create = Navigator.IsCreable(typeof(CategoryDN), isSearch: true);
+        ec.Remove = true;
+    })
     @Html.ValueLine(pc, p => p.ReorderLevel)
 
     @Html.ValueLine(pc, p => p.QuantityPerUnit)
