@@ -50,7 +50,7 @@
             @if (ec.Value.Photo != null)
             {
                 <img class="img-responsive" src="@(Url.Action<FileController>(hc => hc.Download(new RuntimeInfo(ec.Value.Photo).ToString())))" />
-            } //Photo
+            } @*Photo*@
         <div class="form-vertical">
             @Html.ValueLine(ec, e => e.Notes, vl =>
             {

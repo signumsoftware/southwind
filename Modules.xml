@@ -173,8 +173,8 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //2"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Code\SouthwindClient.cs" From="QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture," To=".Attr(&quot;style&quot;, &quot;width:48px&quot;).ToHtmlSelf()) { TextAlign = &quot;center&quot; }); //Emmployee"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Code\SouthwindClient.cs" From="public static string Base64Data(EmbeddedFileDN file)" To="} //Base64Data"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Views\Southwind\Category.cshtml" From="@Html.FileLine(cc, a => a.Picture)" To="} //Picture"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Views\Southwind\Employee.cshtml" From="@Html.FileLine(ec, a => a.Photo.Try(p => p.Retrieve()))" To="} //Photo"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Views\Southwind\Category.cshtml" From="@Html.FileLine(cc, a => a.Picture)" To="} @*Picture*@"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Views\Southwind\Employee.cshtml" From="@Html.FileLine(ec, a => a.Photo.Try(p => p.Retrieve()))" To="} @*Photo*@"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Code\SouthwindClient.cs" From="QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, b =>" To="}); //Picture"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Controls\Category.xaml" From="&lt;f:FileLine m:Common.Route=&quot;Picture&quot; />" To="&lt;/Border>"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Controls\Employee.xaml" From="&lt;StackPanel  Grid.Column=&quot;1&quot; Grid.Row=&quot;0&quot;>" To="&lt;/StackPanel>"/>

@@ -42,7 +42,7 @@ export function attachProductLine(el: Lines.EntityLine, fo: Finder.FindOptions) 
     };
 }
 
-export function attachDetails(el: Lines.EntityLineDetail, comma: string) {
+export function attachDetails(el: Lines.EntityRepeater, comma: string) {
     el.element.on("change", "div.recalculate input", e=> {
         reCalculate(el, comma);
     }); 
@@ -50,7 +50,7 @@ export function attachDetails(el: Lines.EntityLineDetail, comma: string) {
     el.entityChanged = () => reCalculate(el, comma);
 }
 
-function reCalculate(ed: Lines.EntityLineDetail, comma: string) {
+function reCalculate(ed: Lines.EntityRepeater, comma: string) {
     var total = 0;
     ed.element.find(".sf-repeater-element").each((i, e) => {
         var prefix = (<HTMLElement>e).id.parent("sfRepeaterItem");

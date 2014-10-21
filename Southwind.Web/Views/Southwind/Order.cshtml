@@ -9,10 +9,9 @@
     oc.LabelColumns = new BsColumn(4);
     <div class="row">
         <div class="col-sm-6">
-
             @Html.EntityLine(oc, o => o.Customer, el =>
             {
-                el.AttachFunction = SouthwindClient.OrderModule["attachCustomerEntityLine"](el, new FindOptions(typeof(CustomerDN)).ToJS(el.Prefix));
+                el.AttachFunction = SouthwindClient.OrderModule["attachCustomerEntityLine"](el,  new FindOptions(typeof(CustomerDN)).ToJS(el.Prefix));
             })
             @Html.EmbeddedControl(oc, o => o.ShipAddress, ec => ec.ViewData = new Dictionary<string, object> { { "Legend", Html.PropertyNiceName(() => oc.Value.ShipAddress) } })
         </div>
