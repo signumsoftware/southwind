@@ -37,7 +37,7 @@ namespace Southwind.Test.Environment
                 SouthwindEnvironment.LoadCustomers(); 
                 SouthwindEnvironment.LoadShippers();
 
-                Executor.ExecuteNonQuery(AuthLogic.ImportRulesScript(authRules).PlainSql());
+                AuthLogic.ImportRulesScript(authRules).PlainSqlCommand().ExecuteLeaves();
             }
 
             OperationLogic.AllowSaveGlobally = false;

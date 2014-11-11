@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Auth>
-  <Exported On="2014-07-23T23:27:36" />
+  <Imported On="2014-07-23T23:27:36" />
+  <Exported On="2014-11-11T14:33:13" />
   <Roles>
     <Role Name="Super user" MergeStrategy="Intersection" Contains="" />
     <Role Name="User" Contains="" />
@@ -13,7 +14,11 @@
   </Operations>
   <Permissions>
     <Role Name="Super user" />
-    <Role Name="User" />
+    <Role Name="User">
+      <Permission Resource="BasicPermission.AutomaticUpgradeOfOperations" Allowed="True" />
+      <Permission Resource="BasicPermission.AutomaticUpgradeOfProperties" Allowed="True" />
+      <Permission Resource="BasicPermission.AutomaticUpgradeOfQueries" Allowed="True" />
+    </Role>
     <Role Name="Advanced user" />
   </Permissions>
   <Properties>

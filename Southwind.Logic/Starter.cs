@@ -81,7 +81,7 @@ namespace Southwind.Logic
 
             CultureInfoLogic.Start(sb, dqm);
             FilePathLogic.Start(sb, dqm);
-            EmailLogic.Start(sb, dqm, () => Configuration.Value.Email);
+            EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, () => null);
 
             AuthLogic.Start(sb, dqm, "System", null);
        
@@ -119,7 +119,8 @@ namespace Southwind.Logic
             FileLogic.Start(sb, dqm);
 
             TranslationLogic.Start(sb, dqm);
-            TranslatedInstanceLogic.Start(sb, dqm, "en"); 
+            TranslatedInstanceLogic.Start(sb, dqm, "en");
+
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);
