@@ -38,7 +38,8 @@ namespace Southwind.Windows
             {
                 App app = new App { ShutdownMode = System.Windows.ShutdownMode.OnExplicitShutdown };
 
-                Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+                CultureInfo.DefaultThreadCurrentCulture = CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+                Server.OnOperation += Server.OnOperation_SaveCurrentCulture;
 
                 if (RunLocally())
                 {

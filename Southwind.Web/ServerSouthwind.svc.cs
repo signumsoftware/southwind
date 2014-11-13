@@ -32,6 +32,7 @@ namespace Southwind.Web
             {
                 string longDescription = mi.Name + description == null ? null : (" " + description);
 
+                using (CultureFromOperationContext())
                 using (TimeTracker.Start(longDescription))
                 using (HeavyProfiler.Log("WCF", () => longDescription))
                 using (ScopeSessionFactory.OverrideSession(session))
