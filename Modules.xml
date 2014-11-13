@@ -232,7 +232,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailMessageDN em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserDN)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((SmtpConfigurationDN sc) => sc.DefaultFrom.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserDN)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((SmtpConfigurationDN sc) => sc.AditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserDN)));"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, () => null);"/>
       <RemoveFiles Path="Southwind.Web\Libs\ckeditor"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="MailingClient.Start(" To="pop3Config: false);" />
     </Module>
@@ -286,7 +286,7 @@
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;D:\Signum\Southwind\Southwind.Load\AuthRules.xml&quot;); //Change this route if necessary. Only god knows where MSTest is running."/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
-      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="Executor.ExecuteNonQuery(AuthLogic.ImportRulesScript(authRules).PlainSql());"/>
+      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules).PlainSqlCommand().ExecuteLeaves();"/>
     </Module>
 
     <Module Name="Translation">
