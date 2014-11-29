@@ -21,6 +21,7 @@ using Signum.Entities.Files;
 using Signum.Entities.SMS;
 using Signum.Entities.Basics;
 using Signum.Engine.Translation;
+using Signum.Engine.Help;
 
 namespace Southwind.Load
 {
@@ -86,6 +87,7 @@ namespace Southwind.Load
                     {42, ChartScriptLogic.ImportExportChartScripts},
                     {43, AuthLogic.ImportExportAuthRules},
                     {44, ImportSpanishInstanceTranslations},
+                    {45, HelpXml.ImportExportHelp},
                     {100, ShowOrder},
 
                 }.ChooseMultiple();

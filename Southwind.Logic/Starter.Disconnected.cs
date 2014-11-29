@@ -29,6 +29,7 @@ using Signum.Entities.UserAssets;
 using Signum.Entities.Scheduler;
 using Signum.Entities.SMS;
 using Signum.Entities.ViewLog;
+using Signum.Entities.Help;
 
 namespace Southwind.Logic
 {
@@ -74,7 +75,12 @@ namespace Southwind.Logic
             //Signum.Entities.Files
             DisconnectedLogic.Register<FileDN>(Download.All, Upload.New);
 
-
+            //Signum.Entities.Help
+            DisconnectedLogic.Register<EntityHelpDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<NamespaceHelpDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<AppendixHelpDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<QueryHelpDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<OperationHelpDN>(Download.None, Upload.None);
 
             //Signum.Entities.ControlPanel
             DisconnectedLogic.Register<DashboardDN>(Download.None, Upload.None);

@@ -44,6 +44,7 @@ using Signum.Engine.SMS;
 using Signum.Engine.ViewLog;
 using System.Collections.Generic;
 using Signum.Entities.ViewLog;
+using Signum.Engine.Help;
 
 namespace Southwind.Logic
 {
@@ -121,6 +122,7 @@ namespace Southwind.Logic
             TranslationLogic.Start(sb, dqm);
             TranslatedInstanceLogic.Start(sb, dqm, "en");
 
+            HelpLogic.Start(sb, dqm);
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);

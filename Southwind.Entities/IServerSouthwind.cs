@@ -17,7 +17,7 @@ namespace Southwind.Services
     public interface IServerSouthwind : IBaseServer, IDynamicQueryServer, IOperationServer,
         ILoginServer, IProcessServer, IQueryServer, IChartServer, IExcelReportServer, IUserQueryServer, IDashboardServer, IUserAssetsServer,
         IProfilerServer, IQueryAuthServer, IPropertyAuthServer, ITypeAuthServer, IPermissionAuthServer, IOperationAuthServer,
-        IDisconnectedServer, ISmsServer
+        IDisconnectedServer, ISmsServer, IHelpServer
     {
 
     }

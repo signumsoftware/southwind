@@ -43,6 +43,7 @@ using Southwind.Web.BingTranslationService;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using Signum.Engine.Basics;
+using Signum.Web.Help;
 
 namespace Southwind.Web
 {
@@ -176,6 +177,8 @@ namespace Southwind.Web
             AlertClient.Start(typeof(UserDN), /*Alert*/typeof(OrderDN));
             LinksClient.Start(widget: true, contextualItems: true);
 
+            HelpClient.Start("http://localhost:7654/", "Images"); 
+
             SouthwindClient.Start();
 
             CacheClient.Start();
@@ -202,6 +205,7 @@ namespace Southwind.Web
             OmniboxClient.Register(new ChartOmniboxProvider());
             OmniboxClient.Register(new UserChartOmniboxProvider());
             OmniboxClient.Register(new DashboardOmniboxProvider());
+            OmniboxClient.Register(new HelpOmniboxProvider());
         } //WebStart
 
         protected void Application_Error(Object sender, EventArgs e)

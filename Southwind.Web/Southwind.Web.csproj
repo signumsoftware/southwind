@@ -412,6 +412,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Images\" />
     <Folder Include="Libs\ckeditor\plugins\pbckcode\dialogs\ace\" />
   </ItemGroup>
   <ItemGroup>

@@ -39,6 +39,7 @@ using Southwind.Windows.Code;
 using Signum.Windows.Scheduler;
 using Signum.Windows.SMS;
 using Signum.Windows.Files;
+using Signum.Windows.Help;
 
 namespace Southwind.Windows
 {
@@ -108,6 +109,8 @@ namespace Southwind.Windows
             UserQueryClient.Start();
             ChartClient.Start();
             DashboardClient.Start();
+
+            HelpClient.Start(); 
 
             ExceptionClient.Start();
 
