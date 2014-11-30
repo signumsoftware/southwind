@@ -38,7 +38,7 @@ namespace Southwind.Test.Windows
             if (process != null)
                 result.Disposed += () => process.Kill();
 
-            CultureInfoDN culture = AuthLogic.RetrieveUser(userName).CultureInfo;
+            CultureInfoEntity culture = AuthLogic.RetrieveUser(userName).CultureInfo;
 
             Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture.Try(c => c.ToCultureInfo()) ?? new CultureInfo("en-US");
 
@@ -55,9 +55,9 @@ namespace Southwind.Test.Windows
         }
 
 
-        public static DetailGridProxy DetailGrid(this ILineContainer<OrderDN> container)
+        public static DetailGridProxy DetailGrid(this ILineContainer<OrderEntity> container)
         {
-            PropertyRoute route = container.GetRoute((OrderDN o) => o.Details);
+            PropertyRoute route = container.GetRoute((OrderEntity o) => o.Details);
 
             var grid = container.Element.Element(TreeScope.Descendants, a => a.Current.ClassName == "ImmediateGrid" && a.Current.Name == route.ToString());
 
@@ -74,7 +74,7 @@ namespace Southwind.Test.Windows
             this.Element = element;
         }
 
-        public DetailGridRowProxy AddRow(Lite<ProductDN> product)
+        public DetailGridRowProxy AddRow(Lite<ProductEntity> product)
         {
             var buttons = this.Element.Parent().Child(a => a.Current.ClassName == "EntityButtons");
 
@@ -109,7 +109,7 @@ namespace Southwind.Test.Windows
             Assert.AreEqual(5, this.Cells.Count);
         }
 
-        public DetailGridRowProxy SetProduct(Lite<ProductDN> product)
+        public DetailGridRowProxy SetProduct(Lite<ProductEntity> product)
         {
             this.SetProduct(product.ToString());
 

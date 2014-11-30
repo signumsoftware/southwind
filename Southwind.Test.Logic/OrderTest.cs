@@ -26,11 +26,11 @@ namespace Southwind.Test.Logic
             {
                 using (Transaction tr = Transaction.Test()) // Transaction.Test avoids nested ForceNew transactions to be independent
                 {
-                    var john = Database.Query<PersonDN>().SingleEx(p => p.FirstName == "John");
+                    var john = Database.Query<PersonEntity>().SingleEx(p => p.FirstName == "John");
 
                     var order = john.ConstructFrom(OrderOperation.CreateOrderFromCustomer);
 
-                    var sonic = Database.Query<ProductDN>().SingleEx(p=>p.ProductName.Contains("Sonic"));
+                    var sonic = Database.Query<ProductEntity>().SingleEx(p=>p.ProductName.Contains("Sonic"));
 
                     var line = order.AddLine(sonic);
 

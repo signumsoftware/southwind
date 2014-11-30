@@ -21,8 +21,8 @@ namespace Southwind.Entities
             set { Set(ref allowLogin, value); }
         }
 
-        EmployeeDN employee;
-        public EmployeeDN Employee
+        EmployeeEntity employee;
+        public EmployeeEntity Employee
         {
             get { return employee; }
             set { Set(ref employee, value); }

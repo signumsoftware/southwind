@@ -26,14 +26,14 @@ namespace Southwind.Windows.Controls
         {
             InitializeComponent();
             this.category.Remove = true;
-            this.category.Create = Navigator.IsCreable(typeof(CategoryDN), isSearch: true); 
+            this.category.Create = Navigator.IsCreable(typeof(CategoryEntity), isSearch: true); 
         }
 
         private object EntityCombo_Creating()
         {
-            return Navigator.View(new CategoryDN
+            return Navigator.View(new CategoryEntity
             {
-                CategoryName = ((ProductDN)this.DataContext).ProductName
+                CategoryName = ((ProductEntity)this.DataContext).ProductName
             });
         }
     }

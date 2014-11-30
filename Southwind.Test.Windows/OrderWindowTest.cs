@@ -25,24 +25,24 @@ namespace Southwind.Test.Windows
         [TestMethod]
         public void OrderWindowsTestExample()
         {
-            Lite<OrderDN> lite = null;
+            Lite<OrderEntity> lite = null;
             try
             {
                 using (MainWindowProxy win = Common.OpenAndLogin("Normal", "Normal"))
                 {
-                    using (SearchWindowProxy persons = win.SelectQuery(typeof(PersonDN)))
+                    using (SearchWindowProxy persons = win.SelectQuery(typeof(PersonEntity)))
                     {
                         persons.Search();
                         persons.SearchControl.SortColumn("Id", OrderType.Ascending);
 
-                        using (NormalWindowProxy<PersonDN> john = persons.ViewElementAt<PersonDN>(1))
+                        using (NormalWindowProxy<PersonEntity> john = persons.ViewElementAt<PersonEntity>(1))
                         {
-                            using (NormalWindowProxy<OrderDN> order = john.ConstructFrom(OrderOperation.CreateOrderFromCustomer))
+                            using (NormalWindowProxy<OrderEntity> order = john.ConstructFrom(OrderOperation.CreateOrderFromCustomer))
                             {
                                 order.ValueLineValue(a => a.ShipName, Guid.NewGuid().ToString());
                                 order.EntityCombo(a => a.ShipVia).SelectToString("FedEx");
 
-                                ProductDN sonicProduct = Database.Query<ProductDN>().SingleEx(p => p.ProductName.Contains("Sonic"));
+                                ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
 
                                 order.DetailGrid().AddRow(sonicProduct.ToLite());
 
@@ -57,7 +57,7 @@ namespace Southwind.Test.Windows
                         }
                     }
 
-                    using (NormalWindowProxy<OrderDN> order = win.SelectEntity(lite)) 
+                    using (NormalWindowProxy<OrderEntity> order = win.SelectEntity(lite)) 
                     {
                         Assert.AreEqual(lite.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
                     }

@@ -15,20 +15,20 @@ using Signum.Entities.Processes;
 namespace Southwind.Entities
 {
     [Serializable, EntityKind(EntityKind.Main, EntityData.Transactional)]
-    public class OrderDN : Entity
+    public class OrderEntity : Entity
     {
-        [ImplementedBy(typeof(CompanyDN), typeof(PersonDN))]
-        CustomerDN customer;
+        [ImplementedBy(typeof(CompanyEntity), typeof(PersonEntity))]
+        CustomerEntity customer;
         [NotNullValidator]
-        public CustomerDN Customer
+        public CustomerEntity Customer
         {
             get { return customer; }
             set { Set(ref customer, value); }
         }
 
-        Lite<EmployeeDN> employee;
+        Lite<EmployeeEntity> employee;
         [NotNullValidator]
-        public Lite<EmployeeDN> Employee
+        public Lite<EmployeeEntity> Employee
         {
             get { return employee; }
             set { Set(ref employee, value); }
@@ -62,8 +62,8 @@ namespace Southwind.Entities
             set { Set(ref cancelationDate, value); }
         }
 
-        Lite<ShipperDN> shipVia;
-        public Lite<ShipperDN> ShipVia
+        Lite<ShipperEntity> shipVia;
+        public Lite<ShipperEntity> ShipVia
         {
             get { return shipVia; }
             set { Set(ref shipVia, value); }
@@ -79,9 +79,9 @@ namespace Southwind.Entities
         }
 
         [NotNullable]
-        AddressDN shipAddress;
+        AddressEntity shipAddress;
         [NotNullValidator]
-        public AddressDN ShipAddress
+        public AddressEntity ShipAddress
         {
             get { return shipAddress; }
             set { Set(ref shipAddress, value); }
@@ -96,15 +96,15 @@ namespace Southwind.Entities
         }
 
         [NotNullable, ValidateChildProperty, NotifyChildProperty, NotifyCollectionChanged]
-        MList<OrderDetailsDN> details = new MList<OrderDetailsDN>();
+        MList<OrderDetailsEntity> details = new MList<OrderDetailsEntity>();
         [NoRepeatValidator]
-        public MList<OrderDetailsDN> Details
+        public MList<OrderDetailsEntity> Details
         {
             get { return details; }
             set { Set(ref details, value); }
         }
 
-        static Expression<Func<OrderDN, decimal>> TotalPriceExpression =
+        static Expression<Func<OrderEntity, decimal>> TotalPriceExpression =
             o => o.Details.Sum(od => od.SubTotalPrice);
         [Unit("€")]
         public decimal TotalPrice
@@ -128,7 +128,7 @@ namespace Southwind.Entities
 
         protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi)
         {
-            OrderDetailsDN details = sender as OrderDetailsDN;
+            OrderDetailsEntity details = sender as OrderDetailsEntity;
 
             if (details != null && !IsLegacy &&  pi.Is(() => details.Discount))
             {
@@ -147,7 +147,7 @@ namespace Southwind.Entities
 
         protected override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is OrderDetailsDN)
+            if (sender is OrderDetailsEntity)
                 Notify(() => TotalPrice);
         }
 
@@ -156,7 +156,7 @@ namespace Southwind.Entities
             return stateValidator.Validate(this, pi); 
         }
 
-  		static StateValidator<OrderDN, OrderState> stateValidator = new StateValidator<OrderDN, OrderState>(
+  		static StateValidator<OrderEntity, OrderState> stateValidator = new StateValidator<OrderEntity, OrderState>(
             o => o.State, o => o.ShippedDate, o => o.ShipVia, o => o.CancelationDate)
             {
                 {OrderState.New,     false, null, false},
@@ -186,24 +186,24 @@ namespace Southwind.Entities
 
     public static class OrderOperation
     {
-        public static readonly ConstructSymbol<OrderDN>.Simple Create = OperationSymbol.Construct<OrderDN>.Simple();
-        public static readonly ExecuteSymbol<OrderDN> SaveNew = OperationSymbol.Execute<OrderDN>();
-        public static readonly ExecuteSymbol<OrderDN> Save = OperationSymbol.Execute<OrderDN>();
-        public static readonly ExecuteSymbol<OrderDN> Ship = OperationSymbol.Execute<OrderDN>();
-        public static readonly ExecuteSymbol<OrderDN> Cancel = OperationSymbol.Execute<OrderDN>();
-        public static readonly ConstructSymbol<OrderDN>.From<CustomerDN> CreateOrderFromCustomer = OperationSymbol.Construct<OrderDN>.From<CustomerDN>();
-        public static readonly ConstructSymbol<OrderDN>.FromMany<ProductDN> CreateOrderFromProducts = OperationSymbol.Construct<OrderDN>.FromMany<ProductDN>();
-        public static readonly DeleteSymbol<OrderDN> Delete = OperationSymbol.Delete<OrderDN>();
+        public static readonly ConstructSymbol<OrderEntity>.Simple Create = OperationSymbol.Construct<OrderEntity>.Simple();
+        public static readonly ExecuteSymbol<OrderEntity> SaveNew = OperationSymbol.Execute<OrderEntity>();
+        public static readonly ExecuteSymbol<OrderEntity> Save = OperationSymbol.Execute<OrderEntity>();
+        public static readonly ExecuteSymbol<OrderEntity> Ship = OperationSymbol.Execute<OrderEntity>();
+        public static readonly ExecuteSymbol<OrderEntity> Cancel = OperationSymbol.Execute<OrderEntity>();
+        public static readonly ConstructSymbol<OrderEntity>.From<CustomerEntity> CreateOrderFromCustomer = OperationSymbol.Construct<OrderEntity>.From<CustomerEntity>();
+        public static readonly ConstructSymbol<OrderEntity>.FromMany<ProductEntity> CreateOrderFromProducts = OperationSymbol.Construct<OrderEntity>.FromMany<ProductEntity>();
+        public static readonly DeleteSymbol<OrderEntity> Delete = OperationSymbol.Delete<OrderEntity>();
 
-        public static readonly ConstructSymbol<ProcessDN>.FromMany<OrderDN> CancelWithProcess = OperationSymbol.Construct<ProcessDN>.FromMany<OrderDN>();
+        public static readonly ConstructSymbol<ProcessEntity>.FromMany<OrderEntity> CancelWithProcess = OperationSymbol.Construct<ProcessEntity>.FromMany<OrderEntity>();
     }
 
     [Serializable]
-    public class OrderDetailsDN : EmbeddedEntity, IEditableObject
+    public class OrderDetailsEntity : EmbeddedEntity, IEditableObject
     {
-        Lite<ProductDN> product;
+        Lite<ProductEntity> product;
         [NotNullValidator]
-        public Lite<ProductDN> Product
+        public Lite<ProductEntity> Product
         {
             get { return product; }
             set { Set(ref product, value); }
@@ -244,7 +244,7 @@ namespace Southwind.Entities
             }
         }
 
-        static Expression<Func<OrderDetailsDN, decimal>> SubTotalPriceExpression =
+        static Expression<Func<OrderDetailsEntity, decimal>> SubTotalPriceExpression =
             od => od.Quantity * od.UnitPrice * (decimal)(1 - od.Discount);
         [Unit("€")]
         public decimal SubTotalPrice
@@ -253,11 +253,11 @@ namespace Southwind.Entities
         }
 
         [Ignore]
-        OrderDetailsDN clone;
+        OrderDetailsEntity clone;
 
         public void BeginEdit()
         {
-            clone = new OrderDetailsDN
+            clone = new OrderDetailsEntity
             {
                 Product = product,
                 Quantity = quantity,
@@ -280,7 +280,7 @@ namespace Southwind.Entities
     }
 
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
-    public class ShipperDN : Entity
+    public class ShipperEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
         string companyName;
@@ -300,7 +300,7 @@ namespace Southwind.Entities
             set { Set(ref phone, value); }
         }
 
-        static Expression<Func<ShipperDN, string>> ToStringExpression = e => e.CompanyName;
+        static Expression<Func<ShipperEntity, string>> ToStringExpression = e => e.CompanyName;
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -309,7 +309,7 @@ namespace Southwind.Entities
 
     public static class ShipperOperation
     {
-        public static readonly ExecuteSymbol<ShipperDN> Save = OperationSymbol.Execute<ShipperDN>();
+        public static readonly ExecuteSymbol<ShipperEntity> Save = OperationSymbol.Execute<ShipperEntity>();
     }
 
     public enum OrderQuery

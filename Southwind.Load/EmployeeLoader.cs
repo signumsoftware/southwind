@@ -20,7 +20,7 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 Administrator.SaveListDisableIdentity(db.Regions.Select(r =>
-                    new RegionDN
+                    new RegionEntity
                     {
                         Description = r.RegionDescription.Trim()
                     }.SetId(r.RegionID)));
@@ -31,7 +31,7 @@ namespace Southwind.Load
         {
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
-                var regionDic = Database.RetrieveAll<RegionDN>().ToDictionary(a => a.Id);
+                var regionDic = Database.RetrieveAll<RegionEntity>().ToDictionary(a => a.Id);
 
                 var territories = (from t in db.Territories.ToList()
                                    group t by t.TerritoryDescription into g
@@ -43,7 +43,7 @@ namespace Southwind.Load
                                    }).ToList();
 
                 Administrator.SaveListDisableIdentity(territories.Select(t =>
-                    new TerritoryDN
+                    new TerritoryEntity
                     {
                         Description = t.Description.Trim(),
                         Region = regionDic[t.RegionID]
@@ -66,7 +66,7 @@ namespace Southwind.Load
                                             Item = item
                                         }).ToDictionary(a => a.Item, a => a.Min);
 
-                var territoriesDic = Database.RetrieveAll<TerritoryDN>().ToDictionary(a => a.Id);
+                var territoriesDic = Database.RetrieveAll<TerritoryEntity>().ToDictionary(a => a.Id);
 
 
                 var exmployeeTerritories = (from e in db.Employees
@@ -81,7 +81,7 @@ namespace Southwind.Load
 
                 Administrator.SaveListDisableIdentity(
                     from e in db.Employees
-                    select new EmployeeDN
+                    select new EmployeeEntity
                     {
                         BirthDate = e.BirthDate,
                         FirstName = e.FirstName,
@@ -90,9 +90,9 @@ namespace Southwind.Load
                         HomePhone = e.HomePhone,
                         Extension = e.Extension,
                         HireDate = e.HireDate,
-                        Photo = new FileDN { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),
+                        Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),
                         PhotoPath = e.PhotoPath,
-                        Address = new AddressDN
+                        Address = new AddressEntity
                         {
                             Address = e.Address,
                             City = e.City,
@@ -110,8 +110,8 @@ namespace Southwind.Load
 
                 foreach (var pair in pairs)
                 {
-                    EmployeeDN employee = Database.Retrieve<EmployeeDN>(pair.EmployeeID);
-                    employee.ReportsTo = Lite.Create<EmployeeDN>(pair.ReportsTo.Value);
+                    EmployeeEntity employee = Database.Retrieve<EmployeeEntity>(pair.EmployeeID);
+                    employee.ReportsTo = Lite.Create<EmployeeEntity>(pair.ReportsTo.Value);
                     employee.Save();
                 }
             }
@@ -126,14 +126,14 @@ namespace Southwind.Load
 
         internal static void CreateSystemUser()
         {
-            using (OperationLogic.AllowSave<UserDN>())
+            using (OperationLogic.AllowSave<UserEntity>())
             using (Transaction tr = new Transaction())
             {              
-                UserDN system = new UserDN
+                UserEntity system = new UserEntity
                 {
                     UserName = "System",                   
                     PasswordHash = Security.EncodePassword("System"),
-                    Role = Database.Query<RoleDN>().Where(r => r.Name == "Super user").SingleEx(),
+                    Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx(),
                     State = UserState.Saved,
                 }.Save(); 
 
@@ -145,23 +145,23 @@ namespace Southwind.Load
         {
             using (Transaction tr = new Transaction())
             {
-                RoleDN su = new RoleDN() { Name = "Super user", MergeStrategy = MergeStrategy.Intersection }.Save();
-                RoleDN u = new RoleDN() { Name = "User", MergeStrategy = MergeStrategy.Union }.Save();
+                RoleEntity su = new RoleEntity() { Name = "Super user", MergeStrategy = MergeStrategy.Intersection }.Save();
+                RoleEntity u = new RoleEntity() { Name = "User", MergeStrategy = MergeStrategy.Union }.Save();
 
-                RoleDN au = new RoleDN()
+                RoleEntity au = new RoleEntity()
                 {
                     Name = "Advanced user",
-                    Roles = new MList<Lite<RoleDN>> { u.ToLite() },
+                    Roles = new MList<Lite<RoleEntity>> { u.ToLite() },
                     MergeStrategy = MergeStrategy.Union
                 }.Save();
 
-                var employees = Database.Query<EmployeeDN>().OrderByDescending(a => a.Notes.Length).ToList();
+                var employees = Database.Query<EmployeeEntity>().OrderByDescending(a => a.Notes.Length).ToList();
 
-                using (OperationLogic.AllowSave<UserDN>())
+                using (OperationLogic.AllowSave<UserEntity>())
                     for (int i = 0; i < employees.Count; i++)
                     {
                         var employee = employees[i];
-                        new UserDN
+                        new UserEntity
                         {
                             UserName = employee.FirstName,
                             PasswordHash = Security.EncodePassword(employee.FirstName),

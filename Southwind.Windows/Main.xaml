@@ -17,39 +17,39 @@
             <swo:OmniboxAutocomplete MinWidth="200" DockPanel.Dock="Right"/>
 
             <Menu MaxHeight ="{x:Static SystemParameters.MenuBarHeight}" x:Name="menu">
-                <MenuItem Header="{m:LocTypePlural {x:Type d:OrderDN}}">
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:OrderDN}}"/>
+                <MenuItem Header="{m:LocTypePlural {x:Type d:OrderEntity}}">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:OrderEntity}}"/>
                     <MenuItem Tag="{m:Explore QueryName={x:Static d:OrderQuery.OrderLines}}"/>
                 </MenuItem>
-                <MenuItem Header="{m:LocTypePlural {x:Type d:CustomerDN}}">
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:CustomerDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:PersonDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:CompanyDN}}"/>
+                <MenuItem Header="{m:LocTypePlural {x:Type d:CustomerEntity}}">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:CustomerEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:PersonEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:CompanyEntity}}"/>
                 </MenuItem>
-                <MenuItem Header="{m:LocTypePlural {x:Type d:ProductDN}}">
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:ProductDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:CategoryDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:SupplierDN}}"/>
+                <MenuItem Header="{m:LocTypePlural {x:Type d:ProductEntity}}">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:ProductEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:CategoryEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:SupplierEntity}}"/>
                 </MenuItem>
-                <MenuItem Header="{m:LocTypePlural {x:Type d:EmployeeDN}}">
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:EmployeeDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:TerritoryDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type d:RegionDN}}"/>
+                <MenuItem Header="{m:LocTypePlural {x:Type d:EmployeeEntity}}">
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:EmployeeEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:TerritoryEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type d:RegionEntity}}"/>
                 </MenuItem>
                 <!--Admin-->
                 <MenuItem Header="Admin">
-                    <MenuItem Tag="{m:Explore QueryName={x:Type sea:UserDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type sea:RoleDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type seb:OperationLogDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sea:UserEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sea:RoleEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type seb:OperationLogEntity}}"/>
                 </MenuItem>
                 <MenuItem Header="Reporting">
-                    <MenuItem Tag="{m:Explore QueryName={x:Type sec:UserChartDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type seu:UserQueryDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sec:UserChartEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type seu:UserQueryEntity}}"/>
                 </MenuItem>
                 <MenuItem Header="Disconnected" x:Name="miDisconnected">
-                    <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedMachineDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedExportDN}}"/>
-                    <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedImportDN}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedMachineEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedExportEntity}}"/>
+                    <MenuItem Tag="{m:Explore QueryName={x:Type sed:DisconnectedImportEntity}}"/>
                     <Separator/>
                     <MenuItem Header="Download and work localy" Click="miDownload_Click" x:Name="miDownload" />
                     <MenuItem Header="Upload and work online" Click="miUpload_Click" x:Name="miUpload" />

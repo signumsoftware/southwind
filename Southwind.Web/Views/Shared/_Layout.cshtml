@@ -1,4 +1,4 @@
-@using Southwind.Web
+﻿@using Southwind.Web
 @using Southwind.Web.Controllers
 @using Signum.Entities.Authorization
 @using Signum.Web.Auth
@@ -27,7 +27,7 @@
         }
         else
         {
-        @Html.ScriptCss("~/Libs/bootstrap/themes/{0}.css".Formato(currentTheme))
+        @Html.ScriptCss("~/Libs/bootstrap/themes/{0}.css".FormatWith(currentTheme))
         } //theme3
     }
 
@@ -108,7 +108,7 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        @if (UserDN.Current != null) //Omnibox
+                        @if (UserEntity.Current != null) //Omnibox
                         { 
                             <li>@*Omnibox*@
                                 <input id="sfOmnibox" name="sfOmnibox" type="text" class="form-control" placeholder="@Signum.Entities.Omnibox.OmniboxMessage.Search.NiceToString()" />
@@ -116,12 +116,12 @@
                                     @(Signum.Web.Omnibox.OmniboxClient.Module["initialize"]("sfOmnibox", Url.Action("Autocomplete", "Omnibox")))
                                 </script>
                             </li>
-                        } @*UserDN.Current*@
+                        } @*UserEntity.Current*@
 
-                        @if (UserDN.Current != null) //Menu
+                        @if (UserEntity.Current != null) //Menu
                         {
                             @Html.Partial("Menu")
-                        } @*UserDN.Current*@
+                        } @*UserEntity.Current*@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
 

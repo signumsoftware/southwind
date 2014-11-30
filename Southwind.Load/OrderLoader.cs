@@ -19,7 +19,7 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 Administrator.SaveListDisableIdentity(db.Shippers.Select(s =>
-                    new ShipperDN
+                    new ShipperEntity
                     {
                         CompanyName = s.CompanyName,
                         Phone = s.Phone,
@@ -33,37 +33,37 @@ namespace Southwind.Load
             {
                 var northwind = db.Customers.Select(a => new { a.CustomerID, a.ContactName }).ToList();
 
-                var companies = Database.Query<CompanyDN>().Select(c => new
+                var companies = Database.Query<CompanyEntity>().Select(c => new
                 {
-                    Lite = c.ToLite<CustomerDN>(),
+                    Lite = c.ToLite<CustomerEntity>(),
                     c.ContactName
                 }).ToList();
 
-                var persons = Database.Query<PersonDN>().Select(p => new
+                var persons = Database.Query<PersonEntity>().Select(p => new
                 {
-                    Lite = p.ToLite<CustomerDN>(),
+                    Lite = p.ToLite<CustomerEntity>(),
                     ContactName = p.FirstName + " " + p.LastName
                 }).ToList();
 
-                Dictionary<string, Lite<CustomerDN>> customerMapping =
+                Dictionary<string, Lite<CustomerEntity>> customerMapping =
                     (from n in northwind
                      join s in companies.Concat(persons) on n.ContactName equals s.ContactName
-                     select new KeyValuePair<string, Lite<CustomerDN>>(n.CustomerID, s.Lite)).ToDictionary();
+                     select new KeyValuePair<string, Lite<CustomerEntity>>(n.CustomerID, s.Lite)).ToDictionary();
 
-                db.Orders.GroupsOf(10).ProgressForeachDisableIdentity(typeof(OrderDN), l => l.ToInterval(a => a.OrderID).ToString(), null, (orders, writer) =>
+                db.Orders.GroupsOf(10).ProgressForeachDisableIdentity(typeof(OrderEntity), l => l.ToInterval(a => a.OrderID).ToString(), null, (orders, writer) =>
                 {
-                    using (OperationLogic.AllowSave<OrderDN>())
-                        orders.Select(o => new OrderDN
+                    using (OperationLogic.AllowSave<OrderEntity>())
+                        orders.Select(o => new OrderEntity
                         {
 
-                            Employee = Lite.Create<EmployeeDN>(o.EmployeeID.Value),
+                            Employee = Lite.Create<EmployeeEntity>(o.EmployeeID.Value),
                             OrderDate = o.OrderDate.Value,
                             RequiredDate = o.RequiredDate.Value,
                             ShippedDate = o.ShippedDate,
                             State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
-                            ShipVia = Lite.Create<ShipperDN>(o.ShipVia.Value),
+                            ShipVia = Lite.Create<ShipperEntity>(o.ShipVia.Value),
                             ShipName = o.ShipName,
-                            ShipAddress = new AddressDN
+                            ShipAddress = new AddressEntity
                             {
                                 Address = o.ShipAddress,
                                 City = o.ShipCity,
@@ -72,10 +72,10 @@ namespace Southwind.Load
                                 Country = o.ShipCountry,
                             },
                             Freight = o.Freight.Value,
-                            Details = o.Order_Details.Select(od => new OrderDetailsDN
+                            Details = o.Order_Details.Select(od => new OrderDetailsEntity
                             {
                                 Discount = (decimal)od.Discount,
-                                Product = Lite.Create<ProductDN>(od.ProductID),
+                                Product = Lite.Create<ProductEntity>(od.ProductID),
                                 Quantity = od.Quantity,
                                 UnitPrice = od.UnitPrice,
                             }).ToMList(),
@@ -89,14 +89,14 @@ namespace Southwind.Load
 
         public static void UpdateOrdersDate()
         {
-            DateTime time = Database.Query<OrderDN>().Max(a => a.OrderDate);
+            DateTime time = Database.Query<OrderEntity>().Max(a => a.OrderDate);
 
             var now = TimeZoneManager.Now;
             var ts = (int)(now - time).TotalDays;
 
             ts = (ts / 7) * 7;
 
-            Database.Query<OrderDN>().UnsafeUpdate()
+            Database.Query<OrderEntity>().UnsafeUpdate()
                 .Set(o => o.OrderDate, o => o.OrderDate.AddDays(ts))
                 .Set(o => o.ShippedDate, o => o.ShippedDate.Value.AddDays(ts))
                 .Set(o => o.RequiredDate, o => o.RequiredDate.AddDays(ts))
@@ -106,7 +106,7 @@ namespace Southwind.Load
 
             var limit = TimeZoneManager.Now.AddDays(-10);
 
-            var list = Database.Query<OrderDN>().Where(a => a.State == OrderState.Shipped && a.OrderDate < limit).Select(a => a.ToLite()).ToList();
+            var list = Database.Query<OrderEntity>().Where(a => a.State == OrderState.Shipped && a.OrderDate < limit).Select(a => a.ToLite()).ToList();
 
             Random r = new Random(1);
 

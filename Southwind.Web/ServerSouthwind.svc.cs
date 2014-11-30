@@ -66,21 +66,21 @@ namespace Southwind.Web
                 if(user.Mixin<UserEmployeeMixin>().AllowLogin == AllowLogin.WebOnly)
                     throw new UnauthorizedAccessException("Windows login not allowed"); 
 
-                UserDN.Current = user;
+                UserEntity.Current = user;
             });
         } //Login
 
-        public DisconnectedExportDN GetDownloadEstimation(Lite<DisconnectedMachineDN> machine)
+        public DisconnectedExportEntity GetDownloadEstimation(Lite<DisconnectedMachineEntity> machine)
         {
             return Return(MethodInfo.GetCurrentMethod(), () => DisconnectedLogic.GetDownloadEstimation(machine)); 
         }
 
-        public Lite<DisconnectedMachineDN> GetDisconnectedMachine(string machineName)
+        public Lite<DisconnectedMachineEntity> GetDisconnectedMachine(string machineName)
         {
             return Return(MethodInfo.GetCurrentMethod(), () => DisconnectedLogic.GetDisconnectedMachine(machineName));
         }
 
-        public DisconnectedImportDN GetUploadEstimation(Lite<DisconnectedMachineDN> machine)
+        public DisconnectedImportEntity GetUploadEstimation(Lite<DisconnectedMachineEntity> machine)
         {
             return Return(MethodInfo.GetCurrentMethod(), () => DisconnectedLogic.GetUploadEstimation(machine));
         }
@@ -91,13 +91,13 @@ namespace Southwind.Web
                 DisconnectedLogic.GetStrategyPairs());
         }
 
-        public void SkipExport(Lite<DisconnectedMachineDN> machine)
+        public void SkipExport(Lite<DisconnectedMachineEntity> machine)
         {
             Execute(MethodInfo.GetCurrentMethod(), () =>
                  DisconnectedLogic.ImportManager.SkipExport(machine));
         }
 
-        public void ConnectAfterFix(Lite<DisconnectedMachineDN> machine)
+        public void ConnectAfterFix(Lite<DisconnectedMachineEntity> machine)
         {
             Execute(MethodInfo.GetCurrentMethod(), () =>
                  DisconnectedLogic.ImportManager.ConnectAfterFix(machine));

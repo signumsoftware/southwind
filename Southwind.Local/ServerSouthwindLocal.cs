@@ -47,12 +47,12 @@ namespace Southwind.Local
             }
         }
 
-        public DisconnectedExportDN GetDownloadEstimation(Lite<DisconnectedMachineDN> machine)
+        public DisconnectedExportEntity GetDownloadEstimation(Lite<DisconnectedMachineEntity> machine)
         {
             throw NotAvailableOffline();
         }
 
-        public Lite<DisconnectedMachineDN> GetDisconnectedMachine(string machineName)
+        public Lite<DisconnectedMachineEntity> GetDisconnectedMachine(string machineName)
         {
             return Return(MethodInfo.GetCurrentMethod(), () =>
               DisconnectedLogic.GetDisconnectedMachine(machineName));
@@ -64,17 +64,17 @@ namespace Southwind.Local
                 DisconnectedLogic.GetStrategyPairs());
         }
 
-        public DisconnectedImportDN GetUploadEstimation(Lite<DisconnectedMachineDN> machine)
+        public DisconnectedImportEntity GetUploadEstimation(Lite<DisconnectedMachineEntity> machine)
         {
             throw NotAvailableOffline();
         }
 
-        public void SkipExport(Lite<DisconnectedMachineDN> machine)
+        public void SkipExport(Lite<DisconnectedMachineEntity> machine)
         {
             throw NotAvailableOffline();
         }
 
-        public void ConnectAfterFix(Lite<DisconnectedMachineDN> machine)
+        public void ConnectAfterFix(Lite<DisconnectedMachineEntity> machine)
         {
             throw NotAvailableOffline();
         }
@@ -87,7 +87,7 @@ namespace Southwind.Local
 
     class ServerSouthwindTransferLocal : IServerSouthwindTransfer
     {
-        public Lite<DisconnectedExportDN> BeginExportDatabase(Lite<UserDN> user, Lite<DisconnectedMachineDN> machine)
+        public Lite<DisconnectedExportEntity> BeginExportDatabase(Lite<UserEntity> user, Lite<DisconnectedMachineEntity> machine)
         {
             throw NotAvailableOffline();
         }

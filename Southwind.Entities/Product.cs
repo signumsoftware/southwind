@@ -11,7 +11,7 @@ using Signum.Entities.Files;
 namespace Southwind.Entities
 {
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
-    public class ProductDN : Entity
+    public class ProductEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 40), UniqueIndex]
         string productName;
@@ -22,17 +22,17 @@ namespace Southwind.Entities
             set { SetToStr(ref productName, value); }
         }
 
-        Lite<SupplierDN> supplier;
+        Lite<SupplierEntity> supplier;
         [NotNullValidator]
-        public Lite<SupplierDN> Supplier
+        public Lite<SupplierEntity> Supplier
         {
             get { return supplier; }
             set { Set(ref supplier, value); }
         }
 
-        Lite<CategoryDN> category;
+        Lite<CategoryEntity> category;
         [NotNullValidator]
-        public Lite<CategoryDN> Category
+        public Lite<CategoryEntity> Category
         {
             get { return category; }
             set { Set(ref category, value); }
@@ -85,7 +85,7 @@ namespace Southwind.Entities
             set { Set(ref discontinued, value); }
         }
 
-        static Expression<Func<ProductDN, decimal>> ValueInStockExpression =
+        static Expression<Func<ProductEntity, decimal>> ValueInStockExpression =
             p => p.unitPrice * p.unitsInStock;
         [Unit("$")]
         public decimal ValueInStock
@@ -93,7 +93,7 @@ namespace Southwind.Entities
             get { return ValueInStockExpression.Evaluate(this); }
         }
 
-        static Expression<Func<ProductDN, string>> ToStringExpression = e => e.ProductName;
+        static Expression<Func<ProductEntity, string>> ToStringExpression = e => e.ProductName;
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -102,11 +102,11 @@ namespace Southwind.Entities
 
     public static class ProductOperation
     {
-        public static readonly ExecuteSymbol<ProductDN> Save = OperationSymbol.Execute<ProductDN>();
+        public static readonly ExecuteSymbol<ProductEntity> Save = OperationSymbol.Execute<ProductEntity>();
     }
 
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
-    public class SupplierDN : Entity
+    public class SupplierEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 40), UniqueIndex]
         string companyName;
@@ -136,9 +136,9 @@ namespace Southwind.Entities
         }
 
         [NotNullable]
-        AddressDN address;
+        AddressEntity address;
         [NotNullValidator]
-        public AddressDN Address
+        public AddressEntity Address
         {
             get { return address; }
             set { Set(ref address, value); }
@@ -171,7 +171,7 @@ namespace Southwind.Entities
             set { Set(ref homePage, value); }
         }
 
-        static Expression<Func<SupplierDN, string>> ToStringExpression = e => e.CompanyName;
+        static Expression<Func<SupplierEntity, string>> ToStringExpression = e => e.CompanyName;
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -180,11 +180,11 @@ namespace Southwind.Entities
 
     public static class SupplierOperation
     {
-        public static readonly ExecuteSymbol<SupplierDN> Save = OperationSymbol.Execute<SupplierDN>();
+        public static readonly ExecuteSymbol<SupplierEntity> Save = OperationSymbol.Execute<SupplierEntity>();
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
-    public class CategoryDN : Entity
+    public class CategoryEntity : Entity
     {
         [TranslateField] //Localize categoryName column
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
@@ -206,14 +206,14 @@ namespace Southwind.Entities
             set { Set(ref description, value); }
         }
 
-        EmbeddedFileDN picture;
-        public EmbeddedFileDN Picture
+        EmbeddedFileEntity picture;
+        public EmbeddedFileEntity Picture
         {
             get { return picture; }
             set { Set(ref picture, value); }
         }
 
-        static Expression<Func<CategoryDN, string>> ToStringExpression = e => e.CategoryName;
+        static Expression<Func<CategoryEntity, string>> ToStringExpression = e => e.CategoryName;
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -222,7 +222,7 @@ namespace Southwind.Entities
 
     public static class CategoryOperation
     {
-        public static readonly ExecuteSymbol<CategoryDN> Save = OperationSymbol.Execute<CategoryDN>();
+        public static readonly ExecuteSymbol<CategoryEntity> Save = OperationSymbol.Execute<CategoryEntity>();
     }
 
     public enum ProductQuery

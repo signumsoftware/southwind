@@ -30,14 +30,14 @@ namespace Southwind.Load
                 var faxDic = faxes.ToDictionary(r => r.SupplierID, r => r.Fax); 
 
                 Administrator.SaveListDisableIdentity(db.Suppliers.Select(s =>
-                    new SupplierDN
+                    new SupplierEntity
                     {
                         CompanyName = s.CompanyName,
                         ContactName = s.ContactName,
                         ContactTitle = s.ContactTitle,
                         Phone = s.Phone.Replace(".", " "),
                         Fax = faxDic[s.SupplierID].Replace(".", " "),
-                        Address = new AddressDN
+                        Address = new AddressEntity
                         {
                             Address = s.Address,
                             City = s.City,
@@ -54,11 +54,11 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 Administrator.SaveListDisableIdentity(db.Categories.Select(s =>
-                    new CategoryDN
+                    new CategoryEntity
                     {
                         CategoryName = s.CategoryName,
                         Description = s.Description,
-                        Picture = new EmbeddedFileDN { FileName = s.CategoryName + ".jpg", BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },
+                        Picture = new EmbeddedFileEntity { FileName = s.CategoryName + ".jpg", BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },
                     }.SetId(s.CategoryID)));
             }
         }
@@ -68,11 +68,11 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 Administrator.SaveListDisableIdentity(db.Products.Select(s =>
-                    new ProductDN
+                    new ProductEntity
                     {
                         ProductName = s.ProductName,
-                        Supplier =  Lite.Create<SupplierDN>(s.SupplierID.Value),
-                        Category = Lite.Create<CategoryDN>(s.CategoryID.Value),
+                        Supplier =  Lite.Create<SupplierEntity>(s.SupplierID.Value),
+                        Category = Lite.Create<CategoryEntity>(s.CategoryID.Value),
                         QuantityPerUnit = s.QuantityPerUnit,
                         UnitPrice = s.UnitPrice.Value,
                         UnitsInStock = s.UnitsInStock.Value,

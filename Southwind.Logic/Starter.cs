@@ -52,7 +52,7 @@ namespace Southwind.Logic
     //Starts-up the engine for Southwind Entities, used by Web and Load Application
     public static partial class Starter
     {
-        public static ResetLazy<ApplicationConfigurationDN> Configuration;
+        public static ResetLazy<ApplicationConfigurationEntity> Configuration;
 
 
         public static void Start(string connectionString)
@@ -63,8 +63,8 @@ namespace Southwind.Logic
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
-            MixinDeclarations.Register<UserDN, UserEmployeeMixin>();
-            MixinDeclarations.Register<ProcessDN, UserProcessSessionMixin>();
+            MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
+            MixinDeclarations.Register<ProcessEntity, UserProcessSessionMixin>();
 
             OverrideAttributes(sb);
 
@@ -106,17 +106,17 @@ namespace Southwind.Logic
             DashboardLogic.Start(sb, dqm);
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-            ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryDN), typeof(UserChartDN), typeof(DashboardDN) }); 
+            ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) }); 
 
             ExceptionLogic.Start(sb, dqm);
 
             SMSLogic.Start(sb, dqm, null, () => Configuration.Value.Sms);
-            SMSLogic.RegisterPhoneNumberProvider<PersonDN>(p => p.Phone, p => null);
-            SMSLogic.RegisterDataObjectProvider((PersonDN p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
-            SMSLogic.RegisterPhoneNumberProvider<CompanyDN>(p => p.Phone, p => null);
+            SMSLogic.RegisterPhoneNumberProvider<PersonEntity>(p => p.Phone, p => null);
+            SMSLogic.RegisterDataObjectProvider((PersonEntity p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
+            SMSLogic.RegisterPhoneNumberProvider<CompanyEntity>(p => p.Phone, p => null);
 
-            NoteLogic.Start(sb, dqm, typeof(UserDN), /*Note*/typeof(OrderDN));
-            AlertLogic.Start(sb, dqm, typeof(UserDN), /*Alert*/typeof(OrderDN));
+            NoteLogic.Start(sb, dqm, typeof(UserEntity), /*Note*/typeof(OrderEntity));
+            AlertLogic.Start(sb, dqm, typeof(UserEntity), /*Alert*/typeof(OrderEntity));
             FileLogic.Start(sb, dqm);
 
             TranslationLogic.Start(sb, dqm);
@@ -132,12 +132,12 @@ namespace Southwind.Logic
 
             StartSouthwindConfiguration(sb, dqm);
 
-            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.UserEntities, o => o.Employee.RefersTo(EmployeeDN.Current));
-            TypeConditionLogic.Register<EmployeeDN>(SouthwindGroup.UserEntities, e => e == EmployeeDN.Current);
+            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee.RefersTo(EmployeeEntity.Current));
+            TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => e == EmployeeEntity.Current);
 
-            TypeConditionLogic.Register<OrderDN>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerDN.Current);
-            TypeConditionLogic.Register<PersonDN>(SouthwindGroup.CurrentCustomer, o => o == CustomerDN.Current);
-            TypeConditionLogic.Register<CompanyDN>(SouthwindGroup.CurrentCustomer, o => o == CustomerDN.Current);
+            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
+            TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
+            TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
 
             DisconnectedLogic.Start(sb, dqm);
             DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
@@ -159,42 +159,42 @@ namespace Southwind.Logic
 
         private static void OverrideAttributes(SchemaBuilder sb)
         {
-            sb.Schema.Settings.FieldAttributes((ExceptionDN ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((OperationLogDN ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((UserQueryDN uq) => uq.Owner).Replace(new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.FieldAttributes((UserChartDN uc) => uc.Owner).Replace(new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.FieldAttributes((DashboardDN cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserDN), typeof(RoleDN)));
-            sb.Schema.Settings.FieldAttributes((ViewLogDN cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((NoteDN n) => n.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((AlertDN a) => a.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((AlertDN a) => a.AttendedBy).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((ProcessDN cp) => cp.Data).Replace(new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
-            sb.Schema.Settings.FieldAttributes((PackageLineDN cp) => cp.Package).Replace(new ImplementedByAttribute(typeof(PackageDN), typeof(PackageOperationDN)));
-            sb.Schema.Settings.FieldAttributes((ProcessExceptionLineDN cp) => cp.Line).Replace(new ImplementedByAttribute(typeof(PackageLineDN)));
-            sb.Schema.Settings.FieldAttributes((ProcessDN s) => s.Mixin<UserProcessSessionMixin>().User).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((EmailMessageDN em) => em.From.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((EmailMessageDN em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((SmtpConfigurationDN sc) => sc.DefaultFrom.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((SmtpConfigurationDN sc) => sc.AditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserDN)));
-            sb.Schema.Settings.FieldAttributes((ScheduledTaskLogDN a) => a.User).Replace(new ImplementedByAttribute(typeof(UserDN)));
+            sb.Schema.Settings.FieldAttributes((ExceptionEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((OperationLogEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((UserQueryEntity uq) => uq.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
+            sb.Schema.Settings.FieldAttributes((UserChartEntity uc) => uc.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
+            sb.Schema.Settings.FieldAttributes((DashboardEntity cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
+            sb.Schema.Settings.FieldAttributes((ViewLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((NoteEntity n) => n.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.AttendedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((ProcessEntity cp) => cp.Data).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));
+            sb.Schema.Settings.FieldAttributes((PackageLineEntity cp) => cp.Package).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));
+            sb.Schema.Settings.FieldAttributes((ProcessExceptionLineEntity cp) => cp.Line).Replace(new ImplementedByAttribute(typeof(PackageLineEntity)));
+            sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.Mixin<UserProcessSessionMixin>().User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.From.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.DefaultFrom.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         }
 
         private static void StartSouthwindConfiguration(SchemaBuilder sb, DynamicQueryManager dqm)
         {
-            sb.Include<ApplicationConfigurationDN>();
-            Configuration = sb.GlobalLazy<ApplicationConfigurationDN>(
-                () => Database.Query<ApplicationConfigurationDN>().Single(a=>a.Environment == Settings.Default.Environment),
-                new InvalidateWith(typeof(ApplicationConfigurationDN)));
+            sb.Include<ApplicationConfigurationEntity>();
+            Configuration = sb.GlobalLazy<ApplicationConfigurationEntity>(
+                () => Database.Query<ApplicationConfigurationEntity>().Single(a=>a.Environment == Settings.Default.Environment),
+                new InvalidateWith(typeof(ApplicationConfigurationEntity)));
 
-            new Graph<ApplicationConfigurationDN>.Execute(ApplicationConfigurationOperation.Save)
+            new Graph<ApplicationConfigurationEntity>.Execute(ApplicationConfigurationOperation.Save)
             {
                 AllowsNew = true,
                 Lite = false,
                 Execute = (e, _) => { },
             }.Register();
 
-            dqm.RegisterQuery(typeof(ApplicationConfigurationDN), () =>
-                from s in Database.Query<ApplicationConfigurationDN>()
+            dqm.RegisterQuery(typeof(ApplicationConfigurationEntity), () =>
+                from s in Database.Query<ApplicationConfigurationEntity>()
                 select new
                 {
                     Entity = s.ToLite(),
@@ -209,13 +209,13 @@ namespace Southwind.Logic
 
         private static void SetupCache(SchemaBuilder sb)
         {
-            CacheLogic.CacheTable<ShipperDN>(sb);
+            CacheLogic.CacheTable<ShipperEntity>(sb);
         }
 
         public static void SetLogDatabase(Schema schema, DatabaseName logDatabaseName)
         {
-            schema.Table<OperationLogDN>().ToDatabase(logDatabaseName);
-            schema.Table<ExceptionDN>().ToDatabase(logDatabaseName);
+            schema.Table<OperationLogEntity>().ToDatabase(logDatabaseName);
+            schema.Table<ExceptionEntity>().ToDatabase(logDatabaseName);
         }
     }
 }

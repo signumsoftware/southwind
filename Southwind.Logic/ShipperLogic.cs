@@ -17,10 +17,10 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Include<ShipperDN>();
+                sb.Include<ShipperEntity>();
 
-                dqm.RegisterQuery(typeof(ShipperDN), () =>
-                    from a in Database.Query<ShipperDN>()
+                dqm.RegisterQuery(typeof(ShipperEntity), () =>
+                    from a in Database.Query<ShipperEntity>()
                     select new
                     {
                         Entity = a,
@@ -29,7 +29,7 @@ namespace Southwind.Logic
                         a.Phone
                     });
 
-                new Graph<ShipperDN>.Execute(ShipperOperation.Save)
+                new Graph<ShipperEntity>.Execute(ShipperOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,

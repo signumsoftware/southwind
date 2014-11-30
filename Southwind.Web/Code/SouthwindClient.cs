@@ -39,78 +39,78 @@ namespace Southwind.Web
             {
                 Navigator.AddSettings(new List<EntitySettings>
                 {
-                    new EmbeddedEntitySettings<AddressDN>() { PartialViewName = e => ViewPrefix.Formato("Address") },
+                    new EmbeddedEntitySettings<AddressEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Address") },
 
-                    new EntitySettings<TerritoryDN>() { PartialViewName = e => ViewPrefix.Formato("Territory") },
-                    new EntitySettings<RegionDN>() { PartialViewName = e => ViewPrefix.Formato("Region") },
-                    new EntitySettings<EmployeeDN>() { PartialViewName = e => ViewPrefix.Formato("Employee") },
+                    new EntitySettings<TerritoryEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Territory") },
+                    new EntitySettings<RegionEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Region") },
+                    new EntitySettings<EmployeeEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Employee") },
 
-                    new EntitySettings<SupplierDN>() { PartialViewName = e => ViewPrefix.Formato("Supplier") },
-                    new EntitySettings<ProductDN>() { PartialViewName = e => ViewPrefix.Formato("Product") },
-                    new EntitySettings<CategoryDN>() { PartialViewName = e => ViewPrefix.Formato("Category") },
+                    new EntitySettings<SupplierEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Supplier") },
+                    new EntitySettings<ProductEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Product") },
+                    new EntitySettings<CategoryEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Category") },
 
-                    new EntitySettings<PersonDN>() { PartialViewName = e => ViewPrefix.Formato("Person") },
-                    new EntitySettings<CompanyDN>() { PartialViewName = e => ViewPrefix.Formato("Company") },
+                    new EntitySettings<PersonEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Person") },
+                    new EntitySettings<CompanyEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Company") },
                    
-                    new EntitySettings<OrderDN>() { PartialViewName = e => ViewPrefix.Formato("Order") },
-                    new EmbeddedEntitySettings<OrderDetailsDN> { PartialViewName = e => ViewPrefix.Formato("OrderDetails") },
-                    new EntitySettings<ShipperDN>() { PartialViewName = e => ViewPrefix.Formato("Shipper") },
-                    new EntitySettings<ApplicationConfigurationDN>() { PartialViewName = e => ViewPrefix.Formato("ApplicationConfiguration") },
+                    new EntitySettings<OrderEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Order") },
+                    new EmbeddedEntitySettings<OrderDetailsEntity> { PartialViewName = e => ViewPrefix.FormatWith("OrderDetails") },
+                    new EntitySettings<ShipperEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Shipper") },
+                    new EntitySettings<ApplicationConfigurationEntity>() { PartialViewName = e => ViewPrefix.FormatWith("ApplicationConfiguration") },
                 });
 
-                Constructor.Register(ctx => new ApplicationConfigurationDN { Sms = new SMSConfigurationDN(), Email = new EmailConfigurationDN() });
+                Constructor.Register(ctx => new ApplicationConfigurationEntity { Sms = new SMSConfigurationEntity(), Email = new EmailConfigurationEntity() });
 
-                QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture,
+                QuerySettings.RegisterPropertyFormat((CategoryEntity e) => e.Picture,
                     new CellFormatter((html, obj) => obj == null ? null :
                         new HtmlTag("img")
-                       .Attr("src", Base64Data((EmbeddedFileDN)obj))
+                       .Attr("src", Base64Data((EmbeddedFileEntity)obj))
                       .Attr("alt", obj.ToString())
                       .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" }); // Category
 
-                QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo,
+                QuerySettings.RegisterPropertyFormat((EmployeeEntity e) => e.Photo,
                     new CellFormatter((html, obj) => obj == null ? null :
                       new HtmlTag("img")
-                      .Attr("src", RouteHelper.New().Action((FileController c) => c.Download(new RuntimeInfo((Lite<FileDN>)obj).ToString())))
+                      .Attr("src", RouteHelper.New().Action((FileController c) => c.Download(new RuntimeInfo((Lite<FileEntity>)obj).ToString())))
                       .Attr("alt", obj.ToString())
                       .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" }); //Emmployee
 
-                Constructor.Register(ctx => new EmployeeDN { Address = new AddressDN() });
-                Constructor.Register(ctx => new PersonDN { Address = new AddressDN() });
-                Constructor.Register(ctx => new CompanyDN { Address = new AddressDN() });
-                Constructor.Register(ctx => new SupplierDN { Address = new AddressDN() });
+                Constructor.Register(ctx => new EmployeeEntity { Address = new AddressEntity() });
+                Constructor.Register(ctx => new PersonEntity { Address = new AddressEntity() });
+                Constructor.Register(ctx => new CompanyEntity { Address = new AddressEntity() });
+                Constructor.Register(ctx => new SupplierEntity { Address = new AddressEntity() });
 
                 OperationClient.AddSettings(new List<OperationSettings>()
                 {
-                    new ConstructorOperationSettings<OrderDN>(OrderOperation.Create)
+                    new ConstructorOperationSettings<OrderEntity>(OrderOperation.Create)
                     {
                          ClientConstructor = ctx => OrderModule["createOrder"](ClientConstructorManager.ExtraJsonParams, 
-                             new FindOptions(typeof(CustomerDN)){ SearchOnLoad = true }.ToJS(ctx.ClientConstructorContext.Prefix, "cust")),
+                             new FindOptions(typeof(CustomerEntity)){ SearchOnLoad = true }.ToJS(ctx.ClientConstructorContext.Prefix, "cust")),
                          
                          Constructor = ctx=>
                          {
-                             var cust = ctx.ConstructorContext.Controller.TryParseLite<CustomerDN>("customer");
+                             var cust = ctx.ConstructorContext.Controller.TryParseLite<CustomerEntity>("customer");
 
                              return OperationLogic.Construct(OrderOperation.Create, cust);
                          }
                     },
 
-                    new ContextualOperationSettings<ProductDN>(OrderOperation.CreateOrderFromProducts)
+                    new ContextualOperationSettings<ProductEntity>(OrderOperation.CreateOrderFromProducts)
                     {
                          Click = ctx => OrderModule["createOrderFromProducts"](ctx.Options(), 
-                             new FindOptions(typeof(CustomerDN)){ SearchOnLoad = true }.ToJS(ctx.Prefix, "cust"), 
+                             new FindOptions(typeof(CustomerEntity)){ SearchOnLoad = true }.ToJS(ctx.Prefix, "cust"), 
                               ctx.Url.Action((HomeController c)=>c.CreateOrderFromProducts()), 
                              JsFunction.Event)
                     },
 
-                    new EntityOperationSettings<OrderDN>(OrderOperation.SaveNew){ IsVisible = ctx=> ctx.Entity.IsNew }, 
-                    new EntityOperationSettings<OrderDN>(OrderOperation.Save){ IsVisible = ctx=> !ctx.Entity.IsNew }, 
+                    new EntityOperationSettings<OrderEntity>(OrderOperation.SaveNew){ IsVisible = ctx=> ctx.Entity.IsNew }, 
+                    new EntityOperationSettings<OrderEntity>(OrderOperation.Save){ IsVisible = ctx=> !ctx.Entity.IsNew }, 
 
-                    new EntityOperationSettings<OrderDN>(OrderOperation.Cancel)
+                    new EntityOperationSettings<OrderEntity>(OrderOperation.Cancel)
                     { 
-                        ConfirmMessage = ctx => ((OrderDN)ctx.Entity).State == OrderState.Shipped ? OrderMessage.CancelShippedOrder0.NiceToString(ctx.Entity) : null 
+                        ConfirmMessage = ctx => ((OrderEntity)ctx.Entity).State == OrderState.Shipped ? OrderMessage.CancelShippedOrder0.NiceToString(ctx.Entity) : null 
                     }, 
 
-                    new EntityOperationSettings<OrderDN>(OrderOperation.Ship)
+                    new EntityOperationSettings<OrderEntity>(OrderOperation.Ship)
                     { 
                         Click = ctx => OrderModule["shipOrder"](ctx.Options(), 
                             ctx.Url.Action((HomeController c)=>c.ShipOrder()), 
@@ -135,26 +135,26 @@ namespace Southwind.Web
         {
             return new ValueLineBoxOptions(ValueLineType.DateTime, prefix)
             {
-                labelText = DescriptionManager.NiceName((OrderDN o) => o.ShippedDate),
+                labelText = DescriptionManager.NiceName((OrderEntity o) => o.ShippedDate),
                 value = DateTime.Now
             };
         }
 
         private static void RegisterQuickLinks()
         {
-            LinksClient.RegisterEntityLinks<UserDN>((entity, ctx) => new[]
+            LinksClient.RegisterEntityLinks<UserEntity>((entity, ctx) => new[]
                 {
-                    new QuickLinkExplore(typeof(OperationLogDN), "User", entity)
+                    new QuickLinkExplore(typeof(OperationLogEntity), "User", entity)
                 });
 
-            LinksClient.RegisterEntityLinks<EmployeeDN>((entity, ctx) =>
+            LinksClient.RegisterEntityLinks<EmployeeEntity>((entity, ctx) =>
             {
                 var links = new List<QuickLink>()
                 {
-                    new QuickLinkExplore(typeof(OrderDN), "Employee", entity)  
+                    new QuickLinkExplore(typeof(OrderEntity), "Employee", entity)  
                 };
 
-                var user = Database.Query<UserDN>()
+                var user = Database.Query<UserEntity>()
                     .Where(u => entity.RefersTo(u.Mixin<UserEmployeeMixin>().Employee))
                     .Select(u => u.ToLite())
                     .FirstOrDefault();
@@ -164,28 +164,28 @@ namespace Southwind.Web
                 return links.ToArray();
             });
 
-            LinksClient.RegisterEntityLinks<CategoryDN>((entity, ctx) => new[]
+            LinksClient.RegisterEntityLinks<CategoryEntity>((entity, ctx) => new[]
             {
-                new QuickLinkExplore(typeof(ProductDN), "Category", entity)
+                new QuickLinkExplore(typeof(ProductEntity), "Category", entity)
             });
 
-            LinksClient.RegisterEntityLinks<SupplierDN>((entity, ctx) => new[]
+            LinksClient.RegisterEntityLinks<SupplierEntity>((entity, ctx) => new[]
             {
-                new QuickLinkExplore(typeof(ProductDN), "Supplier", entity)
+                new QuickLinkExplore(typeof(ProductEntity), "Supplier", entity)
             });
 
-            LinksClient.RegisterEntityLinks<PersonDN>((entity, ctx) => new[]
+            LinksClient.RegisterEntityLinks<PersonEntity>((entity, ctx) => new[]
             {
-                new QuickLinkExplore(typeof(OrderDN), "Customer", entity)
+                new QuickLinkExplore(typeof(OrderEntity), "Customer", entity)
             });
 
-            LinksClient.RegisterEntityLinks<CompanyDN>((entity, ctx) => new[]
+            LinksClient.RegisterEntityLinks<CompanyEntity>((entity, ctx) => new[]
             {
-                new QuickLinkExplore(typeof(OrderDN), "Customer", entity)
+                new QuickLinkExplore(typeof(OrderEntity), "Customer", entity)
             });
         } //RegisterQuickLinks
 
-        public static string Base64Data(EmbeddedFileDN file)
+        public static string Base64Data(EmbeddedFileEntity file)
         {
             return "data:" + MimeType.FromFileName(file.FileName) + ";base64," + Convert.ToBase64String(file.BinaryFile);
         } //Base64Data

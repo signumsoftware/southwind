@@ -19,14 +19,14 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Settings.AssertImplementedBy((OrderDN o) => o.Customer, typeof(CompanyDN));
-                sb.Settings.AssertImplementedBy((OrderDN o) => o.Customer, typeof(PersonDN));
+                sb.Settings.AssertImplementedBy((OrderEntity o) => o.Customer, typeof(CompanyEntity));
+                sb.Settings.AssertImplementedBy((OrderEntity o) => o.Customer, typeof(PersonEntity));
 
-                sb.Include<PersonDN>();
-                sb.Include<CompanyDN>();
+                sb.Include<PersonEntity>();
+                sb.Include<CompanyEntity>();
 
-                dqm.RegisterQuery(typeof(PersonDN), () =>
-                    from r in Database.Query<PersonDN>()
+                dqm.RegisterQuery(typeof(PersonEntity), () =>
+                    from r in Database.Query<PersonEntity>()
                     select new
                     {
                         Entity = r.ToLite(),
@@ -39,8 +39,8 @@ namespace Southwind.Logic
                         r.Address,
                     });
 
-                dqm.RegisterQuery(typeof(CompanyDN), () =>
-                    from r in Database.Query<CompanyDN>()
+                dqm.RegisterQuery(typeof(CompanyEntity), () =>
+                    from r in Database.Query<CompanyEntity>()
                     select new
                     {
                         Entity = r.ToLite(),
@@ -53,32 +53,32 @@ namespace Southwind.Logic
                         r.Address,
                     });
 
-                new Graph<CustomerDN>.Execute(CustomerOperation.Save)
+                new Graph<CustomerEntity>.Execute(CustomerOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new Graph<CompanyDN>.Execute(CustomerOperation.Save)
+                new Graph<CompanyEntity>.Execute(CustomerOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
                 }.RegisterReplace();
 
-                new Graph<PersonDN>.Execute(CustomerOperation.Save)
+                new Graph<PersonEntity>.Execute(CustomerOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
                 }.RegisterReplace();
 
-                dqm.RegisterQuery(typeof(CustomerDN), () => DynamicQuery.Manual((QueryRequest request, QueryDescription descriptions) =>
+                dqm.RegisterQuery(typeof(CustomerEntity), () => DynamicQuery.Manual((QueryRequest request, QueryDescription descriptions) =>
                 {
-                    var persons = Database.Query<PersonDN>().Select(p => new
+                    var persons = Database.Query<PersonEntity>().Select(p => new
                     {
-                        Entity = p.ToLite<CustomerDN>(),
+                        Entity = p.ToLite<CustomerEntity>(),
                         Id = "P " + p.Id,
                         Name = p.FirstName + " " + p.LastName,
                         p.Address,
@@ -86,9 +86,9 @@ namespace Southwind.Logic
                         p.Fax
                     }).ToDQueryable(descriptions).AllQueryOperations(request);
 
-                    var companies = Database.Query<CompanyDN>().Select(p => new
+                    var companies = Database.Query<CompanyEntity>().Select(p => new
                     {
-                        Entity = p.ToLite<CustomerDN>(),
+                        Entity = p.ToLite<CustomerEntity>(),
                         Id = "C " + p.Id,
                         Name = p.CompanyName,
                         p.Address,
@@ -102,26 +102,26 @@ namespace Southwind.Logic
 
                 })
                 .ColumnProperyRoutes(a => a.Id, 
-                    PropertyRoute.Construct((PersonDN comp) => comp.Id), 
-                    PropertyRoute.Construct((CompanyDN p) => p.Id))
+                    PropertyRoute.Construct((PersonEntity comp) => comp.Id), 
+                    PropertyRoute.Construct((CompanyEntity p) => p.Id))
                 .ColumnProperyRoutes(a => a.Name, 
-                    PropertyRoute.Construct((PersonDN comp) => comp.FirstName), 
-                    PropertyRoute.Construct((PersonDN comp) => comp.LastName), 
-                    PropertyRoute.Construct((CompanyDN p) => p.CompanyName))
+                    PropertyRoute.Construct((PersonEntity comp) => comp.FirstName), 
+                    PropertyRoute.Construct((PersonEntity comp) => comp.LastName), 
+                    PropertyRoute.Construct((CompanyEntity p) => p.CompanyName))
                 .ColumnProperyRoutes(a => a.Address, 
-                    PropertyRoute.Construct((PersonDN comp) => comp.Address), 
-                    PropertyRoute.Construct((PersonDN comp) => comp.Address))
+                    PropertyRoute.Construct((PersonEntity comp) => comp.Address), 
+                    PropertyRoute.Construct((PersonEntity comp) => comp.Address))
                 .ColumnProperyRoutes(a => a.Phone, 
-                    PropertyRoute.Construct((PersonDN comp) => comp.Phone), 
-                    PropertyRoute.Construct((CompanyDN p) => p.Phone))
+                    PropertyRoute.Construct((PersonEntity comp) => comp.Phone), 
+                    PropertyRoute.Construct((CompanyEntity p) => p.Phone))
                 .ColumnProperyRoutes(a => a.Fax, 
-                    PropertyRoute.Construct((PersonDN comp) => comp.Fax), 
-                    PropertyRoute.Construct((CompanyDN p) => p.Fax))
-                , entityImplementations: Implementations.By(typeof(PersonDN), typeof(CompanyDN)));
+                    PropertyRoute.Construct((PersonEntity comp) => comp.Fax), 
+                    PropertyRoute.Construct((CompanyEntity p) => p.Fax))
+                , entityImplementations: Implementations.By(typeof(PersonEntity), typeof(CompanyEntity)));
 
-                dqm.RegisterExpression((CustomerDN c) => c.Address).ForcePropertyRoute = PropertyRoute.Construct((PersonDN p) => p.Address);
-                dqm.RegisterExpression((CustomerDN c) => c.Phone).ForcePropertyRoute = PropertyRoute.Construct((PersonDN p) => p.Address);
-                dqm.RegisterExpression((CustomerDN c) => c.Fax).ForcePropertyRoute = PropertyRoute.Construct((PersonDN p) => p.Address);
+                dqm.RegisterExpression((CustomerEntity c) => c.Address).ForcePropertyRoute = PropertyRoute.Construct((PersonEntity p) => p.Address);
+                dqm.RegisterExpression((CustomerEntity c) => c.Phone).ForcePropertyRoute = PropertyRoute.Construct((PersonEntity p) => p.Address);
+                dqm.RegisterExpression((CustomerEntity c) => c.Fax).ForcePropertyRoute = PropertyRoute.Construct((PersonEntity p) => p.Address);
 
             }
         }

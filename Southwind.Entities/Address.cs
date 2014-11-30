@@ -9,7 +9,7 @@ using Signum.Utilities;
 namespace Southwind.Entities
 {
     [Serializable]
-    public class AddressDN : EmbeddedEntity
+    public class AddressEntity : EmbeddedEntity
     {
         [NotNullable, SqlDbType(Size = 60)]
         string address;
@@ -61,7 +61,7 @@ namespace Southwind.Entities
             if (pi.Is(() => PostalCode))
             {
                 if (string.IsNullOrEmpty(postalCode) && Country != "Ireland")
-                    return Signum.Entities.ValidationMessage._0IsNotSet.NiceToString().Formato(pi.NiceName());
+                    return Signum.Entities.ValidationMessage._0IsNotSet.NiceToString().FormatWith(pi.NiceName());
             }
 
             return null;
@@ -69,12 +69,12 @@ namespace Southwind.Entities
 
         public override string ToString()
         {
-            return "{0}\r\n{1} {2} ({3})".Formato(Address, PostalCode, City, Country);
+            return "{0}\r\n{1} {2} ({3})".FormatWith(Address, PostalCode, City, Country);
         }
 
-        public AddressDN Clone()
+        public AddressEntity Clone()
         {
-            return new AddressDN
+            return new AddressEntity
             {
                 Address = this.Address,
                 City = this.City,

@@ -26,35 +26,35 @@ new WebMenuItem //Southwind
         
         new WebMenuItem 
         {
-            Text = typeof(OrderDN).NicePluralName(),
+            Text = typeof(OrderEntity).NicePluralName(),
             
             Children = 
             {
-                new WebMenuItem { Link = new FindOptions(typeof(OrderDN)) },
+                new WebMenuItem { Link = new FindOptions(typeof(OrderEntity)) },
                 new WebMenuItem { Link = new FindOptions(OrderQuery.OrderLines) },
             }
         },
         
          new WebMenuItem 
          {
-             Text = typeof(CustomerDN).NicePluralName(),
+             Text = typeof(CustomerEntity).NicePluralName(),
              
              Children = 
              {
-                new WebMenuItem { Link = new FindOptions(typeof(CustomerDN)) },
-                new WebMenuItem { Link = new FindOptions(typeof(PersonDN)) },
-                new WebMenuItem { Link = new FindOptions(typeof(CompanyDN)) }
+                new WebMenuItem { Link = new FindOptions(typeof(CustomerEntity)) },
+                new WebMenuItem { Link = new FindOptions(typeof(PersonEntity)) },
+                new WebMenuItem { Link = new FindOptions(typeof(CompanyEntity)) }
              }
          },
          
          new WebMenuItem 
          {
-              Text = typeof(ProductDN).NicePluralName(),
+              Text = typeof(ProductEntity).NicePluralName(),
               Children = 
               {
-                  new WebMenuItem { Link = new FindOptions(typeof(ProductDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(CategoryDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(SupplierDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(ProductEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(CategoryEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(SupplierEntity)) },
               }
         
          },
@@ -62,12 +62,12 @@ new WebMenuItem //Southwind
          
          new WebMenuItem 
          {
-              Text = typeof(EmployeeDN).NicePluralName(),
+              Text = typeof(EmployeeEntity).NicePluralName(),
               Children = 
               {
-                  new WebMenuItem { Link = new FindOptions(typeof(EmployeeDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(TerritoryDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(RegionDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(EmployeeEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(TerritoryEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(RegionEntity)) },
               }
          }
     },
@@ -82,10 +82,10 @@ new WebMenuItem
               Text = "Security",
               Children = 
               {
-                  new WebMenuItem { Link = new FindOptions(typeof(UserDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(RoleDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(OperationLogDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(SessionLogDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(UserEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(RoleEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(OperationLogEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(SessionLogEntity)) },
               }
          }, //Security
          new WebMenuItem
@@ -93,10 +93,10 @@ new WebMenuItem
               Text = "Assets",
               Children = 
               {
-                  new WebMenuItem { Link = new FindOptions(typeof(UserQueryDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(UserChartDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(ChartScriptDN)) },
-                  new WebMenuItem { Link = new FindOptions(typeof(DashboardDN)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(UserQueryEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(UserChartEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(ChartScriptEntity)) },
+                  new WebMenuItem { Link = new FindOptions(typeof(DashboardEntity)) },
               }
          }
     }

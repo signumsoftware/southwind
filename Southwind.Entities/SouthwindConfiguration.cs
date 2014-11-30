@@ -10,7 +10,7 @@ using Signum.Entities.SMS;
 namespace Southwind.Entities
 {
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
-    public class ApplicationConfigurationDN : Entity
+    public class ApplicationConfigurationEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
         string environment;
@@ -22,18 +22,18 @@ namespace Southwind.Entities
         }
 
         [NotNullable]
-        EmailConfigurationDN email;
+        EmailConfigurationEntity email;
         [NotNullValidator]
-        public EmailConfigurationDN Email
+        public EmailConfigurationEntity Email
         {
             get { return email; }
             set { Set(ref email, value); }
         }
 
         [NotNullable]
-        SMSConfigurationDN sms;
+        SMSConfigurationEntity sms;
         [NotNullValidator]
-        public SMSConfigurationDN Sms
+        public SMSConfigurationEntity Sms
         {
             get { return sms; }
             set { Set(ref sms, value); }
@@ -42,7 +42,7 @@ namespace Southwind.Entities
 
     public static class ApplicationConfigurationOperation
     {
-        public static readonly ExecuteSymbol<ApplicationConfigurationDN> Save = OperationSymbol.Execute<ApplicationConfigurationDN>();
+        public static readonly ExecuteSymbol<ApplicationConfigurationEntity> Save = OperationSymbol.Execute<ApplicationConfigurationEntity>();
     }
 
     public static class SouthwindGroup

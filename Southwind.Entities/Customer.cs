@@ -9,12 +9,12 @@ using Signum.Utilities;
 namespace Southwind.Entities
 {
     [Serializable, PrimaryKey(typeof(Guid))]
-    public abstract class CustomerDN : Entity
+    public abstract class CustomerEntity : Entity
     {
         [NotNullable]
-        AddressDN address;
+        AddressEntity address;
         [NotNullValidator]
-        public AddressDN Address
+        public AddressEntity Address
         {
             get { return address; }
             set { Set(ref address, value); }
@@ -38,8 +38,8 @@ namespace Southwind.Entities
             set { Set(ref fax, value); }
         }
 
-        public static readonly SessionVariable<CustomerDN> CurrentCustomerVariable = Statics.SessionVariable<CustomerDN>("Customer");
-        public static CustomerDN Current
+        public static readonly SessionVariable<CustomerEntity> CurrentCustomerVariable = Statics.SessionVariable<CustomerEntity>("Customer");
+        public static CustomerEntity Current
         {
             get { return CurrentCustomerVariable.Value; }
             set { CurrentCustomerVariable.Value = value; }
@@ -48,7 +48,7 @@ namespace Southwind.Entities
 
 
     [Serializable, EntityKind(EntityKind.Shared, EntityData.Transactional)]
-    public class PersonDN : CustomerDN
+    public class PersonEntity : CustomerEntity
     {  
         [NotNullable, SqlDbType(Size = 40)]
         string firstName;
@@ -116,18 +116,18 @@ namespace Southwind.Entities
 
         public override string ToString()
         {
-            return "{0} {1}".Formato(firstName, lastName);
+            return "{0} {1}".FormatWith(firstName, lastName);
         }
 
-        static PersonDN()
+        static PersonEntity()
         {
-            Validator.PropertyValidator((PersonDN p) => p.DateOfBirth).IsApplicableValidator<DateTimePrecissionValidatorAttribute>(p => Corruption.Strict);
-            Validator.PropertyValidator((PersonDN p) => p.Title).IsApplicableValidator<StringLengthValidatorAttribute>(p => Corruption.Strict);
+            Validator.PropertyValidator((PersonEntity p) => p.DateOfBirth).IsApplicableValidator<DateTimePrecissionValidatorAttribute>(p => Corruption.Strict);
+            Validator.PropertyValidator((PersonEntity p) => p.Title).IsApplicableValidator<StringLengthValidatorAttribute>(p => Corruption.Strict);
         }
     }
 
     [Serializable, EntityKind(EntityKind.Shared, EntityData.Transactional)]
-    public class CompanyDN : CustomerDN
+    public class CompanyEntity : CustomerEntity
     {
         [SqlDbType(Size = 40)]
         string companyName;
@@ -156,7 +156,7 @@ namespace Southwind.Entities
             set { Set(ref contactTitle, value); }
         }
 
-        static Expression<Func<CompanyDN, string>> ToStringExpression = e => e.CompanyName;
+        static Expression<Func<CompanyEntity, string>> ToStringExpression = e => e.CompanyName;
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -165,6 +165,6 @@ namespace Southwind.Entities
 
     public static class CustomerOperation
     {
-        public static readonly ExecuteSymbol<CustomerDN> Save = OperationSymbol.Execute<CustomerDN>();
+        public static readonly ExecuteSymbol<CustomerEntity> Save = OperationSymbol.Execute<CustomerEntity>();
     }
 }

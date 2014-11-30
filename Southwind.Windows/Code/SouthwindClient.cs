@@ -27,22 +27,22 @@ namespace Southwind.Windows.Code
 
                 Navigator.AddSettings(new List<EntitySettings>
                 {
-                    new EntitySettings<EmployeeDN>() { View = e => new Employee()},
-                    new EntitySettings<TerritoryDN>() { View = e => new Territory() },
-                    new EntitySettings<RegionDN>() { View = e => new Region() },
+                    new EntitySettings<EmployeeEntity>() { View = e => new Employee()},
+                    new EntitySettings<TerritoryEntity>() { View = e => new Territory() },
+                    new EntitySettings<RegionEntity>() { View = e => new Region() },
 
-                    new EntitySettings<ProductDN>() { View = e => new Product() },
-                    new EntitySettings<CategoryDN>() { View = e => new Category(), IsViewable = true },
-                    new EntitySettings<SupplierDN>() { View = e => new Supplier() },
+                    new EntitySettings<ProductEntity>() { View = e => new Product() },
+                    new EntitySettings<CategoryEntity>() { View = e => new Category(), IsViewable = true },
+                    new EntitySettings<SupplierEntity>() { View = e => new Supplier() },
 
-                    new EntitySettings<CompanyDN>() { View = e => new Company() },
-                    new EntitySettings<PersonDN>() { View = e => new Person() },
+                    new EntitySettings<CompanyEntity>() { View = e => new Company() },
+                    new EntitySettings<PersonEntity>() { View = e => new Person() },
 
-                    new EntitySettings<OrderDN>() { View = e => new Order()},
+                    new EntitySettings<OrderEntity>() { View = e => new Order()},
                 });
 
          
-                QuerySettings.RegisterPropertyFormat((EmployeeDN e) => e.Photo, b =>
+                QuerySettings.RegisterPropertyFormat((EmployeeEntity e) => e.Photo, b =>
                 {
                     b.Converter = SouthwindConverters.ImageConverter;
                     return Fluent.GetDataTemplate(() => new Image { MaxHeight = 32.0, Stretch = Stretch.Uniform }
@@ -50,7 +50,7 @@ namespace Southwind.Windows.Code
                         .Set(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Linear));
                 }); //Photo
 
-                QuerySettings.RegisterPropertyFormat((CategoryDN e) => e.Picture,  b =>
+                QuerySettings.RegisterPropertyFormat((CategoryEntity e) => e.Picture,  b =>
                 {
                     b.Converter = SouthwindConverters.EmbeddedImageConverter;
                     return Fluent.GetDataTemplate(() => new Image { MaxHeight = 32.0, Stretch = Stretch.Uniform }
@@ -58,29 +58,29 @@ namespace Southwind.Windows.Code
                         .Set(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Linear));
                 }); //Picture
 
-                Constructor.Register(ctx => new EmployeeDN { Address = new AddressDN() });
-                Constructor.Register(ctx => new PersonDN { Address = new AddressDN() });
-                Constructor.Register(ctx => new CompanyDN { Address = new AddressDN() });
-                Constructor.Register(ctx => new SupplierDN { Address = new AddressDN() });
+                Constructor.Register(ctx => new EmployeeEntity { Address = new AddressEntity() });
+                Constructor.Register(ctx => new PersonEntity { Address = new AddressEntity() });
+                Constructor.Register(ctx => new CompanyEntity { Address = new AddressEntity() });
+                Constructor.Register(ctx => new SupplierEntity { Address = new AddressEntity() });
 
                 OperationClient.AddSettings(new List<OperationSettings>()
                 {
-                    new ConstructorOperationSettings<OrderDN>(OrderOperation.Create)
+                    new ConstructorOperationSettings<OrderEntity>(OrderOperation.Create)
                     {
                         Constructor = ctx=>
                         {
-                            var cust = Finder.Find<CustomerDN>(); // could return null, but we let it continue 
+                            var cust = Finder.Find<CustomerEntity>(); // could return null, but we let it continue 
 
                             return OperationServer.Construct(OrderOperation.Create, cust);
                         },
                     },
 
 
-                    new ContextualOperationSettings<ProductDN>(OrderOperation.CreateOrderFromProducts)
+                    new ContextualOperationSettings<ProductEntity>(OrderOperation.CreateOrderFromProducts)
                     {
                          Click = ctx =>
                          {
-                             var cust = Finder.Find<CustomerDN>(); // could return null, but we let it continue 
+                             var cust = Finder.Find<CustomerEntity>(); // could return null, but we let it continue 
 
                              var result = OperationServer.ConstructFromMany(ctx.Entities, OrderOperation.CreateOrderFromProducts, cust);
 
@@ -88,15 +88,15 @@ namespace Southwind.Windows.Code
                          },
                     },
 
-                    new EntityOperationSettings<OrderDN>(OrderOperation.SaveNew){ IsVisible = ctx=> ctx.Entity.IsNew }, 
-                    new EntityOperationSettings<OrderDN>(OrderOperation.Save){ IsVisible = ctx=> !ctx.Entity.IsNew }, 
+                    new EntityOperationSettings<OrderEntity>(OrderOperation.SaveNew){ IsVisible = ctx=> ctx.Entity.IsNew }, 
+                    new EntityOperationSettings<OrderEntity>(OrderOperation.Save){ IsVisible = ctx=> !ctx.Entity.IsNew }, 
 
-                    new EntityOperationSettings<OrderDN>(OrderOperation.Cancel)
+                    new EntityOperationSettings<OrderEntity>(OrderOperation.Cancel)
                     { 
-                        ConfirmMessage = ctx=> ((OrderDN)ctx.Entity).State == OrderState.Shipped ? OrderMessage.CancelShippedOrder0.NiceToString(ctx.Entity) : null 
+                        ConfirmMessage = ctx=> ((OrderEntity)ctx.Entity).State == OrderState.Shipped ? OrderMessage.CancelShippedOrder0.NiceToString(ctx.Entity) : null 
                     }, 
 
-                    new EntityOperationSettings<OrderDN>(OrderOperation.Ship)
+                    new EntityOperationSettings<OrderEntity>(OrderOperation.Ship)
                     { 
                         Click = ctx =>
                         {
@@ -105,7 +105,7 @@ namespace Southwind.Windows.Code
 
                             DateTime shipDate = DateTime.Now;
                             if (!ValueLineBox.Show(ref shipDate, 
-                                labelText: DescriptionManager.NiceName((OrderDN o) => o.ShippedDate), 
+                                labelText: DescriptionManager.NiceName((OrderEntity o) => o.ShippedDate), 
                                 owner: Window.GetWindow(ctx.EntityControl)))
                                 return null;
 
@@ -118,7 +118,7 @@ namespace Southwind.Windows.Code
                             {
                                 DateTime shipDate = DateTime.Now;
                                 if (!ValueLineBox.Show(ref shipDate, 
-                                    labelText: DescriptionManager.NiceName((OrderDN o) => o.ShippedDate), 
+                                    labelText: DescriptionManager.NiceName((OrderEntity o) => o.ShippedDate), 
                                     owner: Window.GetWindow(ctx.SearchControl)))
                                     return;
 

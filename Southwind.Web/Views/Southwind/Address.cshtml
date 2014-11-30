@@ -1,15 +1,15 @@
 ﻿@using Southwind.Entities
 
-@using (var ac = Html.TypeContext<AddressDN>())
+@using (var ac = Html.TypeContext<AddressEntity>())
 {
     ac.PlaceholderLabels = true;
     if (ac.Value == null)
     {
-        ac.Value = new AddressDN();
+        ac.Value = new AddressEntity();
     }
     @Html.HiddenRuntimeInfo(ac)
     <fieldset>
-        <legend>@(ViewData["Legend"] ?? typeof(AddressDN).NiceName())</legend>
+        <legend>@(ViewData["Legend"] ?? typeof(AddressEntity).NiceName())</legend>
 
         <div class="col-sm-12">
             @Html.ValueLine(ac, a => a.Address, a => a.FormGroupStyle = FormGroupStyle.SrOnly)

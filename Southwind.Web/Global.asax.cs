@@ -112,7 +112,7 @@ namespace Southwind.Web
                 AllowLogin current = user.Mixin<UserEmployeeMixin>().AllowLogin; 
 
                 if (current != AllowLogin.WindowsAndWeb && current != required)
-                    throw new UnauthorizedAccessException("User {0} is {1}".Formato(user, current.NiceToString()));
+                    throw new UnauthorizedAccessException("User {0} is {1}".FormatWith(user, current.NiceToString()));
             }; //UserLogingIn
         }
 
@@ -131,9 +131,9 @@ namespace Southwind.Web
                 resetPassword: true, 
                 passwordExpiration: false);
 
-            Navigator.EntitySettings<UserDN>().CreateViewOverrides()
-                .AfterLine((UserDN u) => u.Role, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserEmployeeMixin>().AllowLogin))
-                .AfterLine((UserDN u) => u.Role, (html, tc) => html.EntityLine(tc, u => u.Mixin<UserEmployeeMixin>().Employee));
+            Navigator.EntitySettings<UserEntity>().CreateViewOverrides()
+                .AfterLine((UserEntity u) => u.Role, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserEmployeeMixin>().AllowLogin))
+                .AfterLine((UserEntity u) => u.Role, (html, tc) => html.EntityLine(tc, u => u.Mixin<UserEmployeeMixin>().Employee));
 
             AuthAdminClient.Start(
                 types: true, 
@@ -173,8 +173,8 @@ namespace Southwind.Web
 
             SchedulerClient.Start(simpleTask: true);
 
-            NoteClient.Start(typeof(UserDN), /*Note*/typeof(OrderDN));
-            AlertClient.Start(typeof(UserDN), /*Alert*/typeof(OrderDN));
+            NoteClient.Start(typeof(UserEntity), /*Note*/typeof(OrderEntity));
+            AlertClient.Start(typeof(UserEntity), /*Alert*/typeof(OrderEntity));
             LinksClient.Start(widget: true, contextualItems: true);
 
             HelpClient.Start("http://localhost:7654/", "Images"); 
@@ -220,7 +220,7 @@ namespace Southwind.Web
 
         protected void Session_End(object sender, EventArgs e)
         {
-            SessionLogClient.LogSessionEnd((UserDN)Session[UserHolder.UserSessionKey], TimeSpan.FromMinutes(Session.Timeout));
+            SessionLogClient.LogSessionEnd((UserEntity)Session[UserHolder.UserSessionKey], TimeSpan.FromMinutes(Session.Timeout));
         }
 
         protected void Application_ReleaseRequestState(object sender, EventArgs e)
@@ -239,8 +239,8 @@ namespace Southwind.Web
         public static CultureInfo GetCulture(HttpRequest request)
         {
             // 1 user preference
-            if (UserDN.Current.Try(u => u.CultureInfo) != null)
-                return UserDN.Current.CultureInfo.ToCultureInfo();
+            if (UserEntity.Current.Try(u => u.CultureInfo) != null)
+                return UserEntity.Current.CultureInfo.ToCultureInfo();
 
             // 2 cookie (temporary)
             if (request.Cookies["language"] != null)

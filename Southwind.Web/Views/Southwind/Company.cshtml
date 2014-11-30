@@ -1,6 +1,6 @@
 ﻿@using Southwind.Entities
 
-@using (var cc = Html.TypeContext<CompanyDN>()) 
+@using (var cc = Html.TypeContext<CompanyEntity>()) 
 {
 	@Html.ValueLine(cc, c => c.CompanyName)
 

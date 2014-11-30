@@ -1,6 +1,6 @@
 ﻿@using Southwind.Entities
 
-@using (var sc = Html.TypeContext<SupplierDN>()) 
+@using (var sc = Html.TypeContext<SupplierEntity>()) 
 {
 	@Html.ValueLine(sc, s => s.CompanyName)
 	

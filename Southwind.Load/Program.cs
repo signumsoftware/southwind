@@ -97,7 +97,7 @@ namespace Southwind.Load
 
                 foreach (var acc in actions)
                 {
-                    Console.WriteLine("------- Executing {0} ".Formato(acc.Method.Name.SpacePascal(true)).PadRight(Console.WindowWidth - 2, '-'));
+                    Console.WriteLine("------- Executing {0} ".FormatWith(acc.Method.Name.SpacePascal(true)).PadRight(Console.WindowWidth - 2, '-'));
                     acc();
                 }
             }
@@ -133,28 +133,28 @@ namespace Southwind.Load
 
         static void ShowOrder()
         {
-            var query = Database.Query<OrderDN>()
+            var query = Database.Query<OrderEntity>()
               .Where(a => a.Details.Any(l => l.Discount != 0))
               .OrderByDescending(a => a.TotalPrice);
 
-            OrderDN order = query.First();
+            OrderEntity order = query.First();
         }//ShowOrder
 
         public static void CreateCultureInfo()
         {
-            var en = new CultureInfoDN(CultureInfo.GetCultureInfo("en")).Save();
-            var es = new CultureInfoDN(CultureInfo.GetCultureInfo("es")).Save();
+            var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
+            var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
 
-            new ApplicationConfigurationDN
+            new ApplicationConfigurationEntity
             {
                 Environment = "Development",
-                Email = new EmailConfigurationDN
+                Email = new EmailConfigurationEntity
                 {
                     SendEmails = true,
                     DefaultCulture = en,
                     UrlLeft = "http://localhost/Southwind"
                 },
-                Sms = new SMSConfigurationDN
+                Sms = new SMSConfigurationEntity
                 {
                     DefaultCulture = en,
                 }

@@ -6,7 +6,7 @@
     xmlns:s="clr-namespace:Southwind.Windows"
     xmlns:sc="clr-namespace:Southwind.Windows.Controls"
     xmlns:f="clr-namespace:Signum.Windows.Files;assembly=Signum.Windows.Extensions"
-    m:Common.TypeContext="{x:Type d:EmployeeDN}"
+    m:Common.TypeContext="{x:Type d:EmployeeEntity}"
     MinWidth="500">
     <Grid>
         <Grid.RowDefinitions>

@@ -151,7 +151,7 @@ namespace Southwind.Windows
                         if (File.Exists(DisconnectedClient.DatabaseFile))
                             LocalServer.DropDatabase(Settings.Default.LocalDatabaseConnectionString);
 
-                        Server.Execute((IDisconnectedServer ds) => ds.ConnectAfterFix(DisconnectedMachineDN.Current));
+                        Server.Execute((IDisconnectedServer ds) => ds.ConnectAfterFix(DisconnectedMachineEntity.Current));
 
                         break;
                     }
@@ -176,7 +176,7 @@ namespace Southwind.Windows
                         if (File.Exists(DisconnectedClient.DownloadBackupFile))
                         {
                             File.Delete(DisconnectedClient.DownloadBackupFile);
-                            Server.Execute((IDisconnectedServer ds) => ds.SkipExport(DisconnectedMachineDN.Current));
+                            Server.Execute((IDisconnectedServer ds) => ds.SkipExport(DisconnectedMachineEntity.Current));
                         }
                         else
                         {
@@ -219,9 +219,9 @@ namespace Southwind.Windows
             {
                 try
                 {
-                    var exception = new ExceptionDN(e.Follow(ex => ex.InnerException).Last())
+                    var exception = new ExceptionEntity(e.Follow(ex => ex.InnerException).Last())
                     {
-                        User = UserDN.Current.ToLite<IUserDN>(),
+                        User = UserEntity.Current.ToLite<IUserEntity>(),
                         ControllerName = "WindowsClient",
                         ActionName = "WindowClient",
                         Version = typeof(Program).Assembly.GetName().Version.ToString(),
@@ -233,7 +233,7 @@ namespace Southwind.Windows
                 catch { }
                 finally
                 {
-                    string message = e.Follow(ex => ex.InnerException).ToString(ex => "{0} : {1}".Formato(
+                    string message = e.Follow(ex => ex.InnerException).ToString(ex => "{0} : {1}".FormatWith(
                             ex.GetType().Name != "FaultException" ? ex.GetType().Name : "Server Error",
                             ex.Message), "\r\n\r\n");
 
@@ -293,10 +293,10 @@ namespace Southwind.Windows
                     Settings.Default.UserName = milogin.UserName;
                     Settings.Default.Save();
 
-                    UserDN.Current = result.GetCurrentUser();
+                    UserEntity.Current = result.GetCurrentUser();
 
-                    if (UserDN.Current.CultureInfo != null)
-                        Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(UserDN.Current.CultureInfo.Name);
+                    if (UserEntity.Current.CultureInfo != null)
+                        Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(UserEntity.Current.CultureInfo.Name);
 
                     // verificar el tiempo de expiracion
                     var alerta = result.PasswordNearExpired();
@@ -327,8 +327,8 @@ namespace Southwind.Windows
             bool? dialogResult = milogin.ShowDialog();
             if (dialogResult == true)
             {
-                UserDN user = result.GetCurrentUser();
-                UserDN.Current = user;
+                UserEntity user = result.GetCurrentUser();
+                UserEntity.Current = user;
 
                 return result;
             }

@@ -1,7 +1,7 @@
 ﻿@using Southwind.Entities
 @using Southwind.Web
 
-@using (var oc = Html.TypeContext<OrderDN>())
+@using (var oc = Html.TypeContext<OrderEntity>())
 {
     oc.FormGroupSize = FormGroupSize.Small;
     
@@ -11,7 +11,7 @@
         <div class="col-sm-6">
             @Html.EntityLine(oc, o => o.Customer, el =>
             {
-                el.AttachFunction = SouthwindClient.OrderModule["attachCustomerEntityLine"](el,  new FindOptions(typeof(CustomerDN)).ToJS(el.Prefix));
+                el.AttachFunction = SouthwindClient.OrderModule["attachCustomerEntityLine"](el,  new FindOptions(typeof(CustomerEntity)).ToJS(el.Prefix));
             })
             @Html.EmbeddedControl(oc, o => o.ShipAddress, ec => ec.ViewData = new Dictionary<string, object> { { "Legend", Html.PropertyNiceName(() => oc.Value.ShipAddress) } })
         </div>

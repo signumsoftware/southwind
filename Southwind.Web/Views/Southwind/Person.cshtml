@@ -1,6 +1,6 @@
 ﻿@using Southwind.Entities
 
-@using (var pc = Html.TypeContext<PersonDN>())
+@using (var pc = Html.TypeContext<PersonEntity>())
 {    
     @Html.ValueLine(pc, p => p.Corrupt)   
     <div class="form-group">

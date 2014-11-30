@@ -1,12 +1,12 @@
 ﻿@using Southwind.Entities
 @using Southwind.Web
-@using (var pc = Html.TypeContext<ProductDN>())
+@using (var pc = Html.TypeContext<ProductEntity>())
 {
     @Html.ValueLine(pc, p => p.ProductName)
     @Html.EntityCombo(pc, p => p.Category, ec =>
     {
         ec.AttachFunction = SouthwindClient.ProductModule["attachCategory"](ec);
-        ec.Create = Navigator.IsCreable(typeof(CategoryDN), isSearch: true);
+        ec.Create = Navigator.IsCreable(typeof(CategoryEntity), isSearch: true);
         ec.Remove = true;
     })
     @Html.ValueLine(pc, p => p.ReorderLevel)

@@ -16,9 +16,9 @@ namespace Southwind.Logic
 {
     public static class EmployeeLogic
     {
-        static Expression<Func<RegionDN, IQueryable<TerritoryDN>>> TerritoriesExpression =
-            r => Database.Query<TerritoryDN>().Where(a => a.Region == r);
-        public static IQueryable<TerritoryDN> Territories(this RegionDN r)
+        static Expression<Func<RegionEntity, IQueryable<TerritoryEntity>>> TerritoriesExpression =
+            r => Database.Query<TerritoryEntity>().Where(a => a.Region == r);
+        public static IQueryable<TerritoryEntity> Territories(this RegionEntity r)
         {
             return TerritoriesExpression.Evaluate(r);
         }
@@ -27,10 +27,10 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Include<EmployeeDN>();
+                sb.Include<EmployeeEntity>();
 
-                dqm.RegisterQuery(typeof(RegionDN), () =>
-                    from r in Database.Query<RegionDN>()
+                dqm.RegisterQuery(typeof(RegionEntity), () =>
+                    from r in Database.Query<RegionEntity>()
                     select new
                     {
                         Entity = r.ToLite(),
@@ -38,10 +38,10 @@ namespace Southwind.Logic
                         r.Description,
                     });
 
-                dqm.RegisterExpression((RegionDN r) => r.Territories(), () => typeof(TerritoryDN).NiceName());
+                dqm.RegisterExpression((RegionEntity r) => r.Territories(), () => typeof(TerritoryEntity).NiceName());
 
-                dqm.RegisterQuery(typeof(TerritoryDN), () =>
-                    from t in Database.Query<TerritoryDN>()
+                dqm.RegisterQuery(typeof(TerritoryEntity), () =>
+                    from t in Database.Query<TerritoryEntity>()
                     select new
                     {
                         Entity = t.ToLite(),
@@ -50,8 +50,8 @@ namespace Southwind.Logic
                         Region = t.Region.ToLite()
                     });
 
-                dqm.RegisterQuery(typeof(EmployeeDN), () =>
-                    from e in Database.Query<EmployeeDN>()
+                dqm.RegisterQuery(typeof(EmployeeEntity), () =>
+                    from e in Database.Query<EmployeeEntity>()
                     select new
                     {
                         Entity = e.ToLite(),
@@ -63,7 +63,7 @@ namespace Southwind.Logic
                     });
 
                 dqm.RegisterQuery(EmployeeQuery.EmployeesByTerritory, () =>
-                    from e in Database.Query<EmployeeDN>()
+                    from e in Database.Query<EmployeeEntity>()
                     from t in e.Territories
                     select new
                     {
@@ -76,21 +76,21 @@ namespace Southwind.Logic
                         Territory = t.ToLite(),
                     });
 
-                new Graph<EmployeeDN>.Execute(EmployeeOperation.Save)
+                new Graph<EmployeeEntity>.Execute(EmployeeOperation.Save)
                 {
                     Lite = false,
                     AllowsNew = true,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new Graph<TerritoryDN>.Execute(TerritoryOperation.Save)
+                new Graph<TerritoryEntity>.Execute(TerritoryOperation.Save)
                 {
                     Lite = false,
                     AllowsNew = true,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new Graph<RegionDN>.Execute(RegionOperation.Save)
+                new Graph<RegionEntity>.Execute(RegionOperation.Save)
                 {
                     Lite = false,
                     AllowsNew = true,
@@ -99,7 +99,7 @@ namespace Southwind.Logic
             }
         }
 
-        public static void Create(EmployeeDN employee)
+        public static void Create(EmployeeEntity employee)
         {
             if (!employee.IsNew)
                 throw new ArgumentException("The employee should be new", "employee");
@@ -107,10 +107,10 @@ namespace Southwind.Logic
             employee.Save();
         }
 
-        public static List<Lite<EmployeeDN>> TopEmployees(int num)
+        public static List<Lite<EmployeeEntity>> TopEmployees(int num)
         {
-            return (from e in Database.Query<EmployeeDN>()
-                    orderby Database.Query<OrderDN>().Count(a => a.Employee == e.ToLite())
+            return (from e in Database.Query<EmployeeEntity>()
+                    orderby Database.Query<OrderEntity>().Count(a => a.Employee == e.ToLite())
                     select e.ToLite()).Take(num).ToList();
         }
     }

@@ -38,145 +38,145 @@ namespace Southwind.Logic
         private static void SetupDisconnectedStrategies(SchemaBuilder sb)
         {
             //Signum.Entities
-            DisconnectedLogic.Register<TypeDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<TypeEntity>(Download.Replace, Upload.None);
 
             //Signum.Entities.Authorization
-            DisconnectedLogic.Register<UserDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RoleDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<ResetPasswordRequestDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<RuleTypeDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RulePropertyDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RuleQueryDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RuleOperationDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<UserEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<RoleEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<ResetPasswordRequestEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<RuleTypeEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<RulePropertyEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<RuleQueryEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<RuleOperationEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<PermissionSymbol>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<RulePermissionDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<SessionLogDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<UserTicketDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<LastAuthRulesImportDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<RulePermissionEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SessionLogEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<UserTicketEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<LastAuthRulesImportEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Basics
             DisconnectedLogic.Register<TypeConditionSymbol>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<PropertyRouteDN>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<QueryDN>(Download.Replace, Upload.New);
+            DisconnectedLogic.Register<PropertyRouteEntity>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<QueryEntity>(Download.Replace, Upload.New);
             
             //Signum.Entities.Notes
-            DisconnectedLogic.Register<NoteDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<NoteTypeDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<NoteEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<NoteTypeEntity>(Download.Replace, Upload.None);
             
             //Signum.Entities.Alerts
-            DisconnectedLogic.Register<AlertDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<AlertTypeDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<AlertEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<AlertTypeEntity>(Download.Replace, Upload.None);
 
             //Signum.Entities.Chart
-            DisconnectedLogic.Register<ChartColorDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<UserChartDN>(Download.All, Upload.New); 
-            DisconnectedLogic.Register<ChartScriptDN>(Download.All, Upload.New);
+            DisconnectedLogic.Register<ChartColorEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<UserChartEntity>(Download.All, Upload.New); 
+            DisconnectedLogic.Register<ChartScriptEntity>(Download.All, Upload.New);
 
             //Signum.Entities.Files
-            DisconnectedLogic.Register<FileDN>(Download.All, Upload.New);
+            DisconnectedLogic.Register<FileEntity>(Download.All, Upload.New);
 
             //Signum.Entities.Help
-            DisconnectedLogic.Register<EntityHelpDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<NamespaceHelpDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<AppendixHelpDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<QueryHelpDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<OperationHelpDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<EntityHelpEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<NamespaceHelpEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<AppendixHelpEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<QueryHelpEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<OperationHelpEntity>(Download.None, Upload.None);
 
             //Signum.Entities.ControlPanel
-            DisconnectedLogic.Register<DashboardDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<UserChartPartDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<UserQueryPartDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<CountSearchControlPartDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<LinkListPartDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DashboardEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<UserChartPartEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<UserQueryPartEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<CountSearchControlPartEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<LinkListPartEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Disconnected
-            DisconnectedLogic.Register<DisconnectedMachineDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<DisconnectedExportDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<DisconnectedImportDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DisconnectedMachineEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<DisconnectedExportEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DisconnectedImportEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Files
-            DisconnectedLogic.Register<FilePathDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<FilePathEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<FileTypeSymbol>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<FileRepositoryDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<FileRepositoryEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Mailing
-            DisconnectedLogic.Register<EmailMessageDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<EmailTemplateDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<EmailPackageDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<EmailMasterTemplateDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<SmtpConfigurationDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<SystemEmailDN>(Download.Replace, Upload.None);
+            DisconnectedLogic.Register<EmailMessageEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<EmailTemplateEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<EmailPackageEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<EmailMasterTemplateEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SmtpConfigurationEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SystemEmailEntity>(Download.Replace, Upload.None);
           
             //Signum.Entities.Translation
-            DisconnectedLogic.Register<CultureInfoDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<CultureInfoEntity>(Download.All, Upload.None);
 
             //Signum.Entities.Operations
             DisconnectedLogic.Register<OperationSymbol>(Download.Replace, Upload.None);
-            Expression<Func<OperationLogDN, bool>> operationLogCondition = ol =>
-             ol.Target.EntityType == typeof(OrderDN) && ((OrderDN)ol.Target.Entity).Employee.RefersTo(EmployeeDN.Current) ||
-             ol.Target.EntityType == typeof(PersonDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((PersonDN)ol.Target.Entity)) ||
-             ol.Target.EntityType == typeof(CompanyDN) && Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == ((CompanyDN)ol.Target.Entity) || 
-             ol.Target.EntityType == typeof(EmployeeDN) ||
-             ol.Target.EntityType == typeof(ProductDN));
+            Expression<Func<OperationLogEntity, bool>> operationLogCondition = ol =>
+             ol.Target.EntityType == typeof(OrderEntity) && ((OrderEntity)ol.Target.Entity).Employee.RefersTo(EmployeeEntity.Current) ||
+             ol.Target.EntityType == typeof(PersonEntity) && Database.Query<OrderEntity>().Any(o => o.Employee.RefersTo(EmployeeEntity.Current) && o.Customer == ((PersonEntity)ol.Target.Entity)) ||
+             ol.Target.EntityType == typeof(CompanyEntity) && Database.Query<OrderEntity>().Any(o => o.Employee.RefersTo(EmployeeEntity.Current) && o.Customer == ((CompanyEntity)ol.Target.Entity) || 
+             ol.Target.EntityType == typeof(EmployeeEntity) ||
+             ol.Target.EntityType == typeof(ProductEntity));
 
-            DisconnectedLogic.Register<OperationLogDN>(operationLogCondition, Upload.New);
+            DisconnectedLogic.Register<OperationLogEntity>(operationLogCondition, Upload.New);
 
             //Signum.Entities.Processes
             DisconnectedLogic.Register<ProcessAlgorithmSymbol>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<ProcessDN>(Download.None, Upload.New);
-            DisconnectedLogic.Register<PackageDN>(Download.None, Upload.New);
-            DisconnectedLogic.Register<PackageOperationDN>(Download.None, Upload.New);
-            DisconnectedLogic.Register<PackageLineDN>(Download.None, Upload.New);
-            DisconnectedLogic.Register<ProcessExceptionLineDN>(Download.None, Upload.New);
+            DisconnectedLogic.Register<ProcessEntity>(Download.None, Upload.New);
+            DisconnectedLogic.Register<PackageEntity>(Download.None, Upload.New);
+            DisconnectedLogic.Register<PackageOperationEntity>(Download.None, Upload.New);
+            DisconnectedLogic.Register<PackageLineEntity>(Download.None, Upload.New);
+            DisconnectedLogic.Register<ProcessExceptionLineEntity>(Download.None, Upload.New);
 
             //Signum.Entities.Scheduler
             DisconnectedLogic.Register<SimpleTaskSymbol>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<ScheduledTaskDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<ScheduleRuleDailyDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<ScheduleRuleWeeklyDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<ScheduleRuleWeekDaysDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<HolidayCalendarDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<ScheduleRuleMinutelyDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<ScheduleRuleHourlyDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<ScheduledTaskLogDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduledTaskEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleDailyEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleWeeklyEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleWeekDaysEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<HolidayCalendarEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleMinutelyEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleHourlyEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduledTaskLogEntity>(Download.None, Upload.None);
 
             //Signum.Entities.SMS
-            DisconnectedLogic.Register<SMSMessageDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<SMSTemplateDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<SMSSendPackageDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<SMSUpdatePackageDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<SMSMessageEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<SMSTemplateEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<SMSSendPackageEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<SMSUpdatePackageEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Translation
-            DisconnectedLogic.Register<TranslatorUserDN>(Download.None, Upload.None);
-            DisconnectedLogic.Register<TranslatedInstanceDN>(Download.None, Upload.None);
+            DisconnectedLogic.Register<TranslatorUserEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<TranslatedInstanceEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Exceptions
-            DisconnectedLogic.Register<ExceptionDN>(e => Database.Query<OperationLogDN>()
+            DisconnectedLogic.Register<ExceptionEntity>(e => Database.Query<OperationLogEntity>()
                 .Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
 
             //Signum.Entities.ViewLog
-            DisconnectedLogic.Register<ViewLogDN>(Download.None, Upload.New);
+            DisconnectedLogic.Register<ViewLogEntity>(Download.None, Upload.New);
 
             //Signum.Entities.UserQueries
-            DisconnectedLogic.Register<UserQueryDN>(Download.All, Upload.New);
+            DisconnectedLogic.Register<UserQueryEntity>(Download.All, Upload.New);
 
             //Southwind.Entities
-            DisconnectedLogic.Register<EmployeeDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<TerritoryDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<RegionDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<ProductDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<SupplierDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<CategoryDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<OrderDN>(o => o.Employee.RefersTo(EmployeeDN.Current));
-            DisconnectedLogic.Register<PersonDN>(p => 
-                Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == p), 
+            DisconnectedLogic.Register<EmployeeEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<TerritoryEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<RegionEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<ProductEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SupplierEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<CategoryEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<OrderEntity>(o => o.Employee.RefersTo(EmployeeEntity.Current));
+            DisconnectedLogic.Register<PersonEntity>(p => 
+                Database.Query<OrderEntity>().Any(o => o.Employee.RefersTo(EmployeeEntity.Current) && o.Customer == p), 
                 Upload.New);
-            DisconnectedLogic.Register<CompanyDN>(p => 
-                Database.Query<OrderDN>().Any(o => o.Employee.RefersTo(EmployeeDN.Current) && o.Customer == p), 
+            DisconnectedLogic.Register<CompanyEntity>(p => 
+                Database.Query<OrderEntity>().Any(o => o.Employee.RefersTo(EmployeeEntity.Current) && o.Customer == p), 
                 Upload.New);
             
-            DisconnectedLogic.Register<ShipperDN>(Download.All, Upload.None);
-            DisconnectedLogic.Register<ApplicationConfigurationDN>(Download.All, Upload.None);
+            DisconnectedLogic.Register<ShipperEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<ApplicationConfigurationEntity>(Download.All, Upload.None);
         }
     }
 }

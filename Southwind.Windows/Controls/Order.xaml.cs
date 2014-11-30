@@ -27,14 +27,14 @@ namespace Southwind.Windows.Controls
     /// </summary>
     public partial class Order : UserControl
     {
-        OrderDetailsDN CurrentOrderDetails
+        OrderDetailsEntity CurrentOrderDetails
         {
-            get { return dgDetails.SelectedItem as OrderDetailsDN; }
+            get { return dgDetails.SelectedItem as OrderDetailsEntity; }
         }
 
-        OrderDN OrderEntity
+        OrderEntity OrderEntity
         {
-            get { return (OrderDN)DataContext; }
+            get { return (OrderEntity)DataContext; }
         }
 
         public Order()
@@ -44,16 +44,16 @@ namespace Southwind.Windows.Controls
 
         private IEnumerable AutocompleteTextBox_AutoCompleting(string arg, CancellationToken ct)
         {
-            return Server.Return((IBaseServer s) => s.FindLiteLike(Implementations.By(typeof(ProductDN)), arg, 5)); 
+            return Server.Return((IBaseServer s) => s.FindLiteLike(Implementations.By(typeof(ProductEntity)), arg, 5)); 
         }    
 
         private void ebDetails_Finding(object sender, RoutedEventArgs e)
         {
-            var product = Finder.Find<ProductDN>();
+            var product = Finder.Find<ProductEntity>();
             if (product == null)
                 return;
 
-            OrderDetailsDN details = new OrderDetailsDN
+            OrderDetailsEntity details = new OrderDetailsEntity
             {
                 Product = product,
                 Quantity = 1,
@@ -88,8 +88,8 @@ namespace Southwind.Windows.Controls
         private void AutocompleteTextBox_Closed(object sender, RoutedEventArgs e)
         {
             AutocompleteTextBox autoComplete = (AutocompleteTextBox)sender;
-            OrderDetailsDN orderDetails = (OrderDetailsDN)autoComplete.DataContext;
-            Lite<ProductDN> product = (Lite<ProductDN>)autoComplete.SelectedItem;
+            OrderDetailsEntity orderDetails = (OrderDetailsEntity)autoComplete.DataContext;
+            Lite<ProductEntity> product = (Lite<ProductEntity>)autoComplete.SelectedItem;
 
             orderDetails.Discount = 0;
 
@@ -117,12 +117,12 @@ namespace Southwind.Windows.Controls
         private void EntityLine_EntityChanged(object sender, bool userInteraction, object oldValue, object newValue)
         {
             if (userInteraction)
-                this.OrderEntity.ShipAddress = ((CustomerDN)newValue).Try(a => a.Address.Clone());
+                this.OrderEntity.ShipAddress = ((CustomerEntity)newValue).Try(a => a.Address.Clone());
         }
 
         private object EntityLine_Finding()
         {
-            return Finder.Find(new FindOptions(typeof(CustomerDN))); 
+            return Finder.Find(new FindOptions(typeof(CustomerEntity))); 
         }
     }
 }

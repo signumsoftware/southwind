@@ -31,24 +31,24 @@ namespace Southwind.Test.Web
         public void OrderWebTestExample()
         {
             Login("Normal", "Normal");
-            Lite<OrderDN> lite = null;
+            Lite<OrderEntity> lite = null;
             try
             {
-                this.SearchPage(typeof(PersonDN)).Using(persons =>
+                this.SearchPage(typeof(PersonEntity)).Using(persons =>
                 {
                     persons.Search();
                     persons.SearchControl.Results.OrderBy("Id");
-                    return persons.Results.EntityClick<PersonDN>(1);
+                    return persons.Results.EntityClick<PersonEntity>(1);
                 }).Using(john =>
                 {
-                    using (PopupControl<OrderDN> order = john.ConstructFromPopup(OrderOperation.CreateOrderFromCustomer))
+                    using (PopupControl<OrderEntity> order = john.ConstructFromPopup(OrderOperation.CreateOrderFromCustomer))
                     {
                         order.ValueLineValue(a => a.ShipName, Guid.NewGuid().ToString());
                         order.EntityCombo(a => a.ShipVia).SelectLabel("FedEx");
 
-                        ProductDN sonicProduct = Database.Query<ProductDN>().SingleEx(p => p.ProductName.Contains("Sonic"));
+                        ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
 
-                        var line = order.EntityListDetail(a => a.Details).CreateElement<OrderDetailsDN>();
+                        var line = order.EntityListDetail(a => a.Details).CreateElement<OrderDetailsEntity>();
                         line.EntityLineValue(a => a.Product, sonicProduct.ToLite());
 
                         Assert.AreEqual(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));

@@ -12,16 +12,16 @@ namespace Southwind.Test.Environment
 {
     public static class SouthwindExtensions
     {
-        public static OrderDetailsDN AddLine(this OrderDN order, string productName, int quantity = 1, decimal discount = 0)
+        public static OrderDetailsEntity AddLine(this OrderEntity order, string productName, int quantity = 1, decimal discount = 0)
         {   
-            var product = Database.Query<ProductDN>().SingleEx(p => p.ProductName.Contains(productName));
+            var product = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains(productName));
 
             return AddLine(order, product, quantity, discount);  
         }
 
-        public static OrderDetailsDN AddLine(this OrderDN order, ProductDN product, int quantity = 1, decimal discount = 0)
+        public static OrderDetailsEntity AddLine(this OrderEntity order, ProductEntity product, int quantity = 1, decimal discount = 0)
         {
-            var result = new OrderDetailsDN
+            var result = new OrderDetailsEntity
             {
                 Product = product.ToLite(),
                 UnitPrice = product.UnitPrice,

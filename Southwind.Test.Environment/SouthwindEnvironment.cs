@@ -21,12 +21,12 @@ namespace Southwind.Test.Environment
     {
         internal static void LoadEmployees()
         {
-            var america = new RegionDN { Description = "America" };
+            var america = new RegionEntity { Description = "America" };
 
-            var east = new TerritoryDN { Description = "East coast", Region = america }.Save();
-            var west = new TerritoryDN { Description = "South coast", Region = america }.Save();
+            var east = new TerritoryEntity { Description = "East coast", Region = america }.Save();
+            var west = new TerritoryEntity { Description = "South coast", Region = america }.Save();
 
-            var super = new EmployeeDN
+            var super = new EmployeeEntity
             {
                 FirstName = "Super",
                 LastName = "User",
@@ -35,7 +35,7 @@ namespace Southwind.Test.Environment
                 Territories = { east, west },
             }.Save();
 
-            new EmployeeDN
+            new EmployeeEntity
             {
                 FirstName = "Advanced",
                 LastName = "User",
@@ -45,7 +45,7 @@ namespace Southwind.Test.Environment
                 ReportsTo = super.ToLite(),
             }.Save();
 
-            new EmployeeDN
+            new EmployeeEntity
             {
                 FirstName = "Normal",
                 LastName = "User",
@@ -59,16 +59,16 @@ namespace Southwind.Test.Environment
 
         internal static void LoadUsers()
         {
-            var roles = Database.Query<RoleDN>().ToDictionary(a => a.Name);
+            var roles = Database.Query<RoleEntity>().ToDictionary(a => a.Name);
 
             CreateUser("Super", roles.GetOrThrow("Super user"));
             CreateUser("Advanced", roles.GetOrThrow("Advanced user"));
             CreateUser("Normal", roles.GetOrThrow("User"));
         }
 
-        static void CreateUser(string userName, RoleDN role)
+        static void CreateUser(string userName, RoleEntity role)
         {
-            var user = new UserDN
+            var user = new UserEntity
             {
                 UserName = userName,
                 PasswordHash = Security.EncodePassword(userName),
@@ -76,14 +76,14 @@ namespace Southwind.Test.Environment
                 State = UserState.Saved,
             };
 
-            user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query<EmployeeDN>().Single(e => e.FirstName == userName));
+            user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query<EmployeeEntity>().Single(e => e.FirstName == userName));
 
             user.Save();
         }//LoadUsers
 
         internal static void LoadProducts()
         {
-            SupplierDN lego = new SupplierDN
+            SupplierEntity lego = new SupplierEntity
             {
                 CompanyName = "Lego Corp",
                 Address = RandomAddress(4),
@@ -92,13 +92,13 @@ namespace Southwind.Test.Environment
                 ContactName = "Billund",
             }.Save();
 
-            var construction = new CategoryDN
+            var construction = new CategoryEntity
             {
                 CategoryName = "Construction games",
                 Description = "Let your imagination create your toys"
             }.Save();
 
-            new ProductDN
+            new ProductEntity
             {
                 ProductName = "Lego Mindstorms EV3",
                 Category = construction.ToLite(),
@@ -110,7 +110,7 @@ namespace Southwind.Test.Environment
             }.Save();
 
 
-            SupplierDN sega = new SupplierDN
+            SupplierEntity sega = new SupplierEntity
             {
                 CompanyName = "Sega Inc",
                 Phone = RandomPhone(10),
@@ -119,13 +119,13 @@ namespace Southwind.Test.Environment
                 ContactName = "Kalinske",
             }.Save();
 
-            var videoGames = new CategoryDN
+            var videoGames = new CategoryEntity
             {
                 CategoryName = "Video games",
                 Description = "Enjoy virtual worlds and fabulous adventures"
             }.Save();
 
-            new ProductDN
+            new ProductEntity
             {
                 ProductName = "Sonic the Hedgehog",
                 Category = videoGames.ToLite(),
@@ -139,7 +139,7 @@ namespace Southwind.Test.Environment
 
         internal static void LoadCustomers()
         {
-            new PersonDN
+            new PersonEntity
             {
                 FirstName = "John",
                 LastName = "Connor",
@@ -147,7 +147,7 @@ namespace Southwind.Test.Environment
                 Address = RandomAddress(5),
             }.Save();
 
-            new PersonDN
+            new PersonEntity
             {
                 FirstName = "Sara",
                 LastName = "Connor",
@@ -155,7 +155,7 @@ namespace Southwind.Test.Environment
                 Address = RandomAddress(6),
             }.Save();
 
-            new CompanyDN
+            new CompanyEntity
             {
                 CompanyName = "Cyberdyne Systems Corporation",
                 ContactName = "Miles Dyson",
@@ -165,10 +165,10 @@ namespace Southwind.Test.Environment
             }.Save();
         }
 
-        private static AddressDN RandomAddress(int seed)
+        private static AddressEntity RandomAddress(int seed)
         {
             Random r = new Random(seed);
-            return new AddressDN
+            return new AddressEntity
             {
                 Address = r.NextElement(new[] { "Madison Av.", "Sessame Str.", "5th Av.", "Flamingo Way" }) + " " + r.Next(100),
                 City = r.NextElement(new[] { "New York", "Los Angeles", "Miami", "Seattle" }),
@@ -186,7 +186,7 @@ namespace Southwind.Test.Environment
 
         internal static void LoadShippers()
         {
-            new ShipperDN
+            new ShipperEntity
             {
                 CompanyName = "FedEx",
                 Phone = RandomPhone(11),
@@ -216,8 +216,8 @@ namespace Southwind.Test.Environment
 
         internal static void LoadBasics()
         {
-            var en = new CultureInfoDN(CultureInfo.GetCultureInfo("en")).Save();
-            var es = new CultureInfoDN(CultureInfo.GetCultureInfo("es")).Save();
+            var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
+            var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
         }
     }
 }

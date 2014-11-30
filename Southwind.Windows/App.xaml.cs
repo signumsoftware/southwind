@@ -91,7 +91,7 @@ namespace Southwind.Windows
                 operations: true,
                 defaultPasswordExpiresLogic: false);
 
-            Navigator.EntitySettings<UserDN>().OverrideView += (usr, ctrl) =>
+            Navigator.EntitySettings<UserEntity>().OverrideView += (usr, ctrl) =>
             {
                 ctrl.Child<EntityLine>("Role").After(new ValueLine().Set(Common.RouteProperty, "[UserEmployeeMixin].AllowLogin"));
                 ctrl.Child<EntityLine>("Role").After(new EntityLine().Set(Common.RouteProperty, "[UserEmployeeMixin].Employee"));
@@ -114,8 +114,8 @@ namespace Southwind.Windows
 
             ExceptionClient.Start();
 
-            NoteClient.Start(typeof(UserDN), /*Note*/typeof(OrderDN));
-            AlertClient.Start(typeof(UserDN), /*Alert*/typeof(OrderDN));
+            NoteClient.Start(typeof(UserEntity), /*Note*/typeof(OrderEntity));
+            AlertClient.Start(typeof(UserEntity), /*Alert*/typeof(OrderEntity));
             SMSClient.Start();
             
             ProfilerClient.Start();

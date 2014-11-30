@@ -24,10 +24,10 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Include<OrderDN>();
+                sb.Include<OrderEntity>();
 
-                dqm.RegisterQuery(typeof(OrderDN), () =>
-                    from o in Database.Query<OrderDN>()
+                dqm.RegisterQuery(typeof(OrderEntity), () =>
+                    from o in Database.Query<OrderEntity>()
                     select new
                     {
                         Entity = o.ToLite(),
@@ -42,7 +42,7 @@ namespace Southwind.Logic
                     });
 
                 dqm.RegisterQuery(OrderQuery.OrderLines, () =>
-                    from o in Database.Query<OrderDN>()
+                    from o in Database.Query<OrderEntity>()
                     from od in o.Details
                     select new
                     {
@@ -61,7 +61,7 @@ namespace Southwind.Logic
 
                 SimpleTaskLogic.Register(OrderTasks.CancelOldOrdersWithProcess, () =>
                 {
-                    var package = new PackageDN().CreateLines(Database.Query<OrderDN>().Where(a => a.OrderDate < DateTime.Now.AddDays(-7)));
+                    var package = new PackageEntity().CreateLines(Database.Query<OrderEntity>().Where(a => a.OrderDate < DateTime.Now.AddDays(-7)));
 
                     var process = ProcessLogic.Create(OrderProcess.CancelOrders, package);
                         
@@ -72,7 +72,7 @@ namespace Southwind.Logic
  
                 SimpleTaskLogic.Register(OrderTasks.CancelOldOrders, () =>
                 {
-                    Database.Query<OrderDN>()
+                    Database.Query<OrderEntity>()
                         .Where(a => a.OrderDate < DateTime.Now.AddDays(-7))
                         .UnsafeUpdate()
                         .Set(o => o.CancelationDate, o => DateTime.Now)
@@ -84,7 +84,7 @@ namespace Southwind.Logic
             }
         }
 
-        public class CancelOrderAlgorithm : PackageExecuteAlgorithm<OrderDN>
+        public class CancelOrderAlgorithm : PackageExecuteAlgorithm<OrderEntity>
         {
             public CancelOrderAlgorithm() : base(OrderOperation.Cancel) { }
 
@@ -94,7 +94,7 @@ namespace Southwind.Logic
             }
         } //CancelOrderAlgorithm
 
-        public class OrderGraph : Graph<OrderDN, OrderState>
+        public class OrderGraph : Graph<OrderEntity, OrderState>
         {
             public static void Register()
             {
@@ -105,51 +105,51 @@ namespace Southwind.Logic
                     ToState = OrderState.New,
                     Construct = (args) => 
                     {
-                        var customer = args.TryGetArgC<Lite<CustomerDN>>().Try(c => c.Retrieve());
+                        var customer = args.TryGetArgC<Lite<CustomerEntity>>().Try(c => c.Retrieve());
 
-                        return new OrderDN
+                        return new OrderEntity
                         {
                             Customer = customer,
                             ShipAddress = customer.Try(c => c.Address.Clone()),
                             State = OrderState.New,
-                            Employee = EmployeeDN.Current.ToLite(),
+                            Employee = EmployeeEntity.Current.ToLite(),
                             RequiredDate = DateTime.Now.AddDays(3),
                         };
                     }
                 }.Register();
 
-                new ConstructFrom<CustomerDN>(OrderOperation.CreateOrderFromCustomer)
+                new ConstructFrom<CustomerEntity>(OrderOperation.CreateOrderFromCustomer)
                 {
                     ToState = OrderState.New,  
-                    Construct = (c, _) => new OrderDN
+                    Construct = (c, _) => new OrderEntity
                     {
                         State = OrderState.New,
                         Customer = c,
-                        Employee = EmployeeDN.Current.ToLite(),
+                        Employee = EmployeeEntity.Current.ToLite(),
                         ShipAddress = c.Address,
                         RequiredDate = DateTime.Now.AddDays(3),
                     }
                 }.Register();
 
-                new ConstructFromMany<ProductDN>(OrderOperation.CreateOrderFromProducts)
+                new ConstructFromMany<ProductEntity>(OrderOperation.CreateOrderFromProducts)
                 {
                     ToState = OrderState.New,
                     Construct = (prods, args) =>
                     {
-                        var dic = Database.Query<ProductDN>()
+                        var dic = Database.Query<ProductEntity>()
                             .Where(p => prods.Contains(p.ToLite()))
-                            .Select(p => new KeyValuePair<Lite<ProductDN>, decimal>(p.ToLite(), p.UnitPrice)).ToDictionary();
+                            .Select(p => new KeyValuePair<Lite<ProductEntity>, decimal>(p.ToLite(), p.UnitPrice)).ToDictionary();
 
-                        var customer = args.TryGetArgC<Lite<CustomerDN>>().Try(c => c.Retrieve());
+                        var customer = args.TryGetArgC<Lite<CustomerEntity>>().Try(c => c.Retrieve());
 
-                        return new OrderDN
+                        return new OrderEntity
                         {
                             Customer = customer,
                             ShipAddress = customer.Try(c => c.Address.Clone()),
                             State = OrderState.New,
-                            Employee = EmployeeDN.Current.ToLite(),
+                            Employee = EmployeeEntity.Current.ToLite(),
                             RequiredDate = DateTime.Now.AddDays(3),
-                            Details = prods.Select(p => new OrderDetailsDN
+                            Details = prods.Select(p => new OrderDetailsEntity
                             {
                                 Product = p,
                                 UnitPrice = dic[p],
@@ -159,11 +159,11 @@ namespace Southwind.Logic
                     }
                 }.Register();
 
-                new Graph<ProcessDN>.ConstructFromMany<OrderDN>(OrderOperation.CancelWithProcess)
+                new Graph<ProcessEntity>.ConstructFromMany<OrderEntity>(OrderOperation.CancelWithProcess)
                 {
                     Construct = (orders, _) =>
                     {
-                        return ProcessLogic.Create(OrderProcess.CancelOrders, new PackageDN().CreateLines(orders));
+                        return ProcessLogic.Create(OrderProcess.CancelOrders, new PackageEntity().CreateLines(orders));
                     }
                 }.Register();
 
@@ -224,7 +224,7 @@ namespace Southwind.Logic
             }
         }
 
-        public static OrderDN Create(OrderDN order)
+        public static OrderEntity Create(OrderEntity order)
         {
             if (!order.IsNew)
                 throw new ArgumentException("order should be new");
@@ -240,7 +240,7 @@ namespace Southwind.Logic
                         .Execute();
 
                     if (updated != 1)
-                        throw new ApplicationException("There are not enought {0} in stock".Formato(od.Product));
+                        throw new ApplicationException("There are not enought {0} in stock".FormatWith(od.Product));
                 }
 
                 order.Save();

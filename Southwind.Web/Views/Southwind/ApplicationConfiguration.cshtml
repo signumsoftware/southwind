@@ -1,6 +1,6 @@
 ﻿@using Southwind.Entities
 
-@using (var tc = Html.TypeContext<ApplicationConfigurationDN>())
+@using (var tc = Html.TypeContext<ApplicationConfigurationEntity>())
 {
     @Html.ValueLine(tc, t => t.Environment)
     <fieldset id="email">

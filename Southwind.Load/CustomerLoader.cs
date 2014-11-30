@@ -18,12 +18,12 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 db.Customers.Where(c => !c.ContactTitle.Contains("Owner")).Select(c =>
-                    new CompanyDN
+                    new CompanyEntity
                     {
                         CompanyName = c.CompanyName,
                         ContactName = c.ContactName,
                         ContactTitle = c.ContactTitle,
-                        Address = new AddressDN
+                        Address = new AddressEntity
                         {
                             Address = c.Address,
                             City = c.City,
@@ -42,13 +42,13 @@ namespace Southwind.Load
             using (NorthwindDataContext db = new NorthwindDataContext())
             {
                 db.Customers.Where(c => c.ContactTitle.Contains("Owner")).Select(c =>
-                     new PersonDN
+                     new PersonEntity
                      {
                          FirstName = c.ContactName.Substring(0, c.ContactName.LastIndexOf(' ')),
                          LastName = c.ContactName.Substring(c.ContactName.LastIndexOf(' ') + 1),
                          DateOfBirth = null,
                          Title = null, 
-                         Address = new AddressDN
+                         Address = new AddressEntity
                          {
                              Address = c.Address,
                              City = c.City,

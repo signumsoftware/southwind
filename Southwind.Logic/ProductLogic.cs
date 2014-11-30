@@ -15,23 +15,23 @@ namespace Southwind.Logic
 {
     public static class ProductLogic
     {
-        public static ResetLazy<Dictionary<CategoryDN, List<ProductDN>>> ActiveProducts;
+        public static ResetLazy<Dictionary<CategoryEntity, List<ProductEntity>>> ActiveProducts;
 
         public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Include<ProductDN>();
+                sb.Include<ProductEntity>();
 
                 ActiveProducts = sb.GlobalLazy(() =>
-                    Database.Query<ProductDN>()
+                    Database.Query<ProductEntity>()
                     .Where(a => !a.Discontinued)
                     .Select(p => new { Category = p.Category.Entity, Product = p })
                     .GroupToDictionary(a => a.Category, a => a.Product),
-                    new InvalidateWith(typeof(ProductDN)));
+                    new InvalidateWith(typeof(ProductEntity)));
 
-                dqm.RegisterQuery(typeof(ProductDN), () =>
-                    from p in Database.Query<ProductDN>()
+                dqm.RegisterQuery(typeof(ProductEntity), () =>
+                    from p in Database.Query<ProductEntity>()
                     select new
                     {
                         Entity = p.ToLite(),
@@ -46,7 +46,7 @@ namespace Southwind.Logic
                     });
 
                 dqm.RegisterQuery(ProductQuery.Current, () =>
-                    from p in Database.Query<ProductDN>()
+                    from p in Database.Query<ProductEntity>()
                     where !p.Discontinued
                     select new
                     {
@@ -60,8 +60,8 @@ namespace Southwind.Logic
                         p.UnitsInStock,
                     });
 
-                dqm.RegisterQuery(typeof(SupplierDN), () =>
-                    from s in Database.Query<SupplierDN>()
+                dqm.RegisterQuery(typeof(SupplierEntity), () =>
+                    from s in Database.Query<SupplierEntity>()
                     select new
                     {
                         Entity = s.ToLite(),
@@ -74,8 +74,8 @@ namespace Southwind.Logic
                         s.Address
                     });
 
-                dqm.RegisterQuery(typeof(CategoryDN), () =>
-                    from s in Database.Query<CategoryDN>()
+                dqm.RegisterQuery(typeof(CategoryEntity), () =>
+                    from s in Database.Query<CategoryEntity>()
                     select new
                     {
                         Entity = s.ToLite(),
@@ -87,21 +87,21 @@ namespace Southwind.Logic
 
 
 
-                new Graph<ProductDN>.Execute(ProductOperation.Save)
+                new Graph<ProductEntity>.Execute(ProductOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new Graph<SupplierDN>.Execute(SupplierOperation.Save)
+                new Graph<SupplierEntity>.Execute(SupplierOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
                 }.Register();
 
-                new Graph<CategoryDN>.Execute(CategoryOperation.Save)
+                new Graph<CategoryEntity>.Execute(CategoryOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,

@@ -1,6 +1,6 @@
 ﻿@using Southwind.Entities
 
-@using (var tc = Html.TypeContext<TerritoryDN>()) 
+@using (var tc = Html.TypeContext<TerritoryEntity>()) 
 {
 	@Html.EntityLine(tc, t => t.Region)
 	@Html.ValueLine(tc, t => t.Description)

@@ -13,7 +13,7 @@ using Signum.Entities.Files;
 namespace Southwind.Entities
 {
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
-    public class EmployeeDN : Entity
+    public class EmployeeEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 20)]
         string lastName;
@@ -67,9 +67,9 @@ namespace Southwind.Entities
         }
 
         [NotNullable]
-        AddressDN address;
+        AddressEntity address;
         [NotNullValidator]
-        public AddressDN Address
+        public AddressEntity Address
         {
             get { return address; }
             set { Set(ref address, value); }
@@ -93,8 +93,8 @@ namespace Southwind.Entities
             set { Set(ref extension, value); }
         }
 
-        Lite<FileDN> photo;
-        public Lite<FileDN> Photo
+        Lite<FileEntity> photo;
+        public Lite<FileEntity> Photo
         {
             get { return photo; }
             set { Set(ref photo, value); }
@@ -109,8 +109,8 @@ namespace Southwind.Entities
             set { Set(ref notes, value); }
         }
 
-        Lite<EmployeeDN> reportsTo;
-        public Lite<EmployeeDN> ReportsTo
+        Lite<EmployeeEntity> reportsTo;
+        public Lite<EmployeeEntity> ReportsTo
         {
             get { return reportsTo; }
             set { Set(ref reportsTo, value); }
@@ -126,9 +126,9 @@ namespace Southwind.Entities
         }
 
         [NotNullable]
-        MList<TerritoryDN> territories = new MList<TerritoryDN>();
+        MList<TerritoryEntity> territories = new MList<TerritoryEntity>();
         [NoRepeatValidator]
-        public MList<TerritoryDN> Territories
+        public MList<TerritoryEntity> Territories
         {
             get { return territories; }
             set { Set(ref territories, value); }
@@ -136,26 +136,26 @@ namespace Southwind.Entities
 
         public override string ToString()
         {
-            return "{0} {1}".Formato(FirstName, LastName);
+            return "{0} {1}".FormatWith(FirstName, LastName);
         }
 
-        public static EmployeeDN Current
+        public static EmployeeEntity Current
         {
-            get { return UserDN.Current.Mixin<UserEmployeeMixin>().Employee; } //get { return null; }
+            get { return UserEntity.Current.Mixin<UserEmployeeMixin>().Employee; } //get { return null; }
         } //Current
     }
 
     public static class EmployeeOperation
     {
-        public static readonly ExecuteSymbol<EmployeeDN> Save = OperationSymbol.Execute<EmployeeDN>();
+        public static readonly ExecuteSymbol<EmployeeEntity> Save = OperationSymbol.Execute<EmployeeEntity>();
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
-    public class TerritoryDN : Entity
+    public class TerritoryEntity : Entity
     {
-        RegionDN region;
+        RegionEntity region;
         [NotNullValidator]
-        public RegionDN Region
+        public RegionEntity Region
         {
             get { return region; }
             set { Set(ref region, value); }
@@ -170,7 +170,7 @@ namespace Southwind.Entities
             set { SetToStr(ref description, value); }
         }
 
-        static Expression<Func<TerritoryDN, string>> ToStringExpression = e => e.Description;
+        static Expression<Func<TerritoryEntity, string>> ToStringExpression = e => e.Description;
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -179,11 +179,11 @@ namespace Southwind.Entities
 
     public static class TerritoryOperation
     {
-        public static readonly ExecuteSymbol<TerritoryDN> Save = OperationSymbol.Execute<TerritoryDN>();
+        public static readonly ExecuteSymbol<TerritoryEntity> Save = OperationSymbol.Execute<TerritoryEntity>();
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
-    public class RegionDN : Entity
+    public class RegionEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 50), UniqueIndex]
         string description;
@@ -194,7 +194,7 @@ namespace Southwind.Entities
             set { SetToStr(ref description, value); }
         }
 
-        static Expression<Func<RegionDN, string>> ToStringExpression = e => e.Description;
+        static Expression<Func<RegionEntity, string>> ToStringExpression = e => e.Description;
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -203,7 +203,7 @@ namespace Southwind.Entities
 
     public static class RegionOperation
     {
-        public static readonly ExecuteSymbol<RegionDN> Save = OperationSymbol.Execute<RegionDN>();
+        public static readonly ExecuteSymbol<RegionEntity> Save = OperationSymbol.Execute<RegionEntity>();
     }
 
     public enum EmployeeQuery

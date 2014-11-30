@@ -27,12 +27,12 @@ namespace Southwind.Web.Controllers
         [AuthenticationRequired(false)]
         public ActionResult Index()
         {
-            if (UserDN.Current == null)
+            if (UserEntity.Current == null)
                 return RedirectToAction("PublicCatalog");
 
             var panel = DashboardLogic.GetHomePageDashboard();
             if (panel != null)
-                return View(DashboardClient.ViewPrefix.Formato("Dashboard"), panel);
+                return View(DashboardClient.ViewPrefix.FormatWith("Dashboard"), panel);
             
             return View();
         }
@@ -42,14 +42,14 @@ namespace Southwind.Web.Controllers
         {
             var ci = CultureInfo.GetCultureInfo(Request.Params["culture"]);
 
-            if (UserDN.Current == null)
+            if (UserEntity.Current == null)
                 this.Response.Cookies.Add(new HttpCookie("language", ci.Name) { Expires = DateTime.Now.AddMonths(6) });
             else
             {
-                UserDN.Current.CultureInfo = ci.ToCultureInfoDN();
+                UserEntity.Current.CultureInfo = ci.ToCultureInfoEntity();
                 using (AuthLogic.Disable())
-                using (OperationLogic.AllowSave<UserDN>())
-                    UserDN.Current.Save();
+                using (OperationLogic.AllowSave<UserEntity>())
+                    UserEntity.Current.Save();
             }
 
             return Redirect(Request.UrlReferrer.ToString());
@@ -70,28 +70,28 @@ namespace Southwind.Web.Controllers
 
         public ContentResult UpdateOrders() //To move orders to the present
         {
-            int removed = Database.Query<OrderDN>().Where(a => a.Id > 11077).UnsafeDelete(); 
+            int removed = Database.Query<OrderEntity>().Where(a => a.Id > 11077).UnsafeDelete(); 
 
-            DateTime time = Database.Query<OrderDN>().Max(a => a.OrderDate);
+            DateTime time = Database.Query<OrderEntity>().Max(a => a.OrderDate);
 
             var now = TimeZoneManager.Now;
             var ts = (int)(now - time).TotalDays;
 
-            int updated = Database.Query<OrderDN>().UnsafeUpdate()
+            int updated = Database.Query<OrderEntity>().UnsafeUpdate()
                 .Set(o => o.OrderDate, o => o.OrderDate.AddDays(ts))
                 .Set(o => o.ShippedDate, o => o.ShippedDate.Value.AddDays(ts))
                 .Set(o => o.RequiredDate, o => o.RequiredDate.AddDays(ts))
                 .Set(o => o.CancelationDate, o => null)
                 .Execute();
 
-            return Content("Removed: {0}\r\nUpdated: {1}".Formato(removed, updated)); 
+            return Content("Removed: {0}\r\nUpdated: {1}".FormatWith(removed, updated)); 
         }
 
         public ActionResult CreateOrderFromProducts()
         {
-            Lite<CustomerDN> customer = this.TryParseLite<CustomerDN>("customer");
+            Lite<CustomerEntity> customer = this.TryParseLite<CustomerEntity>("customer");
 
-            var products = this.ParseLiteKeys<ProductDN>(); 
+            var products = this.ParseLiteKeys<ProductEntity>(); 
 
             var order = OperationLogic.ConstructFromMany(products, OrderOperation.CreateOrderFromProducts, customer);
 
@@ -100,7 +100,7 @@ namespace Southwind.Web.Controllers
 
         public ActionResult ShipOrder()
         {
-            var order = this.ExtractEntity<OrderDN>();
+            var order = this.ExtractEntity<OrderEntity>();
 
             var shipDate = this.ParseValue<DateTime>("shipDate");
 
