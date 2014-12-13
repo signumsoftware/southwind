@@ -39,15 +39,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="ThoughtWorks.Selenium.Core, Version=0.0.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Extensions\Signum.Web.Extensions.Selenium\Selenium\ThoughtWorks.Selenium.Core.dll</HintPath>
+    <Reference Include="System.Drawing" />
+    <Reference Include="WebDriver">
+      <HintPath>..\packages\Selenium.WebDriver.2.44.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
-    <Reference Include="ThoughtWorks.Selenium.IntegrationTests">
-      <HintPath>..\Extensions\Signum.Web.Extensions.Selenium\Selenium\ThoughtWorks.Selenium.IntegrationTests.dll</HintPath>
-    </Reference>
-    <Reference Include="ThoughtWorks.Selenium.UnitTests">
-      <HintPath>..\Extensions\Signum.Web.Extensions.Selenium\Selenium\ThoughtWorks.Selenium.UnitTests.dll</HintPath>
+    <Reference Include="WebDriver.Support">
+      <HintPath>..\packages\Selenium.Support.2.44.0\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -108,6 +105,18 @@
       <Project>{A6014F4A-A27F-4B48-804C-F4664082EF01}</Project>
       <Name>Southwind.Test.Environment</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\packages\WebDriver.ChromeDriver.win32.2.12.0.0\content\chromedriver.exe">
+      <Link>chromedriver.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

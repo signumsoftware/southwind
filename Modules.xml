@@ -265,7 +265,7 @@
       <RemoveFiles Path="Southwind.Load\AuthRules.xml" DependsOn="ExampleEntities"/>
       <RemoveFiles Path="Southwind.Entities\UserEmployeeMixin.cs" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserEmployeeMixin&gt;();" DependsOn="ExampleEntities"/>
-      <RemoveLine Path="Southwind.Web\ServerSouthwind.svc.cs" From="public override void Login(string username, string passwordHash)" To="} //Login" DependsOn="ExampleEntities"/>
+      <RemoveLine Path="Southwind.Web\ServerSouthwind.svc.cs" From="public override void Login(string username, byte[] passwordHash)" To="} //Login" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthLogic.UserLogingIn += user =>" To="}; //UserLogingIn" DependsOn="ExampleEntities" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" 
                   From="Navigator.EntitySettings&lt;UserEntity&gt;().CreateViewOverrides()"

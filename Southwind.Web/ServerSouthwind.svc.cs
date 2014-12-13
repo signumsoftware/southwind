@@ -57,7 +57,7 @@ namespace Southwind.Web
             }
         }
 
-        public override void Login(string username, string passwordHash)
+        public override void Login(string username, byte[] passwordHash)
         {
             Execute(MethodInfo.GetCurrentMethod(), null, () =>
             {
