@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Translations>
-  <Type Name="AddressDN" Description="Dirección">
+  <Type Name="AddressEntity" Description="Dirección">
     <Member Name="Address" Description="Dirección" />
     <Member Name="City" Description="Ciudad" />
     <Member Name="Country" Description="País" />
@@ -12,7 +12,7 @@
     <Member Name="WindowsAndWeb" Description="Windows y web" />
     <Member Name="WindowsOnly" Description="Sólo Windows" />
   </Type>
-  <Type Name="ApplicationConfigurationDN" Description="Configuración de la aplicación">
+  <Type Name="ApplicationConfigurationEntity" Description="Configuración de la aplicación">
     <Member Name="Email" Description="Correo electrónico" />
     <Member Name="Environment" Description="Entorno" />
     <Member Name="Sms" Description="SMS" />
@@ -20,7 +20,7 @@
   <Type Name="ApplicationConfigurationOperation">
     <Member Name="Save" Description="Guardar" />
   </Type>
-  <Type Name="CategoryDN" Description="Categoría">
+  <Type Name="CategoryEntity" Description="Categoría">
     <Member Name="CategoryName" Description="Nombre de categoría" />
     <Member Name="Description" Description="Descripción" />
     <Member Name="Picture" Description="Foto" />
@@ -28,12 +28,12 @@
   <Type Name="CategoryOperation">
     <Member Name="Save" Description="Guardar" />
   </Type>
-  <Type Name="CompanyDN" Description="Empresa">
+  <Type Name="CompanyEntity" Description="Empresa">
     <Member Name="CompanyName" Description="Nombre empresa" />
     <Member Name="ContactName" Description="Nombre del contacto" />
     <Member Name="ContactTitle" Description="Titulo del contacto" />
   </Type>
-  <Type Name="CustomerDN" Description="Cliente">
+  <Type Name="CustomerEntity" Description="Cliente">
     <Member Name="Address" Description="Dirección" />
     <Member Name="Fax" Description="Fax" />
     <Member Name="Phone" Description="Teléfono" />
@@ -41,7 +41,7 @@
   <Type Name="CustomerOperation">
     <Member Name="Save" Description="Guardar" />
   </Type>
-  <Type Name="EmployeeDN" Description="Empleado">
+  <Type Name="EmployeeEntity" Description="Empleado">
     <Member Name="Address" Description="Dirección" />
     <Member Name="BirthDate" Description="Fecha de nacimiento" />
     <Member Name="Extension" Description="Extensión" />
@@ -63,14 +63,14 @@
   <Type Name="EmployeeQuery">
     <Member Name="EmployeesByTerritory" Description="Empleados por territorio" />
   </Type>
-  <Type Name="OrderDetailsDN" Description="Detalle pedido">
+  <Type Name="OrderDetailsEntity" Description="Detalle pedido">
     <Member Name="Discount" Description="Descuento" />
     <Member Name="Product" Description="Producto" />
     <Member Name="Quantity" Description="Cantidad" />
     <Member Name="SubTotalPrice" Description="Precio subtotal" />
     <Member Name="UnitPrice" Description="Precio unitario" />
   </Type>
-  <Type Name="OrderDN" Description="Pedido">
+  <Type Name="OrderEntity" Description="Pedido">
     <Member Name="CancelationDate" Description="Fecha de cancelación" />
     <Member Name="Customer" Description="Cliente" />
     <Member Name="Details" Description="Detalles" />
@@ -118,14 +118,14 @@
     <Member Name="CancelOldOrders" Description="Cancelar pedidos antiguas" />
     <Member Name="CancelOldOrdersWithProcess" Description="Cancelar pedidos antiguas con proceso" />
   </Type>
-  <Type Name="PersonDN" Description="Persona">
+  <Type Name="PersonEntity" Description="Persona">
     <Member Name="Corrupt" Description="Corrupto" />
     <Member Name="DateOfBirth" Description="Fecha de nacimiento" />
     <Member Name="FirstName" Description="Nombre" />
     <Member Name="LastName" Description="Apellidos" />
     <Member Name="Title" Description="Título" />
   </Type>
-  <Type Name="ProductDN" Description="Producto">
+  <Type Name="ProductEntity" Description="Producto">
     <Member Name="Category" Description="Categoría" />
     <Member Name="Discontinued" Description="Descatalogado" />
     <Member Name="ProductName" Description="Nombre de producto" />
@@ -142,13 +142,13 @@
   <Type Name="ProductQuery">
     <Member Name="Current" Description="Actual" />
   </Type>
-  <Type Name="RegionDN" Description="Región">
+  <Type Name="RegionEntity" Description="Región">
     <Member Name="Description" Description="Descripción" />
   </Type>
   <Type Name="RegionOperation">
     <Member Name="Save" Description="Salvar" />
   </Type>
-  <Type Name="ShipperDN" Description="Transportador">
+  <Type Name="ShipperEntity" Description="Transportador">
     <Member Name="CompanyName" Description="Nombre empresa" />
     <Member Name="Phone" Description="Teléfono" />
   </Type>
@@ -160,7 +160,7 @@
     <Member Name="RoleEntities" Description="Entidades del Rol" />
     <Member Name="UserEntities" Description="Entidades Usuario" />
   </Type>
-  <Type Name="SupplierDN" Description="Proveedor">
+  <Type Name="SupplierEntity" Description="Proveedor">
     <Member Name="Address" Description="Dirección" />
     <Member Name="CompanyName" Description="Nombre empresa" />
     <Member Name="ContactName" Description="Nombre contacto" />
@@ -172,7 +172,7 @@
   <Type Name="SupplierOperation">
     <Member Name="Save" Description="Guardar" />
   </Type>
-  <Type Name="TerritoryDN" Description="Territorio">
+  <Type Name="TerritoryEntity" Description="Territorio">
     <Member Name="Description" Description="Descripción" />
     <Member Name="Region" Description="Región" />
   </Type>
