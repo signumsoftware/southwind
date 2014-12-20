@@ -22,6 +22,8 @@ using Signum.Entities.SMS;
 using Signum.Entities.Basics;
 using Signum.Engine.Translation;
 using Signum.Engine.Help;
+using Signum.Entities.Word;
+using Signum.Engine.Basics;
 
 namespace Southwind.Load
 {
@@ -88,6 +90,7 @@ namespace Southwind.Load
                     {43, AuthLogic.ImportExportAuthRules},
                     {44, ImportSpanishInstanceTranslations},
                     {45, HelpXml.ImportExportHelp},
+                    {48, ImportWordReportTemplateForOrder},
                     {100, ShowOrder},
 
                 }.ChooseMultiple();
@@ -166,5 +169,15 @@ namespace Southwind.Load
             TranslatedInstanceLogic.ImportExcelFile("Category.es.View.xlsx");
         }
 
+        public static void ImportWordReportTemplateForOrder()
+        {
+            new WordTemplateEntity
+            {
+                Name = "Order template",
+                Query = QueryLogic.GetQueryEntity(typeof(OrderEntity)),
+                Culture = CultureInfo.GetCultureInfo("en").ToCultureInfoEntity(),
+                Template = new FileEntity("../../WordTemplates/Order.docx").ToLiteFat()
+            }.Save();
+        }
     }
 }

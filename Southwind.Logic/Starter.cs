@@ -46,6 +46,7 @@ using System.Collections.Generic;
 using Signum.Entities.ViewLog;
 using Signum.Engine.Help;
 using Signum.Engine.Word;
+using Signum.Entities.Word;
 
 namespace Southwind.Logic
 {

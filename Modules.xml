@@ -145,10 +145,12 @@
     </Module>
 
     <Module Name="Word">
-      <RemoveFiles Path="Southwind.Load\WordTeplates\Order.docx"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordReportLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((WordReportLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="WordClient.Start();"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" Line="{48, ImportWordReportTemplateForOrder},"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
+      <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Load\WordTemplates\Order.docx"/>
     </Module>
 
     <Module Name="Chart" DependsOn="Files">
