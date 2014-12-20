@@ -44,6 +44,7 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using Signum.Engine.Basics;
 using Signum.Web.Help;
+using Signum.Web.Word;
 
 namespace Southwind.Web
 {
@@ -159,6 +160,7 @@ namespace Southwind.Web
             ExcelClient.Start(
                 toExcelPlain:  true, 
                 excelReport: false);
+            WordClient.Start();
             DashboardClient.Start();
 
             DisconnectedClient.Start();

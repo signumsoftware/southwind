@@ -30,6 +30,7 @@ using Signum.Entities.Scheduler;
 using Signum.Entities.SMS;
 using Signum.Entities.ViewLog;
 using Signum.Entities.Help;
+using Signum.Entities.Word;
 
 namespace Southwind.Logic
 {
@@ -139,6 +140,12 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<ScheduleRuleMinutelyEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<ScheduleRuleHourlyEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<ScheduledTaskLogEntity>(Download.None, Upload.None);
+
+            
+          //Signum.Entities.Word
+          DisconnectedLogic.Register<WordTemplateEntity>(Download.All, Upload.None);
+          DisconnectedLogic.Register<SystemWordTemplateEntity>(Download.All, Upload.None);
+          DisconnectedLogic.Register<WordReportLogEntity>(Download.None, Upload.New);
 
             //Signum.Entities.SMS
             DisconnectedLogic.Register<SMSMessageEntity>(Download.None, Upload.None);

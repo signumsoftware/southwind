@@ -45,6 +45,7 @@ using Signum.Engine.ViewLog;
 using System.Collections.Generic;
 using Signum.Entities.ViewLog;
 using Signum.Engine.Help;
+using Signum.Engine.Word;
 
 namespace Southwind.Logic
 {
@@ -123,6 +124,7 @@ namespace Southwind.Logic
             TranslatedInstanceLogic.Start(sb, dqm, "en");
 
             HelpLogic.Start(sb, dqm);
+            WordReportLogic.Start(sb, dqm);
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);
@@ -165,6 +167,7 @@ namespace Southwind.Logic
             sb.Schema.Settings.FieldAttributes((UserChartEntity uc) => uc.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
             sb.Schema.Settings.FieldAttributes((DashboardEntity cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
             sb.Schema.Settings.FieldAttributes((ViewLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((WordReportLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((NoteEntity n) => n.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.AttendedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));

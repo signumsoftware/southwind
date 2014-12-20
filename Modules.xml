@@ -142,7 +142,13 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="UserQueryClient.Start();"/>
       <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(UserQueryEntity)) },"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type seu:UserQueryEntity}}&quot;/>"/>
+    </Module>
 
+    <Module Name="Word">
+      <RemoveFiles Path="Southwind.Load\WordTeplates\Order.docx"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordReportLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((WordReportLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="WordClient.Start();"/>
     </Module>
 
     <Module Name="Chart" DependsOn="Files">
