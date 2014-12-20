@@ -404,7 +404,7 @@
     <Module Name="Help">
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{45, HelpXml.ImportExportHelp},"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="HelpLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="HelpClient.Start(&quot;http://localhost:7654/&quot;, &quot;Images&quot;);"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="HelpClient.Start(&quot;Images&quot;, &quot;http://localhost:7654/&quot;);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="OmniboxClient.Register(new HelpOmniboxProvider());"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="HelpClient.Start(); "/>
     </Module>

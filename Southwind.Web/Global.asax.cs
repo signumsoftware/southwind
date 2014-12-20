@@ -152,7 +152,7 @@ namespace Southwind.Web
             ExceptionClient.Start();
             UserQueriesClient.Start();
             FilesClient.Start(
-                filePath: false, 
+                filePath: true, 
                 file: true, 
                 embeddedFile: true);
             ChartClient.Start();
@@ -177,7 +177,7 @@ namespace Southwind.Web
             AlertClient.Start(typeof(UserEntity), /*Alert*/typeof(OrderEntity));
             LinksClient.Start(widget: true, contextualItems: true);
 
-            HelpClient.Start("http://localhost:7654/", "Images"); 
+            HelpClient.Start("Images", "http://localhost:7654/"); 
 
             SouthwindClient.Start();
 
