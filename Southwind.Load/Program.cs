@@ -31,31 +31,42 @@ namespace Southwind.Load
     {
         static void Main(string[] args)
         {
-            using (AuthLogic.Disable())
-            using (CultureInfoUtils.ChangeCulture("en"))
-            using (CultureInfoUtils.ChangeCultureUI("en"))
+            try
             {
-                Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 
-
-                Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
-                Console.WriteLine("Database: {0}", Regex.Match(((SqlConnector)Connector.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);
-                Console.WriteLine();
-
-                while (true)
+                using (AuthLogic.Disable())
+                using (CultureInfoUtils.ChangeCulture("en"))
+                using (CultureInfoUtils.ChangeCultureUI("en"))
                 {
-                    Action action = new ConsoleSwitch<string, Action>
+                    Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
+
+
+                    Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
+                    Console.WriteLine("Database: {0}", Regex.Match(((SqlConnector)Connector.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);
+                    Console.WriteLine();
+
+                    while (true)
                     {
-                        {"N", NewDatabase},
+                        Action action = new ConsoleSwitch<string, Action>
+                    {
+                        //{"N", NewDatabase},
                         {"S", Synchronize},
                         {"L", Load},
                     }.Choose();
 
-                    if (action == null)
-                        return;
+                        if (action == null)
+                            return;
 
-                    action();
+                        action();
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                SafeConsole.WriteColor(ConsoleColor.Red, e.GetType().Name + ": ");
+                SafeConsole.WriteLineColor(ConsoleColor.DarkRed, e.Message);
+                SafeConsole.WriteLineColor(ConsoleColor.Red, "StackTrace");
+                SafeConsole.WriteLineColor(ConsoleColor.DarkRed, e.StackTrace.Indent(4));
             }
         }
 
