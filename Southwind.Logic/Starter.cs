@@ -47,6 +47,7 @@ using Signum.Entities.ViewLog;
 using Signum.Engine.Help;
 using Signum.Engine.Word;
 using Signum.Entities.Word;
+using Signum.Engine.Migrations;
 
 namespace Southwind.Logic
 {
@@ -81,6 +82,8 @@ namespace Southwind.Logic
             TypeLogic.Start(sb, dqm); 
 
             OperationLogic.Start(sb, dqm);
+
+            MigrationLogic.Start(sb, dqm);
 
             CultureInfoLogic.Start(sb, dqm);
             FilePathLogic.Start(sb, dqm);
@@ -154,10 +157,10 @@ namespace Southwind.Logic
 
             SetupCache(sb);
 
-            sb.ExecuteWhenIncluded();
-
             if (logDatabase.HasText())
                 SetLogDatabase(sb.Schema, new DatabaseName(null, logDatabase));
+
+            Schema.Current.OnSchemaCompleted();
         }
 
         private static void OverrideAttributes(SchemaBuilder sb)

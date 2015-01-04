@@ -31,6 +31,7 @@ using Signum.Entities.SMS;
 using Signum.Entities.ViewLog;
 using Signum.Entities.Help;
 using Signum.Entities.Word;
+using Signum.Entities.Migrations;
 
 namespace Southwind.Logic
 {
@@ -107,7 +108,11 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<EmailMasterTemplateEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<SmtpConfigurationEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<SystemEmailEntity>(Download.Replace, Upload.None);
-          
+
+            //Signum.Entities.Migrations
+            DisconnectedLogic.Register<SqlMigrationEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<CSharpMigrationEntity>(Download.All, Upload.None);
+
             //Signum.Entities.Translation
             DisconnectedLogic.Register<CultureInfoEntity>(Download.All, Upload.None);
 

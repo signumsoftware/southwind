@@ -120,8 +120,17 @@
       <RemoveLine Path="Southwind.Windows\Main.xaml.cs" From="private void miDownload_Click(object sender, RoutedEventArgs e)" To="} //Disconnected"/>
     </Module>
 
-    <Module Name="LoadNorthwind" DependsOn="ExampleEntities">	  
-	  <RemoveLine Path="Southwind.Load\Program.cs" From="{0, EmployeeLoader.LoadRegions}," To="{30, OrderLoader.UpdateOrdersDate },"/>
+    <Module Name="Migrations">
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MigrationLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" From="if (args.Any())" To="} //if(args.Any())"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;SQL&quot;, SqlMigrationRunner.SqlMigrations},"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;CS&quot;, () => CSharpMigrations(false), &quot;C# Migrations&quot;},"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" From="private static void CSharpMigrations(bool autoRun)" To="} //CSharpMigrations"/>
+
+    </Module>
+
+    <Module Name="LoadNorthwind" DependsOn="ExampleEntities,Migrations">	  
+	  <RemoveLine Path="Southwind.Load\Program.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
       <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\EmployeeLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\Northwind.dbml"/>
@@ -148,7 +157,8 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordReportLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((WordReportLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="WordClient.Start();"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" Line="{48, ImportWordReportTemplateForOrder},"/>
+      <RemoveLine DependsOn="ExampleEntities,!Migrations" Path="Southwind.Load\Program.cs" Line="{48, ImportWordReportTemplateForOrder},"/>
+      <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Load\Program.cs" Line="ImportWordReportTemplateForOrder,"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
       <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Load\WordTemplates\Order.docx"/>
     </Module>
@@ -267,8 +277,10 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthAdminClient.Start(" To="permissions: true);" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="AuthClient.Start(" To="defaultPasswordExpiresLogic: false);" />
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{20, EmployeeLoader.CreateUsers },"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{21, EmployeeLoader.CreateSystemUser }, "/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{20, EmployeeLoader.CreateUsers }," DependsOn="!Migrations"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{21, EmployeeLoader.CreateSystemUser }," DependsOn="!Migrations" />
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="EmployeeLoader.CreateSystemUser, " DependsOn="Migrations"/>
       <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" From="internal static void CreateSystemUser()" To="} //CreateUsers"/>
       <RemoveFiles Path="Southwind.Load\AuthRules.xml" DependsOn="ExampleEntities"/>
       <RemoveFiles Path="Southwind.Entities\UserEmployeeMixin.cs" DependsOn="ExampleEntities"/>
@@ -311,9 +323,10 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = DefaultCulture;" To="return DefaultCulture; //Translation" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="public class BingTranslator : ITranslator" To="} // BingTranslator" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="using Southwind.Web.BingTranslationService;" />
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{44, ImportSpanishInstanceTranslations}," DependsOn="ExampleEntities"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="ExampleEntities"/>
-      <RemoveFiles Path="Southwind.Load\Category.es.View.xlsx" DependsOn="ExampleEntities"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{44, ImportSpanishInstanceTranslations}," DependsOn="LoadNorthwind,!Migrations"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="ImportSpanishInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
+      <RemoveFiles Path="Southwind.Load\Category.es.View.xlsx" DependsOn="LoadNorthwind"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Web\Scripts\southwind.ts" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
