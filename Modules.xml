@@ -130,7 +130,8 @@
     </Module>
 
     <Module Name="LoadNorthwind" DependsOn="ExampleEntities,Migrations">	  
-	  <RemoveLine Path="Southwind.Load\Program.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
+	    <RemoveLine Path="Southwind.Load\Program.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
+	    <RemoveLine Path="Southwind.Load\Program.cs" Line="{30, OrderLoader.UpdateOrdersDate },"/>
       <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\EmployeeLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\Northwind.dbml"/>
