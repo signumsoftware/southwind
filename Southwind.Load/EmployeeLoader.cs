@@ -124,23 +124,6 @@ namespace Southwind.Load
             return clean;
         } //RemoveOlePrefix
 
-        internal static void CreateSystemUser()
-        {
-            using (OperationLogic.AllowSave<UserEntity>())
-            using (Transaction tr = new Transaction())
-            {              
-                UserEntity system = new UserEntity
-                {
-                    UserName = "System",                   
-                    PasswordHash = Security.EncodePassword("System"),
-                    Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx(),
-                    State = UserState.Saved,
-                }.Save(); 
-
-                tr.Commit();
-            }
-        }
-
         internal static void CreateUsers()
         {
             using (Transaction tr = new Transaction())

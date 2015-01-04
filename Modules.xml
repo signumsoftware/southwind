@@ -271,18 +271,19 @@
     <Module Name="Auth">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.Start(sb, dqm, &quot;System&quot;, null);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.StartAllModules(sb, dqm);"/>
-      <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity), typeof(RoleEntity)"/>
+      <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity),"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthClient.Start(" To="passwordExpiration: false);" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthAdminClient.Start(" To="permissions: true);" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="AuthClient.Start(" To="defaultPasswordExpiresLogic: false);" />
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{20, EmployeeLoader.CreateUsers }," DependsOn="!Migrations"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{21, EmployeeLoader.CreateSystemUser }," DependsOn="!Migrations" />
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="EmployeeLoader.CreateSystemUser, " DependsOn="Migrations"/>
-      <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" From="internal static void CreateSystemUser()" To="} //CreateUsers"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{20, EmployeeLoader.CreateUsers }," DependsOn="!Migrations,LoadNorthwind"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{21, CreateSystemUser }," DependsOn="!Migrations" />
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations,LoadNorthwind"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="CreateSystemUser, " DependsOn="Migrations"/>
+      <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" From="internal static void CreateUsers()" To="} //CreateUsers"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" From="internal static void CreateSystemUser()" To="} //CreateSystemUser"/>
       <RemoveFiles Path="Southwind.Load\AuthRules.xml" DependsOn="ExampleEntities"/>
       <RemoveFiles Path="Southwind.Entities\UserEmployeeMixin.cs" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserEmployeeMixin&gt;();" DependsOn="ExampleEntities"/>

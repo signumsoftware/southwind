@@ -25,6 +25,7 @@ using Signum.Engine.Help;
 using Signum.Entities.Word;
 using Signum.Engine.Basics;
 using Signum.Engine.Migrations;
+using Signum.Entities.Authorization;
 
 namespace Southwind.Load
 {
@@ -109,7 +110,7 @@ namespace Southwind.Load
                 OrderLoader.LoadShippers,
                 OrderLoader.LoadOrders,
                 EmployeeLoader.CreateUsers,
-                EmployeeLoader.CreateSystemUser, 
+                CreateSystemUser, 
                 OrderLoader.UpdateOrdersDate,
                 CreateCultureInfo,
                 ChartScriptLogic.ImportChartScripts,
@@ -129,7 +130,7 @@ namespace Southwind.Load
                 Action[] actions = new ConsoleSwitch<int, Action>
                 {
                     {20, EmployeeLoader.CreateUsers },
-                    {21, EmployeeLoader.CreateSystemUser },
+                    {21, CreateSystemUser },
                     {30, OrderLoader.UpdateOrdersDate },
                     {42, ChartScriptLogic.ImportExportChartScripts},
                     {43, AuthLogic.ImportExportAuthRules},
@@ -186,6 +187,23 @@ namespace Southwind.Load
 
             OrderEntity order = query.First();
         }//ShowOrder
+
+        internal static void CreateSystemUser()
+        {
+            using (OperationLogic.AllowSave<UserEntity>())
+            using (Transaction tr = new Transaction())
+            {
+                UserEntity system = new UserEntity
+                {
+                    UserName = "System",
+                    PasswordHash = Security.EncodePassword("System"),
+                    Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx(),
+                    State = UserState.Saved,
+                }.Save();
+
+                tr.Commit();
+            }
+        } //CreateSystemUser
 
         public static void CreateCultureInfo()
         {
