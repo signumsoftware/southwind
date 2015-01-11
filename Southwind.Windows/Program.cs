@@ -234,8 +234,7 @@ namespace Southwind.Windows
                 finally
                 {
                     string message = e.Follow(ex => ex.InnerException).ToString(ex => "{0} : {1}".FormatWith(
-                            ex.GetType().Name != "FaultException" ? ex.GetType().Name : "Server Error",
-                            ex.Message), "\r\n\r\n");
+                            ex.GetType().Name, ex.Message), "\r\n\r\n");
 
                     if (w != null)
                         MessageBox.Show(w, message, errorTitle + ":", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -306,19 +305,15 @@ namespace Southwind.Windows
 
                     milogin.DialogResult = true;
                 }
-
-                catch (FaultException ex)
+                catch (IncorrectUsernameException ex)
                 {
                     milogin.Error = ex.Message;
-
-                    if (ex.Code.Name == typeof(IncorrectUsernameException).Name)
-                    {
-                        milogin.FocusUserName();
-                    }
-                    else if (ex.Code.Name == typeof(IncorrectPasswordException).Name)
-                    {
-                        milogin.FocusPassword();
-                    }
+                    milogin.FocusUserName();
+                }
+                catch (IncorrectPasswordException ex)
+                {
+                    milogin.Error = ex.Message;
+                    milogin.FocusPassword();
                 }
             };
 

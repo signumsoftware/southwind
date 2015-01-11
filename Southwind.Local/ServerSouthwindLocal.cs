@@ -38,7 +38,8 @@ namespace Southwind.Local
                     el.QueryString = description;
                     el.Version = Schema.Current.Version.ToString();
                 });
-                throw new FaultException(e.Message);
+
+                throw;
             }
             finally
             {

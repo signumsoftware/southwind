@@ -9,11 +9,13 @@ using Signum.Services;
 using Signum.Entities.Disconnected;
 using Signum.Utilities;
 using Signum.Entities.SMS;
+using Signum.Entities.Services;
 
 namespace Southwind.Services
 {
     //Defines the WPF contract between client and server applications
     [ServiceContract(SessionMode = SessionMode.Required)]
+    [ExceptionMarshallingBehavior]
     public interface IServerSouthwind : IBaseServer, IDynamicQueryServer, IOperationServer,
         ILoginServer, IProcessServer, IQueryServer, IChartServer, IExcelReportServer, IUserQueryServer, IDashboardServer, IUserAssetsServer,
         IProfilerServer, IQueryAuthServer, IPropertyAuthServer, ITypeAuthServer, IPermissionAuthServer, IOperationAuthServer,

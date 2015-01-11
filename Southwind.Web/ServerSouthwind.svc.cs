@@ -20,9 +20,12 @@ using Signum.Engine.Disconnected;
 using Signum.Utilities;
 using Signum.Engine.Basics;
 using Southwind.Entities;
+using Signum.Entities.Reflection;
+using Signum.Entities.Services;
 
 namespace Southwind.Web
 {
+    [ExceptionMarshallingBehavior]
     public class ServerSouthwind : ServerExtensions, IServerSouthwind
     {
         protected override T Return<T>(MethodBase mi, string description, Func<T> function)
@@ -48,7 +51,8 @@ namespace Southwind.Web
                     el.QueryString = description;
                     el.Version = Schema.Current.Version.ToString();
                 });
-                throw new FaultException(e.Message);
+
+                throw;
             }
             finally
             {
