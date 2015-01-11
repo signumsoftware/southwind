@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using Signum.Entities;
 using Signum.Entities.Authorization;
+using Signum.Entities.Reflection;
 using Signum.Utilities;
 using Signum.Utilities.Reflection;
 using Signum.Windows;
@@ -100,16 +101,21 @@ namespace Southwind.Windows.Code
                     { 
                         Click = ctx =>
                         {
-                            if (!ctx.EntityControl.LooseChangesIfAny())
-                                return null;
-
                             DateTime shipDate = DateTime.Now;
                             if (!ValueLineBox.Show(ref shipDate, 
                                 labelText: DescriptionManager.NiceName((OrderEntity o) => o.ShippedDate), 
                                 owner: Window.GetWindow(ctx.EntityControl)))
                                 return null;
-
-                            return ctx.Entity.Execute(OrderOperation.Ship, shipDate); 
+                            
+                            try
+                            {
+                                return ctx.Entity.Execute(OrderOperation.Ship, shipDate); 
+                            }
+                            catch(IntegrityCheckException e)
+                            {
+                                ctx.Entity.SetGraphErrors(e);
+                                throw e;
+                            }
                         },
 
                         Contextual = 

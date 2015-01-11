@@ -18,6 +18,7 @@ using System.Globalization;
 using Signum.Engine.Basics;
 using Signum.Engine.Operations;
 using Signum.Web.Operations;
+using Signum.Entities.Reflection;
 
 namespace Southwind.Web.Controllers
 {
@@ -100,13 +101,25 @@ namespace Southwind.Web.Controllers
 
         public ActionResult ShipOrder()
         {
-            var order = this.ExtractEntity<OrderEntity>();
+            MappingContext<OrderEntity> ctx = this.ExtractEntity<OrderEntity>().ApplyChanges(this);
+
+            if (ctx.HasErrors())
+                return ctx.ToJsonModelState();
 
             var shipDate = this.ParseValue<DateTime>("shipDate");
 
-            order.Execute(OrderOperation.Ship, shipDate);
+            try
+            {
+                ctx.Value.Execute(OrderOperation.Ship, shipDate);
+            }
+            catch (IntegrityCheckException e)
+            {
+                ctx.ImportErrors(e.Errors);
 
-            return this.DefaultExecuteResult(order);
+                return ctx.ToJsonModelState();
+            }
+
+            return this.DefaultExecuteResult(ctx.Value);
         }//ShipOrder
     }
 }

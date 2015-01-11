@@ -92,7 +92,7 @@ namespace Southwind.Entities
             set { Set(ref corrupt, value); }
         }
 
-        public override string IdentifiableIntegrityCheck()
+        public override Dictionary<Guid, Dictionary<string, string>> IdentifiableIntegrityCheck()
         {
             using (this.Corrupt ? Corruption.AllowScope() : null)
             {
@@ -103,7 +103,7 @@ namespace Southwind.Entities
         protected override void PreSaving(ref bool graphModified)
         {
             base.PreSaving(ref graphModified);
-            if (this.Corrupt && string.IsNullOrEmpty(base.IdentifiableIntegrityCheck()))
+            if (this.Corrupt && base.IdentifiableIntegrityCheck() == null)
             {
                 this.Corrupt = false;
             }

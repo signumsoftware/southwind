@@ -195,6 +195,7 @@ namespace Southwind.Logic
                     CanExecute = o => o.Details.IsEmpty() ? "No order lines" : null,
                     FromStates = { OrderState.Ordered },
                     ToState = OrderState.Shipped,
+                    Lite = false,
                     Execute = (o, args) =>
                     {
                         o.ShippedDate = args.TryGetArgS<DateTime>() ?? DateTime.Now;
