@@ -9,7 +9,6 @@ using Signum.Engine.Chart;
 using Signum.Engine.Dashboard;
 using Signum.Engine.Disconnected;
 using Signum.Engine.DynamicQuery;
-using Signum.Engine.Exceptions;
 using Signum.Engine.Mailing;
 using Signum.Engine.Maps;
 using Signum.Engine.Operations;
