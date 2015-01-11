@@ -49,9 +49,9 @@ namespace Southwind.Load
                     {
                         switch (args.First().ToLower().Trim('-', '/'))
                         {
-                            case "sql": SqlMigrationRunner.SqlMigrations(true); break;
-                            case "csharp": CSharpMigrations(true); break;
-                            case "load": Load(args.Skip(1).ToArray()); break;
+                            case "sql": SqlMigrationRunner.SqlMigrations(true); return 0;
+                            case "csharp": CSharpMigrations(true); return 0;
+                            case "load": Load(args.Skip(1).ToArray()); return 0;
                             default:
                             {
                                 SafeConsole.WriteLineColor(ConsoleColor.Red, "Unkwnown command " + args.First());
