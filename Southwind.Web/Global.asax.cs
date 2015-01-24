@@ -168,7 +168,7 @@ namespace Southwind.Web
                 packages: true,
                 packageOperations: true);
 
-            TranslationClient.Start(new BingTranslator(),
+            TranslationClient.Start(new AlreadyTranslatedTranslator(new BingTranslator()),
                 translatorUser: true,
                 translationReplacement: false,
                 instanceTranslator: true);

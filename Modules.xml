@@ -155,8 +155,7 @@
     </Module>
 
     <Module Name="Word">
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordReportLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((WordReportLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordTemplateLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="WordClient.Start();"/>
       <RemoveLine DependsOn="ExampleEntities,!Migrations" Path="Southwind.Load\Program.cs" Line="{48, ImportWordReportTemplateForOrder},"/>
       <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Load\Program.cs" Line="ImportWordReportTemplateForOrder,"/>
@@ -321,7 +320,7 @@
       <RemoveFiles Path="Southwind.Entities\Translations" DependsOn="ExampleEntities" />
       <RemoveFiles Path="Southwind.Web\Service References" />
       <RemoveFiles Path="Southwind.Web\Translations" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="TranslationClient.Start(new BingTranslator()," To="instanceTranslator: true);" />
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="TranslationClient.Start(new AlreadyTranslatedTranslator(new BingTranslator())," To="instanceTranslator: true);" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = DefaultCulture;" To="return DefaultCulture; //Translation" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="public class BingTranslator : ITranslator" To="} // BingTranslator" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="using Southwind.Web.BingTranslationService;" />

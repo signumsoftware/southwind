@@ -147,10 +147,11 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<ScheduledTaskLogEntity>(Download.None, Upload.None);
 
             
-          //Signum.Entities.Word
-          DisconnectedLogic.Register<WordTemplateEntity>(Download.All, Upload.None);
-          DisconnectedLogic.Register<SystemWordTemplateEntity>(Download.All, Upload.None);
-          DisconnectedLogic.Register<WordReportLogEntity>(Download.None, Upload.New);
+            //Signum.Entities.Word
+            DisconnectedLogic.Register<WordTemplateEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<SystemWordTemplateEntity>(Download.All, Upload.None);
+            DisconnectedLogic.Register<WordTransformerSymbol>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WordConverterSymbol>(Download.None, Upload.None);
 
             //Signum.Entities.SMS
             DisconnectedLogic.Register<SMSMessageEntity>(Download.None, Upload.None);
