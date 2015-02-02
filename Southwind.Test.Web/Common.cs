@@ -19,7 +19,8 @@ namespace Southwind.Test.Web
     {
         protected override string Url(string url)
         {
-            return "http://localhost/Southwind.Web/" + url;
+            //return "http://localhost/Southwind.Web/" + url;
+            return "http://localhost:7654/" + url;
         }
 
         public static void Start(TestContext testContext)

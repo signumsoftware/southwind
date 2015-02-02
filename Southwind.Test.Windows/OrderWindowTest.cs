@@ -18,7 +18,7 @@ namespace Southwind.Test.Windows
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
-            SouthwindEnvironment.Start();
+            SouthwindEnvironment.StartAndInitialize();
             AuthLogic.GloballyEnabled = false;
         }
 
