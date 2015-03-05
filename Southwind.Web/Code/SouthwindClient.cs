@@ -58,7 +58,11 @@ namespace Southwind.Web
                     new EntitySettings<ApplicationConfigurationEntity>() { PartialViewName = e => ViewPrefix.FormatWith("ApplicationConfiguration") },
                 });
 
-                Constructor.Register(ctx => new ApplicationConfigurationEntity { Sms = new SMSConfigurationEntity(), Email = new EmailConfigurationEntity() });
+                Constructor.Register(ctx => new ApplicationConfigurationEntity
+                {
+                    Sms = new SMSConfigurationEntity(),
+                    Email = new EmailConfigurationEntity()
+                });
 
                 QuerySettings.RegisterPropertyFormat((CategoryEntity e) => e.Picture,
                     new CellFormatter((html, obj) => obj == null ? null :

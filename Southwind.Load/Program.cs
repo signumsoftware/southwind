@@ -218,11 +218,11 @@ namespace Southwind.Load
                     SendEmails = true,
                     DefaultCulture = en,
                     UrlLeft = "http://localhost/Southwind"
-                },
+                }, //Email
                 Sms = new SMSConfigurationEntity
                 {
                     DefaultCulture = en,
-                }
+                } //Sms
             }.Save();
         }
 
