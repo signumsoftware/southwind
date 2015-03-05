@@ -21,7 +21,7 @@ namespace Southwind.Entities
             set { Set(ref environment, value); }
         }
 
-        [NotNullable]
+        [NotNullable]/*Email*/
         EmailConfigurationEntity email;
         [NotNullValidator]
         public EmailConfigurationEntity Email
@@ -31,13 +31,22 @@ namespace Southwind.Entities
         }
 
         [NotNullable]
+        SmtpConfigurationEntity smtpConfiguration;
+        [NotNullValidator]
+        public SmtpConfigurationEntity SmtpConfiguration
+        {
+            get { return smtpConfiguration; }
+            set { Set(ref smtpConfiguration, value); }
+        }/*Email*/
+
+        [NotNullable]/*Sms*/
         SMSConfigurationEntity sms;
         [NotNullValidator]
         public SMSConfigurationEntity Sms
         {
             get { return sms; }
             set { Set(ref sms, value); }
-        }
+        }/*Sms*/
     }
 
     public static class ApplicationConfigurationOperation

@@ -239,7 +239,7 @@ namespace Southwind.Load
                 Query = QueryLogic.GetQueryEntity(typeof(OrderEntity)),
                 Culture = CultureInfo.GetCultureInfo("en").ToCultureInfoEntity(),
                 Template = new FileEntity("../../WordTemplates/Order.docx").ToLiteFat(),
-                FileNameFormat = "Order.docx"
+                FileName = "Order.docx"
             }.Save();
         }
     }

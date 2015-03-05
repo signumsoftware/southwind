@@ -11,67 +11,62 @@ using Southwind.Test.Environment;
 namespace Southwind.Test.Web
 {
     [TestClass]
-    public class OrderWebTest : Common
+    public class OrderWebTest : SouthwindTestClass
     {
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
-            Common.Start(testContext);
             SouthwindEnvironment.StartAndInitialize();
             AuthLogic.GloballyEnabled = false;
-        }
-
-        [ClassCleanup]
-        public static void ClassCleanup()
-        {
-            Common.MyTestCleanup();
         }
 
         [TestMethod]
         public void OrderWebTestExample()
         {
-            Login("Normal", "Normal");
-            Lite<OrderEntity> lite = null;
-            try
+            Browse("Normal", b =>
             {
-                this.SearchPage(typeof(PersonEntity)).Using(persons =>
+                Lite<OrderEntity> lite = null;
+                try
                 {
-                    persons.Search();
-                    persons.SearchControl.Results.OrderBy("Id");
-                    return persons.Results.EntityClick<PersonEntity>(1);
-                }).Using(john =>
-                {
-                    using (PopupControl<OrderEntity> order = john.ConstructFromPopup(OrderOperation.CreateOrderFromCustomer))
+                    b.SearchPage(typeof(PersonEntity)).Using(persons =>
                     {
-                        order.ValueLineValue(a => a.ShipName, Guid.NewGuid().ToString());
-                        order.EntityCombo(a => a.ShipVia).SelectLabel("FedEx");
+                        persons.Search();
+                        persons.SearchControl.Results.OrderBy("Id");
+                        return persons.Results.EntityClick<PersonEntity>(1);
+                    }).Using(john =>
+                    {
+                        using (PopupControl<OrderEntity> order = john.ConstructFromPopup(OrderOperation.CreateOrderFromCustomer))
+                        {
+                            order.ValueLineValue(a => a.ShipName, Guid.NewGuid().ToString());
+                            order.EntityCombo(a => a.ShipVia).SelectLabel("FedEx");
 
-                        ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
+                            ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
 
-                        var line = order.EntityListDetail(a => a.Details).CreateElement<OrderDetailsEntity>();
-                        line.EntityLineValue(a => a.Product, sonicProduct.ToLite());
+                            var line = order.EntityListDetail(a => a.Details).CreateElement<OrderDetailsEntity>();
+                            line.EntityLineValue(a => a.Product, sonicProduct.ToLite());
 
-                        Assert.AreEqual(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
+                            Assert.AreEqual(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
 
-                        order.ExecuteAjax(OrderOperation.SaveNew);
+                            order.ExecuteAjax(OrderOperation.SaveNew);
 
-                        lite = order.GetLite();
+                            lite = order.GetLite();
 
-                        Assert.AreEqual(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
-                    }
+                            Assert.AreEqual(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
+                        }
 
-                    return this.NormalPage(lite);
+                        return b.NormalPage(lite);
 
-                }).EndUsing(order =>
+                    }).EndUsing(order =>
+                    {
+                        Assert.AreEqual(lite.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
+                    });
+                }
+                finally
                 {
-                    Assert.AreEqual(lite.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
-                });
-            }
-            finally
-            {
-                if (lite != null)
-                    lite.Delete();
-            }
+                    if (lite != null)
+                        lite.Delete();
+                }
+            });
         }//OrderWebTestExample
     }
 }

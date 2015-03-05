@@ -86,7 +86,8 @@ namespace Southwind.Logic
 
             CultureInfoLogic.Start(sb, dqm);
             FilePathLogic.Start(sb, dqm);
-            EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, () => null);
+            SmtpConfigurationLogic.Start(sb, dqm);
+            EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, et => Configuration.Value.SmtpConfiguration);
 
             AuthLogic.Start(sb, dqm, "System", null);
        

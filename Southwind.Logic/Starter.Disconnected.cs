@@ -99,7 +99,6 @@ namespace Southwind.Logic
             //Signum.Entities.Files
             DisconnectedLogic.Register<FilePathEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<FileTypeSymbol>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<FileRepositoryEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Mailing
             DisconnectedLogic.Register<EmailMessageEntity>(Download.None, Upload.None);

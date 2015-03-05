@@ -10,12 +10,37 @@ using OpenQA.Selenium.Chrome;
 using Signum.Web.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 
 namespace Southwind.Test.Web
 {
     [TestClass]
     [DeploymentItem("chromedriver.exe", "")]
-    public class Common : SeleniumTestClass
+    public class SouthwindTestClass
+    {
+        public static void Browse(string username, Action<SouthwindBrowser> action)
+        {
+            var selenium = new ChromeDriver();
+
+            var browser = new SouthwindBrowser(selenium);
+            try
+            {
+                browser.Login(username, username);
+                action(browser);
+            }
+            catch (UnhandledAlertException e)
+            {
+                selenium.SwitchTo().Alert();
+
+            }
+            finally
+            {
+                selenium.Close();
+            }
+        }
+    }
+
+    public class SouthwindBrowser : BrowserProxy
     {
         protected override string Url(string url)
         {
@@ -23,23 +48,19 @@ namespace Southwind.Test.Web
             return "http://localhost:7654/" + url;
         }
 
-        public static void Start(TestContext testContext)
+        public SouthwindBrowser(RemoteWebDriver driver)
+            : base(driver)
         {
-            selenium = new ChromeDriver(); //new FirefoxDriver();
         }
 
         public override void Login(string username, string password)
         {
             base.Login(username, password);
 
-            string culture = selenium.FindElement(By.Id("languageSelector")).SelectElement().SelectedOption.GetAttribute("value");
+            string culture = Selenium.FindElement(By.Id("languageSelector")).SelectElement().SelectedOption.GetAttribute("value");
 
             Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
         }
 
-        protected static void MyTestCleanup()
-        {
-            selenium.Close();
-        }
     }
 }

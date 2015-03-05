@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Auth>
-  <Imported On="2014-07-23T23:27:36" />
-  <Exported On="2014-11-11T14:33:13" />
+  <Imported On="2014-11-11T14:33:13" />
+  <Exported On="2015-03-05T20:20:31" />
   <Roles>
     <Role Name="Super user" MergeStrategy="Intersection" Contains="" />
     <Role Name="User" Contains="" />
@@ -55,7 +55,6 @@
       <Type Resource="Exception" Allowed="Read" />
       <Type Resource="File" Allowed="Create" />
       <Type Resource="FilePath" Allowed="Create" />
-      <Type Resource="FileRepository" Allowed="Create" />
       <Type Resource="LinkListPart" Allowed="None">
         <Condition Name="SouthwindGroup.RoleEntities" Allowed="Read" />
         <Condition Name="SouthwindGroup.UserEntities" Allowed="Create" />

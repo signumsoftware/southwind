@@ -6,6 +6,7 @@
     <fieldset id="email">
         <legend>Email</legend>
         @Html.EmbeddedControl(tc, c => c.Email)
+        @Html.EntityLine(tc, c => c.SmtpConfiguration)
     </fieldset>
     <fieldset id="sms">
         <legend>SMS</legend>
