@@ -26,6 +26,7 @@ using Signum.Entities.Word;
 using Signum.Engine.Basics;
 using Signum.Engine.Migrations;
 using Signum.Entities.Authorization;
+using Signum.Engine.CodeGeneration;
 
 namespace Southwind.Load
 {
@@ -69,10 +70,11 @@ namespace Southwind.Load
                         Action action = new ConsoleSwitch<string, Action>
                         {
                             {"N", NewDatabase},
+                            {"G", CodeGenerator.GenerateCodeConsole },
                             {"SQL", SqlMigrationRunner.SqlMigrations},
                             {"CS", () => CSharpMigrations(false), "C# Migrations"},
                             {"S", Synchronize},
-                            {"L", ()=>Load(null), "Load"},
+                            {"L", () => Load(null), "Load"},
                         }.Choose();
 
                         if (action == null)
