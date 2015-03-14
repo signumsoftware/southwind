@@ -30,7 +30,6 @@ namespace Southwind.Entities
             set { Set(ref email, value); }
         }
 
-        [NotNullable]
         SmtpConfigurationEntity smtpConfiguration;
         [NotNullValidator]
         public SmtpConfigurationEntity SmtpConfiguration

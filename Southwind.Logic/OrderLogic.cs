@@ -102,7 +102,7 @@ namespace Southwind.Logic
 
                 new Construct(OrderOperation.Create)
                 {
-                    ToState = OrderState.New,
+                    ToStates = { OrderState.New },
                     Construct = (args) => 
                     {
                         var customer = args.TryGetArgC<Lite<CustomerEntity>>().Try(c => c.Retrieve());
@@ -120,7 +120,7 @@ namespace Southwind.Logic
 
                 new ConstructFrom<CustomerEntity>(OrderOperation.CreateOrderFromCustomer)
                 {
-                    ToState = OrderState.New,  
+                    ToStates = { OrderState.New },  
                     Construct = (c, _) => new OrderEntity
                     {
                         State = OrderState.New,
@@ -133,7 +133,7 @@ namespace Southwind.Logic
 
                 new ConstructFromMany<ProductEntity>(OrderOperation.CreateOrderFromProducts)
                 {
-                    ToState = OrderState.New,
+                    ToStates = { OrderState.New },
                     Construct = (prods, args) =>
                     {
                         var dic = Database.Query<ProductEntity>()
@@ -170,7 +170,7 @@ namespace Southwind.Logic
                 new Execute(OrderOperation.SaveNew)
                 {
                     FromStates = { OrderState.New },
-                    ToState = OrderState.Ordered,
+                    ToStates = { OrderState.Ordered },
                     AllowsNew = true,
                     Lite = false,
                     Execute = (o, args) =>
@@ -183,7 +183,7 @@ namespace Southwind.Logic
                 new Execute(OrderOperation.Save)
                 {
                     FromStates = { OrderState.Ordered },
-                    ToState = OrderState.Ordered,
+                    ToStates = { OrderState.Ordered },
                     Lite = false,
                     Execute = (o, _) =>
                     {
@@ -194,7 +194,7 @@ namespace Southwind.Logic
                 {
                     CanExecute = o => o.Details.IsEmpty() ? "No order lines" : null,
                     FromStates = { OrderState.Ordered },
-                    ToState = OrderState.Shipped,
+                    ToStates = { OrderState.Shipped },
                     Lite = false,
                     Execute = (o, args) =>
                     {
@@ -206,7 +206,7 @@ namespace Southwind.Logic
                 new Execute(OrderOperation.Cancel)
                 {
                     FromStates = { OrderState.Ordered, OrderState.Shipped },
-                    ToState = OrderState.Canceled,
+                    ToStates = { OrderState.Canceled },
                     Execute = (o, args) =>
                     {
                         o.CancelationDate = DateTime.Now;
