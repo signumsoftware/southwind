@@ -226,10 +226,9 @@
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" Line="ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="public class CancelOrderAlgorithm : PackageExecuteAlgorithm&lt;OrderEntity&gt;" To="} //CancelOrderAlgorithm"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="new Graph&lt;ProcessEntity&gt;.ConstructFromMany&lt;OrderEntity&gt;(OrderOperation.CancelWithProcess)" To="}.Register();"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;ProcessEntity, UserProcessSessionMixin&gt;();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="sb.Schema.Settings.FieldAttributes((ProcessEntity cp) => cp.Data).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));"
-                  To="sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.Mixin&lt;UserProcessSessionMixin&gt;().User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProcessLogic.Start(sb, dqm, userProcessSession: true);"
+                  To="sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProcessLogic.Start(sb, dqm);"
                   To="PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ProcessRunnerLogic.StartRunningProcesses(5 * 1000);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ProcessClient.Start(" To="packageOperations: true);"/>

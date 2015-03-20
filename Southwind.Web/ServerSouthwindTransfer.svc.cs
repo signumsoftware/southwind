@@ -31,7 +31,7 @@ namespace Southwind.Web
         {
             try
             {
-                using (AuthLogic.UserSession(user))
+                using (UserHolder.UserSession(user))
                 {
                     return function();
                 }

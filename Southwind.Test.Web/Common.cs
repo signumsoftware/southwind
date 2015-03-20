@@ -42,7 +42,7 @@ namespace Southwind.Test.Web
 
     public class SouthwindBrowser : BrowserProxy
     {
-        protected override string Url(string url)
+        public override string Url(string url)
         {
             //return "http://localhost/Southwind.Web/" + url;
             return "http://localhost:7654/" + url;

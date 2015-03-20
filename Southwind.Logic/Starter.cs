@@ -66,7 +66,6 @@ namespace Southwind.Logic
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
             MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
-            MixinDeclarations.Register<ProcessEntity, UserProcessSessionMixin>();
 
             OverrideAttributes(sb);
 
@@ -96,7 +95,7 @@ namespace Southwind.Logic
             UserTicketLogic.Start(sb, dqm);
             SessionLogLogic.Start(sb, dqm);
 
-            ProcessLogic.Start(sb, dqm, userProcessSession: true);
+            ProcessLogic.Start(sb, dqm);
             PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);
 
             SchedulerLogic.Start(sb, dqm);
@@ -177,7 +176,7 @@ namespace Southwind.Logic
             sb.Schema.Settings.FieldAttributes((ProcessEntity cp) => cp.Data).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));
             sb.Schema.Settings.FieldAttributes((PackageLineEntity cp) => cp.Package).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));
             sb.Schema.Settings.FieldAttributes((ProcessExceptionLineEntity cp) => cp.Line).Replace(new ImplementedByAttribute(typeof(PackageLineEntity)));
-            sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.Mixin<UserProcessSessionMixin>().User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.From.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.DefaultFrom.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
