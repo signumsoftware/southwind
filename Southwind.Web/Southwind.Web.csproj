@@ -144,6 +144,7 @@
     <Content Include="Service References\BingTranslationService\Southwind.Web.BingTranslationService.TranslateArrayResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Views\Southwind\OrderFilter.cshtml" />
     <TypeScriptCompile Include="Scripts\Order.ts" />
     <Content Include="Libs\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Libs\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />

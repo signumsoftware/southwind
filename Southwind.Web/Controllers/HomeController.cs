@@ -19,6 +19,8 @@ using Signum.Engine.Basics;
 using Signum.Engine.Operations;
 using Signum.Web.Operations;
 using Signum.Entities.Reflection;
+using Signum.Engine.DynamicQuery;
+using Signum.Entities.DynamicQuery;
 
 namespace Southwind.Web.Controllers
 {
@@ -121,5 +123,29 @@ namespace Southwind.Web.Controllers
 
             return this.DefaultExecuteResult(ctx.Value);
         }//ShipOrder
+
+        [HttpPost]
+        public ActionResult OrderFilterFilters()
+        {
+            var ctx = new OrderFilterModel().ApplyChanges(this, this.Prefix()).Validate();
+
+            if (ctx.HasErrors())
+                return ctx.ToJsonModelState();
+
+            List<FilterOption> filters = new List<FilterOption>();
+            if (ctx.Value.Customer != null)
+                filters.Add(new FilterOption("Customer", ctx.Value.Customer));
+            
+            if (ctx.Value.Employee != null)
+                filters.Add(new FilterOption("Employee", ctx.Value.Employee));
+
+            if (ctx.Value.MinOrderDate != null)
+                filters.Add(new FilterOption("OrderDate", ctx.Value.MinOrderDate) { Operation = FilterOperation.GreaterThanOrEqual });
+
+            if (ctx.Value.MaxOrderDate != null)
+                filters.Add(new FilterOption("OrderDate", ctx.Value.MaxOrderDate) { Operation = FilterOperation.LessThan });
+
+            return Finder.SimpleFilterBuilderResult(this, filters);
+        }
     }
 }

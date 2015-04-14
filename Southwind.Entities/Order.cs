@@ -314,7 +314,8 @@ namespace Southwind.Entities
 
     public enum OrderQuery
     {
-        OrderLines
+        OrderLines,
+        OrderSimple
     }
 
     public static class OrderTasks
@@ -326,5 +327,40 @@ namespace Southwind.Entities
     public static class OrderProcess
     {
         public static readonly ProcessAlgorithmSymbol CancelOrders = new ProcessAlgorithmSymbol();
+    }
+
+    [Serializable]
+    public class OrderFilterModel: ModelEntity
+    {
+        [ImplementedBy(typeof(PersonEntity), typeof(CompanyEntity))]
+        Lite<CustomerEntity> customer;
+        public Lite<CustomerEntity> Customer
+        {
+            get { return customer; }
+            set { Set(ref customer, value); }
+        }
+
+        Lite<EmployeeEntity> employee;
+        public Lite<EmployeeEntity> Employee
+        {
+            get { return employee; }
+            set { Set(ref employee, value); }
+        }
+
+        DateTime? minOrderDate;
+        [DaysPrecissionValidator]
+        public DateTime? MinOrderDate
+        {
+            get { return minOrderDate; }
+            set { Set(ref minOrderDate, value); }
+        }
+
+        DateTime? maxOrderDate;
+        [DaysPrecissionValidator]
+        public DateTime? MaxOrderDate
+        {
+            get { return maxOrderDate; }
+            set { Set(ref maxOrderDate, value); }
+        }
     }
 }

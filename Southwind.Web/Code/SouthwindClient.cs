@@ -22,6 +22,7 @@ using Signum.Web.Files;
 using Signum.Web.Operations;
 using Southwind.Web.Controllers;
 using Signum.Engine.Operations;
+using System.Web.Mvc.Html;
 
 namespace Southwind.Web
 {
@@ -56,6 +57,8 @@ namespace Southwind.Web
                     new EmbeddedEntitySettings<OrderDetailsEntity> { PartialViewName = e => ViewPrefix.FormatWith("OrderDetails") },
                     new EntitySettings<ShipperEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Shipper") },
                     new EntitySettings<ApplicationConfigurationEntity>() { PartialViewName = e => ViewPrefix.FormatWith("ApplicationConfiguration") },
+                    
+                    new EmbeddedEntitySettings<OrderFilterModel>(),
                 });
 
                 Constructor.Register(ctx => new ApplicationConfigurationEntity
@@ -77,6 +80,15 @@ namespace Southwind.Web
                       .Attr("src", RouteHelper.New().Action((FileController c) => c.Download(new RuntimeInfo((Lite<FileEntity>)obj).ToString())))
                       .Attr("alt", obj.ToString())
                       .Attr("style", "width:48px").ToHtmlSelf()) { TextAlign = "center" }); //Emmployee
+
+
+                Finder.AddQuerySetting(new QuerySettings(OrderQuery.OrderSimple)
+                {
+                    SimpleFilterBuilder = new SimpleFilterBuilder(
+                        (html, ctx, querySettings) => html.Partial(SouthwindClient.ViewPrefix.FormatWith("OrderFilter"),
+                            new TypeContext<OrderFilterModel>(new OrderFilterModel(), ctx.Prefix)),
+                        url => url.Action((HomeController s) => s.OrderFilterFilters()))
+                });
 
                 Constructor.Register(ctx => new EmployeeEntity { Address = new AddressEntity() });
                 Constructor.Register(ctx => new PersonEntity { Address = new AddressEntity() });
