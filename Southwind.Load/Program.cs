@@ -115,7 +115,7 @@ namespace Southwind.Load
                 CreateSystemUser, 
                 OrderLoader.UpdateOrdersDate,
                 CreateCultureInfo,
-                ChartScriptLogic.ImportChartScripts,
+                ChartScriptLogic.ImportChartScriptsAuto,
                 ImportSpanishInstanceTranslations,
                 ImportWordReportTemplateForOrder, 
             }.Run(autoRun); 

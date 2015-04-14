@@ -240,7 +240,7 @@
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="SimpleTaskLogic.Register(OrderTasks.CancelOldOrdersWithProcess, () =>" To="});//CancelOldOrdersProcess"/>
   
       <RemoveLine Path="Southwind.Logic\Starter.cs" 
-                  From="sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"
+                  From="sb.Schema.Settings.FieldAttributes((ScheduledTaskEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"
                   To="sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SchedulerLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SchedulerClient.Start(simpleTask: true);"/>
