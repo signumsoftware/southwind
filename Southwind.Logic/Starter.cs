@@ -47,6 +47,8 @@ using Signum.Engine.Help;
 using Signum.Engine.Word;
 using Signum.Entities.Word;
 using Signum.Engine.Migrations;
+using Signum.Entities.DynamicQuery;
+using System.Net.Mail;
 
 namespace Southwind.Logic
 {
@@ -156,10 +158,62 @@ namespace Southwind.Logic
 
             SetupCache(sb);
 
+            SetSchemaNames(Schema.Current);
+
             if (logDatabase.HasText())
                 SetLogDatabase(sb.Schema, new DatabaseName(null, logDatabase));
 
             Schema.Current.OnSchemaCompleted();
+        }
+
+        private static void SetSchemaNames(Schema schema)
+        {
+            foreach (var gr in schema.Tables.Values.GroupBy(a => GetSchemaName(a)))
+            {
+                if (gr.Key != null)
+                {
+                    SchemaName sn = new SchemaName(null, gr.Key);
+                    foreach (var t in gr)
+                        t.ToSchema(sn);
+                }
+            }
+        }
+
+        private static string GetSchemaName(Table table)
+        {
+            Type type = EnumEntity.Extract(table.Type) ?? table.Type;
+
+            if (type == typeof(ColumnOptionsMode) || type == typeof(FilterOperation) || type == typeof(PaginationMode) || type == typeof(OrderType))
+                type = typeof(UserQueryEntity);
+
+            if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod))
+                type = typeof(EmailMessageEntity);
+
+            if (type == typeof(DayOfWeek))
+                type = typeof(ScheduledTaskEntity);
+
+            if (type.Assembly == typeof(OrderEntity).Assembly)
+                return null;
+
+            if (type.Assembly == typeof(DashboardEntity).Assembly)
+            {
+                var name = type.Namespace.Replace("Signum.Entities.", "");
+
+                name = (name.TryBefore('.') ?? name);
+
+                if (name == "SMS")
+                    return "sms";
+
+                if (name == "Authorization")
+                    return "auth";
+
+                return name.FirstLower();
+            }
+
+            if (type.Assembly == typeof(Entity).Assembly)
+                return "framework";
+
+            throw new InvalidOperationException("Impossible to determine SchemaName for {0}".FormatWith(type.FullName));
         }
 
         private static void OverrideAttributes(SchemaBuilder sb)
@@ -180,7 +234,7 @@ namespace Southwind.Logic
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.From.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.DefaultFrom.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
-            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ScheduledTaskEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         }
