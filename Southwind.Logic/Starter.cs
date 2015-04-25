@@ -192,7 +192,7 @@ namespace Southwind.Logic
             if (type == typeof(DayOfWeek))
                 type = typeof(ScheduledTaskEntity);
 
-            if (type.Assembly == typeof(OrderEntity).Assembly)
+            if (type.Assembly == typeof(ApplicationConfigurationEntity).Assembly)
                 return null;
 
             if (type.Assembly == typeof(DashboardEntity).Assembly)
