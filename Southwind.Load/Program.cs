@@ -209,23 +209,37 @@ namespace Southwind.Load
 
         public static void CreateCultureInfo()
         {
-            var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
-            var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
-
-            new ApplicationConfigurationEntity
+            using (Transaction tr = new Transaction())
             {
-                Environment = "Development",
-                Email = new EmailConfigurationEntity
+                var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
+                var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
+
+                new ApplicationConfigurationEntity
                 {
-                    SendEmails = true,
-                    DefaultCulture = en,
-                    UrlLeft = "http://localhost/Southwind"
-                }, //Email
-                Sms = new SMSConfigurationEntity
-                {
-                    DefaultCulture = en,
-                } //Sms
-            }.Save();
+                    Environment = "Development",
+                    Email = new EmailConfigurationEntity
+                    {
+                        SendEmails = true,
+                        DefaultCulture = en,
+                        UrlLeft = "http://localhost/Southwind"
+                    },
+                    SmtpConfiguration = new SmtpConfigurationEntity
+                    {
+                        Name = "localhost",
+                        Network = new SmtpNetworkDeliveryEntity
+                        {
+                            Host = "localhost"
+                        }
+                    }, //Email
+                    Sms = new SMSConfigurationEntity
+                    {
+                        DefaultCulture = en,
+                    } //Sms
+                }.Save();
+
+                tr.Commit();
+            }
+
         }
 
         public static void ImportSpanishInstanceTranslations()

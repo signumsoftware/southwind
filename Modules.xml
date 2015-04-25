@@ -252,7 +252,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.From.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.DefaultFrom.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SmtpConfigurationLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, et => Configuration.Value.SmtpConfiguration);"/>
       <RemoveFiles Path="Southwind.Web\Libs\ckeditor"/>
