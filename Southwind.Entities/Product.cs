@@ -60,7 +60,7 @@ namespace Southwind.Entities
         }
 
         short unitsInStock;
-        [NumberIsValidator(ComparisonType.GreaterThanOrEqual, 0)]
+        [NumberIsValidator(ComparisonType.GreaterThanOrEqualTo, 0)]
         public short UnitsInStock
         {
             get { return unitsInStock; }
