@@ -45,6 +45,7 @@ using System.ServiceModel.Channels;
 using Signum.Engine.Basics;
 using Signum.Web.Help;
 using Signum.Web.Word;
+using Signum.Web.Maps;
 
 namespace Southwind.Web
 {
@@ -156,6 +157,7 @@ namespace Southwind.Web
                 filePath: true, 
                 file: true, 
                 embeddedFile: true);
+            MapClient.Start();
             ChartClient.Start();
             ExcelClient.Start(
                 toExcelPlain:  true, 
@@ -208,6 +210,7 @@ namespace Southwind.Web
             OmniboxClient.Register(new UserChartOmniboxProvider());
             OmniboxClient.Register(new DashboardOmniboxProvider());
             OmniboxClient.Register(new HelpOmniboxProvider());
+            OmniboxClient.Register(new MapOmniboxProvider());
         } //WebStart
 
         protected void Application_Error(Object sender, EventArgs e)
