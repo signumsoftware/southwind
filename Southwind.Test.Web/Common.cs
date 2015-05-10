@@ -28,7 +28,7 @@ namespace Southwind.Test.Web
                 browser.Login(username, username);
                 action(browser);
             }
-            catch (UnhandledAlertException e)
+            catch (UnhandledAlertException)
             {
                 selenium.SwitchTo().Alert();
 

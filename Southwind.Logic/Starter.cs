@@ -79,7 +79,7 @@ namespace Southwind.Logic
 
             CacheLogic.Start(sb);
 
-            TypeLogic.Start(sb, dqm); 
+            TypeLogic.Start(sb, dqm);
 
             OperationLogic.Start(sb, dqm);
 
@@ -91,7 +91,7 @@ namespace Southwind.Logic
             EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, et => Configuration.Value.SmtpConfiguration);
 
             AuthLogic.Start(sb, dqm, "System", null);
-       
+
             AuthLogic.StartAllModules(sb, dqm);
             ResetPasswordRequestLogic.Start(sb, dqm);
             UserTicketLogic.Start(sb, dqm);
@@ -112,7 +112,7 @@ namespace Southwind.Logic
             DashboardLogic.Start(sb, dqm);
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-            ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) }); 
+            ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
 
             ExceptionLogic.Start(sb, dqm);
 
@@ -126,14 +126,14 @@ namespace Southwind.Logic
             FileLogic.Start(sb, dqm);
 
             TranslationLogic.Start(sb, dqm);
-            TranslatedInstanceLogic.Start(sb, dqm, "en");
+            TranslatedInstanceLogic.Start(sb, dqm, () => CultureInfo.GetCultureInfo("en"));
 
             HelpLogic.Start(sb, dqm);
             WordTemplateLogic.Start(sb, dqm);
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);
-            CustomerLogic.Start(sb, dqm); 
+            CustomerLogic.Start(sb, dqm);
             OrderLogic.Start(sb, dqm);
             ShipperLogic.Start(sb, dqm);
 
@@ -151,9 +151,9 @@ namespace Southwind.Logic
             DisconnectedLogic.BackupNetworkFolder = @"D:\SouthwindTemp\Backups";
             DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Database";
 
-            ProfilerLogic.Start(sb, dqm, 
-                timeTracker: true, 
-                heavyProfiler: true, 
+            ProfilerLogic.Start(sb, dqm,
+                timeTracker: true,
+                heavyProfiler: true,
                 overrideSessionTimeout: true);
 
             SetupCache(sb);
@@ -243,7 +243,7 @@ namespace Southwind.Logic
         {
             sb.Include<ApplicationConfigurationEntity>();
             Configuration = sb.GlobalLazy<ApplicationConfigurationEntity>(
-                () => Database.Query<ApplicationConfigurationEntity>().Single(a=>a.Environment == Settings.Default.Environment),
+                () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.Environment == Settings.Default.Environment),
                 new InvalidateWith(typeof(ApplicationConfigurationEntity)));
 
             new Graph<ApplicationConfigurationEntity>.Execute(ApplicationConfigurationOperation.Save)

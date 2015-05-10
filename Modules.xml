@@ -112,7 +112,7 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DisconnectedClient.Start();"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc"/>
       <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc.cs"/>
-      <RemoveLine Path="Southwind.Web\Web.config" Line="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot; transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot; />"/>
+      <RemoveLine Path="Southwind.Web\Web.config" Line="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot; transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot;/>"/>
       <RemoveLine Path="Southwind.Web\Web.config" From="&lt;service name=&quot;Southwind.Web.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
       <RemoveLine Path="Southwind.Web\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" From="&lt;MenuItem Header=&quot;Disconnected&quot; x:Name=&quot;miDisconnected&quot;>" To="&lt;/MenuItem>"/>
@@ -210,7 +210,7 @@
     <Module Name="Dashboard" DependsOn="Chart,UserQuery">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((DashboardEntity cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, dqm, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) }); "/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, dqm, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
       <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="var panel = DashboardLogic.GetHomePageDashboard();" To="return View(DashboardClient.ViewPrefix.FormatWith(&quot;Dashboard&quot;), panel);"/>
@@ -324,8 +324,8 @@
 
     <Module Name="Translation">
       <RemoveLine Path="Southwind.Web\Web.config" From="&lt;client>" To="&lt;/client>" />
-      <RemoveLine Path="Southwind.Web\Web.config" Line="&lt;binding name=&quot;BasicHttpBinding_LanguageService&quot; />" />
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="TranslationLogic.Start(sb, dqm);" To="TranslatedInstanceLogic.Start(sb, dqm, &quot;en&quot;);"/>
+      <RemoveLine Path="Southwind.Web\Web.config" Line="&lt;binding name=&quot;BasicHttpBinding_LanguageService&quot;/>" />
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="TranslationLogic.Start(sb, dqm);" To="TranslatedInstanceLogic.Start(sb, dqm, () => CultureInfo.GetCultureInfo(&quot;en&quot;));"/>
       <RemoveFiles Path="Southwind.Entities\Translations" DependsOn="ExampleEntities" />
       <RemoveFiles Path="Southwind.Web\Service References" />
       <RemoveFiles Path="Southwind.Web\Translations" />
