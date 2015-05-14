@@ -56,9 +56,10 @@ namespace Southwind.Web
                     new EntitySettings<OrderEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Order") },
                     new EmbeddedEntitySettings<OrderDetailsEntity> { PartialViewName = e => ViewPrefix.FormatWith("OrderDetails") },
                     new EntitySettings<ShipperEntity>() { PartialViewName = e => ViewPrefix.FormatWith("Shipper") },
-                    new EntitySettings<ApplicationConfigurationEntity>() { PartialViewName = e => ViewPrefix.FormatWith("ApplicationConfiguration") },
-                    
+
                     new EmbeddedEntitySettings<OrderFilterModel>(),
+
+                    new EntitySettings<ApplicationConfigurationEntity>() { PartialViewName = e => ViewPrefix.FormatWith("ApplicationConfiguration") },
                 });
 
                 Constructor.Register(ctx => new ApplicationConfigurationEntity

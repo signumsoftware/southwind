@@ -122,7 +122,7 @@ namespace Southwind.Web.Controllers
             }
 
             return this.DefaultExecuteResult(ctx.Value);
-        }//ShipOrder
+        }
 
         [HttpPost]
         public ActionResult OrderFilterFilters()
@@ -146,6 +146,6 @@ namespace Southwind.Web.Controllers
                 filters.Add(new FilterOption("OrderDate", ctx.Value.MaxOrderDate) { Operation = FilterOperation.LessThan });
 
             return Finder.SimpleFilterBuilderResult(this, filters);
-        }
+        }//ShipOrder
     }
 }

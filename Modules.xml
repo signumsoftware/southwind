@@ -56,13 +56,13 @@
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="public static JsModule OrderModule = new JsModule(&quot;Order&quot;);"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" 
                   From="new EmbeddedEntitySettings&lt;AddressEntity>() { PartialViewName = e => ViewPrefix.FormatWith(&quot;Address&quot;) },"
-                  To="new EntitySettings&lt;ShipperEntity>() { PartialViewName = e => ViewPrefix.FormatWith(&quot;Shipper&quot;) },"/>
+                  To="new EmbeddedEntitySettings&lt;OrderFilterModel>(),"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs"
-            From="Constructor.Register(ctx => new EmployeeEntity { Address = new AddressEntity() });"
-            To="RegisterQuickLinks();"/>
+                  From="Finder.AddQuerySetting(new QuerySettings(OrderQuery.OrderSimple)"
+                  To="RegisterQuickLinks();"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs"
-      From="private static ValueLineBoxOptions GetValueLineOptions(string prefix)"
-      To="} //RegisterQuickLinks"/>
+                  From="private static ValueLineBoxOptions GetValueLineOptions(string prefix)"
+                  To="} //RegisterQuickLinks"/>
       <RemoveFiles Path="Southwind.Web\Scripts\Order.ts"/>
       <RemoveFiles Path="Southwind.Web\Scripts\Order.js"/>
       <RemoveFiles Path="Southwind.Web\Scripts\Product.ts"/>
@@ -84,6 +84,7 @@
       <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" 
                   From="public ContentResult UpdateOrders() //To move orders to the present" 
                   To="}//ShipOrder"/>
+      <RemoveFiles Path="Southwind.Web\Views\Southwind\OrderFilter.cshtml"/>
     </Module>
 
     <Module Name="Disconnected" DependsOn="Windows">
