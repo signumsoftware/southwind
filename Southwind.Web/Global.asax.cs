@@ -46,6 +46,7 @@ using Signum.Engine.Basics;
 using Signum.Web.Help;
 using Signum.Web.Word;
 using Signum.Web.Maps;
+using Signum.Web.ViewLog;
 using Signum.Web.DiffLog;
 
 namespace Southwind.Web
@@ -182,6 +183,7 @@ namespace Southwind.Web
             AlertClient.Start(typeof(UserEntity), /*Alert*/typeof(OrderEntity));
             LinksClient.Start(widget: true, contextualItems: true);
 
+            ViewLogClient.Start();
             DiffLogClient.Start();
 
             HelpClient.Start("Images", "http://localhost:7654/"); 
