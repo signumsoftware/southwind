@@ -49,6 +49,8 @@ using Signum.Entities.Word;
 using Signum.Engine.Migrations;
 using Signum.Entities.DynamicQuery;
 using System.Net.Mail;
+using Signum.Engine.DiffLog;
+using Signum.Entities.DiffLog;
 
 namespace Southwind.Logic
 {
@@ -67,6 +69,7 @@ namespace Southwind.Logic
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
+            MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
             MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
 
             OverrideAttributes(sb);
@@ -113,6 +116,7 @@ namespace Southwind.Logic
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
+            DiffLogLogic.Start(sb, dqm);
 
             ExceptionLogic.Start(sb, dqm);
 
