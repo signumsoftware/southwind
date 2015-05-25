@@ -258,6 +258,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SmtpConfigurationLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, et => Configuration.Value.SmtpConfiguration);"/>
       <RemoveFiles Path="Southwind.Web\Libs\ckeditor"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="MailingClient.Start(" To="pop3Config: false);" />
       <RemoveLine Path="Southwind.Entities\SouthwindConfiguration.cs" From="[NotNullable]/*Email*/" To="}/*Email*/"/>
       <RemoveLine Path="Southwind.Web\Views\Southwind\ApplicationConfiguration.cshtml" From="&lt;fieldset id=&quot;email&quot;>" To="&lt;/fieldset>"/>

@@ -48,6 +48,7 @@ using Signum.Web.Word;
 using Signum.Web.Maps;
 using Signum.Web.ViewLog;
 using Signum.Web.DiffLog;
+using Signum.Engine.Mailing;
 
 namespace Southwind.Web
 {
@@ -106,6 +107,8 @@ namespace Southwind.Web
             ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
 
             SchedulerLogic.StartScheduledTasks();
+
+            AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
 
             RegisterRoutes(RouteTable.Routes);
 
@@ -196,13 +199,11 @@ namespace Southwind.Web
 
             ScriptHtmlHelper.Manager.MainAssembly = typeof(SouthwindClient).Assembly;
             SignumControllerFactory.MainAssembly = typeof(SouthwindClient).Assembly;
-
-            SignumControllerFactory.EveryController().AddFilters(ctx =>
-              ctx.FilterInfo.AuthorizationFilters.OfType<AuthenticationRequiredAttribute>().Any() ? null : new AuthenticationRequiredAttribute());
-
+            SignumControllerFactory.EveryController().AddFilters(ctx => 
+                ctx.FilterInfo.AuthorizationFilters.OfType<AuthenticationRequiredAttribute>().Any() ? null : new AuthenticationRequiredAttribute());
             SignumControllerFactory.EveryController().AddFilters(new SignumExceptionHandlerAttribute());
-
             SignumControllerFactory.EveryController().AddFilters(new ProfilerFilterAttribute());
+            SignumControllerFactory.RegisterAvoidValidate();
 
             Navigator.Initialize();
 
