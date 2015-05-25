@@ -10,7 +10,7 @@ As we complete the application we will upload the sources here and write tutoria
 - [Signum Framework website](http://www.signumframework.com/)
 - [Signum Framework github repository](https://github.com/signumframework/signumframework)
 
-In order to compile it you need Visual Studio 2010, ASP.Net MVC 3.0 and Signum Framework Installed. 
+In order to compile it you need Visual Studio 2013. 
 
 
 
