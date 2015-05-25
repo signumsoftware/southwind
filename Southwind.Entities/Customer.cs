@@ -92,18 +92,18 @@ namespace Southwind.Entities
             set { Set(ref corrupt, value); }
         }
 
-        public override Dictionary<Guid, Dictionary<string, string>> IdentifiableIntegrityCheck()
+        public override Dictionary<Guid, Dictionary<string, string>> EntityIntegrityCheck()
         {
             using (this.Corrupt ? Corruption.AllowScope() : null)
             {
-                return base.IdentifiableIntegrityCheck();
+                return base.EntityIntegrityCheck();
             }
         }
 
         protected override void PreSaving(ref bool graphModified)
         {
             base.PreSaving(ref graphModified);
-            if (this.Corrupt && base.IdentifiableIntegrityCheck() == null)
+            if (this.Corrupt && base.EntityIntegrityCheck() == null)
             {
                 this.Corrupt = false;
             }
