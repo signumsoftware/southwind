@@ -136,7 +136,8 @@ namespace Southwind.Web
                 property: true, 
                 queries: true, 
                 resetPassword: true, 
-                passwordExpiration: false);
+                passwordExpiration: false, 
+                singleSignOnMessage: false);
 
             Navigator.EntitySettings<UserEntity>().CreateViewOverrides()
                 .AfterLine((UserEntity u) => u.Role, (html, tc) => html.ValueLine(tc, u => u.Mixin<UserEmployeeMixin>().AllowLogin))
