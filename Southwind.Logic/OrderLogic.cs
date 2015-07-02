@@ -126,7 +126,7 @@ namespace Southwind.Logic
                         return new OrderEntity
                         {
                             Customer = customer,
-                            ShipAddress = customer?.Let(c => c.Address.Clone()),
+                            ShipAddress = customer?.Address.Clone(),
                             State = OrderState.New,
                             Employee = EmployeeEntity.Current.ToLite(),
                             RequiredDate = DateTime.Now.AddDays(3),
@@ -161,7 +161,7 @@ namespace Southwind.Logic
                         return new OrderEntity
                         {
                             Customer = customer,
-                            ShipAddress = customer?.Let(c => c.Address.Clone()),
+                            ShipAddress = customer?.Address.Clone(),
                             State = OrderState.New,
                             Employee = EmployeeEntity.Current.ToLite(),
                             RequiredDate = DateTime.Now.AddDays(3),

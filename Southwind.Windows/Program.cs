@@ -126,7 +126,7 @@ namespace Southwind.Windows
             var dmLite = Server.Return((IDisconnectedServer s) => s.GetDisconnectedMachine(Environment.MachineName));
 
                 
-            switch (dmLite?.Let(t=>t.Retrieve().State))
+            switch (dmLite?.Retrieve().State)
             {
                 case DisconnectedMachineState.Faulted:
                     {
