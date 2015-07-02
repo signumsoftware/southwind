@@ -32,3 +32,4 @@ Southwind.Web/Translations
 packages/*
 !packages/repositories.config
 Southwind.Web/Scripts/**/*.js
+.vs/
