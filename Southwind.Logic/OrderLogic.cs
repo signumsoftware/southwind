@@ -121,12 +121,12 @@ namespace Southwind.Logic
                     ToStates = { OrderState.New },
                     Construct = (args) => 
                     {
-                        var customer = args.TryGetArgC<Lite<CustomerEntity>>().Try(c => c.Retrieve());
+                        var customer = args.TryGetArgC<Lite<CustomerEntity>>()?.Retrieve();
 
                         return new OrderEntity
                         {
                             Customer = customer,
-                            ShipAddress = customer.Try(c => c.Address.Clone()),
+                            ShipAddress = customer?.Let(c => c.Address.Clone()),
                             State = OrderState.New,
                             Employee = EmployeeEntity.Current.ToLite(),
                             RequiredDate = DateTime.Now.AddDays(3),
@@ -156,12 +156,12 @@ namespace Southwind.Logic
                             .Where(p => prods.Contains(p.ToLite()))
                             .Select(p => new KeyValuePair<Lite<ProductEntity>, decimal>(p.ToLite(), p.UnitPrice)).ToDictionary();
 
-                        var customer = args.TryGetArgC<Lite<CustomerEntity>>().Try(c => c.Retrieve());
+                        var customer = args.TryGetArgC<Lite<CustomerEntity>>()?.Retrieve();
 
                         return new OrderEntity
                         {
                             Customer = customer,
-                            ShipAddress = customer.Try(c => c.Address.Clone()),
+                            ShipAddress = customer?.Let(c => c.Address.Clone()),
                             State = OrderState.New,
                             Employee = EmployeeEntity.Current.ToLite(),
                             RequiredDate = DateTime.Now.AddDays(3),

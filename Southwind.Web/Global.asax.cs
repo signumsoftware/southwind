@@ -251,7 +251,7 @@ namespace Southwind.Web
         public static CultureInfo GetCulture(HttpRequest request)
         {
             // 1 user preference
-            if (UserEntity.Current.Try(u => u.CultureInfo) != null)
+            if (UserEntity.Current?.CultureInfo != null)
                 return UserEntity.Current.CultureInfo.ToCultureInfo();
 
             // 2 cookie (temporary)

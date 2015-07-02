@@ -40,7 +40,7 @@ namespace Southwind.Test.Windows
 
             CultureInfoEntity culture = AuthLogic.RetrieveUser(userName).CultureInfo;
 
-            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture.Try(c => c.ToCultureInfo()) ?? new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture?.ToCultureInfo() ?? new CultureInfo("en-US");
 
             return result;
         }
