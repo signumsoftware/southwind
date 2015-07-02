@@ -46,7 +46,7 @@
         </div>
 
         <div class="col-sm-3">
-            @Html.FileLine(ec, a => a.Photo.Try(p => p.Retrieve()))
+            @Html.FileLineLite(ec, a => a.Photo)
             @if (ec.Value.Photo != null)
             {
                 <img class="img-responsive" src="@(Url.Action<FileController>(hc => hc.Download(new RuntimeInfo(ec.Value.Photo).ToString())))" />
