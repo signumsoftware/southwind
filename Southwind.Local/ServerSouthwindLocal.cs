@@ -15,6 +15,7 @@ using Signum.Engine.Authorization;
 using System.ServiceModel;
 using Signum.Entities.Authorization;
 using Signum.Engine.Basics;
+using Signum.Entities.Basics;
 
 namespace Southwind.Local
 {
@@ -87,7 +88,7 @@ namespace Southwind.Local
 
     class ServerSouthwindTransferLocal : IServerSouthwindTransfer
     {
-        public Lite<DisconnectedExportEntity> BeginExportDatabase(Lite<UserEntity> user, Lite<DisconnectedMachineEntity> machine)
+        public Lite<DisconnectedExportEntity> BeginExportDatabase(Lite<IUserEntity> user, Lite<DisconnectedMachineEntity> machine)
         {
             throw NotAvailableOffline();
         }

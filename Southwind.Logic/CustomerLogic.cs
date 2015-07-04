@@ -29,7 +29,7 @@ namespace Southwind.Logic
                     from r in Database.Query<PersonEntity>()
                     select new
                     {
-                        Entity = r.ToLite(),
+                        Entity = r,
                         r.Id,
                         r.FirstName,
                         r.LastName,
@@ -43,7 +43,7 @@ namespace Southwind.Logic
                     from r in Database.Query<CompanyEntity>()
                     select new
                     {
-                        Entity = r.ToLite(),
+                        Entity = r,
                         r.Id,
                         r.CompanyName,
                         r.ContactName,

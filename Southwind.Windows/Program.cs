@@ -221,7 +221,7 @@ namespace Southwind.Windows
                 {
                     var exception = new ExceptionEntity(e.Follow(ex => ex.InnerException).Last())
                     {
-                        User = UserEntity.Current.ToLite<IUserEntity>(),
+                        User = UserEntity.Current?.ToLite<IUserEntity>(),
                         ControllerName = "WindowsClient",
                         ActionName = "WindowClient",
                         Version = typeof(Program).Assembly.GetName().Version.ToString(),

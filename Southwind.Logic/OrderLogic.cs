@@ -30,7 +30,7 @@ namespace Southwind.Logic
                     from o in Database.Query<OrderEntity>()
                     select new
                     {
-                        Entity = o.ToLite(),
+                        Entity = o,
                         o.Id,
                         o.State,
                         o.Customer,
@@ -46,7 +46,7 @@ namespace Southwind.Logic
                     from o in Database.Query<OrderEntity>()
                     select new
                     {
-                        Entity = o.ToLite(),
+                        Entity = o,
                         o.Id,
                         o.State,
                         o.Customer,
@@ -62,7 +62,7 @@ namespace Southwind.Logic
                     from od in o.Details
                     select new
                     {
-                        Entity = o.ToLite(),
+                        Entity = o,
                         o.Id,
                         od.Product,
                         od.Quantity,
@@ -128,7 +128,7 @@ namespace Southwind.Logic
                             Customer = customer,
                             ShipAddress = customer?.Address.Clone(),
                             State = OrderState.New,
-                            Employee = EmployeeEntity.Current.ToLite(),
+                            Employee = EmployeeEntity.Current?.ToLite(),
                             RequiredDate = DateTime.Now.AddDays(3),
                         };
                     }
@@ -141,7 +141,7 @@ namespace Southwind.Logic
                     {
                         State = OrderState.New,
                         Customer = c,
-                        Employee = EmployeeEntity.Current.ToLite(),
+                        Employee = EmployeeEntity.Current?.ToLite(),
                         ShipAddress = c.Address,
                         RequiredDate = DateTime.Now.AddDays(3),
                     }
@@ -163,7 +163,7 @@ namespace Southwind.Logic
                             Customer = customer,
                             ShipAddress = customer?.Address.Clone(),
                             State = OrderState.New,
-                            Employee = EmployeeEntity.Current.ToLite(),
+                            Employee = EmployeeEntity.Current?.ToLite(),
                             RequiredDate = DateTime.Now.AddDays(3),
                             Details = prods.Select(p => new OrderDetailsEntity
                             {

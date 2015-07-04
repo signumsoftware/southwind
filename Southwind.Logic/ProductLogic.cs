@@ -34,7 +34,7 @@ namespace Southwind.Logic
                     from p in Database.Query<ProductEntity>()
                     select new
                     {
-                        Entity = p.ToLite(),
+                        Entity = p,
                         p.Id,
                         p.ProductName,
                         p.Supplier,
@@ -50,7 +50,7 @@ namespace Southwind.Logic
                     where !p.Discontinued
                     select new
                     {
-                        Entity = p.ToLite(),
+                        Entity = p,
                         p.Id,
                         p.ProductName,
                         p.Supplier,
@@ -64,7 +64,7 @@ namespace Southwind.Logic
                     from s in Database.Query<SupplierEntity>()
                     select new
                     {
-                        Entity = s.ToLite(),
+                        Entity = s,
                         s.Id,
                         s.CompanyName,
                         s.ContactName,
@@ -78,7 +78,7 @@ namespace Southwind.Logic
                     from s in Database.Query<CategoryEntity>()
                     select new
                     {
-                        Entity = s.ToLite(),
+                        Entity = s,
                         s.Id,
                         s.CategoryName,
                         s.Description,

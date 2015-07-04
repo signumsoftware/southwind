@@ -261,7 +261,7 @@ namespace Southwind.Logic
                 from s in Database.Query<ApplicationConfigurationEntity>()
                 select new
                 {
-                    Entity = s.ToLite(),
+                    Entity = s,
                     s.Id,
                     s.Environment,
                     s.Email.SendEmails,

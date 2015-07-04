@@ -33,7 +33,7 @@ namespace Southwind.Logic
                     from r in Database.Query<RegionEntity>()
                     select new
                     {
-                        Entity = r.ToLite(),
+                        Entity = r,
                         r.Id,
                         r.Description,
                     });
@@ -44,17 +44,17 @@ namespace Southwind.Logic
                     from t in Database.Query<TerritoryEntity>()
                     select new
                     {
-                        Entity = t.ToLite(),
+                        Entity = t,
                         t.Id,
                         t.Description,
-                        Region = t.Region.ToLite()
+                        t.Region
                     });
 
                 dqm.RegisterQuery(typeof(EmployeeEntity), () =>
                     from e in Database.Query<EmployeeEntity>()
                     select new
                     {
-                        Entity = e.ToLite(),
+                        Entity = e,
                         e.Id,
                         e.FirstName,
                         e.LastName,
@@ -67,13 +67,13 @@ namespace Southwind.Logic
                     from t in e.Territories
                     select new
                     {
-                        Entity = e.ToLite(),
+                        Entity = e,
                         e.Id,
                         e.FirstName,
                         e.LastName,
                         e.BirthDate,
                         e.Photo, //2
-                        Territory = t.ToLite(),
+                        Territory = t,
                     });
 
                 new Graph<EmployeeEntity>.Execute(EmployeeOperation.Save)
