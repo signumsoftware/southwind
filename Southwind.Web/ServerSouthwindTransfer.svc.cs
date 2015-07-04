@@ -27,7 +27,7 @@ namespace Southwind.Web
     //http://talentedmonkeys.wordpress.com/2010/11/29/wcf-400-bad-request-while-streaming-large-files-through-iis/
     public class ServerSouthwindTransfer : IServerSouthwindTransfer
     {
-        protected T Return<T>(UserEntity user, MethodBase mi, string description, Func<T> function)
+        protected T Return<T>(IUserEntity user, MethodBase mi, string description, Func<T> function)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Southwind.Web
             }
         }
 
-        public Lite<DisconnectedExportEntity> BeginExportDatabase(Lite<UserEntity> user, Lite<DisconnectedMachineEntity> machine)
+        public Lite<DisconnectedExportEntity> BeginExportDatabase(Lite<IUserEntity> user, Lite<DisconnectedMachineEntity> machine)
         {
             return Return(UnsafeRetrieve(user), MethodInfo.GetCurrentMethod(), null, () =>
                 DisconnectedLogic.ExportManager.BeginExportDatabase(machine.Retrieve()));
@@ -92,7 +92,7 @@ namespace Southwind.Web
             });
         }
 
-        private static UserEntity UnsafeRetrieve(Lite<UserEntity> user)
+        private static IUserEntity UnsafeRetrieve(Lite<IUserEntity> user)
         {
             using (AuthLogic.Disable())
                 return user.RetrieveAndForget();
