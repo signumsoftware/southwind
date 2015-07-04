@@ -130,7 +130,7 @@ namespace Southwind.Entities
         {
             OrderDetailsEntity details = sender as OrderDetailsEntity;
 
-            if (details != null && !IsLegacy &&  pi.Is(() => details.Discount))
+            if (details != null && !IsLegacy && pi.Name == nameof(details.Discount))
             {
                 if ((details.Discount * 100.0m) % 5.0m != 0)
                     return OrderMessage.DiscountShouldBeMultpleOf5.NiceToString();

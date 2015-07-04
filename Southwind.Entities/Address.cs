@@ -58,7 +58,7 @@ namespace Southwind.Entities
 
         protected override string PropertyValidation(PropertyInfo pi)
         {
-            if (pi.Is(() => PostalCode))
+            if (pi.Name == nameof(PostalCode))
             {
                 if (string.IsNullOrEmpty(postalCode) && Country != "Ireland")
                     return Signum.Entities.ValidationMessage._0IsNotSet.NiceToString().FormatWith(pi.NiceName());
