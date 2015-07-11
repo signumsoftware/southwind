@@ -21,7 +21,7 @@ namespace Southwind.Entities
         public string LastName
         {
             get { return lastName; }
-            set { SetToStr(ref lastName, value); }
+            set { Set(ref lastName, value); }
         }
 
         [NotNullable, SqlDbType(Size = 10)]
@@ -30,7 +30,7 @@ namespace Southwind.Entities
         public string FirstName
         {
             get { return firstName; }
-            set { SetToStr(ref firstName, value); }
+            set { Set(ref firstName, value); }
         }
 
         [SqlDbType(Size = 30)]
@@ -167,7 +167,7 @@ namespace Southwind.Entities
         public string Description
         {
             get { return description; }
-            set { SetToStr(ref description, value); }
+            set { Set(ref description, value); }
         }
 
         static Expression<Func<TerritoryEntity, string>> ToStringExpression = e => e.Description;
@@ -191,7 +191,7 @@ namespace Southwind.Entities
         public string Description
         {
             get { return description; }
-            set { SetToStr(ref description, value); }
+            set { Set(ref description, value); }
         }
 
         static Expression<Func<RegionEntity, string>> ToStringExpression = e => e.Description;

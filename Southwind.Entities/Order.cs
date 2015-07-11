@@ -288,7 +288,7 @@ namespace Southwind.Entities
         public string CompanyName
         {
             get { return companyName; }
-            set { SetToStr(ref companyName, value); }
+            set { Set(ref companyName, value); }
         }
 
         [NotNullable, SqlDbType(Size = 24)]

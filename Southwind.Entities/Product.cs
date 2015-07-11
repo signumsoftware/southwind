@@ -19,7 +19,7 @@ namespace Southwind.Entities
         public string ProductName
         {
             get { return productName; }
-            set { SetToStr(ref productName, value); }
+            set { Set(ref productName, value); }
         }
 
         Lite<SupplierEntity> supplier;
@@ -114,7 +114,7 @@ namespace Southwind.Entities
         public string CompanyName
         {
             get { return companyName; }
-            set { SetToStr(ref companyName, value); }
+            set { Set(ref companyName, value); }
         }
 
         [SqlDbType(Size = 30)]
@@ -193,7 +193,7 @@ namespace Southwind.Entities
         public string CategoryName
         {
             get { return categoryName; }
-            set { SetToStr(ref categoryName, value); }
+            set { Set(ref categoryName, value); }
         }
 
         [TranslateField] //Localize description column
