@@ -240,7 +240,8 @@ namespace Southwind.Entities
         OrderSimple
     }
 
-    public static class OrderTasks
+    [AutoInit]
+    public static class OrderTask
     {
         public static SimpleTaskSymbol CancelOldOrdersWithProcess;
         public static SimpleTaskSymbol CancelOldOrders;
