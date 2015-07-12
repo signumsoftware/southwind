@@ -184,18 +184,19 @@ namespace Southwind.Entities
         Canceled,
     }
 
+    [AutoInit]
     public static class OrderOperation
     {
-        public static readonly ConstructSymbol<OrderEntity>.Simple Create = OperationSymbol.Construct<OrderEntity>.Simple();
-        public static readonly ExecuteSymbol<OrderEntity> SaveNew = OperationSymbol.Execute<OrderEntity>();
-        public static readonly ExecuteSymbol<OrderEntity> Save = OperationSymbol.Execute<OrderEntity>();
-        public static readonly ExecuteSymbol<OrderEntity> Ship = OperationSymbol.Execute<OrderEntity>();
-        public static readonly ExecuteSymbol<OrderEntity> Cancel = OperationSymbol.Execute<OrderEntity>();
-        public static readonly ConstructSymbol<OrderEntity>.From<CustomerEntity> CreateOrderFromCustomer = OperationSymbol.Construct<OrderEntity>.From<CustomerEntity>();
-        public static readonly ConstructSymbol<OrderEntity>.FromMany<ProductEntity> CreateOrderFromProducts = OperationSymbol.Construct<OrderEntity>.FromMany<ProductEntity>();
-        public static readonly DeleteSymbol<OrderEntity> Delete = OperationSymbol.Delete<OrderEntity>();
+        public static ConstructSymbol<OrderEntity>.Simple Create;
+        public static ExecuteSymbol<OrderEntity> SaveNew;
+        public static ExecuteSymbol<OrderEntity> Save;
+        public static ExecuteSymbol<OrderEntity> Ship;
+        public static ExecuteSymbol<OrderEntity> Cancel;
+        public static ConstructSymbol<OrderEntity>.From<CustomerEntity> CreateOrderFromCustomer;
+        public static ConstructSymbol<OrderEntity>.FromMany<ProductEntity> CreateOrderFromProducts;
+        public static DeleteSymbol<OrderEntity> Delete;
 
-        public static readonly ConstructSymbol<ProcessEntity>.FromMany<OrderEntity> CancelWithProcess = OperationSymbol.Construct<ProcessEntity>.FromMany<OrderEntity>();
+        public static ConstructSymbol<ProcessEntity>.FromMany<OrderEntity> CancelWithProcess;
     }
 
     [Serializable]
@@ -307,9 +308,10 @@ namespace Southwind.Entities
         }
     }
 
+    [AutoInit]
     public static class ShipperOperation
     {
-        public static readonly ExecuteSymbol<ShipperEntity> Save = OperationSymbol.Execute<ShipperEntity>();
+        public static ExecuteSymbol<ShipperEntity> Save;
     }
 
     public enum OrderQuery
@@ -320,13 +322,14 @@ namespace Southwind.Entities
 
     public static class OrderTasks
     {
-        public static readonly SimpleTaskSymbol CancelOldOrdersWithProcess = new SimpleTaskSymbol();
-        public static readonly SimpleTaskSymbol CancelOldOrders = new SimpleTaskSymbol();
+        public static SimpleTaskSymbol CancelOldOrdersWithProcess;
+        public static SimpleTaskSymbol CancelOldOrders;
     }
 
+    [AutoInit]
     public static class OrderProcess
     {
-        public static readonly ProcessAlgorithmSymbol CancelOrders = new ProcessAlgorithmSymbol();
+        public static ProcessAlgorithmSymbol CancelOrders;
     }
 
     [Serializable]

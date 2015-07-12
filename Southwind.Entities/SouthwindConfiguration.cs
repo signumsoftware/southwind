@@ -48,15 +48,17 @@ namespace Southwind.Entities
         }/*Sms*/
     }
 
+    [AutoInit]
     public static class ApplicationConfigurationOperation
     {
-        public static readonly ExecuteSymbol<ApplicationConfigurationEntity> Save = OperationSymbol.Execute<ApplicationConfigurationEntity>();
+        public static ExecuteSymbol<ApplicationConfigurationEntity> Save;
     }
 
+    [AutoInit]
     public static class SouthwindGroup
     {
-        public static TypeConditionSymbol UserEntities = new TypeConditionSymbol();
-        public static TypeConditionSymbol RoleEntities = new TypeConditionSymbol();
-        public static TypeConditionSymbol CurrentCustomer = new TypeConditionSymbol();
+        public static TypeConditionSymbol UserEntities;
+        public static TypeConditionSymbol RoleEntities;
+        public static TypeConditionSymbol CurrentCustomer;
     }
 }

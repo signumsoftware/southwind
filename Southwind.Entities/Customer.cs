@@ -163,8 +163,9 @@ namespace Southwind.Entities
         }
     }
 
+    [AutoInit]
     public static class CustomerOperation
     {
-        public static readonly ExecuteSymbol<CustomerEntity> Save = OperationSymbol.Execute<CustomerEntity>();
+        public static ExecuteSymbol<CustomerEntity> Save;
     }
 }

@@ -145,9 +145,10 @@ namespace Southwind.Entities
         } //Current
     }
 
+    [AutoInit]
     public static class EmployeeOperation
     {
-        public static readonly ExecuteSymbol<EmployeeEntity> Save = OperationSymbol.Execute<EmployeeEntity>();
+        public static ExecuteSymbol<EmployeeEntity> Save;
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
@@ -177,9 +178,10 @@ namespace Southwind.Entities
         }
     }
 
+    [AutoInit]
     public static class TerritoryOperation
     {
-        public static readonly ExecuteSymbol<TerritoryEntity> Save = OperationSymbol.Execute<TerritoryEntity>();
+        public static ExecuteSymbol<TerritoryEntity> Save;
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
@@ -201,9 +203,10 @@ namespace Southwind.Entities
         }
     }
 
+    [AutoInit]
     public static class RegionOperation
     {
-        public static readonly ExecuteSymbol<RegionEntity> Save = OperationSymbol.Execute<RegionEntity>();
+        public static ExecuteSymbol<RegionEntity> Save;
     }
 
     public enum EmployeeQuery

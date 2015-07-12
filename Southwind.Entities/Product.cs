@@ -100,9 +100,10 @@ namespace Southwind.Entities
         }
     }
 
+    [AutoInit]
     public static class ProductOperation
     {
-        public static readonly ExecuteSymbol<ProductEntity> Save = OperationSymbol.Execute<ProductEntity>();
+        public static ExecuteSymbol<ProductEntity> Save;
     }
 
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
@@ -178,9 +179,10 @@ namespace Southwind.Entities
         }
     }
 
+    [AutoInit]
     public static class SupplierOperation
     {
-        public static readonly ExecuteSymbol<SupplierEntity> Save = OperationSymbol.Execute<SupplierEntity>();
+        public static ExecuteSymbol<SupplierEntity> Save;
     }
 
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
@@ -220,9 +222,10 @@ namespace Southwind.Entities
         }
     }
 
+    [AutoInit]
     public static class CategoryOperation
     {
-        public static readonly ExecuteSymbol<CategoryEntity> Save = OperationSymbol.Execute<CategoryEntity>();
+        public static ExecuteSymbol<CategoryEntity> Save;
     }
 
     public enum ProductQuery
