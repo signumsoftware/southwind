@@ -14,19 +14,9 @@ namespace Southwind.Entities
         {
         }
 
-        AllowLogin allowLogin;
-        public AllowLogin AllowLogin
-        {
-            get { return allowLogin; }
-            set { Set(ref allowLogin, value); }
-        }
+        public AllowLogin AllowLogin { get; set; }
 
-        EmployeeEntity employee;
-        public EmployeeEntity Employee
-        {
-            get { return employee; }
-            set { Set(ref employee, value); }
-        }
+        public EmployeeEntity Employee { get; set; }
     }
 
     public enum AllowLogin

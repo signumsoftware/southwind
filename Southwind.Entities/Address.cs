@@ -12,55 +12,30 @@ namespace Southwind.Entities
     public class AddressEntity : EmbeddedEntity
     {
         [NotNullable, SqlDbType(Size = 60)]
-        string address;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 60)]
-        public string Address
-        {
-            get { return address; }
-            set { Set(ref address, value); }
-        }
+        public string Address { get; set; }
 
         [NotNullable, SqlDbType(Size = 15)]
-        string city;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 15)]
-        public string City
-        {
-            get { return city; }
-            set { Set(ref city, value); }
-        }
+        public string City { get; set; }
 
         [SqlDbType(Size = 15)]
-        string region;
         [StringLengthValidator(AllowNulls = true, Min = 2, Max = 15)]
-        public string Region
-        {
-            get { return region; }
-            set { Set(ref region, value); }
-        }
+        public string Region { get; set; }
 
         [SqlDbType(Size = 10)]
-        string postalCode;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10)]
-        public string PostalCode
-        {
-            get { return postalCode; }
-            set { Set(ref postalCode, value); }
-        }
+        public string PostalCode { get; set; }
 
         [NotNullable, SqlDbType(Size = 15)]
-        string country;
         [StringLengthValidator(AllowNulls = false, Min = 2, Max = 15)]
-        public string Country
-        {
-            get { return country; }
-            set { Set(ref country, value); }
-        }
+        public string Country { get; set; }
 
         protected override string PropertyValidation(PropertyInfo pi)
         {
             if (pi.Name == nameof(PostalCode))
             {
-                if (string.IsNullOrEmpty(postalCode) && Country != "Ireland")
+                if (string.IsNullOrEmpty(PostalCode) && Country != "Ireland")
                     return Signum.Entities.ValidationMessage._0IsNotSet.NiceToString().FormatWith(pi.NiceName());
             }
 

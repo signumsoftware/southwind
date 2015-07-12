@@ -18,113 +18,48 @@ namespace Southwind.Entities
     public class OrderEntity : Entity
     {
         [ImplementedBy(typeof(CompanyEntity), typeof(PersonEntity))]
-        CustomerEntity customer;
         [NotNullValidator]
-        public CustomerEntity Customer
-        {
-            get { return customer; }
-            set { Set(ref customer, value); }
-        }
+        public CustomerEntity Customer { get; set; }
 
-        Lite<EmployeeEntity> employee;
         [NotNullValidator]
-        public Lite<EmployeeEntity> Employee
-        {
-            get { return employee; }
-            set { Set(ref employee, value); }
-        }
+        public Lite<EmployeeEntity> Employee { get; set; }
 
-        DateTime orderDate;
-        public DateTime OrderDate
-        {
-            get { return orderDate; }
-            set { Set(ref orderDate, value); }
-        }
+        public DateTime OrderDate { get; set; }
 
-        DateTime requiredDate;
-        public DateTime RequiredDate
-        {
-            get { return requiredDate; }
-            set { Set(ref requiredDate, value); }
-        }
+        public DateTime RequiredDate { get; set; }
 
-        DateTime? shippedDate;
-        public DateTime? ShippedDate
-        {
-            get { return shippedDate; }
-            set { Set(ref shippedDate, value); }
-        }
+        public DateTime? ShippedDate { get; set; }
 
-        DateTime? cancelationDate;
-        public DateTime? CancelationDate
-        {
-            get { return cancelationDate; }
-            set { Set(ref cancelationDate, value); }
-        }
+        public DateTime? CancelationDate { get; set; }
 
-        Lite<ShipperEntity> shipVia;
-        public Lite<ShipperEntity> ShipVia
-        {
-            get { return shipVia; }
-            set { Set(ref shipVia, value); }
-        }
+        public Lite<ShipperEntity> ShipVia { get; set; }
 
         [SqlDbType(Size = 40)]
-        string shipName;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 40)]
-        public string ShipName
-        {
-            get { return shipName; }
-            set { Set(ref shipName, value); }
-        }
+        public string ShipName { get; set; }
 
         [NotNullable]
-        AddressEntity shipAddress;
         [NotNullValidator]
-        public AddressEntity ShipAddress
-        {
-            get { return shipAddress; }
-            set { Set(ref shipAddress, value); }
-        }
+        public AddressEntity ShipAddress { get; set; }
 
-        decimal freight;
         [Unit("Kg")]
-        public decimal Freight
-        {
-            get { return freight; }
-            set { Set(ref freight, value); }
-        }
+        public decimal Freight { get; set; }
 
         [NotNullable, ValidateChildProperty, NotifyChildProperty, NotifyCollectionChanged]
-        MList<OrderDetailsEntity> details = new MList<OrderDetailsEntity>();
         [NoRepeatValidator]
-        public MList<OrderDetailsEntity> Details
-        {
-            get { return details; }
-            set { Set(ref details, value); }
-        }
+        public MList<OrderDetailsEntity> Details { get; set; } = new MList<OrderDetailsEntity>();
 
         static Expression<Func<OrderEntity, decimal>> TotalPriceExpression =
             o => o.Details.Sum(od => od.SubTotalPrice);
         [Unit("€")]
         public decimal TotalPrice
         {
-            get{ return TotalPriceExpression.Evaluate(this); }
+            get { return TotalPriceExpression.Evaluate(this); }
         }
 
-        bool isLegacy;
-        public bool IsLegacy
-        {
-            get { return isLegacy; }
-            set { Set(ref isLegacy, value); }
-        }
+        public bool IsLegacy { get; set; }
 
-        OrderState state;
-        public OrderState State
-        {
-            get { return state; }
-            set { Set(ref state, value); }
-        }
+        public OrderState State { get; set; }
 
         protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi)
         {
@@ -141,7 +76,7 @@ namespace Southwind.Entities
 
         protected override void ChildCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            if (sender == details)
+            if (sender == Details)
                 Notify(() => TotalPrice);
         }
 
@@ -152,12 +87,12 @@ namespace Southwind.Entities
         }
 
         protected override string PropertyValidation(PropertyInfo pi)
-        { 
-            return stateValidator.Validate(this, pi); 
+        {
+            return stateValidator.Validate(this, pi);
         }
 
-  		static StateValidator<OrderEntity, OrderState> stateValidator = new StateValidator<OrderEntity, OrderState>(
-            o => o.State, o => o.ShippedDate, o => o.ShipVia, o => o.CancelationDate)
+        static StateValidator<OrderEntity, OrderState> stateValidator = new StateValidator<OrderEntity, OrderState>(
+          o => o.State, o => o.ShippedDate, o => o.ShipVia, o => o.CancelationDate)
             {
                 {OrderState.New,     false, null, false},
                 {OrderState.Ordered, false, null, null},
@@ -179,7 +114,7 @@ namespace Southwind.Entities
     {
         [Ignore]
         New,
-        Ordered, 
+        Ordered,
         Shipped,
         Canceled,
     }
@@ -202,13 +137,8 @@ namespace Southwind.Entities
     [Serializable]
     public class OrderDetailsEntity : EmbeddedEntity, IEditableObject
     {
-        Lite<ProductEntity> product;
         [NotNullValidator]
-        public Lite<ProductEntity> Product
-        {
-            get { return product; }
-            set { Set(ref product, value); }
-        }
+        public Lite<ProductEntity> Product { get; set; }
 
         decimal unitPrice;
         [Unit("€")]
@@ -260,7 +190,7 @@ namespace Southwind.Entities
         {
             clone = new OrderDetailsEntity
             {
-                Product = product,
+                Product = Product,
                 Quantity = quantity,
                 UnitPrice = unitPrice,
                 Discount = discount
@@ -269,7 +199,7 @@ namespace Southwind.Entities
 
         public void CancelEdit()
         {
-            Product = clone.product;
+            Product = clone.Product;
             Quantity = clone.quantity;
             Discount = clone.discount;
         }
@@ -284,22 +214,12 @@ namespace Southwind.Entities
     public class ShipperEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
-        string companyName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
-        public string CompanyName
-        {
-            get { return companyName; }
-            set { Set(ref companyName, value); }
-        }
+        public string CompanyName { get; set; }
 
         [NotNullable, SqlDbType(Size = 24)]
-        string phone;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
-        public string Phone
-        {
-            get { return phone; }
-            set { Set(ref phone, value); }
-        }
+        public string Phone { get; set; }
 
         static Expression<Func<ShipperEntity, string>> ToStringExpression = e => e.CompanyName;
         public override string ToString()
@@ -333,37 +253,17 @@ namespace Southwind.Entities
     }
 
     [Serializable]
-    public class OrderFilterModel: ModelEntity
+    public class OrderFilterModel : ModelEntity
     {
         [ImplementedBy(typeof(PersonEntity), typeof(CompanyEntity))]
-        Lite<CustomerEntity> customer;
-        public Lite<CustomerEntity> Customer
-        {
-            get { return customer; }
-            set { Set(ref customer, value); }
-        }
+        public Lite<CustomerEntity> Customer { get; set; }
 
-        Lite<EmployeeEntity> employee;
-        public Lite<EmployeeEntity> Employee
-        {
-            get { return employee; }
-            set { Set(ref employee, value); }
-        }
+        public Lite<EmployeeEntity> Employee { get; set; }
 
-        DateTime? minOrderDate;
         [DaysPrecissionValidator]
-        public DateTime? MinOrderDate
-        {
-            get { return minOrderDate; }
-            set { Set(ref minOrderDate, value); }
-        }
+        public DateTime? MinOrderDate { get; set; }
 
-        DateTime? maxOrderDate;
         [DaysPrecissionValidator]
-        public DateTime? MaxOrderDate
-        {
-            get { return maxOrderDate; }
-            set { Set(ref maxOrderDate, value); }
-        }
+        public DateTime? MaxOrderDate { get; set; }
     }
 }

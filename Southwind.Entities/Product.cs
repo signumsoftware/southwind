@@ -14,38 +14,18 @@ namespace Southwind.Entities
     public class ProductEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 40), UniqueIndex]
-        string productName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
-        public string ProductName
-        {
-            get { return productName; }
-            set { Set(ref productName, value); }
-        }
+        public string ProductName { get; set; }
 
-        Lite<SupplierEntity> supplier;
         [NotNullValidator]
-        public Lite<SupplierEntity> Supplier
-        {
-            get { return supplier; }
-            set { Set(ref supplier, value); }
-        }
+        public Lite<SupplierEntity> Supplier { get; set; }
 
-        Lite<CategoryEntity> category;
         [NotNullValidator]
-        public Lite<CategoryEntity> Category
-        {
-            get { return category; }
-            set { Set(ref category, value); }
-        }
+        public Lite<CategoryEntity> Category { get; set; }
 
         [NotNullable, SqlDbType(Size = 20)]
-        string quantityPerUnit;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 20)]
-        public string QuantityPerUnit
-        {   
-            get { return quantityPerUnit; }
-            set { Set(ref quantityPerUnit, value); }
-        }
+        public string QuantityPerUnit { get; set; }
 
         decimal unitPrice;
         [NumberIsValidator(ComparisonType.GreaterThan, 0), Unit("$")]
@@ -71,19 +51,9 @@ namespace Southwind.Entities
             }
         }
 
-        int reorderLevel;
-        public int ReorderLevel
-        {
-            get { return reorderLevel; }
-            set { Set(ref reorderLevel, value); }
-        }
+        public int ReorderLevel { get; set; }
 
-        bool discontinued;
-        public bool Discontinued
-        {
-            get { return discontinued; }
-            set { Set(ref discontinued, value); }
-        }
+        public bool Discontinued { get; set; }
 
         static Expression<Func<ProductEntity, decimal>> ValueInStockExpression =
             p => p.unitPrice * p.unitsInStock;
@@ -110,67 +80,32 @@ namespace Southwind.Entities
     public class SupplierEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 40), UniqueIndex]
-        string companyName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
-        public string CompanyName
-        {
-            get { return companyName; }
-            set { Set(ref companyName, value); }
-        }
+        public string CompanyName { get; set; }
 
         [SqlDbType(Size = 30)]
-        string contactName;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 30)]
-        public string ContactName
-        {
-            get { return contactName; }
-            set { Set(ref contactName, value); }
-        }
+        public string ContactName { get; set; }
 
         [SqlDbType(Size = 30)]
-        string contactTitle;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 30)]
-        public string ContactTitle
-        {
-            get { return contactTitle; }
-            set { Set(ref contactTitle, value); }
-        }
+        public string ContactTitle { get; set; }
 
         [NotNullable]
-        AddressEntity address;
         [NotNullValidator]
-        public AddressEntity Address
-        {
-            get { return address; }
-            set { Set(ref address, value); }
-        }
+        public AddressEntity Address { get; set; }
 
         [NotNullable, SqlDbType(Size = 24)]
-        string phone;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
-        public string Phone
-        {
-            get { return phone; }
-            set { Set(ref phone, value); }
-        }
+        public string Phone { get; set; }
 
         [NotNullable, SqlDbType(Size = 24)]
-        string fax;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
-        public string Fax
-        {
-            get { return fax; }
-            set { Set(ref fax, value); }
-        }
+        public string Fax { get; set; }
 
         [SqlDbType(Size = int.MaxValue)]
-        string homePage;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
-        public string HomePage
-        {
-            get { return homePage; }
-            set { Set(ref homePage, value); }
-        }
+        public string HomePage { get; set; }
 
         static Expression<Func<SupplierEntity, string>> ToStringExpression = e => e.CompanyName;
         public override string ToString()
@@ -190,30 +125,15 @@ namespace Southwind.Entities
     {
         [TranslateField] //Localize categoryName column
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
-        string categoryName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
-        public string CategoryName
-        {
-            get { return categoryName; }
-            set { Set(ref categoryName, value); }
-        }
+        public string CategoryName { get; set; }
 
         [TranslateField] //Localize description column
         [NotNullable, SqlDbType(Size = int.MaxValue)]
-        string description;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = int.MaxValue)]
-        public string Description
-        {
-            get { return description; }
-            set { Set(ref description, value); }
-        }
+        public string Description { get; set; }
 
-        EmbeddedFileEntity picture;
-        public EmbeddedFileEntity Picture
-        {
-            get { return picture; }
-            set { Set(ref picture, value); }
-        }
+        public EmbeddedFileEntity Picture { get; set; }
 
         static Expression<Func<CategoryEntity, string>> ToStringExpression = e => e.CategoryName;
         public override string ToString()

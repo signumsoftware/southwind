@@ -13,39 +13,19 @@ namespace Southwind.Entities
     public class ApplicationConfigurationEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
-        string environment;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
-        public string Environment
-        {
-            get { return environment; }
-            set { Set(ref environment, value); }
-        }
+        public string Environment { get; set; }
 
         [NotNullable]/*Email*/
-        EmailConfigurationEntity email;
         [NotNullValidator]
-        public EmailConfigurationEntity Email
-        {
-            get { return email; }
-            set { Set(ref email, value); }
-        }
+        public EmailConfigurationEntity Email { get; set; }
 
-        SmtpConfigurationEntity smtpConfiguration;
         [NotNullValidator]
-        public SmtpConfigurationEntity SmtpConfiguration
-        {
-            get { return smtpConfiguration; }
-            set { Set(ref smtpConfiguration, value); }
-        }/*Email*/
+        public SmtpConfigurationEntity SmtpConfiguration { get; set; }
 
         [NotNullable]/*Sms*/
-        SMSConfigurationEntity sms;
         [NotNullValidator]
-        public SMSConfigurationEntity Sms
-        {
-            get { return sms; }
-            set { Set(ref sms, value); }
-        }/*Sms*/
+        public SMSConfigurationEntity Sms { get; set; }
     }
 
     [AutoInit]

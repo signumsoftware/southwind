@@ -16,123 +16,53 @@ namespace Southwind.Entities
     public class EmployeeEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 20)]
-        string lastName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 20)]
-        public string LastName
-        {
-            get { return lastName; }
-            set { Set(ref lastName, value); }
-        }
+        public string LastName { get; set; }
 
         [NotNullable, SqlDbType(Size = 10)]
-        string firstName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 10)]
-        public string FirstName
-        {
-            get { return firstName; }
-            set { Set(ref firstName, value); }
-        }
+        public string FirstName { get; set; }
 
         [SqlDbType(Size = 30)]
-        string title;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 30)]
-        public string Title
-        {
-            get { return title; }
-            set { Set(ref title, value); }
-        }
+        public string Title { get; set; }
 
         [SqlDbType(Size = 25)]
-        string titleOfCourtesy;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 25)]
-        public string TitleOfCourtesy
-        {
-            get { return titleOfCourtesy; }
-            set { Set(ref titleOfCourtesy, value); }
-        }
+        public string TitleOfCourtesy { get; set; }
 
-        DateTime? birthDate;
         [DateTimePrecissionValidator(DateTimePrecision.Days)]
-        public DateTime? BirthDate
-        {
-            get { return birthDate; }
-            set { Set(ref birthDate, value); }
-        }
+        public DateTime? BirthDate { get; set; }
 
-        DateTime? hireDate;
-        public DateTime? HireDate
-        {
-            get { return hireDate; }
-            set { Set(ref hireDate, value); }
-        }
+        public DateTime? HireDate { get; set; }
 
         [NotNullable]
-        AddressEntity address;
         [NotNullValidator]
-        public AddressEntity Address
-        {
-            get { return address; }
-            set { Set(ref address, value); }
-        }
+        public AddressEntity Address { get; set; }
 
         [SqlDbType(Size = 25)]
-        string homePhone;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 25), TelephoneValidator]
-        public string HomePhone
-        {
-            get { return homePhone; }
-            set { Set(ref homePhone, value); }
-        }
+        public string HomePhone { get; set; }
 
         [SqlDbType(Size = 4)]
-        string extension;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 4), TelephoneValidator]
-        public string Extension
-        {
-            get { return extension; }
-            set { Set(ref extension, value); }
-        }
+        public string Extension { get; set; }
 
-        Lite<FileEntity> photo;
-        public Lite<FileEntity> Photo
-        {
-            get { return photo; }
-            set { Set(ref photo, value); }
-        }
+        public Lite<FileEntity> Photo { get; set; }
 
         [SqlDbType(Size = int.MaxValue),]
-        string notes;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
-        public string Notes
-        {
-            get { return notes; }
-            set { Set(ref notes, value); }
-        }
+        public string Notes { get; set; }
 
-        Lite<EmployeeEntity> reportsTo;
-        public Lite<EmployeeEntity> ReportsTo
-        {
-            get { return reportsTo; }
-            set { Set(ref reportsTo, value); }
-        }
+        public Lite<EmployeeEntity> ReportsTo { get; set; }
 
         [SqlDbType(Size = 255)]
-        string photoPath;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 255), URLValidator]
-        public string PhotoPath
-        {
-            get { return photoPath; }
-            set { Set(ref photoPath, value); }
-        }
+        public string PhotoPath { get; set; }
 
         [NotNullable]
-        MList<TerritoryEntity> territories = new MList<TerritoryEntity>();
         [NoRepeatValidator]
-        public MList<TerritoryEntity> Territories
-        {
-            get { return territories; }
-            set { Set(ref territories, value); }
-        }
+        public MList<TerritoryEntity> Territories { get; set; } = new MList<TerritoryEntity>();
 
         public override string ToString()
         {
@@ -154,22 +84,12 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
     public class TerritoryEntity : Entity
     {
-        RegionEntity region;
         [NotNullValidator]
-        public RegionEntity Region
-        {
-            get { return region; }
-            set { Set(ref region, value); }
-        }
+        public RegionEntity Region { get; set; }
 
         [NotNullable, SqlDbType(Size = 100), UniqueIndex]
-        string description;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
-        public string Description
-        {
-            get { return description; }
-            set { Set(ref description, value); }
-        }
+        public string Description { get; set; }
 
         static Expression<Func<TerritoryEntity, string>> ToStringExpression = e => e.Description;
         public override string ToString()
@@ -188,13 +108,8 @@ namespace Southwind.Entities
     public class RegionEntity : Entity
     {
         [NotNullable, SqlDbType(Size = 50), UniqueIndex]
-        string description;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 50)]
-        public string Description
-        {
-            get { return description; }
-            set { Set(ref description, value); }
-        }
+        public string Description { get; set; }
 
         static Expression<Func<RegionEntity, string>> ToStringExpression = e => e.Description;
         public override string ToString()

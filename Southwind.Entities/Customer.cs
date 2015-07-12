@@ -12,31 +12,16 @@ namespace Southwind.Entities
     public abstract class CustomerEntity : Entity
     {
         [NotNullable]
-        AddressEntity address;
         [NotNullValidator]
-        public AddressEntity Address
-        {
-            get { return address; }
-            set { Set(ref address, value); }
-        }
+        public AddressEntity Address { get; set; }
 
         [NotNullable, SqlDbType(Size = 24)]
-        string phone;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
-        public string Phone
-        {
-            get { return phone; }
-            set { Set(ref phone, value); }
-        }
+        public string Phone { get; set; }
 
         [SqlDbType(Size = 24)]
-        string fax;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 24), TelephoneValidator]
-        public string Fax
-        {
-            get { return fax; }
-            set { Set(ref fax, value); }
-        }
+        public string Fax { get; set; }
 
         public static readonly SessionVariable<CustomerEntity> CurrentCustomerVariable = Statics.SessionVariable<CustomerEntity>("Customer");
         public static CustomerEntity Current
@@ -49,48 +34,23 @@ namespace Southwind.Entities
 
     [Serializable, EntityKind(EntityKind.Shared, EntityData.Transactional)]
     public class PersonEntity : CustomerEntity
-    {  
+    {
         [NotNullable, SqlDbType(Size = 40)]
-        string firstName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
-        public string FirstName
-        {
-            get { return firstName; }
-            set { Set(ref firstName, value); }
-        }
+        public string FirstName { get; set; }
 
         [NotNullable, SqlDbType(Size = 40)]
-        string lastName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
-        public string LastName
-        {
-            get { return lastName; }
-            set { Set(ref lastName, value); }
-        }
+        public string LastName { get; set; }
 
         [SqlDbType(Size = 10)]
-        string title;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10)]
-        public string Title
-        {
-            get { return title; }
-            set { Set(ref title, value); }
-        }
+        public string Title { get; set; }
 
-        DateTime? dateOfBirth;
         [DateTimePrecissionValidator(DateTimePrecision.Days)]
-        public DateTime? DateOfBirth
-        {
-            get { return dateOfBirth; }
-            set { Set(ref dateOfBirth, value); }
-        }
+        public DateTime? DateOfBirth { get; set; }
 
-        bool corrupt;
-        public bool Corrupt
-        {
-            get { return corrupt; }
-            set { Set(ref corrupt, value); }
-        }
+        public bool Corrupt { get; set; }
 
         public override Dictionary<Guid, Dictionary<string, string>> EntityIntegrityCheck()
         {
@@ -116,7 +76,7 @@ namespace Southwind.Entities
 
         public override string ToString()
         {
-            return "{0} {1}".FormatWith(firstName, lastName);
+            return "{0} {1}".FormatWith(FirstName, LastName);
         }
 
         static PersonEntity()
@@ -130,31 +90,16 @@ namespace Southwind.Entities
     public class CompanyEntity : CustomerEntity
     {
         [SqlDbType(Size = 40)]
-        string companyName;
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 40)]
-        public string CompanyName
-        {
-            get { return companyName; }
-            set { Set(ref companyName, value); }
-        }
+        public string CompanyName { get; set; }
 
         [NotNullable, SqlDbType(Size = 30)]
-        string contactName;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 30)]
-        public string ContactName
-        {
-            get { return contactName; }
-            set { Set(ref contactName, value); }
-        }
+        public string ContactName { get; set; }
 
         [NotNullable, SqlDbType(Size = 30)]
-        string contactTitle;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 30)]
-        public string ContactTitle
-        {
-            get { return contactTitle; }
-            set { Set(ref contactTitle, value); }
-        }
+        public string ContactTitle { get; set; }
 
         static Expression<Func<CompanyEntity, string>> ToStringExpression = e => e.CompanyName;
         public override string ToString()
