@@ -151,6 +151,7 @@ namespace Southwind.Web
                 permissions: true);
 
             MailingClient.Start(
+                smtpConfig: true,
                 newsletter: false, 
                 pop3Config: false);
 

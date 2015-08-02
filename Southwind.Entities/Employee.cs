@@ -102,7 +102,7 @@ namespace Southwind.Entities
 
         [SqlDbType(Size = int.MaxValue),]
         string notes;
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
+        [StringLengthValidator(AllowNulls = true, Min = 3, MultiLine = true)]
         public string Notes
         {
             get { return notes; }

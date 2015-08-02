@@ -42,7 +42,7 @@ namespace Southwind.Entities
         string quantityPerUnit;
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 20)]
         public string QuantityPerUnit
-        {   
+        {
             get { return quantityPerUnit; }
             set { Set(ref quantityPerUnit, value); }
         }
@@ -164,7 +164,7 @@ namespace Southwind.Entities
 
         [SqlDbType(Size = int.MaxValue)]
         string homePage;
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
+        [StringLengthValidator(AllowNulls = true, Min = 3, MultiLine = true)]
         public string HomePage
         {
             get { return homePage; }
@@ -199,7 +199,7 @@ namespace Southwind.Entities
         [TranslateField] //Localize description column
         [NotNullable, SqlDbType(Size = int.MaxValue)]
         string description;
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = int.MaxValue)]
+        [StringLengthValidator(AllowNulls = false, Min = 3, MultiLine = true)]
         public string Description
         {
             get { return description; }
