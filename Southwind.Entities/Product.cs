@@ -104,7 +104,7 @@ namespace Southwind.Entities
         public string Fax { get; set; }
 
         [SqlDbType(Size = int.MaxValue)]
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
+        [StringLengthValidator(AllowNulls = true, Min = 3, MultiLine = true)]
         public string HomePage { get; set; }
 
         static Expression<Func<SupplierEntity, string>> ToStringExpression = e => e.CompanyName;
@@ -130,7 +130,7 @@ namespace Southwind.Entities
 
         [TranslateField] //Localize description column
         [NotNullable, SqlDbType(Size = int.MaxValue)]
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = int.MaxValue)]
+        [StringLengthValidator(AllowNulls = false, Min = 3, MultiLine = true)]
         public string Description { get; set; }
 
         public EmbeddedFileEntity Picture { get; set; }

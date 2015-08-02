@@ -51,7 +51,7 @@ namespace Southwind.Entities
         public Lite<FileEntity> Photo { get; set; }
 
         [SqlDbType(Size = int.MaxValue),]
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = int.MaxValue)]
+        [StringLengthValidator(AllowNulls = true, Min = 3, MultiLine = true)]
         public string Notes { get; set; }
 
         public Lite<EmployeeEntity> ReportsTo { get; set; }
