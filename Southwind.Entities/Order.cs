@@ -11,6 +11,7 @@ using System.Collections.Specialized;
 using Signum.Entities.Disconnected;
 using Signum.Entities.Scheduler;
 using Signum.Entities.Processes;
+using Signum.Utilities.ExpressionTrees;
 
 namespace Southwind.Entities
 {
@@ -51,7 +52,7 @@ namespace Southwind.Entities
 
         static Expression<Func<OrderEntity, decimal>> TotalPriceExpression =
             o => o.Details.Sum(od => od.SubTotalPrice);
-        [Unit("€")]
+        [ExpressionField, Unit("€")]
         public decimal TotalPrice
         {
             get { return TotalPriceExpression.Evaluate(this); }
@@ -177,7 +178,7 @@ namespace Southwind.Entities
 
         static Expression<Func<OrderDetailsEntity, decimal>> SubTotalPriceExpression =
             od => od.Quantity * od.UnitPrice * (decimal)(1 - od.Discount);
-        [Unit("€")]
+        [ExpressionField, Unit("€")]
         public decimal SubTotalPrice
         {
             get { return SubTotalPriceExpression.Evaluate(this); }
@@ -222,6 +223,7 @@ namespace Southwind.Entities
         public string Phone { get; set; }
 
         static Expression<Func<ShipperEntity, string>> ToStringExpression = e => e.CompanyName;
+        [ExpressionField]
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);

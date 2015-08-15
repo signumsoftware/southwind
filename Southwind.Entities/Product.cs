@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using Signum.Utilities;
 using Signum.Entities.Translation;
 using Signum.Entities.Files;
+using Signum.Utilities.ExpressionTrees;
 
 namespace Southwind.Entities
 {
@@ -57,13 +58,14 @@ namespace Southwind.Entities
 
         static Expression<Func<ProductEntity, decimal>> ValueInStockExpression =
             p => p.unitPrice * p.unitsInStock;
-        [Unit("$")]
+        [ExpressionField, Unit("$")]
         public decimal ValueInStock
         {
             get { return ValueInStockExpression.Evaluate(this); }
         }
 
         static Expression<Func<ProductEntity, string>> ToStringExpression = e => e.ProductName;
+        [ExpressionField]
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -108,6 +110,7 @@ namespace Southwind.Entities
         public string HomePage { get; set; }
 
         static Expression<Func<SupplierEntity, string>> ToStringExpression = e => e.CompanyName;
+        [ExpressionField]
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -136,6 +139,7 @@ namespace Southwind.Entities
         public EmbeddedFileEntity Picture { get; set; }
 
         static Expression<Func<CategoryEntity, string>> ToStringExpression = e => e.CategoryName;
+        [ExpressionField]
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);

@@ -9,8 +9,9 @@ using Southwind.Entities;
 using Signum.Engine;
 using Signum.Utilities;
 using Signum.Entities;
-using System.Linq.Expressions;
 using Signum.Engine.Operations;
+using Signum.Utilities.ExpressionTrees;
+using System.Linq.Expressions;
 
 namespace Southwind.Logic
 {
@@ -18,6 +19,7 @@ namespace Southwind.Logic
     {
         static Expression<Func<RegionEntity, IQueryable<TerritoryEntity>>> TerritoriesExpression =
             r => Database.Query<TerritoryEntity>().Where(a => a.Region == r);
+        [ExpressionField]
         public static IQueryable<TerritoryEntity> Territories(this RegionEntity r)
         {
             return TerritoriesExpression.Evaluate(r);

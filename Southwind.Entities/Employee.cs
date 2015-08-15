@@ -9,6 +9,7 @@ using System.Data;
 using Signum.Entities.Authorization;
 using System.Linq.Expressions;
 using Signum.Entities.Files;
+using Signum.Utilities.ExpressionTrees;
 
 namespace Southwind.Entities
 {
@@ -92,6 +93,7 @@ namespace Southwind.Entities
         public string Description { get; set; }
 
         static Expression<Func<TerritoryEntity, string>> ToStringExpression = e => e.Description;
+        [ExpressionField]
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
@@ -112,6 +114,7 @@ namespace Southwind.Entities
         public string Description { get; set; }
 
         static Expression<Func<RegionEntity, string>> ToStringExpression = e => e.Description;
+        [ExpressionField]
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);

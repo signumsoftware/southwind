@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Signum.Entities;
 using Signum.Utilities;
+using Signum.Utilities.ExpressionTrees;
 
 namespace Southwind.Entities
 {
@@ -102,6 +103,7 @@ namespace Southwind.Entities
         public string ContactTitle { get; set; }
 
         static Expression<Func<CompanyEntity, string>> ToStringExpression = e => e.CompanyName;
+        [ExpressionField]
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
