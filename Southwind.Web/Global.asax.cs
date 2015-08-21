@@ -161,9 +161,11 @@ namespace Southwind.Web
             ExceptionClient.Start();
             UserQueriesClient.Start();
             FilesClient.Start(
-                filePath: true, 
-                file: true, 
-                embeddedFile: true);
+                file: true,
+                embeddedFile: true,
+                filePath: true,
+                embeddedFilePath: false);
+
             MapClient.Start();
             ChartClient.Start();
             ExcelClient.Start(

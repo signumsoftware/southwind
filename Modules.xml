@@ -183,7 +183,7 @@
     <Module Name="Files">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FilePathLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FileLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="FilesClient.Start(" To="embeddedFile: true);"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="FilesClient.Start(" To="embeddedFilePath: false);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="FilePathClient.Start();"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Employee.cs" From="Lite&lt;FileEntity&gt; photo;" To="}"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Product.cs" From="EmbeddedFileEntity picture;" To="}"/>
@@ -285,7 +285,7 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity),"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthClient.Start(" To="passwordExpiration: false);" />
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthClient.Start(" To="singleSignOnMessage: false);" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthAdminClient.Start(" To="permissions: true);" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="AuthClient.Start(" To="defaultPasswordExpiresLogic: false);" />
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
