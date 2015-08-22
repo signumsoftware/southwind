@@ -12,7 +12,7 @@ namespace Southwind.Entities
     public class AddressEntity : EmbeddedEntity
     {
         [NotNullable, SqlDbType(Size = 60)]
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 60)]
+        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 60, MultiLine = true)]
         public string Address { get; set; }
 
         [NotNullable, SqlDbType(Size = 15)]
