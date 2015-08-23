@@ -242,14 +242,14 @@ namespace Southwind.Entities
         OrderSimple
     }
 
-    [AutoInit]
+    [AutoInit]//OrderTask
     public static class OrderTask
     {
         public static SimpleTaskSymbol CancelOldOrdersWithProcess;
         public static SimpleTaskSymbol CancelOldOrders;
     }
 
-    [AutoInit]
+    [AutoInit]//OrderProcess
     public static class OrderProcess
     {
         public static ProcessAlgorithmSymbol CancelOrders;

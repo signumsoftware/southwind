@@ -185,8 +185,8 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FileLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="FilesClient.Start(" To="embeddedFilePath: false);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="FilePathClient.Start();"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Employee.cs" From="Lite&lt;FileEntity&gt; photo;" To="}"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Product.cs" From="EmbeddedFileEntity picture;" To="}"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Employee.cs" Line="public Lite&lt;FileEntity> Photo { get; set; }"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Product.cs" Line="public EmbeddedFileEntity Picture { get; set; }"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\EmployeeLoader.cs" Line="Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\EmployeeLoader.cs" From="public static byte[] RemoveOlePrefix(byte[] bytes)" To="} //RemoveOlePrefix"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\ProductLoader.cs" Line="Picture = new EmbeddedFileEntity { FileName = s.CategoryName + &quot;.jpg&quot;, BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },"/>
@@ -196,7 +196,7 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Code\SouthwindClient.cs" From="QuerySettings.RegisterPropertyFormat((CategoryEntity e) => e.Picture," To=".Attr(&quot;style&quot;, &quot;width:48px&quot;).ToHtmlSelf()) { TextAlign = &quot;center&quot; }); //Emmployee"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Code\SouthwindClient.cs" From="public static string Base64Data(EmbeddedFileEntity file)" To="} //Base64Data"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Views\Southwind\Category.cshtml" From="@Html.FileLine(cc, a => a.Picture)" To="} @*Picture*@"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Views\Southwind\Employee.cshtml" From="@Html.FileLine(ec, a => a.Photo.Try(p => p.Retrieve()))" To="} @*Photo*@"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Views\Southwind\Employee.cshtml" From="@Html.FileLineLite(ec, a => a.Photo)" To="} @*Photo*@"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Code\SouthwindClient.cs" From="QuerySettings.RegisterPropertyFormat((EmployeeEntity e) => e.Photo, b =>" To="}); //Picture"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Controls\Category.xaml" From="&lt;f:FileLine m:Common.Route=&quot;Picture&quot; />" To="&lt;/Border>"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Controls\Employee.xaml" From="&lt;StackPanel  Grid.Column=&quot;1&quot; Grid.Row=&quot;0&quot;>" To="&lt;/StackPanel>"/>
@@ -223,8 +223,8 @@
     </Module>
 
     <Module Name="Process">
-      <RemoveLine Path="Southwind.Entities\Order.cs" Line="public static readonly ConstructSymbol&lt;ProcessEntity&gt;.FromMany&lt;OrderEntity&gt; CancelWithProcess = OperationSymbol.Construct&lt;ProcessEntity&gt;.FromMany&lt;OrderEntity&gt;();"/>
-      <RemoveLine Path="Southwind.Entities\Order.cs" From="public static class OrderProcess" To="}"/>
+      <RemoveLine Path="Southwind.Entities\Order.cs" Line="public static ConstructSymbol&lt;ProcessEntity&gt;.FromMany&lt;OrderEntity&gt; CancelWithProcess;"/>
+      <RemoveLine Path="Southwind.Entities\Order.cs" From="[AutoInit]//OrderProcess" To="}"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" Line="ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="public class CancelOrderAlgorithm : PackageExecuteAlgorithm&lt;OrderEntity&gt;" To="} //CancelOrderAlgorithm"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="new Graph&lt;ProcessEntity&gt;.ConstructFromMany&lt;OrderEntity&gt;(OrderOperation.CancelWithProcess)" To="}.Register();"/>
@@ -238,8 +238,8 @@
     </Module>
 
     <Module Name="Scheduler" DependsOn="Process">
-      <RemoveLine Path="Southwind.Entities\Order.cs" From="public static class OrderTasks" To="}"/>
-      <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="SimpleTaskLogic.Register(OrderTasks.CancelOldOrdersWithProcess, () =>" To="});//CancelOldOrdersProcess"/>
+      <RemoveLine Path="Southwind.Entities\Order.cs" From="[AutoInit]//OrderTask" To="}"/>
+      <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, () =>" To="});//CancelOldOrdersProcess"/>
   
       <RemoveLine Path="Southwind.Logic\Starter.cs" 
                   From="sb.Schema.Settings.FieldAttributes((ScheduledTaskEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"
@@ -260,7 +260,7 @@
       <RemoveFiles Path="Southwind.Web\Libs\ckeditor"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="MailingClient.Start(" To="pop3Config: false);" />
-      <RemoveLine Path="Southwind.Entities\SouthwindConfiguration.cs" From="[NotNullable]/*Email*/" To="}/*Email*/"/>
+      <RemoveLine Path="Southwind.Entities\SouthwindConfiguration.cs" From="[NotNullable]/*Email*/" To="public EmailConfigurationEntity Email { get; set; }"/>
       <RemoveLine Path="Southwind.Web\Views\Southwind\ApplicationConfiguration.cshtml" From="&lt;fieldset id=&quot;email&quot;>" To="&lt;/fieldset>"/>
       <RemoveLine Path="Southwind.Load\Program.cs" From="Email = new EmailConfigurationEntity" To="}, //Email"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="Email = new EmailConfigurationEntity()"/>
@@ -273,7 +273,7 @@
                   To="SMSLogic.RegisterPhoneNumberProvider&lt;CompanyEntity&gt;(p => p.Phone, p => null);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SMSClient.Start();" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SMSClient.Start();" />
-      <RemoveLine Path="Southwind.Entities\SouthwindConfiguration.cs" From="[NotNullable]/*Sms*/" To="}/*Sms*/"/>
+      <RemoveLine Path="Southwind.Entities\SouthwindConfiguration.cs" From="[NotNullable]/*Sms*/" To="public SMSConfigurationEntity Sms { get; set; }"/>
       <RemoveLine Path="Southwind.Web\Views\Southwind\ApplicationConfiguration.cshtml" From="&lt;fieldset id=&quot;sms&quot;>" To="&lt;/fieldset>"/>
       <RemoveLine Path="Southwind.Load\Program.cs" From="Sms = new SMSConfigurationEntity" To="} //Sms"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="Sms = new SMSConfigurationEntity(),"/>
