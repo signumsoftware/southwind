@@ -33,3 +33,4 @@ packages/*
 !packages/repositories.config
 Southwind.Web/Scripts/**/*.js
 .vs/
+Southwind.React/Libs
