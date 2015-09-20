@@ -1,6 +1,6 @@
 ﻿//Auto-generated from Southwind.Entities.csproj. Do not modify!
 
-import * as Entities from 'Framework/Signum.React/Signum.Entities'
+import * as Entities from 'Framework/Signum.React/Scripts/Signum.Entities'
 import * as Extensions from 'Extensions/Signum.React.Extensions/Signum.Entities.Extensions'
 
 export const AddressEntity: Entities.Type<AddressEntity> = "AddressEntity";
