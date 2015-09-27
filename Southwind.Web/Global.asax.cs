@@ -163,8 +163,8 @@ namespace Southwind.Web
             FilesClient.Start(
                 file: true,
                 embeddedFile: true,
-                filePath: true,
-                embeddedFilePath: false);
+                filePath: false,
+                embeddedFilePath: true);
 
             MapClient.Start();
             ChartClient.Start();

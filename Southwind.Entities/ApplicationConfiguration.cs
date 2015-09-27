@@ -20,7 +20,7 @@ namespace Southwind.Entities
         [NotNullValidator]
         public EmailConfigurationEntity Email { get; set; }
 
-        [NotNullValidator]
+        [NotNullValidator]/*Smtp*/
         public SmtpConfigurationEntity SmtpConfiguration { get; set; }
 
         [NotNullable]/*Sms*/
