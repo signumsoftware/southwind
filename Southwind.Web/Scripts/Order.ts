@@ -105,8 +105,10 @@ export function createOrderFromProducts(options: Operations.OperationOptions, fi
 
     return Finder.find(findOptions).then(cust=> {
 
-        if (cust)// could return null, but we let it continue 
-            options.requestExtraJsonData = { customer: cust.key() };
+        if (!cust)
+            return null;
+
+        options.requestExtraJsonData = { customer: cust.key() };
 
         return Operations.constructFromManyDefault(options, openNewWindowOrEvent);
     });
@@ -117,8 +119,10 @@ export function createOrder(extraJsonArgs: FormObject, findOptions: Finder.FindO
 
     return Finder.find(findOptions).then(cust=> {
 
-        if (cust)// could return null, but we let it continue 
-            extraJsonArgs = $.extend(extraJsonArgs, { customer: cust.key() });
+        if (!cust)
+            return null;
+
+        extraJsonArgs = $.extend(extraJsonArgs, { customer: cust.key() });
 
         return extraJsonArgs;
     });
