@@ -128,32 +128,17 @@ namespace Southwind.Load
         {
             using (Transaction tr = new Transaction())
             {
-                RoleEntity su = new RoleEntity() { Name = "Super user", MergeStrategy = MergeStrategy.Intersection }.Save();
-                RoleEntity u = new RoleEntity() { Name = "User", MergeStrategy = MergeStrategy.Union }.Save();
-
-                RoleEntity au = new RoleEntity()
-                {
-                    Name = "Advanced user",
-                    Roles = new MList<Lite<RoleEntity>> { u.ToLite() },
-                    MergeStrategy = MergeStrategy.Union
-                }.Save();
+                var roles = Database.Query<RoleEntity>().ToDictionary(a => a.Name);
 
                 var employees = Database.Query<EmployeeEntity>().OrderByDescending(a => a.Notes.Length).ToList();
 
-                using (OperationLogic.AllowSave<UserEntity>())
-                    for (int i = 0; i < employees.Count; i++)
-                    {
-                        var employee = employees[i];
-                        new UserEntity
-                        {
-                            UserName = employee.FirstName,
-                            PasswordHash = Security.EncodePassword(employee.FirstName),
-                            Role = i < 2 ? su :
-                                   i < 5 ? au : u,
-                            State = UserState.Saved,
-
-                        }.SetMixin((UserEmployeeMixin e)=>e.Employee, employee).Save();
-                    }
+                employees.Select((employee, i) => new UserEntity
+                {
+                    UserName = employee.FirstName,
+                    PasswordHash = Security.EncodePassword(employee.FirstName),
+                    Role = roles.GetOrThrow(i < 2 ? "Super user" : i < 5 ? "Advanced user" : "User"),
+                    State = UserState.Saved,
+                }.SetMixin((UserEmployeeMixin e) => e.Employee, employee)).SaveList();
 
                 tr.Commit();
             }

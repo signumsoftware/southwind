@@ -125,14 +125,13 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MigrationLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Load\Program.cs" From="if (args.Any())" To="} //if(args.Any())"/>
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;SQL&quot;, SqlMigrationRunner.SqlMigrations},"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;CS&quot;, () => CSharpMigrations(false), &quot;C# Migrations&quot;},"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" From="private static void CSharpMigrations(bool autoRun)" To="} //CSharpMigrations"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;CS&quot;, () => SouthwindMigrations.CSharpMigrations(false), &quot;C# Migrations&quot;},"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void CSharpMigrations(bool autoRun)" To="} //CSharpMigrations"/>
 
     </Module>
 
     <Module Name="LoadNorthwind" DependsOn="ExampleEntities,Migrations">	  
-	    <RemoveLine Path="Southwind.Load\Program.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
-	    <RemoveLine Path="Southwind.Load\Program.cs" Line="{30, OrderLoader.UpdateOrdersDate },"/>
+	    <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
       <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\EmployeeLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\Northwind.dbml"/>
@@ -158,9 +157,8 @@
     <Module Name="Word">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordTemplateLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="WordClient.Start();"/>
-      <RemoveLine DependsOn="ExampleEntities,!Migrations" Path="Southwind.Load\Program.cs" Line="{48, ImportWordReportTemplateForOrder},"/>
-      <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Load\Program.cs" Line="ImportWordReportTemplateForOrder,"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
+      <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportWordReportTemplateForOrder,"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
       <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Load\WordTemplates\Order.docx"/>
     </Module>
 
@@ -263,7 +261,7 @@
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Email*/" To="public EmailConfigurationEntity Email { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullValidator]/*Smtp*/" To="public SmtpConfigurationEntity SmtpConfiguration { get; set; }"/>
       <RemoveLine Path="Southwind.Web\Views\Southwind\ApplicationConfiguration.cshtml" From="&lt;fieldset id=&quot;email&quot;>" To="&lt;/fieldset>"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" From="Email = new EmailConfigurationEntity" To="}, //Email"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Email = new EmailConfigurationEntity" To="}, //Email"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="Email = new EmailConfigurationEntity()"/>
     </Module>
 
@@ -276,7 +274,7 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SMSClient.Start();" />
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Sms*/" To="public SMSConfigurationEntity Sms { get; set; }"/>
       <RemoveLine Path="Southwind.Web\Views\Southwind\ApplicationConfiguration.cshtml" From="&lt;fieldset id=&quot;sms&quot;>" To="&lt;/fieldset>"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" From="Sms = new SMSConfigurationEntity" To="} //Sms"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEntity" To="} //Sms"/>
       <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="Sms = new SMSConfigurationEntity(),"/>
     </Module>
 
@@ -290,12 +288,10 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthAdminClient.Start(" To="permissions: true);" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="AuthClient.Start(" To="defaultPasswordExpiresLogic: false);" />
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{20, EmployeeLoader.CreateUsers }," DependsOn="!Migrations,LoadNorthwind"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{21, CreateSystemUser }," DependsOn="!Migrations" />
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations,LoadNorthwind"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="CreateSystemUser, " DependsOn="Migrations"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations,LoadNorthwind"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="CreateRoles," To="CreateSystemUser,"/>
       <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" From="internal static void CreateUsers()" To="} //CreateUsers"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" From="internal static void CreateSystemUser()" To="} //CreateSystemUser"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="internal static void CreateRoles()" To="} //CreateSystemUser"/>
       <RemoveLine Path="Southwind.Load\AuthRules.xml" From="&lt;Types>" To="&lt;/Types>"  DependsOn="ExampleEntities"/>
       <RemoveFiles Path="Southwind.Entities\UserEmployeeMixin.cs" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserEmployeeMixin&gt;();" DependsOn="ExampleEntities"/>
@@ -337,9 +333,8 @@
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = DefaultCulture;" To="return DefaultCulture; //Translation" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" From="public class BingTranslator : ITranslator" To="} // BingTranslator" />
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="using Southwind.Web.BingTranslationService;" />
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{44, ImportSpanishInstanceTranslations}," DependsOn="LoadNorthwind,!Migrations"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="ImportSpanishInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportSpanishInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
       <RemoveFiles Path="Southwind.Load\Category.es.View.xlsx" DependsOn="LoadNorthwind"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column" DependsOn="ExampleEntities"/>

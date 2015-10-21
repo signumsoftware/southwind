@@ -66,6 +66,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SouthwindMigrations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

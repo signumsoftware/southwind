@@ -51,7 +51,7 @@ namespace Southwind.Load
                         switch (args.First().ToLower().Trim('-', '/'))
                         {
                             case "sql": SqlMigrationRunner.SqlMigrations(true); return 0;
-                            case "csharp": CSharpMigrations(true); return 0;
+                            case "csharp": SouthwindMigrations.CSharpMigrations(true); return 0;
                             case "load": Load(args.Skip(1).ToArray()); return 0;
                             default:
                             {
@@ -72,7 +72,7 @@ namespace Southwind.Load
                             {"N", NewDatabase},
                             {"G", CodeGenerator.GenerateCodeConsole },
                             {"SQL", SqlMigrationRunner.SqlMigrations},
-                            {"CS", () => CSharpMigrations(false), "C# Migrations"},
+                            {"CS", () => SouthwindMigrations.CSharpMigrations(false), "C# Migrations"},
                             {"S", Synchronize},
                             {"L", () => Load(null), "Load"},
                         }.Choose();
@@ -93,33 +93,7 @@ namespace Southwind.Load
             }
         }
 
-        private static void CSharpMigrations(bool autoRun)
-        {
-            Schema.Current.Initialize();
-
-            OperationLogic.AllowSaveGlobally = true;
-
-            new CSharpMigrationRunner
-            {
-                EmployeeLoader.LoadRegions,
-                EmployeeLoader.LoadTerritories,
-                EmployeeLoader.LoadEmployees,
-                ProductLoader.LoadSuppliers,
-                ProductLoader.LoadCategories,
-                ProductLoader.LoadProducts,
-                CustomerLoader.LoadCompanies,
-                CustomerLoader.LoadPersons,
-                OrderLoader.LoadShippers,
-                OrderLoader.LoadOrders,
-                EmployeeLoader.CreateUsers,
-                CreateSystemUser, 
-                OrderLoader.UpdateOrdersDate,
-                CreateCultureInfo,
-                ChartScriptLogic.ImportChartScriptsAuto,
-                ImportSpanishInstanceTranslations,
-                ImportWordReportTemplateForOrder, 
-            }.Run(autoRun); 
-        } //CSharpMigrations
+    
 
         private static void Load(string[] args)
         {
@@ -131,14 +105,9 @@ namespace Southwind.Load
             {
                 Action[] actions = new ConsoleSwitch<int, Action>
                 {
-                    {20, EmployeeLoader.CreateUsers },
-                    {21, CreateSystemUser },
-                    {30, OrderLoader.UpdateOrdersDate },
                     {42, ChartScriptLogic.ImportExportChartScripts},
                     {43, AuthLogic.ImportExportAuthRules},
-                    {44, ImportSpanishInstanceTranslations},
                     {45, HelpXml.ImportExportHelp},
-                    {48, ImportWordReportTemplateForOrder},
                     {100, ShowOrder},
                 }.ChooseMultiple();
 
@@ -189,74 +158,5 @@ namespace Southwind.Load
 
             OrderEntity order = query.First();
         }//ShowOrder
-
-        internal static void CreateSystemUser()
-        {
-            using (OperationLogic.AllowSave<UserEntity>())
-            using (Transaction tr = new Transaction())
-            {
-                UserEntity system = new UserEntity
-                {
-                    UserName = "System",
-                    PasswordHash = Security.EncodePassword("System"),
-                    Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx(),
-                    State = UserState.Saved,
-                }.Save();
-
-                tr.Commit();
-            }
-        } //CreateSystemUser
-
-        public static void CreateCultureInfo()
-        {
-            using (Transaction tr = new Transaction())
-            {
-                var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
-                var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
-
-                new ApplicationConfigurationEntity
-                {
-                    Environment = "Development",
-                    Email = new EmailConfigurationEntity
-                    {
-                        SendEmails = true,
-                        DefaultCulture = en,
-                        UrlLeft = "http://localhost/Southwind"
-                    },
-                    SmtpConfiguration = new SmtpConfigurationEntity
-                    {
-                        Name = "localhost",
-                        Network = new SmtpNetworkDeliveryEntity
-                        {
-                            Host = "localhost"
-                        }
-                    }, //Email
-                    Sms = new SMSConfigurationEntity
-                    {
-                        DefaultCulture = en,
-                    } //Sms
-                }.Save();
-
-                tr.Commit();
-            }
-
-        }
-
-        public static void ImportSpanishInstanceTranslations()
-        {
-            TranslatedInstanceLogic.ImportExcelFile("Category.es.View.xlsx");
-        }
-
-        public static void ImportWordReportTemplateForOrder()
-        {
-            new WordTemplateEntity
-            {
-                Name = "Order template",
-                Query = QueryLogic.GetQueryEntity(typeof(OrderEntity)),
-                Culture = CultureInfo.GetCultureInfo("en").ToCultureInfoEntity(),
-                Template = new FileEntity("../../WordTemplates/Order.docx").ToLiteFat(),
-                FileName = "Order.docx"
-            }.Save();
-        }
     }
 }
