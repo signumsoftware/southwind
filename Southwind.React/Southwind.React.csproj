@@ -146,6 +146,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,6 +168,7 @@
     <Content Include="Libs\system.js\dist\system-register-only.js.map" />
     <Content Include="Libs\system.js\dist\system.js.map" />
     <Content Include="packages.config" />
+    <Content Include="Views\Home\_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -176,7 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -249,7 +250,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61352</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
@@ -282,9 +283,9 @@
     <SignumTSGenerator TemplateFile="Scripts\Southwind.Entities.txt" References="@(ReferencePath)" />
   </Target>
   <PropertyGroup>
-    <CompileDependsOn>
+    <CompileTypeScriptDependsOn>
       GenerateSignumTS;
-      $(CompileDependsOn);
-    </CompileDependsOn>
+      $(CompileTypeScriptDependsOn);
+    </CompileTypeScriptDependsOn>
   </PropertyGroup>
 </Project>

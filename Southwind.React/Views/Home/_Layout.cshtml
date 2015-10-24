@@ -1,0 +1,161 @@
+﻿@using Signum.Entities.Authorization
+@using Signum.Utilities
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="theme.css">
+    @Html.ScriptCss("~/Libs/bootstrap/css/bootstrap.css");
+    @Html.ScriptCss(
+        "~/Libs/bootstrap-datepicker/css/datepicker3.css",
+        "~/Libs/bootstrap-timepicker/css/bootstrap-timepicker.css",
+       "~/Libs/bootstrap-colorpicker/css/bootstrap-colorpicker.css")
+
+    @Html.ScriptCss(
+       "~/signum/content/Lines.css",
+       "~/signum/content/NormalPage.css",
+       "~/signum/content/Notify.css",
+       "~/signum/content/Search.css",
+       "~/signum/content/Widgets.css",
+       "~/content/site.css")
+
+    @Html.ScriptsJs(
+        "~/Libs/promise-0.1.1.js",
+        "~/Libs/jquery-1.11.0.js",
+        "~/Libs/bootstrap/js/bootstrap.js",
+        "~/Libs/bootstrap-datepicker/js/bootstrap-datepicker.js",
+        "~/Libs/bootstrap-timepicker/js/bootstrap-timepicker.js",
+        "~/Libs/bootstrap-colorpicker/js/bootstrap-colorpicker.js",
+        "~/Libs/bootstrap-typeahead/bootstrap3-typeahead.js",
+        "~/Libs/require.js")
+    <script>
+        require.config({
+            baseUrl: '@Url.Content("~/Scripts")',
+            paths: {
+                "Framework/Signum.React": "..",
+                "Extensions/Signum.React.Extensions": "..",
+
+                "d3": "../Libs/d3.v3.min",
+                "colorbrewer": "../Libs/colorbrewer",
+                "ChartUtils": "../Chart/Scripts/ChartUtils",
+
+                "ckeditor": "../Libs/ckeditor/ckeditor",
+                "Libs/CodeMirror": "../Libs/CodeMirror",
+
+            },
+            shim: {
+                d3: { exports: 'd3' },
+                colorbrewer: { exports: 'colorbrewer' },
+                ChartUtils: { exports: 'ChartUtils' },
+
+                ckeditor: { exports: 'CKEDITOR' },
+            },
+            urlArgs: "v=@ScriptHtmlHelper.Manager.Version"
+        });
+    </script>
+
+    @Html.ScriptsJs("~/signum/resources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
+    @Html.ScriptsJs("~/signum/calendarResources/" + System.Globalization.CultureInfo.CurrentCulture.Name + ".js")
+    @Html.ScriptsJs("~/Signum/urls/signumCommon.js")
+    @Html.ScriptsJs("~/Signum/Scripts/SF.js", "~/Signum/Scripts/SF.UI.js")
+
+    @Html.ScriptsJs("~/scripts/southwind.js")
+
+    @if (IsSectionDefined("head"))
+    {
+        @RenderSection("head")
+    }
+</head>
+<body>
+    <div id="wrap">
+        <header class="navbar navbar-default navbar-static">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @(Html.ActionLink<HomeController>("Southwind", c => c.Index(), new { @class = "navbar-brand hidden-under-350" }))
+                    @(Html.ActionLink<HomeController>("SW", c => c.Index(), new { @class = "navbar-brand visible-under-350" }))
+
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        @if (UserEntity.Current != null) //Omnibox
+                        { 
+                            <li>@*Omnibox*@
+                                <input id="sfOmnibox" name="sfOmnibox" type="text" class="form-control" placeholder="@Signum.Entities.Omnibox.OmniboxMessage.Search.NiceToString()" />
+                                <script type="text/javascript">
+                                    @(Signum.Web.Omnibox.OmniboxClient.Module["initialize"]("sfOmnibox", Url.Action("Autocomplete", "Omnibox")))
+                                </script>
+                            </li>
+                        } @*UserEntity.Current*@
+
+                        @if (UserEntity.Current != null) //Menu
+                        {
+                            @Html.Partial("Menu")
+                        } @*UserEntity.Current*@
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="theme-selector-container">
+                            @{  
+                                var themes = new List<string> 
+            { 
+                "bootstrap", "bootstrap + theme", 
+                "amelia", "cerulean", "cosmo", "cyborg", "darkly", "flatly",
+                "journal", "lumen", "readable", "shamrock", "simplex", "slate",
+                "spacelab", "superhero", "united", "yeti"
+            };
+                
+                                @Html.DropDownList(
+                "themeSelector",
+                themes.Select(s => new SelectListItem { Text = s, Value = s, Selected = currentTheme == s }),
+                new Dictionary<string, object> { 
+                    { "data-url", Url.Action<HomeController>(hc => hc.ChangeTheme()) }, 
+                    {"class", "form-control theme-selector" }   
+                })
+                            }
+                        </li>
+
+                        <li class="language-selector-container">
+                            @{  
+                              
+                
+                                @Html.DropDownList(
+                "languageSelector",
+                Signum.Engine.Basics.CultureInfoLogic.CultureInfoDNToCultureInfo.Value.Values
+                .Select(s => new SelectListItem { Text = s.DisplayName, Value = s.Name, Selected = s.Name == Culture }),
+                new Dictionary<string, object> { 
+                    {"data-url", Url.Action<HomeController>(hc => hc.ChangeLanguage()) }, 
+                    {"class", "form-control theme-selector" }   
+                })
+                            }
+                        </li>
+
+                        <li>
+                            @{ Html.RenderPartial(AuthClient.LoginUserControlView);}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            @RenderBody()
+        </div>
+        <div id="push"></div>
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
+        </div>
+    </div>
+</body>
+</html>
