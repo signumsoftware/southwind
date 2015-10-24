@@ -140,10 +140,7 @@
     <Content Include="Libs\system.js\dist\system-register-only.src.js" />
     <Content Include="Libs\system.js\dist\system.js" />
     <Content Include="Libs\system.js\dist\system.src.js" />
-    <Content Include="Scripts\Southwind.Entities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Southwind.Entities.ts</LastGenOutput>
-    </Content>
+    <Content Include="Scripts\Southwind.Entities.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +208,10 @@
       <Project>{f7d3f72d-741d-4f67-8cf8-cd41b9035fed}</Project>
       <Name>Signum.Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj">
+      <Project>{2fe283cc-8f34-451e-9805-c7858f7d705d}</Project>
+      <Name>Southwind.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -218,9 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Southwind.Entities.ts">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Southwind.Entities.tt</DependentUpon>
+      <DependentUpon>Southwind.Entities.txt</DependentUpon>
     </TypeScriptCompile>
   </ItemGroup>
   <PropertyGroup>
@@ -278,4 +277,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <UsingTask TaskName="SignumTSGenerator" AssemblyFile="..\Framework\Signum.TSGenerator\Binaries\Signum.TSGenerator.dll" />
+  <Target Name="GenerateSignumTS">
+    <SignumTSGenerator TemplateFile="Scripts\Southwind.Entities.txt" References="@(ReferencePath)" />
+  </Target>
+  <PropertyGroup>
+    <CompileDependsOn>
+      GenerateSignumTS;
+      $(CompileDependsOn);
+    </CompileDependsOn>
+  </PropertyGroup>
 </Project>

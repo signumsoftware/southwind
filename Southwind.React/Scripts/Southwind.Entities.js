@@ -1,4 +1,3 @@
-//Auto-generated from Southwind.Entities.csproj. Do not modify!
 define(["require", "exports"], function (require, exports) {
     exports.AddressEntity = "AddressEntity";
     (function (AllowLogin) {
