@@ -117,6 +117,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
     <Content Include="Libs\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="Libs\bootstrap\dist\css\bootstrap-theme.min.css" />
@@ -125,21 +126,23 @@
     <Content Include="Libs\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Libs\bootstrap\dist\js\bootstrap.js" />
     <Content Include="Libs\bootstrap\dist\js\bootstrap.min.js" />
-    <Content Include="Libs\bootstrap\dist\js\npm.js" />
     <Content Include="Libs\d3\d3.js" />
     <Content Include="Libs\d3\d3.min.js" />
     <Content Include="Libs\jquery\dist\jquery.js" />
     <Content Include="Libs\jquery\dist\jquery.min.js" />
+    <Content Include="Libs\promise\promise.js" />
+    <Content Include="Libs\react-router\build\umd\ReactRouter.js" />
+    <Content Include="Libs\react-widgets\dist\css\react-widgets.css" />
+    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.svg" />
+    <Content Include="Libs\react-widgets\dist\img\loader-big.gif" />
+    <Content Include="Libs\react-widgets\dist\img\loading.gif" />
+    <Content Include="Libs\react-widgets\dist\react-widgets-globalize.js" />
+    <Content Include="Libs\react-widgets\dist\react-widgets-moment.js" />
+    <Content Include="Libs\react-widgets\dist\react-widgets-simple-number.js" />
+    <Content Include="Libs\react-widgets\dist\react-widgets.js" />
     <Content Include="Libs\react\react.js" />
     <Content Include="Libs\react\react.min.js" />
-    <Content Include="Libs\system.js\dist\system-csp-production.js" />
-    <Content Include="Libs\system.js\dist\system-csp-production.src.js" />
-    <Content Include="Libs\system.js\dist\system-polyfills.js" />
-    <Content Include="Libs\system.js\dist\system-polyfills.src.js" />
-    <Content Include="Libs\system.js\dist\system-register-only.js" />
-    <Content Include="Libs\system.js\dist\system-register-only.src.js" />
-    <Content Include="Libs\system.js\dist\system.js" />
-    <Content Include="Libs\system.js\dist\system.src.js" />
+    <Content Include="Libs\requirejs\require.js" />
     <Content Include="Scripts\Southwind.Entities.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -151,6 +154,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -163,12 +171,15 @@
     <Content Include="Libs\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Libs\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Libs\jquery\dist\jquery.min.map" />
-    <Content Include="Libs\system.js\dist\system-csp-production.js.map" />
-    <Content Include="Libs\system.js\dist\system-polyfills.js.map" />
-    <Content Include="Libs\system.js\dist\system-register-only.js.map" />
-    <Content Include="Libs\system.js\dist\system.js.map" />
     <Content Include="packages.config" />
-    <Content Include="Views\Home\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.eot" />
+    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.ttf" />
+    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.woff" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -177,8 +188,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="ApiControllers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
@@ -212,6 +222,10 @@
     <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj">
       <Project>{2fe283cc-8f34-451e-9805-c7858f7d705d}</Project>
       <Name>Southwind.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj">
+      <Project>{2da0d6c7-53db-45f3-ba86-f4fdeb6924fa}</Project>
+      <Name>Southwind.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

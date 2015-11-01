@@ -1,0 +1,57 @@
+﻿@using Signum.Entities.Authorization
+@using Signum.Utilities
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Libs/bootstrap/dist/css/bootstrap.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Lines.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/NormalPage.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Notify.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Search.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Widgets.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/content/site.css")">
+    
+    <script language="javascript" src="@Url.Content("~/Libs/promise/promise.js")"></script>
+    <script language="javascript" src="@Url.Content("~/Libs/jquery/dist/jquery.js")"></script>
+    <script language="javascript" src="@Url.Content("~/Libs/bootstrap/dist/js/bootstrap.js")" ></script>
+    <script language="javascript" src="@Url.Content("~/Libs/requirejs/require.js")"></script>
+    <script language="javascript" src="@Url.Content("~/Libs/requirejs/require.js")"></script>
+    <script>
+        require.config({
+            baseUrl: '@Url.Content("~/Scripts")',
+            paths: {
+                "Framework/Signum.React": "..",
+                "Extensions/Signum.React.Extensions": "..",
+
+                "react": "../Libs/react/react",
+                "react-router": "../Libs/react-router/build/umd/ReactRouter",
+
+                "d3": "../Libs/d3.v3.min",
+                "colorbrewer": "../Libs/colorbrewer",
+                "ChartUtils": "../Chart/Scripts/ChartUtils",
+
+                "ckeditor": "../Libs/ckeditor/ckeditor",
+                "Libs/CodeMirror": "../Libs/CodeMirror",
+
+            },
+            shim: {
+                d3: { exports: 'd3' },
+                colorbrewer: { exports: 'colorbrewer' },
+                ChartUtils: { exports: 'ChartUtils' },
+
+                ckeditor: { exports: 'CKEDITOR' },
+            },
+            urlArgs: "v=@this.GetType().Assembly.GetName().Version.ToString()"
+        });
+
+        require(["Main"], function () {
+
+        });
+    </script>
+</head>
+<body></body>
+</html>
