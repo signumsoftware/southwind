@@ -37,6 +37,7 @@
                 "ckeditor": "../Libs/ckeditor/ckeditor",
                 "Libs/CodeMirror": "../Libs/CodeMirror",
 
+                "Templates": "../Templates",
             },
             shim: {
                 d3: { exports: 'd3' },
@@ -48,7 +49,7 @@
             urlArgs: "v=@this.GetType().Assembly.GetName().Version.ToString()"
         });
 
-        require(["Main"], function () {
+        require(["Templates/Main"], function () {
 
         });
     </script>

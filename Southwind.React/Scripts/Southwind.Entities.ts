@@ -1,6 +1,8 @@
 //////////////////////////////////
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from 'Framework/Signum.React/Scripts/Reflection'
+
 import * as Entities from 'Framework/Signum.React/Scripts/Signum.Entities' 
 
 import * as Extensions from 'Extensions/Signum.React.Extensions/Signum.Entities.Extensions' 

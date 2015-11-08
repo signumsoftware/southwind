@@ -14,6 +14,10 @@ using Signum.React;
 using Signum.Utilities;
 using Signum.Engine.Maps;
 using Signum.Engine.Authorization;
+using Signum.React.Facades;
+using Signum.Entities;
+using Signum.Entities.Authorization;
+using Southwind.Entities;
 
 namespace Southwind.React
 {
@@ -30,11 +34,11 @@ namespace Southwind.React
 
             using (AuthLogic.Disable())
                 Schema.Current.Initialize();
-            
 
             Statics.SessionFactory = new WebApiSesionFactory();
 
             ServerBuilder sb = new ServerBuilder();
+            ReflectionClient.Start();
         }
     }
 
