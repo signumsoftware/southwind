@@ -152,8 +152,9 @@ namespace Southwind.Web
 
             MailingClient.Start(
                 smtpConfig: true,
-                newsletter: false, 
-                pop3Config: false);
+                newsletter: false,
+                pop3Config: false,
+                quickLinkFrom: new Type[0]);
 
             SMSClient.Start();
 
