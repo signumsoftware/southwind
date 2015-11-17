@@ -14,10 +14,10 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Search.css")">
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Widgets.css")">
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/content/site.css")">
-    
+
     <script language="javascript" src="@Url.Content("~/Libs/promise/promise.js")"></script>
     <script language="javascript" src="@Url.Content("~/Libs/jquery/dist/jquery.js")"></script>
-    <script language="javascript" src="@Url.Content("~/Libs/bootstrap/dist/js/bootstrap.js")" ></script>
+    <script language="javascript" src="@Url.Content("~/Libs/bootstrap/dist/js/bootstrap.js")"></script>
     <script language="javascript" src="@Url.Content("~/Libs/requirejs/require.js")"></script>
     <script language="javascript" src="@Url.Content("~/Libs/requirejs/require.js")"></script>
     <script>
@@ -28,7 +28,12 @@
                 "Extensions/Signum.React.Extensions": "..",
 
                 "react": "../Libs/react/react",
-                "react-router": "../Libs/react-router/build/umd/ReactRouter",
+                "react-dom": "../Libs/react/react-dom",
+                "react-router": "../Libs/react-router/ReactRouter.min",
+                "react-router": "../Libs/react-router/ReactRouter.min",
+                "react-bootstrap":"../Libs/react-bootstrap/react-bootstrap.min",
+
+                "history": "../Libs/react-router/History",
 
                 "d3": "../Libs/d3.v3.min",
                 "colorbrewer": "../Libs/colorbrewer",
@@ -49,10 +54,20 @@
             urlArgs: "v=@this.GetType().Assembly.GetName().Version.ToString()"
         });
 
-        require(["Templates/Main"], function () {
+        var __baseUrl = "@Url.Content("~/")";
+
+        require(["Main"], function () {
 
         });
     </script>
 </head>
-<body></body>
+<body>
+    <div id="wrap"></div>
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
+        </div>
+    </div>
+    <div id="reactBody"></div>
+</body>
 </html>

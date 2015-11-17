@@ -2,13 +2,12 @@
 /// <reference path="../../framework/signum.react/typings/react/react.d.ts" />
 
 import * as React from 'react'
-import { Link, RouteHandler } from 'react-router'
+import { Link } from 'react-router'
 
 export default class Index extends React.Component<{children: any}, {}> {
     render() {
         return (
-<body>
-    <div id="wrap">
+    <div id="main">
         <header className="navbar navbar-default navbar-static">
             <div className="container">
                 <div className="navbar-header">
@@ -32,17 +31,8 @@ export default class Index extends React.Component<{children: any}, {}> {
             </div>
         </header>
 
-        <div className="container">
-               <RouteHandler/>
-            </div>
+        <div className="container">{this.props.children}</div>
         <div id="push"></div>
-     </div>
-
-    <div id="footer">
-        <div className="container">
-            <p className="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
-        </div>
-    </div>
-</body>);
+     </div>);
     }
 }

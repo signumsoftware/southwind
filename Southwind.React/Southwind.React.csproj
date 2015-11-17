@@ -131,7 +131,12 @@
     <Content Include="Libs\jquery\dist\jquery.js" />
     <Content Include="Libs\jquery\dist\jquery.min.js" />
     <Content Include="Libs\promise\promise.js" />
-    <Content Include="Libs\react-router\build\umd\ReactRouter.js" />
+    <Content Include="Libs\react-bootstrap\react-bootstrap.js" />
+    <Content Include="Libs\react-router\History.js" />
+    <Content Include="Libs\react-router\History.min.js" />
+    <Content Include="Libs\react-router\ReactRouter.min.js" />
+    <Content Include="Libs\react\react-dom.js" />
+    <Content Include="Libs\react\react-dom.min.js" />
     <Content Include="Libs\react\react.js" />
     <Content Include="Libs\react\react.min.js" />
     <Content Include="Libs\requirejs\require.js" />
@@ -228,7 +233,7 @@
     <TypeScriptCompile Include="Templates\Person.tsx" />
     <TypeScriptCompile Include="Templates\View.tsx" />
     <TypeScriptCompile Include="Templates\Home.tsx" />
-    <TypeScriptCompile Include="Templates\Main.tsx" />
+    <TypeScriptCompile Include="Scripts\Main.tsx" />
     <TypeScriptCompile Include="Scripts\Southwind.Entities.ts">
       <DependentUpon>Southwind.Entities.txt</DependentUpon>
     </TypeScriptCompile>

@@ -5,14 +5,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", 'react', 'react-router'], function (require, exports, React, react_router_1) {
+define(["require", "exports", 'react'], function (require, exports, React) {
     var View = (function (_super) {
         __extends(View, _super);
         function View() {
             _super.apply(this, arguments);
         }
         View.prototype.render = function () {
-            return (React.createElement("div", null, "Viewing: ", React.createElement(react_router_1.RouteHandler, null)));
+            return (React.createElement("div", null, "Viewing: ", this.props.children));
         };
         return View;
     })(React.Component);
