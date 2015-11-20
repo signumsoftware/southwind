@@ -140,7 +140,7 @@
     <Content Include="Libs\react\react.js" />
     <Content Include="Libs\react\react.min.js" />
     <Content Include="Libs\requirejs\require.js" />
-    <Content Include="Scripts\Southwind.Entities.txt" />
+    <None Include="Scripts\Southwind.Entities.t4s" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

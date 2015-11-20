@@ -5,7 +5,18 @@ import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from 'Framework/
 
 import * as Entities from 'Framework/Signum.React/Scripts/Signum.Entities' 
 
-import * as Extensions from 'Extensions/Signum.React.Extensions/Signum.Entities.Extensions' 
+import * as Files from 'Extensions/Signum.React.Extensions/Files/Signum.Entities.Files' 
+
+import * as Mailing from 'Extensions/Signum.React.Extensions/Mailing/Signum.Entities.Mailing' 
+
+import * as SMS from 'Extensions/Signum.React.Extensions/SMS/Signum.Entities.SMS' 
+
+import * as Processes from 'Extensions/Signum.React.Extensions/Processes/Signum.Entities.Processes' 
+
+import * as Basics from 'Extensions/Signum.React.Extensions/Basics/Signum.Entities.Basics' 
+
+import * as Scheduler from 'Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler' 
+
 export const AddressEntity_Type = new Type<AddressEntity>("AddressEntity");
 export interface AddressEntity extends Entities.EmbeddedEntity {
     address?: string;
@@ -25,9 +36,9 @@ export const AllowLogin_Type = new EnumType<AllowLogin>("AllowLogin", AllowLogin
 export const ApplicationConfigurationEntity_Type = new Type<ApplicationConfigurationEntity>("ApplicationConfigurationEntity");
 export interface ApplicationConfigurationEntity extends Entities.Entity {
     environment?: string;
-    email?: Extensions.Mailing.EmailConfigurationEntity;
-    smtpConfiguration?: Extensions.Mailing.SmtpConfigurationEntity;
-    sms?: Extensions.SMS.SMSConfigurationEntity;
+    email?: Mailing.EmailConfigurationEntity;
+    smtpConfiguration?: Mailing.SmtpConfigurationEntity;
+    sms?: SMS.SMSConfigurationEntity;
 }
 
 export module ApplicationConfigurationOperation {
@@ -38,7 +49,7 @@ export const CategoryEntity_Type = new Type<CategoryEntity>("CategoryEntity");
 export interface CategoryEntity extends Entities.Entity {
     categoryName?: string;
     description?: string;
-    picture?: Extensions.Files.EmbeddedFileEntity;
+    picture?: Files.EmbeddedFileEntity;
 }
 
 export module CategoryOperation {
@@ -73,7 +84,7 @@ export interface EmployeeEntity extends Entities.Entity {
     address?: AddressEntity;
     homePhone?: string;
     extension?: string;
-    photo?: Entities.Lite<Extensions.Files.FileEntity>;
+    photo?: Entities.Lite<Files.FileEntity>;
     notes?: string;
     reportsTo?: Entities.Lite<EmployeeEntity>;
     photoPath?: string;
@@ -136,11 +147,11 @@ export module OrderOperation {
     export const CreateOrderFromCustomer : Entities.ConstructSymbol_From<OrderEntity, CustomerEntity> = registerSymbol({ key: "OrderOperation.CreateOrderFromCustomer" });
     export const CreateOrderFromProducts : Entities.ConstructSymbol_FromMany<OrderEntity, ProductEntity> = registerSymbol({ key: "OrderOperation.CreateOrderFromProducts" });
     export const Delete : Entities.DeleteSymbol<OrderEntity> = registerSymbol({ key: "OrderOperation.Delete" });
-    export const CancelWithProcess : Entities.ConstructSymbol_FromMany<Extensions.Processes.ProcessEntity, OrderEntity> = registerSymbol({ key: "OrderOperation.CancelWithProcess" });
+    export const CancelWithProcess : Entities.ConstructSymbol_FromMany<Processes.ProcessEntity, OrderEntity> = registerSymbol({ key: "OrderOperation.CancelWithProcess" });
 }
 
 export module OrderProcess {
-    export const CancelOrders : Extensions.Processes.ProcessAlgorithmSymbol = registerSymbol({ key: "OrderProcess.CancelOrders" });
+    export const CancelOrders : Processes.ProcessAlgorithmSymbol = registerSymbol({ key: "OrderProcess.CancelOrders" });
 }
 
 export module OrderQuery {
@@ -157,8 +168,8 @@ export enum OrderState {
 export const OrderState_Type = new EnumType<OrderState>("OrderState", OrderState);
 
 export module OrderTask {
-    export const CancelOldOrdersWithProcess : Extensions.Scheduler.SimpleTaskSymbol = registerSymbol({ key: "OrderTask.CancelOldOrdersWithProcess" });
-    export const CancelOldOrders : Extensions.Scheduler.SimpleTaskSymbol = registerSymbol({ key: "OrderTask.CancelOldOrders" });
+    export const CancelOldOrdersWithProcess : Scheduler.SimpleTaskSymbol = registerSymbol({ key: "OrderTask.CancelOldOrdersWithProcess" });
+    export const CancelOldOrders : Scheduler.SimpleTaskSymbol = registerSymbol({ key: "OrderTask.CancelOldOrders" });
 }
 
 export const PersonEntity_Type = new Type<PersonEntity>("PersonEntity");
@@ -210,9 +221,9 @@ export module ShipperOperation {
 }
 
 export module SouthwindGroup {
-    export const UserEntities : Extensions.Basics.TypeConditionSymbol = registerSymbol({ key: "SouthwindGroup.UserEntities" });
-    export const RoleEntities : Extensions.Basics.TypeConditionSymbol = registerSymbol({ key: "SouthwindGroup.RoleEntities" });
-    export const CurrentCustomer : Extensions.Basics.TypeConditionSymbol = registerSymbol({ key: "SouthwindGroup.CurrentCustomer" });
+    export const UserEntities : Basics.TypeConditionSymbol = registerSymbol({ key: "SouthwindGroup.UserEntities" });
+    export const RoleEntities : Basics.TypeConditionSymbol = registerSymbol({ key: "SouthwindGroup.RoleEntities" });
+    export const CurrentCustomer : Basics.TypeConditionSymbol = registerSymbol({ key: "SouthwindGroup.CurrentCustomer" });
 }
 
 export const SupplierEntity_Type = new Type<SupplierEntity>("SupplierEntity");
