@@ -1,8 +1,12 @@
 ﻿/// <reference path="../../framework/signum.react/scripts/globals.ts" />
+/// <reference path="../../extensions/signum.react.extensions/authorization/authclient.tsx" />
 
-import * as React from 'react'
-import {render} from 'react-dom'
-import { Router, Route, Redirect, IndexRoute } from 'react-router'
+import * as React from "react"
+import { render } from "react-dom"
+import { Router, Route, Redirect, IndexRoute } from "react-router"
+
+import * as AuthClient from "Extensions/Signum.React.Extensions/Authorization/AuthClient"
+import * as Reflection from "Framework/Signum.React/Scripts/Reflection"
 
 import * as History from 'history'
 
@@ -14,27 +18,34 @@ import Person from 'Templates/Person'
 import Company from 'Templates/Company'
 import NotFound from 'Templates/NotFound'
 
-var routes = [];
+Reflection.loadTypes().then(() => {
+    var routes: JSX.Element[] = [];
 
-routes.push(<IndexRoute component={Home} />);
-routes.push(<Route path="about" component={About} />);
-routes.push(<Route path="view" component={View}>
+    routes.push(<IndexRoute component={Home} />);
+    routes.push(<Route path="home" component={Home} />);
+
+    AuthClient.start({ routes, userTicket: true, resetPassword: true });
+
+    routes.push(<Route path="about" component={About} />);
+    routes.push(<Route path="view" component={View}>
     <Route path="company/:id" component={Company} />
     <Route path="person/:id" component={Person} />
     <Route path="*" component={NotFound}/>
-    </Route>);
-routes.push(<Route path="*" component={NotFound}/>);
-routes.push(<Redirect from="company" to="about" />);
+        </Route>);
+    routes.push(<Route path="*" component={NotFound}/>);
+    routes.push(<Redirect from="company" to="about" />);
 
-var history = History.useQueries(History.useBasename(History.createHistory))({
-    basename: window["__baseUrl"]
+    var history = History.useQueries(History.useBasename(History.createHistory))({
+        basename: window["__baseUrl"]
+    });
+
+    Route
+    var mainRoute = React.createElement(Route as any, { component: Index }, ...routes);
+
+    render(
+        <Router history={history}>
+        <Route component={Index} path="/" > { routes }</Route>
+            </Router>, document.getElementById("wrap"));
 });
-
-var mainRoute = React.createElement(Route, { component: Index }, ...routes);
-
-render(
-    <Router history={history}>
-        <Route component={Index} > { routes }</Route>
-        </Router>, document.getElementById("wrap"));
 
 

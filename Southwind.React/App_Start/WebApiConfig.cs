@@ -8,6 +8,8 @@ using System.Web.Http.WebHost;
 using System.Web.Routing;
 using System.Web.SessionState;
 using Signum.React;
+using Signum.Utilities;
+using Signum.React.Json;
 
 namespace Southwind.React
 {
@@ -19,6 +21,16 @@ namespace Southwind.React
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
 
+            //Signum converters
+            config.Formatters.JsonFormatter.SerializerSettings.Do(s =>
+            {
+                s.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                s.Formatting = Newtonsoft.Json.Formatting.Indented;
+                s.Converters.Add(new LiteJsonConverter());
+                s.Converters.Add(new EntityJsonConverter());
+            });
+
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -29,4 +41,5 @@ namespace Southwind.React
             ).RouteHandler = new SessionRouteHandler();
         }
     }
+
 }

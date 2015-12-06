@@ -11,7 +11,7 @@ define(["require", "exports", 'react'], function (require, exports, React) {
             _super.apply(this, arguments);
         }
         NotFound.prototype.render = function () {
-            return (React.createElement("div", null, "Not Found :S "));
+            return (React.createElement("div", null, "Not Found JUHU"));
         };
         return NotFound;
     })(React.Component);

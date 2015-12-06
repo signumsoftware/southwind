@@ -1,38 +1,44 @@
-﻿/// <reference path="../../framework/signum.react/typings/react-router/react-router.d.ts" />
-/// <reference path="../../framework/signum.react/typings/react/react.d.ts" />
+﻿/// <reference path="../../framework/signum.react/scripts/globals.ts" />
 
 import * as React from 'react'
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router'
+import LoginUserControl from 'Extensions/Signum.React.Extensions/Authorization/Templates/LoginUserControl'
+import {GlobalModalsContainer} from "Framework/Signum.React/Scripts/Modals"
 
-export default class Index extends React.Component<{children: any}, {}> {
+
+export default class Index extends React.Component<{ children: any }, {}> {
     render() {
-        return (
-    <div id="main">
-        <header className="navbar navbar-default navbar-static">
-            <div className="container">
-                <div className="navbar-header">
-                    <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span className="sr-only">Toggle navigation</span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
-                    </button>
-                </div>
-            <div className="navbar-collapse collapse">
-                <ul className="nav navbar-nav">
-                     <li><Link to="/">Home</Link></li>
-                     <li><Link to="/about">About</Link></li>
-                     <li><Link to="/view/company" params={{ id: "123" }}>Company</Link></li>
-                     <li><Link to="/view/person" params={{ id: "ABC" }}>Person</Link></li>
-                </ul>
-                <ul className="nav navbar-nav navbar-right">
-                    </ul>
-                </div>
-            </div>
-        </header>
+
+        return (<div id="main">
+            <Navbar inverse>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <Link to="/">Southwind</Link>
+                        </Navbar.Brand>
+                    <Navbar.Toggle />
+                    </Navbar.Header>
+    <Navbar.Collapse>
+      <Nav>
+        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+             <IndexLinkContainer to="/"><MenuItem>Home</MenuItem></IndexLinkContainer>
+             <LinkContainer to="/about"><MenuItem>About</MenuItem></LinkContainer>
+                              <MenuItem divider />
+             <LinkContainer to="/view/company/123"><MenuItem>Company</MenuItem></LinkContainer>
+             <LinkContainer to="/view/person/ABC"><MenuItem>Company</MenuItem></LinkContainer>
+            </NavDropdown>
+          </Nav>
+      <Nav pullRight>
+       <LoginUserControl />
+          </Nav>
+        </Navbar.Collapse>
+                </Navbar>
+
 
         <div className="container">{this.props.children}</div>
+            <GlobalModalsContainer/>
         <div id="push"></div>
-     </div>);
+            </div>);
     }
 }

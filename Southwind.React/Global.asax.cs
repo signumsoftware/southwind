@@ -18,6 +18,8 @@ using Signum.React.Facades;
 using Signum.Entities;
 using Signum.Entities.Authorization;
 using Southwind.Entities;
+using Signum.React.Auth;
+using Signum.React.Authorization;
 
 namespace Southwind.React
 {
@@ -37,10 +39,28 @@ namespace Southwind.React
 
             Statics.SessionFactory = new WebApiSesionFactory();
 
-            ServerBuilder sb = new ServerBuilder();
-            ReflectionClient.Start();
+            AssemblyAreas.RegisterFrameworkArea();
+            AssemblyAreasExtensions.Register("Authorization");
+            AssemblyAreasExtensions.Register("Basics");
+            AssemblyAreasExtensions.Register("Mailing");
+            AssemblyAreasExtensions.Register("Files");
+            AssemblyAreasExtensions.Register("Processes");
+            AssemblyAreasExtensions.Register("Scheduler");
+            AssemblyAreasExtensions.Register("Word");
+            AssemblyAreasExtensions.Register("ViewLog");
+        }
+
+        //protected void Application_PostAuthorizeRequest()
+        //{
+        //    if (HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith("~/api"))
+        //    {
+        //        HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+        //    }
+        //}
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            UserTicketClient.LoginFromCookie();
         }
     }
-
-  
 }

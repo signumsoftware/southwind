@@ -15,16 +15,15 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Widgets.css")">
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/content/site.css")">
 
-    <script language="javascript" src="@Url.Content("~/Libs/promise/promise.js")"></script>
-    <script language="javascript" src="@Url.Content("~/Libs/jquery/dist/jquery.js")"></script>
-    <script language="javascript" src="@Url.Content("~/Libs/bootstrap/dist/js/bootstrap.js")"></script>
+    <script language="javascript" src="@Url.Content("~/Libs/es6-promise/promise.js")"></script>
     <script language="javascript" src="@Url.Content("~/Libs/requirejs/require.js")"></script>
-    <script language="javascript" src="@Url.Content("~/Libs/requirejs/require.js")"></script>
+    <script language="javascript" src="@Url.Content("~/Libs/fetch/fetch.js")"></script>
+    <script language="javascript" src="@Url.Content("~/Signum/Scripts/Globals.js")"></script>
     <script>
         require.config({
             baseUrl: '@Url.Content("~/Scripts")',
             paths: {
-                "Framework/Signum.React": "..",
+                "Framework/Signum.React": "../Signum",
                 "Extensions/Signum.React.Extensions": "..",
 
                 "react": "../Libs/react/react",
@@ -32,9 +31,11 @@
                 "react-router": "../Libs/react-router/ReactRouter.min",
                 "react-router": "../Libs/react-router/ReactRouter.min",
                 "react-bootstrap":"../Libs/react-bootstrap/react-bootstrap.min",
+                "react-router-bootstrap":"../Libs/react-router-bootstrap/lib/ReactRouterBootstrap.min",
 
                 "history": "../Libs/react-router/History",
 
+                "jquery": "../Libs/jquery/dist/jquery.min",
                 "d3": "../Libs/d3.v3.min",
                 "colorbrewer": "../Libs/colorbrewer",
                 "ChartUtils": "../Chart/Scripts/ChartUtils",
@@ -51,10 +52,10 @@
 
                 ckeditor: { exports: 'CKEDITOR' },
             },
-            urlArgs: "v=@this.GetType().Assembly.GetName().Version.ToString()"
+            urlArgs: "v=@typeof(Global).Assembly.GetName().Version.ToString()"
         });
 
-        var __baseUrl = "@Url.Content("~/")";
+        var __baseUrl = "@Url.Content("~/").RemoveEnd(1)";
 
         require(["Main"], function () {
 

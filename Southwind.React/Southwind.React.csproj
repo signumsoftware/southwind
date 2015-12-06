@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\site.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Libs\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="Libs\bootstrap\dist\css\bootstrap-theme.min.css" />
@@ -128,10 +129,13 @@
     <Content Include="Libs\bootstrap\dist\js\bootstrap.min.js" />
     <Content Include="Libs\d3\d3.js" />
     <Content Include="Libs\d3\d3.min.js" />
+    <Content Include="Libs\es6-promise\promise.js" />
+    <Content Include="Libs\es6-promise\promise.min.js" />
+    <Content Include="Libs\fetch\fetch.js" />
     <Content Include="Libs\jquery\dist\jquery.js" />
     <Content Include="Libs\jquery\dist\jquery.min.js" />
-    <Content Include="Libs\promise\promise.js" />
     <Content Include="Libs\react-bootstrap\react-bootstrap.js" />
+    <Content Include="Libs\react-router-bootstrap\lib\ReactRouterBootstrap.min.js" />
     <Content Include="Libs\react-router\History.js" />
     <Content Include="Libs\react-router\History.min.js" />
     <Content Include="Libs\react-router\ReactRouter.min.js" />
@@ -140,10 +144,12 @@
     <Content Include="Libs\react\react.js" />
     <Content Include="Libs\react\react.min.js" />
     <Content Include="Libs\requirejs\require.js" />
+    <Content Include="Libs\react-router-bootstrap\lib\ReactRouterBootstrap.min.js.map" />
     <None Include="Scripts\Southwind.Entities.t4s" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\OrdersController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -158,7 +164,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include=".bowerrc" />
     <Content Include="bower.json" />
     <Content Include="Libs\bootstrap\dist\css\bootstrap-theme.css.map" />
@@ -181,9 +189,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ApiControllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
       <Project>{ba7fa363-61a1-41b1-945b-9b9c7bbcd357}</Project>
@@ -235,7 +241,7 @@
     <TypeScriptCompile Include="Templates\Home.tsx" />
     <TypeScriptCompile Include="Scripts\Main.tsx" />
     <TypeScriptCompile Include="Scripts\Southwind.Entities.ts">
-      <DependentUpon>Southwind.Entities.txt</DependentUpon>
+      <DependentUpon>Southwind.Entities.t4s</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Templates\Index.tsx" />
   </ItemGroup>
@@ -296,7 +302,7 @@
   -->
   <UsingTask TaskName="SignumTSGenerator" AssemblyFile="..\Framework\Signum.TSGenerator\Binaries\Signum.TSGenerator.dll" />
   <Target Name="GenerateSignumTS">
-    <SignumTSGenerator TemplateFile="Scripts\Southwind.Entities.txt" References="@(ReferencePath)" />
+    <SignumTSGenerator References="@(ReferencePath)" />
   </Target>
   <PropertyGroup>
     <CompileTypeScriptDependsOn>
