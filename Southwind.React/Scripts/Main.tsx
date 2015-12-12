@@ -7,6 +7,7 @@ import { Router, Route, Redirect, IndexRoute } from "react-router"
 
 import * as AuthClient from "Extensions/Signum.React.Extensions/Authorization/AuthClient"
 import * as Reflection from "Framework/Signum.React/Scripts/Reflection"
+import * as Navigator from "Framework/Signum.React/Scripts/Navigator"
 
 import * as History from 'history'
 
@@ -39,7 +40,8 @@ Reflection.loadTypes().then(() => {
         basename: window["__baseUrl"]
     });
 
-    Route
+    Navigator.currentHistory = history;
+
     var mainRoute = React.createElement(Route as any, { component: Index }, ...routes);
 
     render(

@@ -136,7 +136,6 @@
     <Content Include="Libs\jquery\dist\jquery.min.js" />
     <Content Include="Libs\react-bootstrap\react-bootstrap.js" />
     <Content Include="Libs\react-router-bootstrap\lib\ReactRouterBootstrap.min.js" />
-    <Content Include="Libs\react-router\History.js" />
     <Content Include="Libs\react-router\History.min.js" />
     <Content Include="Libs\react-router\ReactRouter.min.js" />
     <Content Include="Libs\react\react-dom.js" />

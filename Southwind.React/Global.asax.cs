@@ -50,13 +50,10 @@ namespace Southwind.React
             AssemblyAreasExtensions.Register("ViewLog");
         }
 
-        //protected void Application_PostAuthorizeRequest()
-        //{
-        //    if (HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith("~/api"))
-        //    {
-        //        HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
-        //    }
-        //}
+        protected void Application_PostAuthorizeRequest()
+        {
+            System.Web.HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
+        }
 
         protected void Session_Start(object sender, EventArgs e)
         {
