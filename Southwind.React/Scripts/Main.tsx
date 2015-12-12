@@ -8,6 +8,7 @@ import { Router, Route, Redirect, IndexRoute } from "react-router"
 import * as AuthClient from "Extensions/Signum.React.Extensions/Authorization/AuthClient"
 import * as Reflection from "Framework/Signum.React/Scripts/Reflection"
 import * as Navigator from "Framework/Signum.React/Scripts/Navigator"
+import * as Finder from "Framework/Signum.React/Scripts/Finder"
 
 import * as History from 'history'
 
@@ -24,6 +25,9 @@ Reflection.loadTypes().then(() => {
 
     routes.push(<IndexRoute component={Home} />);
     routes.push(<Route path="home" component={Home} />);
+
+    Navigator.start({ routes });
+    Finder.start({ routes });
 
     AuthClient.start({ routes, userTicket: true, resetPassword: true });
 

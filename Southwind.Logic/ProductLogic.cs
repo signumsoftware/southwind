@@ -45,7 +45,7 @@ namespace Southwind.Logic
                         p.Discontinued
                     });
 
-                dqm.RegisterQuery(ProductQuery.Current, () =>
+                dqm.RegisterQuery(ProductQuery.CurrentProducts, () =>
                     from p in Database.Query<ProductEntity>()
                     where !p.Discontinued
                     select new

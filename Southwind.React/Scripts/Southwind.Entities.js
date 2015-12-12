@@ -82,7 +82,7 @@ define(["require", "exports", 'Framework/Signum.React/Scripts/Reflection'], func
     })(ProductOperation = exports.ProductOperation || (exports.ProductOperation = {}));
     var ProductQuery;
     (function (ProductQuery) {
-        ProductQuery.Current = new Reflection_1.MessageKey("ProductQuery", "Current");
+        ProductQuery.CurrentProducts = new Reflection_1.MessageKey("ProductQuery", "CurrentProducts");
     })(ProductQuery = exports.ProductQuery || (exports.ProductQuery = {}));
     exports.RegionEntity_Type = new Reflection_1.Type("RegionEntity");
     var RegionOperation;

@@ -59,7 +59,7 @@ namespace Southwind.Logic
             //Signum.Entities.Basics
             DisconnectedLogic.Register<TypeConditionSymbol>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<PropertyRouteEntity>(Download.Replace, Upload.None);
-            DisconnectedLogic.Register<QueryEntity>(Download.Replace, Upload.New);
+            DisconnectedLogic.Register<QueryEntity>(Download.Replace, Upload.None);
             
             //Signum.Entities.Notes
             DisconnectedLogic.Register<NoteEntity>(Download.None, Upload.None);

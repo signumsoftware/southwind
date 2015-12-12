@@ -154,6 +154,6 @@ namespace Southwind.Entities
 
     public enum ProductQuery
     {
-        Current
+        CurrentProducts
     }
 }

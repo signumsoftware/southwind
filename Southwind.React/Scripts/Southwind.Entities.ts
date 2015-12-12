@@ -198,7 +198,7 @@ export module ProductOperation {
 }
 
 export module ProductQuery {
-    export const Current = new MessageKey("ProductQuery", "Current");
+    export const CurrentProducts = new MessageKey("ProductQuery", "CurrentProducts");
 }
 
 export const RegionEntity_Type = new Type<RegionEntity>("RegionEntity");
