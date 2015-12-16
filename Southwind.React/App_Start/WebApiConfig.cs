@@ -10,6 +10,7 @@ using System.Web.SessionState;
 using Signum.React;
 using Signum.Utilities;
 using Signum.React.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Southwind.React
 {
@@ -28,6 +29,7 @@ namespace Southwind.React
                 s.Formatting = Newtonsoft.Json.Formatting.Indented;
                 s.Converters.Add(new LiteJsonConverter());
                 s.Converters.Add(new EntityJsonConverter());
+                s.Converters.Add(new StringEnumConverter());
             });
 
 

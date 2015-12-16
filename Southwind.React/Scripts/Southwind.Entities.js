@@ -1,9 +1,9 @@
 define(["require", "exports", 'Framework/Signum.React/Scripts/Reflection'], function (require, exports, Reflection_1) {
     exports.AddressEntity_Type = new Reflection_1.Type("AddressEntity");
     (function (AllowLogin) {
-        AllowLogin[AllowLogin["WindowsAndWeb"] = 0] = "WindowsAndWeb";
-        AllowLogin[AllowLogin["WindowsOnly"] = 1] = "WindowsOnly";
-        AllowLogin[AllowLogin["WebOnly"] = 2] = "WebOnly";
+        AllowLogin[AllowLogin["WindowsAndWeb"] = "WindowsAndWeb"] = "WindowsAndWeb";
+        AllowLogin[AllowLogin["WindowsOnly"] = "WindowsOnly"] = "WindowsOnly";
+        AllowLogin[AllowLogin["WebOnly"] = "WebOnly"] = "WebOnly";
     })(exports.AllowLogin || (exports.AllowLogin = {}));
     var AllowLogin = exports.AllowLogin;
     exports.AllowLogin_Type = new Reflection_1.EnumType("AllowLogin", AllowLogin);
@@ -62,10 +62,10 @@ define(["require", "exports", 'Framework/Signum.React/Scripts/Reflection'], func
         OrderQuery.OrderSimple = new Reflection_1.MessageKey("OrderQuery", "OrderSimple");
     })(OrderQuery = exports.OrderQuery || (exports.OrderQuery = {}));
     (function (OrderState) {
-        OrderState[OrderState["New"] = 0] = "New";
-        OrderState[OrderState["Ordered"] = 1] = "Ordered";
-        OrderState[OrderState["Shipped"] = 2] = "Shipped";
-        OrderState[OrderState["Canceled"] = 3] = "Canceled";
+        OrderState[OrderState["New"] = "New"] = "New";
+        OrderState[OrderState["Ordered"] = "Ordered"] = "Ordered";
+        OrderState[OrderState["Shipped"] = "Shipped"] = "Shipped";
+        OrderState[OrderState["Canceled"] = "Canceled"] = "Canceled";
     })(exports.OrderState || (exports.OrderState = {}));
     var OrderState = exports.OrderState;
     exports.OrderState_Type = new Reflection_1.EnumType("OrderState", OrderState);

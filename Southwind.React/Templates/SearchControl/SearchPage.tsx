@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { QuerySettings } from 'Framework/Signum.React/Scripts/QuerySettings'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
-import { ResultTable, FindOptions, FilterOptions, QueryDescription } from 'Framework/Signum.React/Scripts/FindOptions'
+import { ResultTable, FindOptions, FilterOption, QueryDescription } from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage } from 'Framework/Signum.React/Scripts/Signum.Entities'
 import * as Reflection from 'Framework/Signum.React/Scripts/Reflection'
 import SearchControl from 'Templates/SearchControl/SearchControl'
@@ -17,13 +17,9 @@ export default class SearchPage extends React.Component<SearchPageProps, { findO
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = { findOptions: Finder.parseFindOptionsPath(this.props.routeParams.queryName, this.props.location.query) };
     }
-    
-    componentWillReceiveProps(nextProps: SearchPageProps, nextContext): void
-    {
-        Finder.parseFindOptionsPath(this.props.routeParams.queryName, this.props.location.query);
-    }
+
 
     render() {
 
@@ -31,12 +27,12 @@ export default class SearchPage extends React.Component<SearchPageProps, { findO
 
         return (<div id="divSearchPage">
         <h2>
-            <span className="sf-entity-title">{fo ? Reflection.queryNiceName(fo.queryName) : null}</span>
+            <span className="sf-entity-title">{Reflection.queryNiceName(fo.queryName) }</span>&nbsp;
             <a className="sf-popup-fullscreen" href="#">
                 <span className="glyphicon glyphicon-new-window"></span>
                 </a>
             </h2>
-            {fo && <SearchControl avoidFullScreenButton={true} findOptions={fo} />}
+              <SearchControl avoidFullScreenButton={true} findOptions={fo} />
             </div>);
     }
 }

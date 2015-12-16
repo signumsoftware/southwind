@@ -27,9 +27,9 @@ export interface AddressEntity extends Entities.EmbeddedEntity {
 }
 
 export enum AllowLogin {
-    WindowsAndWeb,
-    WindowsOnly,
-    WebOnly,
+    WindowsAndWeb = "WindowsAndWeb" as any,
+    WindowsOnly = "WindowsOnly" as any,
+    WebOnly = "WebOnly" as any,
 }
 export const AllowLogin_Type = new EnumType<AllowLogin>("AllowLogin", AllowLogin);
 
@@ -160,10 +160,10 @@ export module OrderQuery {
 }
 
 export enum OrderState {
-    New,
-    Ordered,
-    Shipped,
-    Canceled,
+    New = "New" as any,
+    Ordered = "Ordered" as any,
+    Shipped = "Shipped" as any,
+    Canceled = "Canceled" as any,
 }
 export const OrderState_Type = new EnumType<OrderState>("OrderState", OrderState);
 
