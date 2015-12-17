@@ -91,10 +91,10 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/QuerySett
         SearchControl.prototype.createTitle = function () {
             var entityColType = this.state.queryDescription.columns["Entity"].type;
             if (entityColType.name == Reflection_1.IsByAll)
-                return Signum_Entities_1.SearchMessage.CreateNew0_G.niceToString().forGengerAndNumber("m", 1).formatWith("?");
+                return Signum_Entities_1.SearchMessage.CreateNew0_G.niceToString().forGenderAndNumber("m", 1).formatWith("?");
             var types = Reflection_1.typeInfos(entityColType).map(function (ti) { return ti.niceName; }).join(", ");
             var gender = Reflection_1.typeInfos(entityColType).first().gender;
-            return Signum_Entities_1.SearchMessage.CreateNew0_G.niceToString().forGengerAndNumber(gender).formatWith(types);
+            return Signum_Entities_1.SearchMessage.CreateNew0_G.niceToString().forGenderAndNumber(gender).formatWith(types);
         };
         SearchControl.prototype.getSelectedButton = function () {
             return React.createElement(react_bootstrap_1.NavDropdown, {"id": "selectedButton", "className": "sf-query-button sf-tm-selected", "title": Signum_Entities_1.JavascriptMessage.Selected.niceToString()});

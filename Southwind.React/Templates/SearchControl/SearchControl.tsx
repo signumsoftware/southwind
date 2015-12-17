@@ -168,12 +168,12 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         var entityColType = this.state.queryDescription.columns["Entity"].type;
 
         if (entityColType.name == IsByAll)
-            return SearchMessage.CreateNew0_G.niceToString().forGengerAndNumber("m", 1).formatWith("?");
+            return SearchMessage.CreateNew0_G.niceToString().forGenderAndNumber("m", 1).formatWith("?");
 
         var types = typeInfos(entityColType).map(ti => ti.niceName).join(", ");
         var gender = typeInfos(entityColType).first().gender;
 
-        return SearchMessage.CreateNew0_G.niceToString().forGengerAndNumber(gender).formatWith(types);
+        return SearchMessage.CreateNew0_G.niceToString().forGenderAndNumber(gender).formatWith(types);
     }
 
 

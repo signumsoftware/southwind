@@ -22,8 +22,8 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/QuerySett
                 var p = extend({}, _this.props.pagination, { elementsPerPage: parseInt(e.currentTarget.value) });
                 _this.props.onPagination(p);
             };
-            this.handlePageClick = function (e) {
-                var p = extend({}, _this.props.pagination, { currentPage: parseInt(e.currentTarget.getAttribute("data-page")) });
+            this.handlePageClick = function (e, page) {
+                var p = extend({}, _this.props.pagination, { currentPage: page.eventKey });
                 _this.props.onPagination(p);
             };
             this.state = {};
@@ -31,19 +31,21 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/QuerySett
         PaginationSelector.prototype.render = function () {
             if (!this.props.pagination)
                 return null;
-            return (React.createElement("div", {"className": "sf-search-footer"}, React.createElement("div", {"className": "sf-pagination-left"}, this.renderLeft()), this.renderCenter(), React.createElement("div", {"className": "sf-pagination-right"})));
+            return (React.createElement("div", {"className": "sf-search-footer"}, React.createElement("div", {"className": "sf-pagination-left"}, this.renderLeft()), this.renderCenter(), React.createElement("div", {"className": "sf-pagination-right"}, this.renderRight())));
         };
         PaginationSelector.prototype.renderLeft = function () {
             var resultTable = this.props.resultTable;
             if (!resultTable)
                 return null;
             var pagination = this.props.pagination;
-            if (pagination.mode == FindOptions_1.PaginationMode.All)
-                return React.createElement("span", null, Signum_Entities_1.SearchMessage._0Results_N.niceToString().forGengerAndNumber(resultTable.totalElements).formatHtml(React.createElement("span", {"className": "sf-pagination-strong"}, resultTable.totalElements)));
-            if (pagination.mode == FindOptions_1.PaginationMode.Firsts)
-                return React.createElement("span", null, Signum_Entities_1.SearchMessage.First0Results_N.niceToString().forGengerAndNumber(resultTable.totalElements).formatHtml(React.createElement("span", {"className": "sf-pagination-strong" + (resultTable.rows.length == resultTable.pagination.elementsPerPage ? " sf-pagination-overflow" : "")}, resultTable.rows.length)));
-            if (pagination.mode == FindOptions_1.PaginationMode.Firsts)
-                return React.createElement("span", null, Signum_Entities_1.SearchMessage._01of2Results_N.niceToString().forGengerAndNumber(resultTable.totalElements).formatHtml(React.createElement("span", {"className": "sf-pagination-strong"}, FindOptions_1.PaginateMath.startElementIndex(pagination)), React.createElement("span", {"className": "sf-pagination-strong"}, FindOptions_1.PaginateMath.endElementIndex(pagination, resultTable.rows.length)), React.createElement("span", {"className": "sf-pagination-strong"}, resultTable.totalElements)));
+            switch (pagination.mode) {
+                case FindOptions_1.PaginationMode.All:
+                    return React.createElement("span", null, Signum_Entities_1.SearchMessage._0Results_N.niceToString().forGenderAndNumber(resultTable.totalElements).formatHtml(React.createElement("span", {"className": "sf-pagination-strong"}, resultTable.totalElements)));
+                case FindOptions_1.PaginationMode.Firsts:
+                    return React.createElement("span", null, Signum_Entities_1.SearchMessage.First0Results_N.niceToString().forGenderAndNumber(resultTable.rows.length).formatHtml(React.createElement("span", {"className": "sf-pagination-strong" + (resultTable.rows.length == resultTable.pagination.elementsPerPage ? " sf-pagination-overflow" : "")}, resultTable.rows.length)));
+                case FindOptions_1.PaginationMode.Paginate:
+                    return React.createElement("span", null, Signum_Entities_1.SearchMessage._01of2Results_N.niceToString().forGenderAndNumber(resultTable.totalElements).formatHtml(React.createElement("span", {"className": "sf-pagination-strong"}, FindOptions_1.PaginateMath.startElementIndex(pagination)), React.createElement("span", {"className": "sf-pagination-strong"}, FindOptions_1.PaginateMath.endElementIndex(pagination, resultTable.rows.length)), React.createElement("span", {"className": "sf-pagination-strong"}, resultTable.totalElements)));
+            }
         };
         PaginationSelector.prototype.renderCenter = function () {
             return React.createElement("div", {"className": "sf-pagination-center form-inline form-xs"}, React.createElement(react_bootstrap_1.Input, {"type": "select", "value": this.props.pagination.mode, "onChange": this.handleMode, "ref": "mode", "standalone": true}, [FindOptions_1.PaginationMode.Paginate, FindOptions_1.PaginationMode.Firsts, FindOptions_1.PaginationMode.All].map(function (mode) {
@@ -53,16 +55,11 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/QuerySett
             })));
         };
         PaginationSelector.prototype.renderRight = function () {
-            var _this = this;
             var resultTable = this.props.resultTable;
             if (!resultTable || resultTable.pagination.mode != FindOptions_1.PaginationMode.Paginate)
                 return null;
-            var paginate = resultTable.pagination;
-            var totalPages = FindOptions_1.PaginateMath.totalPages(paginate, resultTable.totalElements);
-            var pageMin = Math.min(1, resultTable.pagination.currentPage - 2);
-            var pageMax = Math.min(paginate.currentPage + 2, totalPages);
-            var link = function (num) { return React.createElement("li", {"key": num}, React.createElement("a", {"data-page": num, "href": "#", "onClick": _this.handlePageClick}, num)); };
-            return React.createElement("ul", {"className": "pagination"}, React.createElement("li", {"className": paginate.currentPage <= 1 ? "disabled" : null}, React.createElement("a", {"data-page": paginate.currentPage - 1, "href": "#", "onClick": this.handlePageClick}, "« ")), pageMin != 1 && link(1), pageMin > 2 && (React.createElement("li", {"className": "disabled"}, React.createElement("span", null, "..."))), Array.range(pageMin, paginate.currentPage).map(link), React.createElement("li", {"className": "active"}, React.createElement("span", null, paginate.currentPage)), Array.range(paginate.currentPage + 1, pageMax + 1).map(link), pageMax < totalPages - 1 && (React.createElement("li", {"className": "disabled"}, React.createElement("span", null, "..."))), pageMax < totalPages && link(totalPages), React.createElement("li", {"className": totalPages <= paginate.currentPage ? "disabled" : null}, React.createElement("a", {"data-page": paginate.currentPage + 1, "href": "#", "onClick": this.handlePageClick}, "« ")));
+            var totalPages = FindOptions_1.PaginateMath.totalPages(resultTable.pagination, resultTable.totalElements);
+            return React.createElement(react_bootstrap_1.Pagination, {"activePage": resultTable.pagination.currentPage, "items": totalPages, "ellipsis": true, "maxButtons": 8, "first": true, "last": true, "onSelect": this.handlePageClick});
         };
         return PaginationSelector;
     })(React.Component);
