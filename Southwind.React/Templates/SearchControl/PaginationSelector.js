@@ -36,7 +36,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/QuerySett
         PaginationSelector.prototype.renderLeft = function () {
             var resultTable = this.props.resultTable;
             if (!resultTable)
-                return null;
+                return "\u00a0";
             var pagination = this.props.pagination;
             switch (pagination.mode) {
                 case FindOptions_1.PaginationMode.All:
@@ -57,7 +57,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/QuerySett
         PaginationSelector.prototype.renderRight = function () {
             var resultTable = this.props.resultTable;
             if (!resultTable || resultTable.pagination.mode != FindOptions_1.PaginationMode.Paginate)
-                return null;
+                return "\u00a0";
             var totalPages = FindOptions_1.PaginateMath.totalPages(resultTable.pagination, resultTable.totalElements);
             return React.createElement(react_bootstrap_1.Pagination, {"activePage": resultTable.pagination.currentPage, "items": totalPages, "ellipsis": true, "maxButtons": 8, "first": true, "last": true, "onSelect": this.handlePageClick});
         };

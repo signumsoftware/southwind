@@ -41,11 +41,11 @@ export default class PaginationSelector extends React.Component<PaginationSelect
             </div>);
     }
 
-    renderLeft() {
+    renderLeft(): React.ReactNode {
 
         var resultTable = this.props.resultTable;
         if (!resultTable)
-            return null;
+            return "\u00a0";
 
         var pagination = this.props.pagination;
 
@@ -111,14 +111,21 @@ export default class PaginationSelector extends React.Component<PaginationSelect
 
 
 
-    renderRight() {
+    renderRight(): React.ReactNode {
         var resultTable = this.props.resultTable;
         if (!resultTable || resultTable.pagination.mode != PaginationMode.Paginate)
-            return null;
+            return "\u00a0";
         
         var totalPages = PaginateMath.totalPages(resultTable.pagination, resultTable.totalElements);
 
 
-        return <BPagination activePage={resultTable.pagination.currentPage} items={totalPages} ellipsis={true} maxButtons={8} first={true} last={true} onSelect={this.handlePageClick}/>;
+        return <BPagination
+            activePage={resultTable.pagination.currentPage}
+            items={totalPages}
+            ellipsis={true}
+            maxButtons={8}
+            first={true}
+            last={true}
+            onSelect={this.handlePageClick}/>;
     }
 }

@@ -237,7 +237,6 @@
     <TypeScriptCompile Include="Templates\Company.tsx" />
     <TypeScriptCompile Include="Templates\Person.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\PaginationSelector.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\SearchResult.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchPage.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchControl.tsx" />
     <TypeScriptCompile Include="Templates\View.tsx" />
