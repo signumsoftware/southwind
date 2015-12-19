@@ -5,6 +5,9 @@ import * as React from "react"
 import { render } from "react-dom"
 import { Router, Route, Redirect, IndexRoute } from "react-router"
 
+import  * as moment from "moment"
+
+
 import * as AuthClient from "Extensions/Signum.React.Extensions/Authorization/AuthClient"
 import * as Reflection from "Framework/Signum.React/Scripts/Reflection"
 import * as Navigator from "Framework/Signum.React/Scripts/Navigator"
@@ -21,6 +24,7 @@ import Company from 'Templates/Company'
 import NotFound from 'Templates/NotFound'
 
 Reflection.loadTypes().then(() => {
+
     var routes: JSX.Element[] = [];
 
     routes.push(<IndexRoute component={Home} />);

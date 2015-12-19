@@ -134,6 +134,8 @@
     <Content Include="Libs\fetch\fetch.js" />
     <Content Include="Libs\jquery\dist\jquery.js" />
     <Content Include="Libs\jquery\dist\jquery.min.js" />
+    <Content Include="Libs\moment\locale\es.js" />
+    <Content Include="Libs\moment\min\moment.min.js" />
     <Content Include="Libs\react-bootstrap\react-bootstrap.js" />
     <Content Include="Libs\react-router-bootstrap\lib\ReactRouterBootstrap.min.js" />
     <Content Include="Libs\react-router\History.min.js" />
