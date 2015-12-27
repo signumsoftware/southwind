@@ -1,6 +1,5 @@
 ﻿
 import * as React from 'react'
-import { QuerySettings, CellFormatter, EntityFormatter, EntityFormatRules, FormatRules, defaultPagination } from 'Framework/Signum.React/Scripts/QuerySettings'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
 import { ResultTable, Pagination, PaginationMode, PaginateMath} from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage, Lite, IEntity, liteKey, DynamicQuery } from 'Framework/Signum.React/Scripts/Signum.Entities'
@@ -53,19 +52,19 @@ export default class PaginationSelector extends React.Component<PaginationSelect
 
             case PaginationMode.All:
                 return <span>{SearchMessage._0Results_N.niceToString().forGenderAndNumber(resultTable.totalElements).formatHtml(
-                    <span className="sf-pagination-strong">{resultTable.totalElements}</span>)
+                    <span className="sf-pagination-strong" key={1}>{resultTable.totalElements}</span>)
                 }</span>;
 
             case PaginationMode.Firsts:
                 return <span>{SearchMessage.First0Results_N.niceToString().forGenderAndNumber(resultTable.rows.length).formatHtml(
-                    <span className={"sf-pagination-strong" + (resultTable.rows.length == resultTable.pagination.elementsPerPage ? " sf-pagination-overflow" : "") }>{resultTable.rows.length}</span>)
+                    <span className={"sf-pagination-strong" + (resultTable.rows.length == resultTable.pagination.elementsPerPage ? " sf-pagination-overflow" : "") } key={1}>{resultTable.rows.length}</span>)
                 }</span>;
 
             case PaginationMode.Paginate:
                 return <span>{SearchMessage._01of2Results_N.niceToString().forGenderAndNumber(resultTable.totalElements).formatHtml(
-                    <span className={"sf-pagination-strong"}>{PaginateMath.startElementIndex(pagination) }</span>,
-                    <span className={"sf-pagination-strong"}>{PaginateMath.endElementIndex(pagination, resultTable.rows.length) }</span>,
-                    <span className={"sf-pagination-strong"}>{resultTable.totalElements}</span>)
+                    <span className={"sf-pagination-strong"} key={1}>{PaginateMath.startElementIndex(pagination) }</span>,
+                    <span className={"sf-pagination-strong"} key={2}>{PaginateMath.endElementIndex(pagination, resultTable.rows.length) }</span>,
+                    <span className={"sf-pagination-strong"} key={3}>{resultTable.totalElements}</span>)
                 }</span>;
         }
 
@@ -77,7 +76,7 @@ export default class PaginationSelector extends React.Component<PaginationSelect
 
         var p: Pagination = {
             mode: mode,
-            elementsPerPage: mode != PaginationMode.All ? defaultPagination.elementsPerPage : null,
+            elementsPerPage: mode != PaginationMode.All ? Finder.defaultPagination.elementsPerPage : null,
             currentPage: mode == PaginationMode.Paginate ? 1 : null
         };
 
@@ -85,12 +84,12 @@ export default class PaginationSelector extends React.Component<PaginationSelect
     }
 
     handleElementsPerPage = (e: React.SyntheticEvent) => {
-        var p = extend({}, this.props.pagination, { elementsPerPage: parseInt((e.currentTarget as HTMLInputElement).value) });
+        var p = Dic.extend({}, this.props.pagination, { elementsPerPage: parseInt((e.currentTarget as HTMLInputElement).value) });
         this.props.onPagination(p);
     }
 
     handlePageClick = (e: React.SyntheticEvent, page: { eventKey: number }) => {
-        var p = extend({}, this.props.pagination, { currentPage: page.eventKey });
+        var p = Dic.extend({}, this.props.pagination, { currentPage: page.eventKey });
         this.props.onPagination(p);
     }
 

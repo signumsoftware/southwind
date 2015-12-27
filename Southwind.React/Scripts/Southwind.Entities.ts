@@ -17,7 +17,7 @@ import * as Basics from 'Extensions/Signum.React.Extensions/Basics/Signum.Entiti
 
 import * as Scheduler from 'Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler' 
 
-export const AddressEntity_Type = new Type<AddressEntity>("AddressEntity");
+export const AddressEntity_Type = new Type<AddressEntity>("Address");
 export interface AddressEntity extends Entities.EmbeddedEntity {
     address?: string;
     city?: string;
@@ -33,7 +33,7 @@ export enum AllowLogin {
 }
 export const AllowLogin_Type = new EnumType<AllowLogin>("AllowLogin", AllowLogin);
 
-export const ApplicationConfigurationEntity_Type = new Type<ApplicationConfigurationEntity>("ApplicationConfigurationEntity");
+export const ApplicationConfigurationEntity_Type = new Type<ApplicationConfigurationEntity>("ApplicationConfiguration");
 export interface ApplicationConfigurationEntity extends Entities.Entity {
     environment?: string;
     email?: Mailing.EmailConfigurationEntity;
@@ -42,10 +42,10 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
 }
 
 export module ApplicationConfigurationOperation {
-    export const Save : Entities.ExecuteSymbol<ApplicationConfigurationEntity> = registerSymbol({ key: "ApplicationConfigurationOperation.Save" });
+    export const Save : Entities.ExecuteSymbol<ApplicationConfigurationEntity> = registerSymbol({ Type: "Operation", key: "ApplicationConfigurationOperation.Save" });
 }
 
-export const CategoryEntity_Type = new Type<CategoryEntity>("CategoryEntity");
+export const CategoryEntity_Type = new Type<CategoryEntity>("Category");
 export interface CategoryEntity extends Entities.Entity {
     categoryName?: string;
     description?: string;
@@ -53,10 +53,10 @@ export interface CategoryEntity extends Entities.Entity {
 }
 
 export module CategoryOperation {
-    export const Save : Entities.ExecuteSymbol<CategoryEntity> = registerSymbol({ key: "CategoryOperation.Save" });
+    export const Save : Entities.ExecuteSymbol<CategoryEntity> = registerSymbol({ Type: "Operation", key: "CategoryOperation.Save" });
 }
 
-export const CompanyEntity_Type = new Type<CompanyEntity>("CompanyEntity");
+export const CompanyEntity_Type = new Type<CompanyEntity>("Company");
 export interface CompanyEntity extends CustomerEntity {
     companyName?: string;
     contactName?: string;
@@ -70,10 +70,10 @@ export interface CustomerEntity extends Entities.Entity {
 }
 
 export module CustomerOperation {
-    export const Save : Entities.ExecuteSymbol<CustomerEntity> = registerSymbol({ key: "CustomerOperation.Save" });
+    export const Save : Entities.ExecuteSymbol<CustomerEntity> = registerSymbol({ Type: "Operation", key: "CustomerOperation.Save" });
 }
 
-export const EmployeeEntity_Type = new Type<EmployeeEntity>("EmployeeEntity");
+export const EmployeeEntity_Type = new Type<EmployeeEntity>("Employee");
 export interface EmployeeEntity extends Entities.Entity {
     lastName?: string;
     firstName?: string;
@@ -92,14 +92,14 @@ export interface EmployeeEntity extends Entities.Entity {
 }
 
 export module EmployeeOperation {
-    export const Save : Entities.ExecuteSymbol<EmployeeEntity> = registerSymbol({ key: "EmployeeOperation.Save" });
+    export const Save : Entities.ExecuteSymbol<EmployeeEntity> = registerSymbol({ Type: "Operation", key: "EmployeeOperation.Save" });
 }
 
 export module EmployeeQuery {
     export const EmployeesByTerritory = new MessageKey("EmployeeQuery", "EmployeesByTerritory");
 }
 
-export const OrderDetailsEntity_Type = new Type<OrderDetailsEntity>("OrderDetailsEntity");
+export const OrderDetailsEntity_Type = new Type<OrderDetailsEntity>("OrderDetails");
 export interface OrderDetailsEntity extends Entities.EmbeddedEntity {
     product?: Entities.Lite<ProductEntity>;
     unitPrice?: number;
@@ -107,7 +107,7 @@ export interface OrderDetailsEntity extends Entities.EmbeddedEntity {
     discount?: number;
 }
 
-export const OrderEntity_Type = new Type<OrderEntity>("OrderEntity");
+export const OrderEntity_Type = new Type<OrderEntity>("Order");
 export interface OrderEntity extends Entities.Entity {
     customer?: CustomerEntity;
     employee?: Entities.Lite<EmployeeEntity>;
@@ -124,7 +124,7 @@ export interface OrderEntity extends Entities.Entity {
     state?: OrderState;
 }
 
-export const OrderFilterModel_Type = new Type<OrderFilterModel>("OrderFilterModel");
+export const OrderFilterModel_Type = new Type<OrderFilterModel>("OrderFilter");
 export interface OrderFilterModel extends Entities.ModelEntity {
     customer?: Entities.Lite<CustomerEntity>;
     employee?: Entities.Lite<EmployeeEntity>;
@@ -139,19 +139,19 @@ export module OrderMessage {
 }
 
 export module OrderOperation {
-    export const Create : Entities.ConstructSymbol_Simple<OrderEntity> = registerSymbol({ key: "OrderOperation.Create" });
-    export const SaveNew : Entities.ExecuteSymbol<OrderEntity> = registerSymbol({ key: "OrderOperation.SaveNew" });
-    export const Save : Entities.ExecuteSymbol<OrderEntity> = registerSymbol({ key: "OrderOperation.Save" });
-    export const Ship : Entities.ExecuteSymbol<OrderEntity> = registerSymbol({ key: "OrderOperation.Ship" });
-    export const Cancel : Entities.ExecuteSymbol<OrderEntity> = registerSymbol({ key: "OrderOperation.Cancel" });
-    export const CreateOrderFromCustomer : Entities.ConstructSymbol_From<OrderEntity, CustomerEntity> = registerSymbol({ key: "OrderOperation.CreateOrderFromCustomer" });
-    export const CreateOrderFromProducts : Entities.ConstructSymbol_FromMany<OrderEntity, ProductEntity> = registerSymbol({ key: "OrderOperation.CreateOrderFromProducts" });
-    export const Delete : Entities.DeleteSymbol<OrderEntity> = registerSymbol({ key: "OrderOperation.Delete" });
-    export const CancelWithProcess : Entities.ConstructSymbol_FromMany<Processes.ProcessEntity, OrderEntity> = registerSymbol({ key: "OrderOperation.CancelWithProcess" });
+    export const Create : Entities.ConstructSymbol_Simple<OrderEntity> = registerSymbol({ Type: "Operation", key: "OrderOperation.Create" });
+    export const SaveNew : Entities.ExecuteSymbol<OrderEntity> = registerSymbol({ Type: "Operation", key: "OrderOperation.SaveNew" });
+    export const Save : Entities.ExecuteSymbol<OrderEntity> = registerSymbol({ Type: "Operation", key: "OrderOperation.Save" });
+    export const Ship : Entities.ExecuteSymbol<OrderEntity> = registerSymbol({ Type: "Operation", key: "OrderOperation.Ship" });
+    export const Cancel : Entities.ExecuteSymbol<OrderEntity> = registerSymbol({ Type: "Operation", key: "OrderOperation.Cancel" });
+    export const CreateOrderFromCustomer : Entities.ConstructSymbol_From<OrderEntity, CustomerEntity> = registerSymbol({ Type: "Operation", key: "OrderOperation.CreateOrderFromCustomer" });
+    export const CreateOrderFromProducts : Entities.ConstructSymbol_FromMany<OrderEntity, ProductEntity> = registerSymbol({ Type: "Operation", key: "OrderOperation.CreateOrderFromProducts" });
+    export const Delete : Entities.DeleteSymbol<OrderEntity> = registerSymbol({ Type: "Operation", key: "OrderOperation.Delete" });
+    export const CancelWithProcess : Entities.ConstructSymbol_FromMany<Processes.ProcessEntity, OrderEntity> = registerSymbol({ Type: "Operation", key: "OrderOperation.CancelWithProcess" });
 }
 
 export module OrderProcess {
-    export const CancelOrders : Processes.ProcessAlgorithmSymbol = registerSymbol({ key: "OrderProcess.CancelOrders" });
+    export const CancelOrders : Processes.ProcessAlgorithmSymbol = registerSymbol({ Type: "ProcessAlgorithm", key: "OrderProcess.CancelOrders" });
 }
 
 export module OrderQuery {
@@ -168,11 +168,11 @@ export enum OrderState {
 export const OrderState_Type = new EnumType<OrderState>("OrderState", OrderState);
 
 export module OrderTask {
-    export const CancelOldOrdersWithProcess : Scheduler.SimpleTaskSymbol = registerSymbol({ key: "OrderTask.CancelOldOrdersWithProcess" });
-    export const CancelOldOrders : Scheduler.SimpleTaskSymbol = registerSymbol({ key: "OrderTask.CancelOldOrders" });
+    export const CancelOldOrdersWithProcess : Scheduler.SimpleTaskSymbol = registerSymbol({ Type: "SimpleTask", key: "OrderTask.CancelOldOrdersWithProcess" });
+    export const CancelOldOrders : Scheduler.SimpleTaskSymbol = registerSymbol({ Type: "SimpleTask", key: "OrderTask.CancelOldOrders" });
 }
 
-export const PersonEntity_Type = new Type<PersonEntity>("PersonEntity");
+export const PersonEntity_Type = new Type<PersonEntity>("Person");
 export interface PersonEntity extends CustomerEntity {
     firstName?: string;
     lastName?: string;
@@ -181,7 +181,7 @@ export interface PersonEntity extends CustomerEntity {
     corrupt?: boolean;
 }
 
-export const ProductEntity_Type = new Type<ProductEntity>("ProductEntity");
+export const ProductEntity_Type = new Type<ProductEntity>("Product");
 export interface ProductEntity extends Entities.Entity {
     productName?: string;
     supplier?: Entities.Lite<SupplierEntity>;
@@ -194,39 +194,39 @@ export interface ProductEntity extends Entities.Entity {
 }
 
 export module ProductOperation {
-    export const Save : Entities.ExecuteSymbol<ProductEntity> = registerSymbol({ key: "ProductOperation.Save" });
+    export const Save : Entities.ExecuteSymbol<ProductEntity> = registerSymbol({ Type: "Operation", key: "ProductOperation.Save" });
 }
 
 export module ProductQuery {
     export const CurrentProducts = new MessageKey("ProductQuery", "CurrentProducts");
 }
 
-export const RegionEntity_Type = new Type<RegionEntity>("RegionEntity");
+export const RegionEntity_Type = new Type<RegionEntity>("Region");
 export interface RegionEntity extends Entities.Entity {
     description?: string;
 }
 
 export module RegionOperation {
-    export const Save : Entities.ExecuteSymbol<RegionEntity> = registerSymbol({ key: "RegionOperation.Save" });
+    export const Save : Entities.ExecuteSymbol<RegionEntity> = registerSymbol({ Type: "Operation", key: "RegionOperation.Save" });
 }
 
-export const ShipperEntity_Type = new Type<ShipperEntity>("ShipperEntity");
+export const ShipperEntity_Type = new Type<ShipperEntity>("Shipper");
 export interface ShipperEntity extends Entities.Entity {
     companyName?: string;
     phone?: string;
 }
 
 export module ShipperOperation {
-    export const Save : Entities.ExecuteSymbol<ShipperEntity> = registerSymbol({ key: "ShipperOperation.Save" });
+    export const Save : Entities.ExecuteSymbol<ShipperEntity> = registerSymbol({ Type: "Operation", key: "ShipperOperation.Save" });
 }
 
 export module SouthwindGroup {
-    export const UserEntities : Basics.TypeConditionSymbol = registerSymbol({ key: "SouthwindGroup.UserEntities" });
-    export const RoleEntities : Basics.TypeConditionSymbol = registerSymbol({ key: "SouthwindGroup.RoleEntities" });
-    export const CurrentCustomer : Basics.TypeConditionSymbol = registerSymbol({ key: "SouthwindGroup.CurrentCustomer" });
+    export const UserEntities : Basics.TypeConditionSymbol = registerSymbol({ Type: "TypeCondition", key: "SouthwindGroup.UserEntities" });
+    export const RoleEntities : Basics.TypeConditionSymbol = registerSymbol({ Type: "TypeCondition", key: "SouthwindGroup.RoleEntities" });
+    export const CurrentCustomer : Basics.TypeConditionSymbol = registerSymbol({ Type: "TypeCondition", key: "SouthwindGroup.CurrentCustomer" });
 }
 
-export const SupplierEntity_Type = new Type<SupplierEntity>("SupplierEntity");
+export const SupplierEntity_Type = new Type<SupplierEntity>("Supplier");
 export interface SupplierEntity extends Entities.Entity {
     companyName?: string;
     contactName?: string;
@@ -238,17 +238,17 @@ export interface SupplierEntity extends Entities.Entity {
 }
 
 export module SupplierOperation {
-    export const Save : Entities.ExecuteSymbol<SupplierEntity> = registerSymbol({ key: "SupplierOperation.Save" });
+    export const Save : Entities.ExecuteSymbol<SupplierEntity> = registerSymbol({ Type: "Operation", key: "SupplierOperation.Save" });
 }
 
-export const TerritoryEntity_Type = new Type<TerritoryEntity>("TerritoryEntity");
+export const TerritoryEntity_Type = new Type<TerritoryEntity>("Territory");
 export interface TerritoryEntity extends Entities.Entity {
     region?: RegionEntity;
     description?: string;
 }
 
 export module TerritoryOperation {
-    export const Save : Entities.ExecuteSymbol<TerritoryEntity> = registerSymbol({ key: "TerritoryOperation.Save" });
+    export const Save : Entities.ExecuteSymbol<TerritoryEntity> = registerSymbol({ Type: "Operation", key: "TerritoryOperation.Save" });
 }
 
 export const UserEmployeeMixin_Type = new Type<UserEmployeeMixin>("UserEmployeeMixin");

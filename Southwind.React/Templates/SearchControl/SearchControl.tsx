@@ -1,6 +1,5 @@
 ﻿
 import * as React from 'react'
-import { QuerySettings, defaultPagination, FormatRules, EntityFormatRules, defaultOrderColumn } from 'Framework/Signum.React/Scripts/QuerySettings'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
 import { ResultTable, ResultRow, FindOptions, FilterOption, QueryDescription, ColumnOption, ColumnOptionsMode, ColumnDescription, toQueryToken, Pagination, PaginationMode, OrderType, OrderOption } from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage, Lite, IEntity, liteKey, is } from 'Framework/Signum.React/Scripts/Signum.Entities'
@@ -26,11 +25,13 @@ export interface SearchControlProps extends React.Props<SearchControl> {
 export interface SearchControlState {
     resultTable?: ResultTable;
     findOptions?: FindOptions;
-    querySettings?: QuerySettings;
+    querySettings?: Finder.QuerySettings;
     queryDescription?: QueryDescription;
     loading?: boolean;
     selectedRows?: ResultRow[];
 
+    dragIndex?: number,
+    dropIndex?: number,
 }
 
 
@@ -58,7 +59,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
 
             var ti = getTypeInfos(qd.columns["Entity"].type)
 
-            var findOptions = extend({
+            var findOptions = Dic.extend({
                 searchOnLoad: true,
                 showHeader: true,
                 showFilters: false,
@@ -66,7 +67,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
                 showFooter: true,
                 create: ti.some(ti=> Navigator.isCreable(ti, true)),
                 navigate: ti.some(ti=> Navigator.isNavigable(ti, null, true)),
-                pagination: (this.state.querySettings && this.state.querySettings.pagination) || defaultPagination,
+                pagination: (this.state.querySettings && this.state.querySettings.pagination) || Finder.defaultPagination,
                 columnOptionsMode: ColumnOptionsMode.Add,
                 columnOptions: [],
                 orderOptions: [],
@@ -76,7 +77,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             findOptions.columnOptions = SearchControl.mergeColumns(Dic.getValues(qd.columns), findOptions.columnOptionsMode, findOptions.columnOptions)
             if (!findOptions.orderOptions.length) {
 
-                var defaultOrder = this.state.querySettings && this.state.querySettings.defaultOrderColumn || defaultOrderColumn;
+                var defaultOrder = this.state.querySettings && this.state.querySettings.defaultOrderColumn || Finder.defaultOrderColumn;
 
                 var info = this.entityColumnTypeInfos().firstOrNull()
 
@@ -194,6 +195,63 @@ export default class SearchControl extends React.Component<SearchControlProps, S
     }
 
 
+    handleHeaderDragStart = (de: React.DragEvent) => {
+        de.dataTransfer.effectAllowed = "move";
+        var dragIndex = parseInt((de.currentTarget as HTMLElement).getAttribute("data-column-index"));
+        this.setState({ dragIndex: dragIndex });    
+    }
+
+    handleHeaderDragEnd = (de: React.DragEvent) => {
+        this.setState({ dragIndex: null, dropIndex: null });
+    }
+
+
+    getOffset(pageX: number, rect: ClientRect) {
+
+        var width = rect.width;
+        var offsetX = pageX - rect.left;
+
+        if (width < 100 ? (offsetX < (width / 2)) : (offsetX < 50))
+            return 0;
+
+        if (width < 100 ? (offsetX > (width / 2)) : (offsetX > (width - 50)))
+            return 1;
+
+        return null;
+    }
+
+    handlerHeaderDragOver = (de: React.DragEvent) => {
+        de.preventDefault();
+
+        var th = de.currentTarget as HTMLElement;
+        
+        var size = th.scrollWidth;
+
+        var columnIndex = parseInt(th.getAttribute("data-column-index"));
+
+        var offset = this.getOffset((de.nativeEvent as DragEvent).pageX, th.getBoundingClientRect());
+
+        var dropIndex = offset == null || columnIndex + offset == this.state.dragIndex ? null : columnIndex + offset;
+
+        de.dataTransfer.dropEffect = dropIndex == null ? "none" : "move";
+
+        if (this.state.dropIndex != dropIndex)
+            this.setState({ dropIndex: dropIndex });
+    }
+
+    handleHeaderDrop = (de: React.DragEvent) => {
+        
+        var columns = this.state.findOptions.columnOptions;
+        var temp = columns[this.state.dragIndex];
+        columns.splice(this.state.dragIndex, 1);
+        columns.splice(this.state.dropIndex, 0, temp);
+        
+        this.setState({
+            dropIndex: null,
+            dragIndex: null
+        });
+    }
+
     ////
     // RENDERs
     ////
@@ -267,15 +325,22 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             </th>
         }
         { this.state.findOptions.navigate && <th className="sf-th-entity"></th> }
-        { this.state.findOptions.columnOptions.map(co=>
-            <th draggable={true}
+        { this.state.findOptions.columnOptions.map((co, i) =>
+                <th draggable={true}
+                    style={i == this.state.dragIndex ? { opacity: 0.5 } : null }
+                    className={(i == this.state.dropIndex ? "drag-left " : i == this.state.dropIndex - 1 ? "drag-right " : "") }
                 data-column-name={co.token.fullKey}
-                key={co.token.fullKey} onClick={this.handleHeaderClick}>
+                data-column-index={i}
+                key={co.token.fullKey}
+                onClick={this.handleHeaderClick}
+                onDragStart={this.handleHeaderDragStart}
+                onDragEnd={this.handleHeaderDragEnd}
+                onDragOver={this.handlerHeaderDragOver}
+                onDragEnter={this.handlerHeaderDragOver}
+                onDrop={this.handleHeaderDrop}>
                     <span className={"sf-header-sort " + this.orderClassName(co) }/>
                     <span> { co.displayName }</span></th>) }
             </tr>;
-
-
     }
 
     orderClassName(column: ColumnOption) {
@@ -313,18 +378,25 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         var qs = this.state.querySettings;
 
 
-        var formatters = this.state.findOptions.columnOptions.map(c =>
-            (qs && qs.formatters && qs.formatters[c.token.fullKey]) ||
-            FormatRules.filter(a=> a.isApplicable(c)).last("FormatRules").formatter(c));
 
+        var columns = this.state.findOptions.columnOptions.map(co=> ({
+            columnOption: co,
+            cellFormatter: (qs && qs.formatters && qs.formatters[co.token.fullKey]) || Finder.formatRules.filter(a=> a.isApplicable(co)).last("FormatRules").formatter(co),
+            resultIndex: this.state.resultTable.columns.indexOf(co.token.fullKey)
+        }));
+
+        
         var rowAttributes = qs && qs.rowAttributes;
-
+        
 
         return this.state.resultTable.rows.map((row, i) =>
-            <tr key={i} data-entity={liteKey(row) } {...rowAttributes ? rowAttributes(row, this.state.resultTable.columns) : null} style={{ opacity: this.state.selectedRows.some(s=> row === s) ? 0.5 : 1 }}>
+            <tr key={i} data-entity={liteKey(row.entity) } {...rowAttributes ? rowAttributes(row, this.state.resultTable.columns) : null} style={{ opacity: this.state.selectedRows.some(s=> row === s) ? 0.5 : 1 }}>
                  {this.props.allowSelection && <td style={{ textAlign: "center" }}><input type="checkbox" className="sf-td-selection"></input></td> }
-                 {this.state.findOptions.navigate && <td>{((qs && qs.entityFormatter) || EntityFormatRules.filter(a=> a.isApplicable(row)).last("EntityFormatRules").formatter)(row) }</td> }
-                 {this.state.findOptions.columnOptions.map((c, i) => <td key={i} style={{ textAlign: formatters[i].textAllign }}>{formatters[i].formatter(row.columns[i]) }</td>) }
+                 {this.state.findOptions.navigate && <td>{((qs && qs.entityFormatter) || Finder.entityFormatRules.filter(a=> a.isApplicable(row)).last("EntityFormatRules").formatter)(row) }</td> }
+                 {columns.map(c =>
+                     <td key={c.resultIndex} style={{ textAlign: c.cellFormatter.textAllign }}>
+                        {c.resultIndex == -1 ? null : c.cellFormatter.formatter(row.columns[c.resultIndex]) }
+                        </td>) }
                 </tr>);
     }
 
@@ -342,6 +414,3 @@ export class FilterControl extends React.Component<FilterControlProps, {}>
         return <div></div>
     }
 }
-
-
-

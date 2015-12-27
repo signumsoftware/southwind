@@ -1,6 +1,5 @@
 ﻿
 import * as React from 'react'
-import { QuerySettings } from 'Framework/Signum.React/Scripts/QuerySettings'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
 import { ResultTable, FindOptions, FilterOption, QueryDescription } from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage } from 'Framework/Signum.React/Scripts/Signum.Entities'

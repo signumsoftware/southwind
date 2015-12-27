@@ -5,7 +5,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router'
 import LoginUserControl from 'Extensions/Signum.React.Extensions/Authorization/Templates/LoginUserControl'
-import {GlobalModalsContainer} from "Framework/Signum.React/Scripts/Modals"
+import { GlobalModalsContainer } from "Framework/Signum.React/Scripts/Modals"
 
 
 export default class Index extends React.Component<{ children: any }, {}> {
@@ -23,10 +23,9 @@ export default class Index extends React.Component<{ children: any }, {}> {
       <Nav>
         <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
              <IndexLinkContainer to="/"><MenuItem>Home</MenuItem></IndexLinkContainer>
-             <LinkContainer to="/about"><MenuItem>About</MenuItem></LinkContainer>
+             <LinkContainer to="/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
                               <MenuItem divider />
-             <LinkContainer to="/view/company/123"><MenuItem>Company</MenuItem></LinkContainer>
-             <LinkContainer to="/view/person/ABC"><MenuItem>Company</MenuItem></LinkContainer>
+             <LinkContainer to="/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
             </NavDropdown>
           </Nav>
       <Nav pullRight>

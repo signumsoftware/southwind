@@ -3,7 +3,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/QuerySettings', 'Framework/Signum.React/Scripts/FindOptions', 'Framework/Signum.React/Scripts/Signum.Entities', 'react-bootstrap'], function (require, exports, React, QuerySettings_1, FindOptions_1, Signum_Entities_1, react_bootstrap_1) {
+define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/FindOptions', 'Framework/Signum.React/Scripts/Signum.Entities', 'react-bootstrap'], function (require, exports, React, Finder, FindOptions_1, Signum_Entities_1, react_bootstrap_1) {
     var PaginationSelector = (function (_super) {
         __extends(PaginationSelector, _super);
         function PaginationSelector(props) {
@@ -13,17 +13,17 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/QuerySett
                 var mode = e.currentTarget.value;
                 var p = {
                     mode: mode,
-                    elementsPerPage: mode != FindOptions_1.PaginationMode.All ? QuerySettings_1.defaultPagination.elementsPerPage : null,
+                    elementsPerPage: mode != FindOptions_1.PaginationMode.All ? Finder.defaultPagination.elementsPerPage : null,
                     currentPage: mode == FindOptions_1.PaginationMode.Paginate ? 1 : null
                 };
                 _this.props.onPagination(p);
             };
             this.handleElementsPerPage = function (e) {
-                var p = extend({}, _this.props.pagination, { elementsPerPage: parseInt(e.currentTarget.value) });
+                var p = Dic.extend({}, _this.props.pagination, { elementsPerPage: parseInt(e.currentTarget.value) });
                 _this.props.onPagination(p);
             };
             this.handlePageClick = function (e, page) {
-                var p = extend({}, _this.props.pagination, { currentPage: page.eventKey });
+                var p = Dic.extend({}, _this.props.pagination, { currentPage: page.eventKey });
                 _this.props.onPagination(p);
             };
             this.state = {};
@@ -40,11 +40,11 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/QuerySett
             var pagination = this.props.pagination;
             switch (pagination.mode) {
                 case FindOptions_1.PaginationMode.All:
-                    return React.createElement("span", null, Signum_Entities_1.SearchMessage._0Results_N.niceToString().forGenderAndNumber(resultTable.totalElements).formatHtml(React.createElement("span", {"className": "sf-pagination-strong"}, resultTable.totalElements)));
+                    return React.createElement("span", null, Signum_Entities_1.SearchMessage._0Results_N.niceToString().forGenderAndNumber(resultTable.totalElements).formatHtml(React.createElement("span", {"className": "sf-pagination-strong", "key": 1}, resultTable.totalElements)));
                 case FindOptions_1.PaginationMode.Firsts:
-                    return React.createElement("span", null, Signum_Entities_1.SearchMessage.First0Results_N.niceToString().forGenderAndNumber(resultTable.rows.length).formatHtml(React.createElement("span", {"className": "sf-pagination-strong" + (resultTable.rows.length == resultTable.pagination.elementsPerPage ? " sf-pagination-overflow" : "")}, resultTable.rows.length)));
+                    return React.createElement("span", null, Signum_Entities_1.SearchMessage.First0Results_N.niceToString().forGenderAndNumber(resultTable.rows.length).formatHtml(React.createElement("span", {"className": "sf-pagination-strong" + (resultTable.rows.length == resultTable.pagination.elementsPerPage ? " sf-pagination-overflow" : ""), "key": 1}, resultTable.rows.length)));
                 case FindOptions_1.PaginationMode.Paginate:
-                    return React.createElement("span", null, Signum_Entities_1.SearchMessage._01of2Results_N.niceToString().forGenderAndNumber(resultTable.totalElements).formatHtml(React.createElement("span", {"className": "sf-pagination-strong"}, FindOptions_1.PaginateMath.startElementIndex(pagination)), React.createElement("span", {"className": "sf-pagination-strong"}, FindOptions_1.PaginateMath.endElementIndex(pagination, resultTable.rows.length)), React.createElement("span", {"className": "sf-pagination-strong"}, resultTable.totalElements)));
+                    return React.createElement("span", null, Signum_Entities_1.SearchMessage._01of2Results_N.niceToString().forGenderAndNumber(resultTable.totalElements).formatHtml(React.createElement("span", {"className": "sf-pagination-strong", "key": 1}, FindOptions_1.PaginateMath.startElementIndex(pagination)), React.createElement("span", {"className": "sf-pagination-strong", "key": 2}, FindOptions_1.PaginateMath.endElementIndex(pagination, resultTable.rows.length)), React.createElement("span", {"className": "sf-pagination-strong", "key": 3}, resultTable.totalElements)));
             }
         };
         PaginationSelector.prototype.renderCenter = function () {
