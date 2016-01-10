@@ -20,6 +20,7 @@ export interface SearchControlProps extends React.Props<SearchControl> {
     simpleFilterBuilder?: React.ComponentClass<SimpleFilterBuilderProps>;
     avoidFullScreenButton?: boolean;
     showContextMenu?: boolean;
+    onSelectionChanged?: (entity: Lite<IEntity>[]) => void
 }
 
 export interface SearchControlState {
@@ -29,6 +30,7 @@ export interface SearchControlState {
     queryDescription?: QueryDescription;
     loading?: boolean;
     selectedRows?: ResultRow[];
+    usedRows?: ResultRow[];
 
     dragIndex?: number,
     dropIndex?: number,
@@ -48,7 +50,8 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         this.state = {
             querySettings: Finder.getQuerySettings(props.findOptions.queryName),
             loading: false,
-            selectedRows: []
+            selectedRows: [],
+            usedRows: [],
         };
 
         Finder.getQueryDescription(props.findOptions.queryName).then(qd=> {
@@ -144,7 +147,9 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             orders: fo.orderOptions.map(oo=> ({ token: oo.token.fullKey, orderType: oo.orderType })),
             pagination: fo.pagination,
         }).then(rt=> {
-            this.setState({ resultTable: rt, selectedRows: [], loading: false });
+            this.setState({ resultTable: rt, selectedRows: [], usedRows: [], loading: false });
+            this.notifySelectedRowsChanged();
+            this.forceUpdate();
         });
     }
 
@@ -156,12 +161,39 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             this.handleSearch();
     }
 
-    handleTogleAll = () => {
+    handleToggleAll = () => {
 
         if (!this.state.resultTable)
             return;
 
         this.setState({ selectedRows: this.state.selectedRows.length ? this.state.resultTable.rows.slice(0) : [] });
+        this.notifySelectedRowsChanged();
+        this.forceUpdate();
+    }
+
+    handleChecked = (event: React.MouseEvent) => {
+
+        var cb = (event.currentTarget) as HTMLInputElement;
+
+        var index = parseInt(cb.getAttribute("data-index"));
+
+        var row = this.state.resultTable.rows[index];
+
+
+        if (cb.checked) {
+            if (!this.state.selectedRows.contains(row))
+                this.state.selectedRows.push(row);
+        } else {
+            this.state.selectedRows.remove(row);
+        }
+
+        this.notifySelectedRowsChanged();
+        this.forceUpdate();
+    }
+
+    notifySelectedRowsChanged(){
+        if (this.props.onSelectionChanged)
+            this.props.onSelectionChanged(this.state.selectedRows.map(a=> a.entity));
     }
 
     handleHeaderClick = (e: React.MouseEvent) => {
@@ -319,9 +351,12 @@ export default class SearchControl extends React.Component<SearchControlProps, S
 
 
     renderHeaders(): React.ReactNode {
+
+        var allSelected = this.state.resultTable && this.state.resultTable.rows.length == this.state.selectedRows.length;
+
         return <tr>
         { this.props.allowSelection && <th className="sf-th-selection">
-                <input type="checkbox" id="cbSelectAll" onClick={this.handleTogleAll}/>
+                <input type="checkbox" id="cbSelectAll" onClick={this.handleToggleAll} checked={allSelected}/>
             </th>
         }
         { this.state.findOptions.navigate && <th className="sf-th-entity"></th> }
@@ -359,7 +394,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         return asc;
     }
 
-
+  
 
     renderRows(): React.ReactNode {
 
@@ -388,10 +423,11 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         
         var rowAttributes = qs && qs.rowAttributes;
         
-
         return this.state.resultTable.rows.map((row, i) =>
-            <tr key={i} data-entity={liteKey(row.entity) } {...rowAttributes ? rowAttributes(row, this.state.resultTable.columns) : null} style={{ opacity: this.state.selectedRows.some(s=> row === s) ? 0.5 : 1 }}>
-                 {this.props.allowSelection && <td style={{ textAlign: "center" }}><input type="checkbox" className="sf-td-selection"></input></td> }
+            <tr key={i} data-entity={liteKey(row.entity) } {...rowAttributes ? rowAttributes(row, this.state.resultTable.columns) : null} style={{
+                opacity: this.state.usedRows.some(s=> row === s) ? 0.5 : 1
+            }}>
+                 {this.props.allowSelection && <td style={{ textAlign: "center" }}><input type="checkbox" className="sf-td-selection" checked={this.state.selectedRows.contains(row) } onChange={this.handleChecked} data-index={i}></input></td> }
                  {this.state.findOptions.navigate && <td>{((qs && qs.entityFormatter) || Finder.entityFormatRules.filter(a=> a.isApplicable(row)).last("EntityFormatRules").formatter)(row) }</td> }
                  {columns.map(c =>
                      <td key={c.resultIndex} style={{ textAlign: c.cellFormatter.textAllign }}>

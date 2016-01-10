@@ -234,10 +234,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Templates\About.tsx" />
+    <TypeScriptCompile Include="Templates\EntityControls.tsx" />
     <TypeScriptCompile Include="Templates\NormalControl.tsx" />
     <TypeScriptCompile Include="Templates\NotFound.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\PaginationSelector.tsx" />
     <TypeScriptCompile Include="Templates\NormalPage.tsx" />
+    <TypeScriptCompile Include="Templates\SearchControl\SearchPopup.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchPage.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchControl.tsx" />
     <TypeScriptCompile Include="Templates\Home.tsx" />

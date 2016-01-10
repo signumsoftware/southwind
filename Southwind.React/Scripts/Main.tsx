@@ -18,6 +18,7 @@ import * as AuthClient from "Extensions/Signum.React.Extensions/Authorization/Au
 import * as History from 'history'
 
 import Index from 'Templates/Index'
+import About from 'Templates/About'
 import Home from 'Templates/Home'
 import NotFound from 'Templates/NotFound'
 
@@ -29,6 +30,7 @@ Reflection.loadTypes().then(() => {
 
     routes.push(<IndexRoute component={Home} />);
     routes.push(<Route path="home" component={Home} />);
+    routes.push(<Route path="about" component={About} />);
 
     Navigator.start({ routes });
     Finder.start({ routes });

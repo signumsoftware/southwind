@@ -3,7 +3,7 @@ import * as React from 'react'
 import * as Navigator from 'Framework/Signum.React/Scripts/Navigator'
 import { TypeContext, StyleOptions } from 'Framework/Signum.React/Scripts/TypeContext'
 import { Entity, Lite, LiteMessage } from 'Framework/Signum.React/Scripts/Signum.Entities'
-import { getTypeInfo, TypeInfo, PropertyRoute } from 'Framework/Signum.React/Scripts/Reflection'
+import { getTypeInfo, TypeInfo, PropertyRoute, ReadonlyBinding } from 'Framework/Signum.React/Scripts/Reflection'
 
 
 
@@ -63,12 +63,12 @@ export default class NormalControl extends React.Component<NormalControlProps, N
             readOnly: this.state.entitySettings.onIsReadonly()
         };
 
-        var ctx = new TypeContext<Entity>(null, styleOptions, PropertyRoute.root(typeInfo), this.state.entity);
+        var ctx = new TypeContext<Entity>(null, styleOptions, PropertyRoute.root(typeInfo), new ReadonlyBinding(this.state.entity));
 
         return (<div className="normal-control">
             {this.renderTitle(typeInfo) }
             {Navigator.renderWidgets({ entity: this.state.entity }) }
-            <div className="sf-button-bar">
+            <div className="btn-toolbar sf-button-bar">
                 {Navigator.renderButtons({ entity: this.state.entity, canExecute: this.state.canExecute }) }
                 </div>
             {this.renderValidationErrors() }
