@@ -112,7 +112,18 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
     var EntityLine = (function (_super) {
         __extends(EntityLine, _super);
         function EntityLine() {
+            var _this = this;
             _super.apply(this, arguments);
+            this.handleOnSelect = function (lite, event) {
+                _this.convert(lite).then(function (entity) {
+                    _this.state.ctx.value = entity;
+                    _this.forceUpdate();
+                });
+                return lite.toStr;
+            };
+            this.renderItem = function (item, query) {
+                return;
+            };
         }
         EntityLine.prototype.calculateDefaultState = function (state) {
             _super.prototype.calculateDefaultState.call(this, state);
@@ -122,6 +133,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
                 subString: query,
                 count: 5
             }); };
+            state.autoCompleteRenderItem = function (lite, query) { return Typeahead_1.default.highlightedText(lite.toStr, query); };
         };
         EntityLine.prototype.renderInternal = function () {
             var s = this.state;
@@ -132,7 +144,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
             var s = this.state;
             if (!s.autoComplete || s.ctx.readOnly)
                 return React.createElement(LineBase_1.FormControlStatic, {"ctx": s.ctx});
-            return React.createElement(Typeahead_1.default, {"inputAttrs": { className: "form-control sf-entity-autocomplete" }, "getItems": s.autoCompleteGetItems});
+            return React.createElement(Typeahead_1.default, {"inputAttrs": { className: "form-control sf-entity-autocomplete" }, "getItems": s.autoCompleteGetItems, "renderItem": s.autoCompleteRenderItem, "onSelect": this.handleOnSelect});
         };
         EntityLine.prototype.renderLink = function () {
             var s = this.state;

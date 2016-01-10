@@ -188,6 +188,7 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
 export interface EntityLineProps extends EntityBaseProps {
     autoComplete?: boolean;
     autoCompleteGetItems?: (query: string) => Promise<Lite<IEntity>[]>;
+    autoCompleteRenderItem?: (lite: Lite<IEntity>, query: string) => React.ReactNode;
 }
 
 
@@ -202,6 +203,16 @@ export class EntityLine extends EntityBase<EntityLineProps> {
             subString: query,
             count: 5
         });
+
+        state.autoCompleteRenderItem = (lite, query) => Typeahead.highlightedText(lite.toStr, query);
+    }
+
+    handleOnSelect = (lite: Lite<IEntity>, event: React.SyntheticEvent) => {
+        this.convert(lite).then(entity=> {
+            this.state.ctx.value = entity;
+            this.forceUpdate();
+        });
+        return lite.toStr;
     }
     
     renderInternal() {
@@ -234,7 +245,15 @@ export class EntityLine extends EntityBase<EntityLineProps> {
         if (!s.autoComplete || s.ctx.readOnly)
             return <FormControlStatic ctx={s.ctx}></FormControlStatic>;
 
-        return <Typeahead inputAttrs={{ className: "form-control sf-entity-autocomplete" }} getItems={s.autoCompleteGetItems} />;
+        return <Typeahead
+            inputAttrs={{ className: "form-control sf-entity-autocomplete" }}
+            getItems={s.autoCompleteGetItems}
+            renderItem={s.autoCompleteRenderItem}
+            onSelect={this.handleOnSelect}/>;
+    }
+
+    renderItem = (item: Lite<IEntity>, query: string) => {
+        return 
     }
 
 
