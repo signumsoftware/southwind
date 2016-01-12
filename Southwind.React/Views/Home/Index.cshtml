@@ -24,7 +24,6 @@
             baseUrl: '@Url.Content("~/Scripts")',
             paths: {
 
-              
                 "Framework/Signum.React": "../Signum",
                 "Extensions/Signum.React.Extensions": "..",
                 "Southwind.React": "..",
@@ -34,9 +33,9 @@
                 "react-router": "../Libs/react-router/ReactRouter.min",
                 "react-router": "../Libs/react-router/ReactRouter.min",
                 "react-bootstrap":"../Libs/react-bootstrap/react-bootstrap.min",
-                "react-router-bootstrap":"../Libs/react-router-bootstrap/lib/ReactRouterBootstrap.min",
-
+                "react-router-bootstrap": "../Libs/react-router-bootstrap/lib/ReactRouterBootstrap.min",
                 "history": "../Libs/react-router/History.min",
+                "react-widgets": "../Libs/react-widgets/dist/react-widgets",
 
                 "moment": "../Libs/moment/min/moment.min",
 
@@ -56,6 +55,7 @@
                 ChartUtils: { exports: 'ChartUtils' },
 
                 ckeditor: { exports: 'CKEDITOR' },
+                'react-widgets': { deps: ['react'] }
             },
             urlArgs: "v=@typeof(Global).Assembly.GetName().Version.ToString()"
         });

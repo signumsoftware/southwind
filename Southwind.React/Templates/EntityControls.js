@@ -128,7 +128,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
         EntityLine.prototype.calculateDefaultState = function (state) {
             _super.prototype.calculateDefaultState.call(this, state);
             state.autoComplete = !state.type.isEmbedded && state.type.name != Reflection_1.IsByAll;
-            state.autoCompleteGetItems = function (query) { return Finder.findLiteLike({
+            state.autoCompleteGetItems = function (query) { return Finder.API.findLiteLike({
                 types: state.type.name,
                 subString: query,
                 count: 5
@@ -160,6 +160,17 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
         return EntityLine;
     })(EntityBase);
     exports.EntityLine = EntityLine;
+    var EntityCombo = (function (_super) {
+        __extends(EntityCombo, _super);
+        function EntityCombo() {
+            _super.apply(this, arguments);
+        }
+        EntityCombo.prototype.renderInternal = function () {
+            return null;
+        };
+        return EntityCombo;
+    })(EntityBase);
+    exports.EntityCombo = EntityCombo;
     var EntityListBase = (function (_super) {
         __extends(EntityListBase, _super);
         function EntityListBase() {

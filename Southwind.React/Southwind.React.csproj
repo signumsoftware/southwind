@@ -140,12 +140,23 @@
     <Content Include="Libs\react-router-bootstrap\lib\ReactRouterBootstrap.min.js" />
     <Content Include="Libs\react-router\History.min.js" />
     <Content Include="Libs\react-router\ReactRouter.min.js" />
+    <Content Include="Libs\react-widgets\dist\css\react-widgets.css" />
+    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.svg" />
+    <Content Include="Libs\react-widgets\dist\img\loader-big.gif" />
+    <Content Include="Libs\react-widgets\dist\img\loading.gif" />
+    <Content Include="Libs\react-widgets\dist\react-widgets-globalize.js" />
+    <Content Include="Libs\react-widgets\dist\react-widgets-moment.js" />
+    <Content Include="Libs\react-widgets\dist\react-widgets-simple-number.js" />
+    <Content Include="Libs\react-widgets\dist\react-widgets.js" />
     <Content Include="Libs\react\react-dom.js" />
     <Content Include="Libs\react\react-dom.min.js" />
     <Content Include="Libs\react\react.js" />
     <Content Include="Libs\react\react.min.js" />
     <Content Include="Libs\requirejs\require.js" />
     <Content Include="Libs\react-router-bootstrap\lib\ReactRouterBootstrap.min.js.map" />
+    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.eot" />
+    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.ttf" />
+    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.woff" />
     <None Include="Scripts\Southwind.Entities.t4s" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -238,8 +249,10 @@
     <TypeScriptCompile Include="Templates\EntityControls.tsx" />
     <TypeScriptCompile Include="Templates\NormalControl.tsx" />
     <TypeScriptCompile Include="Templates\NotFound.tsx" />
+    <TypeScriptCompile Include="Templates\SearchControl\QueryTokenBuilder.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\PaginationSelector.tsx" />
     <TypeScriptCompile Include="Templates\NormalPage.tsx" />
+    <TypeScriptCompile Include="Templates\SearchControl\FilterBuilder.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchPopup.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchPage.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchControl.tsx" />

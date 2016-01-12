@@ -3,7 +3,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/FindOptions', 'Framework/Signum.React/Scripts/Signum.Entities', 'Framework/Signum.React/Scripts/Reflection', 'Framework/Signum.React/Scripts/Navigator', 'react-bootstrap', 'Templates/SearchControl/PaginationSelector'], function (require, exports, React, Finder, FindOptions_1, Signum_Entities_1, Reflection_1, Navigator, react_bootstrap_1, PaginationSelector_1) {
+define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/FindOptions', 'Framework/Signum.React/Scripts/Signum.Entities', 'Framework/Signum.React/Scripts/Reflection', 'Framework/Signum.React/Scripts/Navigator', 'react-bootstrap', 'Templates/SearchControl/PaginationSelector', 'Templates/SearchControl/FilterBuilder'], function (require, exports, React, Finder, FindOptions_1, Signum_Entities_1, Reflection_1, Navigator, react_bootstrap_1, PaginationSelector_1, FilterBuilder_1) {
     var SearchControl = (function (_super) {
         __extends(SearchControl, _super);
         function SearchControl(props) {
@@ -19,7 +19,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
             this.handleSearch = function () {
                 var fo = _this.state.findOptions;
                 _this.setState({ loading: false });
-                Finder.search({
+                Finder.API.search({
                     queryKey: Reflection_1.getQueryKey(fo.queryName),
                     filters: fo.filterOptions.map(function (fo) { return ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value }); }),
                     columns: fo.columnOptions.map(function (co) { return ({ token: co.token.fullKey, displayName: co.displayName }); }),
@@ -113,7 +113,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
                 selectedRows: [],
                 usedRows: [],
             };
-            Finder.getQueryDescription(props.findOptions.queryName).then(function (qd) {
+            Finder.API.getQueryDescription(props.findOptions.queryName).then(function (qd) {
                 _this.setState({
                     queryDescription: qd,
                 });
@@ -185,11 +185,11 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
         // RENDERs
         ////
         SearchControl.prototype.render = function () {
-            var SFB = this.props.simpleFilterBuilder;
             var fo = this.state.findOptions;
             if (!fo)
                 return null;
-            return (React.createElement("div", {"className": "sf-search-control SF-control-container"}, SFB && React.createElement("div", {"className": "simple-filter-builder"}, React.createElement(SFB, {"findOptions": fo})), fo.showHeader && fo.showFilters && React.createElement(FilterControl, {"queryName": fo.queryName, "filterOptions": fo.filterOptions}), fo.showHeader && this.renderToolBar(), React.createElement("div", {"className": "sf-search-results-container table-responsive"}, React.createElement("table", {"className": "sf-search-results table table-hover table-condensed"}, React.createElement("thead", null, this.renderHeaders()), React.createElement("tbody", null, this.renderRows()))), fo.showFooter && React.createElement(PaginationSelector_1.default, {"pagination": fo.pagination, "onPagination": this.handlePagination, "resultTable": this.state.resultTable})));
+            var SFB = this.props.simpleFilterBuilder;
+            return (React.createElement("div", {"className": "sf-search-control SF-control-container"}, SFB && React.createElement("div", {"className": "simple-filter-builder"}, React.createElement(SFB, {"findOptions": fo})), fo.showHeader && fo.showFilters && React.createElement(FilterBuilder_1.default, {"queryDescription": this.state.queryDescription, "filterOptions": fo.filterOptions, "subTokensOptions": FindOptions_1.SubTokensOptions.CanAnyAll | FindOptions_1.SubTokensOptions.CanElement}), fo.showHeader && this.renderToolBar(), React.createElement("div", {"className": "sf-search-results-container table-responsive"}, React.createElement("table", {"className": "sf-search-results table table-hover table-condensed"}, React.createElement("thead", null, this.renderHeaders()), React.createElement("tbody", null, this.renderRows()))), fo.showFooter && React.createElement(PaginationSelector_1.default, {"pagination": fo.pagination, "onPagination": this.handlePagination, "resultTable": this.state.resultTable})));
         };
         SearchControl.prototype.renderToolBar = function () {
             var fo = this.state.findOptions;
@@ -256,16 +256,5 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
     })(React.Component);
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.default = SearchControl;
-    var FilterControl = (function (_super) {
-        __extends(FilterControl, _super);
-        function FilterControl() {
-            _super.apply(this, arguments);
-        }
-        FilterControl.prototype.render = function () {
-            return React.createElement("div", null);
-        };
-        return FilterControl;
-    })(React.Component);
-    exports.FilterControl = FilterControl;
 });
 //# sourceMappingURL=SearchControl.js.map

@@ -1,12 +1,13 @@
 ﻿
 import * as React from 'react'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
-import { ResultTable, ResultRow, FindOptions, FilterOption, QueryDescription, ColumnOption, ColumnOptionsMode, ColumnDescription, toQueryToken, Pagination, PaginationMode, OrderType, OrderOption } from 'Framework/Signum.React/Scripts/FindOptions'
+import { ResultTable, ResultRow, FindOptions, FilterOption, QueryDescription, ColumnOption, ColumnOptionsMode, ColumnDescription, toQueryToken, Pagination, PaginationMode, OrderType, OrderOption, SubTokensOptions } from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage, Lite, IEntity, liteKey, is } from 'Framework/Signum.React/Scripts/Signum.Entities'
 import { getTypeInfos, IsByAll, getQueryKey, TypeInfo, EntityData} from 'Framework/Signum.React/Scripts/Reflection'
 import * as Navigator from 'Framework/Signum.React/Scripts/Navigator'
 import { DropdownButton, MenuItem } from 'react-bootstrap'
 import PaginationSelector from 'Templates/SearchControl/PaginationSelector'
+import FilterBuilder from 'Templates/SearchControl/FilterBuilder'
 
 
 export interface SimpleFilterBuilderProps {
@@ -54,7 +55,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             usedRows: [],
         };
 
-        Finder.getQueryDescription(props.findOptions.queryName).then(qd=> {
+        Finder.API.getQueryDescription(props.findOptions.queryName).then(qd=> {
 
             this.setState({
                 queryDescription: qd,
@@ -140,7 +141,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
     handleSearch = () => {
         var fo = this.state.findOptions;
         this.setState({ loading: false });
-        Finder.search({
+        Finder.API.search({
             queryKey: getQueryKey(fo.queryName),
             filters: fo.filterOptions.map(fo=> ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value })),
             columns: fo.columnOptions.map(co=> ({ token: co.token.fullKey, displayName: co.displayName })),
@@ -289,16 +290,20 @@ export default class SearchControl extends React.Component<SearchControlProps, S
     ////
 
     render() {
-        var SFB = this.props.simpleFilterBuilder;
 
         var fo = this.state.findOptions;
         if (!fo)
             return null;
 
+        var SFB = this.props.simpleFilterBuilder;
+
         return (
             <div className="sf-search-control SF-control-container">
-            {SFB && <div className="simple-filter-builder"><SFB  findOptions={fo}/></div> }
-            {fo.showHeader && fo.showFilters && <FilterControl queryName={fo.queryName} filterOptions={fo.filterOptions}/> }
+            {SFB && <div className="simple-filter-builder"><SFB findOptions={fo}/></div> }
+            {fo.showHeader && fo.showFilters && <FilterBuilder
+                queryDescription={this.state.queryDescription}
+                filterOptions={fo.filterOptions}
+                subTokensOptions={SubTokensOptions.CanAnyAll | SubTokensOptions.CanElement}/> }
             {fo.showHeader && this.renderToolBar() }
             <div className="sf-search-results-container table-responsive" >
             <table className="sf-search-results table table-hover table-condensed" >
@@ -436,17 +441,4 @@ export default class SearchControl extends React.Component<SearchControlProps, S
                 </tr>);
     }
 
-}
-
-export interface FilterControlProps {
-    filterOptions?: FilterOption[];
-    queryName: any;
-}
-
-
-export class FilterControl extends React.Component<FilterControlProps, {}>
-{
-    render() {
-        return <div></div>
-    }
 }

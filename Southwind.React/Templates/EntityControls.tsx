@@ -198,7 +198,7 @@ export class EntityLine extends EntityBase<EntityLineProps> {
     calculateDefaultState(state: EntityLineProps) {
         super.calculateDefaultState(state);
         state.autoComplete = !state.type.isEmbedded && state.type.name != IsByAll;
-        state.autoCompleteGetItems = (query) => Finder.findLiteLike({
+        state.autoCompleteGetItems = (query) => Finder.API.findLiteLike({
             types: state.type.name,
             subString: query,
             count: 5
@@ -279,14 +279,25 @@ export class EntityLine extends EntityBase<EntityLineProps> {
 }
 
 
+export interface EntityComboProps extends EntityBaseProps {
+}
+
+
+
+export class EntityCombo extends EntityBase<EntityComboProps> {
+
+    renderInternal() {
+        return null;
+    }
+}
+
+
 export interface EntityListBaseProps extends EntityBaseProps {
     move?: boolean;
 }
 
 
 export abstract class EntityListBase<T extends EntityListBaseProps> extends LineBase<T>
-{
-
-
+{   
 
 }
