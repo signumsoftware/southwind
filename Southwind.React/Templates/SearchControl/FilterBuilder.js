@@ -41,11 +41,15 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/FindOptio
             };
             this.handleTokenChanged = function (newToken) {
                 var f = _this.props.filter;
-                if (newToken.filterType != f.token.filterType) {
-                    f.operation = FindOptions_1.filterOperations[f.token.filterType].first();
+                if (!!newToken != !!f.token || newToken.filterType != f.token.filterType) {
+                    f.operation = FindOptions_1.filterOperations[newToken.filterType].first();
                     f.value = null;
                 }
                 _this.props.filter.token = newToken;
+                _this.forceUpdate();
+            };
+            this.handleChangeOperation = function (event) {
+                _this.props.filter.value = event.currentTarget.value;
                 _this.forceUpdate();
             };
         }
@@ -53,8 +57,8 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/FindOptio
             var f = this.props.filter;
             return React.createElement("tr", null, React.createElement("td", null, !f.frozen &&
                 React.createElement("a", {"title": Signum_Entities_1.SearchMessage.DeleteFilter.niceToString(), "className": "sf-line-button sf-remove", "onClick": this.handleDeleteFilter}, React.createElement("span", {"className": "glyphicon glyphicon-remove"}))), React.createElement("td", null, React.createElement(QueryTokenBuilder_1.default, {"queryToken": f.token, "onTokenChange": this.handleTokenChanged, "queryKey": this.props.queryDescription.queryKey, "subTokenOptions": this.props.subTokenOptions, "readOnly": f.frozen})), React.createElement("td", null, f.token &&
-                React.createElement("select", {"className": "form-control", "value": f.operation, "disabled": f.frozen}, FindOptions_1.filterOperations[f.token.filterType]
-                    .map(function (ft) { return React.createElement("option", {"value": ft}, Signum_Entities_1.DynamicQuery.FilterOperation_Type.niceName(ft)); }))), React.createElement("td", null, f.token && this.renderValue()));
+                React.createElement("select", {"className": "form-control", "value": f.operation, "disabled": f.frozen, "onChange": this.handleChangeOperation}, FindOptions_1.filterOperations[f.token.filterType]
+                    .map(function (ft, i) { return React.createElement("option", {"key": i, "value": ft}, Signum_Entities_1.DynamicQuery.FilterOperation_Type.niceName(ft)); }))), React.createElement("td", null, f.token && this.renderValue()));
         };
         FilterComponent.prototype.renderValue = function () {
             var f = this.props.filter;

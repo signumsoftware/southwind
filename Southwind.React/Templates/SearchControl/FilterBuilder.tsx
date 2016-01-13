@@ -88,13 +88,19 @@ export class FilterComponent extends React.Component<FilterComponentProps, {}>{
     handleTokenChanged = (newToken: QueryToken) => {
 
         var f = this.props.filter;
-        if (newToken.filterType != f.token.filterType) {
-            f.operation = filterOperations[f.token.filterType].first();
+        if (!!newToken != !!f.token || newToken.filterType != f.token.filterType) {
+            f.operation = filterOperations[newToken.filterType].first();
             f.value = null;
         }
 
         this.props.filter.token = newToken;
 
+        this.forceUpdate();
+    }
+
+
+    handleChangeOperation = (event: React.FormEvent) => {
+        this.props.filter.value = (event.currentTarget as HTMLSelectElement).value;
         this.forceUpdate();
     }
 
@@ -119,9 +125,9 @@ export class FilterComponent extends React.Component<FilterComponentProps, {}>{
                     readOnly={f.frozen}/></td>
             <td>
                 {f.token &&
-                <select className="form-control" value={f.operation as any} disabled={f.frozen}>
+                <select className="form-control" value={f.operation as any} disabled={f.frozen} onChange={this.handleChangeOperation}>
                     { filterOperations[f.token.filterType]
-                        .map(ft=> <option value={ft as any}>{ DynamicQuery.FilterOperation_Type.niceName(ft) }</option>) }
+                        .map((ft, i)=> <option key={i} value={ft as any}>{ DynamicQuery.FilterOperation_Type.niceName(ft) }</option>) }
                     </select> }
                 </td>
 

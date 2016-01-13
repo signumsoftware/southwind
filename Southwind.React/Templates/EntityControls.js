@@ -44,7 +44,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
             };
         }
         EntityBase.prototype.calculateDefaultState = function (state) {
-            var type = state.ctx.propertyRoute.member.type;
+            var type = state.type;
             state.create = type.isEmbedded ? Navigator.isCreable(type.name, false) :
                 type.name == Reflection_1.IsByAll ? false :
                     Reflection_1.getTypeInfos(type).some(function (ti) { return Navigator.isCreable(ti, false); });
@@ -60,11 +60,8 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
             state.viewOnCreate = true;
             state.remove = true;
         };
-        EntityBase.prototype.getTypeReference = function () {
-            return this.state.ctx.propertyRoute.member.type;
-        };
         EntityBase.prototype.convert = function (entityOrLite) {
-            var tr = this.getTypeReference();
+            var tr = this.state.type;
             var isLite = entityOrLite.EntityType != null;
             var entityType = entityOrLite.EntityType || entityOrLite.Type;
             if (tr.isEmbedded) {

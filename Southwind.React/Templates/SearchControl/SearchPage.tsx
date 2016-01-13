@@ -16,7 +16,15 @@ export default class SearchPage extends React.Component<SearchPageProps, { findO
 
     constructor(props) {
         super(props);
-        this.state = { findOptions: Finder.parseFindOptionsPath(this.props.routeParams.queryName, this.props.location.query) };
+        this.state = this.calculateState(this.props);
+    }
+
+    componentWillReceiveProps(nextProps: SearchPageProps) {
+        this.setState(this.calculateState(nextProps));
+    }
+
+    calculateState(props: SearchPageProps) {
+        return { findOptions: Dic.extend({ showFilters: true }, Finder.parseFindOptionsPath(this.props.routeParams.queryName, this.props.location.query)) };
     }
 
 

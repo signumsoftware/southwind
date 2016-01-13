@@ -8,8 +8,14 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
         __extends(SearchPage, _super);
         function SearchPage(props) {
             _super.call(this, props);
-            this.state = { findOptions: Finder.parseFindOptionsPath(this.props.routeParams.queryName, this.props.location.query) };
+            this.state = this.calculateState(this.props);
         }
+        SearchPage.prototype.componentWillReceiveProps = function (nextProps) {
+            this.setState(this.calculateState(nextProps));
+        };
+        SearchPage.prototype.calculateState = function (props) {
+            return { findOptions: Dic.extend({ showFilters: true }, Finder.parseFindOptionsPath(this.props.routeParams.queryName, this.props.location.query)) };
+        };
         SearchPage.prototype.render = function () {
             var fo = this.state.findOptions;
             return (React.createElement("div", {"id": "divSearchPage"}, React.createElement("h2", null, React.createElement("span", {"className": "sf-entity-title"}, Reflection.getQueryNiceName(fo.queryName)), " ", React.createElement("a", {"className": "sf-popup-fullscreen", "href": "#"}, React.createElement("span", {"className": "glyphicon glyphicon-new-window"}))), React.createElement(SearchControl_1.default, {"avoidFullScreenButton": true, "findOptions": fo})));

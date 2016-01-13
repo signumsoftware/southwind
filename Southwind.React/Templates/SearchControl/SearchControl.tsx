@@ -46,15 +46,31 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         avoidFullScreenButton: false
     };
 
+
     constructor(props: SearchControlProps) {
         super(props);
-        this.state = {
+        this.state = this.initialState(props);
+        this.initialLoad(props);
+    }
+
+    componentWillReceiveProps(newProps: SearchControlProps) {
+        this.setState(this.initialState(newProps));
+        this.initialLoad(newProps);
+    }
+
+    initialState(props: SearchControlProps) {
+        return {
+            resultTable: null,
+            findOptions: null,
             querySettings: Finder.getQuerySettings(props.findOptions.queryName),
+            queryDescription: null,
             loading: false,
             selectedRows: [],
             usedRows: [],
         };
+    }
 
+    initialLoad(props: SearchControlProps) {
         Finder.API.getQueryDescription(props.findOptions.queryName).then(qd=> {
 
             this.setState({
@@ -102,7 +118,6 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             });
         });
     }
-
 
     entityColumn(): ColumnDescription {
         return this.state.queryDescription.columns["Entity"];

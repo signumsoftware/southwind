@@ -36,7 +36,7 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
 
     calculateDefaultState(state: EntityBaseProps) {
 
-        var type = state.ctx.propertyRoute.member.type;
+        var type = state.type;
 
         state.create = type.isEmbedded ? Navigator.isCreable(type.name, false) :
             type.name == IsByAll ? false :
@@ -58,13 +58,9 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
         state.remove = true;
     }
 
-    getTypeReference() {
-        return this.state.ctx.propertyRoute.member.type;
-    }
-
     convert(entityOrLite: ModifiableEntity | Lite<IEntity>): Promise<ModifiableEntity | Lite<IEntity>> {
 
-        var tr = this.getTypeReference();
+        var tr = this.state.type;
 
         var isLite = (entityOrLite as Lite<IEntity>).EntityType != null;
         var entityType = (entityOrLite as Lite<IEntity>).EntityType || (entityOrLite as ModifiableEntity).Type;

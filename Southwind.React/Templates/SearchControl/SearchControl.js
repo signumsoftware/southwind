@@ -107,12 +107,26 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
                     dragIndex: null
                 });
             };
-            this.state = {
+            this.state = this.initialState(props);
+            this.initialLoad(props);
+        }
+        SearchControl.prototype.componentWillReceiveProps = function (newProps) {
+            this.setState(this.initialState(newProps));
+            this.initialLoad(newProps);
+        };
+        SearchControl.prototype.initialState = function (props) {
+            return {
+                resultTable: null,
+                findOptions: null,
                 querySettings: Finder.getQuerySettings(props.findOptions.queryName),
+                queryDescription: null,
                 loading: false,
                 selectedRows: [],
                 usedRows: [],
             };
+        };
+        SearchControl.prototype.initialLoad = function (props) {
+            var _this = this;
             Finder.API.getQueryDescription(props.findOptions.queryName).then(function (qd) {
                 _this.setState({
                     queryDescription: qd,
@@ -149,7 +163,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
                         _this.handleSearch();
                 });
             });
-        }
+        };
         SearchControl.prototype.entityColumn = function () {
             return this.state.queryDescription.columns["Entity"];
         };

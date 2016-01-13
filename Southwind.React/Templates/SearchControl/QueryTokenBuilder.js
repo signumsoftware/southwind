@@ -32,17 +32,31 @@ define(["require", "exports", 'react', 'react-widgets', 'Framework/Signum.React/
         function QueryTokenPart(props) {
             var _this = this;
             _super.call(this, props);
-            this.state = { data: null };
-            if (!props.readOnly) {
-                Finder.API.subTokens(this.props.queryKey, this.props.parentToken, this.props.subTokenOptions).then(function (tokens) {
-                    return _this.setState({ data: tokens });
-                });
-            }
+            this.handleOnChange = function (value) {
+                if (typeof value == "string")
+                    _this.setState({ value: value });
+                else
+                    _this.props.onTokenSelected(value || _this.props.parentToken);
+            };
+            this.state = { data: null, value: null };
+            if (!props.readOnly)
+                this.requestSubTokens();
         }
+        QueryTokenPart.prototype.componentWillReceiveProps = function (newProps) {
+            this.setState({ data: null, value: null });
+            if (!newProps.readOnly)
+                this.requestSubTokens();
+        };
+        QueryTokenPart.prototype.requestSubTokens = function () {
+            var _this = this;
+            Finder.API.subTokens(this.props.queryKey, this.props.parentToken, this.props.subTokenOptions).then(function (tokens) {
+                return _this.setState({ data: tokens });
+            });
+        };
         QueryTokenPart.prototype.render = function () {
             if (this.state.data == null || this.state.data.length == 0)
                 return null;
-            return React.createElement(react_widgets_1.Combobox, {"disabled": this.props.readOnly, "filter": "contains", "data": this.state.data, "value": this.props.selectedToken, "onSelect": this.props.onTokenSelected, "valueField": "fullKey", "textField": "niceName"});
+            return React.createElement(react_widgets_1.Combobox, {"className": "juas", "disabled": this.props.readOnly, "filter": "contains", "data": this.state.data, "value": this.state.value || this.props.selectedToken, "onChange": this.handleOnChange, "valueField": "fullKey", "textField": "toString"});
         };
         return QueryTokenPart;
     })(React.Component);

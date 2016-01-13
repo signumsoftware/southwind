@@ -245,6 +245,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\ConfigureReactWidgets.ts" />
     <TypeScriptCompile Include="Templates\About.tsx" />
     <TypeScriptCompile Include="Templates\EntityControls.tsx" />
     <TypeScriptCompile Include="Templates\NormalControl.tsx" />

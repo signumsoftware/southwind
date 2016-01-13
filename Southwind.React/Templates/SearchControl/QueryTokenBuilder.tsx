@@ -54,18 +54,39 @@ interface QueryTokenPartProps extends React.Props<QueryTokenPart> {
     readOnly: boolean;
 }
 
-export class QueryTokenPart extends React.Component<QueryTokenPartProps, { data: QueryToken[] }>
+export class QueryTokenPart extends React.Component<QueryTokenPartProps, { data?: QueryToken[]; value?: string }>
 {
     constructor(props: QueryTokenPartProps) {
         super(props);
 
-        this.state = { data: null };
+        this.state = { data: null, value: null };
 
-        if (!props.readOnly) {
-            Finder.API.subTokens(this.props.queryKey, this.props.parentToken, this.props.subTokenOptions).then(tokens=>
-                this.setState({ data: tokens })
-            );
-        }
+        if (!props.readOnly)
+            this.requestSubTokens();
+    }
+
+    componentWillReceiveProps(newProps: QueryTokenPartProps) {
+        this.setState({ data: null, value: null });
+
+        if (!newProps.readOnly)
+            this.requestSubTokens();
+    }
+
+
+    requestSubTokens() {
+        Finder.API.subTokens(this.props.queryKey, this.props.parentToken, this.props.subTokenOptions).then(tokens=>
+            this.setState({ data: tokens })
+        );
+    }
+
+  
+
+
+    handleOnChange = (value: any) => {
+        if (typeof value == "string")
+            this.setState({ value });
+        else
+            this.props.onTokenSelected(value || this.props.parentToken);
     }
 
     render() {
@@ -73,14 +94,15 @@ export class QueryTokenPart extends React.Component<QueryTokenPartProps, { data:
         if (this.state.data == null || this.state.data.length == 0)
             return null;
 
-        return <Combobox
+        return <Combobox 
+            className="juas"
             disabled={this.props.readOnly}
             filter="contains"
             data={this.state.data}
-            value={this.props.selectedToken}
-            onSelect={this.props.onTokenSelected}
+            value={this.state.value || this.props.selectedToken}
+            onChange={this.handleOnChange}
             valueField="fullKey"
-            textField="niceName"
+            textField="toString"
             />;
     }
 }
