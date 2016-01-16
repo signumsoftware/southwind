@@ -1,13 +1,14 @@
 ﻿
 import * as React from 'react'
 import { Modal, ModalProps, ModalClass, ButtonToolbar } from 'react-bootstrap'
-import { Combobox } from 'react-widgets'
+import { DropdownList } from 'react-widgets'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
 import { openModal, IModalProps } from 'Framework/Signum.React/Scripts/Modals';
 import { FilterOperation, FilterOption, QueryDescription, QueryToken, SubTokensOptions } from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage } from 'Framework/Signum.React/Scripts/Signum.Entities'
 import * as Reflection from 'Framework/Signum.React/Scripts/Reflection'
 import { default as SearchControl, SearchControlProps} from 'Templates/SearchControl/SearchControl'
+
 
 
 interface QueryTokenBuilderProps extends React.Props<QueryTokenBuilder> {
@@ -54,56 +55,66 @@ interface QueryTokenPartProps extends React.Props<QueryTokenPart> {
     readOnly: boolean;
 }
 
-export class QueryTokenPart extends React.Component<QueryTokenPartProps, { data?: QueryToken[]; value?: string }>
+export class QueryTokenPart extends React.Component<QueryTokenPartProps, { data?: QueryToken[] }>
 {
     constructor(props: QueryTokenPartProps) {
         super(props);
 
-        this.state = { data: null, value: null };
+        this.state = { data: null };
 
         if (!props.readOnly)
-            this.requestSubTokens();
+            this.requestSubTokens(props);
     }
 
     componentWillReceiveProps(newProps: QueryTokenPartProps) {
-        this.setState({ data: null, value: null });
-
-        if (!newProps.readOnly)
-            this.requestSubTokens();
+        if (!newProps.readOnly && !areEqual(this.props.parentToken, newProps.parentToken, a=> a.fullKey)) {
+            this.setState({ data: null });
+            this.requestSubTokens(newProps);
+        }
     }
 
 
-    requestSubTokens() {
-        Finder.API.subTokens(this.props.queryKey, this.props.parentToken, this.props.subTokenOptions).then(tokens=>
+    requestSubTokens(props: QueryTokenPartProps) {
+        Finder.API.subTokens(props.queryKey, props.parentToken, props.subTokenOptions).then(tokens=>
             this.setState({ data: tokens })
         );
     }
 
-  
+
 
 
     handleOnChange = (value: any) => {
-        if (typeof value == "string")
-            this.setState({ value });
-        else
-            this.props.onTokenSelected(value || this.props.parentToken);
+        this.props.onTokenSelected(value || this.props.parentToken);
     }
 
     render() {
 
-        if (this.state.data == null || this.state.data.length == 0)
+        if (this.state.data != null && this.state.data.length == 0)
             return null;
 
-        return <Combobox 
-            className="juas"
-            disabled={this.props.readOnly}
-            filter="contains"
-            data={this.state.data}
-            value={this.state.value || this.props.selectedToken}
-            onChange={this.handleOnChange}
-            valueField="fullKey"
-            textField="toString"
-            />;
+        return <div className="sf-query-token-part">
+            <DropdownList
+                disabled={this.props.readOnly}
+                filter="contains"
+                data={this.state.data || []}
+                value={this.props.selectedToken}
+                onChange={this.handleOnChange}
+                valueField="fullKey"
+                textField="toString"
+                itemComponent={QueryTokenItem}
+                busy={!this.props.readOnly && this.state.data == null}
+                />
+            </div>;
+    }
+}
+
+export class QueryTokenItem extends React.Component<{ item: QueryToken }, {}> {
+    render() {
+        return <span
+            style= {{ color: this.props.item.typeColor }}
+            title={this.props.item.niceTypeName}>
+            { this.props.item.toString }
+            </span>;
     }
 }
 

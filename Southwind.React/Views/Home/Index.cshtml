@@ -1,5 +1,8 @@
 ﻿@using Signum.Entities.Authorization
 @using Signum.Utilities
+@{ var v = typeof(Global).Assembly.GetName().Version.ToString();
+   var ver = "?v=" + v;
+}
 <!doctype html>
 <html>
 <head>
@@ -7,19 +10,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Libs/bootstrap/dist/css/bootstrap.css")">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Libs/react-widgets/dist/css/react-widgets.css")">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Lines.css")">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/NormalPage.css")">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Notify.css")">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Search.css")">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Widgets.css")">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/content/site.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Libs/bootstrap/dist/css/bootstrap.css" + ver)">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Libs/react-widgets/dist/css/react-widgets.css" + ver)">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Lines.css"+ ver)">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/NormalPage.css"+ ver)">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Notify.css"+ ver)">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Search.css"+ ver)">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Widgets.css"+ ver)">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/content/site.css"+ ver)">
 
-    <script language="javascript" src="@Url.Content("~/Libs/es6-promise/promise.js")"></script>
-    <script language="javascript" src="@Url.Content("~/Libs/requirejs/require.js")"></script>
-    <script language="javascript" src="@Url.Content("~/Libs/fetch/fetch.js")"></script>
-    <script language="javascript" src="@Url.Content("~/Signum/Scripts/Globals.js")"></script>
+    <script language="javascript" src="@Url.Content("~/Libs/es6-promise/promise.js"+ ver)"></script>
+    <script language="javascript" src="@Url.Content("~/Libs/requirejs/require.js"+ ver)"></script>
+    <script language="javascript" src="@Url.Content("~/Libs/fetch/fetch.js"+ ver)"></script>
+    <script language="javascript" src="@Url.Content("~/Signum/Scripts/Globals.js"+ ver)"></script>
     <script>
         require.config({
             baseUrl: '@Url.Content("~/Scripts")',
@@ -59,7 +62,7 @@
                 ckeditor: { exports: 'CKEDITOR' },
                 'react-widgets': { deps: ['react'] }
             },
-            urlArgs: "v=@typeof(Global).Assembly.GetName().Version.ToString()"
+            urlArgs: "v=@v"
         });
 
         var __baseUrl = "@Url.Content("~/").RemoveEnd(1)";

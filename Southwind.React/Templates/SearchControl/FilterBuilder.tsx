@@ -39,7 +39,7 @@ export default class FilterBuilder extends React.Component<FilterBuilderProps, {
 
         return (<div className="panel panel-default sf-filters form-xs">
             <div className="panel-body sf-filters-list table-responsive" style={{ overflowX: "visible" }}>
-                { <table className="table">
+                { <table className="table table-condensed">
                         <thead>
                             <tr>
                                 <th></th>
@@ -89,7 +89,8 @@ export class FilterComponent extends React.Component<FilterComponentProps, {}>{
 
         var f = this.props.filter;
         if (!!newToken != !!f.token || newToken.filterType != f.token.filterType) {
-            f.operation = filterOperations[newToken.filterType].first();
+            var operations = filterOperations[newToken.filterType];
+            f.operation = operations && operations.firstOrNull();
             f.value = null;
         }
 
@@ -124,7 +125,7 @@ export class FilterComponent extends React.Component<FilterComponentProps, {}>{
                     subTokenOptions={this.props.subTokenOptions}
                     readOnly={f.frozen}/></td>
             <td>
-                {f.token &&
+                {f.token && f.operation &&
                 <select className="form-control" value={f.operation as any} disabled={f.frozen} onChange={this.handleChangeOperation}>
                     { filterOperations[f.token.filterType]
                         .map((ft, i)=> <option key={i} value={ft as any}>{ DynamicQuery.FilterOperation_Type.niceName(ft) }</option>) }
@@ -132,7 +133,7 @@ export class FilterComponent extends React.Component<FilterComponentProps, {}>{
                 </td>
 
              <td>
-                 {f.token && this.renderValue() }
+                 {f.token && f.operation && this.renderValue() }
                  </td>
             </tr>
     }
