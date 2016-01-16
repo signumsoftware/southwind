@@ -49,17 +49,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
 
     constructor(props: SearchControlProps) {
         super(props);
-        this.state = this.initialState(props);
-        this.initialLoad(props);
-    }
-
-    componentWillReceiveProps(newProps: SearchControlProps) {
-        this.setState(this.initialState(newProps));
-        this.initialLoad(newProps);
-    }
-
-    initialState(props: SearchControlProps) {
-        return {
+        this.state = {
             resultTable: null,
             findOptions: null,
             querySettings: Finder.getQuerySettings(props.findOptions.queryName),
@@ -68,54 +58,71 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             selectedRows: [],
             usedRows: [],
         };
+        this.initialLoad(this.props.findOptions);
     }
 
-    initialLoad(props: SearchControlProps) {
-        Finder.API.getQueryDescription(props.findOptions.queryName).then(qd=> {
+    componentWillReceiveProps(newProps: SearchControlProps) {
+        if (JSON.stringify(this.props.findOptions) == JSON.stringify(newProps.findOptions))
+            return;
+
+        if (this.props.findOptions.queryName != newProps.findOptions.queryName)
+            this.initialLoad(newProps.findOptions);
+        else
+            this.resetFindOptions(newProps.findOptions);
+    }
+
+    initialLoad(propsFindOptions: FindOptions) {
+        Finder.API.getQueryDescription(propsFindOptions.queryName).then(qd=> {
 
             this.setState({
                 queryDescription: qd,
-            })
-
-            var ti = getTypeInfos(qd.columns["Entity"].type)
-
-            var findOptions = Dic.extend({
-                searchOnLoad: true,
-                showHeader: true,
-                showFilters: false,
-                showFilterButton: true,
-                showFooter: true,
-                create: ti.some(ti=> Navigator.isCreable(ti, true)),
-                navigate: ti.some(ti=> Navigator.isNavigable(ti, null, true)),
-                pagination: (this.state.querySettings && this.state.querySettings.pagination) || Finder.defaultPagination,
-                columnOptionsMode: ColumnOptionsMode.Add,
-                columnOptions: [],
-                orderOptions: [],
-                filterOptions: []
-            }, props.findOptions);
-
-            findOptions.columnOptions = SearchControl.mergeColumns(Dic.getValues(qd.columns), findOptions.columnOptionsMode, findOptions.columnOptions)
-            if (!findOptions.orderOptions.length) {
-
-                var defaultOrder = this.state.querySettings && this.state.querySettings.defaultOrderColumn || Finder.defaultOrderColumn;
-
-                var info = this.entityColumnTypeInfos().firstOrNull()
-
-                findOptions.orderOptions = [{
-                    columnName: defaultOrder,
-                    orderType: info.entityData == EntityData.Transactional ? OrderType.Descending : OrderType.Ascending
-                }];
-            }
-
-            Finder.parseTokens(findOptions).then(fo=> {
-                this.setState({
-                    findOptions: fo,
-                })
-
-                if (this.state.findOptions.searchOnLoad)
-                    this.handleSearch();
-
             });
+
+            this.resetFindOptions(propsFindOptions);
+        });
+    }
+
+    resetFindOptions(propsFindOptions) {
+
+        var qd = this.state.queryDescription;
+
+        var ti = getTypeInfos(qd.columns["Entity"].type)
+
+        var findOptions = Dic.extend({
+            searchOnLoad: true,
+            showHeader: true,
+            showFilters: false,
+            showFilterButton: true,
+            showFooter: true,
+            create: ti.some(ti=> Navigator.isCreable(ti, true)),
+            navigate: ti.some(ti=> Navigator.isNavigable(ti, null, true)),
+            pagination: (this.state.querySettings && this.state.querySettings.pagination) || Finder.defaultPagination,
+            columnOptionsMode: ColumnOptionsMode.Add,
+            columnOptions: [],
+            orderOptions: [],
+            filterOptions: []
+        }, propsFindOptions);
+
+        findOptions.columnOptions = SearchControl.mergeColumns(Dic.getValues(qd.columns), findOptions.columnOptionsMode, findOptions.columnOptions)
+        if (!findOptions.orderOptions.length) {
+
+            var defaultOrder = this.state.querySettings && this.state.querySettings.defaultOrderColumn || Finder.defaultOrderColumn;
+
+            var info = this.entityColumnTypeInfos().firstOrNull()
+
+            findOptions.orderOptions = [{
+                columnName: defaultOrder,
+                orderType: info.entityData == EntityData.Transactional ? OrderType.Descending : OrderType.Ascending
+            }];
+        }
+
+        Finder.parseTokens(findOptions).then(fo=> {
+            this.setState({
+                findOptions: fo,
+            });
+
+            if (this.state.findOptions.searchOnLoad)
+                this.handleSearch();
         });
     }
 
@@ -128,7 +135,6 @@ export default class SearchControl extends React.Component<SearchControlProps, S
     }
 
     static mergeColumns(columns: ColumnDescription[], mode: ColumnOptionsMode, columnOptions: ColumnOption[]): ColumnOption[] {
-
 
         switch (mode) {
             case ColumnOptionsMode.Add:

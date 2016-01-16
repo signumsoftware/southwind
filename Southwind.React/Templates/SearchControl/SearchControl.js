@@ -107,15 +107,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
                     dragIndex: null
                 });
             };
-            this.state = this.initialState(props);
-            this.initialLoad(props);
-        }
-        SearchControl.prototype.componentWillReceiveProps = function (newProps) {
-            this.setState(this.initialState(newProps));
-            this.initialLoad(newProps);
-        };
-        SearchControl.prototype.initialState = function (props) {
-            return {
+            this.state = {
                 resultTable: null,
                 findOptions: null,
                 querySettings: Finder.getQuerySettings(props.findOptions.queryName),
@@ -124,44 +116,58 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
                 selectedRows: [],
                 usedRows: [],
             };
+            this.initialLoad(this.props.findOptions);
+        }
+        SearchControl.prototype.componentWillReceiveProps = function (newProps) {
+            if (JSON.stringify(this.props.findOptions) == JSON.stringify(newProps.findOptions))
+                return;
+            if (this.props.findOptions.queryName != newProps.findOptions.queryName)
+                this.initialLoad(newProps.findOptions);
+            else
+                this.resetFindOptions(newProps.findOptions);
         };
-        SearchControl.prototype.initialLoad = function (props) {
+        SearchControl.prototype.initialLoad = function (propsFindOptions) {
             var _this = this;
-            Finder.API.getQueryDescription(props.findOptions.queryName).then(function (qd) {
+            Finder.API.getQueryDescription(propsFindOptions.queryName).then(function (qd) {
                 _this.setState({
                     queryDescription: qd,
                 });
-                var ti = Reflection_1.getTypeInfos(qd.columns["Entity"].type);
-                var findOptions = Dic.extend({
-                    searchOnLoad: true,
-                    showHeader: true,
-                    showFilters: false,
-                    showFilterButton: true,
-                    showFooter: true,
-                    create: ti.some(function (ti) { return Navigator.isCreable(ti, true); }),
-                    navigate: ti.some(function (ti) { return Navigator.isNavigable(ti, null, true); }),
-                    pagination: (_this.state.querySettings && _this.state.querySettings.pagination) || Finder.defaultPagination,
-                    columnOptionsMode: FindOptions_1.ColumnOptionsMode.Add,
-                    columnOptions: [],
-                    orderOptions: [],
-                    filterOptions: []
-                }, props.findOptions);
-                findOptions.columnOptions = SearchControl.mergeColumns(Dic.getValues(qd.columns), findOptions.columnOptionsMode, findOptions.columnOptions);
-                if (!findOptions.orderOptions.length) {
-                    var defaultOrder = _this.state.querySettings && _this.state.querySettings.defaultOrderColumn || Finder.defaultOrderColumn;
-                    var info = _this.entityColumnTypeInfos().firstOrNull();
-                    findOptions.orderOptions = [{
-                            columnName: defaultOrder,
-                            orderType: info.entityData == Reflection_1.EntityData.Transactional ? FindOptions_1.OrderType.Descending : FindOptions_1.OrderType.Ascending
-                        }];
-                }
-                Finder.parseTokens(findOptions).then(function (fo) {
-                    _this.setState({
-                        findOptions: fo,
-                    });
-                    if (_this.state.findOptions.searchOnLoad)
-                        _this.handleSearch();
+                _this.resetFindOptions(propsFindOptions);
+            });
+        };
+        SearchControl.prototype.resetFindOptions = function (propsFindOptions) {
+            var _this = this;
+            var qd = this.state.queryDescription;
+            var ti = Reflection_1.getTypeInfos(qd.columns["Entity"].type);
+            var findOptions = Dic.extend({
+                searchOnLoad: true,
+                showHeader: true,
+                showFilters: false,
+                showFilterButton: true,
+                showFooter: true,
+                create: ti.some(function (ti) { return Navigator.isCreable(ti, true); }),
+                navigate: ti.some(function (ti) { return Navigator.isNavigable(ti, null, true); }),
+                pagination: (this.state.querySettings && this.state.querySettings.pagination) || Finder.defaultPagination,
+                columnOptionsMode: FindOptions_1.ColumnOptionsMode.Add,
+                columnOptions: [],
+                orderOptions: [],
+                filterOptions: []
+            }, propsFindOptions);
+            findOptions.columnOptions = SearchControl.mergeColumns(Dic.getValues(qd.columns), findOptions.columnOptionsMode, findOptions.columnOptions);
+            if (!findOptions.orderOptions.length) {
+                var defaultOrder = this.state.querySettings && this.state.querySettings.defaultOrderColumn || Finder.defaultOrderColumn;
+                var info = this.entityColumnTypeInfos().firstOrNull();
+                findOptions.orderOptions = [{
+                        columnName: defaultOrder,
+                        orderType: info.entityData == Reflection_1.EntityData.Transactional ? FindOptions_1.OrderType.Descending : FindOptions_1.OrderType.Ascending
+                    }];
+            }
+            Finder.parseTokens(findOptions).then(function (fo) {
+                _this.setState({
+                    findOptions: fo,
                 });
+                if (_this.state.findOptions.searchOnLoad)
+                    _this.handleSearch();
             });
         };
         SearchControl.prototype.entityColumn = function () {

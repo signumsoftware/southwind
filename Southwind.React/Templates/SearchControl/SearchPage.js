@@ -14,7 +14,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
             this.setState(this.calculateState(nextProps));
         };
         SearchPage.prototype.calculateState = function (props) {
-            return { findOptions: Dic.extend({ showFilters: true }, Finder.parseFindOptionsPath(this.props.routeParams.queryName, this.props.location.query)) };
+            return { findOptions: Dic.extend({ showFilters: true }, Finder.parseFindOptionsPath(props.routeParams.queryName, props.location.query)) };
         };
         SearchPage.prototype.render = function () {
             var fo = this.state.findOptions;

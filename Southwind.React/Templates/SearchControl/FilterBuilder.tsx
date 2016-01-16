@@ -88,20 +88,27 @@ export class FilterComponent extends React.Component<FilterComponentProps, {}>{
     handleTokenChanged = (newToken: QueryToken) => {
 
         var f = this.props.filter;
-        if (!!newToken != !!f.token || newToken.filterType != f.token.filterType) {
-            var operations = filterOperations[newToken.filterType];
-            f.operation = operations && operations.firstOrNull();
+        
+        if (newToken == null) {
+            f.operation = null;
             f.value = null;
         }
+        else {
 
-        this.props.filter.token = newToken;
+            if (!areEqual(f.token, newToken, a=> a.filterType)) {
+                var operations = filterOperations[newToken.filterType];
+                f.operation = operations && operations.firstOrNull();
+                f.value = null;
+            }
+        }
+        f.token = newToken;
 
         this.forceUpdate();
     }
 
 
     handleChangeOperation = (event: React.FormEvent) => {
-        this.props.filter.value = (event.currentTarget as HTMLSelectElement).value;
+        this.props.filter.operation = (event.currentTarget as HTMLSelectElement).value as any;
         this.forceUpdate();
     }
 

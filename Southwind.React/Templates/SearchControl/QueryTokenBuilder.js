@@ -48,13 +48,13 @@ define(["require", "exports", 'react', 'react-widgets', 'Framework/Signum.React/
         QueryTokenPart.prototype.requestSubTokens = function (props) {
             var _this = this;
             Finder.API.subTokens(props.queryKey, props.parentToken, props.subTokenOptions).then(function (tokens) {
-                return _this.setState({ data: tokens });
+                return _this.setState({ data: tokens.length == 0 ? tokens : [null].concat(tokens) });
             });
         };
         QueryTokenPart.prototype.render = function () {
             if (this.state.data != null && this.state.data.length == 0)
                 return null;
-            return React.createElement("div", {"className": "sf-query-token-part"}, React.createElement(react_widgets_1.DropdownList, {"disabled": this.props.readOnly, "filter": "contains", "data": this.state.data || [], "value": this.props.selectedToken, "onChange": this.handleOnChange, "valueField": "fullKey", "textField": "toString", "itemComponent": QueryTokenItem, "busy": !this.props.readOnly && this.state.data == null}));
+            return React.createElement("div", {"className": "sf-query-token-part"}, React.createElement(react_widgets_1.DropdownList, {"disabled": this.props.readOnly, "filter": "contains", "data": this.state.data || [], "value": this.props.selectedToken, "onChange": this.handleOnChange, "valueField": "fullKey", "textField": "toString", "valueComponent": QueryTokenItem, "itemComponent": QueryTokenOptionalItem, "busy": !this.props.readOnly && this.state.data == null}));
         };
         return QueryTokenPart;
     })(React.Component);
@@ -65,10 +65,25 @@ define(["require", "exports", 'react', 'react-widgets', 'Framework/Signum.React/
             _super.apply(this, arguments);
         }
         QueryTokenItem.prototype.render = function () {
+            if (this.props.item == null)
+                return null;
             return React.createElement("span", {"style": { color: this.props.item.typeColor }, "title": this.props.item.niceTypeName}, this.props.item.toString);
         };
         return QueryTokenItem;
     })(React.Component);
     exports.QueryTokenItem = QueryTokenItem;
+    var QueryTokenOptionalItem = (function (_super) {
+        __extends(QueryTokenOptionalItem, _super);
+        function QueryTokenOptionalItem() {
+            _super.apply(this, arguments);
+        }
+        QueryTokenOptionalItem.prototype.render = function () {
+            if (this.props.item == null)
+                return React.createElement("span", null, " - ");
+            return React.createElement(QueryTokenItem, React.__spread({}, this.props));
+        };
+        return QueryTokenOptionalItem;
+    })(React.Component);
+    exports.QueryTokenOptionalItem = QueryTokenOptionalItem;
 });
 //# sourceMappingURL=QueryTokenBuilder.js.map

@@ -41,16 +41,22 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/FindOptio
             };
             this.handleTokenChanged = function (newToken) {
                 var f = _this.props.filter;
-                if (!!newToken != !!f.token || newToken.filterType != f.token.filterType) {
-                    var operations = FindOptions_1.filterOperations[newToken.filterType];
-                    f.operation = operations && operations.firstOrNull();
+                if (newToken == null) {
+                    f.operation = null;
                     f.value = null;
                 }
-                _this.props.filter.token = newToken;
+                else {
+                    if (!areEqual(f.token, newToken, function (a) { return a.filterType; })) {
+                        var operations = FindOptions_1.filterOperations[newToken.filterType];
+                        f.operation = operations && operations.firstOrNull();
+                        f.value = null;
+                    }
+                }
+                f.token = newToken;
                 _this.forceUpdate();
             };
             this.handleChangeOperation = function (event) {
-                _this.props.filter.value = event.currentTarget.value;
+                _this.props.filter.operation = event.currentTarget.value;
                 _this.forceUpdate();
             };
         }

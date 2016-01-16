@@ -76,7 +76,7 @@ export class QueryTokenPart extends React.Component<QueryTokenPartProps, { data?
 
     requestSubTokens(props: QueryTokenPartProps) {
         Finder.API.subTokens(props.queryKey, props.parentToken, props.subTokenOptions).then(tokens=>
-            this.setState({ data: tokens })
+            this.setState({ data: tokens.length == 0 ? tokens: [null].concat(tokens) })
         );
     }
 
@@ -101,7 +101,8 @@ export class QueryTokenPart extends React.Component<QueryTokenPartProps, { data?
                 onChange={this.handleOnChange}
                 valueField="fullKey"
                 textField="toString"
-                itemComponent={QueryTokenItem}
+                valueComponent={QueryTokenItem}
+                itemComponent={QueryTokenOptionalItem}
                 busy={!this.props.readOnly && this.state.data == null}
                 />
             </div>;
@@ -110,6 +111,10 @@ export class QueryTokenPart extends React.Component<QueryTokenPartProps, { data?
 
 export class QueryTokenItem extends React.Component<{ item: QueryToken }, {}> {
     render() {
+
+        if (this.props.item == null)
+            return null;
+
         return <span
             style= {{ color: this.props.item.typeColor }}
             title={this.props.item.niceTypeName}>
@@ -117,8 +122,14 @@ export class QueryTokenItem extends React.Component<{ item: QueryToken }, {}> {
             </span>;
     }
 }
+  
 
+export class QueryTokenOptionalItem extends React.Component<{ item: QueryToken }, {}> {
+    render() {
 
+        if (this.props.item == null)
+            return <span> - </span>
 
-
-
+        return <QueryTokenItem {...this.props}/>;
+    }
+}
