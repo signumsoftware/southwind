@@ -81,10 +81,10 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
             this.handleHeaderDragStart = function (de) {
                 de.dataTransfer.effectAllowed = "move";
                 var dragIndex = parseInt(de.currentTarget.getAttribute("data-column-index"));
-                _this.setState({ dragIndex: dragIndex });
+                _this.setState({ dragColumnIndex: dragIndex });
             };
             this.handleHeaderDragEnd = function (de) {
-                _this.setState({ dragIndex: null, dropIndex: null });
+                _this.setState({ dragColumnIndex: null, dropBorderIndex: null });
             };
             this.handlerHeaderDragOver = function (de) {
                 de.preventDefault();
@@ -92,19 +92,28 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
                 var size = th.scrollWidth;
                 var columnIndex = parseInt(th.getAttribute("data-column-index"));
                 var offset = _this.getOffset(de.nativeEvent.pageX, th.getBoundingClientRect());
-                var dropIndex = offset == null || columnIndex + offset == _this.state.dragIndex ? null : columnIndex + offset;
-                de.dataTransfer.dropEffect = dropIndex == null ? "none" : "move";
-                if (_this.state.dropIndex != dropIndex)
-                    _this.setState({ dropIndex: dropIndex });
+                var dropBorderIndex = offset == null ? null : columnIndex + offset;
+                if (dropBorderIndex == _this.state.dragColumnIndex || dropBorderIndex == _this.state.dragColumnIndex + 1)
+                    dropBorderIndex = null;
+                de.dataTransfer.dropEffect = dropBorderIndex == null ? "none" : "move";
+                if (_this.state.dropBorderIndex != dropBorderIndex)
+                    _this.setState({ dropBorderIndex: dropBorderIndex });
             };
             this.handleHeaderDrop = function (de) {
+                console.log(JSON.stringify({
+                    dragIndex: _this.state.dragColumnIndex,
+                    dropIndex: _this.state.dropBorderIndex
+                }));
                 var columns = _this.state.findOptions.columnOptions;
-                var temp = columns[_this.state.dragIndex];
-                columns.splice(_this.state.dragIndex, 1);
-                columns.splice(_this.state.dropIndex, 0, temp);
+                var temp = columns[_this.state.dragColumnIndex];
+                columns.removeAt(_this.state.dragColumnIndex);
+                var rebasedDropIndex = _this.state.dropBorderIndex > _this.state.dragColumnIndex ?
+                    _this.state.dropBorderIndex - 1 :
+                    _this.state.dropBorderIndex;
+                columns.insertAt(rebasedDropIndex, temp);
                 _this.setState({
-                    dropIndex: null,
-                    dragIndex: null
+                    dropBorderIndex: null,
+                    dragColumnIndex: null
                 });
             };
             this.state = {
@@ -229,7 +238,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
             var _this = this;
             var allSelected = this.state.resultTable && this.state.resultTable.rows.length == this.state.selectedRows.length;
             return React.createElement("tr", null, this.props.allowSelection && React.createElement("th", {"className": "sf-th-selection"}, React.createElement("input", {"type": "checkbox", "id": "cbSelectAll", "onClick": this.handleToggleAll, "checked": allSelected})), this.state.findOptions.navigate && React.createElement("th", {"className": "sf-th-entity"}), this.state.findOptions.columnOptions.map(function (co, i) {
-                return React.createElement("th", {"draggable": true, "style": i == _this.state.dragIndex ? { opacity: 0.5 } : null, "className": (i == _this.state.dropIndex ? "drag-left " : i == _this.state.dropIndex - 1 ? "drag-right " : ""), "data-column-name": co.token.fullKey, "data-column-index": i, "key": co.token.fullKey, "onClick": _this.handleHeaderClick, "onDragStart": _this.handleHeaderDragStart, "onDragEnd": _this.handleHeaderDragEnd, "onDragOver": _this.handlerHeaderDragOver, "onDragEnter": _this.handlerHeaderDragOver, "onDrop": _this.handleHeaderDrop}, React.createElement("span", {"className": "sf-header-sort " + _this.orderClassName(co)}), React.createElement("span", null, " ", co.displayName));
+                return React.createElement("th", {"draggable": true, "style": i == _this.state.dragColumnIndex ? { opacity: 0.5 } : null, "className": (i == _this.state.dropBorderIndex ? "drag-left " : i == _this.state.dropBorderIndex - 1 ? "drag-right " : ""), "data-column-name": co.token.fullKey, "data-column-index": i, "key": i, "onClick": _this.handleHeaderClick, "onDragStart": _this.handleHeaderDragStart, "onDragEnd": _this.handleHeaderDragEnd, "onDragOver": _this.handlerHeaderDragOver, "onDragEnter": _this.handlerHeaderDragOver, "onDrop": _this.handleHeaderDrop}, React.createElement("span", {"className": "sf-header-sort " + _this.orderClassName(co)}), React.createElement("span", null, " ", co.displayName));
             }));
         };
         SearchControl.prototype.orderClassName = function (column) {

@@ -33,8 +33,8 @@ export interface SearchControlState {
     selectedRows?: ResultRow[];
     usedRows?: ResultRow[];
 
-    dragIndex?: number,
-    dropIndex?: number,
+    dragColumnIndex?: number, 
+    dropBorderIndex?: number, 
 }
 
 
@@ -252,11 +252,11 @@ export default class SearchControl extends React.Component<SearchControlProps, S
     handleHeaderDragStart = (de: React.DragEvent) => {
         de.dataTransfer.effectAllowed = "move";
         var dragIndex = parseInt((de.currentTarget as HTMLElement).getAttribute("data-column-index"));
-        this.setState({ dragIndex: dragIndex });    
+        this.setState({ dragColumnIndex: dragIndex });    
     }
 
     handleHeaderDragEnd = (de: React.DragEvent) => {
-        this.setState({ dragIndex: null, dropIndex: null });
+        this.setState({ dragColumnIndex: null, dropBorderIndex: null });
     }
 
 
@@ -283,26 +283,37 @@ export default class SearchControl extends React.Component<SearchControlProps, S
 
         var columnIndex = parseInt(th.getAttribute("data-column-index"));
 
-        var offset = this.getOffset((de.nativeEvent as DragEvent).pageX, th.getBoundingClientRect());
+        var offset = this.getOffset((de.nativeEvent as DragEvent).pageX, th.getBoundingClientRect());        
 
-        var dropIndex = offset == null || columnIndex + offset == this.state.dragIndex ? null : columnIndex + offset;
+        var dropBorderIndex = offset == null ? null : columnIndex + offset;  
 
-        de.dataTransfer.dropEffect = dropIndex == null ? "none" : "move";
+        if (dropBorderIndex == this.state.dragColumnIndex || dropBorderIndex == this.state.dragColumnIndex + 1)
+            dropBorderIndex = null;
 
-        if (this.state.dropIndex != dropIndex)
-            this.setState({ dropIndex: dropIndex });
+        de.dataTransfer.dropEffect = dropBorderIndex == null ? "none" : "move";
+
+        if (this.state.dropBorderIndex != dropBorderIndex)
+            this.setState({ dropBorderIndex: dropBorderIndex });
     }
 
     handleHeaderDrop = (de: React.DragEvent) => {
-        
+
+        console.log(JSON.stringify({
+            dragIndex : this.state.dragColumnIndex,
+            dropIndex : this.state.dropBorderIndex
+        }));
+
         var columns = this.state.findOptions.columnOptions;
-        var temp = columns[this.state.dragIndex];
-        columns.splice(this.state.dragIndex, 1);
-        columns.splice(this.state.dropIndex, 0, temp);
+        var temp = columns[this.state.dragColumnIndex];
+        columns.removeAt(this.state.dragColumnIndex);
+        var rebasedDropIndex = this.state.dropBorderIndex > this.state.dragColumnIndex ?
+            this.state.dropBorderIndex - 1 :
+            this.state.dropBorderIndex; 
+        columns.insertAt(rebasedDropIndex, temp);
         
         this.setState({
-            dropIndex: null,
-            dragIndex: null
+            dropBorderIndex: null,
+            dragColumnIndex: null
         });
     }
 
@@ -388,11 +399,11 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         { this.state.findOptions.navigate && <th className="sf-th-entity"></th> }
         { this.state.findOptions.columnOptions.map((co, i) =>
                 <th draggable={true}
-                    style={i == this.state.dragIndex ? { opacity: 0.5 } : null }
-                    className={(i == this.state.dropIndex ? "drag-left " : i == this.state.dropIndex - 1 ? "drag-right " : "") }
+                    style={i == this.state.dragColumnIndex ? { opacity: 0.5 } : null }
+                    className={(i == this.state.dropBorderIndex ? "drag-left " : i == this.state.dropBorderIndex - 1 ? "drag-right " : "") }
                 data-column-name={co.token.fullKey}
                 data-column-index={i}
-                key={co.token.fullKey}
+                key={i}
                 onClick={this.handleHeaderClick}
                 onDragStart={this.handleHeaderDragStart}
                 onDragEnd={this.handleHeaderDragEnd}

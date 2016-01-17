@@ -79,7 +79,10 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/FindOptio
                 case FindOptions_1.FilterType.Embedded:
                     return React.createElement(Lines_1.EntityLine, {"ctx": ctx, "type": f.token.type, "create": false, "autoComplete": false});
                 case FindOptions_1.FilterType.Enum:
-                    var members = Dic.getValues(Reflection_1.getTypeInfos(f.token.type).single().members).filter(function (a) { return !a.isReadOnly; });
+                    var ti = Reflection_1.getTypeInfos(f.token.type).single();
+                    if (!ti)
+                        throw new Error("EnumType " + f.token.type.name + " not found");
+                    var members = Dic.getValues(ti.members).filter(function (a) { return !a.isIgnored; });
                     return React.createElement(Lines_1.ValueLine, {"ctx": ctx, "type": f.token.type, "formatText": f.token.format, "unitText": f.token.unit, "comboBoxItems": members});
                 default:
                     return React.createElement(Lines_1.ValueLine, {"ctx": ctx, "type": f.token.type, "formatText": f.token.format, "unitText": f.token.unit});

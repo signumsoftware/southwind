@@ -159,7 +159,10 @@ export class FilterComponent extends React.Component<FilterComponentProps, {}>{
             case FilterType.Embedded:
                 return <EntityLine ctx={ctx} type={f.token.type} create={false} autoComplete={false} />;
             case FilterType.Enum:
-                var members = Dic.getValues(getTypeInfos(f.token.type).single().members).filter(a=> !a.isReadOnly);
+                var ti = getTypeInfos(f.token.type).single();
+                if (!ti)
+                    throw new Error(`EnumType ${f.token.type.name} not found`);
+                var members = Dic.getValues(ti.members).filter(a=> !a.isIgnored);
                 return <ValueLine ctx={ctx} type={f.token.type} formatText={f.token.format} unitText={f.token.unit} comboBoxItems={members}/>;
             default:
                 return <ValueLine ctx={ctx} type={f.token.type} formatText={f.token.format} unitText={f.token.unit}/>;
