@@ -40,7 +40,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
             this.handleToggleAll = function () {
                 if (!_this.state.resultTable)
                     return;
-                _this.setState({ selectedRows: _this.state.selectedRows.length ? _this.state.resultTable.rows.slice(0) : [] });
+                _this.setState({ selectedRows: !_this.allSelected() ? _this.state.resultTable.rows.clone() : [] });
                 _this.notifySelectedRowsChanged();
                 _this.forceUpdate();
             };
@@ -234,10 +234,12 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
         SearchControl.prototype.getSelectedButton = function () {
             return React.createElement(react_bootstrap_1.DropdownButton, {"id": "selectedButton", "className": "sf-query-button sf-tm-selected", "title": Signum_Entities_1.JavascriptMessage.Selected.niceToString()});
         };
+        SearchControl.prototype.allSelected = function () {
+            return this.state.resultTable && this.state.resultTable.rows.length && this.state.resultTable.rows.length == this.state.selectedRows.length;
+        };
         SearchControl.prototype.renderHeaders = function () {
             var _this = this;
-            var allSelected = this.state.resultTable && this.state.resultTable.rows.length == this.state.selectedRows.length;
-            return React.createElement("tr", null, this.props.allowSelection && React.createElement("th", {"className": "sf-th-selection"}, React.createElement("input", {"type": "checkbox", "id": "cbSelectAll", "onClick": this.handleToggleAll, "checked": allSelected})), this.state.findOptions.navigate && React.createElement("th", {"className": "sf-th-entity"}), this.state.findOptions.columnOptions.map(function (co, i) {
+            return React.createElement("tr", null, this.props.allowSelection && React.createElement("th", {"className": "sf-th-selection"}, React.createElement("input", {"type": "checkbox", "id": "cbSelectAll", "onClick": this.handleToggleAll, "checked": this.allSelected()})), this.state.findOptions.navigate && React.createElement("th", {"className": "sf-th-entity"}), this.state.findOptions.columnOptions.map(function (co, i) {
                 return React.createElement("th", {"draggable": true, "style": i == _this.state.dragColumnIndex ? { opacity: 0.5 } : null, "className": (i == _this.state.dropBorderIndex ? "drag-left " : i == _this.state.dropBorderIndex - 1 ? "drag-right " : ""), "data-column-name": co.token.fullKey, "data-column-index": i, "key": i, "onClick": _this.handleHeaderClick, "onDragStart": _this.handleHeaderDragStart, "onDragEnd": _this.handleHeaderDragEnd, "onDragOver": _this.handlerHeaderDragOver, "onDragEnter": _this.handlerHeaderDragOver, "onDrop": _this.handleHeaderDrop}, React.createElement("span", {"className": "sf-header-sort " + _this.orderClassName(co)}), React.createElement("span", null, " ", co.displayName));
             }));
         };

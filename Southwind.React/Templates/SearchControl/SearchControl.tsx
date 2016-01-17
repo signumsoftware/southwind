@@ -188,7 +188,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         if (!this.state.resultTable)
             return;
 
-        this.setState({ selectedRows: this.state.selectedRows.length ? this.state.resultTable.rows.slice(0) : [] });
+        this.setState({ selectedRows: !this.allSelected() ? this.state.resultTable.rows.clone() : [] });
         this.notifySelectedRowsChanged();
         this.forceUpdate();
     }
@@ -386,14 +386,15 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         return <DropdownButton id="selectedButton" className="sf-query-button sf-tm-selected" title={JavascriptMessage.Selected.niceToString() }></DropdownButton>
     }
 
+    allSelected() {
+        return this.state.resultTable && this.state.resultTable.rows.length && this.state.resultTable.rows.length == this.state.selectedRows.length;
+    }
 
     renderHeaders(): React.ReactNode {
 
-        var allSelected = this.state.resultTable && this.state.resultTable.rows.length == this.state.selectedRows.length;
-
         return <tr>
         { this.props.allowSelection && <th className="sf-th-selection">
-                <input type="checkbox" id="cbSelectAll" onClick={this.handleToggleAll} checked={allSelected}/>
+                <input type="checkbox" id="cbSelectAll" onClick={this.handleToggleAll} checked={this.allSelected()}/>
             </th>
         }
         { this.state.findOptions.navigate && <th className="sf-th-entity"></th> }
