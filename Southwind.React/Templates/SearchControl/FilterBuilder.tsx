@@ -17,7 +17,7 @@ interface FilterBuilderProps extends React.Props<FilterBuilder> {
     queryDescription: QueryDescription;
 }
 
-export default class FilterBuilder extends React.Component<FilterBuilderProps, { token: QueryTokenBuilder }>  {
+export default class FilterBuilder extends React.Component<FilterBuilderProps, { }>  {
 
     handlerNewFilter = () => {
         this.props.filterOptions.push({

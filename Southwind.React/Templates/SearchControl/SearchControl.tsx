@@ -1,13 +1,15 @@
 ﻿
 import * as React from 'react'
+import { DropdownButton, MenuItem } from 'react-bootstrap'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
-import { ResultTable, ResultRow, FindOptions, FilterOption, QueryDescription, ColumnOption, ColumnOptionsMode, ColumnDescription, toQueryToken, Pagination, PaginationMode, OrderType, OrderOption, SubTokensOptions } from 'Framework/Signum.React/Scripts/FindOptions'
+import { ResultTable, ResultRow, FindOptions, FilterOption, QueryDescription, ColumnOption, ColumnOptionsMode, ColumnDescription,
+toQueryToken, Pagination, PaginationMode, OrderType, OrderOption, SubTokensOptions, filterOperations } from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage, Lite, IEntity, liteKey, is } from 'Framework/Signum.React/Scripts/Signum.Entities'
 import { getTypeInfos, IsByAll, getQueryKey, TypeInfo, EntityData} from 'Framework/Signum.React/Scripts/Reflection'
 import * as Navigator from 'Framework/Signum.React/Scripts/Navigator'
-import { DropdownButton, MenuItem } from 'react-bootstrap'
 import PaginationSelector from 'Templates/SearchControl/PaginationSelector'
 import FilterBuilder from 'Templates/SearchControl/FilterBuilder'
+import { getContextualItems, ContextMenu } from 'Templates/SearchControl/ContextualItems'
 
 
 export interface SimpleFilterBuilderProps {
@@ -33,10 +35,20 @@ export interface SearchControlState {
     selectedRows?: ResultRow[];
     usedRows?: ResultRow[];
 
-    dragColumnIndex?: number, 
-    dropBorderIndex?: number, 
-}
+    dragColumnIndex?: number,
+    dropBorderIndex?: number,
 
+    selectedMenuItems?: React.ReactElement<any>[];
+
+    contextualMenu?: {
+        position: { pageX: number, pageY: number };
+        columnIndex: number;
+        columnOffset?: number
+        rowIndex?: number;
+    };
+
+    editingColumn?: ColumnOption;
+}
 
 
 export default class SearchControl extends React.Component<SearchControlProps, SearchControlState> {
@@ -46,6 +58,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         avoidFullScreenButton: false
     };
 
+    // INIT
 
     constructor(props: SearchControlProps) {
         super(props);
@@ -56,6 +69,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             queryDescription: null,
             loading: false,
             selectedRows: [],
+            selectedMenuItems: null,
             usedRows: [],
         };
         this.initialLoad(this.props.findOptions);
@@ -82,7 +96,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         });
     }
 
-    resetFindOptions(propsFindOptions) {
+    resetFindOptions(propsFindOptions: FindOptions) {
 
         var qd = this.state.queryDescription;
 
@@ -94,6 +108,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             showFilters: false,
             showFilterButton: true,
             showFooter: true,
+            allowChangeColumn: true,
             create: ti.some(ti=> Navigator.isCreable(ti, true)),
             navigate: ti.some(ti=> Navigator.isNavigable(ti, null, true)),
             pagination: (this.state.querySettings && this.state.querySettings.pagination) || Finder.defaultPagination,
@@ -134,6 +149,11 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         return getTypeInfos(this.entityColumn().type);
     }
 
+    canFilter() {
+        var fo = this.state.findOptions;
+        return fo.showHeader && (fo.showFilterButton || fo.showFilters)
+    }
+
     static mergeColumns(columns: ColumnDescription[], mode: ColumnOptionsMode, columnOptions: ColumnOption[]): ColumnOption[] {
 
         switch (mode) {
@@ -149,15 +169,8 @@ export default class SearchControl extends React.Component<SearchControlProps, S
                 return columnOptions;
         }
     }
-
-    ////
-    // HANDLERs
-    ////
-
-    handleToggleFilters = () => {
-        this.state.findOptions.showFilters = !this.state.findOptions.showFilters;
-        this.forceUpdate();
-    }
+    
+    // MAIN
 
     handleSearch = () => {
         var fo = this.state.findOptions;
@@ -169,7 +182,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             orders: fo.orderOptions.map(oo=> ({ token: oo.token.fullKey, orderType: oo.orderType })),
             pagination: fo.pagination,
         }).then(rt=> {
-            this.setState({ resultTable: rt, selectedRows: [], usedRows: [], loading: false });
+            this.setState({ resultTable: rt, selectedRows: [], selectedMenuItems: null, usedRows: [], loading: false });
             this.notifySelectedRowsChanged();
             this.forceUpdate();
         });
@@ -183,6 +196,198 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             this.handleSearch();
     }
 
+    handleOnContextMenu = (event: React.MouseEvent) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        var td = DomUtils.closest(event.target as HTMLElement, "td, th");
+        var columnIndex = td.getAttribute("data-column-index") && parseInt(td.getAttribute("data-column-index"));
+
+
+        var tr = td.parentNode as HTMLElement;
+        var rowIndex = tr.getAttribute("data-row-index") && parseInt(tr.getAttribute("data-row-index"));
+
+        this.state.contextualMenu = {
+            position: { pageX: event.pageX, pageY: event.pageY },
+            columnIndex,
+            rowIndex,
+            columnOffset: td.tagName == "th" ? this.getOffset(event.pageX, td.getBoundingClientRect()) : null
+        };
+
+        if (rowIndex != null) {
+            var row = this.state.resultTable.rows[rowIndex];
+            if (!this.state.selectedRows.contains(row)) {
+                this.state.selectedRows = [row];
+                this.state.selectedMenuItems = null;              
+            }
+
+            if (this.state.selectedMenuItems = null)
+                this.loadMenuItems();
+        }
+
+
+        this.forceUpdate();
+    }
+
+    render() {
+
+        var fo = this.state.findOptions;
+        if (!fo)
+            return null;
+
+        var SFB = this.props.simpleFilterBuilder;
+
+        return (
+            <div className="sf-search-control SF-control-container">
+            {SFB && <div className="simple-filter-builder"><SFB findOptions={fo}/></div> }
+            {fo.showHeader && fo.showFilters && <FilterBuilder
+                queryDescription={this.state.queryDescription}
+                filterOptions={fo.filterOptions}
+                subTokensOptions={SubTokensOptions.CanAnyAll | SubTokensOptions.CanElement}/> }
+            {fo.showHeader && this.renderToolBar() }
+            <div className="sf-search-results-container table-responsive" >
+            <table className="sf-search-results table table-hover table-condensed" onContextMenu={this.handleOnContextMenu} >
+                <thead>
+              {this.renderHeaders() }
+                    </thead>
+                <tbody>
+                    {this.renderRows() }
+                    </tbody>
+                </table>
+                </div>
+            {fo.showFooter && <PaginationSelector pagination={fo.pagination} onPagination={this.handlePagination} resultTable={this.state.resultTable}/>}
+                {this.state.contextualMenu && this.renderContextualMenu() }
+                </div>);
+    }
+
+    // TOOLBAR
+
+    handleToggleFilters = () => {
+        this.state.findOptions.showFilters = !this.state.findOptions.showFilters;
+        this.forceUpdate();
+    }
+
+    renderToolBar() {
+
+        var fo = this.state.findOptions;
+        return <div className="sf-query-button-bar btn-toolbar">
+                { fo.showFilterButton && <a
+                    className={"sf-query-button sf-filters-header btn btn-default" + (fo.showFilters ? " active" : "") }
+                    onClick={this.handleToggleFilters}
+                    title={ fo.showFilters ? JavascriptMessage.hideFilters.niceToString() : JavascriptMessage.showFilters.niceToString() }><span className="glyphicon glyphicon glyphicon-filter"></span></a >}
+                <button className={"sf-query-button sf-search btn btn-primary" + (this.state.loading ? " disabled" : "") } onClick={this.handleSearch}>{SearchMessage.Search.niceToString() } </button>
+                {fo.create && <a className="sf-query-button btn btn-default sf-line-button sf-create" title={this.createTitle() }><span className="glyphicon glyphicon-plus"></span></a>}
+                {this.props.showContextMenu != false && this.renderSelecterButton() }
+                {Finder.ButtonBarQuery.getButtonBarElements(fo.queryName) }
+                {this.props.avoidFullScreenButton != true &&
+                <a className="sf-query-button btn btn-default" href="#">
+                <span className="glyphicon glyphicon-new-window"></span>
+                    </a> }
+            </div>;
+    }
+
+
+    createTitle() {
+
+        var tis = this.entityColumnTypeInfos();
+
+        var types = tis.map(ti => ti.niceName).join(", ");
+        var gender = tis.first().gender;
+
+        return SearchMessage.CreateNew0_G.niceToString().forGenderAndNumber(gender).formatWith(types);
+    }
+
+    // SELECT BUTTON
+
+    handleSelectedToggle = (isOpen: boolean) => {
+
+        if (isOpen && this.state.selectedMenuItems == null)
+            this.loadMenuItems();
+    }
+
+    loadMenuItems() {
+        getContextualItems({ lites: this.state.selectedRows.map(a=> a.entity), queryDescription: this.state.queryDescription })
+            .then(menuItems=> this.setState({ selectedMenuItems: menuItems }));
+    }
+
+    renderSelecterButton() {
+
+        var title = JavascriptMessage.Selected.niceToString() + " (" + this.state.selectedRows.length + ")";
+
+        return <DropdownButton id="selectedButton" className="sf-query-button sf-tm-selected" title={title}
+            onToggle={this.handleSelectedToggle}
+            disabled={this.state.selectedRows.length == 0}>
+            {this.state.selectedMenuItems == null ? <MenuItem className="sf-tm-selected-loading">{JavascriptMessage.loading.niceToString() }</MenuItem> :
+                this.state.selectedMenuItems.length == 0 ? <MenuItem className="sf-search-ctxitem-no-results">{JavascriptMessage.noActionsFound.niceToString() }</MenuItem> :
+                    this.state.selectedMenuItems.map((e, i) => React.cloneElement(e, { key: i })) }
+            </DropdownButton>;
+    }
+
+    // CONTEXT MENU
+
+    handleContextOnHide = () => {
+        this.setState({ contextualMenu: null });
+    }
+
+
+    handleQuickFilter = () => {
+        var cm = this.state.contextualMenu;
+        var fo = this.state.findOptions;
+
+        var token = fo.columnOptions[cm.columnIndex].token;
+
+        var fops = filterOperations[token.filterType as any];
+
+        var resultColumnIndex = this.state.resultTable.columns.indexOf(token.fullKey);
+
+        fo.filterOptions.push({
+            token: token,
+            columnName: token.fullKey,
+            operation: fops && fops.firstOrNull(),
+            value: cm.rowIndex == null || resultColumnIndex == -1 ? null : this.state.resultTable.rows[cm.rowIndex].columns[resultColumnIndex]
+        });
+
+        if (!fo.showFilters)
+            fo.showFilters = true;
+
+        this.forceUpdate();
+    }
+
+    renderContextualMenu() {
+
+        var cm = this.state.contextualMenu;
+        var fo = this.state.findOptions;
+
+        var menuItems: React.ReactElement<any>[] = [];
+        if (this.canFilter() && cm.columnIndex != null)
+            menuItems.push(<MenuItem className="sf-quickfilter-header" onClick={this.handleQuickFilter}>{JavascriptMessage.addFilter.niceToString() }</MenuItem>);
+
+        if (cm.rowIndex == null || fo.allowChangeColumns) {
+            menuItems.push(<MenuItem className="sf-edit-header" onClick={this.handleQuickFilter}>{JavascriptMessage.editColumn.niceToString() }</MenuItem>);
+            menuItems.push(<MenuItem className="sf-remove-header" onClick={this.handleQuickFilter}>{JavascriptMessage.removeColumn.niceToString() }</MenuItem>);
+        }
+
+        if (cm.rowIndex != null && this.state.selectedMenuItems) {
+
+            if (menuItems.length && this.state.selectedMenuItems.length)
+                menuItems.push(<MenuItem divider/>);
+
+            menuItems.splice(menuItems.length, 0, ...this.state.selectedMenuItems);
+        }
+        
+        return <ContextMenu position={cm.position} onHide={this.handleContextOnHide}>
+            {menuItems.map((e, i) => React.cloneElement(e, { key: i })) }
+            </ContextMenu>;
+    }
+
+    //SELECTED ROWS
+
+    allSelected() {
+        return this.state.resultTable && this.state.resultTable.rows.length && this.state.resultTable.rows.length == this.state.selectedRows.length;
+    }
+
+
     handleToggleAll = () => {
 
         if (!this.state.resultTable)
@@ -193,30 +398,13 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         this.forceUpdate();
     }
 
-    handleChecked = (event: React.MouseEvent) => {
-
-        var cb = (event.currentTarget) as HTMLInputElement;
-
-        var index = parseInt(cb.getAttribute("data-index"));
-
-        var row = this.state.resultTable.rows[index];
 
 
-        if (cb.checked) {
-            if (!this.state.selectedRows.contains(row))
-                this.state.selectedRows.push(row);
-        } else {
-            this.state.selectedRows.remove(row);
-        }
-
-        this.notifySelectedRowsChanged();
-        this.forceUpdate();
-    }
-
-    notifySelectedRowsChanged(){
+    notifySelectedRowsChanged() {
         if (this.props.onSelectionChanged)
             this.props.onSelectionChanged(this.state.selectedRows.map(a=> a.entity));
     }
+
 
     handleHeaderClick = (e: React.MouseEvent) => {
 
@@ -239,7 +427,6 @@ export default class SearchControl extends React.Component<SearchControlProps, S
                 this.state.findOptions.orderOptions.push(newOrder);
             else
                 this.state.findOptions.orderOptions = [newOrder];
-
         }
 
         //this.setState({ resultTable: null });
@@ -248,11 +435,12 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             this.handleSearch();
     }
 
+    //HEADER DRAG AND DROP
 
     handleHeaderDragStart = (de: React.DragEvent) => {
         de.dataTransfer.effectAllowed = "move";
         var dragIndex = parseInt((de.currentTarget as HTMLElement).getAttribute("data-column-index"));
-        this.setState({ dragColumnIndex: dragIndex });    
+        this.setState({ dragColumnIndex: dragIndex });
     }
 
     handleHeaderDragEnd = (de: React.DragEvent) => {
@@ -278,14 +466,14 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         de.preventDefault();
 
         var th = de.currentTarget as HTMLElement;
-        
+
         var size = th.scrollWidth;
 
         var columnIndex = parseInt(th.getAttribute("data-column-index"));
 
-        var offset = this.getOffset((de.nativeEvent as DragEvent).pageX, th.getBoundingClientRect());        
+        var offset = this.getOffset((de.nativeEvent as DragEvent).pageX, th.getBoundingClientRect());
 
-        var dropBorderIndex = offset == null ? null : columnIndex + offset;  
+        var dropBorderIndex = offset == null ? null : columnIndex + offset;
 
         if (dropBorderIndex == this.state.dragColumnIndex || dropBorderIndex == this.state.dragColumnIndex + 1)
             dropBorderIndex = null;
@@ -299,8 +487,8 @@ export default class SearchControl extends React.Component<SearchControlProps, S
     handleHeaderDrop = (de: React.DragEvent) => {
 
         console.log(JSON.stringify({
-            dragIndex : this.state.dragColumnIndex,
-            dropIndex : this.state.dropBorderIndex
+            dragIndex: this.state.dragColumnIndex,
+            dropIndex: this.state.dropBorderIndex
         }));
 
         var columns = this.state.findOptions.columnOptions;
@@ -308,100 +496,28 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         columns.removeAt(this.state.dragColumnIndex);
         var rebasedDropIndex = this.state.dropBorderIndex > this.state.dragColumnIndex ?
             this.state.dropBorderIndex - 1 :
-            this.state.dropBorderIndex; 
+            this.state.dropBorderIndex;
         columns.insertAt(rebasedDropIndex, temp);
-        
+
         this.setState({
             dropBorderIndex: null,
             dragColumnIndex: null
         });
     }
 
-    ////
-    // RENDERs
-    ////
-
-    render() {
-
-        var fo = this.state.findOptions;
-        if (!fo)
-            return null;
-
-        var SFB = this.props.simpleFilterBuilder;
-
-        return (
-            <div className="sf-search-control SF-control-container">
-            {SFB && <div className="simple-filter-builder"><SFB findOptions={fo}/></div> }
-            {fo.showHeader && fo.showFilters && <FilterBuilder
-                queryDescription={this.state.queryDescription}
-                filterOptions={fo.filterOptions}
-                subTokensOptions={SubTokensOptions.CanAnyAll | SubTokensOptions.CanElement}/> }
-            {fo.showHeader && this.renderToolBar() }
-            <div className="sf-search-results-container table-responsive" >
-            <table className="sf-search-results table table-hover table-condensed" >
-                <thead>
-              {this.renderHeaders() }
-                    </thead>
-                <tbody>
-                    {this.renderRows() }
-                    </tbody>
-                </table>
-                </div>
-            {fo.showFooter && <PaginationSelector pagination={fo.pagination} onPagination={this.handlePagination} resultTable={this.state.resultTable}/>}
-                </div>);
-    }
-
-    renderToolBar() {
-
-        var fo = this.state.findOptions;
-        return <div className="sf-query-button-bar btn-toolbar">
-                { fo.showFilterButton && <a
-                    className={"sf-query-button sf-filters-header btn btn-default" + (fo.showFilters ? " active" : "") }
-                    onClick={this.handleToggleFilters}
-                    title={ fo.showFilters ? JavascriptMessage.hideFilters.niceToString() : JavascriptMessage.showFilters.niceToString() }><span className="glyphicon glyphicon glyphicon-filter"></span></a >}
-                <button className={"sf-query-button sf-search btn btn-primary" + (this.state.loading ? " disabled" : "") } onClick={this.handleSearch}>{SearchMessage.Search.niceToString() } </button>
-                {fo.create && <a className="sf-query-button btn btn-default sf-line-button sf-create" title={this.createTitle() }><span className="glyphicon glyphicon-plus"></span></a>}
-                {this.props.showContextMenu != false && this.getSelectedButton() }
-                {Finder.ButtonBarQuery.getButtonBarElements(fo.queryName) }
-                {this.props.avoidFullScreenButton != true &&
-                <a className="sf-query-button btn btn-default" href="#">
-                <span className="glyphicon glyphicon-new-window"></span>
-                    </a> }
-            </div>;
-    }
-
-
-    createTitle() {
-
-        var tis = this.entityColumnTypeInfos();
-
-        var types = tis.map(ti => ti.niceName).join(", ");
-        var gender = tis.first().gender;
-
-        return SearchMessage.CreateNew0_G.niceToString().forGenderAndNumber(gender).formatWith(types);
-    }
-
-
-    getSelectedButton() {
-        return <DropdownButton id="selectedButton" className="sf-query-button sf-tm-selected" title={JavascriptMessage.Selected.niceToString() }></DropdownButton>
-    }
-
-    allSelected() {
-        return this.state.resultTable && this.state.resultTable.rows.length && this.state.resultTable.rows.length == this.state.selectedRows.length;
-    }
 
     renderHeaders(): React.ReactNode {
 
         return <tr>
         { this.props.allowSelection && <th className="sf-th-selection">
-                <input type="checkbox" id="cbSelectAll" onClick={this.handleToggleAll} checked={this.allSelected()}/>
+                <input type="checkbox" id="cbSelectAll" onClick={this.handleToggleAll} checked={this.allSelected() }/>
             </th>
         }
         { this.state.findOptions.navigate && <th className="sf-th-entity"></th> }
         { this.state.findOptions.columnOptions.map((co, i) =>
-                <th draggable={true}
-                    style={i == this.state.dragColumnIndex ? { opacity: 0.5 } : null }
-                    className={(i == this.state.dropBorderIndex ? "drag-left " : i == this.state.dropBorderIndex - 1 ? "drag-right " : "") }
+            <th draggable={true}
+                style={i == this.state.dragColumnIndex ? { opacity: 0.5 } : null }
+                className={(i == this.state.dropBorderIndex ? "drag-left " : i == this.state.dropBorderIndex - 1 ? "drag-right " : "") }
                 data-column-name={co.token.fullKey}
                 data-column-index={i}
                 key={i}
@@ -432,8 +548,30 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         return asc;
     }
 
-  
+    //ROWS
 
+    handleChecked = (event: React.MouseEvent) => {
+
+        var cb = (event.currentTarget) as HTMLInputElement;
+
+        var index = parseInt(cb.getAttribute("data-index"));
+
+        var row = this.state.resultTable.rows[index];
+
+
+        if (cb.checked) {
+            if (!this.state.selectedRows.contains(row))
+                this.state.selectedRows.push(row);
+        } else {
+            this.state.selectedRows.remove(row);
+        }
+
+        this.state.selectedMenuItems = null;
+
+        this.notifySelectedRowsChanged();
+        this.forceUpdate();
+    }
+    
     renderRows(): React.ReactNode {
 
         var columnsCount = this.state.findOptions.columnOptions.length +
@@ -449,28 +587,36 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         }
 
         var qs = this.state.querySettings;
-
-
-
+        
         var columns = this.state.findOptions.columnOptions.map(co=> ({
             columnOption: co,
             cellFormatter: (qs && qs.formatters && qs.formatters[co.token.fullKey]) || Finder.formatRules.filter(a=> a.isApplicable(co)).last("FormatRules").formatter(co),
             resultIndex: this.state.resultTable.columns.indexOf(co.token.fullKey)
         }));
+        
 
-        
         var rowAttributes = qs && qs.rowAttributes;
-        
+
         return this.state.resultTable.rows.map((row, i) =>
-            <tr key={i} data-entity={liteKey(row.entity) } {...rowAttributes ? rowAttributes(row, this.state.resultTable.columns) : null} style={{
-                opacity: this.state.usedRows.some(s=> row === s) ? 0.5 : 1
-            }}>
-                 {this.props.allowSelection && <td style={{ textAlign: "center" }}><input type="checkbox" className="sf-td-selection" checked={this.state.selectedRows.contains(row) } onChange={this.handleChecked} data-index={i}></input></td> }
-                 {this.state.findOptions.navigate && <td>{((qs && qs.entityFormatter) || Finder.entityFormatRules.filter(a=> a.isApplicable(row)).last("EntityFormatRules").formatter)(row) }</td> }
-                 {columns.map(c =>
-                     <td key={c.resultIndex} style={{ textAlign: c.cellFormatter.textAllign }}>
+            <tr key={i} data-row-index={i} data-entity={liteKey(row.entity) } {...rowAttributes ? rowAttributes(row, this.state.resultTable.columns) : null}
+                style={{ opacity: this.state.usedRows.some(s=> row === s) ? 0.5 : 1 }} >
+
+                 {this.props.allowSelection &&
+                 <td style={{ textAlign: "center" }}>
+                    <input type="checkbox" className="sf-td-selection" checked={this.state.selectedRows.contains(row) } onChange={this.handleChecked} data-index={i}/>
+                     </td>
+                 }
+
+                 {this.state.findOptions.navigate &&
+                 <td>
+                    {((qs && qs.entityFormatter) || Finder.entityFormatRules.filter(a=> a.isApplicable(row)).last("EntityFormatRules").formatter)(row) }
+                     </td>
+                 }
+
+                 {columns.map((c, j) =>
+                    <td key={j} data-column-index={j} style={{ textAlign: c.cellFormatter.textAllign }}>
                         {c.resultIndex == -1 ? null : c.cellFormatter.formatter(row.columns[c.resultIndex]) }
-                        </td>) }
+                         </td>) }
                 </tr>);
     }
 
