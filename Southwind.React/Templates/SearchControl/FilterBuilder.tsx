@@ -15,13 +15,15 @@ interface FilterBuilderProps extends React.Props<FilterBuilder> {
     filterOptions: FilterOption[];
     subTokensOptions: SubTokensOptions;
     queryDescription: QueryDescription;
+    tokenChanged: (token: QueryToken) => void;
+    lastToken: QueryToken;
 }
 
 export default class FilterBuilder extends React.Component<FilterBuilderProps, { }>  {
 
     handlerNewFilter = () => {
         this.props.filterOptions.push({
-            token: null,
+            token: this.props.lastToken,
             columnName: null,
             operation: null,
             value: null,
@@ -52,7 +54,8 @@ export default class FilterBuilder extends React.Component<FilterBuilderProps, {
                                  {this.props.filterOptions.map((f, i)=> <FilterComponent filter={f} key={i}
                                      onDeleteFilter={this.handlerDeleteFilter}
                                      subTokenOptions={this.props.subTokensOptions}
-                                     queryDescription={this.props.queryDescription}/>) }
+                                     queryDescription={this.props.queryDescription}
+                                     tokenChanged ={this.props.tokenChanged} />) }
                                         <tr >
                                             <td colSpan={4}>
                                                 <a title={SearchMessage.AddFilter.niceToString() }
@@ -77,6 +80,7 @@ export interface FilterComponentProps extends React.Props<FilterComponent> {
     onDeleteFilter: (fo: FilterOption) => void;
     queryDescription: QueryDescription;
     subTokenOptions: SubTokensOptions;
+    tokenChanged: (token: QueryToken) => void;
 }
 
 export class FilterComponent extends React.Component<FilterComponentProps, {}>{
@@ -102,6 +106,8 @@ export class FilterComponent extends React.Component<FilterComponentProps, {}>{
             }
         }
         f.token = newToken;
+
+        this.props.tokenChanged(newToken);
 
         this.forceUpdate();
     }

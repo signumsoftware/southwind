@@ -15,7 +15,7 @@ interface ColumnEditorProps extends React.Props<ColumnEditor> {
     columnOption: ColumnOption
     subTokensOptions: SubTokensOptions;
     queryDescription: QueryDescription;
-    onChange: () => void;
+    onChange: (token?: QueryToken) => void;
     close: () => void;
 }
 
@@ -24,13 +24,13 @@ export default class ColumnEditor extends React.Component<ColumnEditorProps, {}>
     handleTokenChanged = (newToken: QueryToken) => {
         this.props.columnOption.token = newToken;
         this.props.columnOption.displayName = newToken.niceName;
-        this.props.onChange();
+        this.props.onChange(newToken);
 
     }
 
     handleOnChange = (event: React.FormEvent) => {
         this.props.columnOption.displayName = (event.currentTarget as HTMLInputElement).value;
-        this.props.onChange();
+        this.props.onChange(null);
     }
 
     render() {

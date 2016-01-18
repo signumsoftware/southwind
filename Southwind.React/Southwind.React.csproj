@@ -250,6 +250,7 @@
     <TypeScriptCompile Include="Templates\EntityControls.tsx" />
     <TypeScriptCompile Include="Templates\NormalControl.tsx" />
     <TypeScriptCompile Include="Templates\NotFound.tsx" />
+    <TypeScriptCompile Include="Templates\SearchControl\MultipliedMessage.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\ContextualItems.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\ColumnEditor.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\QueryTokenBuilder.tsx" />

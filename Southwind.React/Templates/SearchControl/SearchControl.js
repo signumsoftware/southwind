@@ -3,7 +3,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/FindOptions', 'Framework/Signum.React/Scripts/Signum.Entities', 'Framework/Signum.React/Scripts/Reflection', 'Framework/Signum.React/Scripts/Navigator', 'Templates/SearchControl/PaginationSelector', 'Templates/SearchControl/FilterBuilder', 'Templates/SearchControl/ColumnEditor', 'Templates/SearchControl/ContextualItems'], function (require, exports, React, react_bootstrap_1, Finder, FindOptions_1, Signum_Entities_1, Reflection_1, Navigator, PaginationSelector_1, FilterBuilder_1, ColumnEditor_1, ContextualItems_1) {
+define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/FindOptions', 'Framework/Signum.React/Scripts/Signum.Entities', 'Framework/Signum.React/Scripts/Reflection', 'Framework/Signum.React/Scripts/Navigator', 'Templates/SearchControl/PaginationSelector', 'Templates/SearchControl/FilterBuilder', 'Templates/SearchControl/ColumnEditor', 'Templates/SearchControl/MultipliedMessage', 'Templates/SearchControl/ContextualItems'], function (require, exports, React, react_bootstrap_1, Finder, FindOptions_1, Signum_Entities_1, Reflection_1, Navigator, PaginationSelector_1, FilterBuilder_1, ColumnEditor_1, MultipliedMessage_1, ContextualItems_1) {
     var SearchControl = (function (_super) {
         __extends(SearchControl, _super);
         // INIT
@@ -16,7 +16,7 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
                 _this.setState({ loading: false, editingColumn: null });
                 Finder.API.search({
                     queryKey: Reflection_1.getQueryKey(fo.queryName),
-                    filters: fo.filterOptions.filter(function (a) { return a.token != null; }).map(function (fo) { return ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value }); }),
+                    filters: fo.filterOptions.filter(function (a) { return a.token != null && a.operation != null; }).map(function (fo) { return ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value }); }),
                     columns: fo.columnOptions.filter(function (a) { return a.token != null; }).map(function (co) { return ({ token: co.token.fullKey, displayName: co.displayName }); }),
                     orders: fo.orderOptions.filter(function (a) { return a.token != null; }).map(function (oo) { return ({ token: oo.token.fullKey, orderType: oo.orderType }); }),
                     pagination: fo.pagination,
@@ -56,11 +56,16 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
                 }
                 _this.forceUpdate();
             };
-            this.handleColumnChanged = function () {
+            this.handleColumnChanged = function (token) {
+                if (token)
+                    _this.state.lastToken = token;
                 _this.forceUpdate();
             };
             this.handleColumnClose = function () {
                 _this.setState({ editingColumn: null });
+            };
+            this.handleFilterTokenChanged = function (token) {
+                _this.setState({ lastToken: token });
             };
             // TOOLBAR
             this.handleToggleFilters = function () {
@@ -94,8 +99,8 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
             };
             this.handleInsertColumn = function () {
                 var newColumn = {
-                    token: null,
-                    displayName: null,
+                    token: _this.state.lastToken,
+                    displayName: _this.state.lastToken && _this.state.lastToken.niceName,
                     columnName: null,
                 };
                 var cm = _this.state.contextualMenu;
@@ -287,7 +292,7 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
             if (!fo)
                 return null;
             var SFB = this.props.simpleFilterBuilder;
-            return (React.createElement("div", {"className": "sf-search-control SF-control-container"}, SFB && React.createElement("div", {"className": "simple-filter-builder"}, React.createElement(SFB, {"findOptions": fo})), fo.showHeader && fo.showFilters && React.createElement(FilterBuilder_1.default, {"queryDescription": this.state.queryDescription, "filterOptions": fo.filterOptions, "subTokensOptions": FindOptions_1.SubTokensOptions.CanAnyAll | FindOptions_1.SubTokensOptions.CanElement}), fo.showHeader && this.renderToolBar(), this.state.editingColumn && React.createElement(ColumnEditor_1.default, {"columnOption": this.state.editingColumn, "onChange": this.handleColumnChanged, "queryDescription": this.state.queryDescription, "subTokensOptions": FindOptions_1.SubTokensOptions.CanElement, "close": this.handleColumnClose}), React.createElement("div", {"className": "sf-search-results-container table-responsive"}, React.createElement("table", {"className": "sf-search-results table table-hover table-condensed", "onContextMenu": this.handleOnContextMenu}, React.createElement("thead", null, this.renderHeaders()), React.createElement("tbody", null, this.renderRows()))), fo.showFooter && React.createElement(PaginationSelector_1.default, {"pagination": fo.pagination, "onPagination": this.handlePagination, "resultTable": this.state.resultTable}), this.state.contextualMenu && this.renderContextualMenu()));
+            return (React.createElement("div", {"className": "sf-search-control SF-control-container"}, SFB && React.createElement("div", {"className": "simple-filter-builder"}, React.createElement(SFB, {"findOptions": fo})), fo.showHeader && fo.showFilters && React.createElement(FilterBuilder_1.default, {"queryDescription": this.state.queryDescription, "filterOptions": fo.filterOptions, "lastToken": this.state.lastToken, "subTokensOptions": FindOptions_1.SubTokensOptions.CanAnyAll | FindOptions_1.SubTokensOptions.CanElement, "tokenChanged": this.handleFilterTokenChanged}), fo.showHeader && this.renderToolBar(), React.createElement(MultipliedMessage_1.default, {"findOptions": fo, "mainType": this.entityColumn().type}), this.state.editingColumn && React.createElement(ColumnEditor_1.default, {"columnOption": this.state.editingColumn, "onChange": this.handleColumnChanged, "queryDescription": this.state.queryDescription, "subTokensOptions": FindOptions_1.SubTokensOptions.CanElement, "close": this.handleColumnClose}), React.createElement("div", {"className": "sf-search-results-container table-responsive"}, React.createElement("table", {"className": "sf-search-results table table-hover table-condensed", "onContextMenu": this.handleOnContextMenu}, React.createElement("thead", null, this.renderHeaders()), React.createElement("tbody", null, this.renderRows()))), fo.showFooter && React.createElement(PaginationSelector_1.default, {"pagination": fo.pagination, "onPagination": this.handlePagination, "resultTable": this.state.resultTable}), this.state.contextualMenu && this.renderContextualMenu()));
         };
         SearchControl.prototype.renderToolBar = function () {
             var fo = this.state.findOptions;

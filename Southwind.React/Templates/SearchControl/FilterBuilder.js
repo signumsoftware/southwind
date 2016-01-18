@@ -11,7 +11,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/FindOptio
             _super.apply(this, arguments);
             this.handlerNewFilter = function () {
                 _this.props.filterOptions.push({
-                    token: null,
+                    token: _this.props.lastToken,
                     columnName: null,
                     operation: null,
                     value: null,
@@ -25,7 +25,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/FindOptio
         }
         FilterBuilder.prototype.render = function () {
             var _this = this;
-            return (React.createElement("div", {"className": "panel panel-default sf-filters form-xs"}, React.createElement("div", {"className": "panel-body sf-filters-list table-responsive", "style": { overflowX: "visible" }}, React.createElement("table", {"className": "table table-condensed"}, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null), React.createElement("th", {"className": "sf-filter-field-header"}, Signum_Entities_1.SearchMessage.Field.niceToString()), React.createElement("th", null, Signum_Entities_1.SearchMessage.Operation.niceToString()), React.createElement("th", null, Signum_Entities_1.SearchMessage.Value.niceToString()))), React.createElement("tbody", null, this.props.filterOptions.map(function (f, i) { return React.createElement(FilterComponent, {"filter": f, "key": i, "onDeleteFilter": _this.handlerDeleteFilter, "subTokenOptions": _this.props.subTokensOptions, "queryDescription": _this.props.queryDescription}); }), React.createElement("tr", null, React.createElement("td", {"colSpan": 4}, React.createElement("a", {"title": Signum_Entities_1.SearchMessage.AddFilter.niceToString(), "className": "sf-line-button sf-create", "onClick": this.handlerNewFilter}, React.createElement("span", {"className": "glyphicon glyphicon-plus"}), " ", Signum_Entities_1.SearchMessage.AddFilter.niceToString()))))))));
+            return (React.createElement("div", {"className": "panel panel-default sf-filters form-xs"}, React.createElement("div", {"className": "panel-body sf-filters-list table-responsive", "style": { overflowX: "visible" }}, React.createElement("table", {"className": "table table-condensed"}, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null), React.createElement("th", {"className": "sf-filter-field-header"}, Signum_Entities_1.SearchMessage.Field.niceToString()), React.createElement("th", null, Signum_Entities_1.SearchMessage.Operation.niceToString()), React.createElement("th", null, Signum_Entities_1.SearchMessage.Value.niceToString()))), React.createElement("tbody", null, this.props.filterOptions.map(function (f, i) { return React.createElement(FilterComponent, {"filter": f, "key": i, "onDeleteFilter": _this.handlerDeleteFilter, "subTokenOptions": _this.props.subTokensOptions, "queryDescription": _this.props.queryDescription, "tokenChanged": _this.props.tokenChanged}); }), React.createElement("tr", null, React.createElement("td", {"colSpan": 4}, React.createElement("a", {"title": Signum_Entities_1.SearchMessage.AddFilter.niceToString(), "className": "sf-line-button sf-create", "onClick": this.handlerNewFilter}, React.createElement("span", {"className": "glyphicon glyphicon-plus"}), " ", Signum_Entities_1.SearchMessage.AddFilter.niceToString()))))))));
         };
         return FilterBuilder;
     })(React.Component);
@@ -53,6 +53,7 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/FindOptio
                     }
                 }
                 f.token = newToken;
+                _this.props.tokenChanged(newToken);
                 _this.forceUpdate();
             };
             this.handleChangeOperation = function (event) {

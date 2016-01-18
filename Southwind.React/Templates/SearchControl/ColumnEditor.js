@@ -12,11 +12,11 @@ define(["require", "exports", 'react', 'Templates/SearchControl/QueryTokenBuilde
             this.handleTokenChanged = function (newToken) {
                 _this.props.columnOption.token = newToken;
                 _this.props.columnOption.displayName = newToken.niceName;
-                _this.props.onChange();
+                _this.props.onChange(newToken);
             };
             this.handleOnChange = function (event) {
                 _this.props.columnOption.displayName = event.currentTarget.value;
-                _this.props.onChange();
+                _this.props.onChange(null);
             };
         }
         ColumnEditor.prototype.render = function () {

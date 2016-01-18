@@ -4,7 +4,7 @@ import { Modal, ModalProps, ModalClass, ButtonToolbar } from 'react-bootstrap'
 import { DropdownList } from 'react-widgets'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
 import { openModal, IModalProps } from 'Framework/Signum.React/Scripts/Modals';
-import { FilterOperation, FilterOption, QueryDescription, QueryToken, SubTokensOptions } from 'Framework/Signum.React/Scripts/FindOptions'
+import { FilterOperation, FilterOption, QueryDescription, QueryToken, SubTokensOptions, getTokenParents } from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage } from 'Framework/Signum.React/Scripts/Signum.Entities'
 import * as Reflection from 'Framework/Signum.React/Scripts/Reflection'
 import { default as SearchControl, SearchControlProps} from 'Templates/SearchControl/SearchControl'
@@ -22,7 +22,7 @@ interface QueryTokenBuilderProps extends React.Props<QueryTokenBuilder> {
 export default class QueryTokenBuilder extends React.Component<QueryTokenBuilderProps, {}>  {
     render() {
 
-        var tokenList = getTokenList(this.props.queryToken);
+        var tokenList = getTokenParents(this.props.queryToken);
         tokenList.push(null);
         
         return (<div>
@@ -37,14 +37,6 @@ export default class QueryTokenBuilder extends React.Component<QueryTokenBuilder
     }
 }
 
-function getTokenList(token: QueryToken): QueryToken[] {
-    var result = [];
-    while (token != null) {
-        result.insertAt(0, token);
-        token = token.parent;
-    }
-    return result;
-}
 
 interface QueryTokenPartProps extends React.Props<QueryTokenPart> {
     parentToken: QueryToken;

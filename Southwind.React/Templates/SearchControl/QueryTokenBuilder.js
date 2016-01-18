@@ -3,7 +3,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", 'react', 'react-widgets', 'Framework/Signum.React/Scripts/Finder'], function (require, exports, React, react_widgets_1, Finder) {
+define(["require", "exports", 'react', 'react-widgets', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/FindOptions'], function (require, exports, React, react_widgets_1, Finder, FindOptions_1) {
     var QueryTokenBuilder = (function (_super) {
         __extends(QueryTokenBuilder, _super);
         function QueryTokenBuilder() {
@@ -11,7 +11,7 @@ define(["require", "exports", 'react', 'react-widgets', 'Framework/Signum.React/
         }
         QueryTokenBuilder.prototype.render = function () {
             var _this = this;
-            var tokenList = getTokenList(this.props.queryToken);
+            var tokenList = FindOptions_1.getTokenParents(this.props.queryToken);
             tokenList.push(null);
             return (React.createElement("div", null, tokenList.map(function (a, i) { return React.createElement(QueryTokenPart, {"key": i, "queryKey": _this.props.queryKey, "readOnly": _this.props.readOnly, "onTokenSelected": _this.props.onTokenChange, "subTokenOptions": _this.props.subTokenOptions, "parentToken": i == 0 ? null : tokenList[i - 1], "selectedToken": a}); })));
         };
@@ -19,14 +19,6 @@ define(["require", "exports", 'react', 'react-widgets', 'Framework/Signum.React/
     })(React.Component);
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.default = QueryTokenBuilder;
-    function getTokenList(token) {
-        var result = [];
-        while (token != null) {
-            result.insertAt(0, token);
-            token = token.parent;
-        }
-        return result;
-    }
     var QueryTokenPart = (function (_super) {
         __extends(QueryTokenPart, _super);
         function QueryTokenPart(props) {

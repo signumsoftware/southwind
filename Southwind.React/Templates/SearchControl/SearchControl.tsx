@@ -3,13 +3,14 @@ import * as React from 'react'
 import { DropdownButton, MenuItem } from 'react-bootstrap'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
 import { ResultTable, ResultRow, FindOptions, FilterOption, QueryDescription, ColumnOption, ColumnOptionsMode, ColumnDescription,
-toQueryToken, Pagination, PaginationMode, OrderType, OrderOption, SubTokensOptions, filterOperations } from 'Framework/Signum.React/Scripts/FindOptions'
+toQueryToken, Pagination, PaginationMode, OrderType, OrderOption, SubTokensOptions, filterOperations, QueryToken } from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage, Lite, IEntity, liteKey, is } from 'Framework/Signum.React/Scripts/Signum.Entities'
 import { getTypeInfos, IsByAll, getQueryKey, TypeInfo, EntityData} from 'Framework/Signum.React/Scripts/Reflection'
 import * as Navigator from 'Framework/Signum.React/Scripts/Navigator'
 import PaginationSelector from 'Templates/SearchControl/PaginationSelector'
 import FilterBuilder from 'Templates/SearchControl/FilterBuilder'
 import ColumnEditor from 'Templates/SearchControl/ColumnEditor'
+import MultipliedMessage from 'Templates/SearchControl/MultipliedMessage'
 import { getContextualItems, ContextMenu } from 'Templates/SearchControl/ContextualItems'
 
 
@@ -49,6 +50,7 @@ export interface SearchControlState {
     };
 
     editingColumn?: ColumnOption;
+    lastToken?: QueryToken;
 }
 
 
@@ -178,7 +180,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         this.setState({ loading: false, editingColumn: null });
         Finder.API.search({
             queryKey: getQueryKey(fo.queryName),
-            filters: fo.filterOptions.filter(a=> a.token != null).map(fo=> ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value })),
+            filters: fo.filterOptions.filter(a=> a.token != null && a.operation != null).map(fo=> ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value })),
             columns: fo.columnOptions.filter(a=> a.token != null).map(co=> ({ token: co.token.fullKey, displayName: co.displayName })),
             orders: fo.orderOptions.filter(a=> a.token != null).map(oo=> ({ token: oo.token.fullKey, orderType: oo.orderType })),
             pagination: fo.pagination,
@@ -231,12 +233,19 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         this.forceUpdate();
     }
 
-    handleColumnChanged = () => {
+    handleColumnChanged = (token: QueryToken) => {
+        if (token)
+            this.state.lastToken = token;
+
         this.forceUpdate();
     }
 
     handleColumnClose = () => {
         this.setState({ editingColumn: null });
+    }
+
+    handleFilterTokenChanged = (token: QueryToken) => {
+        this.setState({ lastToken: token });
     }
 
     render() {
@@ -253,8 +262,11 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             {fo.showHeader && fo.showFilters && <FilterBuilder
                 queryDescription={this.state.queryDescription}
                 filterOptions={fo.filterOptions}
-                subTokensOptions={SubTokensOptions.CanAnyAll | SubTokensOptions.CanElement}/> }
+                lastToken ={this.state.lastToken}
+                subTokensOptions={SubTokensOptions.CanAnyAll | SubTokensOptions.CanElement}
+                tokenChanged= {this.handleFilterTokenChanged}/> }
             {fo.showHeader && this.renderToolBar() }
+            {<MultipliedMessage findOptions={fo} mainType={this.entityColumn().type}/>}    
             {this.state.editingColumn && <ColumnEditor
                 columnOption={this.state.editingColumn}
                 onChange={this.handleColumnChanged}
@@ -275,6 +287,8 @@ export default class SearchControl extends React.Component<SearchControlProps, S
                 {this.state.contextualMenu && this.renderContextualMenu() }
                 </div>);
     }
+
+  
 
     // TOOLBAR
 
@@ -372,8 +386,8 @@ export default class SearchControl extends React.Component<SearchControlProps, S
     handleInsertColumn = () => {
       
         var newColumn: ColumnOption = {
-            token: null,
-            displayName: null,
+            token: this.state.lastToken,
+            displayName: this.state.lastToken && this.state.lastToken.niceName,
             columnName: null,
         };
 
