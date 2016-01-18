@@ -6,9 +6,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/FindOptions', 'Framework/Signum.React/Scripts/Signum.Entities', 'react-bootstrap'], function (require, exports, React, Finder, FindOptions_1, Signum_Entities_1, react_bootstrap_1) {
     var PaginationSelector = (function (_super) {
         __extends(PaginationSelector, _super);
-        function PaginationSelector(props) {
+        function PaginationSelector() {
             var _this = this;
-            _super.call(this, props);
+            _super.apply(this, arguments);
             this.handleMode = function (e) {
                 var mode = e.currentTarget.value;
                 var p = {
@@ -26,7 +26,6 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Finder', 
                 var p = Dic.extend({}, _this.props.pagination, { currentPage: page.eventKey });
                 _this.props.onPagination(p);
             };
-            this.state = {};
         }
         PaginationSelector.prototype.render = function () {
             if (!this.props.pagination)

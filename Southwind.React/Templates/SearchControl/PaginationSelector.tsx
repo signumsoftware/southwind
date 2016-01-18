@@ -3,7 +3,7 @@ import * as React from 'react'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
 import { ResultTable, Pagination, PaginationMode, PaginateMath} from 'Framework/Signum.React/Scripts/FindOptions'
 import { SearchMessage, JavascriptMessage, Lite, IEntity, liteKey, DynamicQuery } from 'Framework/Signum.React/Scripts/Signum.Entities'
-import {getEnumInfo} from 'Framework/Signum.React/Scripts/Reflection'
+import { getEnumInfo } from 'Framework/Signum.React/Scripts/Reflection'
 import * as Navigator from 'Framework/Signum.React/Scripts/Navigator'
 import { Input, Pagination as BPagination } from 'react-bootstrap'
 
@@ -15,19 +15,7 @@ interface PaginationSelectorProps {
 }
 
 
-interface PaginationSelectorState {
-}
-
-
-export default class PaginationSelector extends React.Component<PaginationSelectorProps, PaginationSelectorState> {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
-
-
+export default class PaginationSelector extends React.Component<PaginationSelectorProps, {}> {
     render() {
 
         if (!this.props.pagination)

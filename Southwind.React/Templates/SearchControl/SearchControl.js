@@ -3,7 +3,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/FindOptions', 'Framework/Signum.React/Scripts/Signum.Entities', 'Framework/Signum.React/Scripts/Reflection', 'Framework/Signum.React/Scripts/Navigator', 'Templates/SearchControl/PaginationSelector', 'Templates/SearchControl/FilterBuilder', 'Templates/SearchControl/ContextualItems'], function (require, exports, React, react_bootstrap_1, Finder, FindOptions_1, Signum_Entities_1, Reflection_1, Navigator, PaginationSelector_1, FilterBuilder_1, ContextualItems_1) {
+define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/FindOptions', 'Framework/Signum.React/Scripts/Signum.Entities', 'Framework/Signum.React/Scripts/Reflection', 'Framework/Signum.React/Scripts/Navigator', 'Templates/SearchControl/PaginationSelector', 'Templates/SearchControl/FilterBuilder', 'Templates/SearchControl/ColumnEditor', 'Templates/SearchControl/ContextualItems'], function (require, exports, React, react_bootstrap_1, Finder, FindOptions_1, Signum_Entities_1, Reflection_1, Navigator, PaginationSelector_1, FilterBuilder_1, ColumnEditor_1, ContextualItems_1) {
     var SearchControl = (function (_super) {
         __extends(SearchControl, _super);
         // INIT
@@ -13,12 +13,12 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
             // MAIN
             this.handleSearch = function () {
                 var fo = _this.state.findOptions;
-                _this.setState({ loading: false });
+                _this.setState({ loading: false, editingColumn: null });
                 Finder.API.search({
                     queryKey: Reflection_1.getQueryKey(fo.queryName),
-                    filters: fo.filterOptions.map(function (fo) { return ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value }); }),
-                    columns: fo.columnOptions.map(function (co) { return ({ token: co.token.fullKey, displayName: co.displayName }); }),
-                    orders: fo.orderOptions.map(function (oo) { return ({ token: oo.token.fullKey, orderType: oo.orderType }); }),
+                    filters: fo.filterOptions.filter(function (a) { return a.token != null; }).map(function (fo) { return ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value }); }),
+                    columns: fo.columnOptions.filter(function (a) { return a.token != null; }).map(function (co) { return ({ token: co.token.fullKey, displayName: co.displayName }); }),
+                    orders: fo.orderOptions.filter(function (a) { return a.token != null; }).map(function (oo) { return ({ token: oo.token.fullKey, orderType: oo.orderType }); }),
                     pagination: fo.pagination,
                 }).then(function (rt) {
                     _this.setState({ resultTable: rt, selectedRows: [], selectedMenuItems: null, usedRows: [], loading: false });
@@ -43,7 +43,7 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
                     position: { pageX: event.pageX, pageY: event.pageY },
                     columnIndex: columnIndex,
                     rowIndex: rowIndex,
-                    columnOffset: td.tagName == "th" ? _this.getOffset(event.pageX, td.getBoundingClientRect()) : null
+                    columnOffset: td.tagName == "TH" ? _this.getOffset(event.pageX, td.getBoundingClientRect(), Number.MAX_VALUE) : null
                 };
                 if (rowIndex != null) {
                     var row = _this.state.resultTable.rows[rowIndex];
@@ -55,6 +55,12 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
                         _this.loadMenuItems();
                 }
                 _this.forceUpdate();
+            };
+            this.handleColumnChanged = function () {
+                _this.forceUpdate();
+            };
+            this.handleColumnClose = function () {
+                _this.setState({ editingColumn: null });
             };
             // TOOLBAR
             this.handleToggleFilters = function () {
@@ -84,6 +90,27 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
                 });
                 if (!fo.showFilters)
                     fo.showFilters = true;
+                _this.forceUpdate();
+            };
+            this.handleInsertColumn = function () {
+                var newColumn = {
+                    token: null,
+                    displayName: null,
+                    columnName: null,
+                };
+                var cm = _this.state.contextualMenu;
+                _this.setState({ editingColumn: newColumn });
+                _this.state.findOptions.columnOptions.insertAt(cm.columnIndex + cm.columnOffset, newColumn);
+                _this.forceUpdate();
+            };
+            this.handleEditColumn = function () {
+                var cm = _this.state.contextualMenu;
+                _this.setState({ editingColumn: _this.state.findOptions.columnOptions[cm.columnIndex] });
+                _this.forceUpdate();
+            };
+            this.handleRemoveColumn = function () {
+                var cm = _this.state.contextualMenu;
+                _this.state.findOptions.columnOptions.removeAt(cm.columnIndex);
                 _this.forceUpdate();
             };
             this.handleToggleAll = function () {
@@ -127,7 +154,7 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
                 var th = de.currentTarget;
                 var size = th.scrollWidth;
                 var columnIndex = parseInt(th.getAttribute("data-column-index"));
-                var offset = _this.getOffset(de.nativeEvent.pageX, th.getBoundingClientRect());
+                var offset = _this.getOffset(de.nativeEvent.pageX, th.getBoundingClientRect(), 50);
                 var dropBorderIndex = offset == null ? null : columnIndex + offset;
                 if (dropBorderIndex == _this.state.dragColumnIndex || dropBorderIndex == _this.state.dragColumnIndex + 1)
                     dropBorderIndex = null;
@@ -260,7 +287,7 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
             if (!fo)
                 return null;
             var SFB = this.props.simpleFilterBuilder;
-            return (React.createElement("div", {"className": "sf-search-control SF-control-container"}, SFB && React.createElement("div", {"className": "simple-filter-builder"}, React.createElement(SFB, {"findOptions": fo})), fo.showHeader && fo.showFilters && React.createElement(FilterBuilder_1.default, {"queryDescription": this.state.queryDescription, "filterOptions": fo.filterOptions, "subTokensOptions": FindOptions_1.SubTokensOptions.CanAnyAll | FindOptions_1.SubTokensOptions.CanElement}), fo.showHeader && this.renderToolBar(), React.createElement("div", {"className": "sf-search-results-container table-responsive"}, React.createElement("table", {"className": "sf-search-results table table-hover table-condensed", "onContextMenu": this.handleOnContextMenu}, React.createElement("thead", null, this.renderHeaders()), React.createElement("tbody", null, this.renderRows()))), fo.showFooter && React.createElement(PaginationSelector_1.default, {"pagination": fo.pagination, "onPagination": this.handlePagination, "resultTable": this.state.resultTable}), this.state.contextualMenu && this.renderContextualMenu()));
+            return (React.createElement("div", {"className": "sf-search-control SF-control-container"}, SFB && React.createElement("div", {"className": "simple-filter-builder"}, React.createElement(SFB, {"findOptions": fo})), fo.showHeader && fo.showFilters && React.createElement(FilterBuilder_1.default, {"queryDescription": this.state.queryDescription, "filterOptions": fo.filterOptions, "subTokensOptions": FindOptions_1.SubTokensOptions.CanAnyAll | FindOptions_1.SubTokensOptions.CanElement}), fo.showHeader && this.renderToolBar(), this.state.editingColumn && React.createElement(ColumnEditor_1.default, {"columnOption": this.state.editingColumn, "onChange": this.handleColumnChanged, "queryDescription": this.state.queryDescription, "subTokensOptions": FindOptions_1.SubTokensOptions.CanElement, "close": this.handleColumnClose}), React.createElement("div", {"className": "sf-search-results-container table-responsive"}, React.createElement("table", {"className": "sf-search-results table table-hover table-condensed", "onContextMenu": this.handleOnContextMenu}, React.createElement("thead", null, this.renderHeaders()), React.createElement("tbody", null, this.renderRows()))), fo.showFooter && React.createElement(PaginationSelector_1.default, {"pagination": fo.pagination, "onPagination": this.handlePagination, "resultTable": this.state.resultTable}), this.state.contextualMenu && this.renderContextualMenu()));
         };
         SearchControl.prototype.renderToolBar = function () {
             var fo = this.state.findOptions;
@@ -291,8 +318,11 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
             if (this.canFilter() && cm.columnIndex != null)
                 menuItems.push(React.createElement(react_bootstrap_1.MenuItem, {"className": "sf-quickfilter-header", "onClick": this.handleQuickFilter}, Signum_Entities_1.JavascriptMessage.addFilter.niceToString()));
             if (cm.rowIndex == null || fo.allowChangeColumns) {
-                menuItems.push(React.createElement(react_bootstrap_1.MenuItem, {"className": "sf-edit-header", "onClick": this.handleQuickFilter}, Signum_Entities_1.JavascriptMessage.editColumn.niceToString()));
-                menuItems.push(React.createElement(react_bootstrap_1.MenuItem, {"className": "sf-remove-header", "onClick": this.handleQuickFilter}, Signum_Entities_1.JavascriptMessage.removeColumn.niceToString()));
+                if (menuItems.length)
+                    menuItems.push(React.createElement(react_bootstrap_1.MenuItem, {"divider": true}));
+                menuItems.push(React.createElement(react_bootstrap_1.MenuItem, {"className": "sf-insert-header", "onClick": this.handleInsertColumn}, Signum_Entities_1.JavascriptMessage.insertColumn.niceToString()));
+                menuItems.push(React.createElement(react_bootstrap_1.MenuItem, {"className": "sf-edit-header", "onClick": this.handleEditColumn}, Signum_Entities_1.JavascriptMessage.editColumn.niceToString()));
+                menuItems.push(React.createElement(react_bootstrap_1.MenuItem, {"className": "sf-remove-header", "onClick": this.handleRemoveColumn}, Signum_Entities_1.JavascriptMessage.removeColumn.niceToString()));
             }
             if (cm.rowIndex != null && this.state.selectedMenuItems) {
                 if (menuItems.length && this.state.selectedMenuItems.length)
@@ -309,22 +339,26 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
             if (this.props.onSelectionChanged)
                 this.props.onSelectionChanged(this.state.selectedRows.map(function (a) { return a.entity; }));
         };
-        SearchControl.prototype.getOffset = function (pageX, rect) {
+        SearchControl.prototype.getOffset = function (pageX, rect, margin) {
+            if (margin > rect.width / 2)
+                margin = rect.width / 2;
             var width = rect.width;
             var offsetX = pageX - rect.left;
-            if (width < 100 ? (offsetX < (width / 2)) : (offsetX < 50))
+            if (offsetX < margin)
                 return 0;
-            if (width < 100 ? (offsetX > (width / 2)) : (offsetX > (width - 50)))
+            if (offsetX > (width - margin))
                 return 1;
             return null;
         };
         SearchControl.prototype.renderHeaders = function () {
             var _this = this;
             return React.createElement("tr", null, this.props.allowSelection && React.createElement("th", {"className": "sf-th-selection"}, React.createElement("input", {"type": "checkbox", "id": "cbSelectAll", "onClick": this.handleToggleAll, "checked": this.allSelected()})), this.state.findOptions.navigate && React.createElement("th", {"className": "sf-th-entity"}), this.state.findOptions.columnOptions.map(function (co, i) {
-                return React.createElement("th", {"draggable": true, "style": i == _this.state.dragColumnIndex ? { opacity: 0.5 } : null, "className": (i == _this.state.dropBorderIndex ? "drag-left " : i == _this.state.dropBorderIndex - 1 ? "drag-right " : ""), "data-column-name": co.token.fullKey, "data-column-index": i, "key": i, "onClick": _this.handleHeaderClick, "onDragStart": _this.handleHeaderDragStart, "onDragEnd": _this.handleHeaderDragEnd, "onDragOver": _this.handlerHeaderDragOver, "onDragEnter": _this.handlerHeaderDragOver, "onDrop": _this.handleHeaderDrop}, React.createElement("span", {"className": "sf-header-sort " + _this.orderClassName(co)}), React.createElement("span", null, " ", co.displayName));
+                return React.createElement("th", {"draggable": true, "style": i == _this.state.dragColumnIndex ? { opacity: 0.5 } : null, "className": (i == _this.state.dropBorderIndex ? "drag-left " : i == _this.state.dropBorderIndex - 1 ? "drag-right " : ""), "data-column-name": co.token && co.token.fullKey, "data-column-index": i, "key": i, "onClick": _this.handleHeaderClick, "onDragStart": _this.handleHeaderDragStart, "onDragEnd": _this.handleHeaderDragEnd, "onDragOver": _this.handlerHeaderDragOver, "onDragEnter": _this.handlerHeaderDragOver, "onDrop": _this.handleHeaderDrop}, React.createElement("span", {"className": "sf-header-sort " + _this.orderClassName(co)}), React.createElement("span", null, " ", co.displayName));
             }));
         };
         SearchControl.prototype.orderClassName = function (column) {
+            if (column.token == null)
+                return "";
             var orders = this.state.findOptions.orderOptions;
             var o = orders.filter(function (a) { return a.token.fullKey == column.token.fullKey; }).firstOrNull();
             if (o == null)
@@ -348,15 +382,15 @@ define(["require", "exports", 'react', 'react-bootstrap', 'Framework/Signum.Reac
             var qs = this.state.querySettings;
             var columns = this.state.findOptions.columnOptions.map(function (co) { return ({
                 columnOption: co,
-                cellFormatter: (qs && qs.formatters && qs.formatters[co.token.fullKey]) || Finder.formatRules.filter(function (a) { return a.isApplicable(co); }).last("FormatRules").formatter(co),
-                resultIndex: _this.state.resultTable.columns.indexOf(co.token.fullKey)
+                cellFormatter: co.token == null ? null : (qs && qs.formatters && qs.formatters[co.token.fullKey]) || Finder.formatRules.filter(function (a) { return a.isApplicable(co); }).last("FormatRules").formatter(co),
+                resultIndex: co.token == null ? null : _this.state.resultTable.columns.indexOf(co.token.fullKey)
             }); });
             var rowAttributes = qs && qs.rowAttributes;
             return this.state.resultTable.rows.map(function (row, i) {
                 return React.createElement("tr", React.__spread({"key": i, "data-row-index": i, "data-entity": Signum_Entities_1.liteKey(row.entity)}, rowAttributes ? rowAttributes(row, _this.state.resultTable.columns) : null, {"style": { opacity: _this.state.usedRows.some(function (s) { return row === s; }) ? 0.5 : 1 }}), _this.props.allowSelection &&
                     React.createElement("td", {"style": { textAlign: "center" }}, React.createElement("input", {"type": "checkbox", "className": "sf-td-selection", "checked": _this.state.selectedRows.contains(row), "onChange": _this.handleChecked, "data-index": i})), _this.state.findOptions.navigate &&
                     React.createElement("td", null, ((qs && qs.entityFormatter) || Finder.entityFormatRules.filter(function (a) { return a.isApplicable(row); }).last("EntityFormatRules").formatter)(row)), columns.map(function (c, j) {
-                    return React.createElement("td", {"key": j, "data-column-index": j, "style": { textAlign: c.cellFormatter.textAllign }}, c.resultIndex == -1 ? null : c.cellFormatter.formatter(row.columns[c.resultIndex]));
+                    return React.createElement("td", {"key": j, "data-column-index": j, "style": { textAlign: c.cellFormatter && c.cellFormatter.textAllign }}, c.resultIndex == -1 || c.cellFormatter == null ? null : c.cellFormatter.formatter(row.columns[c.resultIndex]));
                 }));
             });
         };

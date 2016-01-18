@@ -9,6 +9,7 @@ import { getTypeInfos, IsByAll, getQueryKey, TypeInfo, EntityData} from 'Framewo
 import * as Navigator from 'Framework/Signum.React/Scripts/Navigator'
 import PaginationSelector from 'Templates/SearchControl/PaginationSelector'
 import FilterBuilder from 'Templates/SearchControl/FilterBuilder'
+import ColumnEditor from 'Templates/SearchControl/ColumnEditor'
 import { getContextualItems, ContextMenu } from 'Templates/SearchControl/ContextualItems'
 
 
@@ -174,12 +175,12 @@ export default class SearchControl extends React.Component<SearchControlProps, S
 
     handleSearch = () => {
         var fo = this.state.findOptions;
-        this.setState({ loading: false });
+        this.setState({ loading: false, editingColumn: null });
         Finder.API.search({
             queryKey: getQueryKey(fo.queryName),
-            filters: fo.filterOptions.map(fo=> ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value })),
-            columns: fo.columnOptions.map(co=> ({ token: co.token.fullKey, displayName: co.displayName })),
-            orders: fo.orderOptions.map(oo=> ({ token: oo.token.fullKey, orderType: oo.orderType })),
+            filters: fo.filterOptions.filter(a=> a.token != null).map(fo=> ({ token: fo.token.fullKey, operation: fo.operation, value: fo.value })),
+            columns: fo.columnOptions.filter(a=> a.token != null).map(co=> ({ token: co.token.fullKey, displayName: co.displayName })),
+            orders: fo.orderOptions.filter(a=> a.token != null).map(oo=> ({ token: oo.token.fullKey, orderType: oo.orderType })),
             pagination: fo.pagination,
         }).then(rt=> {
             this.setState({ resultTable: rt, selectedRows: [], selectedMenuItems: null, usedRows: [], loading: false });
@@ -212,7 +213,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             position: { pageX: event.pageX, pageY: event.pageY },
             columnIndex,
             rowIndex,
-            columnOffset: td.tagName == "th" ? this.getOffset(event.pageX, td.getBoundingClientRect()) : null
+            columnOffset: td.tagName == "TH" ? this.getOffset(event.pageX, td.getBoundingClientRect(), Number.MAX_VALUE) : null
         };
 
         if (rowIndex != null) {
@@ -228,6 +229,14 @@ export default class SearchControl extends React.Component<SearchControlProps, S
 
 
         this.forceUpdate();
+    }
+
+    handleColumnChanged = () => {
+        this.forceUpdate();
+    }
+
+    handleColumnClose = () => {
+        this.setState({ editingColumn: null });
     }
 
     render() {
@@ -246,6 +255,12 @@ export default class SearchControl extends React.Component<SearchControlProps, S
                 filterOptions={fo.filterOptions}
                 subTokensOptions={SubTokensOptions.CanAnyAll | SubTokensOptions.CanElement}/> }
             {fo.showHeader && this.renderToolBar() }
+            {this.state.editingColumn && <ColumnEditor
+                columnOption={this.state.editingColumn}
+                onChange={this.handleColumnChanged}
+                queryDescription={this.state.queryDescription}
+                subTokensOptions={SubTokensOptions.CanElement}
+                close={this.handleColumnClose}/>}
             <div className="sf-search-results-container table-responsive" >
             <table className="sf-search-results table table-hover table-condensed" onContextMenu={this.handleOnContextMenu} >
                 <thead>
@@ -354,6 +369,37 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         this.forceUpdate();
     }
 
+    handleInsertColumn = () => {
+      
+        var newColumn: ColumnOption = {
+            token: null,
+            displayName: null,
+            columnName: null,
+        };
+
+        var cm = this.state.contextualMenu;
+        this.setState({ editingColumn: newColumn });
+        this.state.findOptions.columnOptions.insertAt(cm.columnIndex + cm.columnOffset, newColumn);
+
+        this.forceUpdate();
+    }
+
+    handleEditColumn = () => {
+
+        var cm = this.state.contextualMenu;
+        this.setState({ editingColumn: this.state.findOptions.columnOptions[cm.columnIndex] });
+
+        this.forceUpdate();
+    }
+
+    handleRemoveColumn = () => {
+
+        var cm = this.state.contextualMenu;
+        this.state.findOptions.columnOptions.removeAt(cm.columnIndex);
+
+        this.forceUpdate();
+    }
+
     renderContextualMenu() {
 
         var cm = this.state.contextualMenu;
@@ -364,8 +410,13 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             menuItems.push(<MenuItem className="sf-quickfilter-header" onClick={this.handleQuickFilter}>{JavascriptMessage.addFilter.niceToString() }</MenuItem>);
 
         if (cm.rowIndex == null || fo.allowChangeColumns) {
-            menuItems.push(<MenuItem className="sf-edit-header" onClick={this.handleQuickFilter}>{JavascriptMessage.editColumn.niceToString() }</MenuItem>);
-            menuItems.push(<MenuItem className="sf-remove-header" onClick={this.handleQuickFilter}>{JavascriptMessage.removeColumn.niceToString() }</MenuItem>);
+
+            if (menuItems.length)
+                menuItems.push(<MenuItem divider/>);
+                        
+            menuItems.push(<MenuItem className="sf-insert-header" onClick={this.handleInsertColumn}>{ JavascriptMessage.insertColumn.niceToString() }</MenuItem>);
+            menuItems.push(<MenuItem className="sf-edit-header" onClick={this.handleEditColumn}>{JavascriptMessage.editColumn.niceToString() }</MenuItem>);
+            menuItems.push(<MenuItem className="sf-remove-header" onClick={this.handleRemoveColumn}>{JavascriptMessage.removeColumn.niceToString() }</MenuItem>);
         }
 
         if (cm.rowIndex != null && this.state.selectedMenuItems) {
@@ -448,15 +499,18 @@ export default class SearchControl extends React.Component<SearchControlProps, S
     }
 
 
-    getOffset(pageX: number, rect: ClientRect) {
+    getOffset(pageX: number, rect: ClientRect, margin: number) {
+
+        if (margin > rect.width / 2)
+            margin = rect.width / 2;
 
         var width = rect.width;
         var offsetX = pageX - rect.left;
 
-        if (width < 100 ? (offsetX < (width / 2)) : (offsetX < 50))
+        if (offsetX < margin)
             return 0;
 
-        if (width < 100 ? (offsetX > (width / 2)) : (offsetX > (width - 50)))
+        if (offsetX > (width - margin))
             return 1;
 
         return null;
@@ -471,7 +525,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
 
         var columnIndex = parseInt(th.getAttribute("data-column-index"));
 
-        var offset = this.getOffset((de.nativeEvent as DragEvent).pageX, th.getBoundingClientRect());
+        var offset = this.getOffset((de.nativeEvent as DragEvent).pageX, th.getBoundingClientRect(), 50);
 
         var dropBorderIndex = offset == null ? null : columnIndex + offset;
 
@@ -518,7 +572,7 @@ export default class SearchControl extends React.Component<SearchControlProps, S
             <th draggable={true}
                 style={i == this.state.dragColumnIndex ? { opacity: 0.5 } : null }
                 className={(i == this.state.dropBorderIndex ? "drag-left " : i == this.state.dropBorderIndex - 1 ? "drag-right " : "") }
-                data-column-name={co.token.fullKey}
+                data-column-name={co.token && co.token.fullKey}
                 data-column-index={i}
                 key={i}
                 onClick={this.handleHeaderClick}
@@ -533,6 +587,10 @@ export default class SearchControl extends React.Component<SearchControlProps, S
     }
 
     orderClassName(column: ColumnOption) {
+
+        if (column.token == null)
+            return "";
+
         var orders = this.state.findOptions.orderOptions;
 
         var o = orders.filter(a=> a.token.fullKey == column.token.fullKey).firstOrNull();
@@ -590,8 +648,8 @@ export default class SearchControl extends React.Component<SearchControlProps, S
         
         var columns = this.state.findOptions.columnOptions.map(co=> ({
             columnOption: co,
-            cellFormatter: (qs && qs.formatters && qs.formatters[co.token.fullKey]) || Finder.formatRules.filter(a=> a.isApplicable(co)).last("FormatRules").formatter(co),
-            resultIndex: this.state.resultTable.columns.indexOf(co.token.fullKey)
+            cellFormatter: co.token == null ? null : (qs && qs.formatters && qs.formatters[co.token.fullKey]) || Finder.formatRules.filter(a=> a.isApplicable(co)).last("FormatRules").formatter(co),
+            resultIndex: co.token == null ? null : this.state.resultTable.columns.indexOf(co.token.fullKey)
         }));
         
 
@@ -614,8 +672,8 @@ export default class SearchControl extends React.Component<SearchControlProps, S
                  }
 
                  {columns.map((c, j) =>
-                    <td key={j} data-column-index={j} style={{ textAlign: c.cellFormatter.textAllign }}>
-                        {c.resultIndex == -1 ? null : c.cellFormatter.formatter(row.columns[c.resultIndex]) }
+                    <td key={j} data-column-index={j} style={{ textAlign: c.cellFormatter && c.cellFormatter.textAllign }}>
+                        {c.resultIndex == -1 || c.cellFormatter == null ? null : c.cellFormatter.formatter(row.columns[c.resultIndex]) }
                          </td>) }
                 </tr>);
     }

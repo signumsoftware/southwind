@@ -16,12 +16,14 @@ interface ColumnEditorProps extends React.Props<ColumnEditor> {
     subTokensOptions: SubTokensOptions;
     queryDescription: QueryDescription;
     onChange: () => void;
+    close: () => void;
 }
 
 export default class ColumnEditor extends React.Component<ColumnEditorProps, {}>  {
 
     handleTokenChanged = (newToken: QueryToken) => {
         this.props.columnOption.token = newToken;
+        this.props.columnOption.displayName = newToken.niceName;
         this.props.onChange();
 
     }
@@ -32,17 +34,19 @@ export default class ColumnEditor extends React.Component<ColumnEditorProps, {}>
     }
 
     render() {
-        return <div className="sf-column-editor">
-            <QueryTokenBuilder
-                queryToken={this.props.columnOption.token}
-                onTokenChange={this.handleTokenChanged}
-                queryKey={this.props.queryDescription.queryKey}
-                subTokenOptions={this.props.subTokensOptions}
-                readOnly={false}/>
-            <input className="form-control"
-                value={this.props.columnOption.displayName}
-                placeholder={this.props.columnOption.token.niceName}
-                onChange={this.handleOnChange} />
+        var co = this.props.columnOption;
+
+        return <div className="sf-column-editor form-xs">
+            <button type="button" className="close" aria-label="Close" onClick={this.props.close} ><span aria-hidden="true">×</span></button>
+             <QueryTokenBuilder
+                 queryToken={co.token}
+                 onTokenChange={this.handleTokenChanged}
+                 queryKey={this.props.queryDescription.queryKey}
+                 subTokenOptions={this.props.subTokensOptions}
+                 readOnly={false}/>
+          <input className="form-control"
+              value={co.displayName}
+              onChange={this.handleOnChange} />
             </div>;
     }
 

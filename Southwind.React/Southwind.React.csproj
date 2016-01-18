@@ -251,6 +251,7 @@
     <TypeScriptCompile Include="Templates\NormalControl.tsx" />
     <TypeScriptCompile Include="Templates\NotFound.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\ContextualItems.tsx" />
+    <TypeScriptCompile Include="Templates\SearchControl\ColumnEditor.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\QueryTokenBuilder.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\PaginationSelector.tsx" />
     <TypeScriptCompile Include="Templates\NormalPage.tsx" />

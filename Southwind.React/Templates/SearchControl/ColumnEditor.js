@@ -11,6 +11,7 @@ define(["require", "exports", 'react', 'Templates/SearchControl/QueryTokenBuilde
             _super.apply(this, arguments);
             this.handleTokenChanged = function (newToken) {
                 _this.props.columnOption.token = newToken;
+                _this.props.columnOption.displayName = newToken.niceName;
                 _this.props.onChange();
             };
             this.handleOnChange = function (event) {
@@ -19,7 +20,8 @@ define(["require", "exports", 'react', 'Templates/SearchControl/QueryTokenBuilde
             };
         }
         ColumnEditor.prototype.render = function () {
-            return React.createElement("div", {"className": "sf-column-editor"}, React.createElement(QueryTokenBuilder_1.default, {"queryToken": this.props.columnOption.token, "onTokenChange": this.handleTokenChanged, "queryKey": this.props.queryDescription.queryKey, "subTokenOptions": this.props.subTokensOptions, "readOnly": false}), React.createElement("input", {"className": "form-control", "value": this.props.columnOption.displayName, "placeholder": this.props.columnOption.token.niceName, "onChange": this.handleOnChange}));
+            var co = this.props.columnOption;
+            return React.createElement("div", {"className": "sf-column-editor form-xs"}, React.createElement("button", {"type": "button", "className": "close", "aria-label": "Close", "onClick": this.props.close}, React.createElement("span", {"aria-hidden": "true"}, "×")), React.createElement(QueryTokenBuilder_1.default, {"queryToken": co.token, "onTokenChange": this.handleTokenChanged, "queryKey": this.props.queryDescription.queryKey, "subTokenOptions": this.props.subTokensOptions, "readOnly": false}), React.createElement("input", {"className": "form-control", "value": co.displayName, "onChange": this.handleOnChange}));
         };
         return ColumnEditor;
     })(React.Component);
