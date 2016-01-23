@@ -34,7 +34,7 @@ define(["require", "exports", 'react', 'react-bootstrap'], function (require, ex
             var style = { left: position.pageX + "px", top: position.pageY + "px", zIndex: 9999, display: "block", position: "absolute" };
             var ul = React.createElement("ul", React.__spread({}, props, {"className": classes(props.className, "dropdown-menu sf-context-menu"), "style": style}), this.props.children);
             return ul;
-            return React.createElement(react_bootstrap_1.Overlay, {"show": this.props.position != null, "rootClose": true, "onHide": this.props.onHide}, "result ");
+            //return <Overlay show={this.props.position != null} rootClose={true} onHide={this.props.onHide}>result </Overlay>;
         };
         return ContextMenu;
     })(React.Component);

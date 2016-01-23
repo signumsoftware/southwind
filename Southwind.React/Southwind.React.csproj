@@ -247,8 +247,11 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\ConfigureReactWidgets.ts" />
     <TypeScriptCompile Include="Templates\About.tsx" />
-    <TypeScriptCompile Include="Templates\EntityControls.tsx" />
-    <TypeScriptCompile Include="Templates\NormalControl.tsx" />
+    <TypeScriptCompile Include="Templates\EntityControls\EntityList.tsx" />
+    <TypeScriptCompile Include="Templates\EntityControls\EntityListBase.tsx" />
+    <TypeScriptCompile Include="Templates\EntityControls\EntityCombo.tsx" />
+    <TypeScriptCompile Include="Templates\EntityControls\EntityLine.tsx" />
+    <TypeScriptCompile Include="Templates\EntityControls\EntityBase.tsx" />
     <TypeScriptCompile Include="Templates\NotFound.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\MultipliedMessage.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\ContextualItems.tsx" />
@@ -257,6 +260,8 @@
     <TypeScriptCompile Include="Templates\SearchControl\PaginationSelector.tsx" />
     <TypeScriptCompile Include="Templates\NormalPage.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\FilterBuilder.tsx" />
+    <TypeScriptCompile Include="Templates\NormalPopup.tsx" />
+    <TypeScriptCompile Include="Templates\SelectorPopup.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchPopup.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchPage.tsx" />
     <TypeScriptCompile Include="Templates\SearchControl\SearchControl.tsx" />

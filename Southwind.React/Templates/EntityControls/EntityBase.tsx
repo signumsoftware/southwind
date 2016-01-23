@@ -1,16 +1,15 @@
 ﻿import * as React from 'react'
 import { Link } from 'react-router'
-import * as moment from 'moment'
-import { Input, Tab } from 'react-bootstrap'
-//import { DatePicker } from 'react-widgets'
-import { ModifiableEntity, Lite, IEntity, Entity, EntityControlMessage, JavascriptMessage, toLite } from 'Framework/Signum.React/Scripts/Signum.Entities'
 import * as Navigator from 'Framework/Signum.React/Scripts/Navigator'
+import * as Constructor from 'Framework/Signum.React/Scripts/Constructor'
 import * as Finder from 'Framework/Signum.React/Scripts/Finder'
 import { FindOptions } from 'Framework/Signum.React/Scripts/FindOptions'
 import { TypeContext, StyleContext, StyleOptions, FormGroupStyle } from 'Framework/Signum.React/Scripts/TypeContext'
 import { PropertyRoute, PropertyRouteType, MemberInfo, getTypeInfo, getTypeInfos, TypeInfo, IsByAll } from 'Framework/Signum.React/Scripts/Reflection'
+import { ModifiableEntity, Lite, IEntity, Entity, EntityControlMessage, JavascriptMessage, toLite, is, liteKey } from 'Framework/Signum.React/Scripts/Signum.Entities'
 import { LineBase, LineBaseProps, FormGroup, FormControlStatic, runTasks} from 'Framework/Signum.React/Scripts/Lines/LineBase'
 import Typeahead from 'Framework/Signum.React/Scripts/Lines/Typeahead'
+import SelectorPopup from 'Templates/SelectorPopup'
 
 
 export interface EntityBaseProps extends LineBaseProps {
@@ -21,13 +20,12 @@ export interface EntityBaseProps extends LineBaseProps {
     find?: boolean;
     remove?: boolean;
 
-    onView?: (entity: ModifiableEntity, pr: PropertyRoute) => Promise<ModifiableEntity>;
-    onCreate?: () => Promise<ModifiableEntity>;
+    onView?: (entity: ModifiableEntity | Lite<IEntity>, pr: PropertyRoute) => Promise<ModifiableEntity>;
+    onCreate?: () => Promise<ModifiableEntity | Lite<IEntity>>;
     onFind?: () => Promise<ModifiableEntity | Lite<IEntity>>;
     onRemove?: (entity: ModifiableEntity| Lite<IEntity>) => Promise<boolean>;
 
     partialViewName?: string;
-    ctx: TypeContext<ModifiableEntity | Lite<IEntity>>;
 }
 
 
@@ -58,6 +56,10 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
         state.remove = true;
     }
 
+    getCurrentEntity(): ModifiableEntity | Lite<Entity> {
+        return this.state.ctx.value;
+    }
+
     convert(entityOrLite: ModifiableEntity | Lite<IEntity>): Promise<ModifiableEntity | Lite<IEntity>> {
 
         var tr = this.state.type;
@@ -83,27 +85,33 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
             
             var entity = entityOrLite as Entity; 
 
-            return Promise.resolve(toLite(entity, entity.isNew));
+            return Promise.resolve(toLite(entity, true));
         }
     }
 
-    //defaultView() {
-    //    var e = this.state.ctx.value;
 
-    //    if (this.state.ctx.propertyRoute.member.type.isEmbedded) {
-
-    //        return Navigator.view(e as ModifiableEntity, this.state.ctx.propertyRoute);
-    //    }
-    //    return Navigator.API.fetchEntityPack(e as Lite<Entity>);
-    //}
+    defaultView(value: ModifiableEntity | Lite<IEntity>): Promise<ModifiableEntity> {
+        return Navigator.view({ entity: value, propertyRoute: this.state.ctx.propertyRoute });
+    }
     
 
     handleViewClick = (event: React.SyntheticEvent) => {
-        //var view = this.state.onView ?
-        //    this.entity().then(e=> this.state.onView(e, )) :
-        //    this.entity().then(e=> Navigator.view(
 
-    };
+        var ctx = this.state.ctx;
+        var entity = this.getCurrentEntity();
+
+        var onView = this.state.onView ?
+            this.state.onView(entity, ctx.propertyRoute) :
+            this.defaultView(entity);
+
+        onView.then(e => {
+            if (e == null)
+                return;
+
+            this.convert(e).then(m => this.setValue(m));
+        });
+    }
+
     renderViewButton(btn: boolean) {
         if (!this.state.view)
             return null;
@@ -115,7 +123,49 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
             </a>;
     }
 
-    handleCreateClick = (event: React.SyntheticEvent) => {};
+    chooseType(predicate: (ti: TypeInfo) => boolean): Promise<string> {
+        var t = this.state.type;
+
+        if (t.isEmbedded)
+            return Promise.resolve(t.name);
+
+        var tis = getTypeInfos(t).filter(predicate);
+
+        return SelectorPopup.chooseType<TypeInfo>(tis)
+            .then(ti=> ti ? ti.name : null);
+    }
+
+    defaultCreate(): Promise<ModifiableEntity | Lite<IEntity>> {
+
+        return this.chooseType(Navigator.isCreable)
+            .then(typeName => typeName ? Constructor.construct(typeName) : null);
+    }
+
+    handleCreateClick = (event: React.SyntheticEvent) =>
+    {
+        var onCreate = this.props.onCreate ?
+            this.props.onCreate() : this.defaultCreate();
+
+        onCreate.then(e=> {
+
+            if (e == null)
+                return null;
+
+            if (!this.state.viewOnCreate)
+                return Promise.resolve(e);
+
+            return this.state.onView ?
+                this.state.onView(e, this.state.ctx.propertyRoute) :
+                this.defaultView(e);
+        }).then(e=> {
+
+            if (!e)
+                return;
+
+            this.convert(e).then(m => this.setValue(m));
+        });
+    };
+
     renderCreateButton(btn: boolean) {
         if (!this.state.create || this.state.ctx.readOnly)
             return null;
@@ -129,7 +179,8 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
 
 
     defaultFind(): Promise<ModifiableEntity | Lite<IEntity>> {
-        return Finder.find({ queryName: this.state.type.name } as FindOptions);
+        return this.chooseType(Finder.isFindable)
+            .then(qn=> qn == null ? null : Finder.find({ queryName: qn } as FindOptions));
     }
 
     handleFindClick = (event: React.SyntheticEvent) => {
@@ -139,10 +190,7 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
             if (!entity)
                 return;
 
-            this.convert(entity).then(e=> {
-                this.state.ctx.value = e;
-                this.forceUpdate();
-            });
+            this.convert(entity).then(e=> this.setValue(e));
         });
     };
     renderFindButton(btn: boolean) {
@@ -157,13 +205,12 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
     }
 
     handleRemoveClick = (event: React.SyntheticEvent) => {
-        (this.state.onRemove ? this.state.onRemove(this.state.ctx.value) : Promise.resolve(true))
+        (this.state.onRemove ? this.state.onRemove(this.getCurrentEntity()) : Promise.resolve(true))
             .then(result=> {
-                if (!result)
+                if (result == false)
                     return;
 
-                this.state.ctx.value = null;
-                this.forceUpdate();
+                this.setValue(null);
             });
     };
     renderRemoveButton(btn: boolean) {
@@ -180,120 +227,3 @@ export abstract class EntityBase<T extends EntityBaseProps> extends LineBase<T>
 
 
 
-
-export interface EntityLineProps extends EntityBaseProps {
-    autoComplete?: boolean;
-    autoCompleteGetItems?: (query: string) => Promise<Lite<IEntity>[]>;
-    autoCompleteRenderItem?: (lite: Lite<IEntity>, query: string) => React.ReactNode;
-}
-
-
-
-export class EntityLine extends EntityBase<EntityLineProps> {
-
-    calculateDefaultState(state: EntityLineProps) {
-        super.calculateDefaultState(state);
-        state.autoComplete = !state.type.isEmbedded && state.type.name != IsByAll;
-        state.autoCompleteGetItems = (query) => Finder.API.findLiteLike({
-            types: state.type.name,
-            subString: query,
-            count: 5
-        });
-
-        state.autoCompleteRenderItem = (lite, query) => Typeahead.highlightedText(lite.toStr, query);
-    }
-
-    handleOnSelect = (lite: Lite<IEntity>, event: React.SyntheticEvent) => {
-        this.convert(lite).then(entity=> {
-            this.state.ctx.value = entity;
-            this.forceUpdate();
-        });
-        return lite.toStr;
-    }
-    
-    renderInternal() {
-
-        var s = this.state;
-
-        var hasValue = !!s.ctx.value;
-
-        return <FormGroup ctx={s.ctx} title={s.labelText}>
-            <div className="SF-entity-line SF-control-container">
-                <div className="input-group">
-                    { hasValue ? this.renderLink() : this.renderAutoComplete() }
-                    <span className="input-group-btn">
-                        {!hasValue && this.renderCreateButton(true) }
-                        {!hasValue && this.renderFindButton(true) }
-                        {hasValue && this.renderViewButton(true) }
-                        {hasValue && this.renderRemoveButton(true) }
-                        </span>
-                    </div>
-                </div>
-            </FormGroup>;
-    }
-
-
-
-    renderAutoComplete() {
-
-        var s = this.state;
-
-        if (!s.autoComplete || s.ctx.readOnly)
-            return <FormControlStatic ctx={s.ctx}></FormControlStatic>;
-
-        return <Typeahead
-            inputAttrs={{ className: "form-control sf-entity-autocomplete" }}
-            getItems={s.autoCompleteGetItems}
-            renderItem={s.autoCompleteRenderItem}
-            onSelect={this.handleOnSelect}/>;
-    }
-
-    renderItem = (item: Lite<IEntity>, query: string) => {
-        return 
-    }
-
-
-    renderLink() {
-
-        var s = this.state;
-
-        if (s.ctx.readOnly)
-            return <FormControlStatic ctx={s.ctx}>{s.ctx.value.toStr }</FormControlStatic>
-
-        if (s.navigate && s.view) {
-            return <a href="#" onClick={this.handleViewClick}
-                className="form-control btn-default sf-entity-line-entity"
-                title={JavascriptMessage.navigate.niceToString() }>
-                {s.ctx.value.toStr }
-                </a>;
-        } else {
-            return <span className="form-control btn-default sf-entity-line-entity">
-                {s.ctx.value.toStr }
-                </span>;
-        }
-    }
-}
-
-
-export interface EntityComboProps extends EntityBaseProps {
-}
-
-
-
-export class EntityCombo extends EntityBase<EntityComboProps> {
-
-    renderInternal() {
-        return null;
-    }
-}
-
-
-export interface EntityListBaseProps extends EntityBaseProps {
-    move?: boolean;
-}
-
-
-export abstract class EntityListBase<T extends EntityListBaseProps> extends LineBase<T>
-{   
-
-}

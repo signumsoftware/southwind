@@ -3,26 +3,39 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.Entities', 'Framework/Signum.React/Scripts/Navigator', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/Reflection', 'Framework/Signum.React/Scripts/Lines/LineBase', 'Framework/Signum.React/Scripts/Lines/Typeahead'], function (require, exports, React, Signum_Entities_1, Navigator, Finder, Reflection_1, LineBase_1, Typeahead_1) {
+define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Navigator', 'Framework/Signum.React/Scripts/Constructor', 'Framework/Signum.React/Scripts/Finder', 'Framework/Signum.React/Scripts/Reflection', 'Framework/Signum.React/Scripts/Signum.Entities', 'Framework/Signum.React/Scripts/Lines/LineBase', 'Templates/SelectorPopup'], function (require, exports, React, Navigator, Constructor, Finder, Reflection_1, Signum_Entities_1, LineBase_1, SelectorPopup_1) {
     var EntityBase = (function (_super) {
         __extends(EntityBase, _super);
         function EntityBase() {
             var _this = this;
             _super.apply(this, arguments);
             this.handleViewClick = function (event) {
-                var ctx = _this.props.ctx;
+                var ctx = _this.state.ctx;
+                var entity = _this.getCurrentEntity();
                 var onView = _this.state.onView ?
-                    _this.state.onView(ctx.value, ctx.propertyRoute) :
-                    _this.defaultView();
+                    _this.state.onView(entity, ctx.propertyRoute) :
+                    _this.defaultView(entity);
                 onView.then(function (e) {
-                    _this.setValue(_this.convert(e));
+                    if (e == null)
+                        return;
+                    _this.convert(e).then(function (m) { return _this.setValue(m); });
                 });
             };
             this.handleCreateClick = function (event) {
                 var onCreate = _this.props.onCreate ?
                     _this.props.onCreate() : _this.defaultCreate();
                 onCreate.then(function (e) {
-                    _this.setValue(_this.convert(e));
+                    if (e == null)
+                        return null;
+                    if (!_this.state.viewOnCreate)
+                        return Promise.resolve(e);
+                    return _this.state.onView ?
+                        _this.state.onView(e, _this.state.ctx.propertyRoute) :
+                        _this.defaultView(e);
+                }).then(function (e) {
+                    if (!e)
+                        return;
+                    _this.convert(e).then(function (m) { return _this.setValue(m); });
                 });
             };
             this.handleFindClick = function (event) {
@@ -30,19 +43,15 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
                 result.then(function (entity) {
                     if (!entity)
                         return;
-                    _this.convert(entity).then(function (e) {
-                        _this.state.ctx.value = e;
-                        _this.forceUpdate();
-                    });
+                    _this.convert(entity).then(function (e) { return _this.setValue(e); });
                 });
             };
             this.handleRemoveClick = function (event) {
-                (_this.state.onRemove ? _this.state.onRemove(_this.state.ctx.value) : Promise.resolve(true))
+                (_this.state.onRemove ? _this.state.onRemove(_this.getCurrentEntity()) : Promise.resolve(true))
                     .then(function (result) {
-                    if (!result)
+                    if (result == false)
                         return;
-                    _this.state.ctx.value = null;
-                    _this.forceUpdate();
+                    _this.setValue(null);
                 });
             };
         }
@@ -62,6 +71,9 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
                     Reflection_1.getTypeInfos(type).some(function (ti) { return Navigator.isFindable(ti); });
             state.viewOnCreate = true;
             state.remove = true;
+        };
+        EntityBase.prototype.getCurrentEntity = function () {
+            return this.state.ctx.value;
         };
         EntityBase.prototype.convert = function (entityOrLite) {
             var tr = this.state.type;
@@ -83,22 +95,25 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
                 return Promise.resolve(Signum_Entities_1.toLite(entity, true));
             }
         };
-        EntityBase.prototype.defaultView = function () {
-            var ctx = this.props.ctx;
-            return Navigator.view(ctx.value, this.props.type.isEmbedded ? ctx.propertyRoute : null);
+        EntityBase.prototype.defaultView = function (value) {
+            return Navigator.view({ entity: value, propertyRoute: this.state.ctx.propertyRoute });
         };
         EntityBase.prototype.renderViewButton = function (btn) {
             if (!this.state.view)
                 return null;
             return React.createElement("a", {"className": classes("sf-line-button", "sf-view", btn ? "btn btn-default" : null), "onClick": this.handleViewClick, "title": Signum_Entities_1.EntityControlMessage.View.niceToString()}, React.createElement("span", {"className": "glyphicon glyphicon-arrow-right"}));
         };
-        EntityBase.prototype.chooseType = function () {
-            var t = this.props.type;
+        EntityBase.prototype.chooseType = function (predicate) {
+            var t = this.state.type;
             if (t.isEmbedded)
-                return t.name;
+                return Promise.resolve(t.name);
+            var tis = Reflection_1.getTypeInfos(t).filter(predicate);
+            return SelectorPopup_1.default.chooseType(tis)
+                .then(function (ti) { return ti ? ti.name : null; });
         };
         EntityBase.prototype.defaultCreate = function () {
-            return null;
+            return this.chooseType(Navigator.isCreable)
+                .then(function (typeName) { return typeName ? Constructor.construct(typeName) : null; });
         };
         EntityBase.prototype.renderCreateButton = function (btn) {
             if (!this.state.create || this.state.ctx.readOnly)
@@ -106,7 +121,8 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
             return React.createElement("a", {"className": classes("sf-line-button", "sf-create", btn ? "btn btn-default" : null), "onClick": this.handleCreateClick, "title": Signum_Entities_1.EntityControlMessage.Create.niceToString()}, React.createElement("span", {"className": "glyphicon glyphicon-plus"}));
         };
         EntityBase.prototype.defaultFind = function () {
-            return Finder.find({ queryName: this.state.type.name });
+            return this.chooseType(Finder.isFindable)
+                .then(function (qn) { return qn == null ? null : Finder.find({ queryName: qn }); });
         };
         EntityBase.prototype.renderFindButton = function (btn) {
             if (!this.state.find || this.state.ctx.readOnly)
@@ -121,75 +137,5 @@ define(["require", "exports", 'react', 'Framework/Signum.React/Scripts/Signum.En
         return EntityBase;
     })(LineBase_1.LineBase);
     exports.EntityBase = EntityBase;
-    var EntityLine = (function (_super) {
-        __extends(EntityLine, _super);
-        function EntityLine() {
-            var _this = this;
-            _super.apply(this, arguments);
-            this.handleOnSelect = function (lite, event) {
-                _this.convert(lite).then(function (entity) {
-                    _this.state.ctx.value = entity;
-                    _this.forceUpdate();
-                });
-                return lite.toStr;
-            };
-            this.renderItem = function (item, query) {
-                return;
-            };
-        }
-        EntityLine.prototype.calculateDefaultState = function (state) {
-            _super.prototype.calculateDefaultState.call(this, state);
-            state.autoComplete = !state.type.isEmbedded && state.type.name != Reflection_1.IsByAll;
-            state.autoCompleteGetItems = function (query) { return Finder.API.findLiteLike({
-                types: state.type.name,
-                subString: query,
-                count: 5
-            }); };
-            state.autoCompleteRenderItem = function (lite, query) { return Typeahead_1.default.highlightedText(lite.toStr, query); };
-        };
-        EntityLine.prototype.renderInternal = function () {
-            var s = this.state;
-            var hasValue = !!s.ctx.value;
-            return React.createElement(LineBase_1.FormGroup, {"ctx": s.ctx, "title": s.labelText}, React.createElement("div", {"className": "SF-entity-line SF-control-container"}, React.createElement("div", {"className": "input-group"}, hasValue ? this.renderLink() : this.renderAutoComplete(), React.createElement("span", {"className": "input-group-btn"}, !hasValue && this.renderCreateButton(true), !hasValue && this.renderFindButton(true), hasValue && this.renderViewButton(true), hasValue && this.renderRemoveButton(true)))));
-        };
-        EntityLine.prototype.renderAutoComplete = function () {
-            var s = this.state;
-            if (!s.autoComplete || s.ctx.readOnly)
-                return React.createElement(LineBase_1.FormControlStatic, {"ctx": s.ctx});
-            return React.createElement(Typeahead_1.default, {"inputAttrs": { className: "form-control sf-entity-autocomplete" }, "getItems": s.autoCompleteGetItems, "renderItem": s.autoCompleteRenderItem, "onSelect": this.handleOnSelect});
-        };
-        EntityLine.prototype.renderLink = function () {
-            var s = this.state;
-            if (s.ctx.readOnly)
-                return React.createElement(LineBase_1.FormControlStatic, {"ctx": s.ctx}, s.ctx.value.toStr);
-            if (s.navigate && s.view) {
-                return React.createElement("a", {"href": "#", "onClick": this.handleViewClick, "className": "form-control btn-default sf-entity-line-entity", "title": Signum_Entities_1.JavascriptMessage.navigate.niceToString()}, s.ctx.value.toStr);
-            }
-            else {
-                return React.createElement("span", {"className": "form-control btn-default sf-entity-line-entity"}, s.ctx.value.toStr);
-            }
-        };
-        return EntityLine;
-    })(EntityBase);
-    exports.EntityLine = EntityLine;
-    var EntityCombo = (function (_super) {
-        __extends(EntityCombo, _super);
-        function EntityCombo() {
-            _super.apply(this, arguments);
-        }
-        EntityCombo.prototype.renderInternal = function () {
-            return null;
-        };
-        return EntityCombo;
-    })(EntityBase);
-    exports.EntityCombo = EntityCombo;
-    var EntityListBase = (function (_super) {
-        __extends(EntityListBase, _super);
-        function EntityListBase() {
-            _super.apply(this, arguments);
-        }
-        return EntityListBase;
-    })(LineBase_1.LineBase);
-    exports.EntityListBase = EntityListBase;
 });
-//# sourceMappingURL=EntityControls.js.map
+//# sourceMappingURL=EntityBase.js.map

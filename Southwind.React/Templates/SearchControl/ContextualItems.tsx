@@ -62,7 +62,7 @@ export class ContextMenu extends React.Component<ContextMenuProps, { }> {
 
         return ul;
 
-        return <Overlay show={this.props.position != null} rootClose={true} onHide={this.props.onHide}>result </Overlay>;
+        //return <Overlay show={this.props.position != null} rootClose={true} onHide={this.props.onHide}>result </Overlay>;
     }
 }
 
