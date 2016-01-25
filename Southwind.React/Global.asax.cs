@@ -19,7 +19,6 @@ using Signum.Entities;
 using Signum.Entities.Authorization;
 using Southwind.Entities;
 using Signum.React.Auth;
-using Signum.React.Authorization;
 
 namespace Southwind.React
 {
@@ -37,17 +36,9 @@ namespace Southwind.React
             using (AuthLogic.Disable())
                 Schema.Current.Initialize();
 
-            Statics.SessionFactory = new WebApiSesionFactory();
+            ReflectionCache.Start();
 
-            AssemblyAreas.RegisterFrameworkArea();
-            AssemblyAreasExtensions.Register("Authorization");
-            AssemblyAreasExtensions.Register("Basics");
-            AssemblyAreasExtensions.Register("Mailing");
-            AssemblyAreasExtensions.Register("Files");
-            AssemblyAreasExtensions.Register("Processes");
-            AssemblyAreasExtensions.Register("Scheduler");
-            AssemblyAreasExtensions.Register("Word");
-            AssemblyAreasExtensions.Register("ViewLog");
+            Statics.SessionFactory = new WebApiSesionFactory();
         }
 
         protected void Application_PostAuthorizeRequest()

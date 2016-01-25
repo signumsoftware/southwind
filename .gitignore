@@ -34,3 +34,5 @@ packages/*
 Southwind.Web/Scripts/**/*.js
 .vs/
 Southwind.React/Libs
+Southwind.React/dist/
+Southwind.React/node_modules/

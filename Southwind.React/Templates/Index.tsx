@@ -4,8 +4,8 @@ import * as React from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router'
-import LoginUserControl from 'Extensions/Signum.React.Extensions/Authorization/Templates/LoginUserControl'
-import { GlobalModalContainer } from "Framework/Signum.React/Scripts/Modals"
+import LoginUserControl from '../../Extensions/Signum.React.Extensions/Authorization/Login/LoginUserControl'
+import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modals"
 
 
 export default class Index extends React.Component<{ children: any }, {}> {

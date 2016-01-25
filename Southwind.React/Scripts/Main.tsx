@@ -1,29 +1,37 @@
 ﻿/// <reference path="../../framework/signum.react/scripts/globals.ts" />
-/// <reference path="../../extensions/signum.react.extensions/authorization/authclient.tsx" />
 
 import * as React from "react"
 import { render } from "react-dom"
-import { Router, Route, Redirect, IndexRoute } from "react-router"
+import { Router, Route, Redirect, IndexRoute, useRouterHistory } from "react-router"
+
+
 import * as moment from "moment"
 
-import * as Reflection from "Framework/Signum.React/Scripts/Reflection"
-import * as Navigator from "Framework/Signum.React/Scripts/Navigator"
-import * as Finder from "Framework/Signum.React/Scripts/Finder"
+import * as Reflection from "../../Framework/Signum.React/Scripts/Reflection"
+import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
+import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
 
-import * as ExceptionClient from "Framework/Signum.React/Exceptions/ExceptionClient"
-import * as AuthClient from "Extensions/Signum.React.Extensions/Authorization/AuthClient"
+import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exceptions/ExceptionClient"
+import * as AuthClient from "../../Extensions/Signum.React.Extensions/Authorization/AuthClient"
 
 import * as History from 'history'
 
-import Index from 'Templates/Index'
-import About from 'Templates/About'
-import Home from 'Templates/Home'
-import NotFound from 'Templates/NotFound'
+import Index from '../Templates/Index'
+import About from '../Templates/About'
+import Home from '../Templates/Home'
+import NotFound from '../Templates/NotFound'
 
 
-import * as ConfigureReactWidgets from "ConfigureReactWidgets"
+import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 
-asumeGlobalUtcMode(moment, false);
+require("!style!css!less!../node_modules/bootstrap/less/bootstrap.less");
+require("../Content/site.css");
+
+declare var __webpack_public_path__;
+
+__webpack_public_path__ = window["__baseUrl"] + "/dist/";
+
+ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
 
 Reflection.loadTypes().then(() => {
@@ -43,7 +51,7 @@ Reflection.loadTypes().then(() => {
     
     routes.push(<Route path="*" component={NotFound}/>);
     
-    var history = History.useQueries(History.useBasename(History.createHistory))({
+    var history = useRouterHistory(History.createHistory)({
         basename: window["__baseUrl"]
     });
 

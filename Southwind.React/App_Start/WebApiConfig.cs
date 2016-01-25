@@ -11,6 +11,9 @@ using Signum.React;
 using Signum.Utilities;
 using Signum.React.Json;
 using Newtonsoft.Json.Converters;
+using System.Web.Http.Dispatcher;
+using Signum.React.ApiControllers;
+using Signum.React.Auth;
 
 namespace Southwind.React
 {
@@ -32,6 +35,11 @@ namespace Southwind.React
                 s.Converters.Add(new StringEnumConverter());
             });
 
+            var controllerFactory = new SignumControllerFactory(config, typeof(Global).Assembly)
+                .IncludeLike<ReflectionController>()
+                .IncludeLike<AuthController>();
+
+            config.Services.Replace(typeof(IHttpControllerSelector), controllerFactory);
 
             // Web API routes
             config.MapHttpAttributeRoutes();

@@ -1,8 +1,17 @@
-﻿@using Signum.Entities.Authorization
-@using Signum.Utilities
-@{ var v = typeof(Global).Assembly.GetName().Version.ToString();
-   var ver = "?v=" + v;
+﻿@using Signum.Utilities
+
+@{
+    Func<string, string> lastFile = (pattern) =>
+    {
+        var files = Directory.GetFiles(Server.MapPath("~/dist/"), pattern);
+
+        var lastEntry = files.WithMax(a => new FileInfo(a).LastWriteTimeUtc);
+        
+        return Url.Content("~/dist/" + Path.GetFileName(lastEntry));
+    };
 }
+
+
 <!doctype html>
 <html>
 <head>
@@ -10,67 +19,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Libs/bootstrap/dist/css/bootstrap.css" + ver)">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Libs/react-widgets/dist/css/react-widgets.css" + ver)">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Lines.css"+ ver)">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/NormalPage.css"+ ver)">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Notify.css"+ ver)">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Search.css"+ ver)">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/signum/content/Widgets.css"+ ver)">
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/content/site.css"+ ver)">
-
-    <script language="javascript" src="@Url.Content("~/Libs/es6-promise/promise.js"+ ver)"></script>
-    <script language="javascript" src="@Url.Content("~/Libs/requirejs/require.js"+ ver)"></script>
-    <script language="javascript" src="@Url.Content("~/Libs/fetch/fetch.js"+ ver)"></script>
-    <script language="javascript" src="@Url.Content("~/Signum/Scripts/Globals.js"+ ver)"></script>
-    <script>
-        require.config({
-            baseUrl: '@Url.Content("~/Scripts")',
-            paths: {
-
-                "Framework/Signum.React": "../Signum",
-                "Extensions/Signum.React.Extensions": "..",
-                "Southwind.React": "..",
-
-                "react": "../Libs/react/react",
-                "react-dom": "../Libs/react/react-dom",
-                "react-router": "../Libs/react-router/ReactRouter.min",
-                "react-router": "../Libs/react-router/ReactRouter.min",
-                "react-bootstrap":"../Libs/react-bootstrap/react-bootstrap.min",
-                "react-router-bootstrap": "../Libs/react-router-bootstrap/lib/ReactRouterBootstrap.min",
-                "history": "../Libs/react-router/History.min",
-                "react-widgets": "../Libs/react-widgets/dist/react-widgets",
-                "react-widgets-moment": "../Libs/react-widgets/dist/react-widgets-moment",
-
-                "moment": "../Libs/moment/min/moment.min",
-
-                "jquery": "../Libs/jquery/dist/jquery.min",
-                "d3": "../Libs/d3.v3.min",
-                "colorbrewer": "../Libs/colorbrewer",
-                "ChartUtils": "../Chart/Scripts/ChartUtils",
-
-                "ckeditor": "../Libs/ckeditor/ckeditor",
-                "Libs/CodeMirror": "../Libs/CodeMirror",
-
-                "Templates": "../Templates",
-            },
-            shim: {
-                d3: { exports: 'd3' },
-                colorbrewer: { exports: 'colorbrewer' },
-                ChartUtils: { exports: 'ChartUtils' },
-
-                ckeditor: { exports: 'CKEDITOR' },
-                'react-widgets': { deps: ['react'] }
-            },
-            urlArgs: "v=@v"
-        });
-
-        var __baseUrl = "@Url.Content("~/").RemoveEnd(1)";
-
-        require(["Main"], function () {
-
-        });
-    </script>
 </head>
 <body>
     <div id="wrap"></div>
@@ -79,6 +27,16 @@
             <p class="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
         </div>
     </div>
+ 
+
     <div id="reactBody"></div>
+    <script>
+        var __baseUrl = "@Url.Content("~/").RemoveEnd(1)";
+
+        
+    </script>
+    <script language="javascript" src="@lastFile("bundle.react.*.js")"></script>
+    <script language="javascript" src="@lastFile("bundle.moment.*.js")"></script>
+    <script language="javascript" src="@lastFile("bundle.main.*.js")"></script>
 </body>
 </html>

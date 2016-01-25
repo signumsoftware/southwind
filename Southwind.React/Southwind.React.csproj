@@ -120,43 +120,8 @@
     <Content Include="Content\site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Libs\bootstrap\dist\css\bootstrap-theme.css" />
-    <Content Include="Libs\bootstrap\dist\css\bootstrap-theme.min.css" />
-    <Content Include="Libs\bootstrap\dist\css\bootstrap.css" />
-    <Content Include="Libs\bootstrap\dist\css\bootstrap.min.css" />
-    <Content Include="Libs\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Libs\bootstrap\dist\js\bootstrap.js" />
-    <Content Include="Libs\bootstrap\dist\js\bootstrap.min.js" />
-    <Content Include="Libs\d3\d3.js" />
-    <Content Include="Libs\d3\d3.min.js" />
-    <Content Include="Libs\es6-promise\promise.js" />
-    <Content Include="Libs\es6-promise\promise.min.js" />
-    <Content Include="Libs\fetch\fetch.js" />
-    <Content Include="Libs\jquery\dist\jquery.js" />
-    <Content Include="Libs\jquery\dist\jquery.min.js" />
-    <Content Include="Libs\moment\locale\es.js" />
-    <Content Include="Libs\moment\min\moment.min.js" />
-    <Content Include="Libs\react-bootstrap\react-bootstrap.js" />
-    <Content Include="Libs\react-router-bootstrap\lib\ReactRouterBootstrap.min.js" />
-    <Content Include="Libs\react-router\History.min.js" />
-    <Content Include="Libs\react-router\ReactRouter.min.js" />
-    <Content Include="Libs\react-widgets\dist\css\react-widgets.css" />
-    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.svg" />
-    <Content Include="Libs\react-widgets\dist\img\loader-big.gif" />
-    <Content Include="Libs\react-widgets\dist\img\loading.gif" />
-    <Content Include="Libs\react-widgets\dist\react-widgets-globalize.js" />
-    <Content Include="Libs\react-widgets\dist\react-widgets-moment.js" />
-    <Content Include="Libs\react-widgets\dist\react-widgets-simple-number.js" />
-    <Content Include="Libs\react-widgets\dist\react-widgets.js" />
-    <Content Include="Libs\react\react-dom.js" />
-    <Content Include="Libs\react\react-dom.min.js" />
-    <Content Include="Libs\react\react.js" />
-    <Content Include="Libs\react\react.min.js" />
-    <Content Include="Libs\requirejs\require.js" />
-    <Content Include="Libs\react-router-bootstrap\lib\ReactRouterBootstrap.min.js.map" />
-    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.eot" />
-    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.ttf" />
-    <Content Include="Libs\react-widgets\dist\fonts\rw-widgets.woff" />
+    <Content Include="package.json" />
+    <Content Include="webpack.config.js" />
     <None Include="Scripts\Southwind.Entities.t4s" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -179,21 +144,13 @@
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include=".bowerrc" />
-    <Content Include="bower.json" />
-    <Content Include="Libs\bootstrap\dist\css\bootstrap-theme.css.map" />
-    <Content Include="Libs\bootstrap\dist\css\bootstrap.css.map" />
-    <Content Include="Libs\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Libs\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Libs\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Libs\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Libs\jquery\dist\jquery.min.map" />
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="tsconfig.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -245,26 +202,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\ConfigureReactWidgets.ts" />
     <TypeScriptCompile Include="Templates\About.tsx" />
-    <TypeScriptCompile Include="Templates\EntityControls\EntityList.tsx" />
-    <TypeScriptCompile Include="Templates\EntityControls\EntityListBase.tsx" />
-    <TypeScriptCompile Include="Templates\EntityControls\EntityCombo.tsx" />
-    <TypeScriptCompile Include="Templates\EntityControls\EntityLine.tsx" />
-    <TypeScriptCompile Include="Templates\EntityControls\EntityBase.tsx" />
     <TypeScriptCompile Include="Templates\NotFound.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\MultipliedMessage.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\ContextualItems.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\ColumnEditor.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\QueryTokenBuilder.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\PaginationSelector.tsx" />
-    <TypeScriptCompile Include="Templates\NormalPage.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\FilterBuilder.tsx" />
-    <TypeScriptCompile Include="Templates\NormalPopup.tsx" />
-    <TypeScriptCompile Include="Templates\SelectorPopup.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\SearchPopup.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\SearchPage.tsx" />
-    <TypeScriptCompile Include="Templates\SearchControl\SearchControl.tsx" />
     <TypeScriptCompile Include="Templates\Home.tsx" />
     <TypeScriptCompile Include="Scripts\Main.tsx" />
     <TypeScriptCompile Include="Scripts\Southwind.Entities.ts">
@@ -282,7 +221,7 @@
     <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
     <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
     <TypeScriptOutFile />
     <TypeScriptOutDir />

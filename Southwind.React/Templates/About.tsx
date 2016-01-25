@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import {Modal, Popover, Tooltip, Button, OverlayTrigger} from 'react-bootstrap'
-import {openModal, IModalProps} from "Framework/Signum.React/Scripts/Modals"
+import {openModal, IModalProps} from "../../Framework/Signum.React/Scripts/Modals"
 
 
 
