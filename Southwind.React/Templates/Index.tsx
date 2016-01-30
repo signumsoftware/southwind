@@ -10,34 +10,36 @@ import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modal
 
 export default class Index extends React.Component<{ children: any }, {}> {
     render() {
-
-        return (<div id="main">
-            <Navbar inverse>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <Link to="/">Southwind</Link>
+        
+        return (
+            <div id="main">
+                <Navbar inverse>
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            <Link to="/">Southwind</Link>
                         </Navbar.Brand>
-                    <Navbar.Toggle />
+                        <Navbar.Toggle />
                     </Navbar.Header>
-    <Navbar.Collapse>
-      <Nav>
-        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-             <IndexLinkContainer to="/"><MenuItem>Home</MenuItem></IndexLinkContainer>
-             <LinkContainer to="/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
-                              <MenuItem divider />
-             <LinkContainer to="/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
-            </NavDropdown>
-          </Nav>
-      <Nav pullRight>
-       <LoginUserControl />
-          </Nav>
-        </Navbar.Collapse>
+                    <Navbar.Collapse>
+                        <Nav>
+                            <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+                                <IndexLinkContainer to="/"><MenuItem>Home</MenuItem></IndexLinkContainer>
+                                <LinkContainer to="/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
+                                <MenuItem divider />
+                                <LinkContainer to="/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
+                            </NavDropdown>
+                        </Nav>
+                        <Nav pullRight>
+                            <LoginUserControl />
+                        </Nav>
+                    </Navbar.Collapse>
                 </Navbar>
 
 
-        <div className="container">{this.props.children}</div>
-         <GlobalModalContainer/>
-        <div id="push"></div>
-            </div>);
+                <div className="container">{this.props.children}</div>
+                <GlobalModalContainer/>
+                <div id="push"></div>
+            </div>
+        );
     }
 }

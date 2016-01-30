@@ -32,16 +32,16 @@ export default class About extends React.Component<{}, { str: string }> {
     render() {
         return (
             <div>
-        <p>Click to get the full Modal experience!</p>
+                <p>Click to get the full Modal experience!</p>
 
-        <Button
-            bsStyle="primary"
-            bsSize="large"
-            onClick={this.handleClick }
+                <Button
+                    bsStyle="primary"
+                    bsSize="large"
+                    onClick={this.handleClick }
                     >
                     Launch demo modal {this.state.str}
-            </Button>
-                </div>
+                </Button>
+            </div>
         );
     }
 }
@@ -58,29 +58,31 @@ export class ModalTest extends React.Component<{ onExited?: (val: string) => voi
     }
 
     render() {
-        return <Modal
-            onHide={this.onHide}
-            show={this.state.shown}
-            onExited={()=>this.props.onExited("hi")}
-            >
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-              </Modal.Header>
-          <Modal.Body>
+        return (
+            <Modal
+                onHide={this.onHide}
+                show={this.state.shown}
+                onExited={() => this.props.onExited("hi") }
+                >
+                <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
 
 
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p>Cras mattis consectetur purus sit amet fermentum.Cras justo odio, dapibus ac facilisis in, egestas eget quam.Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                        <Button
-                            bsStyle="primary"
-                            bsSize="large"
-                            onClick={this.props.onClick}
-                            >
-                            Launch demo modal
-                            </Button>
+                    <h4>Overflowing text to show scroll behavior</h4>
+                    <p>Cras mattis consectetur purus sit amet fermentum.Cras justo odio, dapibus ac facilisis in, egestas eget quam.Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                    <Button
+                        bsStyle="primary"
+                        bsSize="large"
+                        onClick={this.props.onClick}
+                        >
+                        Launch demo modal
+                    </Button>
 
 
-              </Modal.Body>
-            </Modal>;
+                </Modal.Body>
+            </Modal>
+        );
     }
 }
