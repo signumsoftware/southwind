@@ -136,12 +136,10 @@ namespace Southwind.Logic
             //Signum.Entities.Scheduler
             DisconnectedLogic.Register<SimpleTaskSymbol>(Download.Replace, Upload.None);
             DisconnectedLogic.Register<ScheduledTaskEntity>(Download.None, Upload.None);
-            DisconnectedLogic.Register<ScheduleRuleDailyEntity>(Download.None, Upload.None);
-            DisconnectedLogic.Register<ScheduleRuleWeeklyEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<ScheduleRuleWeekDaysEntity>(Download.None, Upload.None);
-            DisconnectedLogic.Register<HolidayCalendarEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ScheduleRuleMonthsEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<ScheduleRuleMinutelyEntity>(Download.None, Upload.None);
-            DisconnectedLogic.Register<ScheduleRuleHourlyEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<HolidayCalendarEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<ScheduledTaskLogEntity>(Download.None, Upload.None);
 
             

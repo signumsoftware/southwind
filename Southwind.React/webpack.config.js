@@ -2,6 +2,7 @@
 "use strict";
 var path = require('path');
 var webpack = require('webpack');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 console.log(process.version);
 
@@ -44,6 +45,11 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             names: ['moment', 'react'],
             minChunks : Infinity
+        }),
+        new CleanWebpackPlugin(['dist'], {
+            //root: '/full/project/path',
+            verbose: true,
+            dry: false
         })
     ]
 }

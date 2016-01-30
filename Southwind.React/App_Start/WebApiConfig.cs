@@ -32,6 +32,7 @@ namespace Southwind.React
                 s.Formatting = Newtonsoft.Json.Formatting.Indented;
                 s.Converters.Add(new LiteJsonConverter());
                 s.Converters.Add(new EntityJsonConverter());
+                s.Converters.Add(new MListJsonConverter());
                 s.Converters.Add(new StringEnumConverter());
             });
 
