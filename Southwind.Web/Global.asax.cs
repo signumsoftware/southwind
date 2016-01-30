@@ -152,9 +152,10 @@ namespace Southwind.Web
 
             MailingClient.Start(
                 smtpConfig: true,
-                newsletter: false,
+                newsletter: false, 
                 pop3Config: false,
-                quickLinkFrom: new Type[0]);
+                emailReport: false,
+                quickLinkFrom: null);
 
             SMSClient.Start();
 
@@ -171,7 +172,9 @@ namespace Southwind.Web
             ChartClient.Start();
             ExcelClient.Start(
                 toExcelPlain:  true, 
-                excelReport: false);
+                excelReport: false,
+                excelAttachment: false);
+
             WordClient.Start();
             DashboardClient.Start();
 

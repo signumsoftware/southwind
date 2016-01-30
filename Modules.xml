@@ -202,7 +202,7 @@
     </Module>
 
     <Module Name="Excel">
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ExcelClient.Start(" To="excelReport: false);"/>
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ExcelClient.Start(" To="excelAttachment: false);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ExcelClient.Start(toExcel: true, excelReport: false);"/>
     </Module>
 
@@ -257,7 +257,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, et => Configuration.Value.SmtpConfiguration);"/>
       <RemoveFiles Path="Southwind.Web\Libs\ckeditor"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="MailingClient.Start(" To="pop3Config: false);" />
+      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="MailingClient.Start(" To="quickLinkFrom: null);" />
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Email*/" To="public EmailConfigurationEntity Email { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullValidator]/*Smtp*/" To="public SmtpConfigurationEntity SmtpConfiguration { get; set; }"/>
       <RemoveLine Path="Southwind.Web\Views\Southwind\ApplicationConfiguration.cshtml" From="&lt;fieldset id=&quot;email&quot;>" To="&lt;/fieldset>"/>

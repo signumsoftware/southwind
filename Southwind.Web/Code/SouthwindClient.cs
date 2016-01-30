@@ -85,10 +85,9 @@ namespace Southwind.Web
 
                 Finder.AddQuerySetting(new QuerySettings(OrderQuery.OrderSimple)
                 {
-                    SimpleFilterBuilder = new SimpleFilterBuilder(
-                        (html, ctx, querySettings) => html.Partial(SouthwindClient.ViewPrefix.FormatWith("OrderFilter"),
-                            new TypeContext<OrderFilterModel>(new OrderFilterModel(), ctx.Prefix)),
-                        url => url.Action((HomeController s) => s.OrderFilterFilters()))
+                    SimpleFilterBuilder = (html, ctx, querySettings, findOptions) => new SimpleFilterBuilder(
+                        html.Partial(SouthwindClient.ViewPrefix.FormatWith("OrderFilter"), new TypeContext<OrderFilterModel>(new OrderFilterModel(), ctx.Prefix)),
+                        html.UrlHelper().Action((HomeController s) => s.OrderFilterFilters()))
                 });
 
                 Constructor.Register(ctx => new EmployeeEntity { Address = new AddressEntity() });
