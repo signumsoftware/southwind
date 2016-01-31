@@ -36,3 +36,5 @@ Southwind.Web/Scripts/**/*.js
 Southwind.React/Libs
 Southwind.React/dist/
 Southwind.React/node_modules/
+*.js.map
+*.js
