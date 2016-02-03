@@ -5,6 +5,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router'
 import LoginUserControl from '../../Extensions/Signum.React.Extensions/Authorization/Login/LoginUserControl'
+import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorization/AuthClient'
 import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modals"
 
 
@@ -21,14 +22,15 @@ export default class Index extends React.Component<{ children: any }, {}> {
                         <Navbar.Toggle />
                     </Navbar.Header>
                     <Navbar.Collapse>
-                        <Nav>
-                            <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-                                <IndexLinkContainer to="/"><MenuItem>Home</MenuItem></IndexLinkContainer>
-                                <LinkContainer to="/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
-                                <MenuItem divider />
-                                <LinkContainer to="/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
-                            </NavDropdown>
-                        </Nav>
+
+                        { AuthClient.currentUser() && <Nav>
+                                <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+                                    <IndexLinkContainer to="/"><MenuItem>Home</MenuItem></IndexLinkContainer>
+                                    <LinkContainer to="/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
+                                    <MenuItem divider />
+                                    <LinkContainer to="/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
+                                </NavDropdown>
+                            </Nav>}
                         <Nav pullRight>
                             <LoginUserControl />
                         </Nav>

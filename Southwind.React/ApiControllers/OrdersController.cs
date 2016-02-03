@@ -2,6 +2,7 @@
 using Signum.Entities;
 using Signum.Entities.Reflection;
 using Southwind.Entities;
+using Southwind.Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,6 +18,23 @@ namespace Southwind.React.ApiControllers
 {
     public class ValuesController : ApiController
     {
+
+        [Route("api/catalog"), HttpGet]
+        public List<CategoryWithProducts> Catalog()
+        {
+            return ProductLogic.ActiveProducts.Value.Select(a => new CategoryWithProducts
+            {
+                category = a.Key,
+                products = a.Value
+            }).ToList();
+        }
+
+        public class CategoryWithProducts
+        {
+            public CategoryEntity category;
+            public List<ProductEntity> products;
+        }
+
         // GET api/values
         public IEnumerable<Lite<OrderEntity>> Get()
         {
@@ -43,6 +61,8 @@ namespace Southwind.React.ApiControllers
         {
         }
     }
+
+
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class InvalidModelStateFilterAttribute : ActionFilterAttribute

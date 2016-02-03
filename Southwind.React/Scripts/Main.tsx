@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../framework/signum.react/scripts/globals.ts" />
 
 import * as React from "react"
-import { render } from "react-dom"
+import { render, unmountComponentAtNode } from "react-dom"
 import { Router, Route, Redirect, IndexRoute, useRouterHistory } from "react-router"
 
 
@@ -17,10 +17,9 @@ import * as AuthClient from "../../Extensions/Signum.React.Extensions/Authorizat
 import * as History from 'history'
 
 import Index from '../Templates/Index'
-import About from '../Templates/About'
+import PublicCatalog from '../Templates/PublicCatalog'
 import Home from '../Templates/Home'
 import NotFound from '../Templates/NotFound'
-
 
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 
@@ -34,35 +33,62 @@ __webpack_public_path__ = window["__baseUrl"] + "/dist/";
 ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
 
-Reflection.loadTypes().then(() => {
 
-    var routes: JSX.Element[] = [];
+function reload() {
 
-    routes.push(<IndexRoute component={Home} />);
-    routes.push(<Route path="home" component={Home} />);
-    routes.push(<Route path="about" component={About} />);
+    Reflection.requestTypes().then(types => {
+        Reflection.setTypes(types);
+        
+        return AuthClient.Api.retrieveCurrentUser();
+    }).then(user => {
 
-    Navigator.start({ routes });
-    Finder.start({ routes });
+        AuthClient.setCurrentUser(user);
 
-    ExceptionClient.start({ routes });
+        const isFull = !!AuthClient.currentUser();
 
-    AuthClient.start({ routes, userTicket: true, resetPassword: true });
-    
-    routes.push(<Route path="*" component={NotFound}/>);
-    
-    var history = useRouterHistory(History.createHistory)({
-        basename: window["__baseUrl"]
+        var routes: JSX.Element[] = [];
+
+        routes.push(<IndexRoute component={PublicCatalog} />);
+        routes.push(<Route path="home" component={Home} />);
+        routes.push(<Route path="publicCatalog" component={PublicCatalog} />);
+        AuthClient.startPublic({ routes, userTicket: true, resetPassword: true });
+
+        if (isFull) {
+
+            Navigator.start({ routes });
+            Finder.start({ routes });
+
+            ExceptionClient.start({ routes });
+
+            AuthClient.startAdmin();
+        }
+
+        routes.push(<Route path="*" component={NotFound}/>);
+
+        var history = useRouterHistory(History.createHistory)({
+            basename: window["__baseUrl"]
+        });
+        
+        Navigator.currentHistory = history;
+
+        var mainRoute = React.createElement(Route as any, { component: Index }, ...routes);
+
+        var wrap = document.getElementById("wrap");
+        unmountComponentAtNode(wrap);
+        render(
+            <Router history={history}>
+                <Route component={Index} path="/" > { routes }</Route>
+            </Router>, wrap);
     });
 
-    Navigator.currentHistory = history;
+}
 
-    var mainRoute = React.createElement(Route as any, { component: Index }, ...routes);
+AuthClient.onLogin = () => {
 
-    render(
-        <Router history={history}>
-        <Route component={Index} path="/" > { routes }</Route>
-            </Router>, document.getElementById("wrap"));
-});
+    reload();
+    Navigator.currentHistory.push("/home");
+};
+
+reload();
 
 

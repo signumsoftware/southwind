@@ -51,5 +51,11 @@ module.exports = {
             verbose: true,
             dry: false
         })
-    ]
+    ],
+
+    ts: {
+        compilerOptions: {
+            "noEmit": false
+        }
+    }
 }

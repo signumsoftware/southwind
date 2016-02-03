@@ -27,6 +27,7 @@
     "react-dom": "^0.14.6",
     "react-router": "^2.0.0-rc5",
     "react-bootstrap": "^0.28.2",
+    "react-overlays": "^0.6.0",
     "react-router-bootstrap": "^0.20.1",
     "react-widgets": "^3.1.7",
     "lodash-compat": "^3.10.2",
@@ -34,18 +35,19 @@
     "d3": "^3.5.13",
     "whatwg-fetch": "^0.11.0",
     "moment": "^2.11.1",
+    "numeral": "^1.5.3",
     "bootstrap": "^3.3.6",
     "bluebird": "^3.1.5"
   },
   "devDependencies": {
+    "webpack": "^1.12.12",
+    "clean-webpack-plugin": "^0.1.7",
     "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "less-loader": "^2.2.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "less-loader": "^2.2.2",
-    "file-loader": "^0.8.5",
     "ts-loader": "^0.8.0",
-    "typescript": "1.8.0",
-    "webpack": "^1.12.12",
-    "clean-webpack-plugin": "^0.1.7"
+    "typescript": "1.8.0"
   }
 }

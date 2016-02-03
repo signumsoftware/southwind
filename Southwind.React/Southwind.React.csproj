@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <!--<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>-->
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -202,7 +203,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Templates\About.tsx" />
+    <TypeScriptCompile Include="Templates\PublicCatalog.tsx" />
     <TypeScriptCompile Include="Templates\NotFound.tsx" />
     <TypeScriptCompile Include="Templates\Home.tsx" />
     <TypeScriptCompile Include="Scripts\Main.tsx" />
