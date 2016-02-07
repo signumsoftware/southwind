@@ -36,7 +36,7 @@ namespace Southwind.React
             using (AuthLogic.Disable())
                 Schema.Current.Initialize();
 
-            ReflectionCache.Start();
+            ReflectionServer.Start();
 
             Statics.SessionFactory = new WebApiSesionFactory();
         }

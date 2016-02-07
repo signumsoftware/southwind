@@ -3,6 +3,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var AssetsPlugin = require('assets-webpack-plugin');
 
 console.log(process.version);
 
@@ -50,6 +51,9 @@ module.exports = {
             //root: '/full/project/path',
             verbose: true,
             dry: false
+        }),
+        new AssetsPlugin({
+            path: path.join(__dirname, 'dist')
         })
     ],
 

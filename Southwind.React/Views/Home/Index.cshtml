@@ -1,17 +1,12 @@
-﻿@using Signum.Utilities
+﻿@using Signum.Utilities;
+@using Newtonsoft.Json.Linq;
 
 @{
-    Func<string, string> lastFile = (pattern) =>
-    {
-        var files = Directory.GetFiles(Server.MapPath("~/dist/"), pattern);
 
-        var lastEntry = files.WithMax(a => new FileInfo(a).LastWriteTimeUtc);
-        
-        return Url.Content("~/dist/" + Path.GetFileName(lastEntry));
-    };
+    string json = File.ReadAllText(Path.Combine(Server.MapPath("~/dist/"), "webpack-assets.json"));
+    var webpackAssets = JObject.Parse(json).Properties()
+        .ToDictionary(a => a.Name, a => Url.Content("~/dist/" + (string)a.Value["js"]));
 }
-
-
 <!doctype html>
 <html>
 <head>
@@ -31,12 +26,10 @@
 
     <div id="reactBody"></div>
     <script>
-        var __baseUrl = "@Url.Content("~/").RemoveEnd(1)";
-
-        
+        var __baseUrl = "@Url.Content("~/").RemoveEnd(1)";        
     </script>
-    <script language="javascript" src="@lastFile("bundle.react.*.js")"></script>
-    <script language="javascript" src="@lastFile("bundle.moment.*.js")"></script>
-    <script language="javascript" src="@lastFile("bundle.main.*.js")"></script>
+    <script language="javascript" src="@webpackAssets.GetOrThrow("react")"></script>
+    <script language="javascript" src="@webpackAssets.GetOrThrow("moment")"></script>
+    <script language="javascript" src="@webpackAssets.GetOrThrow("main")"></script>
 </body>
 </html>

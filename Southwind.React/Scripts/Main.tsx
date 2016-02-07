@@ -1,5 +1,4 @@
 ﻿/// <reference path="../../framework/signum.react/scripts/globals.ts" />
-
 import * as React from "react"
 import { render, unmountComponentAtNode } from "react-dom"
 import { Router, Route, Redirect, IndexRoute, useRouterHistory } from "react-router"
@@ -9,6 +8,7 @@ import * as moment from "moment"
 
 import * as Reflection from "../../Framework/Signum.React/Scripts/Reflection"
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
+import * as Operations from "../../Framework/Signum.React/Scripts/Operations"
 import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
 
 import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exceptions/ExceptionClient"
@@ -54,8 +54,10 @@ function reload() {
         AuthClient.startPublic({ routes, userTicket: true, resetPassword: true });
 
         if (isFull) {
+            Operations.start();
 
             Navigator.start({ routes });
+            
             Finder.start({ routes });
 
             ExceptionClient.start({ routes });
