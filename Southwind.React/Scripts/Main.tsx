@@ -10,6 +10,8 @@ import * as Reflection from "../../Framework/Signum.React/Scripts/Reflection"
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
 import * as Operations from "../../Framework/Signum.React/Scripts/Operations"
 import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
+import * as Servs from "../../Framework/Signum.React/Scripts/Services"
+import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 
 import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exceptions/ExceptionClient"
 import * as AuthClient from "../../Extensions/Signum.React.Extensions/Authorization/AuthClient"
@@ -30,11 +32,18 @@ declare var __webpack_public_path__;
 
 __webpack_public_path__ = window["__baseUrl"] + "/dist/";
 
+
+
 ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
 
 
 function reload() {
+
+    Servs.notifyPendingRequests = pending => {
+        if (Notify.singletone)
+            Notify.singletone.notifyPendingRequest(pending);
+    }
 
     Reflection.requestTypes().then(types => {
         Reflection.setTypes(types);

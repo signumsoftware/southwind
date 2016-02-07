@@ -7,6 +7,7 @@ import { Link } from 'react-router'
 import LoginUserControl from '../../Extensions/Signum.React.Extensions/Authorization/Login/LoginUserControl'
 import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorization/AuthClient'
 import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modals"
+import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 
 
 export default class Index extends React.Component<{ children: any }, {}> {
@@ -36,8 +37,7 @@ export default class Index extends React.Component<{ children: any }, {}> {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-
-
+                <Notify/>
                 <div className="container">{this.props.children}</div>
                 <GlobalModalContainer/>
                 <div id="push"></div>

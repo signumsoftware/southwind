@@ -12,8 +12,8 @@ module.exports = {
         main: [
             "./Scripts/Main.tsx", 
             "../Framework/Signum.React/Scripts/Lines",
-            "../Framework/Signum.React/Scripts/NormalPage/NormalPage",
-            "../Framework/Signum.React/Scripts/NormalPage/NormalPopup",
+            "../Framework/Signum.React/Scripts/Frames/PageFrame",
+            "../Framework/Signum.React/Scripts/Frames/PopupFrame",
             "../Framework/Signum.React/Scripts/SearchControl/SearchPage", 
             "../Framework/Signum.React/Scripts/SearchControl/SearchPopup"],
         "react": ["react", "react-bootstrap", "react-router", "react-widgets", "react-router-bootstrap"],
@@ -44,7 +44,7 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['moment', 'react'],
+            names: ['react', 'moment'],
             minChunks : Infinity
         }),
         new CleanWebpackPlugin(['dist'], {
