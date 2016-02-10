@@ -38,6 +38,17 @@ ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
 
 
+function fixBaseName<T>(baseFunction: (location: string, ...args: any[]) => T, baseName: string): (location: string) => T{
+
+    return (location, ...args) => {
+        if (location && location.startsWith(baseName))
+            location = location.after(baseName);
+
+        return baseFunction(location, ...args);
+    };
+}
+
+
 function reload() {
 
     Servs.notifyPendingRequests = pending => {
@@ -76,9 +87,19 @@ function reload() {
 
         routes.push(<Route path="*" component={NotFound}/>);
 
+        var baseName = window["__baseUrl"]
+
         var history = useRouterHistory(History.createHistory)({
-            basename: window["__baseUrl"]
+            basename: baseName,
         });
+
+
+        history.push = fixBaseName(history.push, baseName);
+        history.replace = fixBaseName(history.replace, baseName);
+        history.createHref = fixBaseName(history.createHref, baseName);
+        history.createPath = fixBaseName(history.createPath, baseName);
+        //history.createLocation = fixBaseName(history.createHref, baseName) as any;
+
         
         Navigator.currentHistory = history;
 

@@ -34,6 +34,7 @@ namespace Southwind.React
                 s.Converters.Add(new EntityJsonConverter());
                 s.Converters.Add(new MListJsonConverter());
                 s.Converters.Add(new StringEnumConverter());
+                s.Converters.Add(new ResultTableConverter());
             });
 
             var controllerFactory = new SignumControllerFactory(config, typeof(Global).Assembly)
