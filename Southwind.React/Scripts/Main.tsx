@@ -11,6 +11,7 @@ import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
 import * as Operations from "../../Framework/Signum.React/Scripts/Operations"
 import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
 import * as Servs from "../../Framework/Signum.React/Scripts/Services"
+import * as QuickLinks from "../../Framework/Signum.React/Scripts/QuickLinks"
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 
 import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exceptions/ExceptionClient"
@@ -75,10 +76,9 @@ function reload() {
 
         if (isFull) {
             Operations.start();
-
-            Navigator.start({ routes });
-            
+            Navigator.start({ routes });            
             Finder.start({ routes });
+            QuickLinks.start();
 
             ExceptionClient.start({ routes });
 

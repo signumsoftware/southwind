@@ -14,6 +14,7 @@ using Newtonsoft.Json.Converters;
 using System.Web.Http.Dispatcher;
 using Signum.React.ApiControllers;
 using Signum.React.Auth;
+using System.Web.Http.Validation;
 
 namespace Southwind.React
 {
@@ -51,6 +52,9 @@ namespace Southwind.React
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             ).RouteHandler = new SessionRouteHandler();
+
+
+            config.Services.Replace(typeof(IBodyModelValidator), new SignumBodyModelValidator());
         }
     }
 

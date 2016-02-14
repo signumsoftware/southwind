@@ -39,7 +39,6 @@ export default class Index extends React.Component<{ children: any }, {}> {
                 </Navbar>
                 <Notify/>
                 <div className="container">{this.props.children}</div>
-                <GlobalModalContainer/>
                 <div id="push"></div>
             </div>
         );
