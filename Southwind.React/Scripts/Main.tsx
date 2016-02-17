@@ -1,8 +1,8 @@
-﻿/// <reference path="../../framework/signum.react/scripts/globals.ts" />
+﻿require("!style!css!less!../node_modules/bootstrap/less/bootstrap.less");
+
 import * as React from "react"
 import { render, unmountComponentAtNode } from "react-dom"
 import { Router, Route, Redirect, IndexRoute, useRouterHistory } from "react-router"
-
 
 import * as moment from "moment"
 
@@ -12,6 +12,7 @@ import * as Operations from "../../Framework/Signum.React/Scripts/Operations"
 import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
 import * as Servs from "../../Framework/Signum.React/Scripts/Services"
 import * as QuickLinks from "../../Framework/Signum.React/Scripts/QuickLinks"
+import * as SouthwindClient from "./SouthwindClient"
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 
 import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exceptions/ExceptionClient"
@@ -26,7 +27,6 @@ import NotFound from '../Templates/NotFound'
 
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 
-require("!style!css!less!../node_modules/bootstrap/less/bootstrap.less");
 require("../Content/site.css");
 
 declare var __webpack_public_path__;
@@ -83,6 +83,8 @@ function reload() {
             ExceptionClient.start({ routes });
 
             AuthClient.startAdmin();
+
+            SouthwindClient.start({ routes });
         }
 
         routes.push(<Route path="*" component={NotFound}/>);

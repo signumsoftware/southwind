@@ -19,36 +19,57 @@ using Signum.Entities;
 using Signum.Entities.Authorization;
 using Southwind.Entities;
 using Signum.React.Auth;
+using System.Web.Http.Dispatcher;
+using Signum.React.ApiControllers;
+using System.Reflection;
+using Signum.React.Authorization;
 
 namespace Southwind.React
 {
     public class Global : HttpApplication
     {
+        public static void RegisterMvcRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
+                name: "Default",
+                url: "{*catchall}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+        }
+
         void Application_Start(object sender, EventArgs e)
         {
-            // Code that runs on application startup
-            AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-
             Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 
             using (AuthLogic.Disable())
                 Schema.Current.Initialize();
 
-            ReflectionServer.Start();
+            // Code that runs on application startup
+            AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebStart);
+            RegisterMvcRoutes(RouteTable.Routes);            
 
             Statics.SessionFactory = new WebApiSesionFactory();
         }
 
+
+        public static void WebStart(HttpConfiguration config)
+        {
+            SignumServer.Start(config, typeof(Global).Assembly);
+            AuthServer.Start(config);
+            
+        }
+
         protected void Application_PostAuthorizeRequest()
         {
-            System.Web.HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
+            HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
         }
 
         protected void Session_Start(object sender, EventArgs e)
         {
-            UserTicketClient.LoginFromCookie();
+            UserTicketServer.LoginFromCookie();
         }
     }
 }
