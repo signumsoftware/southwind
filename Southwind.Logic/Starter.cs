@@ -51,6 +51,7 @@ using Signum.Entities.DynamicQuery;
 using System.Net.Mail;
 using Signum.Engine.DiffLog;
 using Signum.Entities.DiffLog;
+using Signum.Engine.Map;
 
 namespace Southwind.Logic
 {
@@ -134,6 +135,7 @@ namespace Southwind.Logic
 
             HelpLogic.Start(sb, dqm);
             WordTemplateLogic.Start(sb, dqm);
+            MapLogic.Start(sb, dqm);
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);

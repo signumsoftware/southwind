@@ -128,8 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\OrdersController.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -159,7 +157,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Start\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
       <Project>{ba7fa363-61a1-41b1-945b-9b9c7bbcd357}</Project>
@@ -203,6 +203,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\SouthwindClient.tsx" />
     <TypeScriptCompile Include="Templates\PublicCatalog.tsx" />
     <TypeScriptCompile Include="Templates\NotFound.tsx" />
     <TypeScriptCompile Include="Templates\Home.tsx" />
