@@ -1,23 +1,24 @@
 //////////////////////////////////
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../Framework/Signum.React/Scripts/Reflection'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../../Framework/Signum.React/Scripts/Reflection'
 
-import * as Entities from '../../Framework/Signum.React/Scripts/Signum.Entities' 
+import * as Entities from '../../../Framework/Signum.React/Scripts/Signum.Entities'
 
-import * as Files from '../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files' 
+import * as Files from '../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
 
-import * as Mailing from '../../Extensions/Signum.React.Extensions/Mailing/Signum.Entities.Mailing' 
+import * as Mailing from '../../../Extensions/Signum.React.Extensions/Mailing/Signum.Entities.Mailing'
 
-import * as SMS from '../../Extensions/Signum.React.Extensions/SMS/Signum.Entities.SMS' 
+import * as SMS from '../../../Extensions/Signum.React.Extensions/SMS/Signum.Entities.SMS'
 
-import * as Processes from '../../Extensions/Signum.React.Extensions/Processes/Signum.Entities.Processes' 
+import * as Processes from '../../../Extensions/Signum.React.Extensions/Processes/Signum.Entities.Processes'
 
-import * as Basics from '../../Extensions/Signum.React.Extensions/Basics/Signum.Entities.Basics' 
+import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Signum.Entities.Basics'
 
-import * as Scheduler from '../../Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler' 
+import * as Scheduler from '../../../Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler'
 
-export const AddressEntity_Type = new Type<AddressEntity>("Address");
+
+export const AddressEntity_Type = new Type<AddressEntity>("AddressEntity");
 export interface AddressEntity extends Entities.EmbeddedEntity {
     address?: string;
     city?: string;
@@ -99,7 +100,7 @@ export module EmployeeQuery {
     export const EmployeesByTerritory = new MessageKey("EmployeeQuery", "EmployeesByTerritory");
 }
 
-export const OrderDetailsEntity_Type = new Type<OrderDetailsEntity>("OrderDetails");
+export const OrderDetailsEntity_Type = new Type<OrderDetailsEntity>("OrderDetailsEntity");
 export interface OrderDetailsEntity extends Entities.EmbeddedEntity {
     product?: Entities.Lite<ProductEntity>;
     unitPrice?: number;
@@ -124,7 +125,7 @@ export interface OrderEntity extends Entities.Entity {
     state?: OrderState;
 }
 
-export const OrderFilterModel_Type = new Type<OrderFilterModel>("OrderFilter");
+export const OrderFilterModel_Type = new Type<OrderFilterModel>("OrderFilterModel");
 export interface OrderFilterModel extends Entities.ModelEntity {
     customer?: Entities.Lite<CustomerEntity>;
     employee?: Entities.Lite<EmployeeEntity>;
