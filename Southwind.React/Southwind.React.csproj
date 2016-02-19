@@ -123,7 +123,6 @@
     <Content Include="Global.asax" />
     <Content Include="package.json" />
     <Content Include="webpack.config.js" />
-    <None Include="Scripts\Southwind.Entities.t4s" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +131,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Southwind\SouthwindController.cs" />
+    <Compile Include="Modules\Southwind\SouthwindServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -145,6 +146,7 @@
     </Content>
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Modules\Southwind\Southwind.Entities.t4s" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -203,14 +205,28 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\SouthwindClient.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Southwind.Entities.ts">
+      <DependentUpon>Southwind.Entities.t4s</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Modules\Southwind\SouthwindClient.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Address.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\ApplicationConfiguration.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Category.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Company.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Employee.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Order.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\OrderDetails.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\OrderFilter.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Person.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Product.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Region.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Shipper.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Supplier.tsx" />
+    <TypeScriptCompile Include="Modules\Southwind\Templates\Territory.tsx" />
     <TypeScriptCompile Include="Templates\PublicCatalog.tsx" />
     <TypeScriptCompile Include="Templates\NotFound.tsx" />
     <TypeScriptCompile Include="Templates\Home.tsx" />
     <TypeScriptCompile Include="Scripts\Main.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind.Entities.ts">
-      <DependentUpon>Southwind.Entities.t4s</DependentUpon>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="Templates\Index.tsx" />
   </ItemGroup>
   <PropertyGroup>

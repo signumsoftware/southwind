@@ -12,7 +12,7 @@ import * as Operations from "../../Framework/Signum.React/Scripts/Operations"
 import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
 import * as Servs from "../../Framework/Signum.React/Scripts/Services"
 import * as QuickLinks from "../../Framework/Signum.React/Scripts/QuickLinks"
-import * as SouthwindClient from "./SouthwindClient"
+import * as SouthwindClient from "../Modules/Southwind/SouthwindClient"
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 
 import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exceptions/ExceptionClient"
