@@ -13,9 +13,9 @@ module.exports = {
             "./Scripts/Main.tsx", 
             "../Framework/Signum.React/Scripts/Lines",
             "../Framework/Signum.React/Scripts/Frames/PageFrame",
-            "../Framework/Signum.React/Scripts/Frames/PopupFrame",
+            "../Framework/Signum.React/Scripts/Frames/ModalFrame",
             "../Framework/Signum.React/Scripts/SearchControl/SearchPage", 
-            "../Framework/Signum.React/Scripts/SearchControl/SearchPopup"],
+            "../Framework/Signum.React/Scripts/SearchControl/SearchModal"],
         "react": ["react", "react-bootstrap", "react-router", "react-widgets", "react-router-bootstrap"],
         "moment": ["moment"],
         //"lines": []

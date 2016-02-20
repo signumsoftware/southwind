@@ -10,10 +10,11 @@ import * as Reflection from "../../Framework/Signum.React/Scripts/Reflection"
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
 import * as Operations from "../../Framework/Signum.React/Scripts/Operations"
 import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
-import * as Servs from "../../Framework/Signum.React/Scripts/Services"
+import * as Services from "../../Framework/Signum.React/Scripts/Services"
 import * as QuickLinks from "../../Framework/Signum.React/Scripts/QuickLinks"
 import * as SouthwindClient from "../Modules/Southwind/SouthwindClient"
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
+import ErrorModal from "../../Framework/Signum.React/Scripts/Modals/ErrorModal"
 
 import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exceptions/ExceptionClient"
 import * as AuthClient from "../../Extensions/Signum.React.Extensions/Authorization/AuthClient"
@@ -52,10 +53,12 @@ function fixBaseName<T>(baseFunction: (location: string, ...args: any[]) => T, b
 
 function reload() {
 
-    Servs.notifyPendingRequests = pending => {
+    Services.notifyPendingRequests = pending => {
         if (Notify.singletone)
             Notify.singletone.notifyPendingRequest(pending);
     }
+
+    Services.showError = (error: any) => ErrorModal.showError(error);
 
     Reflection.requestTypes().then(types => {
         Reflection.setTypes(types);
