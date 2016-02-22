@@ -23,6 +23,17 @@ using System.Web.Http.Dispatcher;
 using Signum.React.ApiControllers;
 using System.Reflection;
 using Signum.React.Authorization;
+using Signum.Entities.Omnibox;
+using Signum.Entities.Chart;
+using Signum.Engine.Chart;
+using Signum.Entities.Dashboard;
+using Signum.Engine.Dashboard;
+using Signum.Entities.UserQueries;
+using Signum.Engine.UserQueries;
+using Signum.Entities.Help;
+using Signum.React.Omnibox;
+using Signum.Entities.Map;
+using Signum.Engine.Operations;
 
 namespace Southwind.React
 {
@@ -59,6 +70,16 @@ namespace Southwind.React
         {
             SignumServer.Start(config, typeof(Global).Assembly);
             AuthServer.Start(config);
+            OmniboxServer.Start(config,
+                new EntityOmniboxResultGenenerator(),
+                new DynamicQueryOmniboxResultGenerator(),
+                new ChartOmniboxResultGenerator(),
+                new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
+                new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
+                new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),
+                new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
+                new HelpModuleOmniboxResultGenerator(),
+                ReactSpecialOmniboxGenerator.Singletone);
             
         }
 
