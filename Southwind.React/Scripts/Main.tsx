@@ -58,11 +58,11 @@ function reload() {
             Notify.singletone.notifyPendingRequest(pending);
     }
 
-    Services.showError = (error: any) => ErrorModal.showError(error);
+    window.onerror = (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
 
     Reflection.requestTypes().then(types => {
         Reflection.setTypes(types);
-        
+
         return AuthClient.Api.retrieveCurrentUser();
     }).then(user => {
 
@@ -79,7 +79,7 @@ function reload() {
 
         if (isFull) {
             Operations.start();
-            Navigator.start({ routes });            
+            Navigator.start({ routes });
             Finder.start({ routes });
             QuickLinks.start();
 
@@ -105,7 +105,7 @@ function reload() {
         history.createPath = fixBaseName(history.createPath, baseName);
         //history.createLocation = fixBaseName(history.createHref, baseName) as any;
 
-        
+
         Navigator.currentHistory = history;
 
         var mainRoute = React.createElement(Route as any, { component: Index }, ...routes);
@@ -116,7 +116,7 @@ function reload() {
             <Router history={history}>
                 <Route component={Index} path="/" > { routes }</Route>
             </Router>, wrap);
-    });
+    }).done();
 
 }
 
