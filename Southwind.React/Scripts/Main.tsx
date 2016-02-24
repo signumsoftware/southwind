@@ -12,19 +12,22 @@ import * as Operations from "../../Framework/Signum.React/Scripts/Operations"
 import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
 import * as Services from "../../Framework/Signum.React/Scripts/Services"
 import * as QuickLinks from "../../Framework/Signum.React/Scripts/QuickLinks"
-import * as SouthwindClient from "../Modules/Southwind/SouthwindClient"
+import * as SouthwindClient from "./Southwind/SouthwindClient"
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 import ErrorModal from "../../Framework/Signum.React/Scripts/Modals/ErrorModal"
 
 import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exceptions/ExceptionClient"
 import * as AuthClient from "../../Extensions/Signum.React.Extensions/Authorization/AuthClient"
+import * as OmniboxClient from "../../Extensions/Signum.React.Extensions/Omnibox/OmniboxClient"
+import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
+import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
 
 import * as History from 'history'
 
-import Index from '../Templates/Index'
-import PublicCatalog from '../Templates/PublicCatalog'
-import Home from '../Templates/Home'
-import NotFound from '../Templates/NotFound'
+import Index from './Index'
+import PublicCatalog from './PublicCatalog'
+import Home from './Home'
+import NotFound from './NotFound'
 
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 
@@ -88,6 +91,10 @@ function reload() {
             AuthClient.startAdmin();
 
             SouthwindClient.start({ routes });
+
+            OmniboxClient.start(
+                new DynamicQueryOmniboxProvider(),
+                new EntityOmniboxProvider());
         }
 
         routes.push(<Route path="*" component={NotFound}/>);

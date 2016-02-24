@@ -69,17 +69,18 @@ namespace Southwind.React
         public static void WebStart(HttpConfiguration config)
         {
             SignumServer.Start(config, typeof(Global).Assembly);
-            AuthServer.Start(config);
+            AuthServer.Start(config, queries: true, types: true);
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),
-                new DynamicQueryOmniboxResultGenerator(),
-                new ChartOmniboxResultGenerator(),
-                new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
-                new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
-                new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),
-                new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
-                new HelpModuleOmniboxResultGenerator(),
-                ReactSpecialOmniboxGenerator.Singletone);
+                new DynamicQueryOmniboxResultGenerator()
+                //new ChartOmniboxResultGenerator(),
+                //new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
+                //new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
+                //new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),
+                //new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
+                //new HelpModuleOmniboxResultGenerator(),
+                //ReactSpecialOmniboxGenerator.Singletone
+                );
             
         }
 

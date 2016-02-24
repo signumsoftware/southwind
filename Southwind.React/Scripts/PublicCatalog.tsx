@@ -4,7 +4,7 @@ import * as React from 'react'
 import { ajaxGet } from "../../Framework/Signum.React/Scripts/Services"
 import * as numeral from "numeral"
 
-import {CategoryEntity, ProductEntity, ProductEntity_Type} from '../Modules/Southwind/Southwind.Entities.ts'
+import {CategoryEntity, ProductEntity, ProductEntity_Type} from './Southwind/Southwind.Entities.ts'
 
 
 export interface CategoryWithProducts {
