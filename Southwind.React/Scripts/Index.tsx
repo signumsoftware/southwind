@@ -1,5 +1,4 @@
-﻿/// <reference path="../../framework/signum.react/scripts/globals.ts" />
-
+﻿
 import * as React from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
@@ -9,6 +8,7 @@ import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorizat
 import OmniboxAutocomplete from '../../Extensions/Signum.React.Extensions/Omnibox/OmniboxAutocomplete'
 import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modals"
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
+import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
 
 export default class Index extends React.Component<{ children: any }, {}> {
     render() {
@@ -23,7 +23,7 @@ export default class Index extends React.Component<{ children: any }, {}> {
                         <Navbar.Toggle />
                     </Navbar.Header>
                     <Navbar.Collapse>
-
+                     
                         { AuthClient.currentUser() && <Nav>
                             <li>
                                 <OmniboxAutocomplete
@@ -39,6 +39,7 @@ export default class Index extends React.Component<{ children: any }, {}> {
                             </NavDropdown>
                         </Nav>}
                         <Nav pullRight>
+                            <CultureDropdown />
                             <LoginUserControl />
                         </Nav>
                     </Navbar.Collapse>

@@ -35,6 +35,10 @@ using Signum.React.Omnibox;
 using Signum.Entities.Map;
 using Signum.Engine.Operations;
 using Signum.React.UserQueries;
+using System.Globalization;
+using System.Threading;
+using Signum.Engine.Basics;
+using Signum.React.Translation;
 
 namespace Southwind.React
 {
@@ -94,6 +98,31 @@ namespace Southwind.React
         protected void Session_Start(object sender, EventArgs e)
         {
             UserTicketServer.LoginFromCookie();
+        }
+
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = GetCulture(this.Request);
+        }
+
+        static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en-US");
+
+        public static CultureInfo GetCulture(HttpRequest request)
+        {
+            // 1 user preference
+            if (UserEntity.Current?.CultureInfo != null)
+                return UserEntity.Current.CultureInfo.ToCultureInfo();
+
+            // 2 cookie (temporary)
+            if (request.Cookies["language"] != null)
+                return new CultureInfo(request.Cookies["language"].Value);
+
+            //3 requestCulture or default
+            CultureInfo ciRequest = TranslationServer.GetCultureRequest(request);
+            if (ciRequest != null)
+                return ciRequest;
+
+            return DefaultCulture; //Translation
         }
     }
 }

@@ -34,11 +34,4 @@ namespace Southwind.React.ApiControllers
             public List<ProductEntity> products;
         }
     }
-
-
-    public class Box
-    {
-        [Required]
-        public OrderEntity Content { get; set; }
-    }
 }
