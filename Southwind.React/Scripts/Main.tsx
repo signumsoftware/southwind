@@ -18,6 +18,7 @@ import ErrorModal from "../../Framework/Signum.React/Scripts/Modals/ErrorModal"
 
 import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exceptions/ExceptionClient"
 import * as AuthClient from "../../Extensions/Signum.React.Extensions/Authorization/AuthClient"
+import * as UserQueryClient from "../../Extensions/Signum.React.Extensions/UserQueries/UserQueryClient"
 import * as OmniboxClient from "../../Extensions/Signum.React.Extensions/Omnibox/OmniboxClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
@@ -89,7 +90,7 @@ function reload() {
             ExceptionClient.start({ routes });
 
             AuthClient.startAdmin();
-
+            UserQueryClient.start({ routes });
             SouthwindClient.start({ routes });
 
             OmniboxClient.start(

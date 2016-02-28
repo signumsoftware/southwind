@@ -34,6 +34,7 @@ using Signum.Entities.Help;
 using Signum.React.Omnibox;
 using Signum.Entities.Map;
 using Signum.Engine.Operations;
+using Signum.React.UserQueries;
 
 namespace Southwind.React
 {
@@ -70,6 +71,7 @@ namespace Southwind.React
         {
             SignumServer.Start(config, typeof(Global).Assembly);
             AuthServer.Start(config, queries: true, types: true);
+            UserQueryServer.Start(config);
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),
                 new DynamicQueryOmniboxResultGenerator()

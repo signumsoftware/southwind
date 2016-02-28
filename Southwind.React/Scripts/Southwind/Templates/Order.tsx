@@ -1,13 +1,19 @@
 import * as React from 'react'
-import { OrderEntity } from '../Southwind.Entities'
+import { Dic } from '../../../../Framework/Signum.React/Scripts/Globals'
+import { OrderEntity, CustomerEntity } from '../Southwind.Entities'
 import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater } from '../../../../Framework/Signum.React/Scripts/Lines'
 
 export default class Order extends EntityComponent<OrderEntity> {
 
+    handleCustomerChange = (c: CustomerEntity) => {
+        this.entity.shipAddress = c == null ? null : Dic.copy(c.address);
+        this.forceUpdate();
+    }
+
     renderEntity() {
         return (
             <div>
-                <EntityLine ctx={this.subCtx(o => o.customer)} />
+                <EntityLine ctx={this.subCtx(o => o.customer) } onChange={this.handleCustomerChange} />
                 <EntityLine ctx={this.subCtx(o => o.employee)} />
                 <ValueLine ctx={this.subCtx(o => o.orderDate)} />
                 <ValueLine ctx={this.subCtx(o => o.requiredDate)} />
