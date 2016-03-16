@@ -39,6 +39,7 @@ using System.Globalization;
 using System.Threading;
 using Signum.Engine.Basics;
 using Signum.React.Translation;
+using Signum.React.Chart;
 
 namespace Southwind.React
 {
@@ -76,6 +77,7 @@ namespace Southwind.React
             SignumServer.Start(config, typeof(Global).Assembly);
             AuthServer.Start(config, queries: true, types: true);
             UserQueryServer.Start(config);
+            ChartServer.Start(config);
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),
                 new DynamicQueryOmniboxResultGenerator()

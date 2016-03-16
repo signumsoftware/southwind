@@ -6,7 +6,7 @@ import { Router, Route, Redirect, IndexRoute, useRouterHistory } from "react-rou
 
 import * as moment from "moment"
 
-import * as Reflection from "../../Framework/Signum.React/Scripts/Reflection"
+import { requestTypes, setTypes} from "../../Framework/Signum.React/Scripts/Reflection"
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
 import * as Operations from "../../Framework/Signum.React/Scripts/Operations"
 import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
@@ -20,6 +20,7 @@ import * as ExceptionClient from "../../Framework/Signum.React/Scripts/Exception
 import * as AuthClient from "../../Extensions/Signum.React.Extensions/Authorization/AuthClient"
 import * as UserQueryClient from "../../Extensions/Signum.React.Extensions/UserQueries/UserQueryClient"
 import * as OmniboxClient from "../../Extensions/Signum.React.Extensions/Omnibox/OmniboxClient"
+import * as ChartClient from "../../Extensions/Signum.React.Extensions/Chart/ChartClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
 
@@ -64,8 +65,8 @@ function reload() {
 
     window.onerror = (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
 
-    Reflection.requestTypes().then(types => {
-        Reflection.setTypes(types);
+    requestTypes().then(types => {
+        setTypes(types);
 
         return AuthClient.Api.retrieveCurrentUser();
     }).then(user => {
@@ -92,6 +93,8 @@ function reload() {
             AuthClient.startAdmin();
             UserQueryClient.start({ routes });
             SouthwindClient.start({ routes });
+
+            ChartClient.start({ routes });
 
             OmniboxClient.start(
                 new DynamicQueryOmniboxProvider(),

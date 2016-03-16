@@ -97,7 +97,7 @@ export module EmployeeOperation {
 }
 
 export module EmployeeQuery {
-    export const EmployeesByTerritory = new MessageKey("EmployeeQuery", "EmployeesByTerritory");
+    export const EmployeesByTerritory = new QueryKey("EmployeeQuery", "EmployeesByTerritory");
 }
 
 export const OrderDetailsEntity_Type = new Type<OrderDetailsEntity>("OrderDetailsEntity");
@@ -156,8 +156,8 @@ export module OrderProcess {
 }
 
 export module OrderQuery {
-    export const OrderLines = new MessageKey("OrderQuery", "OrderLines");
-    export const OrderSimple = new MessageKey("OrderQuery", "OrderSimple");
+    export const OrderLines = new QueryKey("OrderQuery", "OrderLines");
+    export const OrderSimple = new QueryKey("OrderQuery", "OrderSimple");
 }
 
 export enum OrderState {
@@ -199,7 +199,7 @@ export module ProductOperation {
 }
 
 export module ProductQuery {
-    export const CurrentProducts = new MessageKey("ProductQuery", "CurrentProducts");
+    export const CurrentProducts = new QueryKey("ProductQuery", "CurrentProducts");
 }
 
 export const RegionEntity_Type = new Type<RegionEntity>("Region");
