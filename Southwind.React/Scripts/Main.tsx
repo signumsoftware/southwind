@@ -3,6 +3,7 @@
 import * as React from "react"
 import { render, unmountComponentAtNode } from "react-dom"
 import { Router, Route, Redirect, IndexRoute, useRouterHistory } from "react-router"
+import * as ReactRouter from "react-router"
 
 import * as moment from "moment"
 
@@ -45,16 +46,21 @@ ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
 
 
-function fixBaseName<T>(baseFunction: (location: string, ...args: any[]) => T, baseName: string): (location: string) => T{
+function fixBaseName<T>(baseFunction: (location: HistoryModule.LocationDescriptorObject | string) => T, baseName: string): (location: HistoryModule.LocationDescriptorObject | string) => T {
+    return (location) => {
+        if (typeof location == "string") {
+            var str = location as string;
+            if (str && str.startsWith(baseName))
+                location = str.after(baseName);
+        } else {
+            var locObject = location as HistoryModule.LocationDescriptorObject;
+            if (locObject && locObject.pathname.startsWith(baseName))
+                locObject.pathname = locObject.pathname.after(baseName);
+        }
 
-    return (location, ...args) => {
-        if (location && location.startsWith(baseName))
-            location = location.after(baseName);
-
-        return baseFunction(location, ...args);
+        return baseFunction(location);
     };
 }
-
 
 function reload() {
 
