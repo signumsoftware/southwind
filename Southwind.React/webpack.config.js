@@ -4,6 +4,7 @@ var path = require('path');
 var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var AssetsPlugin = require('assets-webpack-plugin');
+var BeepPlugin = require('webpack-beep-plugin');
 
 console.log(process.version);
 
@@ -54,7 +55,8 @@ module.exports = {
         }),
         new AssetsPlugin({
             path: path.join(__dirname, 'dist')
-        })
+        }),
+        new BeepPlugin()
     ],
 
     ts: {
