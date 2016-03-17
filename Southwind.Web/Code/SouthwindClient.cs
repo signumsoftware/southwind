@@ -203,7 +203,7 @@ namespace Southwind.Web
 
         public static string Base64Data(EmbeddedFileEntity file)
         {
-            return "data:" + MimeType.FromFileName(file.FileName) + ";base64," + Convert.ToBase64String(file.BinaryFile);
+            return "data:" + MimeMapping.GetMimeMapping(file.FileName) + ";base64," + Convert.ToBase64String(file.BinaryFile);
         } //Base64Data
     }
 }
