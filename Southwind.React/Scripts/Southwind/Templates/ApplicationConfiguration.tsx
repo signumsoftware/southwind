@@ -5,12 +5,13 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class ApplicationConfiguration extends EntityComponent<ApplicationConfigurationEntity> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <ValueLine ctx={this.subCtx(a => a.environment)} />
-                <EntityDetail ctx={this.subCtx(a => a.email)} />
-                <EntityLine ctx={this.subCtx(a => a.smtpConfiguration)} />
-                <EntityDetail ctx={this.subCtx(a => a.sms)} />
+                <ValueLine ctx={ctx.subCtx(a => a.environment)} />
+                <EntityDetail ctx={ctx.subCtx(a => a.email)} />
+                <EntityLine ctx={ctx.subCtx(a => a.smtpConfiguration)} />
+                <EntityDetail ctx={ctx.subCtx(a => a.sms)} />
             </div>
         );
     }

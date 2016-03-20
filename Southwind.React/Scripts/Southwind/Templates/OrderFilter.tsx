@@ -5,12 +5,13 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class OrderFilter extends EntityComponent<OrderFilterModel> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <EntityLine ctx={this.subCtx(o => o.customer)} />
-                <EntityLine ctx={this.subCtx(o => o.employee)} />
-                <ValueLine ctx={this.subCtx(o => o.minOrderDate)} />
-                <ValueLine ctx={this.subCtx(o => o.maxOrderDate)} />
+                <EntityLine ctx={ctx.subCtx(o => o.customer)} />
+                <EntityLine ctx={ctx.subCtx(o => o.employee)} />
+                <ValueLine ctx={ctx.subCtx(o => o.minOrderDate)} />
+                <ValueLine ctx={ctx.subCtx(o => o.maxOrderDate)} />
             </div>
         );
     }

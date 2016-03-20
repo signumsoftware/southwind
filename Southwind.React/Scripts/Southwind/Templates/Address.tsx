@@ -5,13 +5,14 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class Address extends EntityComponent<AddressEntity> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <ValueLine ctx={this.subCtx(a => a.address)} />
-                <ValueLine ctx={this.subCtx(a => a.city)} />
-                <ValueLine ctx={this.subCtx(a => a.region)} />
-                <ValueLine ctx={this.subCtx(a => a.postalCode)} />
-                <ValueLine ctx={this.subCtx(a => a.country)} />
+                <ValueLine ctx={ctx.subCtx(a => a.address)} />
+                <ValueLine ctx={ctx.subCtx(a => a.city)} />
+                <ValueLine ctx={ctx.subCtx(a => a.region)} />
+                <ValueLine ctx={ctx.subCtx(a => a.postalCode)} />
+                <ValueLine ctx={ctx.subCtx(a => a.country)} />
             </div>
         );
     }

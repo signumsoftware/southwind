@@ -5,10 +5,11 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class Territory extends EntityComponent<TerritoryEntity> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <EntityLine ctx={this.subCtx(t => t.region)} />
-                <ValueLine ctx={this.subCtx(t => t.description)} />
+                <EntityLine ctx={ctx.subCtx(t => t.region)} />
+                <ValueLine ctx={ctx.subCtx(t => t.description)} />
             </div>
         );
     }

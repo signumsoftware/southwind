@@ -5,16 +5,17 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class Product extends EntityComponent<ProductEntity> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <ValueLine ctx={this.subCtx(p => p.productName)} />
-                <EntityLine ctx={this.subCtx(p => p.supplier)} />
-                <EntityLine ctx={this.subCtx(p => p.category)} />
-                <ValueLine ctx={this.subCtx(p => p.quantityPerUnit)} />
-                <ValueLine ctx={this.subCtx(p => p.unitPrice)} />
-                <ValueLine ctx={this.subCtx(p => p.unitsInStock)} />
-                <ValueLine ctx={this.subCtx(p => p.reorderLevel)} />
-                <ValueLine ctx={this.subCtx(p => p.discontinued)} />
+                <ValueLine ctx={ctx.subCtx(p => p.productName)} />
+                <EntityLine ctx={ctx.subCtx(p => p.supplier)} />
+                <EntityLine ctx={ctx.subCtx(p => p.category)} />
+                <ValueLine ctx={ctx.subCtx(p => p.quantityPerUnit)} />
+                <ValueLine ctx={ctx.subCtx(p => p.unitPrice)} />
+                <ValueLine ctx={ctx.subCtx(p => p.unitsInStock)} />
+                <ValueLine ctx={ctx.subCtx(p => p.reorderLevel)} />
+                <ValueLine ctx={ctx.subCtx(p => p.discontinued)} />
             </div>
         );
     }

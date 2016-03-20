@@ -5,15 +5,16 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class Supplier extends EntityComponent<SupplierEntity> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <ValueLine ctx={this.subCtx(s => s.companyName)} />
-                <ValueLine ctx={this.subCtx(s => s.contactName)} />
-                <ValueLine ctx={this.subCtx(s => s.contactTitle)} />
-                <EntityDetail ctx={this.subCtx(s => s.address)} />
-                <ValueLine ctx={this.subCtx(s => s.phone)} />
-                <ValueLine ctx={this.subCtx(s => s.fax)} />
-                <ValueLine ctx={this.subCtx(s => s.homePage)} />
+                <ValueLine ctx={ctx.subCtx(s => s.companyName)} />
+                <ValueLine ctx={ctx.subCtx(s => s.contactName)} />
+                <ValueLine ctx={ctx.subCtx(s => s.contactTitle)} />
+                <EntityDetail ctx={ctx.subCtx(s => s.address)} />
+                <ValueLine ctx={ctx.subCtx(s => s.phone)} />
+                <ValueLine ctx={ctx.subCtx(s => s.fax)} />
+                <ValueLine ctx={ctx.subCtx(s => s.homePage)} />
             </div>
         );
     }

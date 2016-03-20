@@ -5,22 +5,23 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class Employee extends EntityComponent<EmployeeEntity> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <ValueLine ctx={this.subCtx(e => e.lastName)} />
-                <ValueLine ctx={this.subCtx(e => e.firstName)} />
-                <ValueLine ctx={this.subCtx(e => e.title)} />
-                <ValueLine ctx={this.subCtx(e => e.titleOfCourtesy)} />
-                <ValueLine ctx={this.subCtx(e => e.birthDate)} />
-                <ValueLine ctx={this.subCtx(e => e.hireDate)} />
-                <EntityDetail ctx={this.subCtx(e => e.address)} />
-                <ValueLine ctx={this.subCtx(e => e.homePhone)} />
-                <ValueLine ctx={this.subCtx(e => e.extension)} />
-                {/*<EntityDetail ctx={this.subCtx(e => e.photo)} />*/}
-                <ValueLine ctx={this.subCtx(e => e.notes)} />
-                <EntityLine ctx={this.subCtx(e => e.reportsTo)} />
-                <ValueLine ctx={this.subCtx(e => e.photoPath)} />
-                <EntityStrip ctx={this.subCtx(e => e.territories)} />
+                <ValueLine ctx={ctx.subCtx(e => e.lastName)} />
+                <ValueLine ctx={ctx.subCtx(e => e.firstName)} />
+                <ValueLine ctx={ctx.subCtx(e => e.title)} />
+                <ValueLine ctx={ctx.subCtx(e => e.titleOfCourtesy)} />
+                <ValueLine ctx={ctx.subCtx(e => e.birthDate)} />
+                <ValueLine ctx={ctx.subCtx(e => e.hireDate)} />
+                <EntityDetail ctx={ctx.subCtx(e => e.address)} />
+                <ValueLine ctx={ctx.subCtx(e => e.homePhone)} />
+                <ValueLine ctx={ctx.subCtx(e => e.extension)} />
+                {/*<EntityDetail ctx={ctx.subCtx(e => e.photo)} />*/}
+                <ValueLine ctx={ctx.subCtx(e => e.notes)} />
+                <EntityLine ctx={ctx.subCtx(e => e.reportsTo)} />
+                <ValueLine ctx={ctx.subCtx(e => e.photoPath)} />
+                <EntityStrip ctx={ctx.subCtx(e => e.territories)} />
             </div>
         );
     }

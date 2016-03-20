@@ -5,12 +5,13 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class OrderDetails extends EntityComponent<OrderDetailsEntity> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <EntityLine ctx={this.subCtx(o => o.product)} />
-                <ValueLine ctx={this.subCtx(o => o.unitPrice)} />
-                <ValueLine ctx={this.subCtx(o => o.quantity)} />
-                <ValueLine ctx={this.subCtx(o => o.discount)} />
+                <EntityLine ctx={ctx.subCtx(o => o.product)} />
+                <ValueLine ctx={ctx.subCtx(o => o.unitPrice)} />
+                <ValueLine ctx={ctx.subCtx(o => o.quantity)} />
+                <ValueLine ctx={ctx.subCtx(o => o.discount)} />
             </div>
         );
     }

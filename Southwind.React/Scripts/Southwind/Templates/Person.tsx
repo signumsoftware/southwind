@@ -5,13 +5,14 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class Person extends EntityComponent<PersonEntity> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <ValueLine ctx={this.subCtx(p => p.firstName)} />
-                <ValueLine ctx={this.subCtx(p => p.lastName)} />
-                <ValueLine ctx={this.subCtx(p => p.title)} />
-                <ValueLine ctx={this.subCtx(p => p.dateOfBirth)} />
-                <ValueLine ctx={this.subCtx(p => p.corrupt)} />
+                <ValueLine ctx={ctx.subCtx(p => p.firstName)} />
+                <ValueLine ctx={ctx.subCtx(p => p.lastName)} />
+                <ValueLine ctx={ctx.subCtx(p => p.title)} />
+                <ValueLine ctx={ctx.subCtx(p => p.dateOfBirth)} />
+                <ValueLine ctx={ctx.subCtx(p => p.corrupt)} />
             </div>
         );
     }

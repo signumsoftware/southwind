@@ -11,21 +11,22 @@ export default class Order extends EntityComponent<OrderEntity> {
     }
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <EntityLine ctx={this.subCtx(o => o.customer) } onChange={this.handleCustomerChange} />
-                <EntityLine ctx={this.subCtx(o => o.employee)} />
-                <ValueLine ctx={this.subCtx(o => o.orderDate)} />
-                <ValueLine ctx={this.subCtx(o => o.requiredDate)} />
-                <ValueLine ctx={this.subCtx(o => o.shippedDate)} />
-                <ValueLine ctx={this.subCtx(o => o.cancelationDate)} />
-                <EntityLine ctx={this.subCtx(o => o.shipVia)} />
-                <ValueLine ctx={this.subCtx(o => o.shipName)} />
-                <EntityDetail ctx={this.subCtx(o => o.shipAddress)} />
-                <ValueLine ctx={this.subCtx(o => o.freight)} />
-                <EntityRepeater ctx={this.subCtx(o => o.details)} />
-                <ValueLine ctx={this.subCtx(o => o.isLegacy)} />
-                <ValueLine ctx={this.subCtx(o => o.state)} />
+                <EntityLine ctx={ctx.subCtx(o => o.customer) } onChange={this.handleCustomerChange} />
+                <EntityLine ctx={ctx.subCtx(o => o.employee)} />
+                <ValueLine ctx={ctx.subCtx(o => o.orderDate)} />
+                <ValueLine ctx={ctx.subCtx(o => o.requiredDate)} />
+                <ValueLine ctx={ctx.subCtx(o => o.shippedDate)} />
+                <ValueLine ctx={ctx.subCtx(o => o.cancelationDate)} />
+                <EntityLine ctx={ctx.subCtx(o => o.shipVia)} />
+                <ValueLine ctx={ctx.subCtx(o => o.shipName)} />
+                <EntityDetail ctx={ctx.subCtx(o => o.shipAddress)} />
+                <ValueLine ctx={ctx.subCtx(o => o.freight)} />
+                <EntityRepeater ctx={ctx.subCtx(o => o.details)} />
+                <ValueLine ctx={ctx.subCtx(o => o.isLegacy)} />
+                <ValueLine ctx={ctx.subCtx(o => o.state)} />
             </div>
         );
     }

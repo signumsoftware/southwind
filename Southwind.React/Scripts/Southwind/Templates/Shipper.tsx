@@ -5,10 +5,11 @@ import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, Entity
 export default class Shipper extends EntityComponent<ShipperEntity> {
 
     renderEntity() {
+        var ctx = this.props.ctx;
         return (
             <div>
-                <ValueLine ctx={this.subCtx(s => s.companyName)} />
-                <ValueLine ctx={this.subCtx(s => s.phone)} />
+                <ValueLine ctx={ctx.subCtx(s => s.companyName)} />
+                <ValueLine ctx={ctx.subCtx(s => s.phone)} />
             </div>
         );
     }
