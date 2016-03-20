@@ -4,7 +4,7 @@ import * as React from 'react'
 import { ajaxGet } from "../../Framework/Signum.React/Scripts/Services"
 import * as numeral from "numeral"
 
-import {CategoryEntity, ProductEntity, ProductEntity_Type} from './Southwind/Southwind.Entities.ts'
+import { CategoryEntity, ProductEntity } from './Southwind/Southwind.Entities.ts'
 
 
 export interface CategoryWithProducts {
@@ -43,16 +43,16 @@ export default class PublicCatalog extends React.Component<{}, { categories?: Ca
                         <table className="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>{ProductEntity_Type.nicePropertyName(p => p.productName) }</th>
-                                    <th>{ProductEntity_Type.nicePropertyName(p => p.unitPrice) }</th>
-                                    <th>{ProductEntity_Type.nicePropertyName(p => p.quantityPerUnit) }</th>
-                                    <th>{ProductEntity_Type.nicePropertyName(p => p.unitsInStock) }</th>
+                                    <th>{ProductEntity.nicePropertyName(p => p.productName) }</th>
+                                    <th>{ProductEntity.nicePropertyName(p => p.unitPrice) }</th>
+                                    <th>{ProductEntity.nicePropertyName(p => p.quantityPerUnit) }</th>
+                                    <th>{ProductEntity.nicePropertyName(p => p.unitsInStock) }</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 { c.products.orderBy(a => a.id).orderBy(a => a.reorderLevel).map(p => <tr key={p.id}>
                                     <td>{p.productName}</td>
-                                    <td>{numeral(p.unitPrice).format("0.00") } {ProductEntity_Type.memberInfo(p => p.unitPrice).unit}</td>
+                                    <td>{numeral(p.unitPrice).format("0.00") } {ProductEntity.memberInfo(p => p.unitPrice).unit}</td>
                                     <td>{p.quantityPerUnit}</td>
                                     <td>{p.unitsInStock}</td>
                                 </tr>)
