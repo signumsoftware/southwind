@@ -34,6 +34,7 @@
     "codemirror": "^5.12.0",
     "history": "^2.0.0",
     "d3": "^3.5.13",
+    "colorbrewer": "^1.0.0",
     "whatwg-fetch": "^0.11.0",
     "moment": "^2.11.1",
     "numeral": "^1.5.3",
