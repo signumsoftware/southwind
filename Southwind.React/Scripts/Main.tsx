@@ -24,6 +24,9 @@ import * as OmniboxClient from "../../Extensions/Signum.React.Extensions/Omnibox
 import * as ChartClient from "../../Extensions/Signum.React.Extensions/Chart/ChartClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
+import ChartOmniboxProvider from "../../Extensions/Signum.React.Extensions/Chart/ChartOmniboxProvider"
+import UserChartOmniboxProvider from "../../Extensions/Signum.React.Extensions/Chart/UserChartOmniboxProvider"
+import UserQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/UserQueries/UserQueryOmniboxProvider"
 
 import * as History from 'history'
 
@@ -104,7 +107,11 @@ function reload() {
 
             OmniboxClient.start(
                 new DynamicQueryOmniboxProvider(),
-                new EntityOmniboxProvider());
+                new EntityOmniboxProvider(),
+                new ChartOmniboxProvider(),
+                new UserChartOmniboxProvider(),
+                new UserQueryOmniboxProvider()
+            );
         }
 
         routes.push(<Route path="*" component={NotFound}/>);

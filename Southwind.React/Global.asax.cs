@@ -80,11 +80,11 @@ namespace Southwind.React
             ChartServer.Start(config);
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),
-                new DynamicQueryOmniboxResultGenerator()
-                //new ChartOmniboxResultGenerator(),
+                new DynamicQueryOmniboxResultGenerator(),
+                new ChartOmniboxResultGenerator(),
                 //new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
-                //new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
-                //new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),
+                new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
+                new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete)
                 //new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
                 //new HelpModuleOmniboxResultGenerator(),
                 //ReactSpecialOmniboxGenerator.Singletone
