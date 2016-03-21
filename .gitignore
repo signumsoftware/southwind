@@ -33,8 +33,5 @@ packages/*
 !packages/repositories.config
 Southwind.Web/Scripts/**/*.js
 .vs/
-Southwind.React/Libs
-Southwind.React/dist/
-Southwind.React/node_modules/
-*.js.map
-*.js
+Southwind.React/node_modules/*
+Southwind.React/dist/*
