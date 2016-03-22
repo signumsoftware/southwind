@@ -432,6 +432,7 @@
     </Module>
 	
 	<Module Name="Map">
+	  <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MapLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="MapClient.Start();"/>
 	  <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="OmniboxClient.Register(new MapOmniboxProvider());"/>
     </Module>
