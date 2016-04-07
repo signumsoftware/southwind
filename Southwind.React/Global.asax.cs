@@ -40,6 +40,7 @@ using System.Threading;
 using Signum.Engine.Basics;
 using Signum.React.Translation;
 using Signum.React.Chart;
+using Signum.React.Dashboard;
 
 namespace Southwind.React
 {
@@ -76,13 +77,13 @@ namespace Southwind.React
         {
             SignumServer.Start(config, typeof(Global).Assembly);
             AuthServer.Start(config, queries: true, types: true);
-            UserQueryServer.Start(config);
+            DashboardServer.Start(config);
             ChartServer.Start(config);
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),
                 new DynamicQueryOmniboxResultGenerator(),
                 new ChartOmniboxResultGenerator(),
-                //new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
+                new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
                 new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
                 new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete)
                 //new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),

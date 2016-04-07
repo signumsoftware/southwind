@@ -22,11 +22,13 @@ import * as AuthClient from "../../Extensions/Signum.React.Extensions/Authorizat
 import * as UserQueryClient from "../../Extensions/Signum.React.Extensions/UserQueries/UserQueryClient"
 import * as OmniboxClient from "../../Extensions/Signum.React.Extensions/Omnibox/OmniboxClient"
 import * as ChartClient from "../../Extensions/Signum.React.Extensions/Chart/ChartClient"
+import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
 import ChartOmniboxProvider from "../../Extensions/Signum.React.Extensions/Chart/ChartOmniboxProvider"
 import UserChartOmniboxProvider from "../../Extensions/Signum.React.Extensions/Chart/UserChartOmniboxProvider"
 import UserQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/UserQueries/UserQueryOmniboxProvider"
+import DashboardOmniboxProvider from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardOmniboxProvider"
 
 import * as History from 'history'
 
@@ -104,13 +106,15 @@ function reload() {
             SouthwindClient.start({ routes });
 
             ChartClient.start({ routes });
+            DashboardClient.start({ routes });
 
             OmniboxClient.start(
                 new DynamicQueryOmniboxProvider(),
                 new EntityOmniboxProvider(),
                 new ChartOmniboxProvider(),
                 new UserChartOmniboxProvider(),
-                new UserQueryOmniboxProvider()
+                new UserQueryOmniboxProvider(),
+                new DashboardOmniboxProvider()
             );
         }
 
