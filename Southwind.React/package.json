@@ -31,7 +31,7 @@
     "history": "^2.0.0",
     "lodash-compat": "^3.10.2",
     "moment": "^2.11.1",
-    "numeral": "^1.5.3",
+    "numbro": "^1.7.0",
     "react": "^0.14.7",
     "react-bootstrap": "^0.28.2",
     "react-dom": "^0.14.7",

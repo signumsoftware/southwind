@@ -1,5 +1,7 @@
 ﻿
 import * as React from 'react'
+import * as moment from 'moment'
+import * as numbro from 'numbro'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router'
@@ -42,7 +44,7 @@ export default class Index extends React.Component<{ children: any }, {}> {
                             </NavDropdown>
                         </Nav>}
                         <Nav pullRight>
-                            <CultureDropdown />
+                            <CultureDropdown changeJavascriptCulture={this.handleChangeJavascriptCulture} />
                             <LoginUserControl />
                         </Nav>
                     </Navbar.Collapse>
@@ -53,5 +55,11 @@ export default class Index extends React.Component<{ children: any }, {}> {
                 <div id="push"></div>
             </div>
         );
+                }
+
+    handleChangeJavascriptCulture = (culture: string) => {
+        moment.locale((culture.tryBefore("-") || culture).toLowerCase());
+        numbro.culture(culture == "en" ? "en-GB" :
+            culture == "es" ? "es-ES" ? "Unkwnown");
     }
 }

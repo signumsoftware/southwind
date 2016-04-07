@@ -60,7 +60,7 @@ module.exports = {
             names: ['chart', 'main', 'react'],
             minChunks : Infinity
         }),
-        //new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es|fr|de|it)\.js/),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)\.js/),
         new CleanWebpackPlugin(['dist'], {
             //root: '/full/project/path',
             verbose: true,

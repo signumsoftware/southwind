@@ -6,6 +6,7 @@ import { Router, Route, Redirect, IndexRoute, useRouterHistory } from "react-rou
 import * as ReactRouter from "react-router"
 
 import * as moment from "moment"
+import * as numbro from "numbro"
 
 import { requestTypes, setTypes} from "../../Framework/Signum.React/Scripts/Reflection"
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
@@ -40,6 +41,8 @@ import NotFound from './NotFound'
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 
 require("../Content/site.css");
+numbro.culture("en-GB", require("numbro/languages/en-GB"));
+numbro.culture("es-ES", require("numbro/languages/es-ES"));
 
 declare var __webpack_public_path__;
 
