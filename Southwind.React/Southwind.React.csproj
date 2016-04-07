@@ -225,7 +225,7 @@
     <TypeScriptCompile Include="Scripts\NotFound.tsx" />
     <TypeScriptCompile Include="Scripts\Home.tsx" />
     <TypeScriptCompile Include="Scripts\Main.tsx" />
-    <TypeScriptCompile Include="Scripts\Index.tsx" />
+    <TypeScriptCompile Include="Scripts\Layout.tsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

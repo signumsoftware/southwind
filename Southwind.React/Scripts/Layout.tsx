@@ -10,6 +10,8 @@ import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modal
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
 
+
+
 export default class Index extends React.Component<{ children: any }, {}> {
     render() {
 
@@ -23,13 +25,14 @@ export default class Index extends React.Component<{ children: any }, {}> {
                         <Navbar.Toggle />
                     </Navbar.Header>
                     <Navbar.Collapse>
-                     
+
                         { AuthClient.currentUser() && <Nav>
                             <li>
-                                <OmniboxAutocomplete
-                                    divAttrs={{ style: { width: "200px", marginTop: "8px" } }}
-                                    inputAttrs={{ className: "form-control" }}
-                                    />
+                                <div style={{ width: "200px", marginTop: "8px" }}>
+                                    <OmniboxAutocomplete
+                                        inputAttrs={{ className: "form-control" }}
+                                        />
+                                </div>
                             </li>
                             <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
                                 <IndexLinkContainer to="/"><MenuItem>Home</MenuItem></IndexLinkContainer>

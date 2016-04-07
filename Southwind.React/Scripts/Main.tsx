@@ -32,7 +32,7 @@ import DashboardOmniboxProvider from "../../Extensions/Signum.React.Extensions/D
 
 import * as History from 'history'
 
-import Index from './Index'
+import Layout from './Layout'
 import PublicCatalog from './PublicCatalog'
 import Home from './Home'
 import NotFound from './NotFound'
@@ -136,13 +136,13 @@ function reload() {
 
         Navigator.currentHistory = history;
 
-        var mainRoute = React.createElement(Route as any, { component: Index }, ...routes);
+        var mainRoute = React.createElement(Route as any, { component: Layout }, ...routes);
 
         var wrap = document.getElementById("wrap");
         unmountComponentAtNode(wrap);
         render(
             <Router history={history}>
-                <Route component={Index} path="/" > { routes }</Route>
+                <Route component={Layout} path="/" > { routes }</Route>
             </Router>, wrap);
     }).done();
 
