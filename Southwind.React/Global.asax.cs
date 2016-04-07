@@ -53,7 +53,8 @@ namespace Southwind.React
             routes.MapRoute(
                 name: "Default",
                 url: "{*catchall}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { catchall = @"^(?!api).*" }
             );
         }
 
