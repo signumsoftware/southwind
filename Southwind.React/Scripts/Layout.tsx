@@ -60,6 +60,6 @@ export default class Index extends React.Component<{ children: any }, {}> {
     handleChangeJavascriptCulture = (culture: string) => {
         moment.locale((culture.tryBefore("-") || culture).toLowerCase());
         numbro.culture(culture == "en" ? "en-GB" :
-            culture == "es" ? "es-ES" ? "Unkwnown");
+            culture == "es" ? "es-ES" : "Unkwnown");
     }
 }

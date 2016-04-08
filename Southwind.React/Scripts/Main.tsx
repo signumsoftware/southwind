@@ -41,8 +41,8 @@ import NotFound from './NotFound'
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 
 require("../Content/site.css");
-numbro.culture("en-GB", require("numbro/languages/en-GB"));
-numbro.culture("es-ES", require("numbro/languages/es-ES"));
+numbro.culture("en-GB", require<any>("numbro/languages/en-GB"));
+numbro.culture("es-ES", require<any>("numbro/languages/es-ES"));
 
 declare var __webpack_public_path__;
 
