@@ -14,11 +14,13 @@ import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translatio
 
 
 
-export default class Index extends React.Component<{ children: any }, {}> {
-    render() {
+export default class Index extends React.Component<{ children: any }, { refreshId: number }> {
 
+    state = { refreshId: 0 };
+
+    render() {
         return (
-            <div id="main">
+            <div id="main" key={this.state.refreshId}>
                 <Navbar inverse>
                     <Navbar.Header>
                         <Navbar.Brand>
@@ -44,7 +46,7 @@ export default class Index extends React.Component<{ children: any }, {}> {
                             </NavDropdown>
                         </Nav>}
                         <Nav pullRight>
-                            <CultureDropdown changeJavascriptCulture={this.handleChangeJavascriptCulture} />
+                            <CultureDropdown changeJavascriptCulture={this.handleChangeJavascriptCulture} resetUI={this.handleResetUI} />
                             <LoginUserControl />
                         </Nav>
                     </Navbar.Collapse>
@@ -55,7 +57,11 @@ export default class Index extends React.Component<{ children: any }, {}> {
                 <div id="push"></div>
             </div>
         );
-                }
+    }
+
+    handleResetUI = () => {
+        this.setState({ refreshId: this.state.refreshId + 1 });
+    };
 
     handleChangeJavascriptCulture = (culture: string) => {
         moment.locale((culture.tryBefore("-") || culture).toLowerCase());
