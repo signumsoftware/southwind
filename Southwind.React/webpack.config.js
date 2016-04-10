@@ -6,25 +6,15 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 var AssetsPlugin = require('assets-webpack-plugin');
 var BeepPlugin = require('webpack-beep-plugin');
 var node_modules = path.join(__dirname, "node_modules");
+var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 
 module.exports = {
     entry: {
-        main: [
-            "./Scripts/Main.tsx", 
-            "../Framework/Signum.React/Scripts/Lines",
-            "../Framework/Signum.React/Scripts/Frames/PageFrame",
-            "../Framework/Signum.React/Scripts/Frames/ModalFrame",
-            "../Framework/Signum.React/Scripts/SearchControl/SearchPage", 
-            "../Framework/Signum.React/Scripts/SearchControl/SearchModal"],
-        "react": ["react", "react-bootstrap", "react-router", "react-widgets", "react-router-bootstrap", "moment"],
-        chart: [
-            "../Extensions/Signum.React.Extensions/Chart/ChartScript/ChartScript.tsx",
-            "../Extensions/Signum.React.Extensions/Chart/Templates/ChartRequestView.tsx",
-            "../Extensions/Signum.React.Extensions/Chart/UserChart/UserChart.tsx"
-        ]
-        //"lines": []
-        //"d3": ["d3"],
+        main: [ "./Scripts/Main.tsx" ],
+        "react": ["react", "react-bootstrap", "react-router", "react-widgets", "react-router-bootstrap"],
+        "moment": ["moment"],
+        "numbro": ["numbro"],
     },
     output: {
         path: path.join(__dirname, "dist"),
@@ -45,7 +35,8 @@ module.exports = {
         //    node_modules + "/react-widgets/dist/react-widgets.js"
         //],
         loaders: [
-            { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
+            //{ test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
+            { test: /\.tsx?$/, loader: 'ts-loader' },
             //{ test: /\.tsx?$/, loader: 'happypack/loader' },
             //{ test: /\.jsx?$/, loader: "babel-loader" }
             { test: /\.css$/, loader: "style-loader!css-loader" },
@@ -56,23 +47,25 @@ module.exports = {
         ]
     },
     plugins: [
+        //new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['chart', 'main', 'react'],
-            minChunks : Infinity
+            names: ['react', 'numbro', 'moment'],
         }),
-        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)\.js/),
+        //new webpack.optimize.UglifyJsPlugin(),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
         new CleanWebpackPlugin(['dist'], {
-            //root: '/full/project/path',
             verbose: true,
             dry: false
         }),
         new AssetsPlugin({
             path: path.join(__dirname, 'dist')
         }),
-        new BeepPlugin()
+        new BeepPlugin(),
+        //new ForkCheckerPlugin(),
     ],
-
+    devtool: false,
     ts: {
+        transpileOnly: true,
         compilerOptions: {
             "noEmit": false
         }

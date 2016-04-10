@@ -1,4 +1,7 @@
 ﻿require("!style!css!less!../node_modules/bootstrap/less/bootstrap.less");
+require("../Content/site.css");
+require("../../Framework/Signum.React/Scripts/Frames/Frames.css");
+
 
 import * as React from "react"
 import { render, unmountComponentAtNode } from "react-dom"
@@ -40,7 +43,7 @@ import NotFound from './NotFound'
 
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 
-require("../Content/site.css");
+
 numbro.culture("en-GB", require<any>("numbro/languages/en-GB"));
 numbro.culture("es-ES", require<any>("numbro/languages/es-ES"));
 
