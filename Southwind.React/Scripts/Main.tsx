@@ -27,12 +27,14 @@ import * as UserQueryClient from "../../Extensions/Signum.React.Extensions/UserQ
 import * as OmniboxClient from "../../Extensions/Signum.React.Extensions/Omnibox/OmniboxClient"
 import * as ChartClient from "../../Extensions/Signum.React.Extensions/Chart/ChartClient"
 import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardClient"
+import * as MapClient from "../../Extensions/Signum.React.Extensions/Map/MapClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
 import ChartOmniboxProvider from "../../Extensions/Signum.React.Extensions/Chart/ChartOmniboxProvider"
 import UserChartOmniboxProvider from "../../Extensions/Signum.React.Extensions/Chart/UserChartOmniboxProvider"
 import UserQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/UserQueries/UserQueryOmniboxProvider"
 import DashboardOmniboxProvider from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardOmniboxProvider"
+import MapOmniboxProvider from "../../Extensions/Signum.React.Extensions/Map/MapOmniboxProvider"
 
 import * as History from 'history'
 
@@ -113,6 +115,7 @@ function reload() {
 
             ChartClient.start({ routes });
             DashboardClient.start({ routes });
+            MapClient.start({ routes });
 
             OmniboxClient.start(
                 new DynamicQueryOmniboxProvider(),
@@ -120,7 +123,8 @@ function reload() {
                 new ChartOmniboxProvider(),
                 new UserChartOmniboxProvider(),
                 new UserQueryOmniboxProvider(),
-                new DashboardOmniboxProvider()
+                new DashboardOmniboxProvider(),
+                new MapOmniboxProvider()
             );
         }
 

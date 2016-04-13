@@ -41,6 +41,7 @@ using Signum.Engine.Basics;
 using Signum.React.Translation;
 using Signum.React.Chart;
 using Signum.React.Dashboard;
+using Signum.React.Map;
 
 namespace Southwind.React
 {
@@ -80,18 +81,19 @@ namespace Southwind.React
             AuthServer.Start(config, queries: true, types: true);
             DashboardServer.Start(config);
             ChartServer.Start(config);
+            MapServer.Start(config);
+
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),
                 new DynamicQueryOmniboxResultGenerator(),
                 new ChartOmniboxResultGenerator(),
                 new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
                 new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
-                new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete)
-                //new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
+                new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),
+                new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any())
                 //new HelpModuleOmniboxResultGenerator(),
                 //ReactSpecialOmniboxGenerator.Singletone
-                );
-            
+                );            
         }
 
         protected void Application_PostAuthorizeRequest()
