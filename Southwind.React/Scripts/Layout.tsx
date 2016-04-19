@@ -10,6 +10,7 @@ import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorizat
 import OmniboxAutocomplete from '../../Extensions/Signum.React.Extensions/Omnibox/OmniboxAutocomplete'
 import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modals"
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
+import ContainerToggle from "../../Framework/Signum.React/Scripts/Frames/ContainerToggle"
 import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
 
 
@@ -52,7 +53,9 @@ export default class Index extends React.Component<{ children: any }, { refreshI
                     </Navbar.Collapse>
                 </Navbar>
                 <Notify/>
-                <div className="container">{this.props.children}</div>
+                <ContainerToggle>
+                    {this.props.children}
+                </ContainerToggle>
                 <GlobalModalContainer/>
                 <div id="push"></div>
             </div>
