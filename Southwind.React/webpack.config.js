@@ -13,6 +13,7 @@ module.exports = {
     entry: {
         main: [ "./Scripts/Main.tsx" ],
         "react": ["react", "react-bootstrap", "react-router", "react-widgets", "react-router-bootstrap"],
+        "d3": ["d3"],
         "moment": ["moment"],
         "numbro": ["numbro"],
     },
@@ -49,7 +50,7 @@ module.exports = {
     plugins: [
         //new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['react', 'numbro', 'moment'],
+            names: [ 'd3', 'react', 'numbro', 'moment'],
         }),
         //new webpack.optimize.UglifyJsPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
