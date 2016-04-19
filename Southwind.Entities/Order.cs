@@ -18,6 +18,11 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Main, EntityData.Transactional)]
     public class OrderEntity : Entity
     {
+        public OrderEntity()
+        {
+            this.RebindEvents();
+        }
+
         [ImplementedBy(typeof(CompanyEntity), typeof(PersonEntity))]
         [NotNullValidator]
         public CustomerEntity Customer { get; set; }
