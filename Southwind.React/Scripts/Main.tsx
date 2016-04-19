@@ -28,8 +28,12 @@ import * as OmniboxClient from "../../Extensions/Signum.React.Extensions/Omnibox
 import * as ChartClient from "../../Extensions/Signum.React.Extensions/Chart/ChartClient"
 import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardClient"
 import * as MapClient from "../../Extensions/Signum.React.Extensions/Map/MapClient"
+import * as CacheClient from "../../Extensions/Signum.React.Extensions/Cache/CacheClient"
+import * as ProcessClient from "../../Extensions/Signum.React.Extensions/Processes/ProcessClient"
+import * as SchedulerClient from "../../Extensions/Signum.React.Extensions/Scheduler/SchedulerClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
+import SpecialOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/SpecialOmniboxProvider"
 import ChartOmniboxProvider from "../../Extensions/Signum.React.Extensions/Chart/ChartOmniboxProvider"
 import UserChartOmniboxProvider from "../../Extensions/Signum.React.Extensions/Chart/UserChartOmniboxProvider"
 import UserQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/UserQueries/UserQueryOmniboxProvider"
@@ -111,11 +115,14 @@ function reload() {
 
             AuthClient.startAdmin();
             UserQueryClient.start({ routes });
-            SouthwindClient.start({ routes });
-
+            CacheClient.start({ routes });
+            ProcessClient.start({ routes,  packages: true, packageOperations: true });
+            SchedulerClient.start({ routes });
             ChartClient.start({ routes });
             DashboardClient.start({ routes });
-            MapClient.start({ routes });
+            MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
+
+            SouthwindClient.start({ routes });
 
             OmniboxClient.start(
                 new DynamicQueryOmniboxProvider(),
@@ -124,7 +131,8 @@ function reload() {
                 new UserChartOmniboxProvider(),
                 new UserQueryOmniboxProvider(),
                 new DashboardOmniboxProvider(),
-                new MapOmniboxProvider()
+                new MapOmniboxProvider(),
+                new SpecialOmniboxProvider()
             );
         }
 

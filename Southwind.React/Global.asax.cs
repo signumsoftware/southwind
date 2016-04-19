@@ -42,6 +42,9 @@ using Signum.React.Translation;
 using Signum.React.Chart;
 using Signum.React.Dashboard;
 using Signum.React.Map;
+using Signum.React.Cache;
+using Signum.React.Scheduler;
+using Signum.React.Processes;
 
 namespace Southwind.React
 {
@@ -79,8 +82,12 @@ namespace Southwind.React
         {
             SignumServer.Start(config, typeof(Global).Assembly);
             AuthServer.Start(config, queries: true, types: true);
+            CacheServer.Start(config);
+            DisconnectedServer.Start(config);
             DashboardServer.Start(config);
             ChartServer.Start(config);
+            SchedulerServer.Start(config);
+            ProcessServer.Start(config);
             MapServer.Start(config);
 
             OmniboxServer.Start(config,
@@ -90,9 +97,9 @@ namespace Southwind.React
                 new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
                 new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
                 new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),
-                new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any())
+                new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
+                new ReactSpecialOmniboxGenerator()
                 //new HelpModuleOmniboxResultGenerator(),
-                //ReactSpecialOmniboxGenerator.Singletone
                 );            
         }
 
