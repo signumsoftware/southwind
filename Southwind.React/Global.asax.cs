@@ -74,7 +74,7 @@ namespace Southwind.React
             GlobalConfiguration.Configure(WebStart);
             RegisterMvcRoutes(RouteTable.Routes);            
 
-            Statics.SessionFactory = new WebApiSesionFactory();
+            Statics.SessionFactory = new ScopeSessionFactory(new WebApiSesionFactory());
         }
 
 
