@@ -30,6 +30,7 @@ import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashb
 import * as MapClient from "../../Extensions/Signum.React.Extensions/Map/MapClient"
 import * as CacheClient from "../../Extensions/Signum.React.Extensions/Cache/CacheClient"
 import * as ProcessClient from "../../Extensions/Signum.React.Extensions/Processes/ProcessClient"
+import * as MailingClient from "../../Extensions/Signum.React.Extensions/Mailing/MailingClient"
 import * as SchedulerClient from "../../Extensions/Signum.React.Extensions/Scheduler/SchedulerClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
@@ -117,6 +118,7 @@ function reload() {
             UserQueryClient.start({ routes });
             CacheClient.start({ routes });
             ProcessClient.start({ routes,  packages: true, packageOperations: true });
+            MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, quickLinksFrom: null});
             SchedulerClient.start({ routes });
             ChartClient.start({ routes });
             DashboardClient.start({ routes });
