@@ -7,7 +7,7 @@ var AssetsPlugin = require('assets-webpack-plugin');
 var BeepPlugin = require('webpack-beep-plugin');
 var node_modules = path.join(__dirname, "node_modules");
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -63,6 +63,10 @@ module.exports = {
         }),
         new BeepPlugin(),
         //new ForkCheckerPlugin(),
+        new CopyWebpackPlugin([
+            { from: 'node_modules/es6-promise/dist/es6-promise.min.js' },
+            { from: 'node_modules/whatwg-fetch/fetch.js' },
+        ])
     ],
     devtool: false,
     ts: {
