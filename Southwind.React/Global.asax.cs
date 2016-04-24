@@ -45,6 +45,7 @@ using Signum.React.Map;
 using Signum.React.Cache;
 using Signum.React.Scheduler;
 using Signum.React.Processes;
+using Signum.React.Mailing;
 
 namespace Southwind.React
 {
@@ -88,6 +89,7 @@ namespace Southwind.React
             ChartServer.Start(config);
             SchedulerServer.Start(config);
             ProcessServer.Start(config);
+            MailingServer.Start(config);
             MapServer.Start(config);
 
             OmniboxServer.Start(config,
