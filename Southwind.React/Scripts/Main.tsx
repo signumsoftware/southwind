@@ -80,6 +80,8 @@ function fixBaseName<T>(baseFunction: (location: HistoryModule.LocationDescripto
     };
 }
 
+let loaded = false;
+
 function reload() {
 
     Services.notifyPendingRequests = pending => {
@@ -98,6 +100,9 @@ function reload() {
         AuthClient.setCurrentUser(user);
 
         const isFull = !!AuthClient.currentUser();
+
+        if (loaded)
+            return;
 
         var routes: JSX.Element[] = [];
 
@@ -164,6 +169,9 @@ function reload() {
             <Router history={history}>
                 <Route component={Layout} path="/" > { routes }</Route>
             </Router>, wrap);
+
+        if (isFull)
+            loaded = true;
     }).done();
 
 }
