@@ -64,8 +64,8 @@ module.exports = {
         new BeepPlugin(),
         //new ForkCheckerPlugin(),
         new CopyWebpackPlugin([
-            { from: 'node_modules/es6-promise/dist/es6-promise.min.js' },
-            { from: 'node_modules/whatwg-fetch/fetch.js' },
+            { from: 'node_modules/es6-promise/dist/es6-promise.min.js', to: path.join(__dirname, 'dist/es6-promise.min.js') },
+            { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, 'dist/fetch.js') },
         ])
     ],
     devtool: false,

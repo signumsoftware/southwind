@@ -117,9 +117,10 @@ function reload() {
             Finder.start({ routes });
             QuickLinks.start();
 
-            ExceptionClient.start({ routes });
+            AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true });
 
-            AuthClient.startAdmin();
+            ExceptionClient.start({ routes });
+            
             UserQueryClient.start({ routes });
             CacheClient.start({ routes });
             ProcessClient.start({ routes,  packages: true, packageOperations: true });
