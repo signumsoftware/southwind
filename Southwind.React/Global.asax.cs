@@ -18,7 +18,6 @@ using Signum.React.Facades;
 using Signum.Entities;
 using Signum.Entities.Authorization;
 using Southwind.Entities;
-using Signum.React.Auth;
 using System.Web.Http.Dispatcher;
 using Signum.React.ApiControllers;
 using System.Reflection;
@@ -46,6 +45,8 @@ using Signum.React.Cache;
 using Signum.React.Scheduler;
 using Signum.React.Processes;
 using Signum.React.Mailing;
+using Signum.React.Files;
+using Signum.React.Word;
 
 namespace Southwind.React
 {
@@ -84,13 +85,17 @@ namespace Southwind.React
             SignumServer.Start(config, typeof(Global).Assembly);
             AuthServer.Start(config, queries: true, types: true);
             CacheServer.Start(config);
-            DisconnectedServer.Start(config);
+            FilesServer.Start(config);
+            UserQueryServer.Start(config);
             DashboardServer.Start(config);
+            WordServer.Start(config);
             ChartServer.Start(config);
+            MapServer.Start(config);
+            TranslationServer.Start(config);
             SchedulerServer.Start(config);
             ProcessServer.Start(config);
+            DisconnectedServer.Start(config);
             MailingServer.Start(config);
-            MapServer.Start(config);
 
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),
