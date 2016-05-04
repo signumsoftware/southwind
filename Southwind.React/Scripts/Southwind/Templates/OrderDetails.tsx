@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { OrderDetailsEntity } from '../Southwind.Entities'
-import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
 
-export default class OrderDetails extends EntityComponent<OrderDetailsEntity> {
+export default class OrderDetails extends React.Component<{ ctx: TypeContext<OrderDetailsEntity> }, void> {
 
-    renderEntity() {
+    render() {
         var ctx = this.props.ctx;
         return (
             <div>

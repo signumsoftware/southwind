@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { ApplicationConfigurationEntity } from '../Southwind.Entities'
-import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
 
-export default class ApplicationConfiguration extends EntityComponent<ApplicationConfigurationEntity> {
+export default class ApplicationConfiguration extends React.Component<{ ctx: TypeContext<ApplicationConfigurationEntity> }, void> {
 
-    renderEntity() {
+    render() {
         var ctx = this.props.ctx;
         return (
             <div>

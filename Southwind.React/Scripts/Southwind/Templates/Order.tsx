@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { Dic } from '../../../../Framework/Signum.React/Scripts/Globals'
 import { OrderEntity, CustomerEntity } from '../Southwind.Entities'
-import { EntityComponent, ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
 
-export default class Order extends EntityComponent<OrderEntity> {
+export default class Order extends React.Component<{ ctx: TypeContext<OrderEntity> }, void> {
 
     handleCustomerChange = (c: CustomerEntity) => {
-        this.entity.shipAddress = c == null ? null : Dic.copy(c.address);
+        this.props.ctx.value.shipAddress = c == null ? null : Dic.copy(c.address);
         this.forceUpdate();
     }
 
-    renderEntity() {
+    render() {
         var ctx = this.props.ctx;
         return (
             <div>
