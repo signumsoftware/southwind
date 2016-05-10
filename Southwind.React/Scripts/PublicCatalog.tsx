@@ -4,7 +4,7 @@ import * as React from 'react'
 import { ajaxGet } from "../../Framework/Signum.React/Scripts/Services"
 import * as numbro from "numbro"
 
-import { CategoryEntity, ProductEntity } from './Southwind/Southwind.Entities.ts'
+import { CategoryEntity, ProductEntity } from './Southwind/Southwind.Entities'
 
 
 export interface CategoryWithProducts {
