@@ -52,6 +52,7 @@ using System.Net.Mail;
 using Signum.Engine.DiffLog;
 using Signum.Entities.DiffLog;
 using Signum.Engine.Map;
+using Signum.Engine.Excel;
 
 namespace Southwind.Logic
 {
@@ -119,7 +120,7 @@ namespace Southwind.Logic
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
             DiffLogLogic.Start(sb, dqm);
-
+            ExcelLogic.Start(sb, dqm, excelReport: true);
             ExceptionLogic.Start(sb, dqm);
 
             SMSLogic.Start(sb, dqm, null, () => Configuration.Value.Sms);

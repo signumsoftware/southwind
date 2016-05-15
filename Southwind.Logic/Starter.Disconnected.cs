@@ -32,6 +32,7 @@ using Signum.Entities.ViewLog;
 using Signum.Entities.Help;
 using Signum.Entities.Word;
 using Signum.Entities.Migrations;
+using Signum.Entities.Excel;
 
 namespace Southwind.Logic
 {
@@ -76,6 +77,9 @@ namespace Southwind.Logic
 
             //Signum.Entities.Files
             DisconnectedLogic.Register<FileEntity>(Download.All, Upload.New);
+
+            //Signum.Entities.Excel
+            DisconnectedLogic.Register<ExcelReportEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Help
             DisconnectedLogic.Register<EntityHelpEntity>(Download.None, Upload.None);

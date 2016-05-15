@@ -47,6 +47,7 @@ using Signum.React.Processes;
 using Signum.React.Mailing;
 using Signum.React.Files;
 using Signum.React.Word;
+using Signum.React.Excel;
 
 namespace Southwind.React
 {
@@ -89,6 +90,7 @@ namespace Southwind.React
             UserQueryServer.Start(config);
             DashboardServer.Start(config);
             WordServer.Start(config);
+            ExcelServer.Start(config);
             ChartServer.Start(config);
             MapServer.Start(config);
             TranslationServer.Start(config);
