@@ -1,20 +1,25 @@
 import * as React from 'react'
 import { Route } from 'react-router'
+import * as moment from 'moment'
 import { ajaxPost, ajaxGet } from '../../../Framework/Signum.React/Scripts/Services';
 import { EntitySettings } from '../../../Framework/Signum.React/Scripts/Navigator'
 import * as Navigator from '../../../Framework/Signum.React/Scripts/Navigator'
-import { EntityOperationSettings } from '../../../Framework/Signum.React/Scripts/Operations'
+import * as Finder from '../../../Framework/Signum.React/Scripts/Finder'
+import { EntityOperationSettings, ConstructorOperationSettings, ContextualOperationSettings } from '../../../Framework/Signum.React/Scripts/Operations'
 import * as Operations from '../../../Framework/Signum.React/Scripts/Operations'
+import { navigateOrTab, defaultContextualClick } from '../../../Framework/Signum.React/Scripts/Operations/ContextualOperations'
+import { defaultExecuteEntity } from '../../../Framework/Signum.React/Scripts/Operations/EntityOperations'
 
 import { getMixin } from '../../../Framework/Signum.React/Scripts/Signum.Entities'
 import { UserEntity } from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
 
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../Framework/Signum.React/Scripts/Lines'
+import ValueLinePopup from '../../../Framework/Signum.React/Scripts/ValueLinePopup'
 
 
 import { AddressEntity, OrderDetailsEntity, OrderFilterModel, ApplicationConfigurationEntity, CategoryEntity,
-CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
-RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin } from './Southwind.Entities'
+    CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
+    RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity } from './Southwind.Entities'
 
 export function start(options: { routes: JSX.Element[] }) {
 
@@ -39,6 +44,53 @@ export function start(options: { routes: JSX.Element[] }) {
             <EntityLine ctx={rep.ctx.subCtx(u => getMixin(u, UserEmployeeMixin).employee) }/>)
     });
 
-    //Operations.addSettings(new EntityOperationSettings(MyEntityOperations.Save, {}));
+    
+
+    Operations.addSettings(new ConstructorOperationSettings(OrderOperation.Create, {
+        onConstruct: coc =>
+        {
+            return Finder.find({ queryName: "Customer" }).then(c => {
+                if (!c)
+                    return null;
+
+                return Operations.API.construct(coc.typeInfo.name, coc.operationInfo.key, c);
+            });
+        }
+    }));
+
+    Operations.addSettings(new ContextualOperationSettings(OrderOperation.CreateOrderFromProducts, {
+        onClick: (coc, e) => {
+            return Finder.find({ queryName: "Customer" }).then(c => {
+                if (!c)
+                    return null;
+
+                return Operations.API.constructFromMany(coc.context.lites, coc.operationInfo.key, c)
+                    .then(ep => navigateOrTab(ep, e))
+                    .done();
+            }).done();
+        }
+    }));
+
+    var selectShippedDate = () => ValueLinePopup.show({
+        type: { name: "datetime" },
+        value: moment().format(),
+        labelText: OrderEntity.nicePropertyName(a => a.shippedDate)
+    });
+
+
+    Operations.addSettings(new EntityOperationSettings(OrderOperation.Ship, {
+        onClick: (eoc) => {
+            selectShippedDate()
+                .then(date => defaultExecuteEntity(eoc, date))
+                .done();
+        },
+        contextual: {
+            onClick: coc => {
+                selectShippedDate()
+                    .then(date => defaultContextualClick(coc, date))
+                    .done();
+            }
+        }
+    }));
 }
 
