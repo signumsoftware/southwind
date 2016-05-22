@@ -15,7 +15,7 @@ import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translatio
 
 
 
-export default class Index extends React.Component<{ children: any }, { refreshId: number }> {
+export default class Layout extends React.Component<{ children: any }, { refreshId: number }> {
 
     state = { refreshId: 0 };
 
@@ -39,7 +39,7 @@ export default class Index extends React.Component<{ children: any }, { refreshI
                                         />
                                 </div>
                             </li>
-                            <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+                            <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
                                 <IndexLinkContainer to="/"><MenuItem>Home</MenuItem></IndexLinkContainer>
                                 <LinkContainer to="/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <MenuItem divider />

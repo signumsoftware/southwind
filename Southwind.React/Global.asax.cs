@@ -48,6 +48,7 @@ using Signum.React.Mailing;
 using Signum.React.Files;
 using Signum.React.Word;
 using Signum.React.Excel;
+using Signum.React.Profiler;
 
 namespace Southwind.React
 {
@@ -84,7 +85,7 @@ namespace Southwind.React
         public static void WebStart(HttpConfiguration config)
         {
             SignumServer.Start(config, typeof(Global).Assembly);
-            AuthServer.Start(config, queries: true, types: true);
+            AuthServer.Start(config);
             CacheServer.Start(config);
             FilesServer.Start(config);
             UserQueryServer.Start(config);
@@ -98,6 +99,7 @@ namespace Southwind.React
             ProcessServer.Start(config);
             DisconnectedServer.Start(config);
             MailingServer.Start(config);
+            ProfilerServer.Start(config);
 
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),

@@ -1,4 +1,5 @@
-﻿require("!style!css!less!../node_modules/bootstrap/less/bootstrap.less");
+﻿require("../node_modules/bootstrap/dist/css/bootstrap.css");
+require("../node_modules/font-awesome/css/font-awesome.css");
 require("../Content/site.css");
 require("../../Framework/Signum.React/Scripts/Frames/Frames.css");
 
@@ -31,6 +32,7 @@ import * as MapClient from "../../Extensions/Signum.React.Extensions/Map/MapClie
 import * as CacheClient from "../../Extensions/Signum.React.Extensions/Cache/CacheClient"
 import * as ProcessClient from "../../Extensions/Signum.React.Extensions/Processes/ProcessClient"
 import * as MailingClient from "../../Extensions/Signum.React.Extensions/Mailing/MailingClient"
+import * as ProfilerClient from "../../Extensions/Signum.React.Extensions/Profiler/ProfilerClient"
 import * as WordClient from "../../Extensions/Signum.React.Extensions/Word/WordClient"
 import * as ExcelClient from "../../Extensions/Signum.React.Extensions/Excel/ExcelClient"
 import * as SchedulerClient from "../../Extensions/Signum.React.Extensions/Scheduler/SchedulerClient"
@@ -119,7 +121,7 @@ function reload() {
             Finder.start({ routes });
             QuickLinks.start();
 
-            AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true });
+            AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
 
             ExceptionClient.start({ routes });
             
@@ -130,6 +132,7 @@ function reload() {
             WordClient.start({ routes });
             ExcelClient.start({ routes, plainExcel: true, excelReport: true });
             SchedulerClient.start({ routes });
+            ProfilerClient.start({ routes });
             ChartClient.start({ routes });
             DashboardClient.start({ routes });
             MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
