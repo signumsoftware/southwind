@@ -16,6 +16,8 @@ import { UserEntity } from '../../../Extensions/Signum.React.Extensions/Authoriz
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../Framework/Signum.React/Scripts/Lines'
 import ValueLinePopup from '../../../Framework/Signum.React/Scripts/ValueLinePopup'
 
+import OrderFilter from './Templates/OrderFilter'
+
 
 import { AddressEntity, OrderDetailsEntity, OrderFilterModel, ApplicationConfigurationEntity, CategoryEntity,
     CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
@@ -44,6 +46,17 @@ export function start(options: { routes: JSX.Element[] }) {
             <EntityLine ctx={rep.ctx.subCtx(u => getMixin(u, UserEmployeeMixin).employee) }/>)
     });
 
+    Finder.addSettings({
+        queryName: OrderEntity,
+        simpleFilterBuilder: (qd, fo) => {
+            var model = OrderFilter.extract(fo);
+
+            if (!model)
+                return null;
+
+            return <OrderFilter ctx={TypeContext.root(OrderFilterModel, model) }/>;
+        }
+    });
     
 
     Operations.addSettings(new ConstructorOperationSettings(OrderOperation.Create, {
