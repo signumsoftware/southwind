@@ -129,7 +129,7 @@ namespace Southwind.React
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = GetCulture(this.Request);
         }
 
-        static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en-US");
+        static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
 
         public static CultureInfo GetCulture(HttpRequest request)
         {
