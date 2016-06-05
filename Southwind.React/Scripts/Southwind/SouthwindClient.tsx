@@ -14,7 +14,7 @@ import { getMixin } from '../../../Framework/Signum.React/Scripts/Signum.Entitie
 import { UserEntity } from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
 
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../Framework/Signum.React/Scripts/Lines'
-import ValueLinePopup from '../../../Framework/Signum.React/Scripts/ValueLinePopup'
+import ValueLineModal from '../../../Framework/Signum.React/Scripts/ValueLineModal'
 
 import OrderFilter from './Templates/OrderFilter'
 
@@ -84,7 +84,7 @@ export function start(options: { routes: JSX.Element[] }) {
         }
     }));
 
-    var selectShippedDate = () => ValueLinePopup.show({
+    var selectShippedDate = () => ValueLineModal.show({
         type: { name: "datetime" },
         value: moment().format(),
         labelText: OrderEntity.nicePropertyName(a => a.shippedDate)

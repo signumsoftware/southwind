@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Framework", ".Framework", "{8636251D-0291-4B49-BD87-644F49A928F4}"
 EndProject
@@ -58,6 +58,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.React.Extensions", "Extensions\Signum.React.Extensions\Signum.React.Extensions.csproj", "{CF4FB560-C11F-493C-ADDD-8BB74DEE5997}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Southwind.React", "Southwind.React\Southwind.React.csproj", "{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.React.Extensions.Selenium", "Extensions\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj", "{8932C4A4-0AF1-41B0-98DA-596E11643690}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -341,6 +343,22 @@ Global
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.Release|x64.Build.0 = Release|Any CPU
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.Release|x86.ActiveCfg = Release|Any CPU
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.Release|x86.Build.0 = Release|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Debug|ARM.Build.0 = Debug|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Debug|x64.Build.0 = Debug|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Debug|x86.Build.0 = Debug|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Release|ARM.ActiveCfg = Release|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Release|ARM.Build.0 = Release|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Release|x64.ActiveCfg = Release|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Release|x64.Build.0 = Release|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Release|x86.ActiveCfg = Release|Any CPU
+		{8932C4A4-0AF1-41B0-98DA-596E11643690}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -364,5 +382,6 @@ Global
 		{8118420A-2FEB-47D7-8EE1-32B8E94B1FEF} = {5E6F8423-99BB-46F3-8B8A-7A24BD5D3DD6}
 		{C6FD211B-DB43-4338-AE80-CD5D6BE15922} = {8636251D-0291-4B49-BD87-644F49A928F4}
 		{CF4FB560-C11F-493C-ADDD-8BB74DEE5997} = {84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}
+		{8932C4A4-0AF1-41B0-98DA-596E11643690} = {84D975C8-CE27-4D5D-AE38-E3562DFF0C2E}
 	EndGlobalSection
 EndGlobal
