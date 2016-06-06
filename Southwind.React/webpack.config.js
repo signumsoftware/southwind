@@ -14,7 +14,7 @@ module.exports = {
         main: [ "./Scripts/Main.tsx" ],
         "react": ["react", "react-bootstrap", "react-router", "react-widgets", "react-router-bootstrap"],
         "d3": ["d3"],
-        "moment": ["moment"],
+        "moment": ["moment", "moment-duration-format"],
         "numbro": ["numbro"],
     },
     output: {
