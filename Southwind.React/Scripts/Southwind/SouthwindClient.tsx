@@ -42,8 +42,8 @@ export function start(options: { routes: JSX.Element[] }) {
 
     Navigator.getSettings(UserEntity).overrideView((rep) => {
         rep.insertAfter(u => u.role,
-            <ValueLine ctx={rep.ctx.subCtx(u => getMixin(u, UserEmployeeMixin).allowLogin) }/>,
-            <EntityLine ctx={rep.ctx.subCtx(u => getMixin(u, UserEmployeeMixin).employee) }/>)
+            <ValueLine ctx={rep.ctx.subCtx(u => getMixin(u, UserEmployeeMixin).allowLogin, { labelColumns: { sm: 3 } }) }/>,
+            <EntityLine ctx={rep.ctx.subCtx(u => getMixin(u, UserEmployeeMixin).employee, { labelColumns: { sm: 3 } }) }/>)
     });
 
     Finder.addSettings({
