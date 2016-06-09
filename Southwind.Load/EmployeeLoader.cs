@@ -136,7 +136,7 @@ namespace Southwind.Load
                 {
                     UserName = employee.FirstName,
                     PasswordHash = Security.EncodePassword(employee.FirstName),
-                    Role = roles.GetOrThrow(i < 2 ? "Super user" : i < 5 ? "Advanced user" : "User"),
+                    Role = roles.GetOrThrow(i < 2 ? "Super user" : i < 5 ? "Advanced user" : "User").ToLite(),
                     State = UserState.Saved,
                 }.SetMixin((UserEmployeeMixin e) => e.Employee, employee.ToLite())).SaveList();
 

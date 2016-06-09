@@ -81,7 +81,7 @@ namespace Southwind.Load
                 {
                     UserName = "System",
                     PasswordHash = Security.EncodePassword("System"),
-                    Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx(),
+                    Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx().ToLite(),
                     State = UserState.Saved,
                 }.Save();
 

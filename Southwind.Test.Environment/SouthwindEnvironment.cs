@@ -72,7 +72,7 @@ namespace Southwind.Test.Environment
             {
                 UserName = userName,
                 PasswordHash = Security.EncodePassword(userName),
-                Role = role,
+                Role = role.ToLite(),
                 State = UserState.Saved,
             };
 
