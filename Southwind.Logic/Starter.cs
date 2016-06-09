@@ -147,8 +147,8 @@ namespace Southwind.Logic
 
             StartSouthwindConfiguration(sb, dqm);
 
-            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee.RefersTo(EmployeeEntity.Current));
-            TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => e == EmployeeEntity.Current);
+            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);
+            TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => EmployeeEntity.Current.RefersTo(e));
 
             TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
             TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);

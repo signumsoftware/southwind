@@ -76,7 +76,7 @@ namespace Southwind.Test.Environment
                 State = UserState.Saved,
             };
 
-            user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query<EmployeeEntity>().Single(e => e.FirstName == userName));
+            user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query<EmployeeEntity>().Single(e => e.FirstName == userName).ToLite());
 
             user.Save();
         }//LoadUsers

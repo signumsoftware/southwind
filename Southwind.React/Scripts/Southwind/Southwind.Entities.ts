@@ -253,6 +253,6 @@ export module TerritoryOperation {
 export const UserEmployeeMixin = new Type<UserEmployeeMixin>("UserEmployeeMixin");
 export interface UserEmployeeMixin extends Entities.MixinEntity {
     allowLogin: AllowLogin;
-    employee: EmployeeEntity;
+    employee: Entities.Lite<EmployeeEntity>;
 }
 

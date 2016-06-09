@@ -171,7 +171,7 @@ namespace Southwind.Web
                 };
 
                 var user = Database.Query<UserEntity>()
-                    .Where(u => entity.RefersTo(u.Mixin<UserEmployeeMixin>().Employee))
+                    .Where(u => entity == u.Mixin<UserEmployeeMixin>().Employee)
                     .Select(u => u.ToLite())
                     .FirstOrDefault();
                 if (user != null)

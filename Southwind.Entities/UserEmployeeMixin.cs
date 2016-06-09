@@ -16,7 +16,7 @@ namespace Southwind.Entities
 
         public AllowLogin AllowLogin { get; set; }
 
-        public EmployeeEntity Employee { get; set; }
+        public Lite<EmployeeEntity> Employee { get; set; }
     }
 
     public enum AllowLogin

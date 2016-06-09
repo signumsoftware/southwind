@@ -70,7 +70,7 @@ namespace Southwind.Entities
             return "{0} {1}".FormatWith(FirstName, LastName);
         }
 
-        public static EmployeeEntity Current
+        public static Lite<EmployeeEntity> Current
         {
             get { return UserEntity.Current.Mixin<UserEmployeeMixin>().Employee; } //get { return null; }
         } //Current

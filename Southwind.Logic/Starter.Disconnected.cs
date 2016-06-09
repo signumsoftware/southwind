@@ -121,9 +121,9 @@ namespace Southwind.Logic
             //Signum.Entities.Operations
             DisconnectedLogic.Register<OperationSymbol>(Download.Replace, Upload.None);
             Expression<Func<OperationLogEntity, bool>> operationLogCondition = ol =>
-             ol.Target.EntityType == typeof(OrderEntity) && ((OrderEntity)ol.Target.Entity).Employee.RefersTo(EmployeeEntity.Current) ||
-             ol.Target.EntityType == typeof(PersonEntity) && Database.Query<OrderEntity>().Any(o => o.Employee.RefersTo(EmployeeEntity.Current) && o.Customer == ((PersonEntity)ol.Target.Entity)) ||
-             ol.Target.EntityType == typeof(CompanyEntity) && Database.Query<OrderEntity>().Any(o => o.Employee.RefersTo(EmployeeEntity.Current) && o.Customer == ((CompanyEntity)ol.Target.Entity) || 
+             ol.Target.EntityType == typeof(OrderEntity) && ((OrderEntity)ol.Target.Entity).Employee == EmployeeEntity.Current ||
+             ol.Target.EntityType == typeof(PersonEntity) && Database.Query<OrderEntity>().Any(o => o.Employee == EmployeeEntity.Current && o.Customer == ((PersonEntity)ol.Target.Entity)) ||
+             ol.Target.EntityType == typeof(CompanyEntity) && Database.Query<OrderEntity>().Any(o => o.Employee == EmployeeEntity.Current && o.Customer == ((CompanyEntity)ol.Target.Entity) || 
              ol.Target.EntityType == typeof(EmployeeEntity) ||
              ol.Target.EntityType == typeof(ProductEntity));
 
@@ -180,12 +180,12 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<ProductEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<SupplierEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<CategoryEntity>(Download.All, Upload.None);
-            DisconnectedLogic.Register<OrderEntity>(o => o.Employee.RefersTo(EmployeeEntity.Current));
+            DisconnectedLogic.Register<OrderEntity>(o => o.Employee == EmployeeEntity.Current);
             DisconnectedLogic.Register<PersonEntity>(p => 
-                Database.Query<OrderEntity>().Any(o => o.Employee.RefersTo(EmployeeEntity.Current) && o.Customer == p), 
+                Database.Query<OrderEntity>().Any(o => o.Employee == EmployeeEntity.Current && o.Customer == p), 
                 Upload.New);
             DisconnectedLogic.Register<CompanyEntity>(p => 
-                Database.Query<OrderEntity>().Any(o => o.Employee.RefersTo(EmployeeEntity.Current) && o.Customer == p), 
+                Database.Query<OrderEntity>().Any(o => o.Employee == EmployeeEntity.Current && o.Customer == p), 
                 Upload.New);
             
             DisconnectedLogic.Register<ShipperEntity>(Download.All, Upload.None);
