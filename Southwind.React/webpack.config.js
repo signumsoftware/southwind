@@ -49,6 +49,7 @@ module.exports = {
         ]
     },
     plugins: [
+	    new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
         //new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
         new webpack.optimize.CommonsChunkPlugin({
             names: [ 'd3', 'react', 'numbro', 'moment'],
