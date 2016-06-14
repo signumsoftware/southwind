@@ -12,7 +12,7 @@ import * as ReactRouter from "react-router"
 import * as moment from "moment"
 import * as numbro from "numbro"
 
-import { requestTypes, setTypes} from "../../Framework/Signum.React/Scripts/Reflection"
+import { reloadTypes } from "../../Framework/Signum.React/Scripts/Reflection"
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
 import * as Operations from "../../Framework/Signum.React/Scripts/Operations"
 import * as Finder from "../../Framework/Signum.React/Scripts/Finder"
@@ -84,110 +84,104 @@ function fixBaseName<T>(baseFunction: (location: HistoryModule.LocationDescripto
     };
 }
 
+Services.NotifyPendingFilter.notifyPendingRequests = pending => {
+    if (Notify.singletone)
+        Notify.singletone.notifyPendingRequest(pending);
+}
+
+window.onerror = (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
+
 let loaded = false;
 
 function reload() {
+    return AuthClient.autoLogin()
+        .then(user => reloadTypes().then(() => user))
+        .then(user => {
+            const isFull = !!user;
 
-    Services.notifyPendingRequests = pending => {
-        if (Notify.singletone)
-            Notify.singletone.notifyPendingRequest(pending);
-    }
+            if (loaded)
+                return;
 
-    window.onerror = (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
+            var routes: JSX.Element[] = [];
 
-    requestTypes().then(types => {
-        setTypes(types);
+            routes.push(<IndexRoute component={PublicCatalog} />);
+            routes.push(<Route path="home" component={Home} />);
+            routes.push(<Route path="publicCatalog" component={PublicCatalog} />);
+            AuthClient.startPublic({ routes, userTicket: true, resetPassword: true });
 
-        return AuthClient.Api.retrieveCurrentUser();
-    }).then(user => {
+            if (isFull) {
+                Operations.start();
+                Navigator.start({ routes });
+                Finder.start({ routes });
+                QuickLinks.start();
 
-        AuthClient.setCurrentUser(user);
+                AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
 
-        const isFull = !!AuthClient.currentUser();
+                ExceptionClient.start({ routes });
 
-        if (loaded)
-            return;
+                UserQueryClient.start({ routes });
+                CacheClient.start({ routes });
+                ProcessClient.start({ routes, packages: true, packageOperations: true });
+                MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, quickLinksFrom: null });
+                WordClient.start({ routes });
+                ExcelClient.start({ routes, plainExcel: true, excelReport: true });
+                SchedulerClient.start({ routes });
+                ProfilerClient.start({ routes });
+                ChartClient.start({ routes });
+                DashboardClient.start({ routes });
+                MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
 
-        var routes: JSX.Element[] = [];
+                SouthwindClient.start({ routes });
 
-        routes.push(<IndexRoute component={PublicCatalog} />);
-        routes.push(<Route path="home" component={Home} />);
-        routes.push(<Route path="publicCatalog" component={PublicCatalog} />);
-        AuthClient.startPublic({ routes, userTicket: true, resetPassword: true });
+                OmniboxClient.start(
+                    new DynamicQueryOmniboxProvider(),
+                    new EntityOmniboxProvider(),
+                    new ChartOmniboxProvider(),
+                    new UserChartOmniboxProvider(),
+                    new UserQueryOmniboxProvider(),
+                    new DashboardOmniboxProvider(),
+                    new MapOmniboxProvider(),
+                    new SpecialOmniboxProvider()
+                );
+            }
 
-        if (isFull) {
-            Operations.start();
-            Navigator.start({ routes });
-            Finder.start({ routes });
-            QuickLinks.start();
+            routes.push(<Route path="*" component={NotFound}/>);
 
-            AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
+            var baseName = window["__baseUrl"]
 
-            ExceptionClient.start({ routes });
-            
-            UserQueryClient.start({ routes });
-            CacheClient.start({ routes });
-            ProcessClient.start({ routes,  packages: true, packageOperations: true });
-            MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, quickLinksFrom: null });
-            WordClient.start({ routes });
-            ExcelClient.start({ routes, plainExcel: true, excelReport: true });
-            SchedulerClient.start({ routes });
-            ProfilerClient.start({ routes });
-            ChartClient.start({ routes });
-            DashboardClient.start({ routes });
-            MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
+            var history = useRouterHistory(History.createHistory)({
+                basename: baseName,
+            });
 
-            SouthwindClient.start({ routes });
+            history.push = fixBaseName(history.push, baseName);
+            history.replace = fixBaseName(history.replace, baseName);
+            history.createHref = fixBaseName(history.createHref, baseName);
+            history.createPath = fixBaseName(history.createPath, baseName);
+            //history.createLocation = fixBaseName(history.createHref, baseName) as any;
 
-            OmniboxClient.start(
-                new DynamicQueryOmniboxProvider(),
-                new EntityOmniboxProvider(),
-                new ChartOmniboxProvider(),
-                new UserChartOmniboxProvider(),
-                new UserQueryOmniboxProvider(),
-                new DashboardOmniboxProvider(),
-                new MapOmniboxProvider(),
-                new SpecialOmniboxProvider()
-            );
-        }
 
-        routes.push(<Route path="*" component={NotFound}/>);
+            Navigator.currentHistory = history;
 
-        var baseName = window["__baseUrl"]
+            var mainRoute = React.createElement(Route as any, { component: Layout }, ...routes);
 
-        var history = useRouterHistory(History.createHistory)({
-            basename: baseName,
+            var wrap = document.getElementById("wrap");
+            unmountComponentAtNode(wrap);
+            render(
+                <Router history={history}>
+                    <Route component={Layout} path="/" > { routes }</Route>
+                </Router>, wrap);
+
+            if (isFull)
+                loaded = true;
+
+            return isFull;
         });
-
-
-        history.push = fixBaseName(history.push, baseName);
-        history.replace = fixBaseName(history.replace, baseName);
-        history.createHref = fixBaseName(history.createHref, baseName);
-        history.createPath = fixBaseName(history.createPath, baseName);
-        //history.createLocation = fixBaseName(history.createHref, baseName) as any;
-
-
-        Navigator.currentHistory = history;
-
-        var mainRoute = React.createElement(Route as any, { component: Layout }, ...routes);
-
-        var wrap = document.getElementById("wrap");
-        unmountComponentAtNode(wrap);
-        render(
-            <Router history={history}>
-                <Route component={Layout} path="/" > { routes }</Route>
-            </Router>, wrap);
-
-        if (isFull)
-            loaded = true;
-    }).done();
-
 }
 
 AuthClient.onLogin = () => {
-
-    reload();
-    Navigator.currentHistory.push("/home");
+    reload().then(() => {
+        Navigator.currentHistory.push("/home");
+    }).done();
 };
 
 reload();

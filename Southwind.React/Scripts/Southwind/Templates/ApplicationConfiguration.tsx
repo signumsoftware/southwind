@@ -16,7 +16,10 @@ export default class ApplicationConfiguration extends React.Component<{ ctx: Typ
                         <EntityLine ctx={ctx.subCtx(a => a.smtpConfiguration) } />
                     </Tab>
                     <Tab eventKey="sms" title={ctx.niceName(a => a.sms) }>
-                        <EntityDetail ctx={ctx.subCtx(a => a.sms) } />
+                        <RenderEntity ctx={ctx.subCtx(a => a.sms) } />
+                    </Tab>
+                    <Tab eventKey="auth" title={ctx.niceName(a => a.authTokens) }>
+                        <RenderEntity ctx={ctx.subCtx(a => a.authTokens) } />
                     </Tab>
                 </Tabs>
             </div>

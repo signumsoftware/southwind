@@ -22,3 +22,6 @@ import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Sign
 //Scheduler.Assembly: Signum.Entities.Extensions.dll
 import * as Scheduler from '../../../Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler'
 
+//Authorization.Assembly: Signum.Entities.Extensions.dll
+import * as Authorization from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
+

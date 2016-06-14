@@ -17,6 +17,8 @@ import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Sign
 
 import * as Scheduler from '../../../Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler'
 
+import * as Authorization from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
+
 
 export const AddressEntity = new Type<AddressEntity>("AddressEntity");
 export interface AddressEntity extends Entities.EmbeddedEntity {
@@ -39,6 +41,7 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
     email: Mailing.EmailConfigurationEntity;
     smtpConfiguration: Mailing.SmtpConfigurationEntity;
     sms: SMS.SMSConfigurationEntity;
+    authTokens: Authorization.AuthTokenConfigurationEntity;
 }
 
 export module ApplicationConfigurationOperation {

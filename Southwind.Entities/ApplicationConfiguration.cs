@@ -6,6 +6,9 @@ using Signum.Entities;
 using Signum.Entities.Basics;
 using Signum.Entities.Mailing;
 using Signum.Entities.SMS;
+using Signum.Utilities;
+using System.Linq.Expressions;
+using Signum.Entities.Authorization;
 
 namespace Southwind.Entities
 {
@@ -26,6 +29,10 @@ namespace Southwind.Entities
         [NotNullable]/*Sms*/
         [NotNullValidator]
         public SMSConfigurationEntity Sms { get; set; }
+
+        [NotNullable]/*AuthTokens*/
+        [NotNullValidator]
+        public AuthTokenConfigurationEntity AuthTokens { get; set; }
     }
 
     [AutoInit]

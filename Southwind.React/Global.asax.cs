@@ -78,14 +78,14 @@ namespace Southwind.React
             GlobalConfiguration.Configure(WebStart);
             RegisterMvcRoutes(RouteTable.Routes);            
 
-            Statics.SessionFactory = new ScopeSessionFactory(new WebApiSesionFactory());
+            Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
         }
 
 
         public static void WebStart(HttpConfiguration config)
         {
             SignumServer.Start(config, typeof(Global).Assembly);
-            AuthServer.Start(config);
+            AuthServer.Start(config, () => Starter.Configuration.Value.AuthTokens, "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!");
             CacheServer.Start(config);
             FilesServer.Start(config);
             UserQueryServer.Start(config);
@@ -116,14 +116,9 @@ namespace Southwind.React
 
         protected void Application_PostAuthorizeRequest()
         {
-            HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
         }
 
-        protected void Session_Start(object sender, EventArgs e)
-        {
-            UserTicketServer.LoginFromCookie();
-        }
-
+     
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = GetCulture(this.Request);
@@ -133,14 +128,14 @@ namespace Southwind.React
 
         public static CultureInfo GetCulture(HttpRequest request)
         {
-            // 1 user preference
-            if (UserEntity.Current?.CultureInfo != null)
-                return UserEntity.Current.CultureInfo.ToCultureInfo();
-
-            // 2 cookie (temporary)
+            // 1 cookie (temporary)
             if (request.Cookies["language"] != null)
                 return new CultureInfo(request.Cookies["language"].Value);
-
+            
+            // 2 user preference
+            if (UserEntity.Current?.CultureInfo != null)
+                return UserEntity.Current.CultureInfo.ToCultureInfo();
+            
             //3 requestCulture or default
             CultureInfo ciRequest = TranslationServer.GetCultureRequest(request);
             if (ciRequest != null)

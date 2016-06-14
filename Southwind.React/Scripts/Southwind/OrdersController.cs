@@ -1,6 +1,7 @@
 ﻿using Signum.Engine;
 using Signum.Entities;
 using Signum.Entities.Reflection;
+using Signum.React.Filters;
 using Southwind.Entities;
 using Southwind.Logic;
 using System;
@@ -16,9 +17,9 @@ using System.Web.Http.Filters;
 
 namespace Southwind.React.ApiControllers
 {
-    public class ValuesController : ApiController
+    public class CatalogController : ApiController
     {
-        [Route("api/catalog"), HttpGet]
+        [Route("api/catalog"), HttpGet, Anonymous]
         public List<CategoryWithProducts> Catalog()
         {
             return ProductLogic.ActiveProducts.Value.Select(a => new CategoryWithProducts
