@@ -10,7 +10,7 @@ export default class ApplicationConfiguration extends React.Component<{ ctx: Typ
         return (
             <div>
                 <ValueLine ctx={ctx.subCtx(a => a.environment) } />
-                <Tabs>
+                <Tabs id="tabsConf">
                     <Tab eventKey="tab" title={ctx.niceName(a => a.email) }>
                         <RenderEntity ctx={ctx.subCtx(a => a.email) } />
                         <EntityLine ctx={ctx.subCtx(a => a.smtpConfiguration) } />

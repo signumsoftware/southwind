@@ -19,7 +19,7 @@ namespace Southwind.React.ApiControllers
 {
     public class CatalogController : ApiController
     {
-        [Route("api/catalog"), HttpGet, Anonymous]
+        [Route("api/catalog"), HttpGet, AllowAnonymous]
         public List<CategoryWithProducts> Catalog()
         {
             return ProductLogic.ActiveProducts.Value.Select(a => new CategoryWithProducts
