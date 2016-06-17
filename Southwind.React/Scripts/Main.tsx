@@ -69,20 +69,34 @@ ConfigureReactWidgets.configure();
 
 
 function fixBaseName<T>(baseFunction: (location: HistoryModule.LocationDescriptorObject | string) => T, baseName: string): (location: HistoryModule.LocationDescriptorObject | string) => T {
-    return (location) => {
-        if (typeof location == "string") {
-            var str = location as string;
-            if (str && str.startsWith(baseName))
-                location = str.after(baseName);
-        } else {
-            var locObject = location as HistoryModule.LocationDescriptorObject;
-            if (locObject && locObject.pathname.startsWith(baseName))
-                locObject.pathname = locObject.pathname.after(baseName);
-        }
 
-        return baseFunction(location);
+    function fixUrl(url: string): string {
+        if (url && url.startsWith("~/"))
+            return baseName + "/" + url.after("~/");
+
+        if (url.startsWith(baseName))
+            return url;
+
+        console.warn(url);
+        return url;
+    }
+    
+    return (location) => {
+        if (typeof location === "string") {
+            return baseFunction(fixUrl(location));
+        } else {
+            location.pathname = fixUrl(location.pathname);
+            return baseFunction(location);
+        }
     };
 }
+
+
+
+
+
+
+
 
 Services.NotifyPendingFilter.notifyPendingRequests = pending => {
     if (Notify.singletone)
@@ -150,14 +164,14 @@ function reload() {
             var baseName = window["__baseUrl"]
 
             var history = useRouterHistory(History.createHistory)({
-                basename: baseName,
+                //basename: baseName,
             });
 
             history.push = fixBaseName(history.push, baseName);
             history.replace = fixBaseName(history.replace, baseName);
             history.createHref = fixBaseName(history.createHref, baseName);
             history.createPath = fixBaseName(history.createPath, baseName);
-            //history.createLocation = fixBaseName(history.createHref, baseName) as any;
+            history.createLocation = fixBaseName(history.createHref, baseName) as any;
 
 
             Navigator.currentHistory = history;
@@ -180,7 +194,7 @@ function reload() {
 
 AuthClient.onLogin = () => {
     reload().then(() => {
-        Navigator.currentHistory.push("/home");
+        Navigator.currentHistory.push("~/home");
     }).done();
 };
 

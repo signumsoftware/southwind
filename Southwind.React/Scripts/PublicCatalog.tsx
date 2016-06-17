@@ -20,7 +20,7 @@ export default class PublicCatalog extends React.Component<{}, { categories?: Ca
     }
 
     componentWillMount() {
-        ajaxGet<CategoryWithProducts[]>({ url: "/api/catalog" })
+        ajaxGet<CategoryWithProducts[]>({ url: "~/api/catalog" })
             .then(cat => this.setState({ categories: cat }));
     }
 

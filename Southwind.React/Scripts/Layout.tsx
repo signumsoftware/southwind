@@ -25,7 +25,7 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                 <Navbar inverse>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <Link to="/">Southwind</Link>
+                            <Link to="~/">Southwind</Link>
                         </Navbar.Brand>
                         <Navbar.Toggle />
                     </Navbar.Header>
@@ -40,10 +40,10 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                                 </div>
                             </li>
                             <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
-                                <IndexLinkContainer to="/"><MenuItem>Home</MenuItem></IndexLinkContainer>
-                                <LinkContainer to="/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
+                                <IndexLinkContainer to="~/"><MenuItem>Home</MenuItem></IndexLinkContainer>
+                                <LinkContainer to="~/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <MenuItem divider />
-                                <LinkContainer to="/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
+                                <LinkContainer to="~/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
                             </NavDropdown>
                         </Nav>}
                         <Nav pullRight>
