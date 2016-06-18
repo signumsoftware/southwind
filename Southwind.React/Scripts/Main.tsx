@@ -62,41 +62,8 @@ declare var __webpack_public_path__;
 
 __webpack_public_path__ = window["__baseUrl"] + "/dist/";
 
-
-
 ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
-
-
-function fixBaseName<T>(baseFunction: (location: HistoryModule.LocationDescriptorObject | string) => T, baseName: string): (location: HistoryModule.LocationDescriptorObject | string) => T {
-
-    function fixUrl(url: string): string {
-        if (url && url.startsWith("~/"))
-            return baseName + "/" + url.after("~/");
-
-        if (url.startsWith(baseName))
-            return url;
-
-        console.warn(url);
-        return url;
-    }
-    
-    return (location) => {
-        if (typeof location === "string") {
-            return baseFunction(fixUrl(location));
-        } else {
-            location.pathname = fixUrl(location.pathname);
-            return baseFunction(location);
-        }
-    };
-}
-
-
-
-
-
-
-
 
 Services.NotifyPendingFilter.notifyPendingRequests = pending => {
     if (Notify.singletone)
@@ -167,12 +134,7 @@ function reload() {
                 //basename: baseName,
             });
 
-            history.push = fixBaseName(history.push, baseName);
-            history.replace = fixBaseName(history.replace, baseName);
-            history.createHref = fixBaseName(history.createHref, baseName);
-            history.createPath = fixBaseName(history.createPath, baseName);
-            history.createLocation = fixBaseName(history.createHref, baseName) as any;
-
+            Navigator.useAppRelativeBasename(history, baseName);
 
             Navigator.currentHistory = history;
 
@@ -182,7 +144,7 @@ function reload() {
             unmountComponentAtNode(wrap);
             render(
                 <Router history={history}>
-                    <Route component={Layout} path="/" > { routes }</Route>
+                    <Route component={Layout} path={baseName} > { routes }</Route>
                 </Router>, wrap);
 
             if (isFull)
