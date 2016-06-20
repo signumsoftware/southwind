@@ -49,6 +49,7 @@ using Signum.React.Files;
 using Signum.React.Word;
 using Signum.React.Excel;
 using Signum.React.Profiler;
+using Signum.React.DiffLog;
 
 namespace Southwind.React
 {
@@ -100,6 +101,7 @@ namespace Southwind.React
             DisconnectedServer.Start(config);
             MailingServer.Start(config);
             ProfilerServer.Start(config);
+            DiffLogServer.Start(config);
 
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),

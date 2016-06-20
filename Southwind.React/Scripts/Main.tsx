@@ -36,6 +36,7 @@ import * as ProfilerClient from "../../Extensions/Signum.React.Extensions/Profil
 import * as WordClient from "../../Extensions/Signum.React.Extensions/Word/WordClient"
 import * as ExcelClient from "../../Extensions/Signum.React.Extensions/Excel/ExcelClient"
 import * as SchedulerClient from "../../Extensions/Signum.React.Extensions/Scheduler/SchedulerClient"
+import * as DiffLogClient from "../../Extensions/Signum.React.Extensions/DiffLog/DiffLogClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
 import SpecialOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/SpecialOmniboxProvider"
@@ -107,6 +108,7 @@ function reload() {
                 WordClient.start({ routes });
                 ExcelClient.start({ routes, plainExcel: true, excelReport: true });
                 SchedulerClient.start({ routes });
+                DiffLogClient.start({ routes });
                 ProfilerClient.start({ routes });
                 ChartClient.start({ routes });
                 DashboardClient.start({ routes });
