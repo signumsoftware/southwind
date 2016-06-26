@@ -12,8 +12,7 @@ import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modal
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 import ContainerToggle from "../../Framework/Signum.React/Scripts/Frames/ContainerToggle"
 import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
-
-
+import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
 
 export default class Layout extends React.Component<{ children: any }, { refreshId: number }> {
 
@@ -47,7 +46,7 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                             </NavDropdown>
                         </Nav>}
                         <Nav pullRight>
-                            <CultureDropdown changeJavascriptCulture={this.handleChangeJavascriptCulture} resetUI={this.handleResetUI} />
+                            <CultureDropdown />
                             <LoginUserControl />
                         </Nav>
                     </Navbar.Collapse>
@@ -62,13 +61,20 @@ export default class Layout extends React.Component<{ children: any }, { refresh
         );
     }
 
+
     handleResetUI = () => {
         this.setState({ refreshId: this.state.refreshId + 1 });
     };
 
-    handleChangeJavascriptCulture = (culture: string) => {
-        moment.locale((culture.tryBefore("-") || culture).toLowerCase());
-        numbro.culture(culture == "en" ? "en-GB" :
-            culture == "es" ? "es-ES" : "Unkwnown");
+    componentWillMount() {
+        AuthClient.onCurrentUserChanged.push(this.handleResetUI);
+        CultureClient.onCultureLoaded.push(this.handleResetUI);
     }
+
+    componentWillUnmount() {
+        AuthClient.onCurrentUserChanged.remove(this.handleResetUI);
+        CultureClient.onCultureLoaded.remove(this.handleResetUI);
+    }
+
+   
 }

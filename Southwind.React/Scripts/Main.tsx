@@ -38,6 +38,7 @@ import * as ExcelClient from "../../Extensions/Signum.React.Extensions/Excel/Exc
 import * as SchedulerClient from "../../Extensions/Signum.React.Extensions/Scheduler/SchedulerClient"
 import * as TranslationClient from "../../Extensions/Signum.React.Extensions/Translation/TranslationClient"
 import * as DiffLogClient from "../../Extensions/Signum.React.Extensions/DiffLog/DiffLogClient"
+import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
 import SpecialOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/SpecialOmniboxProvider"
@@ -72,15 +73,23 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
         Notify.singletone.notifyPendingRequest(pending);
 }
 
+CultureClient.onCultureLoaded.push(ci => {
+    const culture = ci.name;
+    moment.locale((culture.tryBefore("-") || culture).toLowerCase());
+    numbro.culture(culture == "en" ? "en-GB" :
+        culture == "es" ? "es-ES" : "Unkwnown");
+});
+
 window.onerror = (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
 
 let loaded = false;
 
 function reload() {
     return AuthClient.autoLogin()
-        .then(user => reloadTypes().then(() => user))
-        .then(user => {
-            const isFull = !!user;
+        .then(() => reloadTypes())
+        .then(() => CultureClient.loadCurrentCulture())
+        .then(() => {
+            const isFull = !!AuthClient.currentUser();
 
             if (loaded)
                 return;

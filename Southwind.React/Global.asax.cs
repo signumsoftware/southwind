@@ -50,6 +50,10 @@ using Signum.React.Word;
 using Signum.React.Excel;
 using Signum.React.Profiler;
 using Signum.React.DiffLog;
+using Signum.Engine.Translation;
+using Southwind.React.BingTranslationService;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
 
 namespace Southwind.React
 {
@@ -95,7 +99,7 @@ namespace Southwind.React
             ExcelServer.Start(config);
             ChartServer.Start(config);
             MapServer.Start(config);
-            TranslationServer.Start(config);
+            TranslationServer.Start(config, new AlreadyTranslatedTranslator(new BingTranslator()));
             SchedulerServer.Start(config);
             ProcessServer.Start(config);
             DisconnectedServer.Start(config);
@@ -146,4 +150,35 @@ namespace Southwind.React
             return DefaultCulture; //Translation
         }
     }
+
+    public class BingTranslator : ITranslator
+    {
+        public List<string> TranslateBatch(List<string> list, string from, string to)
+        {
+            string token = AdmAuthentication.GetAccessToken("ClientId", "Secret"); //find one in https://datamarket.azure.com/developer/applications/register
+
+            LanguageServiceClient client = new LanguageServiceClient();
+            using (OperationContextScope scope = new OperationContextScope(client.InnerChannel))
+            {
+                OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name] = new HttpRequestMessageProperty
+                {
+                    Method = "POST",
+                    Headers = { { "Authorization", "Bearer " + token } }
+                };
+
+                return list.GroupsOf(a => a.Length, 10000).SelectMany(gr =>
+                {
+                    TranslateArrayResponse[] result = client.TranslateArray("", gr.ToArray(), from, to, new TranslateOptions());
+
+                    return result.Select(a => a.TranslatedText).ToList();
+
+                }).ToList();
+            }
+        }
+
+        public bool AutoSelect()
+        {
+            return true;
+        }
+    } // BingTranslator
 }
