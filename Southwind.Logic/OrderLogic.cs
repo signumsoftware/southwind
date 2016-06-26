@@ -77,7 +77,7 @@ namespace Southwind.Logic
 
                 SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, () =>
                 {
-                    var package = new PackageEntity().CreateLines(Database.Query<OrderEntity>().Where(a => a.OrderDate < DateTime.Now.AddDays(-7)));
+                    var package = new PackageEntity().CreateLines(Database.Query<OrderEntity>().Where(a => a.OrderDate < DateTime.Now.AddDays(-7) && a.State != OrderState.Canceled));
 
                     var process = ProcessLogic.Create(OrderProcess.CancelOrders, package);
                         

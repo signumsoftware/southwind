@@ -24,7 +24,8 @@ module.exports = {
     },
     resolve: {
         root: node_modules,
-        extensions: ['', '.Webpack.js', '.web.js', '.ts', '.js', '.tsx']     
+        extensions: ['', '.Webpack.js', '.web.js', '.ts', '.js', '.tsx'],
+        
     },
     resolveLoader: { root: path.join(__dirname, "node_modules") },
     module: {

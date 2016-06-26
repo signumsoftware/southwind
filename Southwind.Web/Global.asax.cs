@@ -49,6 +49,7 @@ using Signum.Web.Maps;
 using Signum.Web.ViewLog;
 using Signum.Web.DiffLog;
 using Signum.Engine.Mailing;
+using Signum.Engine.Translation;
 
 namespace Southwind.Web
 {

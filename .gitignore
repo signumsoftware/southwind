@@ -35,3 +35,4 @@ Southwind.Web/Scripts/**/*.js
 .vs/
 Southwind.React/node_modules/*
 Southwind.React/dist/*
+Southwind.React/Translations/*
