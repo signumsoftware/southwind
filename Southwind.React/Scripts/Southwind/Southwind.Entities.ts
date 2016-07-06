@@ -1,23 +1,17 @@
 //////////////////////////////////
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
+
 import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../../Framework/Signum.React/Scripts/Reflection'
-
 import * as Entities from '../../../Framework/Signum.React/Scripts/Signum.Entities'
-
 import * as Files from '../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
-
 import * as Mailing from '../../../Extensions/Signum.React.Extensions/Mailing/Signum.Entities.Mailing'
-
 import * as SMS from '../../../Extensions/Signum.React.Extensions/SMS/Signum.Entities.SMS'
-
+import * as Authorization from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
 import * as Processes from '../../../Extensions/Signum.React.Extensions/Processes/Signum.Entities.Processes'
-
+import * as Scheduler from '../../../Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler'
 import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Signum.Entities.Basics'
 
-import * as Scheduler from '../../../Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler'
-
-import * as Authorization from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
 
 
 export const AddressEntity = new Type<AddressEntity>("AddressEntity");
@@ -258,4 +252,5 @@ export interface UserEmployeeMixin extends Entities.MixinEntity {
     allowLogin: AllowLogin;
     employee: Entities.Lite<EmployeeEntity>;
 }
+
 
