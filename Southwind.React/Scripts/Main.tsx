@@ -149,7 +149,7 @@ function reload() {
 
             Navigator.useAppRelativeBasename(history, baseName);
 
-            Navigator.currentHistory = history;
+            Navigator.setCurentHistory(history);
 
             var mainRoute = React.createElement(Route as any, { component: Layout }, ...routes);
 
@@ -167,11 +167,11 @@ function reload() {
         });
 }
 
-AuthClient.onLogin = () => {
+AuthClient.changeOnLogin(() => {
     reload().then(() => {
         Navigator.currentHistory.push("~/home");
     }).done();
-};
+});
 
 reload();
 
