@@ -14,7 +14,7 @@ export interface CategoryWithProducts {
 
 export default class PublicCatalog extends React.Component<{}, { categories?: CategoryWithProducts[] }> {
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
         this.state = {};
     }

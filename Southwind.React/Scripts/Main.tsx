@@ -61,9 +61,9 @@ import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/Con
 numbro.culture("en-GB", require<any>("numbro/languages/en-GB"));
 numbro.culture("es-ES", require<any>("numbro/languages/es-ES"));
 
-declare var __webpack_public_path__;
+declare var __webpack_public_path__: string;
 
-__webpack_public_path__ = window["__baseUrl"] + "/dist/";
+__webpack_public_path__ = window.__baseUrl + "/dist/";
 
 ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
@@ -141,7 +141,7 @@ function reload() {
 
             routes.push(<Route path="*" component={NotFound}/>);
 
-            var baseName = window["__baseUrl"]
+            var baseName = window.__baseUrl
 
             var history = useRouterHistory(History.createHistory)({
                 //basename: baseName,
