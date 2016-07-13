@@ -6,12 +6,12 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 export default class Order extends React.Component<{ ctx: TypeContext<OrderEntity> }, void> {
 
     handleCustomerChange = (c: CustomerEntity) => {
-        this.props.ctx.value.shipAddress = c == null ? null : Dic.copy(c.address);
+        this.props.ctx.value.shipAddress = c == undefined ? undefined : Dic.copy(c.address);
         this.forceUpdate();
     }
 
     render() {
-        var ctx = this.props.ctx;
+        const ctx = this.props.ctx;
         return (
             <div>
                 <EntityLine ctx={ctx.subCtx(o => o.customer) } onChange={this.handleCustomerChange} />

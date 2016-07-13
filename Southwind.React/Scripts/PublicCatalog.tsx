@@ -25,9 +25,9 @@ export default class PublicCatalog extends React.Component<{}, { categories?: Ca
     }
 
     render() {
-        var maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
+        const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
 
-        var result = (
+        const result = (
             <div>
                 <h2>Southwind Product Catalog</h2>
                 { this.state.categories && this.state.categories.map(c =>

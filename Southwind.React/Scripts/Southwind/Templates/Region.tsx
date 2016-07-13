@@ -5,7 +5,7 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 export default class Region extends React.Component<{ ctx: TypeContext<RegionEntity> }, void> {
 
     render() {
-        var ctx = this.props.ctx;
+        const ctx = this.props.ctx;
         return (
             <div>
                 <ValueLine ctx={ctx.subCtx(r => r.description)} />

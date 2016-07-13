@@ -6,7 +6,7 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 export default class ApplicationConfiguration extends React.Component<{ ctx: TypeContext<ApplicationConfigurationEntity> }, void> {
 
     render() {
-        var ctx = this.props.ctx;
+        const ctx = this.props.ctx;
         return (
             <div>
                 <ValueLine ctx={ctx.subCtx(a => a.environment) } />

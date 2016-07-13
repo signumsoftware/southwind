@@ -61,7 +61,7 @@ import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/Con
 numbro.culture("en-GB", require<any>("numbro/languages/en-GB"));
 numbro.culture("es-ES", require<any>("numbro/languages/es-ES"));
 
-declare var __webpack_public_path__: string;
+declare let __webpack_public_path__: string;
 
 __webpack_public_path__ = window.__baseUrl + "/dist/";
 
@@ -94,7 +94,7 @@ function reload() {
             if (loaded)
                 return;
 
-            var routes: JSX.Element[] = [];
+            const routes: JSX.Element[] = [];
 
             routes.push(<IndexRoute component={PublicCatalog} />);
             routes.push(<Route path="home" component={Home} />);
@@ -114,7 +114,7 @@ function reload() {
                 UserQueryClient.start({ routes });
                 CacheClient.start({ routes });
                 ProcessClient.start({ routes, packages: true, packageOperations: true });
-                MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, quickLinksFrom: null });
+                MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, quickLinksFrom: undefined });
                 WordClient.start({ routes });
                 ExcelClient.start({ routes, plainExcel: true, excelReport: true });
                 SchedulerClient.start({ routes });
@@ -141,9 +141,9 @@ function reload() {
 
             routes.push(<Route path="*" component={NotFound}/>);
 
-            var baseName = window.__baseUrl
+            const baseName = window.__baseUrl
 
-            var history = useRouterHistory(History.createHistory)({
+            const history = useRouterHistory(History.createHistory)({
                 //basename: baseName,
             });
 
@@ -151,9 +151,9 @@ function reload() {
 
             Navigator.setCurentHistory(history);
 
-            var mainRoute = React.createElement(Route as any, { component: Layout }, ...routes);
+            const mainRoute = React.createElement(Route as any, { component: Layout }, ...routes);
 
-            var wrap = document.getElementById("wrap");
+            const wrap = document.getElementById("wrap");
             unmountComponentAtNode(wrap);
             render(
                 <Router history={history}>

@@ -49,10 +49,10 @@ export function start(options: { routes: JSX.Element[] }) {
     Finder.addSettings({
         queryName: OrderEntity,
         simpleFilterBuilder: (qd, fo) => {
-            var model = OrderFilter.extract(fo);
+            const model = OrderFilter.extract(fo);
 
             if (!model)
-                return null;
+                return undefined;
 
             return <OrderFilter ctx={TypeContext.root(OrderFilterModel, model) }/>;
         }
@@ -64,7 +64,7 @@ export function start(options: { routes: JSX.Element[] }) {
         {
             return Finder.find({ queryName: "Customer" }).then(c => {
                 if (!c)
-                    return null;
+                    return undefined;
 
                 return Operations.API.construct(coc.typeInfo.name, coc.operationInfo.key, c);
             });
@@ -75,7 +75,7 @@ export function start(options: { routes: JSX.Element[] }) {
         onClick: (coc, e) => {
             return Finder.find({ queryName: "Customer" }).then(c => {
                 if (!c)
-                    return null;
+                    return undefined;
 
                 return Operations.API.constructFromMany(coc.context.lites, coc.operationInfo.key, c)
                     .then(ep => navigateOrTab(ep, e))
@@ -84,7 +84,7 @@ export function start(options: { routes: JSX.Element[] }) {
         }
     }));
 
-    var selectShippedDate = () => ValueLineModal.show({
+    const selectShippedDate = () => ValueLineModal.show({
         type: { name: "datetime" },
         value: moment().format(),
         labelText: OrderEntity.nicePropertyName(a => a.shippedDate)

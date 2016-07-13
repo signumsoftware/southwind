@@ -6,7 +6,7 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 export default class OrderFilter extends React.Component<{ ctx: TypeContext<OrderFilterModel> }, void> implements ISimpleFilterBuilder {
 
     render() {
-        var ctx = this.props.ctx.subCtx({ formGroupStyle: "Basic" });
+        const ctx = this.props.ctx.subCtx({ formGroupStyle: "Basic" });
         return (
             <div className="form-vertical">
                 <div className="row">
@@ -25,9 +25,9 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
 
     getFilters(): FilterOption[] {
 
-        var result: FilterOption[] = []; 
+        const result: FilterOption[] = []; 
 
-        var val = this.props.ctx.value;
+        const val = this.props.ctx.value;
 
         if (val.customer)
             result.push({ columnName: "Customer", value: val.customer });
@@ -45,18 +45,18 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
     }
 
     static extract(fo: FindOptions) {
-        var filters = fo.filterOptions.clone();
+        const filters = fo.filterOptions.clone();
 
-        var extract = (columnName: string, operation: FilterOperation) => {
-            var f = filters.filter(f => f.columnName == columnName && f.operation == operation).firstOrNull();
+        const extract = (columnName: string, operation: FilterOperation) => {
+            const f = filters.filter(f => f.columnName == columnName && f.operation == operation).firstOrNull();
             if (!f)
-                return null;
+                return undefined;
 
             filters.remove(f);
             return f.value;
         }
 
-        var result = OrderFilterModel.New(fm => {
+        const result = OrderFilterModel.New(fm => {
             fm.customer = extract("Customer", "EqualTo");
             fm.employee = extract("Employee", "EqualTo");
             fm.minOrderDate = extract("OrderDate", "GreaterThanOrEqual");
@@ -64,7 +64,7 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
         }); 
 
         if (filters.length)
-            return null;
+            return undefined;
 
         return result;
     }

@@ -5,7 +5,7 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 export default class OrderDetails extends React.Component<{ ctx: TypeContext<OrderDetailsEntity> }, void> {
 
     render() {
-        var ctx = this.props.ctx;
+        const ctx = this.props.ctx;
         return (
             <div>
                 <EntityLine ctx={ctx.subCtx(o => o.product)} />

@@ -5,7 +5,7 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 export default class Supplier extends React.Component<{ ctx: TypeContext<SupplierEntity> }, void> {
 
     render() {
-        var ctx = this.props.ctx;
+        const ctx = this.props.ctx;
         return (
             <div>
                 <ValueLine ctx={ctx.subCtx(s => s.companyName)} />
