@@ -63,7 +63,7 @@ numbro.culture("es-ES", require<any>("numbro/languages/es-ES"));
 
 declare let __webpack_public_path__: string;
 
-__webpack_public_path__ = window.__baseUrl + "/dist/";
+__webpack_public_path__ = window.__baseUrl + "dist/";
 
 ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
@@ -96,8 +96,7 @@ function reload() {
 
             const routes: JSX.Element[] = [];
 
-            routes.push(<IndexRoute component={PublicCatalog} />);
-            routes.push(<Route path="home" component={Home} />);
+            routes.push(<IndexRoute component={Home} />);
             routes.push(<Route path="publicCatalog" component={PublicCatalog} />);
             AuthClient.startPublic({ routes, userTicket: true, resetPassword: true });
 
@@ -138,7 +137,7 @@ function reload() {
                     new SpecialOmniboxProvider()
                 );
             }
-
+            
             routes.push(<Route path="*" component={NotFound}/>);
 
             const baseName = window.__baseUrl
@@ -152,12 +151,13 @@ function reload() {
             Navigator.setCurrentHistory(history);
 
             const mainRoute = React.createElement(Route as any, { component: Layout }, ...routes);
-
             const wrap = document.getElementById("wrap")!;
             unmountComponentAtNode(wrap);
             render(
                 <Router history={history}>
-                    <Route component={Layout} path={baseName} > { routes }</Route>
+                    <Route component={Layout} path={baseName} > 
+                        { routes }
+                    </Route>
                 </Router>, wrap);
 
             if (isFull)

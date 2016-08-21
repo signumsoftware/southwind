@@ -40,8 +40,9 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                             </li>
                             <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
                                 <IndexLinkContainer to="~/"><MenuItem>Home</MenuItem></IndexLinkContainer>
-                                <LinkContainer to="~/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
+                                <LinkContainer to="~/publicCatalog"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <MenuItem divider />
+                                <LinkContainer to="~/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <LinkContainer to="~/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
                             </NavDropdown>
                         </Nav>}
