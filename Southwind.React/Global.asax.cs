@@ -54,6 +54,9 @@ using Signum.Engine.Translation;
 using Southwind.React.BingTranslationService;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using Signum.Engine.Processes;
+using Signum.Engine.Scheduler;
+using Signum.Engine.Mailing;
 
 namespace Southwind.React
 {
@@ -84,6 +87,12 @@ namespace Southwind.React
             RegisterMvcRoutes(RouteTable.Routes);            
 
             Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
+
+            ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
+
+            SchedulerLogic.StartScheduledTasks();
+
+            AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
         }
 
 

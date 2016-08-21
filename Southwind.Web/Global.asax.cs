@@ -105,11 +105,11 @@ namespace Southwind.Web
 
             WebStart();
 
-            ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
+            //ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
 
-            SchedulerLogic.StartScheduledTasks();
+            //SchedulerLogic.StartScheduledTasks();
 
-            AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
+            //AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
 
             RegisterRoutes(RouteTable.Routes);
 
