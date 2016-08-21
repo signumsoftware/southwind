@@ -167,11 +167,11 @@ function reload() {
         });
 }
 
-AuthClient.changeOnLogin(() => {
+AuthClient.Options.onLogin = () => {
     reload().then(() => {
         Navigator.currentHistory.push("~/home");
     }).done();
-});
+};
 
 reload();
 

@@ -177,7 +177,7 @@ namespace Southwind.Web
                 excelAttachment: false);
 
             WordClient.Start();
-            DashboardClient.Start();
+            DashboardClient.Start(navBar: false);
 
             DisconnectedClient.Start();
             ProcessClient.Start(
@@ -216,7 +216,7 @@ namespace Southwind.Web
 
             Navigator.Initialize();
 
-            OmniboxClient.Start();
+            OmniboxClient.Start(canSee: null);
             OmniboxClient.Register(new SpecialOmniboxProvider());
             OmniboxClient.Register(new EntityOmniboxProvider());
             OmniboxClient.Register(new DynamicQueryOmniboxProvider());

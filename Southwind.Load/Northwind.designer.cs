@@ -71,12 +71,6 @@ namespace Southwind.Load
     partial void DeleteTerritory(Territory instance);
     #endregion
 		
-        //public NorthwindDataContext() : 
-        //        base(global::Southwind.Load.Properties.Settings.Default.NorthwindConnectionString, mappingSource)
-        //{
-        //    OnCreated();
-        //}
-		
 		public NorthwindDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
