@@ -18,7 +18,7 @@
       <RemoveFiles Path="Southwind.Logic\ShipperLogic.cs"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="EmployeeLogic.Start(sb, dqm);" To="ShipperLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" 
-                  From="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee.RefersTo(EmployeeEntity.Current));" 
+                  From="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);" 
                   To="TypeConditionLogic.Register&lt;CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="CacheLogic.CacheTable&lt;ShipperEntity>(sb);"/>
 
@@ -315,7 +315,7 @@
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sea:UserEntity}}&quot;/>"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sea:RoleEntity}}&quot;/>"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
-      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().Single(e => e.FirstName == userName));" DependsOn="ExampleEntities"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().Single(e => e.FirstName == userName).ToLite());" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;D:\Signum\Southwind\Southwind.Load\AuthRules.xml&quot;); //Change this route if necessary. Only god knows where MSTest is running."/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
