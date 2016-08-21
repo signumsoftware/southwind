@@ -123,9 +123,6 @@
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ServerSouthwindTransfer.svc.cs">
-      <DependentUpon>ServerSouthwindTransfer.svc</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -134,9 +131,6 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="ServerSouthwind.svc.cs">
-      <DependentUpon>ServerSouthwind.svc</DependentUpon>
     </Compile>
     <Compile Include="Service References\BingTranslationService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -402,11 +396,9 @@
     <Content Include="Libs\promise-0.1.1.js" />
     <Content Include="Libs\require.js" />
     <TypeScriptCompile Include="Scripts\Product.ts" />
-    <Content Include="ServerSouthwindTransfer.svc" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="Scripts\southwind.ts" />
-    <Content Include="ServerSouthwind.svc" />
     <None Include="Service References\BingTranslationService\configuration91.svcinfo" />
     <None Include="Service References\BingTranslationService\configuration.svcinfo" />
     <None Include="Service References\BingTranslationService\Reference.svcmap">

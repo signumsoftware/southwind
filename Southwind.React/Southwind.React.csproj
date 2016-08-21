@@ -17,7 +17,7 @@
     <RootNamespace>Southwind.React</RootNamespace>
     <AssemblyName>Southwind.React</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -132,6 +132,8 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="ServerSouthwind.svc" />
+    <Content Include="ServerSouthwindTransfer.svc" />
     <Content Include="webpack.config.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -146,6 +148,12 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ServerSouthwind.svc.cs">
+      <DependentUpon>ServerSouthwind.svc</DependentUpon>
+    </Compile>
+    <Compile Include="ServerSouthwindTransfer.svc.cs">
+      <DependentUpon>ServerSouthwindTransfer.svc</DependentUpon>
     </Compile>
     <Compile Include="Service References\BingTranslationService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -305,7 +313,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61352</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Southwind.React</IISUrl>
+          <IISUrl>http://localhost:61352/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
