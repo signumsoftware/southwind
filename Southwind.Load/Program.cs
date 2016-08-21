@@ -109,7 +109,7 @@ namespace Southwind.Load
                     {43, AuthLogic.ImportExportAuthRules},
                     {45, HelpXml.ImportExportHelp},
                     {100, ShowOrder},
-                }.ChooseMultiple();
+                }.ChooseMultiple(args);
 
                 if (actions == null)
                     return;

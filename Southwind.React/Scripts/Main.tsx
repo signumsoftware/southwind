@@ -74,7 +74,7 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
 }
 
 CultureClient.onCultureLoaded.push(ci => {
-    const culture = ci.name;
+    const culture = ci.name!;
     moment.locale((culture.tryBefore("-") || culture).toLowerCase());
     numbro.culture(culture == "en" ? "en-GB" :
         culture == "es" ? "es-ES" : "Unkwnown");
@@ -149,11 +149,11 @@ function reload() {
 
             Navigator.useAppRelativeBasename(history, baseName);
 
-            Navigator.setCurentHistory(history);
+            Navigator.setCurrentHistory(history);
 
             const mainRoute = React.createElement(Route as any, { component: Layout }, ...routes);
 
-            const wrap = document.getElementById("wrap");
+            const wrap = document.getElementById("wrap")!;
             unmountComponentAtNode(wrap);
             render(
                 <Router history={history}>

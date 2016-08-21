@@ -48,8 +48,8 @@ export function start(options: { routes: JSX.Element[] }) {
 
     Finder.addSettings({
         queryName: OrderEntity,
-        simpleFilterBuilder: (qd, fo) => {
-            const model = OrderFilter.extract(fo);
+        simpleFilterBuilder: (qd, fop) => {
+            const model = OrderFilter.extract(fop);
 
             if (!model)
                 return undefined;
@@ -64,7 +64,7 @@ export function start(options: { routes: JSX.Element[] }) {
         {
             return Finder.find({ queryName: "Customer" }).then(c => {
                 if (!c)
-                    return undefined;
+                    return Promise.resolve(undefined);
 
                 return Operations.API.construct(coc.typeInfo.name, coc.operationInfo.key, c);
             });

@@ -16,11 +16,12 @@ import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Sign
 
 export const AddressEntity = new Type<AddressEntity>("AddressEntity");
 export interface AddressEntity extends Entities.EmbeddedEntity {
-    address: string;
-    city: string;
-    region: string;
-    postalCode: string;
-    country: string;
+    Type: "AddressEntity";
+    address?: string | null;
+    city?: string | null;
+    region?: string | null;
+    postalCode?: string | null;
+    country?: string | null;
 }
 
 export const AllowLogin = new EnumType<AllowLogin>("AllowLogin");
@@ -31,11 +32,12 @@ export type AllowLogin =
 
 export const ApplicationConfigurationEntity = new Type<ApplicationConfigurationEntity>("ApplicationConfiguration");
 export interface ApplicationConfigurationEntity extends Entities.Entity {
-    environment: string;
-    email: Mailing.EmailConfigurationEntity;
-    smtpConfiguration: Mailing.SmtpConfigurationEntity;
-    sms: SMS.SMSConfigurationEntity;
-    authTokens: Authorization.AuthTokenConfigurationEntity;
+    Type: "ApplicationConfiguration";
+    environment?: string | null;
+    email?: Mailing.EmailConfigurationEntity | null;
+    smtpConfiguration?: Mailing.SmtpConfigurationEntity | null;
+    sms?: SMS.SMSConfigurationEntity | null;
+    authTokens?: Authorization.AuthTokenConfigurationEntity | null;
 }
 
 export module ApplicationConfigurationOperation {
@@ -44,9 +46,10 @@ export module ApplicationConfigurationOperation {
 
 export const CategoryEntity = new Type<CategoryEntity>("Category");
 export interface CategoryEntity extends Entities.Entity {
-    categoryName: string;
-    description: string;
-    picture: Files.EmbeddedFileEntity;
+    Type: "Category";
+    categoryName?: string | null;
+    description?: string | null;
+    picture?: Files.EmbeddedFileEntity | null;
 }
 
 export module CategoryOperation {
@@ -55,15 +58,16 @@ export module CategoryOperation {
 
 export const CompanyEntity = new Type<CompanyEntity>("Company");
 export interface CompanyEntity extends CustomerEntity {
-    companyName: string;
-    contactName: string;
-    contactTitle: string;
+    Type: "Company";
+    companyName?: string | null;
+    contactName?: string | null;
+    contactTitle?: string | null;
 }
 
 export interface CustomerEntity extends Entities.Entity {
-    address: AddressEntity;
-    phone: string;
-    fax: string;
+    address?: AddressEntity | null;
+    phone?: string | null;
+    fax?: string | null;
 }
 
 export module CustomerOperation {
@@ -72,19 +76,20 @@ export module CustomerOperation {
 
 export const EmployeeEntity = new Type<EmployeeEntity>("Employee");
 export interface EmployeeEntity extends Entities.Entity {
-    lastName: string;
-    firstName: string;
-    title: string;
-    titleOfCourtesy: string;
-    birthDate: string;
-    hireDate: string;
-    address: AddressEntity;
-    homePhone: string;
-    extension: string;
-    photo: Entities.Lite<Files.FileEntity>;
-    notes: string;
-    reportsTo: Entities.Lite<EmployeeEntity>;
-    photoPath: string;
+    Type: "Employee";
+    lastName?: string | null;
+    firstName?: string | null;
+    title?: string | null;
+    titleOfCourtesy?: string | null;
+    birthDate?: string | null;
+    hireDate?: string | null;
+    address?: AddressEntity | null;
+    homePhone?: string | null;
+    extension?: string | null;
+    photo?: Entities.Lite<Files.FileEntity>;
+    notes?: string | null;
+    reportsTo?: Entities.Lite<EmployeeEntity>;
+    photoPath?: string | null;
     territories: Entities.MList<TerritoryEntity>;
 }
 
@@ -98,35 +103,38 @@ export module EmployeeQuery {
 
 export const OrderDetailsEntity = new Type<OrderDetailsEntity>("OrderDetailsEntity");
 export interface OrderDetailsEntity extends Entities.EmbeddedEntity {
-    product: Entities.Lite<ProductEntity>;
-    unitPrice: number;
-    quantity: number;
-    discount: number;
+    Type: "OrderDetailsEntity";
+    product?: Entities.Lite<ProductEntity>;
+    unitPrice?: number;
+    quantity?: number;
+    discount?: number;
 }
 
 export const OrderEntity = new Type<OrderEntity>("Order");
 export interface OrderEntity extends Entities.Entity {
-    customer: CustomerEntity;
-    employee: Entities.Lite<EmployeeEntity>;
-    orderDate: string;
-    requiredDate: string;
-    shippedDate: string;
-    cancelationDate: string;
-    shipVia: Entities.Lite<ShipperEntity>;
-    shipName: string;
-    shipAddress: AddressEntity;
-    freight: number;
+    Type: "Order";
+    customer?: CustomerEntity | null;
+    employee?: Entities.Lite<EmployeeEntity>;
+    orderDate?: string;
+    requiredDate?: string;
+    shippedDate?: string | null;
+    cancelationDate?: string | null;
+    shipVia?: Entities.Lite<ShipperEntity>;
+    shipName?: string | null;
+    shipAddress?: AddressEntity | null;
+    freight?: number;
     details: Entities.MList<OrderDetailsEntity>;
-    isLegacy: boolean;
-    state: OrderState;
+    isLegacy?: boolean;
+    state?: OrderState;
 }
 
 export const OrderFilterModel = new Type<OrderFilterModel>("OrderFilterModel");
 export interface OrderFilterModel extends Entities.ModelEntity {
-    customer: Entities.Lite<CustomerEntity>;
-    employee: Entities.Lite<EmployeeEntity>;
-    minOrderDate: string;
-    maxOrderDate: string;
+    Type: "OrderFilterModel";
+    customer?: Entities.Lite<CustomerEntity>;
+    employee?: Entities.Lite<EmployeeEntity>;
+    minOrderDate?: string | null;
+    maxOrderDate?: string | null;
 }
 
 export module OrderMessage {
@@ -170,23 +178,25 @@ export module OrderTask {
 
 export const PersonEntity = new Type<PersonEntity>("Person");
 export interface PersonEntity extends CustomerEntity {
-    firstName: string;
-    lastName: string;
-    title: string;
-    dateOfBirth: string;
-    corrupt: boolean;
+    Type: "Person";
+    firstName?: string | null;
+    lastName?: string | null;
+    title?: string | null;
+    dateOfBirth?: string | null;
+    corrupt?: boolean;
 }
 
 export const ProductEntity = new Type<ProductEntity>("Product");
 export interface ProductEntity extends Entities.Entity {
-    productName: string;
-    supplier: Entities.Lite<SupplierEntity>;
-    category: Entities.Lite<CategoryEntity>;
-    quantityPerUnit: string;
-    unitPrice: number;
-    unitsInStock: number;
-    reorderLevel: number;
-    discontinued: boolean;
+    Type: "Product";
+    productName?: string | null;
+    supplier?: Entities.Lite<SupplierEntity>;
+    category?: Entities.Lite<CategoryEntity>;
+    quantityPerUnit?: string | null;
+    unitPrice?: number;
+    unitsInStock?: number;
+    reorderLevel?: number;
+    discontinued?: boolean;
 }
 
 export module ProductOperation {
@@ -199,7 +209,8 @@ export module ProductQuery {
 
 export const RegionEntity = new Type<RegionEntity>("Region");
 export interface RegionEntity extends Entities.Entity {
-    description: string;
+    Type: "Region";
+    description?: string | null;
 }
 
 export module RegionOperation {
@@ -208,8 +219,9 @@ export module RegionOperation {
 
 export const ShipperEntity = new Type<ShipperEntity>("Shipper");
 export interface ShipperEntity extends Entities.Entity {
-    companyName: string;
-    phone: string;
+    Type: "Shipper";
+    companyName?: string | null;
+    phone?: string | null;
 }
 
 export module ShipperOperation {
@@ -224,13 +236,14 @@ export module SouthwindGroup {
 
 export const SupplierEntity = new Type<SupplierEntity>("Supplier");
 export interface SupplierEntity extends Entities.Entity {
-    companyName: string;
-    contactName: string;
-    contactTitle: string;
-    address: AddressEntity;
-    phone: string;
-    fax: string;
-    homePage: string;
+    Type: "Supplier";
+    companyName?: string | null;
+    contactName?: string | null;
+    contactTitle?: string | null;
+    address?: AddressEntity | null;
+    phone?: string | null;
+    fax?: string | null;
+    homePage?: string | null;
 }
 
 export module SupplierOperation {
@@ -239,8 +252,9 @@ export module SupplierOperation {
 
 export const TerritoryEntity = new Type<TerritoryEntity>("Territory");
 export interface TerritoryEntity extends Entities.Entity {
-    region: RegionEntity;
-    description: string;
+    Type: "Territory";
+    region?: RegionEntity | null;
+    description?: string | null;
 }
 
 export module TerritoryOperation {
@@ -249,8 +263,9 @@ export module TerritoryOperation {
 
 export const UserEmployeeMixin = new Type<UserEmployeeMixin>("UserEmployeeMixin");
 export interface UserEmployeeMixin extends Entities.MixinEntity {
-    allowLogin: AllowLogin;
-    employee: Entities.Lite<EmployeeEntity>;
+    Type: "UserEmployeeMixin";
+    allowLogin?: AllowLogin;
+    employee?: Entities.Lite<EmployeeEntity>;
 }
 
 
