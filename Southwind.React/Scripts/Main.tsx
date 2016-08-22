@@ -169,7 +169,7 @@ function reload() {
 
 AuthClient.Options.onLogin = () => {
     reload().then(() => {
-        Navigator.currentHistory.push("~/home");
+        Navigator.currentHistory.push("~/");
     }).done();
 };
 
