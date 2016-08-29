@@ -155,7 +155,7 @@ function reload() {
             unmountComponentAtNode(wrap);
             render(
                 <Router history={history}>
-                    <Route component={Layout} path={baseName} > 
+                    <Route component={Layout} path={baseName.beforeLast("/") || "/"} > 
                         { routes }
                     </Route>
                 </Router>, wrap);

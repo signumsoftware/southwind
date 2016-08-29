@@ -51,7 +51,7 @@ namespace Southwind.Entities
         [Unit("Kg")]
         public decimal Freight { get; set; }
 
-        [NotNullable, ValidateChildProperty, NotifyChildProperty, NotifyCollectionChanged]
+        [NotNullable, NotifyChildProperty, NotifyCollectionChanged]
         [NoRepeatValidator]
         public MList<OrderDetailsEntity> Details { get; set; } = new MList<OrderDetailsEntity>();
 

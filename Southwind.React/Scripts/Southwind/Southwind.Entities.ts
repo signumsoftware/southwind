@@ -86,9 +86,9 @@ export interface EmployeeEntity extends Entities.Entity {
     address?: AddressEntity | null;
     homePhone?: string | null;
     extension?: string | null;
-    photo?: Entities.Lite<Files.FileEntity>;
+    photo?: Entities.Lite<Files.FileEntity> | null;
     notes?: string | null;
-    reportsTo?: Entities.Lite<EmployeeEntity>;
+    reportsTo?: Entities.Lite<EmployeeEntity> | null;
     photoPath?: string | null;
     territories: Entities.MList<TerritoryEntity>;
 }
@@ -104,7 +104,7 @@ export module EmployeeQuery {
 export const OrderDetailsEntity = new Type<OrderDetailsEntity>("OrderDetailsEntity");
 export interface OrderDetailsEntity extends Entities.EmbeddedEntity {
     Type: "OrderDetailsEntity";
-    product?: Entities.Lite<ProductEntity>;
+    product?: Entities.Lite<ProductEntity> | null;
     unitPrice?: number;
     quantity?: number;
     discount?: number;
@@ -114,12 +114,12 @@ export const OrderEntity = new Type<OrderEntity>("Order");
 export interface OrderEntity extends Entities.Entity {
     Type: "Order";
     customer?: CustomerEntity | null;
-    employee?: Entities.Lite<EmployeeEntity>;
+    employee?: Entities.Lite<EmployeeEntity> | null;
     orderDate?: string;
     requiredDate?: string;
     shippedDate?: string | null;
     cancelationDate?: string | null;
-    shipVia?: Entities.Lite<ShipperEntity>;
+    shipVia?: Entities.Lite<ShipperEntity> | null;
     shipName?: string | null;
     shipAddress?: AddressEntity | null;
     freight?: number;
@@ -131,8 +131,8 @@ export interface OrderEntity extends Entities.Entity {
 export const OrderFilterModel = new Type<OrderFilterModel>("OrderFilterModel");
 export interface OrderFilterModel extends Entities.ModelEntity {
     Type: "OrderFilterModel";
-    customer?: Entities.Lite<CustomerEntity>;
-    employee?: Entities.Lite<EmployeeEntity>;
+    customer?: Entities.Lite<CustomerEntity> | null;
+    employee?: Entities.Lite<EmployeeEntity> | null;
     minOrderDate?: string | null;
     maxOrderDate?: string | null;
 }
@@ -190,8 +190,8 @@ export const ProductEntity = new Type<ProductEntity>("Product");
 export interface ProductEntity extends Entities.Entity {
     Type: "Product";
     productName?: string | null;
-    supplier?: Entities.Lite<SupplierEntity>;
-    category?: Entities.Lite<CategoryEntity>;
+    supplier?: Entities.Lite<SupplierEntity> | null;
+    category?: Entities.Lite<CategoryEntity> | null;
     quantityPerUnit?: string | null;
     unitPrice?: number;
     unitsInStock?: number;
@@ -265,7 +265,7 @@ export const UserEmployeeMixin = new Type<UserEmployeeMixin>("UserEmployeeMixin"
 export interface UserEmployeeMixin extends Entities.MixinEntity {
     Type: "UserEmployeeMixin";
     allowLogin?: AllowLogin;
-    employee?: Entities.Lite<EmployeeEntity>;
+    employee?: Entities.Lite<EmployeeEntity> | null;
 }
 
 
