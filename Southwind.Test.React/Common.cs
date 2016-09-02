@@ -7,12 +7,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
-using Signum.Web.Selenium;
+using Signum.React.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 
-namespace Southwind.Test.Web
+namespace Southwind.Test.React
 {
     [TestClass]
     [DeploymentItem("chromedriver.exe", "")]
@@ -44,7 +44,7 @@ namespace Southwind.Test.Web
     {
         public override string Url(string url)
         {
-            //return "http://localhost/Southwind.Web/" + url;
+            //return "http://localhost/Southwind.React/" + url;
             return "http://localhost:7654/" + url;
         }
 

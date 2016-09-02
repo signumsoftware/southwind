@@ -4,11 +4,11 @@ using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Entities;
 using Signum.Utilities;
-using Signum.Web.Selenium;
+using Signum.React.Selenium;
 using Southwind.Entities;
 using Southwind.Test.Environment;
 
-namespace Southwind.Test.Web
+namespace Southwind.Test.React
 {
     [TestClass]
     public class OrderWebTest : SouthwindTestClass
@@ -35,19 +35,19 @@ namespace Southwind.Test.Web
                         return persons.Results.EntityClick<PersonEntity>(1);
                     }).Using(john =>
                     {
-                        using (PopupControl<OrderEntity> order = john.ConstructFromPopup(OrderOperation.CreateOrderFromCustomer))
+                        using (PopupFrame<OrderEntity> order = john.ConstructFrom(OrderOperation.CreateOrderFromCustomer))
                         {
                             order.ValueLineValue(a => a.ShipName, Guid.NewGuid().ToString());
                             order.EntityCombo(a => a.ShipVia).SelectLabel("FedEx");
 
                             ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
 
-                            var line = order.EntityListDetail(a => a.Details).CreateElement<OrderDetailsEntity>();
+                            var line = order.EntityDetail(a => a.Details).GetOrCreateDetailControl<OrderDetailsEntity>();
                             line.EntityLineValue(a => a.Product, sonicProduct.ToLite());
 
                             Assert.AreEqual(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
 
-                            order.ExecuteAjax(OrderOperation.SaveNew);
+                            order.Execute(OrderOperation.SaveNew);
 
                             lite = order.GetLite();
 

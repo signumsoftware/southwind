@@ -6,8 +6,8 @@
     <ProjectGuid>{8118420A-2FEB-47D7-8EE1-32B8E94B1FEF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Southwind.Test.Web</RootNamespace>
-    <AssemblyName>Southwind.Test.Web</AssemblyName>
+    <RootNamespace>Southwind.Test.React</RootNamespace>
+    <AssemblyName>Southwind.Test.React</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -63,7 +63,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Common.cs" />
-    <Compile Include="OrderWebTest.cs" />
+    <Compile Include="OrderReactTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +75,9 @@
       <Project>{7D851227-5294-4BEB-990E-56B4FBB7A148}</Project>
       <Name>Signum.Entities.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Extensions\Signum.Web.Extensions.Selenium\Signum.Web.Extensions.Selenium.csproj">
-      <Project>{18048dcc-7069-4bc1-8be0-99010c7d9082}</Project>
-      <Name>Signum.Web.Extensions.Selenium</Name>
+    <ProjectReference Include="..\Extensions\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj">
+      <Project>{8932c4a4-0af1-41b0-98da-596e11643690}</Project>
+      <Name>Signum.React.Extensions.Selenium</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework\Signum.Engine\Signum.Engine.csproj">
       <Project>{7F2DB6FE-C109-4057-B207-C62A767F905D}</Project>
