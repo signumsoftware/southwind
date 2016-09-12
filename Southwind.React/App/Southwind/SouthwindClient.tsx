@@ -20,7 +20,8 @@ import OrderFilter from './Templates/OrderFilter'
 
 import { ApplicationConfigurationEntity } from './Southwind.Entities'
 
-import { AddressEntity, OrderDetailsEntity, OrderFilterModel, CategoryEntity,
+import {
+    AddressEntity, OrderDetailsEntity, OrderFilterModel, CategoryEntity, CustomerQuery,
     CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
     RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity
 } from './Southwind.Entities'
@@ -29,18 +30,18 @@ export function start(options: { routes: JSX.Element[] }) {
 
     Navigator.addSettings(new EntitySettings(ApplicationConfigurationEntity, a => new ViewPromise(resolve => require(['./Templates/ApplicationConfiguration'], resolve))));
     Navigator.addSettings(new EntitySettings(AddressEntity, a => new ViewPromise(resolve => require(['./Templates/Address'], resolve))));
-    Navigator.addSettings(new EntitySettings(OrderDetailsEntity, o => new ViewPromise(resolve => require(['./Templates/OrderDetails'], resolve))));
-    Navigator.addSettings(new EntitySettings(OrderFilterModel, o => new ViewPromise(resolve => require(['./Templates/OrderFilter'], resolve))));
     Navigator.addSettings(new EntitySettings(CategoryEntity, c => new ViewPromise(resolve => require(['./Templates/Category'], resolve))));
     Navigator.addSettings(new EntitySettings(CompanyEntity, c => new ViewPromise(resolve => require(['./Templates/Company'], resolve))));
     Navigator.addSettings(new EntitySettings(EmployeeEntity, e => new ViewPromise(resolve => require(['./Templates/Employee'], resolve))));
     Navigator.addSettings(new EntitySettings(OrderEntity, o => new ViewPromise(resolve => require(['./Templates/Order'], resolve))));
     Navigator.addSettings(new EntitySettings(PersonEntity, p => new ViewPromise(resolve => require(['./Templates/Person'], resolve))));
     Navigator.addSettings(new EntitySettings(ProductEntity, p => new ViewPromise(resolve => require(['./Templates/Product'], resolve))));
-    Navigator.addSettings(new EntitySettings(RegionEntity, r => new ViewPromise(resolve => require(['./Templates/Region'], resolve))));
-    Navigator.addSettings(new EntitySettings(ShipperEntity, s => new ViewPromise(resolve => require(['./Templates/Shipper'], resolve))));
     Navigator.addSettings(new EntitySettings(SupplierEntity, s => new ViewPromise(resolve => require(['./Templates/Supplier'], resolve))));
-    Navigator.addSettings(new EntitySettings(TerritoryEntity, t => new ViewPromise(resolve => require(['./Templates/Territory'], resolve))));
+
+    /* If no view is detected DynamicComponent creates one automatically*/
+    //Navigator.addSettings(new EntitySettings(RegionEntity, r => new ViewPromise(resolve => require(['./Templates/Region'], resolve))));
+    //Navigator.addSettings(new EntitySettings(ShipperEntity, s => new ViewPromise(resolve => require(['./Templates/Shipper'], resolve))));
+    //Navigator.addSettings(new EntitySettings(TerritoryEntity, t => new ViewPromise(resolve => require(['./Templates/Territory'], resolve))));
 
     Navigator.getSettings(UserEntity).overrideView((rep) => {
         rep.insertAfter(u => u.role,
@@ -64,7 +65,7 @@ export function start(options: { routes: JSX.Element[] }) {
     Operations.addSettings(new ConstructorOperationSettings(OrderOperation.Create, {
         onConstruct: coc =>
         {
-            return Finder.find({ queryName: "Customer" }).then(c => {
+            return Finder.find({ queryName: CustomerQuery.Customer }).then(c => {
                 if (!c)
                     return Promise.resolve(undefined);
 
@@ -75,7 +76,7 @@ export function start(options: { routes: JSX.Element[] }) {
 
     Operations.addSettings(new ContextualOperationSettings(OrderOperation.CreateOrderFromProducts, {
         onClick: (coc, e) => {
-            return Finder.find({ queryName: "Customer" }).then(c => {
+            return Finder.find({ queryName: CustomerQuery.Customer }).then(c => {
                 if (!c)
                     return undefined;
 

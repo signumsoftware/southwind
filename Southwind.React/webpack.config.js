@@ -11,7 +11,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: [ "./Scripts/Main.tsx" ],
+        main: [ "./App/Main.tsx" ],
         "react": ["react", "react-bootstrap", "react-router", "react-widgets", "react-router-bootstrap"],
         "d3": ["d3"],
         "moment": ["moment", "moment-duration-format"],

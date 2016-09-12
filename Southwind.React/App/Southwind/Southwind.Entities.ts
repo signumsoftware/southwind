@@ -74,6 +74,10 @@ export module CustomerOperation {
     export const Save : Entities.ExecuteSymbol<CustomerEntity> = registerSymbol({ Type: "Operation", key: "CustomerOperation.Save" });
 }
 
+export module CustomerQuery {
+    export const Customer = new QueryKey("CustomerQuery", "Customer");
+}
+
 export const EmployeeEntity = new Type<EmployeeEntity>("Employee");
 export interface EmployeeEntity extends Entities.Entity {
     Type: "Employee";

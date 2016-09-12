@@ -121,7 +121,7 @@ namespace Southwind.Windows.Controls
 
         private object EntityLine_Finding()
         {
-            return Finder.Find(new FindOptions(typeof(CustomerEntity))); 
+            return Finder.Find(new FindOptions(CustomerQuery.Customer)); 
         }
     }
 }

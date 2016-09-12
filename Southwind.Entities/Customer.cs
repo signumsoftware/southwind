@@ -33,6 +33,12 @@ namespace Southwind.Entities
     }
 
 
+    public enum CustomerQuery
+    {
+        Customer
+    }
+
+
     [Serializable, EntityKind(EntityKind.Shared, EntityData.Transactional)]
     public class PersonEntity : CustomerEntity
     {

@@ -74,7 +74,7 @@ namespace Southwind.Logic
                     Execute = (e, _) => { }
                 }.RegisterReplace();
 
-                dqm.RegisterQuery(typeof(CustomerEntity), () => DynamicQuery.Manual((QueryRequest request, QueryDescription descriptions) =>
+                dqm.RegisterQuery(CustomerQuery.Customer, () => DynamicQuery.Manual((QueryRequest request, QueryDescription descriptions) =>
                 {
                     var persons = Database.Query<PersonEntity>().Select(p => new
                     {

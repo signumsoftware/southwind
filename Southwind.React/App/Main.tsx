@@ -1,6 +1,6 @@
 ﻿require("../node_modules/bootstrap/dist/css/bootstrap.css");
 require("../node_modules/font-awesome/css/font-awesome.css");
-require("../Content/site.css");
+require("./site.css");
 require("../../Framework/Signum.React/Scripts/Frames/Frames.css");
 
 
@@ -33,6 +33,7 @@ import * as CacheClient from "../../Extensions/Signum.React.Extensions/Cache/Cac
 import * as ProcessClient from "../../Extensions/Signum.React.Extensions/Processes/ProcessClient"
 import * as MailingClient from "../../Extensions/Signum.React.Extensions/Mailing/MailingClient"
 import * as ProfilerClient from "../../Extensions/Signum.React.Extensions/Profiler/ProfilerClient"
+import * as FilesClient from "../../Extensions/Signum.React.Extensions/Files/FilesClient"
 import * as WordClient from "../../Extensions/Signum.React.Extensions/Word/WordClient"
 import * as ExcelClient from "../../Extensions/Signum.React.Extensions/Excel/ExcelClient"
 import * as SchedulerClient from "../../Extensions/Signum.React.Extensions/Scheduler/SchedulerClient"
@@ -110,6 +111,7 @@ function reload() {
 
                 ExceptionClient.start({ routes });
 
+                FilesClient.start({ routes });
                 UserQueryClient.start({ routes });
                 CacheClient.start({ routes });
                 ProcessClient.start({ routes, packages: true, packageOperations: true });

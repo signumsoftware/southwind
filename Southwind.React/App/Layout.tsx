@@ -30,7 +30,7 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                     </Navbar.Header>
                     <Navbar.Collapse>
 
-                        { AuthClient.currentUser() && <Nav>
+                        {AuthClient.currentUser() && <ul className="nav navbar-nav">
                             <li>
                                 <div style={{ width: "200px", marginTop: "8px" }}>
                                     <OmniboxAutocomplete
@@ -45,18 +45,18 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                                 <LinkContainer to="~/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <LinkContainer to="~/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
                             </NavDropdown>
-                        </Nav>}
-                        <Nav pullRight>
+                        </ul>}
+                        <ul className="nav navbar-nav navbar-right">
                             <CultureDropdown />
                             <LoginUserControl />
-                        </Nav>
+                        </ul>
                     </Navbar.Collapse>
                 </Navbar>
-                <Notify/>
+                <Notify />
                 <ContainerToggle>
                     {this.props.children}
                 </ContainerToggle>
-                <GlobalModalContainer/>
+                <GlobalModalContainer />
                 <div id="push"></div>
             </div>
         );
@@ -77,5 +77,5 @@ export default class Layout extends React.Component<{ children: any }, { refresh
         CultureClient.onCultureLoaded.remove(this.handleResetUI);
     }
 
-   
+
 }
