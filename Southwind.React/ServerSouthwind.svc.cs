@@ -23,7 +23,7 @@ using Southwind.Entities;
 using Signum.Entities.Reflection;
 using Signum.Entities.Services;
 
-namespace Southwind.Web
+namespace Southwind.React
 {
     [ExceptionMarshallingBehavior]
     public class ServerSouthwind : ServerExtensions, IServerSouthwind

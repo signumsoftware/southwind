@@ -123,7 +123,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\site.css" />
+    <Content Include="App\site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="package.json" />
@@ -139,7 +139,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Scripts\Southwind\OrdersController.cs" />
+    <Compile Include="App\Southwind\OrdersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -173,7 +173,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="tsconfig.json" />
-    <Content Include="Scripts\Southwind\Southwind.Entities.t4s" />
+    <Content Include="App\Southwind\Southwind.Entities.t4s" />
     <None Include="Service References\BingTranslationService\soap.wsdl" />
     <None Include="Service References\BingTranslationService\soap.xsd">
       <SubType>Designer</SubType>
@@ -204,9 +204,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Start\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
       <Project>{ba7fa363-61a1-41b1-945b-9b9c7bbcd357}</Project>
@@ -250,25 +248,25 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\Southwind\Southwind.Entities.ts">
+    <TypeScriptCompile Include="App\Southwind\Southwind.Entities.ts">
       <DependentUpon>Southwind.Entities.t4s</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Scripts\Southwind\SouthwindClient.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\Address.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\ApplicationConfiguration.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\Category.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\Company.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\Employee.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\Order.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\OrderFilter.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\Person.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\Product.tsx" />
-    <TypeScriptCompile Include="Scripts\Southwind\Templates\Supplier.tsx" />
-    <TypeScriptCompile Include="Scripts\PublicCatalog.tsx" />
-    <TypeScriptCompile Include="Scripts\NotFound.tsx" />
-    <TypeScriptCompile Include="Scripts\Home.tsx" />
-    <TypeScriptCompile Include="Scripts\Main.tsx" />
-    <TypeScriptCompile Include="Scripts\Layout.tsx" />
+    <TypeScriptCompile Include="App\Southwind\SouthwindClient.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Address.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\ApplicationConfiguration.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Category.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Company.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Employee.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Order.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\OrderFilter.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Person.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Product.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Supplier.tsx" />
+    <TypeScriptCompile Include="App\PublicCatalog.tsx" />
+    <TypeScriptCompile Include="App\NotFound.tsx" />
+    <TypeScriptCompile Include="App\Home.tsx" />
+    <TypeScriptCompile Include="App\Main.tsx" />
+    <TypeScriptCompile Include="App\Layout.tsx" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\Framework\Signum.Analyzer\Binaries\Signum.Analyzer.dll" />

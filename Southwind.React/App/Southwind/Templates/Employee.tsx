@@ -74,8 +74,10 @@ export default class Employee extends React.Component<{ ctx: TypeContext<Employe
                 </div>
 
                 <div className="col-sm-3">
+                    {/*photo*/}
                     <FileLine ctx={ctx.subCtx(e => e.photo)} onChange={() => this.loadPhoto(this.props.ctx.value)} />
                     {this.state.photo && <img className="img-responsive" src={"data:image/jpeg;base64," + this.state.photo.binaryFile} />}
+                    {/*photo*/}
                     <div className="form-vertical">
                         <ValueLine ctx={ctx.subCtx(e => e.notes, { formGroupStyle: "Basic" })} valueHtmlProps={{ rows: 10, className: "notes" }} />
                     </div>

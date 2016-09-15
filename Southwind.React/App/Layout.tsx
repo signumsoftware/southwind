@@ -33,9 +33,7 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                         {AuthClient.currentUser() && <ul className="nav navbar-nav">
                             <li>
                                 <div style={{ width: "200px", marginTop: "8px" }}>
-                                    <OmniboxAutocomplete
-                                        inputAttrs={{ className: "form-control" }}
-                                        />
+                                    <OmniboxAutocomplete  inputAttrs={{ className: "form-control" }} />
                                 </div>
                             </li>
                             <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">

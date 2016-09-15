@@ -11,7 +11,7 @@ using Southwind.Test.Environment;
 namespace Southwind.Test.React
 {
     [TestClass]
-    public class OrderWebTest : SouthwindTestClass
+    public class OrderReactTest : SouthwindTestClass
     {
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
@@ -67,6 +67,6 @@ namespace Southwind.Test.React
                         lite.Delete();
                 }
             });
-        }//OrderWebTestExample
+        }//OrderReactTestExample
     }
 }

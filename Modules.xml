@@ -7,33 +7,33 @@
       <RemoveFiles Path="Southwind.Entities\Employee.cs"/>
       <RemoveFiles Path="Southwind.Entities\Order.cs"/>
       <RemoveFiles Path="Southwind.Entities\Product.cs"/>
-      
+
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{100, ShowOrder},"/>
       <RemoveLine Path="Southwind.Load\Program.cs" From="static void ShowOrder()" To="}//ShowOrder"/>
-      
+
       <RemoveFiles Path="Southwind.Logic\CustomerLogic.cs"/>
       <RemoveFiles Path="Southwind.Logic\EmployeeLogic.cs"/>
       <RemoveFiles Path="Southwind.Logic\OrderLogic.cs"/>
       <RemoveFiles Path="Southwind.Logic\ProductLogic.cs"/>
       <RemoveFiles Path="Southwind.Logic\ShipperLogic.cs"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="EmployeeLogic.Start(sb, dqm);" To="ShipperLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" 
-                  From="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);" 
+      <RemoveLine Path="Southwind.Logic\Starter.cs"
+                  From="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);"
                   To="TypeConditionLogic.Register&lt;CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="CacheLogic.CacheTable&lt;ShipperEntity>(sb);"/>
 
-     
+
     </Module>
-    
+
     <Module Name="Windows">
       <RemoveFiles Path="Southwind.Windows"/>
       <RemoveFiles Path="Southwind.Entities\IServerSouthwind.cs"/>
-      <RemoveFiles Path="Southwind.Web\ServerSouthwind.svc"/>
-      <RemoveFiles Path="Southwind.Web\ServerSouthwind.svc.cs"/>
-      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;wsHttpBinding&gt;" To="&lt;/wsHttpBinding>"/>
-      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;services>" To="&lt;/services>"/>
-      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;behaviors>" To="&lt;/behaviors>"/>
-      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;!--Uncomment to trace WCF info -->" To="&lt;/system.diagnostics&gt;--&gt;"/>
+      <RemoveFiles Path="Southwind.React\ServerSouthwind.svc"/>
+      <RemoveFiles Path="Southwind.React\ServerSouthwind.svc.cs"/>
+      <RemoveLine Path="Southwind.React\Web.config" From="&lt;wsHttpBinding&gt;" To="&lt;/wsHttpBinding>"/>
+      <RemoveLine Path="Southwind.React\Web.config" From="&lt;services>" To="&lt;/services>"/>
+      <RemoveLine Path="Southwind.React\Web.config" From="&lt;behaviors>" To="&lt;/behaviors>"/>
+      <RemoveLine Path="Southwind.React\Web.config" From="&lt;!--Uncomment to trace WCF info -->" To="&lt;/system.diagnostics&gt;--&gt;"/>
 
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\App.xaml.cs" Line="using Southwind.Windows.Controls;"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Code\SouthwindClient.cs" Line="using Southwind.Windows.Controls;"/>
@@ -52,39 +52,25 @@
                   To="&lt;!--Admin-->"/>
     </Module>
 
-    <Module Name="ExampleWeb" DependsOn="ExampleEntities" >
-      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="public static JsModule OrderModule = new JsModule(&quot;Order&quot;);"/>
-      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" 
-                  From="new EmbeddedEntitySettings&lt;AddressEntity>() { PartialViewName = e => ViewPrefix.FormatWith(&quot;Address&quot;) },"
-                  To="new EmbeddedEntitySettings&lt;OrderFilterModel>(),"/>
-      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs"
-                  From="Finder.AddQuerySetting(new QuerySettings(OrderQuery.OrderSimple)"
-                  To="RegisterQuickLinks();"/>
-      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs"
-                  From="private static ValueLineBoxOptions GetValueLineOptions(string prefix)"
-                  To="} //RegisterQuickLinks"/>
-      <RemoveFiles Path="Southwind.Web\Scripts\Order.ts"/>
-      <RemoveFiles Path="Southwind.Web\Scripts\Order.js"/>
-      <RemoveFiles Path="Southwind.Web\Scripts\Product.ts"/>
-      <RemoveFiles Path="Southwind.Web\Scripts\Product.js"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Address.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Category.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Company.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Employee.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Order.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\OrderDetails.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Person.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Product.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Region.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Shipper.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Supplier.cshtml"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\Territory.cshtml"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" From="new WebMenuItem //Southwind" To="}, //Southwind"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SouthwindClient.Start();"/>
-      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" 
-                  From="public ContentResult UpdateOrders() //To move orders to the present" 
-                  To="}//ShipOrder"/>
-      <RemoveFiles Path="Southwind.Web\Views\Southwind\OrderFilter.cshtml"/>
+    <Module Name="ExampleReact" DependsOn="ExampleEntities" >
+      <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
+                  From="import { /*Southwind.Entities*/"
+                  To="} from './Southwind.Entities'"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
+                  From="Navigator.addSettings(new EntitySettings(AddressEntity, a => new ViewPromise(resolve => require(['./Templates/Address'], resolve))));"
+                  To="}));//Ship"/>
+
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Address.tsx"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Category.tsx"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Company.tsx"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Employee.tsx"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Order.tsx"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\OrderFilter.tsx"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Person.tsx"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Product.tsx"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Supplier.tsx"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx"
+                  Line="&lt;LinkContainer to=&quot;~/find/order&quot;>&lt;MenuItem>Orders&lt;/MenuItem>&lt;/LinkContainer>" />"/>
     </Module>
 
     <Module Name="Disconnected" DependsOn="Windows">
@@ -101,7 +87,6 @@
       <RemoveLine Path="Southwind.Logic\Starter.Disconnected.cs" DependsOn="ExampleEntities"
             From="DisconnectedLogic.Register&lt;EmployeeEntity>(Download.All, Upload.None);"
             To="DisconnectedLogic.Register&lt;ShipperEntity>(Download.All, Upload.None);" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="DisconnectedClient.Start();"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" Line="using Southwind.Local;"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="public enum StartOption" To="}"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="if (RunLocally())" To="else //Run remotely"/>
@@ -111,11 +96,11 @@
       <RemoveLine Path="Southwind.Windows\Program.cs" From="private static void UploadIfNecessary()" To="}//UploadIfNecessary"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="using Southwind.Local;"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DisconnectedClient.Start();"/>
-      <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc"/>
-      <RemoveFiles Path="Southwind.Web\ServerSouthwindTransfer.svc.cs"/>
-      <RemoveLine Path="Southwind.Web\Web.config" Line="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot; transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot;/>"/>
-      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;service name=&quot;Southwind.Web.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
-      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
+      <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc"/>
+      <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc.cs"/>
+      <RemoveLine Path="Southwind.React\Web.config" Line="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot; transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot;/>"/>
+      <RemoveLine Path="Southwind.React\Web.config" From="&lt;service name=&quot;Southwind.React.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
+      <RemoveLine Path="Southwind.React\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" From="&lt;MenuItem Header=&quot;Disconnected&quot; x:Name=&quot;miDisconnected&quot;>" To="&lt;/MenuItem>"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml.cs" From="if (Server.OfflineMode)" To="} //OfflineMode"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml.cs" From="private void miDownload_Click(object sender, RoutedEventArgs e)" To="} //Disconnected"/>
@@ -130,8 +115,8 @@
 
     </Module>
 
-    <Module Name="LoadNorthwind" DependsOn="ExampleEntities,Migrations">	  
-	    <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
+    <Module Name="LoadNorthwind" DependsOn="ExampleEntities,Migrations">
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
       <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\EmployeeLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\Northwind.dbml"/>
@@ -148,15 +133,18 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="UserQueriesClient.Start();"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="UserQueryServer.Start(config);"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="UserQueryClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new UserQueryOmniboxProvider(),"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="UserQueryClient.Start();"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(UserQueryEntity)) },"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type seu:UserQueryEntity}}&quot;/>"/>
     </Module>
 
     <Module Name="Word">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordTemplateLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="WordClient.Start();"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WordClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WordServer.Start(config);"/>
       <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportWordReportTemplateForOrder,"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
       <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Load\WordTemplates\Order.docx"/>
@@ -167,21 +155,22 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ChartLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
-      <RemoveFiles Path="Southwind.Web\Libs\CodeMirror\"/>
-      <RemoveFiles Path="Southwind.Web\Libs\d3.v3.min.js"/>
-      <RemoveFiles Path="Southwind.Web\Libs\colorbrewer.js"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ChartClient.Start();"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="ChartClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new ChartOmniboxProvider(),"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new UserChartOmniboxProvider(),"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ChartServer.Start(config);"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new ChartOmniboxResultGenerator(),"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ChartClient.Start();"/>
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{42, ChartScriptLogic.ImportExportChartScripts},"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(UserChartEntity)) },"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(ChartScriptEntity)) },"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sec:UserChartEntity}}&quot;/>"/>
     </Module>
 
     <Module Name="Files">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmbeddedFilePathLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FileLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="FilesClient.Start(" To="embeddedFilePath: true);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="FilesClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="FilesServer.Start(config);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="FilePathClient.Start();"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Employee.cs" Line="public Lite&lt;FileEntity> Photo { get; set; }"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Product.cs" Line="public EmbeddedFileEntity Picture { get; set; }"/>
@@ -191,10 +180,10 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\ProductLogic.cs" Line="s.Picture"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //1"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //2"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Code\SouthwindClient.cs" From="QuerySettings.RegisterPropertyFormat((CategoryEntity e) => e.Picture," To=".Attr(&quot;style&quot;, &quot;width:48px&quot;).ToHtmlSelf()) { TextAlign = &quot;center&quot; }); //Emmployee"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Code\SouthwindClient.cs" From="public static string Base64Data(EmbeddedFileEntity file)" To="} //Base64Data"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Views\Southwind\Category.cshtml" From="@Html.FileLine(cc, a => a.Picture)" To="} @*Picture*@"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Web\Views\Southwind\Employee.cshtml" From="@Html.FileLineLite(ec, a => a.Photo)" To="} @*Photo*@"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\SouthwindClient.tsx" From="{/*Files*/}" To="{/*Files*/}"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" Line="&lt;FileLine ctx={ctx.subCtx(c => c.picture)} onChange={() => this.forceUpdate()} />"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" From="&lt;div className=&quot;col-sm-3&quot;>{/*photo*/}" To="&lt;/div>{/*photo*/}"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Employee.tsx" From="{/*photo*/}" To="{/*photo*/}"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Code\SouthwindClient.cs" From="QuerySettings.RegisterPropertyFormat((EmployeeEntity e) => e.Photo, b =>" To="}); //Picture"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Controls\Category.xaml" From="&lt;f:FileLine m:Common.Route=&quot;Picture&quot; />" To="&lt;/Border>"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Windows\Controls\Employee.xaml" From="&lt;StackPanel  Grid.Column=&quot;1&quot; Grid.Row=&quot;0&quot;>" To="&lt;/StackPanel>"/>
@@ -202,7 +191,8 @@
     </Module>
 
     <Module Name="Excel">
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ExcelClient.Start(" To="excelAttachment: false);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="ExcelClient.start({ routes, plainExcel: true, excelReport: true });"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ExcelServer.Start(config);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ExcelClient.Start(toExcel: true, excelReport: false);"/>
     </Module>
 
@@ -212,11 +202,12 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, dqm, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
-      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="var panel = DashboardLogic.GetHomePageDashboard();" To="return View(DashboardClient.ViewPrefix.FormatWith(&quot;Dashboard&quot;), panel);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="DashboardClient.Start();"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ViewLogClient.Start();"/>
+      <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (true as any) {" To="else //Dashboard"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="DashboardClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new DashboardOmniboxProvider(),"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="DashboardServer.Start(config);"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DashboardClient.Start();"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(DashboardEntity)) },"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;swdb:DashboardView />"/>
     </Module>
 
@@ -230,21 +221,22 @@
                   To="sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProcessLogic.Start(sb, dqm);"
                   To="PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ProcessRunnerLogic.StartRunningProcesses(5 * 1000);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="ProcessClient.Start(" To="packageOperations: true);"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ProcessRunnerLogic.StartRunningProcesses(5 * 1000);"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ProcessServer.Start(config);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ProcessClient.Start(package: true, packageOperation: true);"/>
     </Module>
 
     <Module Name="Scheduler" DependsOn="Process">
       <RemoveLine Path="Southwind.Entities\Order.cs" From="[AutoInit]//OrderTask" To="}"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, () =>" To="});//CancelOldOrdersProcess"/>
-  
-      <RemoveLine Path="Southwind.Logic\Starter.cs" 
+
+      <RemoveLine Path="Southwind.Logic\Starter.cs"
                   From="sb.Schema.Settings.FieldAttributes((ScheduledTaskEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"
                   To="sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SchedulerLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SchedulerClient.Start(simpleTask: true);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SchedulerLogic.StartScheduledTasks();"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="SchedulerServer.Start(config);"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="SchedulerLogic.StartScheduledTasks();"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="SchedulerClient.start({ routes });"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SchedulerClient.Start();"/>
     </Module>
 
@@ -255,14 +247,12 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SmtpConfigurationLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, et => Configuration.Value.SmtpConfiguration);"/>
-      <RemoveFiles Path="Southwind.Web\Libs\ckeditor"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="MailingClient.Start(" To="quickLinkFrom: null);" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="MailingServer.Start(config);" />
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Email*/" To="public EmailConfigurationEntity Email { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullValidator]/*Smtp*/" To="public SmtpConfigurationEntity SmtpConfiguration { get; set; }"/>
-      <RemoveLine Path="Southwind.Web\Views\Southwind\ApplicationConfiguration.cshtml" From="&lt;fieldset id=&quot;email&quot;>" To="&lt;/fieldset>"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email) }>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Email = new EmailConfigurationEntity" To="}, //Email"/>
-      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="Email = new EmailConfigurationEntity()"/>
     </Module>
 
     <Module Name="SMS">
@@ -270,12 +260,10 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" DependsOn="ExampleEntities"
                   From="SMSLogic.RegisterPhoneNumberProvider&lt;PersonEntity>(p => p.Phone, p => null);"
                   To="SMSLogic.RegisterPhoneNumberProvider&lt;CompanyEntity&gt;(p => p.Phone, p => null);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SMSClient.Start();" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SMSClient.Start();" />
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Sms*/" To="public SMSConfigurationEntity Sms { get; set; }"/>
-      <RemoveLine Path="Southwind.Web\Views\Southwind\ApplicationConfiguration.cshtml" From="&lt;fieldset id=&quot;sms&quot;>" To="&lt;/fieldset>"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms) }>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEntity" To="} //Sms"/>
-      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="Sms = new SMSConfigurationEntity(),"/>
     </Module>
 
     <Module Name="Auth">
@@ -284,8 +272,7 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity),"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthClient.Start(" To="singleSignOnMessage: false);" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthAdminClient.Start(" To="permissions: true);" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="AuthServer.Start(config, () => Starter.Configuration.Value.AuthTokens, &quot;IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!&quot;);" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="AuthClient.Start(" To="defaultPasswordExpiresLogic: false);" />
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations,LoadNorthwind"/>
@@ -295,21 +282,17 @@
       <RemoveLine Path="Southwind.Load\AuthRules.xml" From="&lt;Types>" To="&lt;/Types>"  DependsOn="ExampleEntities"/>
       <RemoveFiles Path="Southwind.Entities\UserEmployeeMixin.cs" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserEmployeeMixin&gt;();" DependsOn="ExampleEntities"/>
-      <RemoveLine Path="Southwind.Web\ServerSouthwind.svc.cs" From="public override void Login(string username, byte[] passwordHash)" To="} //Login" DependsOn="ExampleEntities"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="AuthLogic.UserLogingIn += user =>" To="}; //UserLogingIn" DependsOn="ExampleEntities" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" 
-                  From="Navigator.EntitySettings&lt;UserEntity&gt;().CreateViewOverrides()"
-                  To=".AfterLine((UserEntity u) => u.Role, (html, tc) => html.EntityLine(tc, u => u.Mixin&lt;UserEmployeeMixin>().Employee));"
-                  DependsOn="ExampleEntities"/>
+      <RemoveLine Path="Southwind.React\ServerSouthwind.svc.cs" From="public override void Login(string username, byte[] passwordHash)" To="} //Login" DependsOn="ExampleEntities"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
+                 From="Navigator.getSettings(UserEntity).overrideView((rep) => {"
+                 To="});"
+                 DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="Navigator.EntitySettings&lt;UserEntity&gt;().OverrideView += (usr, ctrl) =>" To="};" DependsOn="ExampleEntities"/>
-      <RemoveSpanInLines Path="Southwind.Entities\Employee.cs" Span="get { return UserEntity.Current.Mixin&lt;UserEmployeeMixin>().Employee; } //" DependsOn="ExampleEntities" />
-      <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" Line="@{ Html.RenderPartial(AuthClient.LoginUserControlView);}" />
-      <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="@if (UserEntity.Current != null) //Omnibox" To="{" />
-      <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="@if (UserEntity.Current != null) //Menu" To="{" />
-      <RemoveSpanInLines Path="Southwind.Web\Views\Shared\_Layout.cshtml" Span="} @*UserEntity.Current*@" />
-      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(UserEntity)) },"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(RoleEntity)) },"/>
-      <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" From="var user = Database.Query&lt;UserEntity>()" To="links.Add(new QuickLinkView(user));"/>
+      <RemoveSpanInLines Path="Southwind.Entities\Employee.cs" Span="get { return UserEntity.Current.Mixin&lt;UserEmployeeMixin>().Employee; } //" DependsOn="ExampleEntities" />>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="AuthClient.onCurrentUserChanged.push(this.handleResetUI);" />
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="AuthClient.onCurrentUserChanged.remove(this.handleResetUI);" />
+      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="AuthClient.currentUser() &amp;&amp;" />
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LoginUserControl />"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="static IServerSouthwind Login(IServerSouthwind result)" To="} //Login"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="if (Application.Current == null || Application.Current.CheckAccess())" To="});"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sea:UserEntity}}&quot;/>"/>
@@ -323,26 +306,26 @@
     </Module>
 
     <Module Name="Translation">
-      <RemoveLine Path="Southwind.Web\Web.config" From="&lt;client>" To="&lt;/client>" />
-      <RemoveLine Path="Southwind.Web\Web.config" Line="&lt;binding name=&quot;BasicHttpBinding_LanguageService&quot;/>" />
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="TranslationLogic.Start(sb, dqm);" To="TranslatedInstanceLogic.Start(sb, dqm, () => CultureInfo.GetCultureInfo(&quot;en&quot;));"/>
+      <RemoveLine Path="Southwind.React\Web.config" From="&lt;client>" To="&lt;/client>" />
+      <RemoveLine Path="Southwind.React\Web.config" Line="&lt;binding name=&quot;BasicHttpBinding_LanguageService&quot;/>" />
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="TranslationLogic.Start(sb, dqm, countLocalizationHits: false);" To="TranslatedInstanceLogic.Start(sb, dqm, () => CultureInfo.GetCultureInfo(&quot;en&quot;));"/>
       <RemoveFiles Path="Southwind.Entities\Translations" DependsOn="ExampleEntities" />
-      <RemoveFiles Path="Southwind.Web\Service References" />
-      <RemoveFiles Path="Southwind.Web\Translations" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="TranslationClient.Start(new AlreadyTranslatedTranslator(new BingTranslator())," To="instanceTranslator: true);" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = DefaultCulture;" To="return DefaultCulture; //Translation" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="public class BingTranslator : ITranslator" To="} // BingTranslator" />
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="using Southwind.Web.BingTranslationService;" />
+      <RemoveFiles Path="Southwind.React\Service References" />
+      <RemoveFiles Path="Southwind.React\Translations" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="TranslationServer.Start(config, new AlreadyTranslatedTranslator(new BingTranslator()));" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = GetCulture(this.Request);" To="return DefaultCulture; //Translation" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" From="public class BingTranslator : ITranslator" To="} // BingTranslator" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="using Southwind.React.BingTranslationService;" />
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportSpanishInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
       <RemoveFiles Path="Southwind.Load\Category.es.View.xlsx" DependsOn="LoadNorthwind"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column" DependsOn="ExampleEntities"/>
-      <RemoveLine Path="Southwind.Web\Scripts\southwind.ts" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
-      <RemoveLine Path="Southwind.Web\Scripts\southwind.js" From="$(&quot;#languageSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
-      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeLanguage()" To="} //ChangeLanguage"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;CultureDropdown />"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="CultureClient.onCultureLoaded.push(this.handleResetUI);" />
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="CultureClient.onCultureLoaded.remove(this.handleResetUI);" />
     </Module>
-    
+
     <Module Name="Auth_ResetPasswordRequest" DependsOn="Auth,Mailing">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ResetPasswordRequestLogic.Start(sb, dqm);"/>
     </Module>
@@ -353,9 +336,6 @@
 
     <Module Name="SessionLog" DependsOn="Auth">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SessionLogLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SessionLogClient.Start();"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SessionLogClient.LogSessionEnd((UserEntity)Session[UserHolder.UserSessionKey], TimeSpan.FromMinutes(Session.Timeout));"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" Line="new WebMenuItem { Link = new FindOptions(typeof(SessionLogEntity)) },"/>
     </Module>
 
     <Module Name="Alerts">
@@ -363,8 +343,6 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", /*Alert*/typeof(OrderEntity)" DependsOn="ExampleEntities" />
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.AttendedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="AlertClient.Start(typeof(UserEntity), /*Alert*/typeof(OrderEntity));"/>
-      <RemoveSpanInLines Path="Southwind.Web\Global.asax.cs" Span=", /*Alert*/typeof(OrderEntity)" DependsOn="ExampleEntities"/>      
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="AlertClient.Start(typeof(UserEntity), /*Alert*/typeof(OrderEntity));"/>
       <RemoveSpanInLines Path="Southwind.Windows\App.xaml.cs" Span=", /*Alert*/typeof(OrderEntity)" DependsOn="ExampleEntities"/>
     </Module>
@@ -373,18 +351,16 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="NoteLogic.Start(sb, dqm, typeof(UserEntity), /*Note*/typeof(OrderEntity));"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", /*Note*/typeof(OrderEntity)" DependsOn="ExampleEntities" />
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((NoteEntity n) => n.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="NoteClient.Start(typeof(UserEntity), /*Note*/typeof(OrderEntity));"/>
-      <RemoveSpanInLines Path="Southwind.Web\Global.asax.cs" Span=", /*Note*/typeof(OrderEntity)" DependsOn="ExampleEntities" />      
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="NoteClient.Start(typeof(UserEntity), /*Note*/typeof(OrderEntity));"/>
       <RemoveSpanInLines Path="Southwind.Windows\App.xaml.cs" Span=", /*Note*/typeof(OrderEntity)" DependsOn="ExampleEntities" />
-    
+
     </Module>
 
     <Module Name="Cache">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="CacheLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetupCache(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="private static void SetupCache(SchemaBuilder sb)" To="}"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="CacheClient.Start();"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="CacheClient.start({ routes });"/>
     </Module>
 
     <Module Name="SplitDB">
@@ -394,54 +370,41 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="public static void SetLogDatabase(Schema schema, DatabaseName logDatabaseName)" To="}"/>
     </Module>
 
-    <Module Name="ThemeSelector">
-      <RemoveFiles Path="Southwind.Web\Libs\bootstrap\themes"/>
-      <RemoveLine Path="Southwind.Web\Scripts\southwind.ts" From="$(&quot;#themeSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
-      <RemoveLine Path="Southwind.Web\Scripts\southwind.js" From="$(&quot;#themeSelector&quot;).bind(&quot;change&quot;, function () {" To="});"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="&lt;li class=&quot;theme-selector-container&quot;&gt;" To="&lt;/li&gt;"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="//theme0" To="{ //theme1"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="} //theme2" To="} //theme3"/>
-	    <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult ChangeTheme()" To="}"/>
-	    <RemoveLine Path="Southwind.Web\Code\SouthwindClient.cs" Line="public static string ThemeSessionKey = &quot;swCurrentTheme&quot;;"/>
-	  </Module>
-
     <Module Name="PublicCatalog" DependsOn="ExampleEntities,Translation,Cache,Files">
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts;"/>
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
-      <RemoveFiles Path="Southwind.Web\Views\Home\PublicCatalog.cshtml"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="&lt;li class=&quot;language-selector-container&quot;&gt;" To="&lt;/li&gt;"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\Menu.cshtml" From="new WebMenuItem  //Catalog" To="}, //Catalog"/>
-      <RemoveSpanInLines Path="Southwind.Web\Controllers\HomeController.cs" Span="[AuthenticationRequired(false)]"/>
-      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="if (UserEntity.Current == null)" To="return RedirectToAction(&quot;PublicCatalog&quot;);"/>
-      <RemoveLine Path="Southwind.Web\Controllers\HomeController.cs" From="public ActionResult PublicCatalog()" To="} //PublicCatalog"/>
+      <RemoveFiles Path="Southwind.React\App\PublicCatalog.tsx"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;MenuItem>Orders&lt;/MenuItem>&lt;/LinkContainer>"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="routes.push(&lt;Route path=&quot;publicCatalog&quot; component={PublicCatalog} />);"/>
+      <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (Navigator.currentUser == null) {" To="}//PublicCatalog"/>
     </Module>
 
     <Module Name="Profiler">
-      <RemoveLine Path="Southwind.Web/ServerSouthwind.svc.cs" From="string longDescription = mi.Name + description == null ? null : (&quot; &quot; + description);" To="using (HeavyProfiler.Log(&quot;WCF&quot;, () => longDescription))"/>
+      <RemoveLine Path="Southwind.React\ServerSouthwind.svc.cs" From="string longDescription = mi.Name + description == null ? null : (&quot; &quot; + description);" To="using (HeavyProfiler.Log(&quot;WCF&quot;, () => longDescription))"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProfilerLogic.Start(sb, dqm," To="overrideSessionTimeout: true);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="SignumControllerFactory.EveryController().AddFilters(new ProfilerFilterAttribute());"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="ProfilerClient.Start();"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="ProfilerClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ProfilerServer.Start(config);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ProfilerClient.Start();"/>
     </Module>
 
     <Module Name="Omnibox">
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new DashboardOmniboxProvider());"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" From="OmniboxServer.Start(config," To=");//Omnibox"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;OmniboxAutocomplete  inputAttrs={{ className: &quot;form-control&quot; }} />"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new DashboardOmniboxProvider());"/>
-      <RemoveLine Path="Southwind.Web\Views\Shared\_Layout.cshtml" From="&lt;li>@*Omnibox*@" To="&lt;/li>"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;swo:OmniboxAutocomplete MinWidth=&quot;200&quot; DockPanel.Dock=&quot;Right&quot;/>"/>
     </Module>
-	
-	<Module Name="Map">
-	  <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MapLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="MapClient.Start();"/>
-	  <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="OmniboxClient.Register(new MapOmniboxProvider());"/>
+
+    <Module Name="Map">
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MapLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="MapServer.Start(config);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new MapOmniboxProvider(),"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),"/>
     </Module>
 
     <Module Name="Help">
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{45, HelpXml.ImportExportHelp},"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="HelpLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="HelpClient.Start(&quot;Images&quot;, &quot;http://localhost:7654/&quot;);"/>
-      <RemoveLine Path="Southwind.Web\Global.asax.cs" Line="OmniboxClient.Register(new HelpOmniboxProvider());"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="HelpClient.Start(); "/>
     </Module>
 
@@ -476,10 +439,10 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Windows\OrderWindowTest.cs" From="[TestMethod]" To="}//OrderWindowsTestExample"/>
     </Module>
 
-    <Module Name="Test.Web" DependsOn="Test.Environment">
-      <RemoveFiles Path="Southwind.Test.Web"/>
+    <Module Name="Test.React" DependsOn="Test.Environment">
+      <RemoveFiles Path="Southwind.Test.React"/>
 
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Web\OrderWebTest.cs" From="[TestMethod]" To="}//OrderWebTestExample"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.React\OrderReactTest.cs" From="[TestMethod]" To="}//OrderReactTestExample"/>
     </Module>
   </Modules>
 
@@ -488,11 +451,11 @@
     <Project Path ="Southwind.Load\Southwind.Load.csproj"/>
     <Project Path ="Southwind.Local\Southwind.Local.csproj"/>
     <Project Path ="Southwind.Logic\Southwind.Logic.csproj"/>
-    <Project Path ="Southwind.Web\Southwind.Web.csproj"/>
+    <Project Path ="Southwind.React\Southwind.React.csproj"/>
     <Project Path ="Southwind.Windows\Southwind.Windows.csproj"/>
     <Project Path ="Southwind.Test.Environment\Southwind.Test.Environment.csproj"/>
     <Project Path ="Southwind.Test.Logic\Southwind.Test.Logic.csproj"/>
-    <Project Path ="Southwind.Test.Web\Southwind.Test.Web.csproj"/>
+    <Project Path ="Southwind.Test.React\Southwind.Test.React.csproj"/>
     <Project Path ="Southwind.Test.Windows\Southwind.Test.Windows.csproj"/>
   </Projects>
 

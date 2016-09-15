@@ -7,30 +7,28 @@ import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashb
 
 export default class Home extends React.Component<{}, { loaded: boolean }> {
     
-    visible = true;
-
     constructor(props: {}){
         super(props);
         this.state = { loaded: false };
     }
 
-    componentWillMount(){
-        if(Navigator.currentUser == null){
+    componentWillMount() {
+        if (Navigator.currentUser == null) {
             Navigator.currentHistory.push("~/publicCatalog");
-        }
-        else{
+            return;
+        }//PublicCatalog
+
+        if (true as any) {
             DashboardClient.API.home()
                 .then(h => {
-                    if(this.visible && h)
+                    if (h)
                         Navigator.currentHistory.push(`~/dashboard/${h.id}`);
                     else
-                        this.setState({loaded: true});
-                }); 
+                        this.setState({ loaded: true });
+                });
         }
-    }
-
-    componentWillUnmount(){
-        this.visible = false;
+        else //Dashboard
+            this.setState({ loaded: true });
     }
 
     render() {

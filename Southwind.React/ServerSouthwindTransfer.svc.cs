@@ -22,7 +22,7 @@ using Signum.Utilities;
 using System.IO.Compression;
 using Signum.Engine.Basics;
 
-namespace Southwind.Web
+namespace Southwind.React
 {
     //http://talentedmonkeys.wordpress.com/2010/11/29/wcf-400-bad-request-while-streaming-large-files-through-iis/
     public class ServerSouthwindTransfer : IServerSouthwindTransfer

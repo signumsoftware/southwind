@@ -10,9 +10,9 @@ export default class Category extends React.Component<{ ctx: TypeContext<Categor
         const ctx = this.props.ctx.subCtx({ labelColumns: { sm: 3} });
         return (
             <div className="row">
-                <div className="col-sm-3">
+                <div className="col-sm-3">{/*photo*/}
                     {ctx.value.picture && <img style={maxDimensions} src={"data:image/jpeg;base64," + ctx.value.picture.binaryFile}/>}
-                </div>
+                </div>{/*photo*/}
                 <div className="col-sm-9">
                     <ValueLine ctx={ctx.subCtx(c => c.categoryName)} />
                     <ValueLine ctx={ctx.subCtx(c => c.description)} />

@@ -126,7 +126,7 @@ namespace Southwind.React
                 new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
                 new ReactSpecialOmniboxGenerator()
                 //new HelpModuleOmniboxResultGenerator(),
-                );            
+                );//Omnibox         
         }
 
         protected void Application_PostAuthorizeRequest()

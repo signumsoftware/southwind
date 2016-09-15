@@ -50,7 +50,7 @@ module.exports = {
         ]
     },
     plugins: [
-	    new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
+        new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
         //new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
         new webpack.optimize.CommonsChunkPlugin({
             names: [ 'd3', 'react', 'numbro', 'moment'],
@@ -71,7 +71,7 @@ module.exports = {
             { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, 'dist/fetch.js') },
         ])
     ],
-    devtool: false,
+    devtool: "source-map",
     ts: {
         transpileOnly: true,
         compilerOptions: {
