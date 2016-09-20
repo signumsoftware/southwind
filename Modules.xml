@@ -59,6 +59,8 @@
       <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
                   From="Navigator.addSettings(new EntitySettings(AddressEntity, a => new ViewPromise(resolve => require(['./Templates/Address'], resolve))));"
                   To="}));//Ship"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
+                  Line="import OrderFilter from './Templates/OrderFilter'"/>
 
       <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Address.tsx"/>
       <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Category.tsx"/>
@@ -134,15 +136,18 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="UserQueryServer.Start(config);"/>
-      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as UserQueryClient from &quot;../../Extensions/Signum.React.Extensions/UserQueries/UserQueryClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="UserQueryClient.start({ routes });"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new UserQueryOmniboxProvider(),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="import UserQueryOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/UserQueries/UserQueryOmniboxProvider&quot;"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="new UserQueryOmniboxProvider(),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Global.asax.cs" Line="new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="UserQueryClient.Start();"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type seu:UserQueryEntity}}&quot;/>"/>
     </Module>
 
     <Module Name="Word">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordTemplateLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as WordClient from &quot;../../Extensions/Signum.React.Extensions/Word/WordClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WordClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WordServer.Start(config);"/>
       <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportWordReportTemplateForOrder,"/>
@@ -155,12 +160,15 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ChartLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as ChartClient from &quot;../../Extensions/Signum.React.Extensions/Chart/ChartClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="ChartClient.start({ routes });"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new ChartOmniboxProvider(),"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new UserChartOmniboxProvider(),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="import ChartOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Chart/ChartOmniboxProvider&quot;"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="import UserChartOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Chart/UserChartOmniboxProvider&quot;"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="new ChartOmniboxProvider(),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="new UserChartOmniboxProvider(),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Global.asax.cs" Line="new ChartOmniboxResultGenerator(),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Global.asax.cs" Line="new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ChartServer.Start(config);"/>
-      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new ChartOmniboxResultGenerator(),"/>
-      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ChartClient.Start();"/>
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{42, ChartScriptLogic.ImportExportChartScripts},"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sec:UserChartEntity}}&quot;/>"/>
@@ -169,6 +177,7 @@
     <Module Name="Files">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmbeddedFilePathLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FileLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as FilesClient from &quot;../../Extensions/Signum.React.Extensions/Files/FilesClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="FilesClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="FilesServer.Start(config);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="FilePathClient.Start();"/>
@@ -191,6 +200,7 @@
     </Module>
 
     <Module Name="Excel">
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as ExcelClient from &quot;../../Extensions/Signum.React.Extensions/Excel/ExcelClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="ExcelClient.start({ routes, plainExcel: true, excelReport: true });"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ExcelServer.Start(config);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ExcelClient.Start(toExcel: true, excelReport: false);"/>
@@ -203,10 +213,12 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
       <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (true as any) {" To="else //Dashboard"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as DashboardClient from &quot;../../Extensions/Signum.React.Extensions/Dashboard/DashboardClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="DashboardClient.start({ routes });"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new DashboardOmniboxProvider(),"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="DashboardServer.Start(config);"/>
-      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="import DashboardOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Dashboard/DashboardOmniboxProvider&quot;"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="new DashboardOmniboxProvider(),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Global.asax.cs" Line="new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DashboardClient.Start();"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;swdb:DashboardView />"/>
     </Module>
@@ -221,6 +233,8 @@
                   To="sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProcessLogic.Start(sb, dqm);"
                   To="PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as ProcessClient from &quot;../../Extensions/Signum.React.Extensions/Processes/ProcessClient&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="ProcessClient.start({ routes, packages: true, packageOperations: true });"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ProcessRunnerLogic.StartRunningProcesses(5 * 1000);"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ProcessServer.Start(config);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ProcessClient.Start(package: true, packageOperation: true);"/>
@@ -236,6 +250,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SchedulerLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="SchedulerServer.Start(config);"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="SchedulerLogic.StartScheduledTasks();"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as SchedulerClient from &quot;../../Extensions/Signum.React.Extensions/Scheduler/SchedulerClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="SchedulerClient.start({ routes });"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SchedulerClient.Start();"/>
     </Module>
@@ -247,8 +262,11 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SmtpConfigurationLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, et => Configuration.Value.SmtpConfiguration);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="s.Email.SendEmails," To="s.Email.UrlLeft"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="MailingServer.Start(config);" />
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as MailingClient from &quot;../../Extensions/Signum.React.Extensions/Mailing/MailingClient&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, quickLinksFrom: undefined });"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Email*/" To="public EmailConfigurationEntity Email { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullValidator]/*Smtp*/" To="public SmtpConfigurationEntity SmtpConfiguration { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email) }>" To="&lt;/Tab>"/>
@@ -272,6 +290,8 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity),"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*AuthTokens*/" To="public AuthTokenConfigurationEntity AuthTokens { get; set; }"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="AuthTokens = new AuthTokenConfigurationEntity" To="}, //Auth"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="AuthServer.Start(config, () => Starter.Configuration.Value.AuthTokens, &quot;IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!&quot;);" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="AuthClient.Start(" To="defaultPasswordExpiresLogic: false);" />
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
@@ -293,6 +313,12 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="AuthClient.onCurrentUserChanged.remove(this.handleResetUI);" />
       <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="AuthClient.currentUser() &amp;&amp;" />
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LoginUserControl />"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as AuthClient from &quot;../../Extensions/Signum.React.Extensions/Authorization/AuthClient&quot;"/>
+      <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="AuthClient.autoLogin() //"/>
+      <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="!!AuthClient.currentUser(); //"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, resetPassword: true });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" From="AuthClient.Options.onLogin = () => {" To="};"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="static IServerSouthwind Login(IServerSouthwind result)" To="} //Login"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="if (Application.Current == null || Application.Current.CheckAccess())" To="});"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sea:UserEntity}}&quot;/>"/>
@@ -316,6 +342,13 @@
       <RemoveLine Path="Southwind.React\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = GetCulture(this.Request);" To="return DefaultCulture; //Translation" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" From="public class BingTranslator : ITranslator" To="} // BingTranslator" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="using Southwind.React.BingTranslationService;" />
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as TranslationClient from &quot;../../Extensions/Signum.React.Extensions/Translation/TranslationClient&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="TranslationClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as CultureClient from &quot;../../Extensions/Signum.React.Extensions/Translation/CultureClient&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line=".then(() => CultureClient.loadCurrentCulture())"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="CultureClient.onCultureLoaded.push(ci => {"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="}); //Culture"/>
+      <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="ci.name!; //"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportSpanishInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
       <RemoveFiles Path="Southwind.Load\Category.es.View.xlsx" DependsOn="LoadNorthwind"/>
@@ -376,12 +409,15 @@
       <RemoveFiles Path="Southwind.React\App\PublicCatalog.tsx"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;MenuItem>Orders&lt;/MenuItem>&lt;/LinkContainer>"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="routes.push(&lt;Route path=&quot;publicCatalog&quot; component={PublicCatalog} />);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import PublicCatalog from './PublicCatalog'"/>
       <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (Navigator.currentUser == null) {" To="}//PublicCatalog"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\CatalogController.cs"/>
     </Module>
 
     <Module Name="Profiler">
       <RemoveLine Path="Southwind.React\ServerSouthwind.svc.cs" From="string longDescription = mi.Name + description == null ? null : (&quot; &quot; + description);" To="using (HeavyProfiler.Log(&quot;WCF&quot;, () => longDescription))"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProfilerLogic.Start(sb, dqm," To="overrideSessionTimeout: true);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as ProfilerClient from &quot;../../Extensions/Signum.React.Extensions/Profiler/ProfilerClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="ProfilerClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ProfilerServer.Start(config);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ProfilerClient.Start();"/>
@@ -390,6 +426,11 @@
     <Module Name="Omnibox">
       <RemoveLine Path="Southwind.React\Global.asax.cs" From="OmniboxServer.Start(config," To=");//Omnibox"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;OmniboxAutocomplete  inputAttrs={{ className: &quot;form-control&quot; }} />"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as OmniboxClient from &quot;../../Extensions/Signum.React.Extensions/Omnibox/OmniboxClient&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import DynamicQueryOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import EntityOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import SpecialOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Omnibox/SpecialOmniboxProvider&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" From="OmniboxClient.start(" To=");//Omnibox"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="OmniboxClient.Start();" To="OmniboxClient.Register(new DashboardOmniboxProvider());"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;swo:OmniboxAutocomplete MinWidth=&quot;200&quot; DockPanel.Dock=&quot;Right&quot;/>"/>
     </Module>
@@ -397,9 +438,11 @@
     <Module Name="Map">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MapLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="MapServer.Start(config);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as MapClient from &quot;../../Extensions/Signum.React.Extensions/Map/MapClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="new MapOmniboxProvider(),"/>
-      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="import MapOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Map/MapOmniboxProvider&quot;"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="new MapOmniboxProvider(),"/>
+      <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Global.asax.cs" Line="new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),"/>
     </Module>
 
     <Module Name="Help">

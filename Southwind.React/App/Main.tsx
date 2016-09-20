@@ -75,22 +75,22 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
 }
 
 CultureClient.onCultureLoaded.push(ci => {
-    const culture = ci.name!;
+    const culture = ci.name!; //"en";
     moment.locale((culture.tryBefore("-") || culture).toLowerCase());
     numbro.culture(culture == "en" ? "en-GB" :
         culture == "es" ? "es-ES" : "Unkwnown");
-});
+}); //Culture
 
 window.onerror = (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
 
 let loaded = false;
 
 function reload() {
-    return AuthClient.autoLogin()
+    return AuthClient.autoLogin() //Promise.resolve()
         .then(() => reloadTypes())
         .then(() => CultureClient.loadCurrentCulture())
         .then(() => {
-            const isFull = !!AuthClient.currentUser();
+            const isFull = !!AuthClient.currentUser(); //true;
 
             if (loaded)
                 return;
@@ -137,7 +137,7 @@ function reload() {
                     new DashboardOmniboxProvider(),
                     new MapOmniboxProvider(),
                     new SpecialOmniboxProvider()
-                );
+                );//Omnibox
             }
             
             routes.push(<Route path="*" component={NotFound}/>);

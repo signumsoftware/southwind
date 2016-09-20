@@ -105,6 +105,9 @@ namespace Southwind.Load
                         DefaultCulture = en,
                         UrlLeft = "http://localhost/Southwind"
                     },
+                    AuthTokens = new AuthTokenConfigurationEntity
+                    {
+                    }, //Auth
                     SmtpConfiguration = new SmtpConfigurationEntity
                     {
                         Name = "localhost",
