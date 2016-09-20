@@ -291,6 +291,7 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*AuthTokens*/" To="public AuthTokenConfigurationEntity AuthTokens { get; set; }"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;auth&quot; title={ctx.niceName(a => a.authTokens) }>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="AuthTokens = new AuthTokenConfigurationEntity" To="}, //Auth"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="AuthServer.Start(config, () => Starter.Configuration.Value.AuthTokens, &quot;IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!&quot;);" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="AuthClient.Start(" To="defaultPasswordExpiresLogic: false);" />
