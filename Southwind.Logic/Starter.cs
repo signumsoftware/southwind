@@ -67,7 +67,7 @@ namespace Southwind.Logic
         {
             string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
-            SchemaBuilder sb = new SchemaBuilder();
+            SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase };
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
@@ -107,7 +107,7 @@ namespace Southwind.Logic
 
             SchedulerLogic.Start(sb, dqm);
 
-            QueryLogic.Start(sb);
+            QueryLogic.Start(sb, dqm);
             UserQueryLogic.Start(sb, dqm);
             UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
@@ -165,62 +165,80 @@ namespace Southwind.Logic
 
             SetupCache(sb);
 
-            SetSchemaNames(Schema.Current);
-
-            if (logDatabase.HasText())
-                SetLogDatabase(sb.Schema, new DatabaseName(null, logDatabase));
-
             Schema.Current.OnSchemaCompleted();
         }
 
-        private static void SetSchemaNames(Schema schema)
+        public class CustomSchemaBuilder : SchemaBuilder
         {
-            foreach (var gr in schema.Tables.Values.GroupBy(a => GetSchemaName(a)))
+            public string LogDatabaseName;
+
+            public override ObjectName GenerateTableName(Type type, TableNameAttribute tn)
             {
-                if (gr.Key != null)
-                {
-                    SchemaName sn = new SchemaName(null, gr.Key);
-                    foreach (var t in gr)
-                        t.ToSchema(sn);
-                }
+                return base.GenerateTableName(type, tn).OnSchema(GetSchemaName(type));
             }
-        }
 
-        private static string GetSchemaName(Table table)
-        {
-            Type type = EnumEntity.Extract(table.Type) ?? table.Type;
+            public override ObjectName GenerateTableNameCollection(Table table, NameSequence name, TableNameAttribute tn)
+            {
+                return base.GenerateTableNameCollection(table, name, tn).OnSchema(GetSchemaName(table.Type));
+            }
 
-            if (type == typeof(ColumnOptionsMode) || type == typeof(FilterOperation) || type == typeof(PaginationMode) || type == typeof(OrderType))
-                type = typeof(UserQueryEntity);
+            SchemaName GetSchemaName(Type type)
+            {
+                return new SchemaName(this.GetDatabaseName(type), GetSchemaNameName(type) ?? "dbo");
+            }
 
-            if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod))
-                type = typeof(EmailMessageEntity);
+            public Type[] InLogDatabase = new Type[]
+            {
+                typeof(OperationLogEntity),
+                typeof(ExceptionEntity),
+            };
+            DatabaseName GetDatabaseName(Type type)
+            {
+                if (this.LogDatabaseName == null)
+                    return null;
 
-            if (type == typeof(DayOfWeek))
-                type = typeof(ScheduledTaskEntity);
+                if (InLogDatabase.Contains(type))
+                    return new DatabaseName(null, this.LogDatabaseName);
 
-            if (type.Assembly == typeof(ApplicationConfigurationEntity).Assembly)
                 return null;
-
-            if (type.Assembly == typeof(DashboardEntity).Assembly)
-            {
-                var name = type.Namespace.Replace("Signum.Entities.", "");
-
-                name = (name.TryBefore('.') ?? name);
-
-                if (name == "SMS")
-                    return "sms";
-
-                if (name == "Authorization")
-                    return "auth";
-
-                return name.FirstLower();
             }
 
-            if (type.Assembly == typeof(Entity).Assembly)
-                return "framework";
+            static string GetSchemaNameName(Type type)
+            {
+                type = EnumEntity.Extract(type) ?? type;
 
-            throw new InvalidOperationException("Impossible to determine SchemaName for {0}".FormatWith(type.FullName));
+                if (type == typeof(ColumnOptionsMode) || type == typeof(FilterOperation) || type == typeof(PaginationMode) || type == typeof(OrderType))
+                    type = typeof(UserQueryEntity);
+
+                if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod))
+                    type = typeof(EmailMessageEntity);
+
+                if (type == typeof(DayOfWeek))
+                    type = typeof(ScheduledTaskEntity);
+
+                if (type.Assembly == typeof(ApplicationConfigurationEntity).Assembly)
+                    return null;
+
+                if (type.Assembly == typeof(DashboardEntity).Assembly)
+                {
+                    var name = type.Namespace.Replace("Signum.Entities.", "");
+
+                    name = (name.TryBefore('.') ?? name);
+
+                    if (name == "SMS")
+                        return "sms";
+
+                    if (name == "Authorization")
+                        return "auth";
+
+                    return name.FirstLower();
+                }
+
+                if (type.Assembly == typeof(Entity).Assembly)
+                    return "framework";
+
+                throw new InvalidOperationException("Impossible to determine SchemaName for {0}".FormatWith(type.FullName));
+            }
         }
 
         private static void OverrideAttributes(SchemaBuilder sb)
@@ -278,12 +296,6 @@ namespace Southwind.Logic
         private static void SetupCache(SchemaBuilder sb)
         {
             CacheLogic.CacheTable<ShipperEntity>(sb);
-        }
-
-        public static void SetLogDatabase(Schema schema, DatabaseName logDatabaseName)
-        {
-            schema.Table<OperationLogEntity>().ToDatabase(logDatabaseName);
-            schema.Table<ExceptionEntity>().ToDatabase(logDatabaseName);
         }
     }
 }
