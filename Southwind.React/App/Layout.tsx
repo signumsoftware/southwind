@@ -36,7 +36,7 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                                     <OmniboxAutocomplete  inputAttrs={{ className: "form-control" }} />
                                 </div>
                             </li>
-                            <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
+                            <NavDropdown title="Menu" id="basic-nav-dropdown">
                                 <IndexLinkContainer to="~/"><MenuItem>Home</MenuItem></IndexLinkContainer>
                                 <LinkContainer to="~/publicCatalog"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <MenuItem divider />

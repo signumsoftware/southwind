@@ -100,7 +100,7 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DisconnectedClient.Start();"/>
       <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc"/>
       <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc.cs"/>
-      <RemoveLine Path="Southwind.React\Web.config" Line="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot; transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot;/>"/>
+      <RemoveLine Path="Southwind.React\Web.config" Line="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot; transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot; />"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;service name=&quot;Southwind.React.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" From="&lt;MenuItem Header=&quot;Disconnected&quot; x:Name=&quot;miDisconnected&quot;>" To="&lt;/MenuItem>"/>
@@ -334,7 +334,7 @@
 
     <Module Name="Translation">
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;client>" To="&lt;/client>" />
-      <RemoveLine Path="Southwind.React\Web.config" Line="&lt;binding name=&quot;BasicHttpBinding_LanguageService&quot;/>" />
+      <RemoveLine Path="Southwind.React\Web.config" Line="&lt;binding name=&quot;BasicHttpBinding_LanguageService&quot; />" />
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="TranslationLogic.Start(sb, dqm, countLocalizationHits: false);" To="TranslatedInstanceLogic.Start(sb, dqm, () => CultureInfo.GetCultureInfo(&quot;en&quot;));"/>
       <RemoveFiles Path="Southwind.Entities\Translations" DependsOn="ExampleEntities" />
       <RemoveFiles Path="Southwind.React\Service References" />
@@ -399,9 +399,10 @@
 
     <Module Name="SplitDB">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, &quot;_Log&quot;);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="if (logDatabase.HasText())"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetLogDatabase(sb.Schema, new DatabaseName(null, logDatabase));"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="public static void SetLogDatabase(Schema schema, DatabaseName logDatabaseName)" To="}"/>
+      <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="LogDatabaseName = logDatabase"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="public string LogDatabaseName;"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="public Type[] InLogDatabase = new Type[]" To="};"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (this.LogDatabaseName == null)" To="return new DatabaseName(null, this.LogDatabaseName);"/>
     </Module>
 
     <Module Name="PublicCatalog" DependsOn="ExampleEntities,Translation,Cache,Files">
