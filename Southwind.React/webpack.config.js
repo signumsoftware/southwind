@@ -71,7 +71,7 @@ module.exports = {
             { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, 'dist/fetch.js') },
         ])
     ],
-    devtool: "source-map",
+    //devtool: "source-map",
     ts: {
         transpileOnly: true,
         compilerOptions: {
