@@ -92,7 +92,7 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<DashboardEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<UserChartPartEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<UserQueryPartEntity>(Download.None, Upload.None);
-            DisconnectedLogic.Register<CountSearchControlPartEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ValueUserQueryListPartEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<LinkListPartEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Disconnected

@@ -49,7 +49,7 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                         <EntityCombo ctx={ctx4.subCtx(o => o.shipVia)} />
                     </div>
                 </div>
-                <EntityTable ctx={ctx2.subCtx(o => o.details)} onChange={() => this.forceUpdate()} columns={EntityTable.typedColumns(OrderDetailsEntity, [
+                <EntityTable ctx={ctx2.subCtx(o => o.details)} onChange={() => this.forceUpdate()} columns={EntityTable.typedColumns<OrderDetailsEntity>([
                     { property: a => a.product, headerProps: { width: "40%" }, template: dc => <EntityLine ctx={dc.subCtx(a => a.product)} onChange={() => this.handleProductChange(dc.value)} /> },
                     { property: a => a.quantity, headerProps: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => this.forceUpdate()} /> },
                     { property: a => a.unitPrice, headerProps: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },

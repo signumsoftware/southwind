@@ -81,6 +81,8 @@ CultureClient.onCultureLoaded.push(ci => {
         culture == "es" ? "es-ES" : "Unkwnown");
 }); //Culture
 
+Services.setAppNameAndRequestSessionStorage("Southwind");
+
 window.onerror = (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
 
 let loaded = false;
@@ -148,7 +150,7 @@ function reload() {
                 //basename: baseName,
             });
 
-            Navigator.useAppRelativeBasename(history, baseName);
+            Navigator.useAppRelativeBasename(history);
 
             Navigator.setCurrentHistory(history);
 
