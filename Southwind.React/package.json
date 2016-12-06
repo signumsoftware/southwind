@@ -4,7 +4,11 @@
   "description": "Example LOB application using Signum Framework and React",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf dist",
+    "build:dll": "webpack --config webpack.config.dll.js",
+    "build:webpack": "webpack --config webpack.config.js",
+    "build": "npm run clean && npm run build:dll && npm run build:webpack",
+    "watch": "npm run clean && npm run build:dll && webpack --config webpack.config.js --watch --progress"
   },
   "repository": {
     "type": "git",
@@ -46,8 +50,6 @@
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.4.0",
-    "awesome-typescript-loader": "^2.1.1",
-    "clean-webpack-plugin": "^0.1.10",
     "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.23.1",
     "file-loader": "^0.9.0",
@@ -58,6 +60,7 @@
     "typescript": "beta",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "webpack-beep-plugin": "^0.0.1"
+    "webpack-notifier": "^1.4.1",
+    "rimraf": "^2.5.4"
   }
 }

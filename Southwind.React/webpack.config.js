@@ -6,16 +6,11 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 var AssetsPlugin = require('assets-webpack-plugin');
 var WebpackNotifierPlugin = require('webpack-notifier');
 var node_modules = path.join(__dirname, "node_modules");
-var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
         main: [ "./App/Main.tsx" ],
-        "react": ["react", "react-bootstrap", "react-router", "react-widgets", "react-router-bootstrap"],
-        "d3": ["d3"],
-        "moment": ["moment", "moment-duration-format"],
-        "numbro": ["numbro"],
     },
     output: {
         path: path.join(__dirname, "dist"),
@@ -29,17 +24,8 @@ module.exports = {
     },
     resolveLoader: { root: path.join(__dirname, "node_modules") },
     module: {
-        //noParse : [
-        //    //node_modules + "/react/dist/react.min.js",
-        //    node_modules + "/react-dom/dist/react-dom.min.js",
-        //    node_modules + "/react-bootstrap/dist/react-bootstrap.min.js",
-        //    node_modules + "/react-router/umd/ReactRouter.min.js",
-        //    node_modules + "/react-widgets/dist/react-widgets.js"
-        //],
         loaders: [
-            //{ test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
             { test: /\.tsx?$/, loader: 'ts-loader' },
-            //{ test: /\.tsx?$/, loader: 'happypack/loader' },
             //{ test: /\.jsx?$/, loader: "babel-loader" }
             { test: /\.css$/, loader: "style-loader!css-loader" },
             { test: /\.less$/, loader: "style-loader!css-loader!less-loader" },
@@ -50,21 +36,16 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
-        //new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-        new webpack.optimize.CommonsChunkPlugin({
-            names: [ 'd3', 'react', 'numbro', 'moment'],
+        new webpack.DllReferencePlugin({
+            context: path.join(__dirname, "App"),
+            manifest: require("./dist/vendor-manifest.json")
         }),
+        new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
         //new webpack.optimize.UglifyJsPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
-        new CleanWebpackPlugin(['dist'], {
-            verbose: true,
-            dry: false
-        }),
         new AssetsPlugin({
             path: path.join(__dirname, 'dist')
         }),
-        //new ForkCheckerPlugin(),
         new WebpackNotifierPlugin({ alwaysNotify: true }),
         new CopyWebpackPlugin([
             { from: 'node_modules/es6-promise/dist/es6-promise.min.js', to: path.join(__dirname, 'dist/es6-promise.min.js') },

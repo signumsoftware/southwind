@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\site.css" />
+    <Content Include="App\vendors.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="package.json" />
@@ -135,6 +136,7 @@
     </None>
     <Content Include="ServerSouthwind.svc" />
     <Content Include="ServerSouthwindTransfer.svc" />
+    <Content Include="webpack.config.dll.js" />
     <Content Include="webpack.config.js" />
     <Content Include="Web.config" />
   </ItemGroup>
