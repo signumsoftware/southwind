@@ -4,7 +4,7 @@ var path = require('path');
 var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var AssetsPlugin = require('assets-webpack-plugin');
-var BeepPlugin = require('webpack-beep-plugin');
+var WebpackNotifierPlugin = require('webpack-notifier');
 var node_modules = path.join(__dirname, "node_modules");
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 var CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -64,8 +64,8 @@ module.exports = {
         new AssetsPlugin({
             path: path.join(__dirname, 'dist')
         }),
-        new BeepPlugin(),
         //new ForkCheckerPlugin(),
+        new WebpackNotifierPlugin({ alwaysNotify: true }),
         new CopyWebpackPlugin([
             { from: 'node_modules/es6-promise/dist/es6-promise.min.js', to: path.join(__dirname, 'dist/es6-promise.min.js') },
             { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, 'dist/fetch.js') },
