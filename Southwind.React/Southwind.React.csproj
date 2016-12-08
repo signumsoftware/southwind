@@ -343,6 +343,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' != 'Debug|AnyCPU'">
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <CompileDependsOn>
@@ -357,20 +358,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' != 'Debug|AnyCPU'">
     <CopyAllFilesToSingleFolderForPackageDependsOn>
       $(CopyAllFilesToSingleFolderForPackageDependsOn);
-      CollectGulpOutput;
+      CollectWebpackOutput;
     </CopyAllFilesToSingleFolderForPackageDependsOn>
     <CopyAllFilesToSingleFolderForMsdeployDependsOn>
       $(CopyAllFilesToSingleFolderForMsdeployDependsOn);
-      CollectGulpOutput;
+      CollectWebpackOutput;
     </CopyAllFilesToSingleFolderForMsdeployDependsOn>
   </PropertyGroup>
-  <Target Name="CollectGulpOutput">
+  <Target Name="CollectWebpackOutput">
     <ItemGroup>
-      <_CustomFiles Include="dist\**\*" />
+      <CustomFiles Include="dist\**\*" />
       <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
         <DestinationRelativePath>dist\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
       </FilesForPackagingFromProject>
     </ItemGroup>
-    <Message Text="CollectGulpOutput list: %(_CustomFiles.Identity)" />
+    <Message Text="CollectWebpackOutput list: %(_CustomFiles.Identity)" />
   </Target>
 </Project>
