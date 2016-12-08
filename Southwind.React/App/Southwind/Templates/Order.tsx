@@ -9,7 +9,7 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 export default class Order extends React.Component<{ ctx: TypeContext<OrderEntity> }, void> {
 
     handleCustomerChange = (c: CustomerEntity) => {
-        this.props.ctx.value.shipAddress = c == undefined ? undefined : Dic.copy(c.address);
+        this.props.ctx.value.shipAddress = c == undefined ? undefined : { ...c.address };
         this.forceUpdate();
     }
 
