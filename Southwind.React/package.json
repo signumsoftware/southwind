@@ -63,4 +63,5 @@
     "webpack-notifier": "^1.4.1",
     "rimraf": "^2.5.4"
   }
+, "-vs-binding":{"ProjectOpened":["watch"]}
 }
