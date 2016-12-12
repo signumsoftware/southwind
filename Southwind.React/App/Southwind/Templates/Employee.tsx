@@ -28,11 +28,11 @@ export default class Employee extends React.Component<{ ctx: TypeContext<Employe
 
         var e = this.props.ctx.value;
 
-        this.changeState(s => s.photo = e.photo && e.photo.entity || undefined);
+        this.setState({ photo: e.photo && e.photo.entity || undefined });
 
         if (e.photo && !this.state.photo)
             Navigator.API.fetchAndForget(e.photo)
-                .then(ph => this.changeState(s => s.photo = ph))
+                .then(ph => this.setState({ photo: ph }))
                 .done();
     }
 
