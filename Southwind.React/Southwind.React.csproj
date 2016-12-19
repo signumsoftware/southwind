@@ -367,7 +367,7 @@
   </PropertyGroup>
   <Target Name="CollectWebpackOutput">
     <ItemGroup>
-      <CustomFiles Include="dist\**\*" />
+      <_CustomFiles Include="dist\**\*" />
       <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
         <DestinationRelativePath>dist\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
       </FilesForPackagingFromProject>
