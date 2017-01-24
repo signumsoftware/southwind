@@ -56,12 +56,12 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
             return f.value;
         }
 
-        const result = OrderFilterModel.New(fm => {
-            fm.customer = extract("Customer", "EqualTo");
-            fm.employee = extract("Employee", "EqualTo");
-            fm.minOrderDate = extract("OrderDate", "GreaterThanOrEqual");
-            fm.maxOrderDate = extract("OrderDate", "LessThan");
-        }); 
+        const result = OrderFilterModel.New({
+            customer: extract("Customer", "EqualTo"),
+            employee: extract("Employee", "EqualTo"),
+            minOrderDate: extract("OrderDate", "GreaterThanOrEqual"),
+            maxOrderDate: extract("OrderDate", "LessThan"),
+        });
 
         if (filters.length)
             return undefined;
