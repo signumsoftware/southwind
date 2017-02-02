@@ -2,7 +2,6 @@
 "use strict";
 var path = require('path');
 var webpack = require('webpack');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
 var AssetsPlugin = require('assets-webpack-plugin');
 var WebpackNotifierPlugin = require('webpack-notifier');
 var node_modules = path.join(__dirname, "node_modules");
