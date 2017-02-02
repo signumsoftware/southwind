@@ -59,8 +59,8 @@ import NotFound from './NotFound'
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 
 
-numbro.culture("en-GB", require<any>("numbro/languages/en-GB"));
-numbro.culture("es-ES", require<any>("numbro/languages/es-ES"));
+(numbro as any).culture("en-GB", require<any>("numbro/languages/en-GB"));
+(numbro as any).culture("es-ES", require<any>("numbro/languages/es-ES"));
 
 declare let __webpack_public_path__: string;
 
@@ -77,7 +77,7 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
 CultureClient.onCultureLoaded.push(ci => {
     const culture = ci.name!; //"en";
     moment.locale((culture.tryBefore("-") || culture).toLowerCase());
-    numbro.culture(culture == "en" ? "en-GB" :
+    (numbro as any).culture(culture == "en" ? "en-GB" :
         culture == "es" ? "es-ES" : "Unkwnown");
 }); //Culture
 
@@ -146,7 +146,7 @@ function reload() {
 
             const baseName = window.__baseUrl
 
-            const history = useRouterHistory(History.createHistory)({
+            const history = useRouterHistory((History as any).createHistory)({
                 //basename: baseName,
             });
 
