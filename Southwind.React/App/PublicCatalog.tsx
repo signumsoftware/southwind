@@ -1,6 +1,4 @@
-﻿/// <reference path="../../framework/signum.react/typings/react/react.d.ts" />
-
-import * as React from 'react'
+﻿import * as React from 'react'
 import { ajaxGet } from "../../Framework/Signum.React/Scripts/Services"
 import * as numbro from "numbro"
 

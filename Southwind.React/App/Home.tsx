@@ -1,7 +1,4 @@
-﻿/// <reference path="../../framework/signum.react/typings/react/react.d.ts" />
-/// <reference path="../../extensions/signum.react.extensions/dashboard/dashboardclient.tsx" />
-
-import * as React from 'react'
+﻿import * as React from 'react'
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
 import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardClient"
 
