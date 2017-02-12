@@ -65,7 +65,7 @@ export function start(options: { routes: JSX.Element[] }) {
             if (!model)
                 return undefined;
 
-            return <OrderFilter ctx={TypeContext.root(OrderFilterModel, model) }/>;
+            return <OrderFilter ctx={TypeContext.root(model) }/>;
         }
     });
     
