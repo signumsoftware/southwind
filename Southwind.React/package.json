@@ -48,19 +48,19 @@
     "font-awesome": "^4.7.0"
   },
   "devDependencies": {
-    "assets-webpack-plugin": "^3.4.0",
-    "copy-webpack-plugin": "^3.0.1",
-    "css-loader": "^0.23.1",
-    "file-loader": "^0.9.0",
-    "less": "^2.7.1",
+    "assets-webpack-plugin": "^3.5.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.26.2",
+    "file-loader": "^0.10.1",
+    "less": "^2.7.2",
     "less-loader": "^2.2.3",
-    "style-loader": "^0.13.1",
-    "ts-loader": "^1.3.0",
-    "typescript": "^2.1.4",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
-    "webpack-notifier": "^1.4.1",
-    "rimraf": "^2.5.4"
+    "style-loader": "^0.13.2",
+    "ts-loader": "^2.0.1",
+    "typescript": "^2.2.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.2.1",
+    "webpack-notifier": "^1.5.0",
+    "rimraf": "^2.6.1"
   }
 , "-vs-binding":{"ProjectOpened":["watch"]}
 }

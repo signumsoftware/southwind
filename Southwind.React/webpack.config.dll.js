@@ -21,11 +21,12 @@ module.exports = {
             path: path.join(__dirname, 'dist'),
             filename: "webpack-assets.dll.json"
         }),
-        new webpack.optimize.OccurenceOrderPlugin()//,
+        //new webpack.optimize.OccurenceOrderPlugin()//,
         //new webpack.optimize.UglifyJsPlugin()
     ],
     resolve: {
-        root: path.resolve(__dirname, "App"),
-        modulesDirectories: ["node_modules"]
+        modules: [
+            "node_modules"
+        ]
     }
 };

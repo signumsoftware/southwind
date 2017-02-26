@@ -9,7 +9,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: [ "./App/Main.tsx" ],
+        main: ["./App/Main.tsx"],
     },
     output: {
         path: path.join(__dirname, "dist"),
@@ -17,21 +17,48 @@ module.exports = {
         chunkFilename: "bundle.[name].[chunkhash].js"
     },
     resolve: {
-        root: node_modules,
-        extensions: ['', '.Webpack.js', '.web.js', '.ts', '.js', '.tsx'],
-        
+        modules: [node_modules],
+        extensions: ['.Webpack.js', '.web.js', '.ts', '.js', '.tsx'],
+
     },
-    resolveLoader: { root: path.join(__dirname, "node_modules") },
+    resolveLoader: { modules: [node_modules] },
     module: {
-        loaders: [
-            { test: /\.tsx?$/, loader: 'ts-loader' },
-            //{ test: /\.jsx?$/, loader: "babel-loader" }
-            { test: /\.css$/, loader: "style-loader!css-loader" },
-            { test: /\.less$/, loader: "style-loader!css-loader!less-loader" },
-            { test: /\.gif$/, loader: "url-loader?mimetype=image/gif" },
-            { test: /\.png$/, loader: "url-loader?mimetype=image/png" },
-            { test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/, loader: "url-loader?mimetype=application/font-woff" },
-            { test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/, loader: "file-loader?name=[name].[ext]" },
+        rules: [
+           {
+               test: /\.tsx?$/,
+               use: [
+                   {
+                       loader: 'ts-loader',
+                       options: {
+                           transpileOnly: true,
+                           compilerOptions: {
+                               "noEmit": false
+                           }
+                       }
+                    }
+               ]
+           },
+           { test: /\.json?$/, use: [{ loader: 'json-loader' }] },
+           //{ test: /\.jsx?$/, use: [{ loader: "babel-loader"  }] },
+           {
+               test: /\.css$/,
+               use: [
+                   { loader: "style-loader" },
+                   { loader: "css-loader" }
+               ]
+           },
+           {
+               test: /\.less$/,
+               use: [
+                   { loader: "style-loader" },
+                   { loader: "css-loader" },
+                   { loader: "less-loader" }
+               ]
+           },
+           { test: /\.gif$/, use: [{ loader: "url-loader", options: { "mimetype": "image/gif" } }] },
+           { test: /\.png$/, use: [{ loader: "url-loader", options: { "mimetype": "image/png" } }] },
+           { test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/, use: [{ loader: "url-loader", options: { "mimetype": "application/font-woff" } }] },
+           { test: /\.(ttf|eot|svg)(\?.*)?$/, use: [{ loader: "file-loader", options: { "name": "[name].[ext]" } }] }
         ]
     },
     plugins: [
@@ -39,7 +66,7 @@ module.exports = {
             context: path.join(__dirname, "App"),
             manifest: require("./dist/vendor-manifest.json")
         }),
-        new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
+        //new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
         //new webpack.optimize.UglifyJsPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
         new AssetsPlugin({
@@ -52,10 +79,4 @@ module.exports = {
         ])
     ],
     //devtool: "source-map",
-    ts: {
-        transpileOnly: true,
-        compilerOptions: {
-            "noEmit": false
-        }
-    }
 }
