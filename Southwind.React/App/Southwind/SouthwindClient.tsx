@@ -44,7 +44,7 @@ export function start(options: { routes: JSX.Element[] }) {
     //Navigator.addSettings(new EntitySettings(ShipperEntity, s => new ViewPromise(resolve => require(['./Templates/Shipper'], resolve))));
     //Navigator.addSettings(new EntitySettings(TerritoryEntity, t => new ViewPromise(resolve => require(['./Templates/Territory'], resolve))));
 
-    Navigator.getSettings(UserEntity).overrideView((rep) => {
+    Navigator.getSettings(UserEntity)!.overrideView((rep) => {
         rep.insertAfter(u => u.role,
             <ValueLine ctx={rep.ctx.subCtx(u => getMixin(u, UserEmployeeMixin).allowLogin, { labelColumns: { sm: 3 } }) }/>,
             <EntityLine ctx={rep.ctx.subCtx(u => getMixin(u, UserEmployeeMixin).employee, { labelColumns: { sm: 3 } }) }/>)
