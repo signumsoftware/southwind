@@ -305,7 +305,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserEmployeeMixin&gt;();" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.React\ServerSouthwind.svc.cs" From="public override void Login(string username, byte[] passwordHash)" To="} //Login" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
-                 From="Navigator.getSettings(UserEntity).overrideView((rep) => {"
+                 From="Navigator.getSettings(UserEntity)!.overrideView((rep) => {"
                  To="});"
                  DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="Navigator.EntitySettings&lt;UserEntity&gt;().OverrideView += (usr, ctrl) =>" To="};" DependsOn="ExampleEntities"/>
@@ -340,7 +340,7 @@
       <RemoveFiles Path="Southwind.React\Service References" />
       <RemoveFiles Path="Southwind.React\Translations" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="TranslationServer.Start(config, new AlreadyTranslatedTranslator(new BingTranslator()));" />
-      <RemoveLine Path="Southwind.React\Global.asax.cs" From="Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = GetCulture(this.Request);" To="return DefaultCulture; //Translation" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" From="SignumAuthenticationAndProfilerAttribute.GetCurrentCultures = (ac) => CultureInfoUtils.ChangeBothCultures(GetCulture(ac.Request));" To="return DefaultCulture; //Translation" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" From="public class BingTranslator : ITranslator" To="} // BingTranslator" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="using Southwind.React.BingTranslationService;" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as TranslationClient from &quot;../../Extensions/Signum.React.Extensions/Translation/TranslationClient&quot;"/>

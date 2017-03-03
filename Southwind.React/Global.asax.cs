@@ -57,6 +57,8 @@ using System.ServiceModel.Channels;
 using Signum.Engine.Processes;
 using Signum.Engine.Scheduler;
 using Signum.Engine.Mailing;
+using Signum.React.Filters;
+using System.Net.Http;
 
 namespace Southwind.React
 {
@@ -126,31 +128,25 @@ namespace Southwind.React
                 new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
                 new ReactSpecialOmniboxGenerator()
                 //new HelpModuleOmniboxResultGenerator(),
-                );//Omnibox         
+                );//Omnibox
+
+            SignumAuthenticationAndProfilerAttribute.GetCurrentCultures = (ac) => CultureInfoUtils.ChangeBothCultures(GetCulture(ac.Request));
         }
 
-        protected void Application_PostAuthorizeRequest()
-        {
-        }
-
-     
-        protected void Application_AcquireRequestState(object sender, EventArgs e)
-        {
-            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = GetCulture(this.Request);
-        }
 
         static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
 
-        public static CultureInfo GetCulture(HttpRequest request)
+        private static CultureInfo GetCulture(HttpRequestMessage request)
         {
             // 1 cookie (temporary)
-            if (request.Cookies["language"] != null)
-                return new CultureInfo(request.Cookies["language"].Value);
-            
+            var lang = TranslationServer.ReadLanguageCookie(request);
+            if (lang != null )
+                return CultureInfo.GetCultureInfo(lang);
+
             // 2 user preference
             if (UserEntity.Current?.CultureInfo != null)
                 return UserEntity.Current.CultureInfo.ToCultureInfo();
-            
+
             //3 requestCulture or default
             CultureInfo ciRequest = TranslationServer.GetCultureRequest(request);
             if (ciRequest != null)
