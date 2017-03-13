@@ -53,6 +53,8 @@ using Signum.Engine.DiffLog;
 using Signum.Entities.DiffLog;
 using Signum.Engine.Map;
 using Signum.Engine.Excel;
+using Signum.Engine.Dynamic;
+using Signum.Entities.Dynamic;
 
 namespace Southwind.Logic
 {
@@ -65,6 +67,9 @@ namespace Southwind.Logic
 
         public static void Start(string connectionString)
         {
+            StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
+            StartParameters.IgnoredCodeErrors = new List<Exception>();
+
             string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
             SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase };
@@ -83,6 +88,13 @@ namespace Southwind.Logic
             Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm, SqlServerVersion.SqlServer2012);
 
             CacheLogic.Start(sb);
+
+
+            DynamicLogicStarter.Start(sb, dqm);
+            DynamicLogic.CompileDynamicCode();
+
+            DynamicLogic.RegisterMixins();
+            DynamicLogic.BeforeSchema(sb);
 
             TypeLogic.Start(sb, dqm);
 
@@ -163,6 +175,11 @@ namespace Southwind.Logic
                 heavyProfiler: true,
                 overrideSessionTimeout: true);
 
+            DynamicLogic.StartDynamicModules(sb, dqm);
+            DynamicLogic.RegisterExceptionIfAny();
+            
+            Starter.DynamicDisconnectedStrategis(sb);
+
             SetupCache(sb);
 
             Schema.Current.OnSchemaCompleted();
@@ -218,6 +235,9 @@ namespace Southwind.Logic
 
                 if (type.Assembly == typeof(ApplicationConfigurationEntity).Assembly)
                     return null;
+
+                if (type.Namespace == DynamicCode.CodeGenEntitiesNamespace)
+                    return "codegen";
 
                 if (type.Assembly == typeof(DashboardEntity).Assembly)
                 {

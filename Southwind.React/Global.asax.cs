@@ -59,6 +59,8 @@ using Signum.Engine.Scheduler;
 using Signum.Engine.Mailing;
 using Signum.React.Filters;
 using System.Net.Http;
+using Signum.React.Dynamic;
+using Signum.Entities.Dynamic;
 
 namespace Southwind.React
 {
@@ -78,6 +80,7 @@ namespace Southwind.React
 
         void Application_Start(object sender, EventArgs e)
         {
+            DynamicCode.CodeGenDirectory = Server.MapPath("~/CodeGen");
             Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 
             using (AuthLogic.Disable())
@@ -117,6 +120,8 @@ namespace Southwind.React
             MailingServer.Start(config);
             ProfilerServer.Start(config);
             DiffLogServer.Start(config);
+
+            DynamicServer.Start(config);
 
             OmniboxServer.Start(config,
                 new EntityOmniboxResultGenenerator(),

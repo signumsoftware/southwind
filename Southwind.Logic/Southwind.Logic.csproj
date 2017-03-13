@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerLogic.cs" />
+    <Compile Include="DynamicLogicStarter.cs" />
     <Compile Include="ProductLogic.cs" />
     <Compile Include="EmployeeLogic.cs" />
     <Compile Include="OrderLogic.cs" />

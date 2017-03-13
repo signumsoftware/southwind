@@ -13,6 +13,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -143,4 +145,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="true">
+    <ItemGroup>
+      <RoslynFiles Include="$(OutputPath)roslyn\*" />
+    </ItemGroup>
+    <!--MakeDir Directories="$(ProjectOutputDir)\bin\roslyn" /!-->
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(OutputPath)bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
 </Project>

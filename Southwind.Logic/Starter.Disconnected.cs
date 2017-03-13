@@ -33,6 +33,7 @@ using Signum.Entities.Help;
 using Signum.Entities.Word;
 using Signum.Entities.Migrations;
 using Signum.Entities.Excel;
+using Signum.Entities.Dynamic;
 
 namespace Southwind.Logic
 {
@@ -190,6 +191,29 @@ namespace Southwind.Logic
             
             DisconnectedLogic.Register<ShipperEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<ApplicationConfigurationEntity>(Download.All, Upload.None);
+
+
+            //Signum.Entities.Dynamic
+            DisconnectedLogic.Register<DynamicRenameEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicSqlMigrationEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicValidationEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicViewEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicViewSelectorEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicViewOverrideEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicTypeEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicTypeConditionSymbolEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicTypeConditionEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicExpressionEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<DynamicMixinConnectionEntity>(Download.None, Upload.None);
+            
+        }
+
+        private static void DynamicDisconnectedStrategis(SchemaBuilder sb)
+        {
+            foreach (var type in sb.Schema.Tables.Keys.Where(a => a.Namespace == DynamicCode.CodeGenEntitiesNamespace))
+            {
+                DisconnectedLogic.giRegister.GetInvoker(type)(Download.None, Upload.None);
+            }
         }
     }
 }

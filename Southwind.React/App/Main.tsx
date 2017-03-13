@@ -40,6 +40,12 @@ import * as SchedulerClient from "../../Extensions/Signum.React.Extensions/Sched
 import * as TranslationClient from "../../Extensions/Signum.React.Extensions/Translation/TranslationClient"
 import * as DiffLogClient from "../../Extensions/Signum.React.Extensions/DiffLog/DiffLogClient"
 import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
+import * as DynamicClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicClient"
+import * as DynamicExpressionClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicExpressionClient"
+import * as DynamicTypeClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicTypeClient"
+import * as DynamicTypeConditionClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicTypeConditionClient"
+import * as DynamicValidationClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicValidationClient"
+import * as DynamicViewClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicViewClient"
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
 import SpecialOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/SpecialOmniboxProvider"
@@ -127,6 +133,13 @@ function reload() {
                 ChartClient.start({ routes });
                 DashboardClient.start({ routes });
                 MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
+
+                DynamicClient.start({ routes });
+                DynamicExpressionClient.start({ routes });
+                DynamicTypeClient.start({ routes });
+                DynamicTypeConditionClient.start({ routes });
+                DynamicValidationClient.start({ routes });
+                DynamicViewClient.start({ routes });
 
                 SouthwindClient.start({ routes });
 

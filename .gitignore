@@ -36,3 +36,4 @@ Southwind.Web/Scripts/**/*.js
 Southwind.React/node_modules/*
 Southwind.React/dist/*
 Southwind.React/Translations/*
+Southwind.React/CodeGen/*
