@@ -40,6 +40,7 @@ import * as SchedulerClient from "../../Extensions/Signum.React.Extensions/Sched
 import * as TranslationClient from "../../Extensions/Signum.React.Extensions/Translation/TranslationClient"
 import * as DiffLogClient from "../../Extensions/Signum.React.Extensions/DiffLog/DiffLogClient"
 import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
+import * as WorkflowClient from "../../Extensions/Signum.React.Extensions/Workflow/WorkflowClient"
 import * as DynamicClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicClient"
 import * as DynamicExpressionClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicExpressionClient"
 import * as DynamicTypeClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicTypeClient"
@@ -133,6 +134,8 @@ function reload() {
                 ChartClient.start({ routes });
                 DashboardClient.start({ routes });
                 MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
+
+                WorkflowClient.start({ routes });
 
                 DynamicClient.start({ routes });
                 DynamicExpressionClient.start({ routes });

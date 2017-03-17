@@ -9,6 +9,7 @@ using Signum.Entities.SMS;
 using Signum.Utilities;
 using System.Linq.Expressions;
 using Signum.Entities.Authorization;
+using Signum.Entities.Workflow;
 
 namespace Southwind.Entities
 {
@@ -33,6 +34,10 @@ namespace Southwind.Entities
         [NotNullable]/*AuthTokens*/
         [NotNullValidator]
         public AuthTokenConfigurationEntity AuthTokens { get; set; }
+
+        [NotNullable]/*Workflow*/
+        [NotNullValidator]
+        public WorkflowConfigurationEntity Workflow { get; set; }
     }
 
     [AutoInit]

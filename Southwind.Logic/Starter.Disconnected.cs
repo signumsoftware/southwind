@@ -34,6 +34,7 @@ using Signum.Entities.Word;
 using Signum.Entities.Migrations;
 using Signum.Entities.Excel;
 using Signum.Entities.Dynamic;
+using Signum.Entities.Workflow;
 
 namespace Southwind.Logic
 {
@@ -205,7 +206,21 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<DynamicTypeConditionEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<DynamicExpressionEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<DynamicMixinConnectionEntity>(Download.None, Upload.None);
-            
+
+
+            //Signum.Entities.Workflow
+            DisconnectedLogic.Register<WorkflowEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowPoolEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowLaneEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowActivityEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowConditionEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowActionEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowEventEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowGatewayEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowScriptEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowScriptRetryStrategyEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowConnectionEntity>(Download.None, Upload.None);
+
         }
 
         private static void DynamicDisconnectedStrategis(SchemaBuilder sb)

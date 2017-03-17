@@ -55,6 +55,7 @@ using Signum.Engine.Map;
 using Signum.Engine.Excel;
 using Signum.Engine.Dynamic;
 using Signum.Entities.Dynamic;
+using Signum.Engine.Workflow;
 
 namespace Southwind.Logic
 {
@@ -149,6 +150,8 @@ namespace Southwind.Logic
             HelpLogic.Start(sb, dqm);
             WordTemplateLogic.Start(sb, dqm);
             MapLogic.Start(sb, dqm);
+
+            WorkflowLogic.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);

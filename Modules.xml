@@ -471,6 +471,14 @@
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="DynamicServer.Start(config);"/>
     </Module>
 
+    <Module Name="Workflow">
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Workflow*/" To="public WorkflowConfigurationEntity Workflow { get; set; }"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogic.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as WorkflowClient from &quot;../../Extensions/Signum.React.Extensions/Workflow/WorkflowClient&quot;" />
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WorkflowClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WorkflowServer.Start(config);"/>
+    </Module>
+
     <Module Name="Test.Environment">
       <RemoveFiles Path="Southwind.Test.Environment"/>
 

@@ -61,6 +61,7 @@ using Signum.React.Filters;
 using System.Net.Http;
 using Signum.React.Dynamic;
 using Signum.Entities.Dynamic;
+using Signum.React.Workflow;
 
 namespace Southwind.React
 {
@@ -120,7 +121,7 @@ namespace Southwind.React
             MailingServer.Start(config);
             ProfilerServer.Start(config);
             DiffLogServer.Start(config);
-
+            WorkflowServer.Start(config);
             DynamicServer.Start(config);
 
             OmniboxServer.Start(config,
