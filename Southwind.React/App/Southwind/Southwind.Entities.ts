@@ -8,6 +8,7 @@ import * as Files from '../../../Extensions/Signum.React.Extensions/Files/Signum
 import * as Mailing from '../../../Extensions/Signum.React.Extensions/Mailing/Signum.Entities.Mailing'
 import * as SMS from '../../../Extensions/Signum.React.Extensions/SMS/Signum.Entities.SMS'
 import * as Authorization from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
+import * as Workflow from '../../../Extensions/Signum.React.Extensions/Workflow/Signum.Entities.Workflow'
 import * as Processes from '../../../Extensions/Signum.React.Extensions/Processes/Signum.Entities.Processes'
 import * as Scheduler from '../../../Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler'
 import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Signum.Entities.Basics'
@@ -38,6 +39,7 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
     smtpConfiguration?: Mailing.SmtpConfigurationEntity | null;
     sms?: SMS.SMSConfigurationEntity | null;
     authTokens?: Authorization.AuthTokenConfigurationEntity | null;
+    workflow?: Workflow.WorkflowConfigurationEntity | null;
 }
 
 export module ApplicationConfigurationOperation {

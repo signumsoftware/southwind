@@ -114,7 +114,6 @@
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;SQL&quot;, SqlMigrationRunner.SqlMigrations},"/>
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;CS&quot;, () => SouthwindMigrations.CSharpMigrations(false), &quot;C# Migrations&quot;},"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void CSharpMigrations(bool autoRun)" To="} //CSharpMigrations"/>
-
     </Module>
 
     <Module Name="LoadNorthwind" DependsOn="ExampleEntities,Migrations">
@@ -281,7 +280,7 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SMSClient.Start();" />
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Sms*/" To="public SMSConfigurationEntity Sms { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms) }>" To="&lt;/Tab>"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEntity" To="} //Sms"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEntity" To="}, //Sms"/>
     </Module>
 
     <Module Name="Auth">
@@ -473,10 +472,12 @@
 
     <Module Name="Workflow">
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Workflow*/" To="public WorkflowConfigurationEntity Workflow { get; set; }"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogic.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogicStarter.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as WorkflowClient from &quot;../../Extensions/Signum.React.Extensions/Workflow/WorkflowClient&quot;" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WorkflowClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WorkflowServer.Start(config);"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow= new WorkflowConfigurationEntity" To="}, //Workflow"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^0.20.4&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">

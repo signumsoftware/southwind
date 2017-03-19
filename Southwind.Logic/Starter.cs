@@ -151,7 +151,7 @@ namespace Southwind.Logic
             WordTemplateLogic.Start(sb, dqm);
             MapLogic.Start(sb, dqm);
 
-            WorkflowLogic.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);
+            WorkflowLogicStarter.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);
 
             EmployeeLogic.Start(sb, dqm);
             ProductLogic.Start(sb, dqm);

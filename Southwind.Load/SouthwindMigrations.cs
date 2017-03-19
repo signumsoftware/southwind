@@ -21,6 +21,7 @@ using Signum.Entities.Word;
 using Signum.Services;
 using Signum.Utilities;
 using Southwind.Entities;
+using Signum.Entities.Workflow;
 
 namespace Southwind.Load
 {
@@ -119,7 +120,10 @@ namespace Southwind.Load
                     Sms = new SMSConfigurationEntity
                     {
                         DefaultCulture = en,
-                    } //Sms
+                    }, //Sms
+                    Workflow= new WorkflowConfigurationEntity
+                    {
+                    }, //Workflow
                 }.Save();
 
                 tr.Commit();

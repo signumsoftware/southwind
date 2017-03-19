@@ -220,7 +220,14 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<WorkflowScriptEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<WorkflowScriptRetryStrategyEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<WorkflowConnectionEntity>(Download.None, Upload.None);
-
+            DisconnectedLogic.Register<CaseEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<CaseTagTypeEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<CaseTagEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<CaseActivityEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<CaseNotificationEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowEventTaskEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowEventTaskConditionResultEntity>(Download.None, Upload.None);
+            
         }
 
         private static void DynamicDisconnectedStrategis(SchemaBuilder sb)
