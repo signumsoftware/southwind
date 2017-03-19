@@ -46,13 +46,13 @@ export default class Employee extends React.Component<{ ctx: TypeContext<Employe
                         <legend>Personal Info</legend>
                         <div className="form-vertical row">
                             <div className="col-sm-2">
-                                <ValueLine ctx={ctxBasic.subCtx(p => p.title)} />
+                                <ValueLine ctx={ctxBasic.subCtx(p => p.title)} placeholderLabels={true} />
                             </div>
                             <div className="col-sm-5">
-                                <ValueLine ctx={ctxBasic.subCtx(p => p.firstName)} />
+                                <ValueLine ctx={ctxBasic.subCtx(p => p.firstName)} placeholderLabels={true} />
                             </div>
                             <div className="col-sm-5">
-                                <ValueLine ctx={ctxBasic.subCtx(p => p.lastName)} />
+                                <ValueLine ctx={ctxBasic.subCtx(p => p.lastName)} placeholderLabels={true} />
                             </div>
                         </div>
 
