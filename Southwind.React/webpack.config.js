@@ -74,7 +74,7 @@ module.exports = {
         }),
         new WebpackNotifierPlugin({ alwaysNotify: true }),
         new CopyWebpackPlugin([
-            { from: 'node_modules/es6-promise/dist/es6-promise.min.js', to: path.join(__dirname, 'dist/es6-promise.min.js') },
+            { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, 'dist/es6-promise.auto.min.js') },
             { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, 'dist/fetch.js') },
         ])
     ],
