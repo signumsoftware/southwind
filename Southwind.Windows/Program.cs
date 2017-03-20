@@ -88,9 +88,8 @@ namespace Southwind.Windows
             if (!File.Exists(DisconnectedClient.DatabaseFile) && !File.Exists(DisconnectedClient.DownloadBackupFile))
                 return false;
 
-            StartOption result;
             if (!SelectorWindow.ShowDialog(
-                EnumExtensions.GetValues<StartOption>(), out result,
+                EnumExtensions.GetValues<StartOption>(), out StartOption result,
                 elementIcon: so => SouthwindImageLoader.GetImageSortName(so == StartOption.RunLocally ? "local.png" : "server.png"),
                 elementText: so => so.NiceToString(),
                 title: "Startup mode",

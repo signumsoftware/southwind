@@ -69,9 +69,8 @@ namespace Southwind.Entities
 
         protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi)
         {
-            OrderDetailsEntity details = sender as OrderDetailsEntity;
 
-            if (details != null && !IsLegacy && pi.Name == nameof(details.Discount))
+            if (sender is OrderDetailsEntity details && !IsLegacy && pi.Name == nameof(details.Discount))
             {
                 if ((details.Discount * 100.0m) % 5.0m != 0)
                     return OrderMessage.DiscountShouldBeMultpleOf5.NiceToString();

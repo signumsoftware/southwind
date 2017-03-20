@@ -23,8 +23,7 @@ namespace Southwind.Windows.Controls
             // Clear BindingGroup on already created rows
             foreach (var item in Items)
             {
-                var row = ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
-                if (row != null)
+                if (ItemContainerGenerator.ContainerFromItem(item) is FrameworkElement row)
                     row.BindingGroup = null;
             }
         }
