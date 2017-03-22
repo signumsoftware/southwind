@@ -1,6 +1,6 @@
 ﻿import * as React from 'react'
 import { ajaxGet } from "../../Framework/Signum.React/Scripts/Services"
-import * as numbro from "numbro"
+import * as numeral from "numeral"
 
 import { CategoryEntity, ProductEntity } from './Southwind/Southwind.Entities'
 
@@ -50,7 +50,7 @@ export default class PublicCatalog extends React.Component<{}, { categories?: Ca
                             <tbody>
                                 { c.products.orderBy(a => a.id).orderBy(a => a.reorderLevel).map(p => <tr key={p.id}>
                                     <td>{p.productName}</td>
-                                    <td>{numbro(p.unitPrice).format("0.00") } {ProductEntity.memberInfo(p => p.unitPrice).unit}</td>
+                                    <td>{numeral(p.unitPrice).format("0.00") } {ProductEntity.memberInfo(p => p.unitPrice).unit}</td>
                                     <td>{p.quantityPerUnit}</td>
                                     <td>{p.unitsInStock}</td>
                                 </tr>)
