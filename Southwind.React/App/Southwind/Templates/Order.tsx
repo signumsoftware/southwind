@@ -1,5 +1,5 @@
 ﻿import * as React from 'react'
-import * as numbro from 'numbro'
+import * as numeral from 'numeral'
 import * as moment from 'moment'
 import { Dic } from '../../../../Framework/Signum.React/Scripts/Globals'
 import * as Navigator from '../../../../Framework/Signum.React/Scripts/Navigator'
@@ -57,7 +57,7 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                     {
                         header: "SubTotalPrice", headerProps: { width: "15%" }, template: dc => <FormGroup ctx={dc} labelText="SubTotalPrice">
                             <FormControlStatic ctx={dc}>
-                                {numbro(subTotalPrice(dc.value)).format()} €
+                                {numeral(subTotalPrice(dc.value)).format()} €
                             </FormControlStatic>
                         </FormGroup>
                     },    
@@ -72,7 +72,7 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                 <div className="col-sm-4">
                         <FormGroup ctx={ctx4} labelText="TotalPrice">
                             <FormControlStatic ctx={ctx4}>
-                                {numbro(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum()).format()} €
+                                {numeral(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum()).format()} €
                             </FormControlStatic>
                         </FormGroup>
                     </div>
