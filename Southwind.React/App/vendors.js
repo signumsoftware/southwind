@@ -5,7 +5,7 @@ require("react-router");
 require("react-widgets");
 require("react-router-bootstrap");
 require("moment");
-require("numeral");
+require("numbro");
 require("moment-duration-format");
 require("d3");
 

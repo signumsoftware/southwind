@@ -10,7 +10,7 @@ import { Router, Route, Redirect, IndexRoute, useRouterHistory } from "react-rou
 import * as ReactRouter from "react-router"
 
 import * as moment from "moment"
-import * as numeral from "numeral"
+import * as numbro from "numbro"
 
 import { reloadTypes } from "../../Framework/Signum.React/Scripts/Reflection"
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
@@ -66,8 +66,8 @@ import NotFound from './NotFound'
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 
 
-require<any>("numeral/locales/en-gb");
-require<any>("numeral/locales/es-es");
+numbro.culture("en-GB", require<any>("numbro/languages/en-GB"));
+numbro.culture("es-ES", require<any>("numbro/languages/es-ES"));
 
 declare let __webpack_public_path__: string;
 
@@ -84,8 +84,8 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
 CultureClient.onCultureLoaded.push(ci => {
     const culture = ci.name!; //"en";
     moment.locale((culture.tryBefore("-") || culture).toLowerCase());
-    numeral.locale(culture == "en" ? "en-gb" :
-        culture == "es" ? "es-es" : "Unkwnown");
+    numbro.culture(culture == "en" ? "en-GB" :
+        culture == "es" ? "es-ES" : "Unkwnown");
 }); //Culture
 
 Services.setAppNameAndRequestSessionStorage("Southwind");

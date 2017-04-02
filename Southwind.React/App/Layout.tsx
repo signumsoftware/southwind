@@ -1,6 +1,7 @@
 ﻿
 import * as React from 'react'
 import * as moment from 'moment'
+import * as numbro from 'numbro'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router'
