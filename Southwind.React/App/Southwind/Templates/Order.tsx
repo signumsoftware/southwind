@@ -3,7 +3,7 @@ import * as numbro from 'numbro'
 import * as moment from 'moment'
 import { Dic } from '../../../../Framework/Signum.React/Scripts/Globals'
 import * as Navigator from '../../../../Framework/Signum.React/Scripts/Navigator'
-import { OrderEntity, CustomerEntity, OrderDetailsEntity, OrderState } from '../Southwind.Entities'
+import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlStatic, EntityTable, ChangeEvent } from '../../../../Framework/Signum.React/Scripts/Lines'
 
 export default class Order extends React.Component<{ ctx: TypeContext<OrderEntity> }, void> {
@@ -14,7 +14,7 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
     }
 
 
-    handleProductChange = (detail: OrderDetailsEntity) => {
+    handleProductChange = (detail: OrderDetailEmbedded) => {
 
         detail.quantity = 1;
         detail.unitPrice = 0;
@@ -41,7 +41,7 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                     <div className="col-sm-6">
                         <ValueLine ctx={ctx4.subCtx(o => o.shipName)} />
                         {ctx2.value.isLegacy && < ValueLine ctx={ctx4.subCtx(o => o.isLegacy)} readOnly={true} />}
-                        <ValueLine ctx={ctx4.subCtx(o => o.state)} readOnly={true} valueHtmlProps={{ style: { color: stateColor(o.state) } }} />
+                        <ValueLine ctx={ctx4.subCtx(o => o.state)} readOnly={true} valueHtmlAttributes={{ style: { color: stateColor(o.state) } }} />
                         <ValueLine ctx={ctx4.subCtx(o => o.orderDate)} unitText={ago(o.orderDate)} readOnly={true} />
                         <ValueLine ctx={ctx4.subCtx(o => o.requiredDate)} unitText={ago(o.requiredDate)} onChange={() => this.forceUpdate()} />
                         <ValueLine ctx={ctx4.subCtx(o => o.shippedDate)} unitText={ago(o.shippedDate)} hideIfNull={true} readOnly={true}  />
@@ -49,13 +49,13 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                         <EntityCombo ctx={ctx4.subCtx(o => o.shipVia)} />
                     </div>
                 </div>
-                <EntityTable ctx={ctx2.subCtx(o => o.details)} onChange={() => this.forceUpdate()} columns={EntityTable.typedColumns<OrderDetailsEntity>([
-                    { property: a => a.product, headerProps: { width: "40%" }, template: dc => <EntityLine ctx={dc.subCtx(a => a.product)} onChange={() => this.handleProductChange(dc.value)} /> },
-                    { property: a => a.quantity, headerProps: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => this.forceUpdate()} /> },
-                    { property: a => a.unitPrice, headerProps: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
-                    { property: a => a.discount, headerProps: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => this.forceUpdate()} /> },
+                <EntityTable ctx={ctx2.subCtx(o => o.details)} onChange={() => this.forceUpdate()} columns={EntityTable.typedColumns<OrderDetailEmbedded>([
+                    { property: a => a.product, headerHtmlAttributes: { width: "40%" }, template: dc => <EntityLine ctx={dc.subCtx(a => a.product)} onChange={() => this.handleProductChange(dc.value)} /> },
+                    { property: a => a.quantity, headerHtmlAttributes: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => this.forceUpdate()} /> },
+                    { property: a => a.unitPrice, headerHtmlAttributes: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
+                    { property: a => a.discount, headerHtmlAttributes: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => this.forceUpdate()} /> },
                     {
-                        header: "SubTotalPrice", headerProps: { width: "15%" }, template: dc => <FormGroup ctx={dc} labelText="SubTotalPrice">
+                        header: "SubTotalPrice", headerHtmlAttributes: { width: "15%" }, template: dc => <FormGroup ctx={dc} labelText="SubTotalPrice">
                             <FormControlStatic ctx={dc}>
                                 {numbro(subTotalPrice(dc.value)).format()} €
                             </FormControlStatic>
@@ -105,6 +105,6 @@ function stateColor(s: OrderState | undefined) {
     }
 }
 
-function subTotalPrice(od: OrderDetailsEntity) {
+function subTotalPrice(od: OrderDetailEmbedded) {
     return (od.quantity || 0) * (od.unitPrice || 0) * (1 - (od.discount || 0));
 }

@@ -35,7 +35,7 @@ namespace Southwind.Test.React
                         return persons.Results.EntityClick<PersonEntity>(1);
                     }).Using(john =>
                     {
-                        using (PopupFrame<OrderEntity> order = john.ConstructFrom(OrderOperation.CreateOrderFromCustomer))
+                        using (FrameModalProxy<OrderEntity> order = john.ConstructFrom(OrderOperation.CreateOrderFromCustomer))
                         {
                             order.ValueLineValue(a => a.ShipName, Guid.NewGuid().ToString());
                             order.EntityCombo(a => a.ShipVia).SelectLabel("FedEx");

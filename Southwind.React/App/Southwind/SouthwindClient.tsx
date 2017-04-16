@@ -22,7 +22,7 @@ import OrderFilter from './Templates/OrderFilter'
 import { ApplicationConfigurationEntity } from './Southwind.Entities'
 
 import { /*Southwind.Entities*/
-    AddressEntity, OrderDetailsEntity, OrderFilterModel, CategoryEntity,
+    AddressEmbedded, OrderDetailEmbedded, OrderFilterModel, CategoryEntity,
     CustomerQuery, CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
     RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity
 } from './Southwind.Entities'
@@ -30,7 +30,7 @@ import { /*Southwind.Entities*/
 export function start(options: { routes: JSX.Element[] }) {
 
     Navigator.addSettings(new EntitySettings(ApplicationConfigurationEntity, a => new ViewPromise(resolve => require(['./Templates/ApplicationConfiguration'], resolve))));
-    Navigator.addSettings(new EntitySettings(AddressEntity, a => new ViewPromise(resolve => require(['./Templates/Address'], resolve))));
+    Navigator.addSettings(new EntitySettings(AddressEmbedded, a => new ViewPromise(resolve => require(['./Templates/Address'], resolve))));
     Navigator.addSettings(new EntitySettings(CategoryEntity, c => new ViewPromise(resolve => require(['./Templates/Category'], resolve))));
     Navigator.addSettings(new EntitySettings(CompanyEntity, c => new ViewPromise(resolve => require(['./Templates/Company'], resolve))));
     Navigator.addSettings(new EntitySettings(EmployeeEntity, e => new ViewPromise(resolve => require(['./Templates/Employee'], resolve))));
@@ -83,15 +83,14 @@ export function start(options: { routes: JSX.Element[] }) {
     }));
 
     Operations.addSettings(new ContextualOperationSettings(OrderOperation.CreateOrderFromProducts, {
-        onClick: (coc, e) => {
-            return Finder.find({ queryName: CustomerQuery.Customer }).then(c => {
-                if (!c)
-                    return undefined;
+        onClick: coc => {
+            return Finder.find({ queryName: CustomerQuery.Customer })
+                .then(c => {
+                    if (!c)
+                        return;
 
-                return Operations.API.constructFromMany(coc.context.lites, coc.operationInfo.key, c)
-                    .then(ep => Navigator.createNavigateOrTab(ep, e))
-                    .done();
-            }).done();
+                    return coc.defaultContextualClick(c);
+                }).done();
         }
     }));
 

@@ -165,10 +165,10 @@ namespace Southwind.Test.Environment
             }.Save();
         }
 
-        private static AddressEntity RandomAddress(int seed)
+        private static AddressEmbedded RandomAddress(int seed)
         {
             Random r = new Random(seed);
-            return new AddressEntity
+            return new AddressEmbedded
             {
                 Address = r.NextElement(new[] { "Madison Av.", "Sessame Str.", "5th Av.", "Flamingo Way" }) + " " + r.Next(100),
                 City = r.NextElement(new[] { "New York", "Los Angeles", "Miami", "Seattle" }),

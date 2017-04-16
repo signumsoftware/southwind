@@ -79,7 +79,7 @@ export default class Employee extends React.Component<{ ctx: TypeContext<Employe
                     {this.state.photo && <img className="img-responsive" src={"data:image/jpeg;base64," + this.state.photo.binaryFile} />}
                     {/*photo*/}
                     <div className="form-vertical">
-                        <ValueLine ctx={ctx.subCtx(e => e.notes, { formGroupStyle: "Basic" })} valueHtmlProps={{ rows: 10, className: "notes" }} />
+                        <ValueLine ctx={ctx.subCtx(e => e.notes, { formGroupStyle: "Basic" })} valueHtmlAttributes={{ rows: 10, className: "notes" }} />
                     </div>
                 </div>
             </div>

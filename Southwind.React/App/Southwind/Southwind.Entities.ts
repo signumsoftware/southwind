@@ -15,9 +15,9 @@ import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Sign
 
 
 
-export const AddressEntity = new Type<AddressEntity>("AddressEntity");
-export interface AddressEntity extends Entities.EmbeddedEntity {
-    Type: "AddressEntity";
+export const AddressEmbedded = new Type<AddressEmbedded>("AddressEmbedded");
+export interface AddressEmbedded extends Entities.EmbeddedEntity {
+    Type: "AddressEmbedded";
     address?: string | null;
     city?: string | null;
     region?: string | null;
@@ -35,11 +35,11 @@ export const ApplicationConfigurationEntity = new Type<ApplicationConfigurationE
 export interface ApplicationConfigurationEntity extends Entities.Entity {
     Type: "ApplicationConfiguration";
     environment?: string | null;
-    email?: Mailing.EmailConfigurationEntity | null;
+    email?: Mailing.EmailConfigurationEmbedded | null;
     smtpConfiguration?: Mailing.SmtpConfigurationEntity | null;
-    sms?: SMS.SMSConfigurationEntity | null;
-    authTokens?: Authorization.AuthTokenConfigurationEntity | null;
-    workflow?: Workflow.WorkflowConfigurationEntity | null;
+    sms?: SMS.SMSConfigurationEmbedded | null;
+    authTokens?: Authorization.AuthTokenConfigurationEmbedded | null;
+    workflow?: Workflow.WorkflowConfigurationEmbedded | null;
 }
 
 export module ApplicationConfigurationOperation {
@@ -51,7 +51,7 @@ export interface CategoryEntity extends Entities.Entity {
     Type: "Category";
     categoryName?: string | null;
     description?: string | null;
-    picture?: Files.EmbeddedFileEntity | null;
+    picture?: Files.FileEmbedded | null;
 }
 
 export module CategoryOperation {
@@ -67,7 +67,7 @@ export interface CompanyEntity extends CustomerEntity {
 }
 
 export interface CustomerEntity extends Entities.Entity {
-    address?: AddressEntity | null;
+    address?: AddressEmbedded | null;
     phone?: string | null;
     fax?: string | null;
 }
@@ -89,7 +89,7 @@ export interface EmployeeEntity extends Entities.Entity {
     titleOfCourtesy?: string | null;
     birthDate?: string | null;
     hireDate?: string | null;
-    address?: AddressEntity | null;
+    address?: AddressEmbedded | null;
     homePhone?: string | null;
     extension?: string | null;
     photo?: Entities.Lite<Files.FileEntity> | null;
@@ -107,9 +107,9 @@ export module EmployeeQuery {
     export const EmployeesByTerritory = new QueryKey("EmployeeQuery", "EmployeesByTerritory");
 }
 
-export const OrderDetailsEntity = new Type<OrderDetailsEntity>("OrderDetailsEntity");
-export interface OrderDetailsEntity extends Entities.EmbeddedEntity {
-    Type: "OrderDetailsEntity";
+export const OrderDetailEmbedded = new Type<OrderDetailEmbedded>("OrderDetailEmbedded");
+export interface OrderDetailEmbedded extends Entities.EmbeddedEntity {
+    Type: "OrderDetailEmbedded";
     product?: Entities.Lite<ProductEntity> | null;
     unitPrice?: number;
     quantity?: number;
@@ -127,9 +127,9 @@ export interface OrderEntity extends Entities.Entity {
     cancelationDate?: string | null;
     shipVia?: Entities.Lite<ShipperEntity> | null;
     shipName?: string | null;
-    shipAddress?: AddressEntity | null;
+    shipAddress?: AddressEmbedded | null;
     freight?: number;
-    details: Entities.MList<OrderDetailsEntity>;
+    details: Entities.MList<OrderDetailEmbedded>;
     isLegacy?: boolean;
     state?: OrderState;
 }
@@ -246,7 +246,7 @@ export interface SupplierEntity extends Entities.Entity {
     companyName?: string | null;
     contactName?: string | null;
     contactTitle?: string | null;
-    address?: AddressEntity | null;
+    address?: AddressEmbedded | null;
     phone?: string | null;
     fax?: string | null;
     homePage?: string | null;
