@@ -165,7 +165,7 @@ namespace Southwind.Logic
                             State = OrderState.New,
                             Employee = EmployeeEntity.Current,
                             RequiredDate = DateTime.Now.AddDays(3),
-                            Details = prods.Select(p => new OrderDetailsEntity
+                            Details = prods.Select(p => new OrderDetailEmbedded
                             {
                                 Product = p,
                                 UnitPrice = dic[p],

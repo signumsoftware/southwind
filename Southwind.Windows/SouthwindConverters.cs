@@ -14,7 +14,7 @@ namespace Southwind.Windows
 {
     public static class SouthwindConverters
     {
-        public static IValueConverter EmbeddedImageConverter = ConverterFactory.New((EmbeddedFileEntity file) =>
+        public static IValueConverter EmbeddedImageConverter = ConverterFactory.New((FileEmbedded file) =>
         {
             if (file == null)
                 return null;

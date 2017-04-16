@@ -42,7 +42,7 @@ namespace Southwind.Test.React
 
                             ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
 
-                            var line = order.EntityDetail(a => a.Details).GetOrCreateDetailControl<OrderDetailsEntity>();
+                            var line = order.EntityDetail(a => a.Details).GetOrCreateDetailControl<OrderDetailEmbedded>();
                             line.EntityLineValue(a => a.Product, sonicProduct.ToLite());
 
                             Assert.AreEqual(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));

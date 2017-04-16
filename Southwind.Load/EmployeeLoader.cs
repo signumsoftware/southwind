@@ -92,7 +92,7 @@ namespace Southwind.Load
                         HireDate = e.HireDate,
                         Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),
                         PhotoPath = e.PhotoPath,
-                        Address = new AddressEntity
+                        Address = new AddressEmbedded
                         {
                             Address = e.Address,
                             City = e.City,

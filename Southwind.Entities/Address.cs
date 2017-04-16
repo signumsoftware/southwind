@@ -9,7 +9,7 @@ using Signum.Utilities;
 namespace Southwind.Entities
 {
     [Serializable]
-    public class AddressEntity : EmbeddedEntity
+    public class AddressEmbedded : EmbeddedEntity
     {
         [NotNullable, SqlDbType(Size = 60)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 60, MultiLine = true)]
@@ -47,9 +47,9 @@ namespace Southwind.Entities
             return "{0}\r\n{1} {2} ({3})".FormatWith(Address, PostalCode, City, Country);
         }
 
-        public AddressEntity Clone()
+        public AddressEmbedded Clone()
         {
-            return new AddressEntity
+            return new AddressEmbedded
             {
                 Address = this.Address,
                 City = this.City,

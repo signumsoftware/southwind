@@ -27,9 +27,9 @@ namespace Southwind.Windows.Controls
     /// </summary>
     public partial class Order : UserControl
     {
-        OrderDetailsEntity CurrentOrderDetails
+        OrderDetailEmbedded CurrentOrderDetails
         {
-            get { return dgDetails.SelectedItem as OrderDetailsEntity; }
+            get { return dgDetails.SelectedItem as OrderDetailEmbedded; }
         }
 
         OrderEntity OrderEntity
@@ -53,7 +53,7 @@ namespace Southwind.Windows.Controls
             if (product == null)
                 return;
 
-            OrderDetailsEntity details = new OrderDetailsEntity
+            OrderDetailEmbedded details = new OrderDetailEmbedded
             {
                 Product = product,
                 Quantity = 1,
@@ -88,7 +88,7 @@ namespace Southwind.Windows.Controls
         private void AutocompleteTextBox_Closed(object sender, RoutedEventArgs e)
         {
             AutocompleteTextBox autoComplete = (AutocompleteTextBox)sender;
-            OrderDetailsEntity orderDetails = (OrderDetailsEntity)autoComplete.DataContext;
+            OrderDetailEmbedded orderDetails = (OrderDetailEmbedded)autoComplete.DataContext;
             Lite<ProductEntity> product = (Lite<ProductEntity>)autoComplete.SelectedItem;
 
             orderDetails.Discount = 0;

@@ -14,7 +14,7 @@ namespace Southwind.Entities
     {
         [NotNullable]
         [NotNullValidator]
-        public AddressEntity Address { get; set; }
+        public AddressEmbedded Address { get; set; }
 
         [NotNullable, SqlDbType(Size = 24)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
@@ -59,7 +59,7 @@ namespace Southwind.Entities
 
         public bool Corrupt { get; set; }
 
-        public override Dictionary<Guid, Dictionary<string, string>> EntityIntegrityCheck()
+        public override Dictionary<Guid, IntegrityCheck> EntityIntegrityCheck()
         {
             using (this.Corrupt ? Corruption.AllowScope() : null)
             {

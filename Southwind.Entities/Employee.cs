@@ -39,7 +39,7 @@ namespace Southwind.Entities
 
         [NotNullable]
         [NotNullValidator]
-        public AddressEntity Address { get; set; }
+        public AddressEmbedded Address { get; set; }
 
         [SqlDbType(Size = 25)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 25), TelephoneValidator]

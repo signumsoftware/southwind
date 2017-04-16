@@ -37,7 +37,7 @@ namespace Southwind.Load
                         ContactTitle = s.ContactTitle,
                         Phone = s.Phone.Replace(".", " "),
                         Fax = faxDic[s.SupplierID].Replace(".", " "),
-                        Address = new AddressEntity
+                        Address = new AddressEmbedded
                         {
                             Address = s.Address,
                             City = s.City,
@@ -58,7 +58,7 @@ namespace Southwind.Load
                     {
                         CategoryName = s.CategoryName,
                         Description = s.Description,
-                        Picture = new EmbeddedFileEntity { FileName = s.CategoryName + ".jpg", BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },
+                        Picture = new FileEmbedded { FileName = s.CategoryName + ".jpg", BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },
                     }.SetId(s.CategoryID)));
             }
         }

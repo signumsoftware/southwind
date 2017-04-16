@@ -100,28 +100,28 @@ namespace Southwind.Load
                 new ApplicationConfigurationEntity
                 {
                     Environment = "Development",
-                    Email = new EmailConfigurationEntity
+                    Email = new EmailConfigurationEmbedded
                     {
                         SendEmails = true,
                         DefaultCulture = en,
                         UrlLeft = "http://localhost/Southwind"
                     },
-                    AuthTokens = new AuthTokenConfigurationEntity
+                    AuthTokens = new AuthTokenConfigurationEmbedded
                     {
                     }, //Auth
                     SmtpConfiguration = new SmtpConfigurationEntity
                     {
                         Name = "localhost",
-                        Network = new SmtpNetworkDeliveryEntity
+                        Network = new SmtpNetworkDeliveryEmbedded
                         {
                             Host = "localhost"
                         }
                     }, //Email
-                    Sms = new SMSConfigurationEntity
+                    Sms = new SMSConfigurationEmbedded
                     {
                         DefaultCulture = en,
                     }, //Sms
-                    Workflow= new WorkflowConfigurationEntity
+                    Workflow= new WorkflowConfigurationEmbedded
                     {
                     }, //Workflow
                 }.Save();

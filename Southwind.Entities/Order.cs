@@ -46,14 +46,14 @@ namespace Southwind.Entities
 
         [NotNullable]
         [NotNullValidator]
-        public AddressEntity ShipAddress { get; set; }
+        public AddressEmbedded ShipAddress { get; set; }
 
         [Unit("Kg")]
         public decimal Freight { get; set; }
 
         [NotNullable, NotifyChildProperty, NotifyCollectionChanged]
         [NoRepeatValidator]
-        public MList<OrderDetailsEntity> Details { get; set; } = new MList<OrderDetailsEntity>();
+        public MList<OrderDetailEmbedded> Details { get; set; } = new MList<OrderDetailEmbedded>();
 
         static Expression<Func<OrderEntity, decimal>> TotalPriceExpression =
             o => o.Details.Sum(od => od.SubTotalPrice);
@@ -70,7 +70,7 @@ namespace Southwind.Entities
         protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi)
         {
 
-            if (sender is OrderDetailsEntity details && !IsLegacy && pi.Name == nameof(details.Discount))
+            if (sender is OrderDetailEmbedded details && !IsLegacy && pi.Name == nameof(details.Discount))
             {
                 if ((details.Discount * 100.0m) % 5.0m != 0)
                     return OrderMessage.DiscountShouldBeMultpleOf5.NiceToString();
@@ -87,7 +87,7 @@ namespace Southwind.Entities
 
         protected override void ChildPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is OrderDetailsEntity)
+            if (sender is OrderDetailEmbedded)
                 Notify(() => TotalPrice);
         }
 
@@ -140,7 +140,7 @@ namespace Southwind.Entities
     }
 
     [Serializable]
-    public class OrderDetailsEntity : EmbeddedEntity, IEditableObject
+    public class OrderDetailEmbedded : EmbeddedEntity, IEditableObject
     {
         [NotNullValidator]
         public Lite<ProductEntity> Product { get; set; }
@@ -180,7 +180,7 @@ namespace Southwind.Entities
             }
         }
 
-        static Expression<Func<OrderDetailsEntity, decimal>> SubTotalPriceExpression =
+        static Expression<Func<OrderDetailEmbedded, decimal>> SubTotalPriceExpression =
             od => od.Quantity * od.UnitPrice * (decimal)(1 - od.Discount);
         [ExpressionField, Unit("€")]
         public decimal SubTotalPrice
@@ -189,11 +189,11 @@ namespace Southwind.Entities
         }
 
         [Ignore]
-        OrderDetailsEntity clone;
+        OrderDetailEmbedded clone;
 
         public void BeginEdit()
         {
-            clone = new OrderDetailsEntity
+            clone = new OrderDetailEmbedded
             {
                 Product = Product,
                 Quantity = quantity,

@@ -59,10 +59,10 @@ namespace Southwind.Windows.Code
                         .Set(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.Linear));
                 }); //Picture
 
-                Constructor.Register(ctx => new EmployeeEntity { Address = new AddressEntity() });
-                Constructor.Register(ctx => new PersonEntity { Address = new AddressEntity() });
-                Constructor.Register(ctx => new CompanyEntity { Address = new AddressEntity() });
-                Constructor.Register(ctx => new SupplierEntity { Address = new AddressEntity() });
+                Constructor.Register(ctx => new EmployeeEntity { Address = new AddressEmbedded() });
+                Constructor.Register(ctx => new PersonEntity { Address = new AddressEmbedded() });
+                Constructor.Register(ctx => new CompanyEntity { Address = new AddressEmbedded() });
+                Constructor.Register(ctx => new SupplierEntity { Address = new AddressEmbedded() });
 
                 OperationClient.AddSettings(new List<OperationSettings>()
                 {

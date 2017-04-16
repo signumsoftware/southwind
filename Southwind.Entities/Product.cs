@@ -95,7 +95,7 @@ namespace Southwind.Entities
 
         [NotNullable]
         [NotNullValidator]
-        public AddressEntity Address { get; set; }
+        public AddressEmbedded Address { get; set; }
 
         [NotNullable, SqlDbType(Size = 24)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
@@ -136,7 +136,7 @@ namespace Southwind.Entities
         [StringLengthValidator(AllowNulls = false, Min = 3, MultiLine = true)]
         public string Description { get; set; }
 
-        public EmbeddedFileEntity Picture { get; set; }
+        public FileEmbedded Picture { get; set; }
 
         static Expression<Func<CategoryEntity, string>> ToStringExpression = e => e.CategoryName;
         [ExpressionField]

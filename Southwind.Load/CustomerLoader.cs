@@ -23,7 +23,7 @@ namespace Southwind.Load
                         CompanyName = c.CompanyName,
                         ContactName = c.ContactName,
                         ContactTitle = c.ContactTitle,
-                        Address = new AddressEntity
+                        Address = new AddressEmbedded
                         {
                             Address = c.Address,
                             City = c.City,
@@ -48,7 +48,7 @@ namespace Southwind.Load
                          LastName = c.ContactName.Substring(c.ContactName.LastIndexOf(' ') + 1),
                          DateOfBirth = null,
                          Title = null, 
-                         Address = new AddressEntity
+                         Address = new AddressEmbedded
                          {
                              Address = c.Address,
                              City = c.City,

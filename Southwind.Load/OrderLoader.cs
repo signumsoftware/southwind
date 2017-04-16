@@ -63,7 +63,7 @@ namespace Southwind.Load
                             State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
                             ShipVia = Lite.Create<ShipperEntity>(o.ShipVia.Value),
                             ShipName = o.ShipName,
-                            ShipAddress = new AddressEntity
+                            ShipAddress = new AddressEmbedded
                             {
                                 Address = o.ShipAddress,
                                 City = o.ShipCity,
@@ -72,7 +72,7 @@ namespace Southwind.Load
                                 Country = o.ShipCountry,
                             },
                             Freight = o.Freight.Value,
-                            Details = o.Order_Details.Select(od => new OrderDetailsEntity
+                            Details = o.Order_Details.Select(od => new OrderDetailEmbedded
                             {
                                 Discount = (decimal)od.Discount,
                                 Product = Lite.Create<ProductEntity>(od.ProductID),

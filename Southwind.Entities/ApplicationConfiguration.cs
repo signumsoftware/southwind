@@ -22,22 +22,22 @@ namespace Southwind.Entities
 
         [NotNullable]/*Email*/
         [NotNullValidator]
-        public EmailConfigurationEntity Email { get; set; }
+        public EmailConfigurationEmbedded Email { get; set; }
 
         [NotNullValidator]/*Smtp*/
         public SmtpConfigurationEntity SmtpConfiguration { get; set; }
 
         [NotNullable]/*Sms*/
         [NotNullValidator]
-        public SMSConfigurationEntity Sms { get; set; }
+        public SMSConfigurationEmbedded Sms { get; set; }
 
         [NotNullable]/*AuthTokens*/
         [NotNullValidator]
-        public AuthTokenConfigurationEntity AuthTokens { get; set; }
+        public AuthTokenConfigurationEmbedded AuthTokens { get; set; }
 
         [NotNullable]/*Workflow*/
         [NotNullValidator]
-        public WorkflowConfigurationEntity Workflow { get; set; }
+        public WorkflowConfigurationEmbedded Workflow { get; set; }
     }
 
     [AutoInit]
