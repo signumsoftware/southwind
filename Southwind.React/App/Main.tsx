@@ -158,16 +158,12 @@ function reload() {
                     new SpecialOmniboxProvider()
                 );//Omnibox
             }
-            
+
             routes.push(<Route component={NotFound}/>);
-
-            const baseName = window.__baseUrl;
             
-
             Layout.switch = React.createElement(Switch, undefined, ...routes);
             const wrap = document.getElementById("wrap")!;
             unmountComponentAtNode(wrap);
-
 
             var h = Navigator.createAppRelativeHistory();
 
