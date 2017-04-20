@@ -103,21 +103,20 @@ namespace Southwind.Load
 
             while (true)
             {
-                Action[] actions = new ConsoleSwitch<int, Action>
+                var actions = new ConsoleSwitch<int, Action>
                 {
                     {42, ChartScriptLogic.ImportExportChartScripts},
                     {43, AuthLogic.ImportExportAuthRules},
                     {45, HelpXml.ImportExportHelp},
                     {100, ShowOrder},
-                }.ChooseMultiple(args);
+                }.ChooseMultipleWithDescription(args);
 
                 if (actions == null)
                     return;
 
                 foreach (var acc in actions)
                 {
-                    Console.WriteLine("------- Executing {0} ".FormatWith(acc.Method.Name.SpacePascal(true)).PadRight(Console.WindowWidth - 2, '-'));
-                    acc();
+                    MigrationLogic.ExecuteLoadProcess(acc.Value, acc.Description);
                 }
             }
         }
