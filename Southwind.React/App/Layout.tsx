@@ -1,22 +1,33 @@
-﻿
+
 import * as React from 'react'
+import { RouteComponentProps } from 'react-router'
 import * as moment from 'moment'
 import * as numbro from 'numbro'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
-import { Link } from 'react-router'
+import { LinkContainer } from "react-router-bootstrap";
+import { Link } from 'react-router-dom'
 import LoginUserControl from '../../Extensions/Signum.React.Extensions/Authorization/Login/LoginUserControl'
 import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorization/AuthClient'
 import OmniboxAutocomplete from '../../Extensions/Signum.React.Extensions/Omnibox/OmniboxAutocomplete'
+import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
 import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modals"
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 import ContainerToggle from "../../Framework/Signum.React/Scripts/Frames/ContainerToggle"
 import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
 import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
 
-export default class Layout extends React.Component<{ children: any }, { refreshId: number }> {
 
-    state = { refreshId: 0 };
+
+export default class Layout extends React.Component<void, { refreshId: number }> {
+
+    constructor(props: void) {
+        super(props);
+        
+        this.state = { refreshId: 0 }; 
+    }
+
+    static switch: React.ReactElement<any>;
+    
 
     render() {
         return (
@@ -37,7 +48,7 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                                 </div>
                             </li>
                             <NavDropdown title="Menu" id="basic-nav-dropdown">
-                                <IndexLinkContainer to="~/"><MenuItem>Home</MenuItem></IndexLinkContainer>
+                                <LinkContainer to="~/" exact><MenuItem>Home</MenuItem></LinkContainer>
                                 <LinkContainer to="~/publicCatalog"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <MenuItem divider />
                                 <LinkContainer to="~/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
@@ -52,7 +63,7 @@ export default class Layout extends React.Component<{ children: any }, { refresh
                 </Navbar>
                 <Notify />
                 <ContainerToggle>
-                    {this.props.children}
+                    {Layout.switch}
                 </ContainerToggle>
                 <GlobalModalContainer />
                 <div id="push"></div>
@@ -64,16 +75,4 @@ export default class Layout extends React.Component<{ children: any }, { refresh
     handleResetUI = () => {
         this.setState({ refreshId: this.state.refreshId + 1 });
     };
-
-    componentWillMount() {
-        AuthClient.onCurrentUserChanged.push(this.handleResetUI);
-        CultureClient.onCultureLoaded.push(this.handleResetUI);
-    }
-
-    componentWillUnmount() {
-        AuthClient.onCurrentUserChanged.remove(this.handleResetUI);
-        CultureClient.onCultureLoaded.remove(this.handleResetUI);
-    }
-
-
 }

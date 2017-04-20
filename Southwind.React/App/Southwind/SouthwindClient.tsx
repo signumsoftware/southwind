@@ -29,20 +29,20 @@ import { /*Southwind.Entities*/
 
 export function start(options: { routes: JSX.Element[] }) {
 
-    Navigator.addSettings(new EntitySettings(ApplicationConfigurationEntity, a => new ViewPromise(resolve => require(['./Templates/ApplicationConfiguration'], resolve))));
-    Navigator.addSettings(new EntitySettings(AddressEmbedded, a => new ViewPromise(resolve => require(['./Templates/Address'], resolve))));
-    Navigator.addSettings(new EntitySettings(CategoryEntity, c => new ViewPromise(resolve => require(['./Templates/Category'], resolve))));
-    Navigator.addSettings(new EntitySettings(CompanyEntity, c => new ViewPromise(resolve => require(['./Templates/Company'], resolve))));
-    Navigator.addSettings(new EntitySettings(EmployeeEntity, e => new ViewPromise(resolve => require(['./Templates/Employee'], resolve))));
-    Navigator.addSettings(new EntitySettings(OrderEntity, o => new ViewPromise(resolve => require(['./Templates/Order'], resolve))));
-    Navigator.addSettings(new EntitySettings(PersonEntity, p => new ViewPromise(resolve => require(['./Templates/Person'], resolve))));
-    Navigator.addSettings(new EntitySettings(ProductEntity, p => new ViewPromise(resolve => require(['./Templates/Product'], resolve))));
-    Navigator.addSettings(new EntitySettings(SupplierEntity, s => new ViewPromise(resolve => require(['./Templates/Supplier'], resolve))));
+    Navigator.addSettings(new EntitySettings(ApplicationConfigurationEntity, a => _import('./Templates/ApplicationConfiguration')));
+    Navigator.addSettings(new EntitySettings(AddressEmbedded, a => _import('./Templates/Address')));
+    Navigator.addSettings(new EntitySettings(CategoryEntity, c => _import('./Templates/Category')));
+    Navigator.addSettings(new EntitySettings(CompanyEntity, c => _import('./Templates/Company')));
+    Navigator.addSettings(new EntitySettings(EmployeeEntity, e => _import('./Templates/Employee')));
+    Navigator.addSettings(new EntitySettings(OrderEntity, o => _import('./Templates/Order')));
+    Navigator.addSettings(new EntitySettings(PersonEntity, p => _import('./Templates/Person')));
+    Navigator.addSettings(new EntitySettings(ProductEntity, p => _import('./Templates/Product')));
+    Navigator.addSettings(new EntitySettings(SupplierEntity, s => _import('./Templates/Supplier')));
 
     /* If no view is detected DynamicComponent creates one automatically*/
-    //Navigator.addSettings(new EntitySettings(RegionEntity, r => new ViewPromise(resolve => require(['./Templates/Region'], resolve))));
-    //Navigator.addSettings(new EntitySettings(ShipperEntity, s => new ViewPromise(resolve => require(['./Templates/Shipper'], resolve))));
-    //Navigator.addSettings(new EntitySettings(TerritoryEntity, t => new ViewPromise(resolve => require(['./Templates/Territory'], resolve))));
+    //Navigator.addSettings(new EntitySettings(RegionEntity, r => _import('./Templates/Region')));
+    //Navigator.addSettings(new EntitySettings(ShipperEntity, s => _import('./Templates/Shipper')));
+    //Navigator.addSettings(new EntitySettings(TerritoryEntity, t => _import('./Templates/Territory')));
 
     Navigator.getSettings(UserEntity)!.overrideView((rep) => {
         rep.insertAfter(u => u.role,

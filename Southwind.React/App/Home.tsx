@@ -2,16 +2,16 @@
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
 import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardClient"
 
-export default class Home extends React.Component<{}, { loaded: boolean }> {
+export default class Home extends React.Component<void, { loaded: boolean }> {
     
-    constructor(props: {}){
+    constructor(props: void){
         super(props);
         this.state = { loaded: false };
     }
 
     componentWillMount() {
         if (Navigator.currentUser == null) {
-            Navigator.currentHistory.push("~/publicCatalog");
+            Navigator.history.push("/publicCatalog");
             return;
         }//PublicCatalog
 
@@ -19,7 +19,7 @@ export default class Home extends React.Component<{}, { loaded: boolean }> {
             DashboardClient.API.home()
                 .then(h => {
                     if (h)
-                        Navigator.currentHistory.push(`~/dashboard/${h.id}`);
+                        Navigator.history.push(`/dashboard/${h.id}`);
                     else
                         this.setState({ loaded: true });
                 });

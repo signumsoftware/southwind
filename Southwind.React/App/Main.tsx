@@ -6,8 +6,8 @@ require("../../Framework/Signum.React/Scripts/Frames/Frames.css");
 
 import * as React from "react"
 import { render, unmountComponentAtNode } from "react-dom"
-import { Router, Route, Redirect, IndexRoute, useRouterHistory } from "react-router"
-import * as ReactRouter from "react-router"
+import { Router, Route, Redirect } from "react-router-dom"
+import { Switch } from "react-router"
 
 import * as moment from "moment"
 import * as numbro from "numbro"
@@ -64,6 +64,7 @@ import Home from './Home'
 import NotFound from './NotFound'
 
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
+import { ImportRoute } from "../../Framework/Signum.React/Scripts/AsyncImport";
 
 
 numbro.culture("en-GB", require<any>("numbro/languages/en-GB"));
@@ -106,8 +107,8 @@ function reload() {
 
             const routes: JSX.Element[] = [];
 
-            routes.push(<IndexRoute component={Home} />);
-            routes.push(<Route path="publicCatalog" component={PublicCatalog} />);
+            routes.push(<Route exact path="~/" component={Home} />);
+            routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
             AuthClient.startPublic({ routes, userTicket: true, resetPassword: true });
 
             if (isFull) {
@@ -158,26 +159,21 @@ function reload() {
                 );//Omnibox
             }
             
-            routes.push(<Route path="*" component={NotFound}/>);
+            routes.push(<Route component={NotFound}/>);
 
-            const baseName = window.__baseUrl
+            const baseName = window.__baseUrl;
+            
 
-            const history = useRouterHistory((History as any).createHistory)({
-                //basename: baseName,
-            });
-
-            Navigator.useAppRelativeBasename(history);
-
-            Navigator.setCurrentHistory(history);
-
-            const mainRoute = React.createElement(Route as any, { component: Layout }, ...routes);
+            Layout.switch = React.createElement(Switch, undefined, ...routes);
             const wrap = document.getElementById("wrap")!;
             unmountComponentAtNode(wrap);
+
+
+            var h = Navigator.createAppRelativeHistory();
+
             render(
-                <Router history={history}>
-                    <Route component={Layout} path={baseName.beforeLast("/") || "/"} > 
-                        { routes }
-                    </Route>
+                <Router history={h}>
+                    <Layout />
                 </Router>, wrap);
 
             if (isFull)
@@ -189,7 +185,7 @@ function reload() {
 
 AuthClient.Options.onLogin = () => {
     reload().then(() => {
-        Navigator.currentHistory.push("~/");
+        Navigator.history.push("~/");
     }).done();
 };
 
