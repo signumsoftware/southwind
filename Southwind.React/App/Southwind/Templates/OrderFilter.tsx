@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { OrderFilterModel } from '../Southwind.Entities'
-import { ISimpleFilterBuilder, FilterOption, FindOptions, FindOptionsParsed, FilterOperation } from '../../../../Framework/Signum.React/Scripts/Search'
+import { ISimpleFilterBuilder, FilterOption, FindOptions, FindOptionsParsed, FilterOperation, FilterOptionParsed } from '../../../../Framework/Signum.React/Scripts/Search'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
 
 export default class OrderFilter extends React.Component<{ ctx: TypeContext<OrderFilterModel> }, void> implements ISimpleFilterBuilder {
@@ -44,8 +44,8 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
         return result;
     }
 
-    static extract(fo: FindOptionsParsed) {
-        const filters = fo.filterOptions.clone();
+    static extract(fos: FilterOptionParsed[]) {
+        const filters = fos.clone();
 
         const extract = (columnName: string, operation: FilterOperation) => {
             const f = filters.filter(f => f.token!.fullKey == columnName && f.operation == operation).firstOrNull();

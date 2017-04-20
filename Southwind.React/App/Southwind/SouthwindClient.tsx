@@ -12,7 +12,7 @@ import { defaultExecuteEntity } from '../../../Framework/Signum.React/Scripts/Op
 
 import { getMixin } from '../../../Framework/Signum.React/Scripts/Signum.Entities'
 import { UserEntity } from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
-import { EmbeddedFileEntity } from '../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
+import { FileEmbedded } from '../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
 
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../Framework/Signum.React/Scripts/Lines'
 import ValueLineModal from '../../../Framework/Signum.React/Scripts/ValueLineModal'
@@ -54,7 +54,7 @@ export function start(options: { routes: JSX.Element[] }) {
     {/*Files*/}
     const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
     Finder.registerPropertyFormatter(CategoryEntity.propertyRoute(ca => ca.picture),
-        new Finder.CellFormatter((cell: EmbeddedFileEntity) => <img style={maxDimensions} src={"data:image/jpeg;base64," + cell.binaryFile} />));
+        new Finder.CellFormatter((cell: FileEmbedded) => <img style={maxDimensions} src={"data:image/jpeg;base64," + cell.binaryFile} />));
     {/*Files*/}
 
     Finder.addSettings({

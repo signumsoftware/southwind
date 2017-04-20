@@ -104,7 +104,7 @@ namespace Southwind.Logic
             MigrationLogic.Start(sb, dqm);
 
             CultureInfoLogic.Start(sb, dqm);
-            EmbeddedFilePathLogic.Start(sb, dqm);
+            FilePathEmbeddedLogic.Start(sb, dqm);
             SmtpConfigurationLogic.Start(sb, dqm);
             EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, et => Configuration.Value.SmtpConfiguration);
 
