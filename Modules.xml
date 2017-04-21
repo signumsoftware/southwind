@@ -457,6 +457,7 @@
       <RemoveFiles Path="Southwind.Logic\DynamicLogicStarter.cs" />
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredDatabaseMismatches = new List&lt;Exception>();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredCodeErrors = new List&lt;Exception>();"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="DynamicLogicStarter.Start(sb, dqm);" To="DynamicLogic.BeforeSchema(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="DynamicLogic.StartDynamicModules(sb, dqm);" To="Starter.DynamicDisconnectedStrategis(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (type.Namespace == DynamicCode.CodeGenEntitiesNamespace)" To="return &quot;codegen&quot;;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" 
