@@ -57,7 +57,7 @@
                   From="import { /*Southwind.Entities*/"
                   To="} from './Southwind.Entities'"/>
       <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
-                  From="Navigator.addSettings(new EntitySettings(AddressEmbedded, a => new ViewPromise(resolve => require(['./Templates/Address'], resolve))));"
+                  From="Navigator.addSettings(new EntitySettings(AddressEmbedded, a => _import('./Templates/Address')));"
                   To="}));//Ship"/>
       <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
                   Line="import OrderFilter from './Templates/OrderFilter'"/>
@@ -174,7 +174,7 @@
     </Module>
 
     <Module Name="Files">
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmbeddedFilePathLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FilePathEmbeddedLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FileLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as FilesClient from &quot;../../Extensions/Signum.React.Extensions/Files/FilesClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="FilesClient.start({ routes });"/>
@@ -409,7 +409,7 @@
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
       <RemoveFiles Path="Southwind.React\App\PublicCatalog.tsx"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;MenuItem>Orders&lt;/MenuItem>&lt;/LinkContainer>"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="routes.push(&lt;Route path=&quot;publicCatalog&quot; component={PublicCatalog} />);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="routes.push(&lt;Route path=&quot;~/publicCatalog&quot; component={PublicCatalog} />);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import PublicCatalog from './PublicCatalog'"/>
       <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (Navigator.currentUser == null) {" To="}//PublicCatalog"/>
       <RemoveFiles Path="Southwind.React\App\Southwind\CatalogController.cs"/>
@@ -477,7 +477,7 @@
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WorkflowClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WorkflowServer.Start(config);"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow= new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^0.20.4&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^0.20.5&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">

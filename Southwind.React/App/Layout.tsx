@@ -71,6 +71,15 @@ export default class Layout extends React.Component<void, { refreshId: number }>
         );
     }
 
+    componentWillMount() {
+        AuthClient.onCurrentUserChanged.push(this.handleResetUI);
+        CultureClient.onCultureLoaded.push(this.handleResetUI);
+    }
+
+    componentWillUnmount() {
+        AuthClient.onCurrentUserChanged.remove(this.handleResetUI);
+        CultureClient.onCultureLoaded.remove(this.handleResetUI);
+    }
 
     handleResetUI = () => {
         this.setState({ refreshId: this.state.refreshId + 1 });
