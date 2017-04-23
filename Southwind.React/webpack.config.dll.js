@@ -8,7 +8,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "dll.[name].[chunkhash].js",
+        filename: "dll.[name].[hash].js",
         library: "[name]_[hash]"
     },
     plugins: [
