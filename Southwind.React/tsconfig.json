@@ -11,12 +11,16 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "*": [        
+      "*": [
         "../Framework/Signum.React/node_modules/@types/*",
         "../Framework/Signum.React/node_modules/*",
         "*"
       ]
-    }
+    },
+    "lib": [
+      "es2017",
+      "dom"
+    ]
   },
   "exclude": [ "node_modules" ]
 }
