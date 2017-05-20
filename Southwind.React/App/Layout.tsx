@@ -18,9 +18,9 @@ import * as CultureClient from "../../Extensions/Signum.React.Extensions/Transla
 
 
 
-export default class Layout extends React.Component<void, { refreshId: number }> {
+export default class Layout extends React.Component<{}, { refreshId: number }> {
 
-    constructor(props: void) {
+    constructor(props: {}) {
         super(props);
         
         this.state = { refreshId: 0 }; 
