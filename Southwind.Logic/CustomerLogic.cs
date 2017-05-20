@@ -65,14 +65,14 @@ namespace Southwind.Logic
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
-                }.RegisterReplace();
+                }.Register();
 
                 new Graph<PersonEntity>.Execute(CustomerOperation.Save)
                 {
                     AllowsNew = true,
                     Lite = false,
                     Execute = (e, _) => { }
-                }.RegisterReplace();
+                }.Register();
 
                 dqm.RegisterQuery(CustomerQuery.Customer, () => DynamicQueryCore.Manual((QueryRequest request, QueryDescription descriptions) =>
                 {
