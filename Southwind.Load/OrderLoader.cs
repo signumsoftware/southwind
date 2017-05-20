@@ -35,54 +35,51 @@ namespace Southwind.Load
 
                 var companies = Database.Query<CompanyEntity>().Select(c => new
                 {
-                    Lite = c.ToLite<CustomerEntity>(),
+                    Entity = (CustomerEntity)c,
                     c.ContactName
                 }).ToList();
 
                 var persons = Database.Query<PersonEntity>().Select(p => new
                 {
-                    Lite = p.ToLite<CustomerEntity>(),
+                    Entity = (CustomerEntity)p,
                     ContactName = p.FirstName + " " + p.LastName
                 }).ToList();
 
-                Dictionary<string, Lite<CustomerEntity>> customerMapping =
+                Dictionary<string, CustomerEntity> customerMapping =
                     (from n in northwind
                      join s in companies.Concat(persons) on n.ContactName equals s.ContactName
-                     select new KeyValuePair<string, Lite<CustomerEntity>>(n.CustomerID, s.Lite)).ToDictionary();
+                     select KVP.Create(n.CustomerID, s.Entity)).ToDictionary();
 
-                db.Orders.GroupsOf(10).ProgressForeachDisableIdentity(typeof(OrderEntity), l => l.ToInterval(a => a.OrderID).ToString(), null, (orders, writer) =>
+                var orders = db.Orders.ToList().Select(o => new OrderEntity
                 {
-                    using (OperationLogic.AllowSave<OrderEntity>())
-                        orders.Select(o => new OrderEntity
-                        {
+                    Employee = Lite.Create<EmployeeEntity>(o.EmployeeID.Value),
+                    OrderDate = o.OrderDate.Value,
+                    RequiredDate = o.RequiredDate.Value,
+                    ShippedDate = o.ShippedDate,
+                    State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
+                    ShipVia = Lite.Create<ShipperEntity>(o.ShipVia.Value),
+                    ShipName = o.ShipName,
+                    ShipAddress = new AddressEmbedded
+                    {
+                        Address = o.ShipAddress,
+                        City = o.ShipCity,
+                        Region = o.ShipRegion,
+                        PostalCode = o.ShipPostalCode,
+                        Country = o.ShipCountry,
+                    },
+                    Freight = o.Freight.Value,
+                    Details = o.Order_Details.Select(od => new OrderDetailEmbedded
+                    {
+                        Discount = (decimal)od.Discount,
+                        Product = Lite.Create<ProductEntity>(od.ProductID),
+                        Quantity = od.Quantity,
+                        UnitPrice = od.UnitPrice,
+                    }).ToMList(),
+                    Customer = customerMapping.GetOrThrow(o.CustomerID),
+                    IsLegacy = true,
+                }.SetId(o.OrderID));
 
-                            Employee = Lite.Create<EmployeeEntity>(o.EmployeeID.Value),
-                            OrderDate = o.OrderDate.Value,
-                            RequiredDate = o.RequiredDate.Value,
-                            ShippedDate = o.ShippedDate,
-                            State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
-                            ShipVia = Lite.Create<ShipperEntity>(o.ShipVia.Value),
-                            ShipName = o.ShipName,
-                            ShipAddress = new AddressEmbedded
-                            {
-                                Address = o.ShipAddress,
-                                City = o.ShipCity,
-                                Region = o.ShipRegion,
-                                PostalCode = o.ShipPostalCode,
-                                Country = o.ShipCountry,
-                            },
-                            Freight = o.Freight.Value,
-                            Details = o.Order_Details.Select(od => new OrderDetailEmbedded
-                            {
-                                Discount = (decimal)od.Discount,
-                                Product = Lite.Create<ProductEntity>(od.ProductID),
-                                Quantity = od.Quantity,
-                                UnitPrice = od.UnitPrice,
-                            }).ToMList(),
-                            Customer = customerMapping[o.CustomerID].RetrieveAndForget(),
-                            IsLegacy = true,
-                        }.SetId(o.OrderID)).SaveList();
-                });
+                orders.BulkInsert(disableIdentity: true, validateFirst: true, message: "auto");
 
             }
         }
