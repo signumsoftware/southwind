@@ -476,6 +476,8 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogicStarter.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as WorkflowClient from &quot;../../Extensions/Signum.React.Extensions/Workflow/WorkflowClient&quot;" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WorkflowClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="import WorkflowDropdown from &quot;../../Extensions/Signum.React.Extensions/Workflow/Workflow/WorkflowDropdown&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;WorkflowDropdown />"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WorkflowServer.Start(config);"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow= new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^0.20.6&quot;,"/>

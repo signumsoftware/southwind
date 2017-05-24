@@ -15,6 +15,7 @@ import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 import ContainerToggle from "../../Framework/Signum.React/Scripts/Frames/ContainerToggle"
 import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
 import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
+import WorkflowDropdown from "../../Extensions/Signum.React.Extensions/Workflow/Workflow/WorkflowDropdown"
 
 
 
@@ -48,12 +49,13 @@ export default class Layout extends React.Component<{}, { refreshId: number }> {
                                 </div>
                             </li>
                             <NavDropdown title="Menu" id="basic-nav-dropdown">
-                                <LinkContainer to="~/" exact><MenuItem>Home</MenuItem></LinkContainer>
+                                <LinkContainer to="~/" exact={true}><MenuItem>Home</MenuItem></LinkContainer>
                                 <LinkContainer to="~/publicCatalog"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <MenuItem divider />
                                 <LinkContainer to="~/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <LinkContainer to="~/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
                             </NavDropdown>
+                            <WorkflowDropdown />
                         </ul>}
                         <ul className="nav navbar-nav navbar-right">
                             <CultureDropdown />

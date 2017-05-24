@@ -77,7 +77,7 @@ export function start(options: { routes: JSX.Element[] }) {
                 if (!c)
                     return Promise.resolve(undefined);
 
-                return Operations.API.construct(coc.typeInfo.name, coc.operationInfo.key, c);
+                return coc.defaultConstruct(c);
             });
         }
     }));
