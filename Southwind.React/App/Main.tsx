@@ -66,6 +66,8 @@ import NotFound from './NotFound'
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 import { ImportRoute } from "../../Framework/Signum.React/Scripts/AsyncImport";
 
+Navigator.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle + " - Southwind" : "Southwind");
+Navigator.setTitle();
 
 numbro.culture("en-GB", require<any>("numbro/languages/en-GB"));
 numbro.culture("es-ES", require<any>("numbro/languages/es-ES"));
@@ -90,6 +92,8 @@ CultureClient.onCultureLoaded.push(ci => {
 }); //Culture
 
 Services.setAppNameAndRequestSessionStorage("Southwind");
+
+AuthClient.registerUserTicketAuthenticator();
 
 window.onerror = (message: string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
 
