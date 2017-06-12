@@ -74,7 +74,7 @@ namespace Southwind.Logic
                     Execute = (e, _) => { }
                 }.Register();
 
-                dqm.RegisterQuery(CustomerQuery.Customer, () => DynamicQueryCore.Manual((QueryRequest request, QueryDescription descriptions) =>
+                dqm.RegisterQuery(CustomerQuery.Customer, () => DynamicQueryCore.Manual(async (request, descriptions, token) =>
                 {
                     var persons = Database.Query<PersonEntity>().Select(p => new
                     {
@@ -84,7 +84,7 @@ namespace Southwind.Logic
                         p.Address,
                         p.Phone,
                         p.Fax
-                    }).ToDQueryable(descriptions).AllQueryOperations(request);
+                    }).ToDQueryable(descriptions).AllQueryOperationsAsync(request, token);
 
                     var companies = Database.Query<CompanyEntity>().Select(p => new
                     {
@@ -94,28 +94,28 @@ namespace Southwind.Logic
                         p.Address,
                         p.Phone,
                         p.Fax
-                    }).ToDQueryable(descriptions).AllQueryOperations(request);
+                    }).ToDQueryable(descriptions).AllQueryOperationsAsync(request, token);
 
-                    return persons.Concat(companies)
+                    return (await persons).Concat(await companies)
                         .OrderBy(request.Orders)
                         .TryPaginate(request.Pagination);
 
                 })
-                .ColumnProperyRoutes(a => a.Id, 
-                    PropertyRoute.Construct((PersonEntity comp) => comp.Id), 
+                .ColumnProperyRoutes(a => a.Id,
+                    PropertyRoute.Construct((PersonEntity comp) => comp.Id),
                     PropertyRoute.Construct((CompanyEntity p) => p.Id))
-                .ColumnProperyRoutes(a => a.Name, 
-                    PropertyRoute.Construct((PersonEntity comp) => comp.FirstName), 
-                    PropertyRoute.Construct((PersonEntity comp) => comp.LastName), 
+                .ColumnProperyRoutes(a => a.Name,
+                    PropertyRoute.Construct((PersonEntity comp) => comp.FirstName),
+                    PropertyRoute.Construct((PersonEntity comp) => comp.LastName),
                     PropertyRoute.Construct((CompanyEntity p) => p.CompanyName))
-                .ColumnProperyRoutes(a => a.Address, 
-                    PropertyRoute.Construct((PersonEntity comp) => comp.Address), 
+                .ColumnProperyRoutes(a => a.Address,
+                    PropertyRoute.Construct((PersonEntity comp) => comp.Address),
                     PropertyRoute.Construct((PersonEntity comp) => comp.Address))
-                .ColumnProperyRoutes(a => a.Phone, 
-                    PropertyRoute.Construct((PersonEntity comp) => comp.Phone), 
+                .ColumnProperyRoutes(a => a.Phone,
+                    PropertyRoute.Construct((PersonEntity comp) => comp.Phone),
                     PropertyRoute.Construct((CompanyEntity p) => p.Phone))
-                .ColumnProperyRoutes(a => a.Fax, 
-                    PropertyRoute.Construct((PersonEntity comp) => comp.Fax), 
+                .ColumnProperyRoutes(a => a.Fax,
+                    PropertyRoute.Construct((PersonEntity comp) => comp.Fax),
                     PropertyRoute.Construct((CompanyEntity p) => p.Fax))
                 , entityImplementations: Implementations.By(typeof(PersonEntity), typeof(CompanyEntity)));
 
