@@ -408,7 +408,7 @@
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts;"/>
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
       <RemoveFiles Path="Southwind.React\App\PublicCatalog.tsx"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;MenuItem>Orders&lt;/MenuItem>&lt;/LinkContainer>"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;MenuItem>Catalog&lt;/MenuItem>&lt;/LinkContainer>"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="routes.push(&lt;Route path=&quot;~/publicCatalog&quot; component={PublicCatalog} />);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import PublicCatalog from './PublicCatalog'"/>
       <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (Navigator.currentUser == null) {" To="}//PublicCatalog"/>

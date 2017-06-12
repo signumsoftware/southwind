@@ -99,6 +99,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>C:/Program%20Files%20(x86)/Microsoft%20Visual%20Studio%2011.0/Common7/IDE/ReferenceAssemblies/v4.0/Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>

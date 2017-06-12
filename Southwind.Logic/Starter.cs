@@ -131,7 +131,7 @@ namespace Southwind.Logic
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
-            DiffLogLogic.Start(sb, dqm);
+            DiffLogLogic.Start(sb, dqm, registerAll: true);
             ExcelLogic.Start(sb, dqm, excelReport: true);
             ExceptionLogic.Start(sb, dqm);
 

@@ -50,7 +50,7 @@ export default class Layout extends React.Component<{}, { refreshId: number }> {
                             </li>
                             <NavDropdown title="Menu" id="basic-nav-dropdown">
                                 <LinkContainer to="~/" exact={true}><MenuItem>Home</MenuItem></LinkContainer>
-                                <LinkContainer to="~/publicCatalog"><MenuItem>Orders</MenuItem></LinkContainer>
+                                <LinkContainer to="~/publicCatalog"><MenuItem>Catalog</MenuItem></LinkContainer>
                                 <MenuItem divider />
                                 <LinkContainer to="~/find/order"><MenuItem>Orders</MenuItem></LinkContainer>
                                 <LinkContainer to="~/find/exception"><MenuItem>Exceptions</MenuItem></LinkContainer>
