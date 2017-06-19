@@ -75,7 +75,7 @@ namespace Southwind.Logic
 
                 ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());
 
-                SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, () =>
+                SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, ctx =>
                 {
                     var package = new PackageEntity().CreateLines(Database.Query<OrderEntity>().Where(a => a.OrderDate < DateTime.Now.AddDays(-7) && a.State != OrderState.Canceled));
 
@@ -86,7 +86,7 @@ namespace Southwind.Logic
                     return process.ToLite();
                 });
  
-                SimpleTaskLogic.Register(OrderTask.CancelOldOrders, () =>
+                SimpleTaskLogic.Register(OrderTask.CancelOldOrders, ctx =>
                 {
                     Database.Query<OrderEntity>()
                         .Where(a => a.OrderDate < DateTime.Now.AddDays(-7))
