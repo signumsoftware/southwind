@@ -51,6 +51,7 @@
     "react-router-dom": "^4.1.1",
     "react-rte": "^0.11.0",
     "react-widgets": "4.0.0-rc.10",
+    "typescript": "^2.4.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

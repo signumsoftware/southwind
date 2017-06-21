@@ -3,13 +3,13 @@ import * as numbro from 'numbro'
 import * as moment from 'moment'
 import { Dic } from '../../../../Framework/Signum.React/Scripts/Globals'
 import * as Navigator from '../../../../Framework/Signum.React/Scripts/Navigator'
-import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState } from '../Southwind.Entities'
+import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState, AddressEmbedded } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlStatic, EntityTable, ChangeEvent } from '../../../../Framework/Signum.React/Scripts/Lines'
 
 export default class Order extends React.Component<{ ctx: TypeContext<OrderEntity> }, void> {
 
     handleCustomerChange = (c: ChangeEvent) => {
-        this.props.ctx.value.shipAddress = c.newValue == undefined ? undefined : { ...(c.newValue as CustomerEntity).address };
+        this.props.ctx.value.shipAddress = c.newValue == undefined ? undefined : { ...(c.newValue as CustomerEntity).address } as AddressEmbedded;
         this.forceUpdate();
     }
 

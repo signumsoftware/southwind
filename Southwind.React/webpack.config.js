@@ -28,13 +28,6 @@ module.exports = {
                test: /\.tsx?$/,
                use: [
                    {
-                       loader: 'string-replace-loader',
-                       options: {
-                           search: /_import\(/g,
-                           replace: 'import(',
-                       }
-                   },
-                   {
                        loader: 'ts-loader',
                        options: {
                            transpileOnly: true,

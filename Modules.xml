@@ -57,7 +57,7 @@
                   From="import { /*Southwind.Entities*/"
                   To="} from './Southwind.Entities'"/>
       <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
-                  From="Navigator.addSettings(new EntitySettings(AddressEmbedded, a => _import('./Templates/Address')));"
+                  From="Navigator.addSettings(new EntitySettings(AddressEmbedded, a => import('./Templates/Address')));"
                   To="}));//Ship"/>
       <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
                   Line="import OrderFilter from './Templates/OrderFilter'"/>
