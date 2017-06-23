@@ -29,32 +29,9 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Include<EmployeeEntity>();
-
-                dqm.RegisterQuery(typeof(RegionEntity), () =>
-                    from r in Database.Query<RegionEntity>()
-                    select new
-                    {
-                        Entity = r,
-                        r.Id,
-                        r.Description,
-                    });
-
-                dqm.RegisterExpression((RegionEntity r) => r.Territories(), () => typeof(TerritoryEntity).NiceName());
-
-                dqm.RegisterQuery(typeof(TerritoryEntity), () =>
-                    from t in Database.Query<TerritoryEntity>()
-                    select new
-                    {
-                        Entity = t,
-                        t.Id,
-                        t.Description,
-                        t.Region
-                    });
-
-                dqm.RegisterQuery(typeof(EmployeeEntity), () =>
-                    from e in Database.Query<EmployeeEntity>()
-                    select new
+                sb.Include<EmployeeEntity>()
+                    .WithSave(EmployeeOperation.Save)
+                    .WithQuery(dqm, () => e => new
                     {
                         Entity = e,
                         e.Id,
@@ -78,26 +55,25 @@ namespace Southwind.Logic
                         Territory = t,
                     });
 
-                new Graph<EmployeeEntity>.Execute(EmployeeOperation.Save)
-                {
-                    Lite = false,
-                    AllowsNew = true,
-                    Execute = (e, _) => { }
-                }.Register();
+                sb.Include<RegionEntity>()
+                    .WithSave(RegionOperation.Save)
+                    .WithQuery(dqm, () => r => new
+                    {
+                        Entity = r,
+                        r.Id,
+                        r.Description,
+                    });
 
-                new Graph<TerritoryEntity>.Execute(TerritoryOperation.Save)
-                {
-                    Lite = false,
-                    AllowsNew = true,
-                    Execute = (e, _) => { }
-                }.Register();
-
-                new Graph<RegionEntity>.Execute(RegionOperation.Save)
-                {
-                    Lite = false,
-                    AllowsNew = true,
-                    Execute = (e, _) => { }
-                }.Register();
+                sb.Include<TerritoryEntity>()
+                    .WithSave(TerritoryOperation.Save)
+                    .WithExpressionFrom(dqm, (RegionEntity r) => r.Territories())
+                    .WithQuery(dqm, () => t => new
+                    {
+                        Entity = t,
+                        t.Id,
+                        t.Description,
+                        t.Region
+                    });
             }
         }
 

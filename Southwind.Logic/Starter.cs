@@ -291,21 +291,9 @@ namespace Southwind.Logic
 
         private static void StartSouthwindConfiguration(SchemaBuilder sb, DynamicQueryManager dqm)
         {
-            sb.Include<ApplicationConfigurationEntity>();
-            Configuration = sb.GlobalLazy<ApplicationConfigurationEntity>(
-                () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.Environment == Settings.Default.Environment),
-                new InvalidateWith(typeof(ApplicationConfigurationEntity)));
-
-            new Graph<ApplicationConfigurationEntity>.Execute(ApplicationConfigurationOperation.Save)
-            {
-                AllowsNew = true,
-                Lite = false,
-                Execute = (e, _) => { },
-            }.Register();
-
-            dqm.RegisterQuery(typeof(ApplicationConfigurationEntity), () =>
-                from s in Database.Query<ApplicationConfigurationEntity>()
-                select new
+            sb.Include<ApplicationConfigurationEntity>()
+                .WithSave(ApplicationConfigurationOperation.Save)
+                .WithQuery(dqm, () => s => new
                 {
                     Entity = s,
                     s.Id,
@@ -315,6 +303,10 @@ namespace Southwind.Logic
                     s.Email.DefaultCulture,
                     s.Email.UrlLeft
                 });
+
+            Configuration = sb.GlobalLazy<ApplicationConfigurationEntity>(
+                () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.Environment == Settings.Default.Environment),
+                new InvalidateWith(typeof(ApplicationConfigurationEntity)));
         }
 
         private static void SetupCache(SchemaBuilder sb)

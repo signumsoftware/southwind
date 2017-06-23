@@ -21,18 +21,9 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Include<ProductEntity>();
-
-                ActiveProducts = sb.GlobalLazy(() =>
-                    Database.Query<ProductEntity>()
-                    .Where(a => !a.Discontinued)
-                    .Select(p => new { Category = p.Category.Entity, Product = p })
-                    .GroupToDictionary(a => a.Category, a => a.Product),
-                    new InvalidateWith(typeof(ProductEntity)));
-
-                dqm.RegisterQuery(typeof(ProductEntity), () =>
-                    from p in Database.Query<ProductEntity>()
-                    select new
+                sb.Include<ProductEntity>()
+                    .WithSave(ProductOperation.Save)
+                    .WithQuery(dqm, () => p => new
                     {
                         Entity = p,
                         p.Id,
@@ -45,6 +36,13 @@ namespace Southwind.Logic
                         p.Discontinued
                     });
 
+                ActiveProducts = sb.GlobalLazy(() =>
+                    Database.Query<ProductEntity>()
+                    .Where(a => !a.Discontinued)
+                    .Select(p => new { Category = p.Category.Entity, Product = p })
+                    .GroupToDictionary(a => a.Category, a => a.Product),
+                    new InvalidateWith(typeof(ProductEntity)));
+                
                 dqm.RegisterQuery(ProductQuery.CurrentProducts, () =>
                     from p in Database.Query<ProductEntity>()
                     where !p.Discontinued
@@ -60,9 +58,9 @@ namespace Southwind.Logic
                         p.UnitsInStock,
                     });
 
-                dqm.RegisterQuery(typeof(SupplierEntity), () =>
-                    from s in Database.Query<SupplierEntity>()
-                    select new
+                sb.Include<SupplierEntity>()
+                    .WithSave(SupplierOperation.Save)
+                    .WithQuery(dqm, () => s => new
                     {
                         Entity = s,
                         s.Id,
@@ -74,9 +72,9 @@ namespace Southwind.Logic
                         s.Address
                     });
 
-                dqm.RegisterQuery(typeof(CategoryEntity), () =>
-                    from s in Database.Query<CategoryEntity>()
-                    select new
+                sb.Include<CategoryEntity>()
+                    .WithSave(CategoryOperation.Save)
+                    .WithQuery(dqm, () => s => new
                     {
                         Entity = s,
                         s.Id,
@@ -84,29 +82,6 @@ namespace Southwind.Logic
                         s.Description,
                         s.Picture
                     });
-
-
-
-                new Graph<ProductEntity>.Execute(ProductOperation.Save)
-                {
-                    AllowsNew = true,
-                    Lite = false,
-                    Execute = (e, _) => { }
-                }.Register();
-
-                new Graph<SupplierEntity>.Execute(SupplierOperation.Save)
-                {
-                    AllowsNew = true,
-                    Lite = false,
-                    Execute = (e, _) => { }
-                }.Register();
-
-                new Graph<CategoryEntity>.Execute(CategoryOperation.Save)
-                {
-                    AllowsNew = true,
-                    Lite = false,
-                    Execute = (e, _) => { }
-                }.Register();
             }
         }
     }

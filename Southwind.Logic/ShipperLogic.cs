@@ -17,24 +17,15 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Include<ShipperEntity>();
-
-                dqm.RegisterQuery(typeof(ShipperEntity), () =>
-                    from a in Database.Query<ShipperEntity>()
-                    select new
+                sb.Include<ShipperEntity>()
+                    .WithSave(ShipperOperation.Save)
+                    .WithQuery(dqm, () => a => new
                     {
                         Entity = a,
                         a.Id,
                         a.CompanyName,
                         a.Phone
                     });
-
-                new Graph<ShipperEntity>.Execute(ShipperOperation.Save)
-                {
-                    AllowsNew = true,
-                    Lite = false,
-                    Execute = (e, _) => { }
-                }.Register();
             }
         }
     }

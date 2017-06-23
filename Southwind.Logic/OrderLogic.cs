@@ -24,11 +24,8 @@ namespace Southwind.Logic
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
-                sb.Include<OrderEntity>();
-
-                dqm.RegisterQuery(typeof(OrderEntity), () =>
-                    from o in Database.Query<OrderEntity>()
-                    select new
+                sb.Include<OrderEntity>()
+                    .WithQuery(dqm, () => o => new
                     {
                         Entity = o,
                         o.Id,
@@ -40,23 +37,7 @@ namespace Southwind.Logic
                         o.ShipAddress,
                         o.ShipVia,
                     });
-
-
-                dqm.RegisterQuery(OrderQuery.OrderSimple, () =>
-                    from o in Database.Query<OrderEntity>()
-                    select new
-                    {
-                        Entity = o,
-                        o.Id,
-                        o.State,
-                        o.Customer,
-                        o.Employee,
-                        o.OrderDate,
-                        o.RequiredDate,
-                        o.ShipAddress,
-                        o.ShipVia,
-                    });
-
+                
                 dqm.RegisterQuery(OrderQuery.OrderLines, () =>
                     from o in Database.Query<OrderEntity>()
                     from od in o.Details

@@ -22,12 +22,9 @@ namespace Southwind.Logic
                 sb.Settings.AssertImplementedBy((OrderEntity o) => o.Customer, typeof(CompanyEntity));
                 sb.Settings.AssertImplementedBy((OrderEntity o) => o.Customer, typeof(PersonEntity));
 
-                sb.Include<PersonEntity>();
-                sb.Include<CompanyEntity>();
-
-                dqm.RegisterQuery(typeof(PersonEntity), () =>
-                    from r in Database.Query<PersonEntity>()
-                    select new
+                sb.Include<PersonEntity>()
+                    .WithSave(CustomerOperation.Save)
+                    .WithQuery(dqm, () => r => new
                     {
                         Entity = r,
                         r.Id,
@@ -38,10 +35,10 @@ namespace Southwind.Logic
                         r.Fax,
                         r.Address,
                     });
-
-                dqm.RegisterQuery(typeof(CompanyEntity), () =>
-                    from r in Database.Query<CompanyEntity>()
-                    select new
+                
+                sb.Include<CompanyEntity>()
+                    .WithSave(CustomerOperation.Save)
+                    .WithQuery(dqm, () => r => new
                     {
                         Entity = r,
                         r.Id,
@@ -52,27 +49,6 @@ namespace Southwind.Logic
                         r.Fax,
                         r.Address,
                     });
-
-                new Graph<CustomerEntity>.Execute(CustomerOperation.Save)
-                {
-                    AllowsNew = true,
-                    Lite = false,
-                    Execute = (e, _) => { }
-                }.Register();
-
-                new Graph<CompanyEntity>.Execute(CustomerOperation.Save)
-                {
-                    AllowsNew = true,
-                    Lite = false,
-                    Execute = (e, _) => { }
-                }.Register();
-
-                new Graph<PersonEntity>.Execute(CustomerOperation.Save)
-                {
-                    AllowsNew = true,
-                    Lite = false,
-                    Execute = (e, _) => { }
-                }.Register();
 
                 dqm.RegisterQuery(CustomerQuery.Customer, () => DynamicQueryCore.Manual(async (request, descriptions, token) =>
                 {

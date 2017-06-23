@@ -243,7 +243,6 @@ namespace Southwind.Entities
     public enum OrderQuery
     {
         OrderLines,
-        OrderSimple
     }
 
     [AutoInit]//OrderTask

@@ -116,7 +116,7 @@ namespace Southwind.Logic
             //Signum.Entities.Migrations
             DisconnectedLogic.Register<SqlMigrationEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<CSharpMigrationEntity>(Download.All, Upload.None);
-            DisconnectedLogic.Register<ExecutedLoadProcessEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<LoadMethodLogEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Translation
             DisconnectedLogic.Register<CultureInfoEntity>(Download.All, Upload.None);
