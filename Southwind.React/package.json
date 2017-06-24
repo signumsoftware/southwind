@@ -63,10 +63,9 @@
     "less-loader": "^4.0.4",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.1",
-    "string-replace-loader": "^1.2.0",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.1.0",
-    "typescript": "^2.3.4",
+    "typescript": "^2.4.0",
     "url-loader": "^0.5.9",
     "webpack": "^2.6.1",
     "webpack-notifier": "^1.5.0"

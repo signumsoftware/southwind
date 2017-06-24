@@ -167,7 +167,6 @@ export module OrderProcess {
 
 export module OrderQuery {
     export const OrderLines = new QueryKey("OrderQuery", "OrderLines");
-    export const OrderSimple = new QueryKey("OrderQuery", "OrderSimple");
 }
 
 export const OrderState = new EnumType<OrderState>("OrderState");
