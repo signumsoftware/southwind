@@ -1,7 +1,7 @@
-﻿require("../node_modules/bootstrap/dist/css/bootstrap.css");
-require("../node_modules/font-awesome/css/font-awesome.css");
-require("./site.css");
-require("../../Framework/Signum.React/Scripts/Frames/Frames.css");
+﻿import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import "../node_modules/font-awesome/css/font-awesome.css";
+import "./site.css";
+import "../../Framework/Signum.React/Scripts/Frames/Frames.css";
 
 
 import * as React from "react"
@@ -129,8 +129,8 @@ function reload() {
                 UserQueryClient.start({ routes });
                 CacheClient.start({ routes });
                 ProcessClient.start({ routes, packages: true, packageOperations: true });
-                MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, quickLinksFrom: undefined });
-                WordClient.start({ routes });
+                MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true, quickLinksFrom: undefined });
+                WordClient.start({ routes, contextual: true, queryButton: true });
                 ExcelClient.start({ routes, plainExcel: true, excelReport: true });
                 SchedulerClient.start({ routes });
                 TranslationClient.start({ routes });

@@ -35,6 +35,7 @@ using Signum.Entities.Migrations;
 using Signum.Entities.Excel;
 using Signum.Entities.Dynamic;
 using Signum.Entities.Workflow;
+using Signum.Entities.Templating;
 
 namespace Southwind.Logic
 {
@@ -82,6 +83,9 @@ namespace Southwind.Logic
 
             //Signum.Entities.Excel
             DisconnectedLogic.Register<ExcelReportEntity>(Download.None, Upload.None);
+
+            //Signum.Entities.Templating
+            DisconnectedLogic.Register<ModelConverterSymbol>(Download.None, Upload.None);
 
             //Signum.Entities.Help
             DisconnectedLogic.Register<EntityHelpEntity>(Download.None, Upload.None);
