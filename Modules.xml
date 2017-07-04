@@ -147,7 +147,7 @@
     <Module Name="Word">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordTemplateLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as WordClient from &quot;../../Extensions/Signum.React.Extensions/Word/WordClient&quot;"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WordClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WordClient.start({ routes, contextual: true, queryButton: true });"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WordServer.Start(config);"/>
       <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportWordReportTemplateForOrder,"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
@@ -265,7 +265,7 @@
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="MailingServer.Start(config);" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as MailingClient from &quot;../../Extensions/Signum.React.Extensions/Mailing/MailingClient&quot;"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, quickLinksFrom: undefined });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true, quickLinksFrom: undefined });"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Email*/" To="public EmailConfigurationEmbedded Email { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullValidator]/*Smtp*/" To="public SmtpConfigurationEntity SmtpConfiguration { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email) }>" To="&lt;/Tab>"/>
