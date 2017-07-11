@@ -128,12 +128,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="package.json" />
-    <None Include="Service References\BingTranslationService\configuration91.svcinfo" />
-    <None Include="Service References\BingTranslationService\configuration.svcinfo" />
-    <None Include="Service References\BingTranslationService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="ServerSouthwind.svc" />
     <Content Include="ServerSouthwindTransfer.svc" />
     <Content Include="webpack.config.dll.js" />
@@ -158,11 +152,6 @@
     <Compile Include="ServerSouthwindTransfer.svc.cs">
       <DependentUpon>ServerSouthwindTransfer.svc</DependentUpon>
     </Compile>
-    <Compile Include="Service References\BingTranslationService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config">
@@ -176,29 +165,6 @@
     </None>
     <Content Include="tsconfig.json" />
     <Content Include="App\Southwind\Southwind.Entities.t4s" />
-    <None Include="Service References\BingTranslationService\soap.wsdl" />
-    <None Include="Service References\BingTranslationService\soap.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\BingTranslationService\soap1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\BingTranslationService\soap2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\BingTranslationService\soap3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\BingTranslationService\SoapService.wsdl" />
-    <Content Include="Service References\BingTranslationService\Southwind.React.BingTranslationService.GetTranslationsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\BingTranslationService\Southwind.React.BingTranslationService.TranslateArray2Response.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\BingTranslationService\Southwind.React.BingTranslationService.TranslateArrayResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -275,9 +241,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\BingTranslationService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
