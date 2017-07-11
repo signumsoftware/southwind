@@ -56,6 +56,7 @@ using Signum.Engine.Excel;
 using Signum.Engine.Dynamic;
 using Signum.Entities.Dynamic;
 using Signum.Engine.Workflow;
+using Signum.Engine.Toolbar;
 
 namespace Southwind.Logic
 {
@@ -100,6 +101,7 @@ namespace Southwind.Logic
             TypeLogic.Start(sb, dqm);
 
             OperationLogic.Start(sb, dqm);
+            ExceptionLogic.Start(sb, dqm);
 
             MigrationLogic.Start(sb, dqm);
 
@@ -133,7 +135,7 @@ namespace Southwind.Logic
             ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
             DiffLogLogic.Start(sb, dqm, registerAll: true);
             ExcelLogic.Start(sb, dqm, excelReport: true);
-            ExceptionLogic.Start(sb, dqm);
+            ToolbarLogic.Start(sb, dqm);
 
             SMSLogic.Start(sb, dqm, null, () => Configuration.Value.Sms);
             SMSLogic.RegisterPhoneNumberProvider<PersonEntity>(p => p.Phone, p => null);

@@ -16,15 +16,17 @@ import ContainerToggle from "../../Framework/Signum.React/Scripts/Frames/Contain
 import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
 import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
 import WorkflowDropdown from "../../Extensions/Signum.React.Extensions/Workflow/Workflow/WorkflowDropdown"
+import SidebarContainer from "../../Extensions/Signum.React.Extensions/Toolbar/SidebarContainer"
+import ToolbarRenderer from "../../Extensions/Signum.React.Extensions/Toolbar/Templates/ToolbarRenderer"
 
 
 
-export default class Layout extends React.Component<{}, { refreshId: number }> {
+export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean }> {
 
     constructor(props: {}) {
         super(props);
-        
-        this.state = { refreshId: 0 }; 
+
+        this.state = { refreshId: 0, sideMenuVisible: true }; 
     }
 
     static switch: React.ReactElement<any>;
@@ -33,7 +35,7 @@ export default class Layout extends React.Component<{}, { refreshId: number }> {
     render() {
         return (
             <div id="main" key={this.state.refreshId}>
-                <Navbar inverse>
+                <Navbar onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })} defaultExpanded={true}>
                     <Navbar.Header>
                         <Navbar.Brand>
                             <Link to="~/">Southwind</Link>
@@ -57,6 +59,7 @@ export default class Layout extends React.Component<{}, { refreshId: number }> {
                             </NavDropdown>
                             <WorkflowDropdown />
                         </ul>}
+                        {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
                         <ul className="nav navbar-nav navbar-right">
                             <CultureDropdown />
                             <LoginUserControl />
@@ -64,9 +67,9 @@ export default class Layout extends React.Component<{}, { refreshId: number }> {
                     </Navbar.Collapse>
                 </Navbar>
                 <Notify />
-                <ContainerToggle>
+                <SidebarContainer sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible} sidebarContent={<ToolbarRenderer location="Side"/>}>
                     {Layout.switch}
-                </ContainerToggle>
+                </SidebarContainer>
                 <GlobalModalContainer />
                 <div id="push"></div>
             </div>

@@ -41,6 +41,11 @@ import * as TranslationClient from "../../Extensions/Signum.React.Extensions/Tra
 import * as DiffLogClient from "../../Extensions/Signum.React.Extensions/DiffLog/DiffLogClient"
 import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
 import * as WorkflowClient from "../../Extensions/Signum.React.Extensions/Workflow/WorkflowClient"
+import * as ToolbarClient from "../../Extensions/Signum.React.Extensions/Toolbar/ToolbarClient"
+import QueryToolbarConfig from "../../Extensions/Signum.React.Extensions/Toolbar/QueryToolbarConfig"
+import UserQueryToolbarConfig from "../../Extensions/Signum.React.Extensions/UserQueries/UserQueryToolbarConfig"
+import UserChartToolbarConfig from "../../Extensions/Signum.React.Extensions/Chart/UserChartToolbarConfig"
+import DashboardToolbarConfig from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardToolbarConfig"
 import * as DynamicClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicClient"
 import * as DynamicExpressionClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicExpressionClient"
 import * as DynamicTypeClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicTypeClient"
@@ -139,8 +144,13 @@ function reload() {
                 ChartClient.start({ routes });
                 DashboardClient.start({ routes });
                 MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
-
                 WorkflowClient.start({ routes });
+                ToolbarClient.start(
+                    new QueryToolbarConfig(),
+                    new UserQueryToolbarConfig(),
+                    new UserChartToolbarConfig(),
+                    new DashboardToolbarConfig(),
+                );
 
                 DynamicClient.start({ routes });
                 DynamicExpressionClient.start({ routes });

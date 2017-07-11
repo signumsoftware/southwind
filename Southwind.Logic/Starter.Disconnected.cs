@@ -36,6 +36,7 @@ using Signum.Entities.Excel;
 using Signum.Entities.Dynamic;
 using Signum.Entities.Workflow;
 using Signum.Entities.Templating;
+using Signum.Entities.Toolbar;
 
 namespace Southwind.Logic
 {
@@ -105,6 +106,11 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<DisconnectedMachineEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<DisconnectedExportEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<DisconnectedImportEntity>(Download.None, Upload.None);
+
+
+            //Signum.Entities.Toolbar
+            DisconnectedLogic.Register<ToolbarEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ToolbarMenuEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Files
             DisconnectedLogic.Register<FileTypeSymbol>(Download.Replace, Upload.None);
