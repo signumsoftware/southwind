@@ -100,7 +100,7 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DisconnectedClient.Start();"/>
       <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc"/>
       <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc.cs"/>
-      <RemoveLine Path="Southwind.React\Web.config" Line="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot; transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot; />"/>
+      <RemoveLine Path="Southwind.React\Web.config" From="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot;" To="transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot; />"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;service name=&quot;Southwind.React.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" From="&lt;MenuItem Header=&quot;Disconnected&quot; x:Name=&quot;miDisconnected&quot;>" To="&lt;/MenuItem>"/>
@@ -218,8 +218,34 @@
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="import DashboardOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Dashboard/DashboardOmniboxProvider&quot;"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="new DashboardOmniboxProvider(),"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Global.asax.cs" Line="new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),"/>
+      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; Owner=&quot;User;2&quot; ChartScript=&quot;StackedLines&quot; GroupResults=&quot;true&quot;>"  To="&lt;/Dashboard>"/>
+      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Link&quot; IconName=&quot;fa fa-dashboard&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DashboardClient.Start();"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;swdb:DashboardView />"/>
+    </Module>
+
+    <Module Name="Toolbar">
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ToolbarLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ToolbarServer.Start(config);"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" 
+                  From="import * as ToolbarClient from &quot;../../Extensions/Signum.React.Extensions/Toolbar/ToolbarClient&quot;" 
+                  To="import QueryToolbarConfig from &quot;../../Extensions/Signum.React.Extensions/Toolbar/QueryToolbarConfig&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx"
+                 From="ToolbarClient.start({ routes },"
+                 To=");"/>
+      <RemoveLine DependsOn="UserQuery" Path="Southwind.React\App\Main.tsx" Line="import UserQueryToolbarConfig from &quot;../../Extensions/Signum.React.Extensions/UserQueries/UserQueryToolbarConfig&quot;"/>
+      <RemoveLine DependsOn="Chart" Path="Southwind.React\App\Main.tsx" Line="import UserChartToolbarConfig from &quot;../../Extensions/Signum.React.Extensions/Chart/UserChartToolbarConfig&quot;"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.React\App\Main.tsx" Line="import DashboardToolbarConfig from &quot;../../Extensions/Signum.React.Extensions/Dashboard/DashboardToolbarConfig&quot;"/>
+      <RemoveLine DependsOn="UserQuery" Path="Southwind.React\App\Main.tsx" Line="new UserQueryToolbarConfig(),"/>
+      <RemoveLine DependsOn="Chart" Path="Southwind.React\App\Main.tsx" Line="new UserChartToolbarConfig(),"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.React\App\Main.tsx" Line="new DashboardToolbarConfig(),"/>
+      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="; sideMenuVisible: boolean"/>
+      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span=", sideMenuVisible: true"/>
+      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="&lt;SidebarContainer sidebarVisible={AuthClient.currentUser() &amp;&amp; this.state.sideMenuVisible} sidebarContent={&lt;ToolbarRenderer" location="Side" />}>"/>
+      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="&lt;/SidebarContainer>"/>
+      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
     </Module>
 
     <Module Name="Process">
@@ -332,16 +358,12 @@
     </Module>
 
     <Module Name="Translation">
-      <RemoveLine Path="Southwind.React\Web.config" From="&lt;client>" To="&lt;/client>" />
-      <RemoveLine Path="Southwind.React\Web.config" Line="&lt;binding name=&quot;BasicHttpBinding_LanguageService&quot; />" />
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="TranslationLogic.Start(sb, dqm, countLocalizationHits: false);" To="TranslatedInstanceLogic.Start(sb, dqm, () => CultureInfo.GetCultureInfo(&quot;en&quot;));"/>
       <RemoveFiles Path="Southwind.Entities\Translations" DependsOn="ExampleEntities" />
       <RemoveFiles Path="Southwind.React\Service References" />
       <RemoveFiles Path="Southwind.React\Translations" />
-      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="TranslationServer.Start(config, new AlreadyTranslatedTranslator(new BingTranslator()));" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="TranslationServer.Start(config, new AlreadyTranslatedTranslator(new AzureTranslator(&quot;Your API Key for Azure Translate&quot;)));" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" From="SignumAuthenticationAndProfilerAttribute.GetCurrentCultures = (ac) => CultureInfoUtils.ChangeBothCultures(GetCulture(ac.Request));" To="return DefaultCulture; //Translation" />
-      <RemoveLine Path="Southwind.React\Global.asax.cs" From="public class BingTranslator : ITranslator" To="} // BingTranslator" />
-      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="using Southwind.React.BingTranslationService;" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as TranslationClient from &quot;../../Extensions/Signum.React.Extensions/Translation/TranslationClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="TranslationClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as CultureClient from &quot;../../Extensions/Signum.React.Extensions/Translation/CultureClient&quot;"/>
@@ -426,7 +448,7 @@
 
     <Module Name="Omnibox">
       <RemoveLine Path="Southwind.React\Global.asax.cs" From="OmniboxServer.Start(config," To=");//Omnibox"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;OmniboxAutocomplete  inputAttrs={{ className: &quot;form-control&quot; }} />"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;OmniboxAutocomplete inputAttrs={{ className: &quot;form-control&quot; }} />"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as OmniboxClient from &quot;../../Extensions/Signum.React.Extensions/Omnibox/OmniboxClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import DynamicQueryOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import EntityOmniboxProvider from &quot;../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider&quot;"/>

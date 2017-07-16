@@ -135,6 +135,7 @@
     <Content Include="AuthRules.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="UserAssets.xml" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\Framework\Signum.Analyzer\Binaries\Signum.Analyzer.dll" />

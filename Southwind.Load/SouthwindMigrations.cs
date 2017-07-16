@@ -22,6 +22,8 @@ using Signum.Services;
 using Signum.Utilities;
 using Southwind.Entities;
 using Signum.Entities.Workflow;
+using Signum.Engine.UserAssets;
+using System.IO;
 
 namespace Southwind.Load
 {
@@ -53,6 +55,7 @@ namespace Southwind.Load
                 ChartScriptLogic.ImportChartScriptsAuto,
                 ImportSpanishInstanceTranslations,
                 ImportWordReportTemplateForOrder,
+                ImportUserAssets,
             }.Run(autoRun);
         } //CSharpMigrations
 
@@ -146,6 +149,14 @@ namespace Southwind.Load
                 Template = new FileEntity("../../WordTemplates/Order.docx").ToLiteFat(),
                 FileName = "Order.docx"
             }.Save();
+        }
+
+        public static void ImportUserAssets()
+        {
+            var bytes = File.ReadAllBytes("../../UserAssets.xml");
+            var preview = UserAssetsImporter.Preview(bytes);
+            UserAssetsImporter.Import(bytes, preview);
+
         }
     }
 }

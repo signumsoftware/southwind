@@ -26,16 +26,16 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
     constructor(props: {}) {
         super(props);
 
-        this.state = { refreshId: 0, sideMenuVisible: true }; 
+        this.state = { refreshId: 0, sideMenuVisible: true };
     }
 
     static switch: React.ReactElement<any>;
-    
+
 
     render() {
         return (
             <div id="main" key={this.state.refreshId}>
-                <Navbar onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })} defaultExpanded={true}>
+                <Navbar fluid onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })} defaultExpanded={true}>
                     <Navbar.Header>
                         <Navbar.Brand>
                             <Link to="~/">Southwind</Link>
@@ -47,7 +47,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                         {AuthClient.currentUser() && <ul className="nav navbar-nav">
                             <li>
                                 <div style={{ width: "200px", marginTop: "8px" }}>
-                                    <OmniboxAutocomplete  inputAttrs={{ className: "form-control" }} />
+                                    <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
                                 </div>
                             </li>
                             <NavDropdown title="Menu" id="basic-nav-dropdown">
@@ -67,8 +67,10 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                     </Navbar.Collapse>
                 </Navbar>
                 <Notify />
-                <SidebarContainer sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible} sidebarContent={<ToolbarRenderer location="Side"/>}>
+                <SidebarContainer sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible} sidebarContent={<ToolbarRenderer location="Side" />}>
+                    {/*<ContainerToggle>*/}
                     {Layout.switch}
+                    {/*</ContainerToggle>*/}
                 </SidebarContainer>
                 <GlobalModalContainer />
                 <div id="push"></div>

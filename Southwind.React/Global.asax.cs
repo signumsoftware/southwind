@@ -61,6 +61,7 @@ using System.Net.Http;
 using Signum.React.Dynamic;
 using Signum.Entities.Dynamic;
 using Signum.React.Workflow;
+using Signum.React.Toolbar;
 
 namespace Southwind.React
 {
@@ -113,6 +114,7 @@ namespace Southwind.React
             ExcelServer.Start(config);
             ChartServer.Start(config);
             MapServer.Start(config);
+            ToolbarServer.Start(config);
             TranslationServer.Start(config, new AlreadyTranslatedTranslator(new AzureTranslator("Your API Key for Azure Translate")));
             SchedulerServer.Start(config);
             ProcessServer.Start(config);

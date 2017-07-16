@@ -145,7 +145,7 @@ function reload() {
                 DashboardClient.start({ routes });
                 MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
                 WorkflowClient.start({ routes });
-                ToolbarClient.start(
+                ToolbarClient.start({ routes },
                     new QueryToolbarConfig(),
                     new UserQueryToolbarConfig(),
                     new UserChartToolbarConfig(),
