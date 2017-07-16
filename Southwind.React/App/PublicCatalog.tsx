@@ -10,7 +10,7 @@ export interface CategoryWithProducts {
     products: ProductEntity[];
 }
 
-export default class PublicCatalog extends React.Component<undefined, { categories?: CategoryWithProducts[] }> {
+export default class PublicCatalog extends React.Component<{}, { categories?: CategoryWithProducts[] }> {
 
     constructor(props: undefined) {
         super(props);

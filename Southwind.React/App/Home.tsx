@@ -2,7 +2,7 @@
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
 import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardClient"
 
-export default class Home extends React.Component<undefined, { loaded: boolean }> {
+export default class Home extends React.Component<{}, { loaded: boolean }> {
     
     constructor(props: undefined){
         super(props);

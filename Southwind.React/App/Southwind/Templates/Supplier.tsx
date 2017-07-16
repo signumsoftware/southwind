@@ -2,7 +2,7 @@ import * as React from 'react'
 import { SupplierEntity } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
 
-export default class Supplier extends React.Component<{ ctx: TypeContext<SupplierEntity> }, void> {
+export default class Supplier extends React.Component<{ ctx: TypeContext<SupplierEntity> }> {
 
     render() {
         const ctx = this.props.ctx;

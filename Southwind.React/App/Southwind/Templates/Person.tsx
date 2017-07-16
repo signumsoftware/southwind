@@ -2,7 +2,7 @@ import * as React from 'react'
 import { PersonEntity } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
 
-export default class Person extends React.Component<{ ctx: TypeContext<PersonEntity> }, void> {
+export default class Person extends React.Component<{ ctx: TypeContext<PersonEntity> }> {
 
     render() {
         const ctx = this.props.ctx;

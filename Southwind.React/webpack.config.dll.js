@@ -27,10 +27,6 @@ module.exports = {
     resolve: {
         modules: [
             "node_modules"
-        ],
-        alias: { //https://github.com/jquense/react-widgets/issues/559
-            "react-component-managers": path.resolve(__dirname, "./node_modules/react-component-managers"),
-            "react-overlays": path.resolve(__dirname, "./node_modules/react-overlays")
-        }
+        ]
     }
 };

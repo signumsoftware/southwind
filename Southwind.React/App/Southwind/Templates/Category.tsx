@@ -3,7 +3,7 @@ import { CategoryEntity } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
 import FileLine from '../../../../Extensions/Signum.React.Extensions/Files/FileLine'
 
-export default class Category extends React.Component<{ ctx: TypeContext<CategoryEntity> }, void> {
+export default class Category extends React.Component<{ ctx: TypeContext<CategoryEntity> }> {
 
     render() {
         const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
