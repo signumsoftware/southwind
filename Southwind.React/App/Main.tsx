@@ -135,7 +135,7 @@ function reload() {
                 CacheClient.start({ routes });
                 ProcessClient.start({ routes, packages: true, packageOperations: true });
                 MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true, quickLinksFrom: undefined });
-                WordClient.start({ routes, contextual: true, queryButton: true });
+                WordClient.start({ routes, contextual: true, queryButton: true, entityButton: false });
                 ExcelClient.start({ routes, plainExcel: true, excelReport: true });
                 SchedulerClient.start({ routes });
                 TranslationClient.start({ routes });

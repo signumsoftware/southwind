@@ -44,23 +44,23 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                         <ValueLine ctx={ctx4.subCtx(o => o.state)} readOnly={true} valueHtmlAttributes={{ style: { color: stateColor(o.state) } }} />
                         <ValueLine ctx={ctx4.subCtx(o => o.orderDate)} unitText={ago(o.orderDate)} readOnly={true} />
                         <ValueLine ctx={ctx4.subCtx(o => o.requiredDate)} unitText={ago(o.requiredDate)} onChange={() => this.forceUpdate()} />
-                        <ValueLine ctx={ctx4.subCtx(o => o.shippedDate)} unitText={ago(o.shippedDate)} hideIfNull={true} readOnly={true}  />
-                        <ValueLine ctx={ctx4.subCtx(o => o.cancelationDate)} unitText={ago(o.cancelationDate)} hideIfNull={true} readOnly={true}  />
+                        <ValueLine ctx={ctx4.subCtx(o => o.shippedDate)} unitText={ago(o.shippedDate)} hideIfNull={true} readOnly={true} />
+                        <ValueLine ctx={ctx4.subCtx(o => o.cancelationDate)} unitText={ago(o.cancelationDate)} hideIfNull={true} readOnly={true} />
                         <EntityCombo ctx={ctx4.subCtx(o => o.shipVia)} />
                     </div>
                 </div>
                 <EntityTable ctx={ctx2.subCtx(o => o.details)} onChange={() => this.forceUpdate()} columns={EntityTable.typedColumns<OrderDetailEmbedded>([
-                    { property: a => a.product, headerHtmlAttributes: { width: "40%" }, template: dc => <EntityLine ctx={dc.subCtx(a => a.product)} onChange={() => this.handleProductChange(dc.value)} /> },
-                    { property: a => a.quantity, headerHtmlAttributes: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => this.forceUpdate()} /> },
-                    { property: a => a.unitPrice, headerHtmlAttributes: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
-                    { property: a => a.discount, headerHtmlAttributes: { width: "15%" }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => this.forceUpdate()} /> },
+                    { property: a => a.product, headerHtmlAttributes: { style: { width: "40%" } }, template: dc => <EntityLine ctx={dc.subCtx(a => a.product)} onChange={() => this.handleProductChange(dc.value)} /> },
+                    { property: a => a.quantity, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => this.forceUpdate()} /> },
+                    { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
+                    { property: a => a.discount, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => this.forceUpdate()} /> },
                     {
-                        header: "SubTotalPrice", headerHtmlAttributes: { width: "15%" }, template: dc => <FormGroup ctx={dc} labelText="SubTotalPrice">
+                        header: "SubTotalPrice", headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <FormGroup ctx={dc} labelText="SubTotalPrice">
                             <FormControlStatic ctx={dc}>
                                 {numbro(subTotalPrice(dc.value)).format()} €
                             </FormControlStatic>
                         </FormGroup>
-                    },    
+                    },
                 ])} />
                 <div className="row">
                     <div className="col-sm-4">
@@ -69,7 +69,7 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                     <div className="col-sm-4">
                         <ValueLine ctx={ctx4.subCtx(o => o.freight)} />
                     </div>
-                <div className="col-sm-4">
+                    <div className="col-sm-4">
                         <FormGroup ctx={ctx4} labelText="TotalPrice">
                             <FormControlStatic ctx={ctx4}>
                                 {numbro(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum()).format()} €
@@ -83,7 +83,7 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
     }
 }
 
-function ago(date : string | null | undefined){
+function ago(date: string | null | undefined) {
 
     if (!date)
         return undefined;
@@ -97,8 +97,8 @@ function stateColor(s: OrderState | undefined) {
         return undefined;
 
     switch (s) {
-        case "New": 
-        case "Ordered": return "#33cc33"; 
+        case "New":
+        case "Ordered": return "#33cc33";
         case "Shipped": return "#0066ff";
         case "Canceled": return "#ff0000";
 

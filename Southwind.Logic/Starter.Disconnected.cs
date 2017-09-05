@@ -118,6 +118,7 @@ namespace Southwind.Logic
             //Signum.Entities.Mailing
             DisconnectedLogic.Register<EmailMessageEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<EmailTemplateEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<ImageAttachmentEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<EmailPackageEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<EmailMasterTemplateEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<SmtpConfigurationEntity>(Download.All, Upload.None);

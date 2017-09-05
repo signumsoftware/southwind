@@ -137,7 +137,7 @@ namespace Southwind.React
                 //new HelpModuleOmniboxResultGenerator(),
                 );//Omnibox
 
-            SignumAuthenticationAndProfilerAttribute.GetCurrentCultures = (ac) => CultureInfoUtils.ChangeBothCultures(GetCulture(ac.Request));
+            SignumAuthenticationFilterAttribute.GetCurrentCultures = (ac) => GetCulture(ac.Request);
         }
 
 
