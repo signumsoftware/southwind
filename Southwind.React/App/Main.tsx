@@ -176,15 +176,15 @@ function reload() {
             routes.push(<Route component={NotFound}/>);
             
             Layout.switch = React.createElement(Switch, undefined, ...routes);
-            const wrap = document.getElementById("wrap")!;
-            unmountComponentAtNode(wrap);
+            const reactDiv = document.getElementById("reactDiv")!;
+            unmountComponentAtNode(reactDiv);
 
             var h = Navigator.createAppRelativeHistory();
 
             render(
                 <Router history={h}>
                     <Layout />
-                </Router>, wrap);
+                </Router>, reactDiv);
 
             if (isFull)
                 loaded = true;

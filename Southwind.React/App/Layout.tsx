@@ -67,13 +67,19 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                     </Navbar.Collapse>
                 </Navbar>
                 <Notify />
-                <SidebarContainer sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible} sidebarContent={<ToolbarRenderer location="Side" />}>
-                    {/*<ContainerToggle>*/}
-                    {Layout.switch}
-                    {/*</ContainerToggle>*/}
-                </SidebarContainer>
+                <div id="main-container">
+                    <SidebarContainer sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible} sidebarContent={<ToolbarRenderer location="Side" />}>
+                        {/*<ContainerToggle>*/}
+                        {Layout.switch}
+                        {/*</ContainerToggle>*/}
+                    </SidebarContainer>
+                </div>
                 <GlobalModalContainer />
-                <div id="push"></div>
+                <div id="footer">
+                    <div className="container">
+                        <p className="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
+                    </div>
+                </div>
             </div>
         );
     }

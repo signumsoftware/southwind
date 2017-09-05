@@ -1,114 +1,94 @@
 html,
-body {
-  height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
+body,
+#reactDiv {
+    height: 100%;
 }
 
-/* Wrapper for page content to push down footer */
-#wrap {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin: 0 auto -60px;
-  /* Pad bottom by footer height */
-  padding: 0 0 60px;
+#main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-#push
-{
-    height: 10px;
+#main-container {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    display:flex;
 }
 
-/* Set the fixed height of the footer here */
 #footer {
-  height: 60px;
-  background-color: #f5f5f5;
+    height: 60px;
+    background-color: #f8f8f8;
 }
 
-    #footer .container
-    {
+    #footer .container {
         text-align: center;
     }
 
-.container .text-muted 
-{
+.container .text-muted {
     margin: 20px 0;
 }
 
-.navbar
-{
+.navbar {
     margin: 0px;
     border-radius: 0px;
     background-color: #f8f8f8;
 }
 
-.footerContainer
-{
+.footerContainer {
     margin: 15px 0;
     text-align: center;
 }
 
-.theme-selector
-{
+.theme-selector {
     width: auto;
 }
 
-navbar-header
-{
+navbar-header {
     white-space: nowrap;
 }
 
-.theme-selector
-{
+.theme-selector {
     width: 130px;
     margin-top: 8px;
 }
 
-#sfOmnibox
-{
+#sfOmnibox {
     width: 200px;
     margin-top: 8px;
 }
 
 /*Media */
-@media (max-width: 350px)
-{
-    .hidden-under-350
-    {
+@media (max-width: 350px) {
+    .hidden-under-350 {
         display: none !important;
     }
 }
 
-.visible-under-350
-{
+.visible-under-350 {
     display: none !important;
 }
 
-@media (max-width: 350px)
-{
-    .visible-under-350
-    {
+@media (max-width: 350px) {
+    .visible-under-350 {
         display: block !important;
     }
 }
 
 
-div.order-detail input.form-control
-{
+div.order-detail input.form-control {
     width: 100%;
 }
 
-div.order-detail
-{
+div.order-detail {
 }
 
-    div.order-detail.repeater-inline .sf-repeater-element legend
-    {
+    div.order-detail.repeater-inline .sf-repeater-element legend {
         margin-left: -10px;
         margin-right: -14px;
     }
 
-    div.order-detail.repeater-inline .form-group.form-sm
-    {
+    div.order-detail.repeater-inline .form-group.form-sm {
         margin-bottom: 0px;
     }
