@@ -35,7 +35,9 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
     render() {
         return (
             <div id="main" key={this.state.refreshId}>
-                <Navbar fluid onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })} defaultExpanded={true}>
+                <Navbar fluid
+                    onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })}
+                    defaultExpanded={true}>
                     <Navbar.Header>
                         <Navbar.Brand>
                             <Link to="~/">Southwind</Link>
@@ -68,11 +70,16 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                 </Navbar>
                 <Notify />
                 <div id="main-container">
-                    <SidebarContainer sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible} sidebarContent={<ToolbarRenderer location="Side" />}>
-                        {/*<ContainerToggle>*/}
+                    <SidebarContainer
+                        sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible}
+                        sidebarContent={<ToolbarRenderer location="Side" />}>
                         {Layout.switch}
-                        {/*</ContainerToggle>*/}
                     </SidebarContainer>
+                    {/* Layout
+                    <ContainerToggle>
+                    {Layout.switch}
+                    </ContainerToggle>
+                    Layout */}
                 </div>
                 <GlobalModalContainer />
                 <div id="footer">

@@ -100,7 +100,7 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="DisconnectedClient.Start();"/>
       <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc"/>
       <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc.cs"/>
-      <RemoveLine Path="Southwind.React\Web.config" From="&lt;binding name=&quot;TransferBinding&quot; maxReceivedMessageSize=&quot;10067108864&quot;" To="transferMode=&quot;Streamed&quot; messageEncoding=&quot;Mtom&quot; />"/>
+      <RemoveLine Path="Southwind.React\Web.config" From="&lt;basicHttpBinding>" To="&lt;/basicHttpBinding>"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;service name=&quot;Southwind.React.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" From="&lt;MenuItem Header=&quot;Disconnected&quot; x:Name=&quot;miDisconnected&quot;>" To="&lt;/MenuItem>"/>
@@ -147,7 +147,7 @@
     <Module Name="Word">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WordTemplateLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as WordClient from &quot;../../Extensions/Signum.React.Extensions/Word/WordClient&quot;"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WordClient.start({ routes, contextual: true, queryButton: true });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WordClient.start({ routes, contextual: true, queryButton: true, entityButton: false });"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WordServer.Start(config);"/>
       <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportWordReportTemplateForOrder,"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
@@ -241,11 +241,14 @@
       <RemoveLine DependsOn="Dashboard" Path="Southwind.React\App\Main.tsx" Line="new DashboardToolbarConfig(),"/>
       <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="; sideMenuVisible: boolean"/>
       <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span=", sideMenuVisible: true"/>
-      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="&lt;SidebarContainer sidebarVisible={AuthClient.currentUser() &amp;&amp; this.state.sideMenuVisible} sidebarContent={&lt;ToolbarRenderer" location="Side" />}>"/>
-      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="&lt;/SidebarContainer>"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })}"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;SidebarContainer" To="&lt;/SidebarContainer>"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{/* Layout"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="Layout */}"/>
       <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
       <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
       <RemoveLine Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
+      
     </Module>
 
     <Module Name="Process">
@@ -363,7 +366,7 @@
       <RemoveFiles Path="Southwind.React\Service References" />
       <RemoveFiles Path="Southwind.React\Translations" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="TranslationServer.Start(config, new AlreadyTranslatedTranslator(new AzureTranslator(&quot;Your API Key for Azure Translate&quot;)));" />
-      <RemoveLine Path="Southwind.React\Global.asax.cs" From="SignumAuthenticationAndProfilerAttribute.GetCurrentCultures = (ac) => CultureInfoUtils.ChangeBothCultures(GetCulture(ac.Request));" To="return DefaultCulture; //Translation" />
+      <RemoveLine Path="Southwind.React\Global.asax.cs" From="SignumAuthenticationFilterAttribute.GetCurrentCultures = (ac) => GetCulture(ac.Request);" To="return DefaultCulture; //Translation" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as TranslationClient from &quot;../../Extensions/Signum.React.Extensions/Translation/TranslationClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="TranslationClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as CultureClient from &quot;../../Extensions/Signum.React.Extensions/Translation/CultureClient&quot;"/>
@@ -502,7 +505,7 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;WorkflowDropdown />"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WorkflowServer.Start(config);"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow= new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^0.20.7&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^0.21.0&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">
