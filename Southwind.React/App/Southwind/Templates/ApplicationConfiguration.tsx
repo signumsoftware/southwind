@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Tabs, Tab} from 'react-bootstrap'
 import { ApplicationConfigurationEntity } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, RenderEntity } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { UncontrolledTabs, Tab } from '../../../../Framework/Signum.React/Scripts/Tabs';
 
 export default class ApplicationConfiguration extends React.Component<{ ctx: TypeContext<ApplicationConfigurationEntity> }> {
 
@@ -10,7 +10,7 @@ export default class ApplicationConfiguration extends React.Component<{ ctx: Typ
         return (
             <div>
                 <ValueLine ctx={ctx.subCtx(a => a.environment) } />
-                <Tabs id="tabsConf">
+                <UncontrolledTabs>
                     <Tab eventKey="tab" title={ctx.niceName(a => a.email) }>
                         <RenderEntity ctx={ctx.subCtx(a => a.email) } />
                         <EntityLine ctx={ctx.subCtx(a => a.smtpConfiguration) } />
@@ -21,7 +21,7 @@ export default class ApplicationConfiguration extends React.Component<{ ctx: Typ
                     <Tab eventKey="auth" title={ctx.niceName(a => a.authTokens) }>
                         <RenderEntity ctx={ctx.subCtx(a => a.authTokens) } />
                     </Tab>
-                </Tabs>
+                </UncontrolledTabs>
             </div>
         );
     }

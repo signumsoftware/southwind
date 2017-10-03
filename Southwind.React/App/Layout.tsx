@@ -3,8 +3,7 @@ import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
 import * as moment from 'moment'
 import * as numbro from 'numbro'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-import { LinkContainer } from "react-router-bootstrap";
+import { Navbar, Nav, NavItem, NavDropdown, NavbarToggler, NavbarBrand, NavLink, Collapse } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import LoginUserControl from '../../Extensions/Signum.React.Extensions/Authorization/Login/LoginUserControl'
 import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorization/AuthClient'
@@ -21,21 +20,40 @@ import ToolbarRenderer from "../../Extensions/Signum.React.Extensions/Toolbar/Te
 
 
 
-export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean }> {
+export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean, isOpen: boolean}> {
 
     constructor(props: {}) {
         super(props);
 
-        this.state = { refreshId: 0, sideMenuVisible: true };
+        this.state = { refreshId: 0, sideMenuVisible: true, isOpen: false };
     }
 
     static switch: React.ReactElement<any>;
 
+    handleToggle() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
 
     render() {
         return (
             <div id="main" key={this.state.refreshId}>
-                <Navbar fluid
+                <Navbar color="faded" light toggleable>
+                    <NavbarToggler onClick={this.handleToggle} />
+                    <NavbarBrand href="/">reactstrap</NavbarBrand>
+                    <Collapse isOpen={this.state.isOpen} navbar>
+                        <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink href="/components/">Components</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+                            </NavItem>
+                        </Nav>
+                    </Collapse>
+                </Navbar>
+                {/*<Navbar fluid
                     onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })}
                     defaultExpanded={true}>
                     <Navbar.Header>
@@ -67,7 +85,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                             <LoginUserControl />
                         </ul>
                     </Navbar.Collapse>
-                </Navbar>
+                </Navbar>*/}
                 <Notify />
                 <div id="main-container">
                     <SidebarContainer
