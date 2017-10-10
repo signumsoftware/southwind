@@ -7,7 +7,7 @@ export default class Address extends React.Component<{ ctx: TypeContext<AddressE
     render() {
         const ctx = this.props.ctx.subCtx({ formGroupStyle: "SrOnly", placeholderLabels: true});
         return (
-            <div className="form-vertical">
+            <div>
                     <ValueLine ctx={ctx.subCtx(a => a.address)} />
                 <div className="row">
                     <div className="col-sm-6"><ValueLine ctx={ctx.subCtx(a => a.city)} /></div>

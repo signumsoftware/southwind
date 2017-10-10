@@ -31,6 +31,8 @@ body,
 }
 
 .navbar {
+    min-height: 56px;
+    padding: 0px 8px;
     margin: 0px;
     border-radius: 0px;
     background-color: #f8f8f8;
