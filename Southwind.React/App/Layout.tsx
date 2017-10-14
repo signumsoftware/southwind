@@ -5,7 +5,7 @@ import * as moment from 'moment'
 import * as numbro from 'numbro'
 import { Navbar, Nav, NavItem, NavDropdown, NavbarToggler, NavbarBrand, NavLink, Collapse, DropdownItem, DropdownToggle, UncontrolledNavDropdown, DropdownMenu } from 'reactstrap'
 import { Link } from 'react-router-dom'
-import LoginUserControl from '../../Extensions/Signum.React.Extensions/Authorization/Login/LoginUserControl'
+import LoginDropdown from '../../Extensions/Signum.React.Extensions/Authorization/Login/LoginDropdown'
 import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorization/AuthClient'
 import OmniboxAutocomplete from '../../Extensions/Signum.React.Extensions/Omnibox/OmniboxAutocomplete'
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
@@ -42,16 +42,18 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
             <div id="main" key={this.state.refreshId}>
                 <Navbar light toggleable>
                     <NavbarToggler onClick={this.handleToggle} />
-                    <LinkContainer to="~/"><NavbarBrand>Southwind</NavbarBrand></LinkContainer>
+                    <Link to="~/" className="navbar-brand">Southwind</Link>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         {AuthClient.currentUser() && <Nav className="mr-auto" navbar>
                             <li>
-                                <div style={{ width: "200px", marginTop: "8px" }}>
+                                <div style={{ width: "200px" }}>
                                     <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
                                 </div>
                             </li>
                             <UncontrolledNavDropdown>
-                                <DropdownToggle>Menu</DropdownToggle>
+                                <DropdownToggle nav caret>
+                                    Menu
+                                </DropdownToggle>
                                 <DropdownMenu>
                                     <LinkContainer to="~/" exact={true}><DropdownItem>Home</DropdownItem></LinkContainer>
                                     <LinkContainer to="~/publicCatalog"><DropdownItem>Catalog</DropdownItem></LinkContainer>
@@ -65,7 +67,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                         {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
                         <Nav className="ml-auto" navbar>
                             <CultureDropdown />
-                            <LoginUserControl />
+                            <LoginDropdown />
                         </Nav>
                     </Collapse>
                 </Navbar>
