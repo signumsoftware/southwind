@@ -24,7 +24,7 @@ import { ApplicationConfigurationEntity } from './Southwind.Entities'
 import { /*Southwind.Entities*/
     AddressEmbedded, OrderDetailEmbedded, OrderFilterModel, CategoryEntity,
     CustomerQuery, CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
-    RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity
+    RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity, OrderState
 } from './Southwind.Entities'
 
 export function start(options: { routes: JSX.Element[] }) {
@@ -45,10 +45,11 @@ export function start(options: { routes: JSX.Element[] }) {
     //Navigator.addSettings(new EntitySettings(TerritoryEntity, t => import('./Templates/Territory')));
 
     Navigator.getSettings(UserEntity)!.overrideView((rep) => {
-        rep.insertAfter(u => u.role,
+        rep.insertAfterLine(u => u.role, ctx => [
             <ValueLine ctx={rep.ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.allowLogin, { labelColumns: { sm: 3 } })} />,
-            <EntityLine ctx={rep.ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.employee, { labelColumns: { sm: 3 } }) }/>)
-    })
+            <EntityLine ctx={rep.ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.employee, { labelColumns: { sm: 3 } })} />
+        ])
+    });
 
 
     {/*Files*/}
@@ -66,16 +67,25 @@ export function start(options: { routes: JSX.Element[] }) {
                 return undefined;
 
             return <OrderFilter ctx={TypeContext.root(model) }/>;
-        }
+        },
+        hiddenColumns: [{ columnName: "State" }], 
+        rowAttributes: (row, columns) => {
+            var state = row.columns[columns.indexOf("State")] as OrderState;
+
+            var color = state == "Canceled" ? "darkred" :
+                state == "Shipped" ? "gray" :
+                    "black";
+
+            return { style: { color: color } };
+        } 
     });
     
-
     Operations.addSettings(new ConstructorOperationSettings(OrderOperation.Create, {
         onConstruct: coc =>
         {
             return Finder.find({ queryName: CustomerQuery.Customer }).then(c => {
                 if (!c)
-                    return Promise.resolve(undefined);
+                    return undefined;
 
                 return coc.defaultConstruct(c);
             });
@@ -104,13 +114,13 @@ export function start(options: { routes: JSX.Element[] }) {
     Operations.addSettings(new EntityOperationSettings(OrderOperation.Ship, {
         onClick: (eoc) => {
             selectShippedDate()
-                .then(date => defaultExecuteEntity(eoc, date))
+                .then(date => eoc.defaultClick(date))
                 .done();
         },
         contextual: {
             onClick: coc => {
                 selectShippedDate()
-                    .then(date => defaultContextualClick(coc, date))
+                    .then(date => coc.defaultContextualClick(date))
                     .done();
             }
         }

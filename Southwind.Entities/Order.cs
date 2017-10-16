@@ -112,7 +112,8 @@ namespace Southwind.Entities
         DiscountShouldBeMultpleOf5,
         [Description("Cancel shipped order {0}?")]
         CancelShippedOrder0,
-        SelectAShipper
+        SelectAShipper,
+        SubTotalPrice,
     }
 
     public enum OrderState

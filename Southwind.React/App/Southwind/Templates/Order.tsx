@@ -3,16 +3,18 @@ import * as numbro from 'numbro'
 import * as moment from 'moment'
 import { Dic } from '../../../../Framework/Signum.React/Scripts/Globals'
 import * as Navigator from '../../../../Framework/Signum.React/Scripts/Navigator'
-import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState, AddressEmbedded } from '../Southwind.Entities'
+import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState, AddressEmbedded, OrderMessage } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlStatic, EntityTable, ChangeEvent } from '../../../../Framework/Signum.React/Scripts/Lines'
 
 export default class Order extends React.Component<{ ctx: TypeContext<OrderEntity> }> {
 
     handleCustomerChange = (c: ChangeEvent) => {
-        this.props.ctx.value.shipAddress = c.newValue == undefined ? undefined : { ...(c.newValue as CustomerEntity).address } as AddressEmbedded;
+        var order = this.props.ctx.value;
+        var customer = c.newValue as CustomerEntity; //order.customer will also work
+        order.shipAddress = c.newValue == undefined ? undefined : { ...customer.address } as AddressEmbedded;
+        order.modified = true;
         this.forceUpdate();
     }
-
 
     handleProductChange = (detail: OrderDetailEmbedded) => {
 
@@ -55,7 +57,8 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                     { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
                     { property: a => a.discount, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => this.forceUpdate()} /> },
                     {
-                        header: "SubTotalPrice", headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <FormGroup ctx={dc} labelText="SubTotalPrice">
+                        header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "15%" } },
+                        template: dc => <FormGroup ctx={dc}>
                             <FormControlStatic ctx={dc}>
                                 {numbro(subTotalPrice(dc.value)).format()} €
                             </FormControlStatic>
@@ -108,3 +111,5 @@ function stateColor(s: OrderState | undefined) {
 function subTotalPrice(od: OrderDetailEmbedded) {
     return (od.quantity || 0) * (od.unitPrice || 0) * (1 - (od.discount || 0));
 }
+
+

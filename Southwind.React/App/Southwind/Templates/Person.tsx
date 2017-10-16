@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { PersonEntity } from '../Southwind.Entities'
+import { PersonEntity, OrderEntity, OrderOperation } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
+import SearchControl from '../../../../Framework/Signum.React/Scripts/SearchControl/SearchControl';
+import * as Reflection from '../../../../Framework/Signum.React/Scripts/Reflection';
 
 export default class Person extends React.Component<{ ctx: TypeContext<PersonEntity> }> {
 
@@ -9,7 +11,7 @@ export default class Person extends React.Component<{ ctx: TypeContext<PersonEnt
         const ctxBasic = ctx.subCtx({ formGroupStyle: "Basic" });
         return (
             <div>
-                {ctx.value.corrupt && < ValueLine ctx={ctx.subCtx(p => p.corrupt)} inlineCheckbox={true} />}
+                {ctx.value.corrupt && <ValueLine ctx={ctx.subCtx(p => p.corrupt)} inlineCheckbox={true} />}
                 <div className="form-vertical row">
                     <div className="col-sm-2">
                         <ValueLine ctx={ctxBasic.subCtx(p => p.title)} />
@@ -22,6 +24,13 @@ export default class Person extends React.Component<{ ctx: TypeContext<PersonEnt
                     </div>
                 </div>
                 <ValueLine ctx={ctx.subCtx(p => p.dateOfBirth)} />
+
+                <h2>{OrderEntity.nicePluralName()}</h2>
+                <SearchControl findOptions={{
+                    queryName: OrderEntity,
+                    parentColumn: "Customer",
+                    parentValue: ctx.value
+                }} showSimpleFilterBuilder={false} />
             </div>
         );
     }
