@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Auth>
-  <Imported On="2014-11-11T14:33:13" />
-  <Exported On="2015-03-05T20:20:31" />
+  <Imported On="2015-03-05T08:20:31" />
+  <Exported On="2017-10-17T21:03:31" />
   <Roles>
     <Role Name="Super user" MergeStrategy="Intersection" Contains="" />
     <Role Name="User" Contains="" />
@@ -41,10 +41,6 @@
       <Type Resource="ChartColor" Allowed="Read" />
       <Type Resource="ChartScript" Allowed="Read" />
       <Type Resource="Company" Allowed="Create" />
-      <Type Resource="CountSearchControlPart" Allowed="None">
-        <Condition Name="SouthwindGroup.RoleEntities" Allowed="Read" />
-        <Condition Name="SouthwindGroup.UserEntities" Allowed="Create" />
-      </Type>
       <Type Resource="CultureInfo" Allowed="Read" />
       <Type Resource="Dashboard" Allowed="None">
         <Condition Name="SouthwindGroup.RoleEntities" Allowed="Read" />
@@ -54,7 +50,6 @@
       <Type Resource="Employee" Allowed="Create" />
       <Type Resource="Exception" Allowed="Read" />
       <Type Resource="File" Allowed="Create" />
-      <Type Resource="FilePath" Allowed="Create" />
       <Type Resource="LinkListPart" Allowed="None">
         <Condition Name="SouthwindGroup.RoleEntities" Allowed="Read" />
         <Condition Name="SouthwindGroup.UserEntities" Allowed="Create" />
