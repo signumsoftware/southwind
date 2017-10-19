@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { OrderFilterModel } from '../Southwind.Entities'
-import { ISimpleFilterBuilder, FilterOption, FindOptions, FindOptionsParsed, FilterOperation, FilterOptionParsed } from '../../../../Framework/Signum.React/Scripts/Search'
+import { ISimpleFilterBuilder, FilterOption, FindOptions, FindOptionsParsed, FilterOperation, FilterOptionParsed, extractFilterValue } from '../../../../Framework/Signum.React/Scripts/Search'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
 
 export default class OrderFilter extends React.Component<{ ctx: TypeContext<OrderFilterModel> }> implements ISimpleFilterBuilder {
@@ -47,20 +47,11 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
     static extract(fos: FilterOptionParsed[]) {
         const filters = fos.clone();
 
-        const extract = (columnName: string, operation: FilterOperation) => {
-            const f = filters.filter(f => f.token!.fullKey == columnName && f.operation == operation).firstOrNull();
-            if (!f)
-                return undefined;
-
-            filters.remove(f);
-            return f.value;
-        }
-
         const result = OrderFilterModel.New({
-            customer: extract("Customer", "EqualTo"),
-            employee: extract("Employee", "EqualTo"),
-            minOrderDate: extract("OrderDate", "GreaterThanOrEqual"),
-            maxOrderDate: extract("OrderDate", "LessThan"),
+            customer: extractFilterValue(filters, "Customer", "EqualTo"),
+            employee: extractFilterValue(filters, "Employee", "EqualTo"),
+            minOrderDate: extractFilterValue(filters, "OrderDate", "GreaterThanOrEqual"),
+            maxOrderDate: extractFilterValue(filters, "OrderDate", "LessThan"),
         });
 
         if (filters.length)

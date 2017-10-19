@@ -9,7 +9,7 @@ export default class Product extends React.Component<{ ctx: TypeContext<ProductE
         return (
             <div>
                 <ValueLine ctx={ctx.subCtx(p => p.productName)} />
-                <EntityLine ctx={ctx.subCtx(p => p.supplier)} />
+                <EntityCombo ctx={ctx.subCtx(p => p.supplier)} />
                 <EntityLine ctx={ctx.subCtx(p => p.category)} />
                 <ValueLine ctx={ctx.subCtx(p => p.quantityPerUnit)} />
                 <ValueLine ctx={ctx.subCtx(p => p.unitPrice)} />

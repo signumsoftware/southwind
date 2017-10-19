@@ -1,41 +1,16 @@
 import * as React from 'react'
 import { EmployeeEntity } from '../Southwind.Entities'
 import Person from './Person'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityCheckboxList } from '../../../../Framework/Signum.React/Scripts/Lines'
 import * as Navigator from '../../../../Framework/Signum.React/Scripts/Navigator'
 import FileLine from '../../../../Extensions/Signum.React.Extensions/Files/FileLine'
 import * as FilesClient from '../../../../Extensions/Signum.React.Extensions/Files/FilesClient'
 import { FileEntity } from '../../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
+import { is } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
+import { Lite } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
 
-
-export default class Employee extends React.Component<{ ctx: TypeContext<EmployeeEntity> }, { photo?: FileEntity }> {
-
-    constructor(props: any) {
-        super(props);
-        this.state = { photo: undefined };
-    }
-
-    componentWillMount() {
-        this.loadPhoto(this.props.ctx.value);
-    }
-
-
-    componentWillReceiveProps(p: { ctx: TypeContext<EmployeeEntity> }) {
-        this.loadPhoto(p.ctx.value);
-    }
-
-    loadPhoto(e: EmployeeEntity) {
-
-        var e = this.props.ctx.value;
-
-        this.setState({ photo: e.photo && e.photo.entity || undefined });
-
-        if (e.photo && !this.state.photo)
-            Navigator.API.fetchAndForget(e.photo)
-                .then(ph => this.setState({ photo: ph }))
-                .done();
-    }
-
+export default class Employee extends React.Component<{ ctx: TypeContext<EmployeeEntity> }> 
+{
     render() {
         const ctx = this.props.ctx;
         const ctxBasic = ctx.subCtx({ formGroupStyle: "SrOnly" });
@@ -62,7 +37,7 @@ export default class Employee extends React.Component<{ ctx: TypeContext<Employe
 
                     <EntityDetail ctx={ctx.subCtx(p => p.address)} />
 
-                    
+
                     <fieldset>
                         <legend>Company data</legend>
                         <ValueLine ctx={ctx.subCtx(e => e.titleOfCourtesy)} />
@@ -75,8 +50,9 @@ export default class Employee extends React.Component<{ ctx: TypeContext<Employe
 
                 <div className="col-sm-3">
                     {/*photo*/}
-                    <FileLine ctx={ctx.subCtx(e => e.photo)} onChange={() => this.loadPhoto(this.props.ctx.value)} />
-                    {this.state.photo && <img className="img-responsive" src={"data:image/jpeg;base64," + this.state.photo.binaryFile} />}
+                    <FileLine ctx={ctx.subCtx(e => e.photo)} onChange={() => this.forceUpdate()} />
+
+                    <EmployeePhoto lite={ctx.value.photo} />
                     {/*photo*/}
                     <div>
                         <ValueLine ctx={ctx.subCtx(e => e.notes, { formGroupStyle: "Basic" })} valueHtmlAttributes={{ rows: 10, className: "notes" }} />
@@ -84,5 +60,55 @@ export default class Employee extends React.Component<{ ctx: TypeContext<Employe
                 </div>
             </div>
         );
+    }
+}
+
+
+
+interface EmployeePhotoProps {
+    lite: Lite<FileEntity> | null | undefined;
+}
+
+interface EmployeePhotoState {
+    file?: FileEntity;
+}
+
+export class EmployeePhoto extends React.Component<EmployeePhotoProps, EmployeePhotoState> {
+    
+    constructor(props: EmployeePhotoProps) {
+        super(props);
+        this.state = { file: undefined };
+    }
+
+    componentWillMount() {
+        this.loadPhoto(this.props);
+    }
+
+    componentWillReceiveProps(p: EmployeePhotoProps) {
+        if (!is(p.lite, this.state.file))
+            this.loadPhoto(p);
+    }
+
+    loadPhoto(props: EmployeePhotoProps) {
+        var lite = props.lite;
+      
+        if (!lite)
+            this.setState({ file: undefined });
+        else if (lite.entity)
+            this.setState({ file: lite.entity });
+        else
+            this.setState({ file: undefined }, () => {
+                Navigator.API.fetchAndForget(lite!)
+                    .then(file => this.setState({ file }))
+                    .done();
+            });
+    }
+
+    render() {
+
+        if (!this.state.file)
+            return null;
+
+        return (<img className="img-responsive" src={"data:image/jpeg;base64," + this.state.file.binaryFile} />);
     }
 }

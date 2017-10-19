@@ -174,7 +174,6 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<SMSUpdatePackageEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Translation
-            DisconnectedLogic.Register<TranslatorUserEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<TranslatedInstanceEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Exceptions

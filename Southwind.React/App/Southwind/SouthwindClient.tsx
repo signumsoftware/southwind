@@ -7,12 +7,13 @@ import * as Navigator from '../../../Framework/Signum.React/Scripts/Navigator'
 import * as Finder from '../../../Framework/Signum.React/Scripts/Finder'
 import { EntityOperationSettings, ConstructorOperationSettings, ContextualOperationSettings } from '../../../Framework/Signum.React/Scripts/Operations'
 import * as Operations from '../../../Framework/Signum.React/Scripts/Operations'
+import { Retrieve } from '../../../Framework/Signum.React/Scripts/Retrieve'
 import { defaultContextualClick } from '../../../Framework/Signum.React/Scripts/Operations/ContextualOperations'
 import { defaultExecuteEntity } from '../../../Framework/Signum.React/Scripts/Operations/EntityOperations'
 
-import { getMixin } from '../../../Framework/Signum.React/Scripts/Signum.Entities'
+import { getMixin, Entity, Lite } from '../../../Framework/Signum.React/Scripts/Signum.Entities'
 import { UserEntity } from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
-import { FileEmbedded } from '../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
+import { FileEmbedded, FileEntity } from '../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
 
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../Framework/Signum.React/Scripts/Lines'
 import ValueLineModal from '../../../Framework/Signum.React/Scripts/ValueLineModal'
@@ -24,8 +25,9 @@ import { ApplicationConfigurationEntity } from './Southwind.Entities'
 import { /*Southwind.Entities*/
     AddressEmbedded, OrderDetailEmbedded, OrderFilterModel, CategoryEntity,
     CustomerQuery, CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
-    RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity
+    RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity, OrderState
 } from './Southwind.Entities'
+
 
 export function start(options: { routes: JSX.Element[] }) {
 
@@ -56,6 +58,9 @@ export function start(options: { routes: JSX.Element[] }) {
     const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
     Finder.registerPropertyFormatter(CategoryEntity.propertyRoute(ca => ca.picture),
         new Finder.CellFormatter((cell: FileEmbedded) => <img style={maxDimensions} src={"data:image/jpeg;base64," + cell.binaryFile} />));
+
+    Finder.registerPropertyFormatter(EmployeeEntity.propertyRoute(ca => ca.photo),
+        new Finder.CellFormatter((cell: Lite<FileEntity>) => <Retrieve lite={cell}>{(file?: FileEntity) => file && <img style={maxDimensions} src={"data:image/jpeg;base64," + file.binaryFile} />}</Retrieve>));
     {/*Files*/}
 
     Finder.addSettings({
@@ -67,16 +72,25 @@ export function start(options: { routes: JSX.Element[] }) {
                 return undefined;
 
             return <OrderFilter ctx={TypeContext.root(model) }/>;
-        }
+        },
+        hiddenColumns: [{ columnName: "State" }], 
+        rowAttributes: (row, columns) => {
+            var state = row.columns[columns.indexOf("State")] as OrderState;
+
+            var color = state == "Canceled" ? "darkred" :
+                state == "Shipped" ? "gray" :
+                    "black";
+
+            return { style: { color: color } };
+        } 
     });
     
-
     Operations.addSettings(new ConstructorOperationSettings(OrderOperation.Create, {
         onConstruct: coc =>
         {
             return Finder.find({ queryName: CustomerQuery.Customer }).then(c => {
                 if (!c)
-                    return Promise.resolve(undefined);
+                    return undefined;
 
                 return coc.defaultConstruct(c);
             });
@@ -105,16 +119,15 @@ export function start(options: { routes: JSX.Element[] }) {
     Operations.addSettings(new EntityOperationSettings(OrderOperation.Ship, {
         onClick: (eoc) => {
             selectShippedDate()
-                .then(date => defaultExecuteEntity(eoc, date))
+                .then(date => eoc.defaultClick(date))
                 .done();
         },
         contextual: {
             onClick: coc => {
                 selectShippedDate()
-                    .then(date => defaultContextualClick(coc, date))
+                    .then(date => coc.defaultContextualClick(date))
                     .done();
             }
         }
     }));//Ship
 }
-
