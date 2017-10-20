@@ -59,7 +59,6 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<RulePermissionEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<SessionLogEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<UserTicketEntity>(Download.None, Upload.None);
-            DisconnectedLogic.Register<LastAuthRulesImportEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Basics
             DisconnectedLogic.Register<TypeConditionSymbol>(Download.Replace, Upload.None);

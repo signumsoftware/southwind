@@ -275,7 +275,7 @@
   -->
   <UsingTask TaskName="SignumTSGenerator" AssemblyFile="..\Framework\Signum.TSGenerator\Binaries\Signum.TSGenerator.dll" />
   <Target Name="GenerateSignumTS">
-    <SignumTSGenerator References="@(ReferencePath)" Content="@(Content)" />
+    <SignumTSGenerator References="@(ReferencePath)" Content="@(Content);@(None)" />
   </Target>
   <PropertyGroup>
     <CompileTypeScriptDependsOn>
