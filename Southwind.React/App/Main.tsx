@@ -195,7 +195,11 @@ function reload() {
 
 AuthClient.Options.onLogin = () => {
     reload().then(() => {
-        Navigator.history.push("~/");
+        var loc = Navigator.history.location;
+
+        var pack: History.Location = loc && loc.state && loc.state.back;
+
+        Navigator.history.push(pack || "~/");
     }).done();
 };
 
