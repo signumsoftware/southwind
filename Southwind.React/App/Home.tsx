@@ -4,7 +4,7 @@ import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashb
 
 export default class Home extends React.Component<{}, { loaded: boolean }> {
     
-    constructor(props: undefined){
+    constructor(props: {}){
         super(props);
         this.state = { loaded: false };
     }
