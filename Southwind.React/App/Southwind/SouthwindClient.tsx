@@ -60,7 +60,9 @@ export function start(options: { routes: JSX.Element[] }) {
         new Finder.CellFormatter((cell: FileEmbedded) => <img style={maxDimensions} src={"data:image/jpeg;base64," + cell.binaryFile} />));
 
     Finder.registerPropertyFormatter(EmployeeEntity.propertyRoute(ca => ca.photo),
-        new Finder.CellFormatter((cell: Lite<FileEntity>) => <Retrieve lite={cell}>{(file?: FileEntity) => file && <img style={maxDimensions} src={"data:image/jpeg;base64," + file.binaryFile} />}</Retrieve>));
+        new Finder.CellFormatter((cell: Lite<FileEntity>) => <Retrieve lite={cell}>
+            {(file?: Entity) => file && <img style={maxDimensions} src={"data:image/jpeg;base64," + (file as FileEntity).binaryFile} />}
+        </Retrieve>));
     {/*Files*/}
 
     Finder.addSettings({
