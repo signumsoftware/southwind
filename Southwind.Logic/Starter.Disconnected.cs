@@ -92,7 +92,6 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<NamespaceHelpEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<AppendixHelpEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<QueryHelpEntity>(Download.None, Upload.None);
-            DisconnectedLogic.Register<OperationHelpEntity>(Download.None, Upload.None);
 
             //Signum.Entities.ControlPanel
             DisconnectedLogic.Register<DashboardEntity>(Download.None, Upload.None);
