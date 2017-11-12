@@ -62,6 +62,7 @@ using Signum.React.Dynamic;
 using Signum.Entities.Dynamic;
 using Signum.React.Workflow;
 using Signum.React.Toolbar;
+using Signum.React.MachineLearning;
 
 namespace Southwind.React
 {
@@ -122,6 +123,7 @@ namespace Southwind.React
             MailingServer.Start(config);
             ProfilerServer.Start(config);
             DiffLogServer.Start(config);
+            PredictorServer.Start(config);
             WorkflowServer.Start(config);
             DynamicServer.Start(config);
 

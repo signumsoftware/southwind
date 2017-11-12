@@ -71,6 +71,10 @@
       <Project>{BA7FA363-61A1-41B1-945B-9B9C7BBCD357}</Project>
       <Name>Signum.Engine.Extensions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj">
+      <Project>{4B17650F-0340-4CA0-A983-A2ECB8AC2629}</Project>
+      <Name>Signum.Engine.MachineLearning.CNTK</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj">
       <Project>{7D851227-5294-4BEB-990E-56B4FBB7A148}</Project>
       <Name>Signum.Entities.Extensions</Name>

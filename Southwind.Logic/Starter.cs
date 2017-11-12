@@ -57,6 +57,9 @@ using Signum.Engine.Dynamic;
 using Signum.Entities.Dynamic;
 using Signum.Engine.Workflow;
 using Signum.Engine.Toolbar;
+using Signum.Engine.MachineLearning;
+using Signum.Entities.MachineLearning;
+using Signum.Engine.MachineLearning.CNTK;
 
 namespace Southwind.Logic
 {
@@ -152,6 +155,8 @@ namespace Southwind.Logic
             HelpLogic.Start(sb, dqm);
             WordTemplateLogic.Start(sb, dqm);
             MapLogic.Start(sb, dqm);
+            PredictorLogic.Start(sb, dqm);
+            PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
 
             WorkflowLogicStarter.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);
 

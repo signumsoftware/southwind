@@ -27,6 +27,8 @@ using Signum.Engine.Basics;
 using Signum.Engine.Migrations;
 using Signum.Entities.Authorization;
 using Signum.Engine.CodeGeneration;
+using Signum.Entities.MachineLearning;
+using Signum.Engine.MachineLearning;
 
 namespace Southwind.Load
 {
@@ -108,6 +110,7 @@ namespace Southwind.Load
                     {42, ChartScriptLogic.ImportExportChartScripts},
                     {43, AuthLogic.ImportExportAuthRules},
                     {45, HelpXml.ImportExportHelp},
+                    {99, TrainPredictor},
                     {100, ShowOrder},
                 }.ChooseMultipleWithDescription(args);
 
@@ -157,5 +160,14 @@ namespace Southwind.Load
 
             OrderEntity order = query.First();
         }//ShowOrder
+
+        static void TrainPredictor()
+        {
+            using (AuthLogic.UnsafeUserSession("Steven"))
+            {
+                var predictor = Database.Query<PredictorEntity>().SingleEx(a => a.Id == 2);
+                predictor.TrainSync();
+            }
+        }
     }
 }
