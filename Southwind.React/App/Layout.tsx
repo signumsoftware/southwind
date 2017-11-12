@@ -40,37 +40,39 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
     render() {
         return (
             <div id="main" key={this.state.refreshId}>
-                <Navbar light toggleable>
-                    <NavbarToggler onClick={this.handleToggle} />
-                    <Link to="~/" className="navbar-brand">Southwind</Link>
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        {AuthClient.currentUser() && <Nav className="mr-auto" navbar>
-                            <li>
-                                <div style={{ width: "200px" }}>
-                                    <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
-                                </div>
-                            </li>
-                            <UncontrolledNavDropdown>
-                                <DropdownToggle nav caret>
-                                    Menu
-                                </DropdownToggle>
-                                <DropdownMenu>
-                                    <LinkContainer to="~/" exact={true}><DropdownItem>Home</DropdownItem></LinkContainer>
-                                    <LinkContainer to="~/publicCatalog"><DropdownItem>Catalog</DropdownItem></LinkContainer>
-                                    <DropdownItem divider />
-                                    <LinkContainer to="~/find/order"><DropdownItem>Orders</DropdownItem></LinkContainer>
-                                    <LinkContainer to="~/find/exception"><DropdownItem>Exceptions</DropdownItem></LinkContainer>
-                                </DropdownMenu>
-                            </UncontrolledNavDropdown>
-                            <WorkflowDropdown />
-                        </Nav>}
-                        {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
-                        <Nav className="ml-auto" navbar>
-                            <CultureDropdown />
-                            <LoginDropdown />
-                        </Nav>
-                    </Collapse>
-                </Navbar>
+                <div>
+                    <Navbar light toggleable>
+                        <NavbarToggler onClick={this.handleToggle} />
+                        <Link to="~/" className="navbar-brand">Southwind</Link>
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            {AuthClient.currentUser() && <Nav className="mr-auto" navbar>
+                                <li>
+                                    <div className="omnibox-container" style={{ width: "200px" }}>
+                                        <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
+                                    </div>
+                                </li>
+                                <UncontrolledNavDropdown>
+                                    <DropdownToggle nav caret>
+                                       Menu
+                                    </DropdownToggle>
+                                    <DropdownMenu>
+                                        <LinkContainer to="~/" exact={true}><DropdownItem>Home</DropdownItem></LinkContainer>
+                                        <LinkContainer to="~/publicCatalog"><DropdownItem>Catalog</DropdownItem></LinkContainer>
+                                        <DropdownItem divider />
+                                        <LinkContainer to="~/find/order"><DropdownItem>Orders</DropdownItem></LinkContainer>
+                                        <LinkContainer to="~/find/exception"><DropdownItem>Exceptions</DropdownItem></LinkContainer>
+                                    </DropdownMenu>
+                                </UncontrolledNavDropdown>
+                                <WorkflowDropdown />
+                            </Nav>}
+                            {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
+                            <Nav className="ml-auto" navbar>
+                                <CultureDropdown />
+                                <LoginDropdown />
+                            </Nav>
+                        </Collapse>
+                    </Navbar>
+                </div>
                 <Notify />
                 <div id="main-container">
                     <SidebarContainer
