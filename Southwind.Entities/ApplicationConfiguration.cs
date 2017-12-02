@@ -38,6 +38,10 @@ namespace Southwind.Entities
         [NotNullable]/*Workflow*/
         [NotNullValidator]
         public WorkflowConfigurationEmbedded Workflow { get; set; }
+
+        [NotNullable]
+        [NotNullValidator]
+        public FoldersConfigurationEmbedded Folders { get; set; }
     }
 
     [AutoInit]
@@ -52,5 +56,13 @@ namespace Southwind.Entities
         public static TypeConditionSymbol UserEntities;
         public static TypeConditionSymbol RoleEntities;
         public static TypeConditionSymbol CurrentCustomer;
+    }
+
+    [Serializable]
+    public class FoldersConfigurationEmbedded : EmbeddedEntity
+    {
+        [NotNullable, SqlDbType(Size = 300)]
+        [StringLengthValidator(AllowNulls = false, Max = 300), FileNameValidator]
+        public string PredictorModelFolder { get; set; }
     }
 }

@@ -312,7 +312,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\CNTK.GPU.2.2.0\build\net45\CNTK.GPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CNTK.GPU.2.2.0\build\net45\CNTK.GPU.targets'))" />
   </Target>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' != 'Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <CompileDependsOn>
       $(CompileDependsOn);
@@ -323,7 +323,7 @@
     <Exec Command="npm install" />
     <Exec Command="npm run build" />
   </Target>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' != 'Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
     <CopyAllFilesToSingleFolderForPackageDependsOn>
       $(CopyAllFilesToSingleFolderForPackageDependsOn);
       CollectWebpackOutput;

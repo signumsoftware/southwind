@@ -127,6 +127,10 @@ namespace Southwind.Load
                     Workflow= new WorkflowConfigurationEmbedded
                     {
                     }, //Workflow
+                    Folders = new FoldersConfigurationEmbedded
+                    {
+                        PredictorModelFolder = @"c:/Southwind/PredictorModels"
+                    }
                 }.Save();
 
                 tr.Commit();
