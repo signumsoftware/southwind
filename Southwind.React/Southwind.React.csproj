@@ -27,7 +27,7 @@
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
     <TargetFrameworkProfile />
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <!--<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>-->
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -176,7 +176,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="dist\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj">
       <Project>{ba7fa363-61a1-41b1-945b-9b9c7bbcd357}</Project>
@@ -246,6 +248,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -296,7 +299,7 @@
   -->
   <UsingTask TaskName="SignumTSGenerator" AssemblyFile="..\Framework\Signum.TSGenerator\Binaries\Signum.TSGenerator.dll" />
   <Target Name="GenerateSignumTS">
-    <SignumTSGenerator References="@(ReferencePath)" Content="@(Content)" />
+    <SignumTSGenerator References="@(ReferencePath)" Content="@(Content);@(None)" />
   </Target>
   <PropertyGroup>
     <CompileTypeScriptDependsOn>
@@ -335,12 +338,12 @@
   </PropertyGroup>
   <Target Name="CollectWebpackOutput">
     <ItemGroup>
-      <_CustomFiles Include="dist\**\*" />
-      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+      <_CustomWebpackFiles Include="dist\**\*" />
+      <FilesForPackagingFromProject Include="%(_CustomWebpackFiles.Identity)">
         <DestinationRelativePath>dist\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
       </FilesForPackagingFromProject>
     </ItemGroup>
-    <Message Text="CollectWebpackOutput list: %(_CustomFiles.Identity)" />
+    <Message Text="CollectWebpackOutput list: %(_CustomWebpackFiles.Identity)" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>
