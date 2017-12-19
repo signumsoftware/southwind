@@ -478,6 +478,16 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="HelpClient.Start(); "/>
     </Module>
 
+    <Module Name="Predictor">
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="PredictorLogic.Start(sb, dqm, new FileTypeAlgorithm" To="PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());"/>
+      <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(AutoconfigureNeuralNetworkEntity)"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\SalesEstimationController.cs"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\SalesEstimation.tsx"/>
+      <RemoveLine Path="Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
+      <RemoveLine Path="Southwind\Templates\Product.tsx" Line="&gt;SalesEstimation ctx={ctx} />"/>
+    </Module>
+
     <Module Name="Dynamic">
       <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Target Name=&quot;CopyRoslynFiles&quot; AfterTargets=&quot;AfterBuild&quot; Condition=&quot;true&quot;>" To="&lt;/Target>"/>
       <RemoveFiles Path="Southwind.Logic\DynamicLogicStarter.cs" />

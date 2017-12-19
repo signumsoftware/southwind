@@ -38,6 +38,7 @@ using Signum.Entities.Workflow;
 using Signum.Entities.Templating;
 using Signum.Entities.Toolbar;
 using Signum.Entities.MachineLearning;
+using Southwind.Entities.MLTests;
 
 namespace Southwind.Logic
 {
@@ -139,8 +140,11 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<PredictorCodificationEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<PredictorEpochProgressEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<PredictorResultSaverSymbol>(Download.None, Upload.None);
-            DisconnectedLogic.Register<PredictSimpleClassificationEntity>(Download.None, Upload.None);
-            DisconnectedLogic.Register<PredictSimpleRegressionEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<PredictSimpleResultEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<AutoconfigureNeuralNetworkEntity>(Download.None, Upload.None);
+
+            //Southwind.Entities.MLTests
+            DisconnectedLogic.Register<RegressionXYEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Operations
             DisconnectedLogic.Register<OperationSymbol>(Download.Replace, Upload.None);
