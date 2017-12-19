@@ -9,6 +9,7 @@ using Signum.Entities;
 using Signum.Services;
 using System.Globalization;
 using Signum.Entities.Files;
+using Southwind.Load.NorthwindSchema;
 
 namespace Southwind.Load
 {
@@ -23,63 +24,60 @@ namespace Southwind.Load
 #pragma warning restore 0649
         public static void LoadSuppliers()
         {
-            using (NorthwindDataContext db = new NorthwindDataContext())
+            var suppliers = Connector.Override(Northwind.Connector).Using(_ => Database.View<Suppliers>().ToList());
+
+            List<SupplierFaxCSV> faxes = Csv.ReadFile<SupplierFaxCSV>("SupplierFaxes.csv", culture: CultureInfo.GetCultureInfo("es"));
+
+            var faxDic = faxes.ToDictionary(r => r.SupplierID, r => r.Fax);
+
+            suppliers.Select(s => new SupplierEntity
             {
-                List<SupplierFaxCSV> faxes = Csv.ReadFile<SupplierFaxCSV>("SupplierFaxes.csv", culture: CultureInfo.GetCultureInfo("es"));
-
-                var faxDic = faxes.ToDictionary(r => r.SupplierID, r => r.Fax); 
-
-                Administrator.SaveListDisableIdentity(db.Suppliers.Select(s =>
-                    new SupplierEntity
-                    {
-                        CompanyName = s.CompanyName,
-                        ContactName = s.ContactName,
-                        ContactTitle = s.ContactTitle,
-                        Phone = s.Phone.Replace(".", " "),
-                        Fax = faxDic[s.SupplierID].Replace(".", " "),
-                        Address = new AddressEmbedded
-                        {
-                            Address = s.Address,
-                            City = s.City,
-                            Region = s.Region,
-                            PostalCode = s.PostalCode,
-                            Country = s.Country
-                        },
-                    }.SetId(s.SupplierID)));
-            }
+                CompanyName = s.CompanyName,
+                ContactName = s.ContactName,
+                ContactTitle = s.ContactTitle,
+                Phone = s.Phone.Replace(".", " "),
+                Fax = faxDic[s.SupplierID].Replace(".", " "),
+                Address = new AddressEmbedded
+                {
+                    Address = s.Address,
+                    City = s.City,
+                    Region = s.Region,
+                    PostalCode = s.PostalCode,
+                    Country = s.Country
+                },
+            }.SetId(s.SupplierID))
+            .BulkInsert(disableIdentity: true);
         }
 
         public static void LoadCategories()
         {
-            using (NorthwindDataContext db = new NorthwindDataContext())
+            var category = Connector.Override(Northwind.Connector).Using(_ => Database.View<Categories>().ToList());
+
+            category.Select(s => new CategoryEntity
             {
-                Administrator.SaveListDisableIdentity(db.Categories.Select(s =>
-                    new CategoryEntity
-                    {
-                        CategoryName = s.CategoryName,
-                        Description = s.Description,
-                        Picture = new FileEmbedded { FileName = s.CategoryName + ".jpg", BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },
-                    }.SetId(s.CategoryID)));
-            }
+                CategoryName = s.CategoryName,
+                Description = s.Description,
+                Picture = new FileEmbedded { FileName = s.CategoryName + ".jpg", BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },
+            }.SetId(s.CategoryID))
+            .BulkInsert(disableIdentity: true);
         }
 
         public static void LoadProducts()
         {
-            using (NorthwindDataContext db = new NorthwindDataContext())
+            var products = Connector.Override(Northwind.Connector).Using(_ => Database.View<Products>().ToList());
+
+            products.Select(s => new ProductEntity
             {
-                Administrator.SaveListDisableIdentity(db.Products.Select(s =>
-                    new ProductEntity
-                    {
-                        ProductName = s.ProductName,
-                        Supplier =  Lite.Create<SupplierEntity>(s.SupplierID.Value),
-                        Category = Lite.Create<CategoryEntity>(s.CategoryID.Value),
-                        QuantityPerUnit = s.QuantityPerUnit,
-                        UnitPrice = s.UnitPrice.Value,
-                        UnitsInStock = s.UnitsInStock.Value,
-                        ReorderLevel = s.ReorderLevel.Value,
-                        Discontinued = s.Discontinued,
-                    }.SetId(s.ProductID)));
-            }
+                ProductName = s.ProductName,
+                Supplier = Lite.Create<SupplierEntity>(s.SupplierID.Value),
+                Category = Lite.Create<CategoryEntity>(s.CategoryID.Value),
+                QuantityPerUnit = s.QuantityPerUnit,
+                UnitPrice = s.UnitPrice.Value,
+                UnitsInStock = s.UnitsInStock.Value,
+                ReorderLevel = s.ReorderLevel.Value,
+                Discontinued = s.Discontinued,
+            }.SetId(s.ProductID))
+            .BulkInsert(disableIdentity: true);
         }
     }
 }

@@ -8,6 +8,7 @@ using Signum.Utilities;
 using Signum.Entities;
 using Signum.Services;
 using System.Globalization;
+using Southwind.Load.NorthwindSchema;
 
 namespace Southwind.Load
 {
@@ -15,52 +16,55 @@ namespace Southwind.Load
     {
         public static void LoadCompanies()
         {
-            using (NorthwindDataContext db = new NorthwindDataContext())
+            var companies = Connector.Override(Northwind.Connector).Using(_ =>
+                Database.View<Customers>()
+                .Where(c => !c.ContactTitle.Contains("Owner"))
+                .ToList());
+
+            companies.Select(c => new CompanyEntity
             {
-                db.Customers.Where(c => !c.ContactTitle.Contains("Owner")).Select(c =>
-                    new CompanyEntity
-                    {
-                        CompanyName = c.CompanyName,
-                        ContactName = c.ContactName,
-                        ContactTitle = c.ContactTitle,
-                        Address = new AddressEmbedded
-                        {
-                            Address = c.Address,
-                            City = c.City,
-                            Region = c.Region,
-                            PostalCode = c.PostalCode,
-                            Country = c.Country,
-                        },
-                        Phone = c.Phone.Replace(".", " "),
-                        Fax = c.Fax.Replace(".", " "),
-                    }).SaveList();
-            }
+                CompanyName = c.CompanyName,
+                ContactName = c.ContactName,
+                ContactTitle = c.ContactTitle,
+                Address = new AddressEmbedded
+                {
+                    Address = c.Address,
+                    City = c.City,
+                    Region = c.Region,
+                    PostalCode = c.PostalCode,
+                    Country = c.Country,
+                },
+                Phone = c.Phone.Replace(".", " "),
+                Fax = c.Fax == null ? null : c.Fax.Replace(".", " "),
+            }).SaveList();
+
         }
 
         public static void LoadPersons()
         {
-            using (NorthwindDataContext db = new NorthwindDataContext())
+            var persons = Connector.Override(Northwind.Connector).Using(_ =>
+                Database.View<Customers>()
+                .Where(c => c.ContactTitle.Contains("Owner"))
+                .ToList());
+
+            persons.Select(c => new PersonEntity
             {
-                db.Customers.Where(c => c.ContactTitle.Contains("Owner")).Select(c =>
-                     new PersonEntity
-                     {
-                         FirstName = c.ContactName.Substring(0, c.ContactName.LastIndexOf(' ')),
-                         LastName = c.ContactName.Substring(c.ContactName.LastIndexOf(' ') + 1),
-                         DateOfBirth = null,
-                         Title = null, 
-                         Address = new AddressEmbedded
-                         {
-                             Address = c.Address,
-                             City = c.City,
-                             Region = c.Region,
-                             PostalCode = c.PostalCode,
-                             Country = c.Country,
-                         },
-                         Phone = c.Phone.Replace(".", " "),
-                         Fax = c.Fax.Replace(".", " "),
-                         Corrupt = true,
-                     }).SaveList();
-            }
+                FirstName = c.ContactName.Substring(0, c.ContactName.LastIndexOf(' ')),
+                LastName = c.ContactName.Substring(c.ContactName.LastIndexOf(' ') + 1),
+                DateOfBirth = null,
+                Title = null,
+                Address = new AddressEmbedded
+                {
+                    Address = c.Address,
+                    City = c.City,
+                    Region = c.Region,
+                    PostalCode = c.PostalCode,
+                    Country = c.Country,
+                },
+                Phone = c.Phone.Replace(".", " "),
+                Fax = c.Fax == null ? null : c.Fax.Replace(".", " "),
+                Corrupt = true,
+            }).SaveList();
         }
     }
 }
