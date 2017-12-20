@@ -60,7 +60,6 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
                     <div className="input-group" >
                         <div className="input-group-addon"><i className="fa fa-lightbulb-o" aria-hidden="true" /></div>
                         <p className="form-control readonly numeric" style={{ color }}>{this.state.estimation}</p>
-                        <div className="input-group-addon">€</div>
                         <div className="input-group-btn">
                             <a className={classes("sf-line-button", "sf-view", "btn btn-default")}
                                 onClick={this.handleViewClick}

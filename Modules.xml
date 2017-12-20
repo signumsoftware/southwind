@@ -120,10 +120,7 @@
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
       <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\EmployeeLoader.cs"/>
-      <RemoveFiles Path="Southwind.Load\Northwind.dbml"/>
-      <RemoveFiles Path="Southwind.Load\Northwind.dbml.layout"/>
-      <RemoveFiles Path="Southwind.Load\Northwind.designer.cs"/>
-      <RemoveFiles Path="Southwind.Load\NorthwindPartials.cs"/>
+      <RemoveFiles Path="Southwind.Load\NorthwindSchema.cs"/>
       <RemoveFiles Path="Southwind.Load\OrderLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\ProductLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\SupplierFaxes.csv"/>
@@ -258,7 +255,8 @@
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" Line="ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="public class CancelOrderAlgorithm : PackageExecuteAlgorithm&lt;OrderEntity&gt;" To="} //CancelOrderAlgorithm"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="new Graph&lt;ProcessEntity&gt;.ConstructFromMany&lt;OrderEntity&gt;(OrderOperation.CancelWithProcess)" To="}.Register();"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="sb.Schema.Settings.FieldAttributes((ProcessEntity cp) => cp.Data).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));"
+      <RemoveLine Path="Southwind.Logic\Starter.cs" 
+                  From="sb.Schema.Settings.FieldAttributes((PackageLineEntity cp) => cp.Package).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));"
                   To="sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProcessLogic.Start(sb, dqm);"
                   To="PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);"/>
@@ -356,7 +354,7 @@
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().Single(e => e.FirstName == userName).ToLite());" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
-      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;D:\Signum\Southwind\Southwind.Load\AuthRules.xml&quot;); //Change this route if necessary. Only god knows where MSTest is running."/>
+      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\Southwind.Load\AuthRules.xml&quot;);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules, interactive: false).PlainSqlCommand().ExecuteLeaves();"/>
     </Module>
@@ -484,8 +482,8 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(AutoconfigureNeuralNetworkEntity)"/>
       <RemoveFiles Path="Southwind.React\App\Southwind\SalesEstimationController.cs"/>
       <RemoveFiles Path="Southwind.React\App\Southwind\Templates\SalesEstimation.tsx"/>
-      <RemoveLine Path="Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
-      <RemoveLine Path="Southwind\Templates\Product.tsx" Line="&gt;SalesEstimation ctx={ctx} />"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="&lt;SalesEstimation ctx={ctx} />"/>
     </Module>
 
     <Module Name="Dynamic">

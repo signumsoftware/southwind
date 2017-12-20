@@ -236,6 +236,7 @@
     <TypeScriptCompile Include="App\Southwind\Templates\OrderFilter.tsx" />
     <TypeScriptCompile Include="App\Southwind\Templates\Person.tsx" />
     <TypeScriptCompile Include="App\Southwind\Templates\Product.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\SalesEstimation.tsx" />
     <TypeScriptCompile Include="App\Southwind\Templates\Supplier.tsx" />
     <TypeScriptCompile Include="App\PublicCatalog.tsx" />
     <TypeScriptCompile Include="App\NotFound.tsx" />
