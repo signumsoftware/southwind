@@ -50,6 +50,8 @@
                   Path="Southwind.Windows\Main.xaml"
                   From="&lt;MenuItem Header=&quot;{m:LocTypePlural {x:Type d:OrderEntity}}&quot;>"
                   To="&lt;!--Admin-->"/>
+      <RemoveProjectReference Path="Framework\Signum.Windows\Signum.Windows.csproj"/>
+      <RemoveProjectReference Path="Extensions\Signum.Windows.Extensions\Signum.Windows.Extensions.csproj"/>
     </Module>
 
     <Module Name="ExampleReact" DependsOn="ExampleEntities" >
@@ -484,6 +486,7 @@
       <RemoveFiles Path="Southwind.React\App\Southwind\Templates\SalesEstimation.tsx"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="&lt;SalesEstimation ctx={ctx} />"/>
+      <RemoveProjectReference Path="Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj"/>
     </Module>
 
     <Module Name="Dynamic">
@@ -546,12 +549,13 @@
             To="}//DetailGrid"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Windows\Common.cs" From="public class DetailGridProxy" To="}//DetailGridRowProxy"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Windows\OrderWindowTest.cs" From="[TestMethod]" To="}//OrderWindowsTestExample"/>
+      <RemoveProjectReference Path="Extensions\Signum.Windows.Extensions.UIAutomation\Signum.Windows.Extensions.UIAutomation.csproj"/>
     </Module>
 
     <Module Name="Test.React" DependsOn="Test.Environment">
       <RemoveFiles Path="Southwind.Test.React"/>
-
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.React\OrderReactTest.cs" From="[TestMethod]" To="}//OrderReactTestExample"/>
+      <RemoveProjectReference Path="Extensions\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj"/>
     </Module>
   </Modules>
 
