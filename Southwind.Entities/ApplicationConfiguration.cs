@@ -61,7 +61,7 @@ namespace Southwind.Entities
     [Serializable]
     public class FoldersConfigurationEmbedded : EmbeddedEntity
     {
-        [NotNullable, SqlDbType(Size = 300)]
+        [NotNullable, SqlDbType(Size = 300)]/*Predictor*/
         [StringLengthValidator(AllowNulls = false, Max = 300), FileNameValidator]
         public string PredictorModelFolder { get; set; }
     }
