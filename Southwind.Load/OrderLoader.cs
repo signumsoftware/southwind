@@ -9,6 +9,7 @@ using Signum.Entities;
 using Signum.Services;
 using System.Globalization;
 using Signum.Engine.Operations;
+using Southwind.Load.NorthwindSchema;
 
 namespace Southwind.Load
 {
@@ -16,72 +17,55 @@ namespace Southwind.Load
     {
         public static void LoadShippers()
         {
-            using (NorthwindDataContext db = new NorthwindDataContext())
+            var shippers = Connector.Override(Northwind.Connector).Using(_ => Database.View<Shippers>().ToList());
+
+            shippers.Select(s => new ShipperEntity
             {
-                Administrator.SaveListDisableIdentity(db.Shippers.Select(s =>
-                    new ShipperEntity
-                    {
-                        CompanyName = s.CompanyName,
-                        Phone = s.Phone,
-                    }.SetId(s.ShipperID)));
-            }
+                CompanyName = s.CompanyName,
+                Phone = s.Phone,
+            }.SetId(s.ShipperID))
+            .BulkInsert(disableIdentity: true);
         }
 
         public static void LoadOrders()
         {
-            using (NorthwindDataContext db = new NorthwindDataContext())
+            Dictionary<string, CustomerEntity> customers = new Dictionary<string, CustomerEntity>();
+            customers.AddRange(Database.Query<CompanyEntity>().Select(c => KVP.Create(c.ContactName, (CustomerEntity)c)));
+            customers.AddRange(Database.Query<PersonEntity>().Select(p => KVP.Create(p.FirstName + " " + p.LastName, (CustomerEntity)p)));
+
+            var orders = Connector.Override(Northwind.Connector).Using(_ => Database.View<Orders>().Select(o => new OrderEntity
             {
-                var northwind = db.Customers.Select(a => new { a.CustomerID, a.ContactName }).ToList();
-
-                var companies = Database.Query<CompanyEntity>().Select(c => new
+                Employee = Lite.Create<EmployeeEntity>(o.EmployeeID.Value),
+                OrderDate = o.OrderDate.Value,
+                RequiredDate = o.RequiredDate.Value,
+                ShippedDate = o.ShippedDate,
+                State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
+                ShipVia = Lite.Create<ShipperEntity>(o.ShipVia.Value),
+                ShipName = o.ShipName,
+                ShipAddress = new AddressEmbedded
                 {
-                    Entity = (CustomerEntity)c,
-                    c.ContactName
-                }).ToList();
-
-                var persons = Database.Query<PersonEntity>().Select(p => new
+                    Address = o.ShipAddress,
+                    City = o.ShipCity,
+                    Region = o.ShipRegion,
+                    PostalCode = o.ShipPostalCode,
+                    Country = o.ShipCountry,
+                },
+                Freight = o.Freight.Value,
+                Details = Database.View<OrderDetails>().Where(od => od.OrderID == o.OrderID).Select(od => new OrderDetailEmbedded
                 {
-                    Entity = (CustomerEntity)p,
-                    ContactName = p.FirstName + " " + p.LastName
-                }).ToList();
+                    Discount = (decimal)od.Discount,
+                    Product = Lite.Create<ProductEntity>(od.ProductID),
+                    Quantity = od.Quantity,
+                    UnitPrice = od.UnitPrice,
+                }).ToMList(),
+                Customer = customers.GetOrThrow(Database.View<Customers>().Where(c => c.CustomerID == o.CustomerID).Select(a => a.ContactName).SingleOrDefaultEx()),
+                IsLegacy = true,
+            }.SetId(o.OrderID)).ToList())
+            ;
 
-                Dictionary<string, CustomerEntity> customerMapping =
-                    (from n in northwind
-                     join s in companies.Concat(persons) on n.ContactName equals s.ContactName
-                     select KVP.Create(n.CustomerID, s.Entity)).ToDictionary();
+            orders.BulkInsert(disableIdentity: true, validateFirst: true, message: "auto");
 
-                var orders = db.Orders.ToList().Select(o => new OrderEntity
-                {
-                    Employee = Lite.Create<EmployeeEntity>(o.EmployeeID.Value),
-                    OrderDate = o.OrderDate.Value,
-                    RequiredDate = o.RequiredDate.Value,
-                    ShippedDate = o.ShippedDate,
-                    State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
-                    ShipVia = Lite.Create<ShipperEntity>(o.ShipVia.Value),
-                    ShipName = o.ShipName,
-                    ShipAddress = new AddressEmbedded
-                    {
-                        Address = o.ShipAddress,
-                        City = o.ShipCity,
-                        Region = o.ShipRegion,
-                        PostalCode = o.ShipPostalCode,
-                        Country = o.ShipCountry,
-                    },
-                    Freight = o.Freight.Value,
-                    Details = o.Order_Details.Select(od => new OrderDetailEmbedded
-                    {
-                        Discount = (decimal)od.Discount,
-                        Product = Lite.Create<ProductEntity>(od.ProductID),
-                        Quantity = od.Quantity,
-                        UnitPrice = od.UnitPrice,
-                    }).ToMList(),
-                    Customer = customerMapping.GetOrThrow(o.CustomerID),
-                    IsLegacy = true,
-                }.SetId(o.OrderID));
 
-                orders.BulkInsert(disableIdentity: true, validateFirst: true, message: "auto");
-
-            }
         }
 
         public static void UpdateOrdersDate()

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Engine.Maps;
 using Signum.Engine.Operations;
+using Signum.Utilities;
 using Southwind.Logic;
 using Southwind.Test.Environment.Properties;
 
@@ -16,7 +19,7 @@ namespace Southwind.Test.Environment
         [TestMethod]
         public void GenerateEnvironment()
         {
-            var authRules = XDocument.Load(@"D:\Signum\Southwind\Southwind.Load\AuthRules.xml"); //Change this route if necessary. Only god knows where MSTest is running. 
+            var authRules = XDocument.Load(@"..\..\..\Southwind.Load\AuthRules.xml");
 
             SouthwindEnvironment.Start();
 

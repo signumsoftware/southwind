@@ -40,6 +40,7 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
     sms?: SMS.SMSConfigurationEmbedded | null;
     authTokens?: Authorization.AuthTokenConfigurationEmbedded | null;
     workflow?: Workflow.WorkflowConfigurationEmbedded | null;
+    folders?: FoldersConfigurationEmbedded | null;
 }
 
 export module ApplicationConfigurationOperation {
@@ -105,6 +106,12 @@ export module EmployeeOperation {
 
 export module EmployeeQuery {
     export const EmployeesByTerritory = new QueryKey("EmployeeQuery", "EmployeesByTerritory");
+}
+
+export const FoldersConfigurationEmbedded = new Type<FoldersConfigurationEmbedded>("FoldersConfigurationEmbedded");
+export interface FoldersConfigurationEmbedded extends Entities.EmbeddedEntity {
+    Type: "FoldersConfigurationEmbedded";
+    predictorModelFolder?: string | null;
 }
 
 export const OrderDetailEmbedded = new Type<OrderDetailEmbedded>("OrderDetailEmbedded");

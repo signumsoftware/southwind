@@ -24,6 +24,11 @@ using Southwind.Entities;
 using Signum.Entities.Workflow;
 using Signum.Engine.UserAssets;
 using System.IO;
+using Signum.Entities.MachineLearning;
+using Signum.Entities.UserAssets;
+using Signum.Engine.Authorization;
+using Signum.Engine.MachineLearning;
+using Signum.Engine.DynamicQuery;
 
 namespace Southwind.Load
 {
@@ -56,6 +61,7 @@ namespace Southwind.Load
                 ImportSpanishInstanceTranslations,
                 ImportWordReportTemplateForOrder,
                 ImportUserAssets,
+                ImportPredictor,
             }.Run(autoRun);
         } //CSharpMigrations
 
@@ -127,6 +133,10 @@ namespace Southwind.Load
                     Workflow= new WorkflowConfigurationEmbedded
                     {
                     }, //Workflow
+                    Folders = new FoldersConfigurationEmbedded
+                    {
+                        PredictorModelFolder = @"c:/Southwind/PredictorModels"
+                    }
                 }.Save();
 
                 tr.Commit();
@@ -156,7 +166,67 @@ namespace Southwind.Load
             var bytes = File.ReadAllBytes("../../UserAssets.xml");
             var preview = UserAssetsImporter.Preview(bytes);
             UserAssetsImporter.Import(bytes, preview);
-
         }
+
+        public static void ImportPredictor()
+        {
+            using (AuthLogic.UnsafeUserSession("System"))
+            {
+                var predictor = new PredictorEntity
+                {
+                    Name = "Product Estimation",
+                    Algorithm = CNTKPredictorAlgorithm.NeuralNetwork,
+                    ResultSaver = PredictorSimpleResultSaver.OneOutput,
+                    MainQuery = new PredictorMainQueryEmbedded
+                    {
+                        Query = QueryLogic.GetQueryEntity(typeof(OrderEntity)),
+                        GroupResults = true,
+                        Columns =
+                        {
+                            new PredictorColumnEmbedded
+                            {
+                                Usage = PredictorColumnUsage.Input,
+                                Token = new QueryTokenEmbedded("Entity.OrderDate.Year"),
+                                Encoding = PredictorColumnEncoding.NormalizeZScore
+                            },
+                            new PredictorColumnEmbedded
+                            {
+                                Usage = PredictorColumnUsage.Input,
+                                Token = new QueryTokenEmbedded("Entity.OrderDate.Month"),
+                                Encoding = PredictorColumnEncoding.NormalizeZScore
+                            },
+                            new PredictorColumnEmbedded
+                            {
+                                Usage = PredictorColumnUsage.Output,
+                                Token = new QueryTokenEmbedded("Entity.Details.Element.Product"),
+                                Encoding = PredictorColumnEncoding.OneHot
+                            },
+                            new PredictorColumnEmbedded
+                            {
+                                Usage = PredictorColumnUsage.Output,
+                                Token = new QueryTokenEmbedded("Entity.Details.Element.Quantity.Sum"),
+                                Encoding = PredictorColumnEncoding.NormalizeZScore
+                            },
+                        }
+                    },
+                    Settings = new PredictorSettingsEmbedded
+                    {
+                        TestPercentage = 0.05,
+                    },
+                    AlgorithmSettings = new NeuralNetworkSettingsEntity
+                    {
+                        PredictionType = PredictionType.Regression,
+                        Learner = NeuralNetworkLearner.MomentumSGD,
+                        LearningRate = 0.1,
+                        LearningMomentum = 0.01,
+                        LearningUnitGain = false,
+                        MinibatchSize = 100,
+                        NumMinibatches = 1000,
+                    }
+                }.ParseData().Execute(PredictorOperation.Save);
+
+                predictor.TrainSync();
+            }
+        }//ImportPredictor
     }
 }

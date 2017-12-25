@@ -41,17 +41,21 @@ import * as TranslationClient from "../../Extensions/Signum.React.Extensions/Tra
 import * as DiffLogClient from "../../Extensions/Signum.React.Extensions/DiffLog/DiffLogClient"
 import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
 import * as WorkflowClient from "../../Extensions/Signum.React.Extensions/Workflow/WorkflowClient"
+import * as PredictorClient from "../../Extensions/Signum.React.Extensions/MachineLearning/PredictorClient"
+
 import * as ToolbarClient from "../../Extensions/Signum.React.Extensions/Toolbar/ToolbarClient"
 import QueryToolbarConfig from "../../Extensions/Signum.React.Extensions/Toolbar/QueryToolbarConfig"
 import UserQueryToolbarConfig from "../../Extensions/Signum.React.Extensions/UserQueries/UserQueryToolbarConfig"
 import UserChartToolbarConfig from "../../Extensions/Signum.React.Extensions/Chart/UserChartToolbarConfig"
 import DashboardToolbarConfig from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardToolbarConfig"
+
 import * as DynamicClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicClient"
 import * as DynamicExpressionClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicExpressionClient"
 import * as DynamicTypeClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicTypeClient"
 import * as DynamicTypeConditionClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicTypeConditionClient"
 import * as DynamicValidationClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicValidationClient"
 import * as DynamicViewClient from "../../Extensions/Signum.React.Extensions/Dynamic/DynamicViewClient"
+
 import DynamicQueryOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/DynamicQueryOmniboxProvider"
 import EntityOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/EntityOmniboxProvider"
 import SpecialOmniboxProvider from "../../Extensions/Signum.React.Extensions/Omnibox/SpecialOmniboxProvider"
@@ -145,6 +149,7 @@ function reload() {
                 DashboardClient.start({ routes });
                 MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
                 WorkflowClient.start({ routes });
+                PredictorClient.start({ routes });
                 ToolbarClient.start({ routes },
                     new QueryToolbarConfig(),
                     new UserQueryToolbarConfig(),

@@ -37,6 +37,7 @@ using Signum.Entities.Dynamic;
 using Signum.Entities.Workflow;
 using Signum.Entities.Templating;
 using Signum.Entities.Toolbar;
+using Signum.Entities.MachineLearning;
 
 namespace Southwind.Logic
 {
@@ -129,6 +130,17 @@ namespace Southwind.Logic
 
             //Signum.Entities.Translation
             DisconnectedLogic.Register<CultureInfoEntity>(Download.All, Upload.None);
+
+            //Signum.Entities.MachineLearning
+            DisconnectedLogic.Register<PredictorEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<PredictorAlgorithmSymbol>(Download.None, Upload.None);
+            DisconnectedLogic.Register<NeuralNetworkSettingsEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<PredictorSubQueryEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<PredictorCodificationEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<PredictorEpochProgressEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<PredictorResultSaverSymbol>(Download.None, Upload.None);
+            DisconnectedLogic.Register<PredictSimpleResultEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<AutoconfigureNeuralNetworkEntity>(Download.None, Upload.None);
 
             //Signum.Entities.Operations
             DisconnectedLogic.Register<OperationSymbol>(Download.Replace, Upload.None);

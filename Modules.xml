@@ -50,6 +50,8 @@
                   Path="Southwind.Windows\Main.xaml"
                   From="&lt;MenuItem Header=&quot;{m:LocTypePlural {x:Type d:OrderEntity}}&quot;>"
                   To="&lt;!--Admin-->"/>
+      <RemoveProjectReference Path="Framework\Signum.Windows\Signum.Windows.csproj"/>
+      <RemoveProjectReference Path="Extensions\Signum.Windows.Extensions\Signum.Windows.Extensions.csproj"/>
     </Module>
 
     <Module Name="ExampleReact" DependsOn="ExampleEntities" >
@@ -120,10 +122,7 @@
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
       <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\EmployeeLoader.cs"/>
-      <RemoveFiles Path="Southwind.Load\Northwind.dbml"/>
-      <RemoveFiles Path="Southwind.Load\Northwind.dbml.layout"/>
-      <RemoveFiles Path="Southwind.Load\Northwind.designer.cs"/>
-      <RemoveFiles Path="Southwind.Load\NorthwindPartials.cs"/>
+      <RemoveFiles Path="Southwind.Load\NorthwindSchema.cs"/>
       <RemoveFiles Path="Southwind.Load\OrderLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\ProductLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\SupplierFaxes.csv"/>
@@ -258,7 +257,8 @@
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" Line="ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="public class CancelOrderAlgorithm : PackageExecuteAlgorithm&lt;OrderEntity&gt;" To="} //CancelOrderAlgorithm"/>
       <RemoveLine Path="Southwind.Logic\OrderLogic.cs" From="new Graph&lt;ProcessEntity&gt;.ConstructFromMany&lt;OrderEntity&gt;(OrderOperation.CancelWithProcess)" To="}.Register();"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="sb.Schema.Settings.FieldAttributes((ProcessEntity cp) => cp.Data).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));"
+      <RemoveLine Path="Southwind.Logic\Starter.cs" 
+                  From="sb.Schema.Settings.FieldAttributes((PackageLineEntity cp) => cp.Package).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));"
                   To="sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="ProcessLogic.Start(sb, dqm);"
                   To="PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);"/>
@@ -356,7 +356,7 @@
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().Single(e => e.FirstName == userName).ToLite());" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
-      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;D:\Signum\Southwind\Southwind.Load\AuthRules.xml&quot;); //Change this route if necessary. Only god knows where MSTest is running."/>
+      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\Southwind.Load\AuthRules.xml&quot;);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules, interactive: false).PlainSqlCommand().ExecuteLeaves();"/>
     </Module>
@@ -478,6 +478,26 @@
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="HelpClient.Start(); "/>
     </Module>
 
+    <Module Name="Predictor">
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable, SqlDbType(Size = 300)]/*Predictor*/" To="public string PredictorModelFolder { get; set; }"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportPredictor,"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="PredictorModelFolder = @&quot;c:/Klara/PredictorModels&quot;"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
+      <RemoveLine Path="Southwind.Load\packages.config" Line="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.2.0&quot; targetFramework=&quot;net462&quot; />"/>
+      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" To="&lt;/Reference&gt;"/>
+      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.2.0\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&#39;..\packages\CNTK.GPU.2.2.0\build\net45\CNTK.GPU.targets&#39;)&quot; /&gt;" To="&lt;/Target&gt;"/>
+      <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" From="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot;&gt;" To="&lt;/ProjectReference&gt;"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.CNTK;"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="PredictorLogic.Start(sb, dqm, new FileTypeAlgorithm" To="PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());"/>
+      <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(AutoconfigureNeuralNetworkEntity)"/>
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj" From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" To="&lt;/Reference&gt;"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\SalesEstimationController.cs"/>
+      <RemoveFiles Path="Southwind.React\App\Southwind\Templates\SalesEstimation.tsx"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="&lt;SalesEstimation ctx={ctx} />"/>
+      <RemoveProjectReference Path="Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj"/>
+    </Module>
+
     <Module Name="Dynamic">
       <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Target Name=&quot;CopyRoslynFiles&quot; AfterTargets=&quot;AfterBuild&quot; Condition=&quot;true&quot;>" To="&lt;/Target>"/>
       <RemoveFiles Path="Southwind.Logic\DynamicLogicStarter.cs" />
@@ -538,12 +558,13 @@
             To="}//DetailGrid"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Windows\Common.cs" From="public class DetailGridProxy" To="}//DetailGridRowProxy"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Windows\OrderWindowTest.cs" From="[TestMethod]" To="}//OrderWindowsTestExample"/>
+      <RemoveProjectReference Path="Extensions\Signum.Windows.Extensions.UIAutomation\Signum.Windows.Extensions.UIAutomation.csproj"/>
     </Module>
 
     <Module Name="Test.React" DependsOn="Test.Environment">
       <RemoveFiles Path="Southwind.Test.React"/>
-
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.React\OrderReactTest.cs" From="[TestMethod]" To="}//OrderReactTestExample"/>
+      <RemoveProjectReference Path="Extensions\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj"/>
     </Module>
   </Modules>
 
