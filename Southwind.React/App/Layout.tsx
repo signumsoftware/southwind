@@ -3,7 +3,7 @@ import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
 import * as moment from 'moment'
 import * as numbro from 'numbro'
-import { Navbar, Nav, NavItem, NavDropdown, NavbarToggler, NavbarBrand, NavLink, Collapse, DropdownItem, DropdownToggle, UncontrolledNavDropdown, DropdownMenu } from 'reactstrap'
+import { Navbar, Nav, NavItem, NavbarToggler, NavbarBrand, NavLink, Collapse, DropdownItem, DropdownToggle, UncontrolledDropdown, DropdownMenu } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import LoginDropdown from '../../Extensions/Signum.React.Extensions/Authorization/Login/LoginDropdown'
 import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorization/AuthClient'
@@ -15,10 +15,9 @@ import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 import ContainerToggle from "../../Framework/Signum.React/Scripts/Frames/ContainerToggle"
 import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
 import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
-import WorkflowDropdown from "../../Extensions/Signum.React.Extensions/Workflow/Workflow/WorkflowDropdown"
+//import WorkflowDropdown from "../../Extensions/Signum.React.Extensions/Workflow/Workflow/WorkflowDropdown"
 import SidebarContainer from "../../Extensions/Signum.React.Extensions/Toolbar/SidebarContainer"
 import ToolbarRenderer from "../../Extensions/Signum.React.Extensions/Toolbar/Templates/ToolbarRenderer"
-
 
 
 export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean, isOpen: boolean }> {
@@ -41,7 +40,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
         return (
             <div id="main" key={this.state.refreshId}>
                 <div>
-                    <Navbar light toggleable>
+                    <Navbar light expand>
                         <NavbarToggler onClick={this.handleToggle} />
                         <Link to="~/" className="navbar-brand">Southwind</Link>
                         <Collapse isOpen={this.state.isOpen} navbar>
@@ -51,7 +50,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                                         <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
                                     </div>
                                 </li>
-                                <UncontrolledNavDropdown>
+                                <UncontrolledDropdown>
                                     <DropdownToggle nav caret>
                                        Menu
                                     </DropdownToggle>
@@ -62,8 +61,8 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                                         <LinkContainer to="~/find/order"><DropdownItem>Orders</DropdownItem></LinkContainer>
                                         <LinkContainer to="~/find/exception"><DropdownItem>Exceptions</DropdownItem></LinkContainer>
                                     </DropdownMenu>
-                                </UncontrolledNavDropdown>
-                                <WorkflowDropdown />
+                                </UncontrolledDropdown>
+                                {/*<WorkflowDropdown />*/}
                             </Nav>}
                             {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
                             <Nav className="ml-auto" navbar>
