@@ -57,11 +57,17 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
             <FormGroup ctx={ctx} labelText="Sales next month" helpText="Monthly estimation using Predicitor extension">
                 {
                     this.state.estimation != null &&
-                    <div className="input-group" >
-                        <div className="input-group-addon"><i className="fa fa-lightbulb-o" aria-hidden="true" /></div>
-                        <p className="form-control readonly numeric" style={{ color }}>{this.state.estimation}</p>
-                        <div className="input-group-btn">
-                            <a className={classes("sf-line-button", "sf-view", "btn btn-light")}
+                    <div className={ctx.inputGroupClass}>
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">
+                                <i className="fa fa-lightbulb-o" aria-hidden="true" />
+                            </span>
+                        </div>
+                        <p className={classes(ctx.formControlClass, "readonly numeric")} style={{ color }}>
+                            {this.state.estimation}
+                        </p>
+                        <div className="input-group-append">
+                            <a href="#" className={classes("sf-line-button", "sf-view", "btn input-group-text")}
                                 onClick={this.handleViewClick}
                                 title={EntityControlMessage.View.niceToString()}>
                                 <span className="glyphicon glyphicon-arrow-right" />
@@ -74,6 +80,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
     }
 
     handleViewClick = (e: React.MouseEvent<any>) => {
+        e.preventDefault();
         Finder.exploreWindowsOpen({ queryName: PredictorEntity, parentColumn: "Name", parentValue: "SalesEstimation" }, e);
     }
 }//SalesEstimation
