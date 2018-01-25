@@ -70,7 +70,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
                             <a href="#" className={classes("sf-line-button", "sf-view", "btn input-group-text")}
                                 onClick={this.handleViewClick}
                                 title={EntityControlMessage.View.niceToString()}>
-                                <span className="glyphicon glyphicon-arrow-right" />
+                                <span className="fa fa-arrow-right" />
                             </a>
                         </div>
                     </div>
