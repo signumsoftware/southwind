@@ -156,7 +156,7 @@ namespace Southwind.Logic
             HelpLogic.Start(sb, dqm);
             WordTemplateLogic.Start(sb, dqm);
             MapLogic.Start(sb, dqm);
-            PredictorLogic.Start(sb, dqm, new FileTypeAlgorithm
+            PredictorLogic.Start(sb, dqm, () => new FileTypeAlgorithm
             {
                 GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
             });

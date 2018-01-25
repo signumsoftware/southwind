@@ -176,7 +176,7 @@ namespace Southwind.Load
                 {
                     Name = "Product Estimation",
                     Algorithm = CNTKPredictorAlgorithm.NeuralNetwork,
-                    ResultSaver = PredictorSimpleResultSaver.OneOutput,
+                    ResultSaver = PredictorSimpleResultSaver.Full,
                     MainQuery = new PredictorMainQueryEmbedded
                     {
                         Query = QueryLogic.GetQueryEntity(typeof(OrderEntity)),

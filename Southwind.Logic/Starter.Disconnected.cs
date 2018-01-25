@@ -137,10 +137,12 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<NeuralNetworkSettingsEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<PredictorSubQueryEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<PredictorCodificationEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<PredictorPublicationSymbol>(Download.None, Upload.None);
             DisconnectedLogic.Register<PredictorEpochProgressEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<PredictorResultSaverSymbol>(Download.None, Upload.None);
             DisconnectedLogic.Register<PredictSimpleResultEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<AutoconfigureNeuralNetworkEntity>(Download.None, Upload.None);
+
 
             //Signum.Entities.Operations
             DisconnectedLogic.Register<OperationSymbol>(Download.Replace, Upload.None);
