@@ -14,7 +14,7 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
     public class ProductEntity : Entity
     {
-        [NotNullable, SqlDbType(Size = 40), UniqueIndex]
+        [UniqueIndex]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
         public string ProductName { get; set; }
 
@@ -24,7 +24,6 @@ namespace Southwind.Entities
         [NotNullValidator]
         public Lite<CategoryEntity> Category { get; set; }
 
-        [NotNullable, SqlDbType(Size = 20)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 20)]
         public string QuantityPerUnit { get; set; }
 
@@ -81,31 +80,25 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
     public class SupplierEntity : Entity
     {
-        [NotNullable, SqlDbType(Size = 40), UniqueIndex]
+        [UniqueIndex]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
         public string CompanyName { get; set; }
 
-        [SqlDbType(Size = 30)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 30)]
         public string ContactName { get; set; }
 
-        [SqlDbType(Size = 30)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 30)]
         public string ContactTitle { get; set; }
 
-        [NotNullable]
         [NotNullValidator]
         public AddressEmbedded Address { get; set; }
 
-        [NotNullable, SqlDbType(Size = 24)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
         public string Phone { get; set; }
 
-        [NotNullable, SqlDbType(Size = 24)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
         public string Fax { get; set; }
 
-        [SqlDbType(Size = int.MaxValue)]
         [StringLengthValidator(AllowNulls = true, Min = 3, MultiLine = true)]
         public string HomePage { get; set; }
 
@@ -127,12 +120,11 @@ namespace Southwind.Entities
     public class CategoryEntity : Entity
     {
         [TranslateField] //Localize categoryName column
-        [NotNullable, SqlDbType(Size = 100), UniqueIndex]
+        [UniqueIndex]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
         public string CategoryName { get; set; }
 
         [TranslateField] //Localize description column
-        [NotNullable, SqlDbType(Size = int.MaxValue)]
         [StringLengthValidator(AllowNulls = false, Min = 3, MultiLine = true)]
         public string Description { get; set; }
 

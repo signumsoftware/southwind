@@ -40,19 +40,17 @@ namespace Southwind.Entities
 
         public Lite<ShipperEntity> ShipVia { get; set; }
 
-        [SqlDbType(Size = 40)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 40)]
         public string ShipName { get; set; }
 
-        [NotNullable]
         [NotNullValidator]
         public AddressEmbedded ShipAddress { get; set; }
 
         [Unit("Kg")]
         public decimal Freight { get; set; }
 
-        [NotNullable, NotifyChildProperty, NotifyCollectionChanged]
-        [NoRepeatValidator]
+        [NotifyChildProperty, NotifyCollectionChanged]
+        [NotNullValidator, NoRepeatValidator]
         public MList<OrderDetailEmbedded> Details { get; set; } = new MList<OrderDetailEmbedded>();
 
         static Expression<Func<OrderEntity, decimal>> TotalPriceExpression =
@@ -219,11 +217,10 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
     public class ShipperEntity : Entity
     {
-        [NotNullable, SqlDbType(Size = 100), UniqueIndex]
+        [UniqueIndex]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
         public string CompanyName { get; set; }
 
-        [NotNullable, SqlDbType(Size = 24)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
         public string Phone { get; set; }
 

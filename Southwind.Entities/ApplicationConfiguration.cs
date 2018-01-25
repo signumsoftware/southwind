@@ -16,30 +16,28 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
     public class ApplicationConfigurationEntity : Entity
     {
-        [NotNullable, SqlDbType(Size = 100), UniqueIndex]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
         public string Environment { get; set; }
 
-        [NotNullable]/*Email*/
+        /*Email*/
         [NotNullValidator]
         public EmailConfigurationEmbedded Email { get; set; }
 
         [NotNullValidator]/*Smtp*/
         public SmtpConfigurationEntity SmtpConfiguration { get; set; }
 
-        [NotNullable]/*Sms*/
+        /*Sms*/
         [NotNullValidator]
         public SMSConfigurationEmbedded Sms { get; set; }
 
-        [NotNullable]/*AuthTokens*/
+        /*AuthTokens*/
         [NotNullValidator]
         public AuthTokenConfigurationEmbedded AuthTokens { get; set; }
 
-        [NotNullable]/*Workflow*/
+        /*Workflow*/
         [NotNullValidator]
         public WorkflowConfigurationEmbedded Workflow { get; set; }
 
-        [NotNullable]
         [NotNullValidator]
         public FoldersConfigurationEmbedded Folders { get; set; }
     }
@@ -61,7 +59,7 @@ namespace Southwind.Entities
     [Serializable]
     public class FoldersConfigurationEmbedded : EmbeddedEntity
     {
-        [NotNullable, SqlDbType(Size = 300)]/*Predictor*/
+        /*Predictor*/
         [StringLengthValidator(AllowNulls = false, Max = 300), FileNameValidator]
         public string PredictorModelFolder { get; set; }
     }

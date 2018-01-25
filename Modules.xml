@@ -296,7 +296,7 @@
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="MailingServer.Start(config);" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as MailingClient from &quot;../../Extensions/Signum.React.Extensions/Mailing/MailingClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true, quickLinksFrom: undefined });"/>
-      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Email*/" To="public EmailConfigurationEmbedded Email { get; set; }"/>
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Email*/" To="public EmailConfigurationEmbedded Email { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullValidator]/*Smtp*/" To="public SmtpConfigurationEntity SmtpConfiguration { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email) }>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Email = new EmailConfigurationEmbedded" To="}, //Email"/>
@@ -308,7 +308,7 @@
                   From="SMSLogic.RegisterPhoneNumberProvider&lt;PersonEntity>(p => p.Phone, p => null);"
                   To="SMSLogic.RegisterPhoneNumberProvider&lt;CompanyEntity&gt;(p => p.Phone, p => null);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="SMSClient.Start();" />
-      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Sms*/" To="public SMSConfigurationEmbedded Sms { get; set; }"/>
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Sms*/" To="public SMSConfigurationEmbedded Sms { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms) }>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
     </Module>
@@ -319,7 +319,7 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity),"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
-      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*AuthTokens*/" To="public AuthTokenConfigurationEmbedded AuthTokens { get; set; }"/>
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*AuthTokens*/" To="public AuthTokenConfigurationEmbedded AuthTokens { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;auth&quot; title={ctx.niceName(a => a.authTokens) }>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="AuthTokens = new AuthTokenConfigurationEmbedded" To="}, //Auth"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="AuthServer.Start(config, () => Starter.Configuration.Value.AuthTokens, &quot;IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!&quot;);" />
@@ -479,7 +479,7 @@
     </Module>
 
     <Module Name="Predictor">
-      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable, SqlDbType(Size = 300)]/*Predictor*/" To="public string PredictorModelFolder { get; set; }"/>
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Predictor*/" To="public string PredictorModelFolder { get; set; }"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportPredictor,"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="PredictorModelFolder = @&quot;c:/Klara/PredictorModels&quot;"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
@@ -518,7 +518,7 @@
     </Module>
 
     <Module Name="Workflow">
-      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullable]/*Workflow*/" To="public WorkflowConfigurationEmbedded Workflow { get; set; }"/>
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Workflow*/" To="public WorkflowConfigurationEmbedded Workflow { get; set; }"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogicStarter.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as WorkflowClient from &quot;../../Extensions/Signum.React.Extensions/Workflow/WorkflowClient&quot;" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WorkflowClient.start({ routes });"/>
