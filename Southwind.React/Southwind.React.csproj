@@ -25,7 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.7</TypeScriptToolsVersion>
     <TargetFrameworkProfile />
     <Use64BitIISExpress>true</Use64BitIISExpress>
     <!--<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>-->
