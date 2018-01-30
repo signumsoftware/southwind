@@ -168,6 +168,6 @@ namespace Southwind.Load
                 var predictor = Database.Query<PredictorEntity>().SingleEx(a => a.Id == 2);
                 predictor.TrainSync();
             }
-        }
+        }//TrainPredictor
     }
 }

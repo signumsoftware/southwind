@@ -16,19 +16,15 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
     public class EmployeeEntity : Entity
     {
-        [NotNullable, SqlDbType(Size = 20)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 20)]
         public string LastName { get; set; }
 
-        [NotNullable, SqlDbType(Size = 10)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 10)]
         public string FirstName { get; set; }
 
-        [SqlDbType(Size = 30)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 30)]
         public string Title { get; set; }
 
-        [SqlDbType(Size = 25)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 25)]
         public string TitleOfCourtesy { get; set; }
 
@@ -37,32 +33,26 @@ namespace Southwind.Entities
 
         public DateTime? HireDate { get; set; }
 
-        [NotNullable]
         [NotNullValidator]
         public AddressEmbedded Address { get; set; }
 
-        [SqlDbType(Size = 25)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 25), TelephoneValidator]
         public string HomePhone { get; set; }
 
-        [SqlDbType(Size = 4)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 4), TelephoneValidator]
         public string Extension { get; set; }
 
         public Lite<FileEntity> Photo { get; set; }
 
-        [SqlDbType(Size = int.MaxValue),]
         [StringLengthValidator(AllowNulls = true, Min = 3, MultiLine = true)]
         public string Notes { get; set; }
 
         public Lite<EmployeeEntity> ReportsTo { get; set; }
 
-        [SqlDbType(Size = 255)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 255), URLValidator]
         public string PhotoPath { get; set; }
 
-        [NotNullable]
-        [NoRepeatValidator]
+        [NoRepeatValidator, NoRepeatValidator]
         public MList<TerritoryEntity> Territories { get; set; } = new MList<TerritoryEntity>();
 
         public override string ToString()
@@ -88,7 +78,7 @@ namespace Southwind.Entities
         [NotNullValidator]
         public RegionEntity Region { get; set; }
 
-        [NotNullable, SqlDbType(Size = 100), UniqueIndex]
+        [UniqueIndex]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
         public string Description { get; set; }
 
@@ -109,7 +99,7 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
     public class RegionEntity : Entity
     {
-        [NotNullable, SqlDbType(Size = 50), UniqueIndex]
+        [UniqueIndex]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 50)]
         public string Description { get; set; }
 

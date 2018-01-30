@@ -11,23 +11,18 @@ namespace Southwind.Entities
     [Serializable]
     public class AddressEmbedded : EmbeddedEntity
     {
-        [NotNullable, SqlDbType(Size = 60)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 60, MultiLine = true)]
         public string Address { get; set; }
 
-        [NotNullable, SqlDbType(Size = 15)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 15)]
         public string City { get; set; }
 
-        [SqlDbType(Size = 15)]
         [StringLengthValidator(AllowNulls = true, Min = 2, Max = 15)]
         public string Region { get; set; }
 
-        [SqlDbType(Size = 10)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10)]
         public string PostalCode { get; set; }
 
-        [NotNullable, SqlDbType(Size = 15)]
         [StringLengthValidator(AllowNulls = false, Min = 2, Max = 15)]
         public string Country { get; set; }
 

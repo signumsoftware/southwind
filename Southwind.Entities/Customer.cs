@@ -12,15 +12,12 @@ namespace Southwind.Entities
     [Serializable, PrimaryKey(typeof(Guid))]
     public abstract class CustomerEntity : Entity
     {
-        [NotNullable]
         [NotNullValidator]
         public AddressEmbedded Address { get; set; }
 
-        [NotNullable, SqlDbType(Size = 24)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
         public string Phone { get; set; }
 
-        [SqlDbType(Size = 24)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 24), TelephoneValidator]
         public string Fax { get; set; }
 
@@ -42,15 +39,12 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Shared, EntityData.Transactional)]
     public class PersonEntity : CustomerEntity
     {
-        [NotNullable, SqlDbType(Size = 40)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
         public string FirstName { get; set; }
 
-        [NotNullable, SqlDbType(Size = 40)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
         public string LastName { get; set; }
 
-        [SqlDbType(Size = 10)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10)]
         public string Title { get; set; }
 
@@ -96,15 +90,12 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Shared, EntityData.Transactional)]
     public class CompanyEntity : CustomerEntity
     {
-        [SqlDbType(Size = 40)]
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 40)]
         public string CompanyName { get; set; }
 
-        [NotNullable, SqlDbType(Size = 30)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 30)]
         public string ContactName { get; set; }
 
-        [NotNullable, SqlDbType(Size = 30)]
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 30)]
         public string ContactTitle { get; set; }
 
