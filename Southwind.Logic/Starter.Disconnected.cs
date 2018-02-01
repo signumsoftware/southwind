@@ -141,7 +141,6 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<PredictorEpochProgressEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<PredictorResultSaverSymbol>(Download.None, Upload.None);
             DisconnectedLogic.Register<PredictSimpleResultEntity>(Download.None, Upload.None);
-            DisconnectedLogic.Register<PredictorPublicationSymbol>(Download.None, Upload.None);
             DisconnectedLogic.Register<AutoconfigureNeuralNetworkEntity>(Download.None, Upload.None);
 
 
