@@ -485,14 +485,14 @@
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{99, TrainPredictor},"/>
       <RemoveLine Path="Southwind.Load\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
-      <RemoveLine Path="Southwind.Load\packages.config" Line="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.2.0&quot; targetFramework=&quot;net462&quot; />"/>
-      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" To="&lt;/Reference&gt;"/>
-      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.2.0\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&#39;..\packages\CNTK.GPU.2.2.0\build\net45\CNTK.GPU.targets&#39;)&quot; /&gt;" To="&lt;/Target&gt;"/>
+      <RemoveLine Path="Southwind.Load\packages.config" Line="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.3.1&quot; targetFramework=&quot;net462&quot; />"/>
+      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.3.1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" To="&lt;/Reference&gt;"/>
+      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.3.1\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&#39;..\packages\CNTK.GPU.2.3.1\build\net45\CNTK.GPU.targets&#39;)&quot; /&gt;" To="&lt;/Target&gt;"/>
       <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" From="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot;&gt;" To="&lt;/ProjectReference&gt;"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.CNTK;"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="PredictorLogic.Start(sb, dqm, () => new FileTypeAlgorithm" To="PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(AutoconfigureNeuralNetworkEntity)"/>
-      <RemoveLine Path="Southwind.React\Southwind.React.csproj" From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" To="&lt;/Reference&gt;"/>
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj" From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.3.1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" To="&lt;/Reference&gt;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as PredictorClient from &quot;../../Extensions/Signum.React.Extensions/MachineLearning/PredictorClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="PredictorClient.start({ routes });"/>
       <RemoveFiles Path="Southwind.React\App\Southwind\SalesEstimationController.cs"/>
