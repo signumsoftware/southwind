@@ -1,7 +1,6 @@
 ﻿require("react");
 require("react-dom");
 require("prop-types");
-require("reactstrap");
 require("react-router");
 require("react-widgets");
 require("react-component-managers");
