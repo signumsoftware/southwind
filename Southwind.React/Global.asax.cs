@@ -82,6 +82,8 @@ namespace Southwind.React
 
         void Application_Start(object sender, EventArgs e)
         {
+            VersionFilterAttribute.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
             DynamicCode.CodeGenDirectory = Server.MapPath("~/CodeGen");
             Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 

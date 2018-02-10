@@ -18,7 +18,7 @@ import * as CultureClient from "../../Extensions/Signum.React.Extensions/Transla
 //import WorkflowDropdown from "../../Extensions/Signum.React.Extensions/Workflow/Workflow/WorkflowDropdown"
 import SidebarContainer from "../../Extensions/Signum.React.Extensions/Toolbar/SidebarContainer"
 import ToolbarRenderer from "../../Extensions/Signum.React.Extensions/Toolbar/Templates/ToolbarRenderer"
-
+import VersionChangedAlert from '../../Framework/Signum.React/Scripts/Frames/VersionChangedAlert';
 
 export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean, isOpen: boolean }> {
 
@@ -77,11 +77,13 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                     <SidebarContainer
                         sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible}
                         sidebarContent={<ToolbarRenderer location="Side" />}>
+                        <VersionChangedAlert />
                         {Layout.switch}
                     </SidebarContainer>
                     {/* Layout
                     <ContainerToggle>
-                    {Layout.switch}
+                        <VersionChangedAlert />
+                        {Layout.switch}
                     </ContainerToggle>
                     Layout */}
                 </div>
@@ -96,13 +98,11 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
     }
 
     componentWillMount() {
-        AuthClient.onCurrentUserChanged.push(this.handleResetUI);
-        CultureClient.onCultureLoaded.push(this.handleResetUI);
+        Navigator.setResetUI(this.handleResetUI);
     }
 
     componentWillUnmount() {
-        AuthClient.onCurrentUserChanged.remove(this.handleResetUI);
-        CultureClient.onCultureLoaded.remove(this.handleResetUI);
+        Navigator.setResetUI(() => { });
     }
 
     handleResetUI = () => {

@@ -100,6 +100,10 @@ CultureClient.onCultureLoaded.push(ci => {
         culture == "es" ? "es-ES" : "Unkwnown");
 }); //Culture
 
+Services.VersionFilter.versionChanged = () => {
+    Navigator.resetUI();
+}
+
 Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 
 AuthClient.registerUserTicketAuthenticator();
