@@ -98,6 +98,11 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
         );
     }
 
+    componentDidCatch(error: any, info: any) {
+        console.log(error);
+        console.log(info);
+    }
+
     componentWillMount() {
         Navigator.setResetUI(this.handleResetUI);
     }
