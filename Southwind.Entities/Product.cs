@@ -8,6 +8,7 @@ using Signum.Utilities;
 using Signum.Entities.Translation;
 using Signum.Entities.Files;
 using Signum.Utilities.ExpressionTrees;
+using Signum.Entities.MachineLearning;
 
 namespace Southwind.Entities
 {
@@ -148,4 +149,10 @@ namespace Southwind.Entities
     {
         CurrentProducts
     }
+
+    [AutoInit]//Predictor
+    public static class ProductPredictorPublication
+    {
+        public static PredictorPublicationSymbol MonthlySales;
+    }//Predictor
 }

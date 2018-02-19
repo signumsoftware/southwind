@@ -122,7 +122,7 @@ function reload() {
 
             routes.push(<Route exact path="~/" component={Home} />);
             routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
-            AuthClient.startPublic({ routes, userTicket: true, resetPassword: true });
+            AuthClient.startPublic({ routes, userTicket: true, resetPassword: true, notifyLogout: true });
 
             if (isFull) {
                 Operations.start();

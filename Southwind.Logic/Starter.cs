@@ -161,6 +161,10 @@ namespace Southwind.Logic
                 GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
             });
             PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
+            PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
+            {
+                QueryName = typeof(OrderEntity)
+            }); //PredictorLogic
 
             WorkflowLogicStarter.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);
 

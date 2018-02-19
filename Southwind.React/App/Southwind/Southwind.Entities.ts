@@ -11,6 +11,7 @@ import * as Authorization from '../../../Extensions/Signum.React.Extensions/Auth
 import * as Workflow from '../../../Extensions/Signum.React.Extensions/Workflow/Signum.Entities.Workflow'
 import * as Processes from '../../../Extensions/Signum.React.Extensions/Processes/Signum.Entities.Processes'
 import * as Scheduler from '../../../Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler'
+import * as MachineLearning from '../../../Extensions/Signum.React.Extensions/MachineLearning/Signum.Entities.MachineLearning'
 import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Signum.Entities.Basics'
 
 
@@ -214,6 +215,10 @@ export interface ProductEntity extends Entities.Entity {
 
 export module ProductOperation {
     export const Save : Entities.ExecuteSymbol<ProductEntity> = registerSymbol("Operation", "ProductOperation.Save");
+}
+
+export module ProductPredictorPublication {
+    export const MonthlySales : MachineLearning.PredictorPublicationSymbol = registerSymbol("PredictorPublication", "ProductPredictorPublication.MonthlySales");
 }
 
 export module ProductQuery {

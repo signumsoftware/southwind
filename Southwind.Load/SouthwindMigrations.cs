@@ -197,7 +197,7 @@ namespace Southwind.Load
                             },
                             new PredictorColumnEmbedded
                             {
-                                Usage = PredictorColumnUsage.Output,
+                                Usage = PredictorColumnUsage.Input,
                                 Token = new QueryTokenEmbedded("Entity.Details.Element.Product"),
                                 Encoding = PredictorColumnEncoding.OneHot
                             },
@@ -217,6 +217,8 @@ namespace Southwind.Load
                     {
                         PredictionType = PredictionType.Regression,
                         Learner = NeuralNetworkLearner.MomentumSGD,
+                        LossFunction = NeuralNetworkEvalFunction.SquaredError,
+                        EvalErrorFunction = NeuralNetworkEvalFunction.MeanAbsoluteError,
                         LearningRate = 0.1,
                         LearningMomentum = 0.01,
                         LearningUnitGain = false,
@@ -226,6 +228,8 @@ namespace Southwind.Load
                 }.ParseData().Execute(PredictorOperation.Save);
 
                 predictor.TrainSync();
+
+                predictor.Execute(PredictorOperation.Publish, ProductPredictorPublication.MonthlySales);
             }
         }//ImportPredictor
     }

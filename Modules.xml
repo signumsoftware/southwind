@@ -346,7 +346,7 @@
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as AuthClient from &quot;../../Extensions/Signum.React.Extensions/Authorization/AuthClient&quot;"/>
       <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="AuthClient.autoLogin() //"/>
       <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="!!AuthClient.currentUser(); //"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, resetPassword: true });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, resetPassword: true, notifyLogout: true });"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" From="AuthClient.Options.onLogin = () => {" To="};"/>
       <RemoveLine Path="Southwind.Windows\Program.cs" From="static IServerSouthwind Login(IServerSouthwind result)" To="} //Login"/>
@@ -485,16 +485,48 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" Line="{99, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
-      <RemoveLine Path="Southwind.Load\packages.config" Line="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.3.1&quot; targetFramework=&quot;net462&quot; />"/>
-      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.3.1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" To="&lt;/Reference&gt;"/>
-      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.3.1\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&#39;..\packages\CNTK.GPU.2.3.1\build\net45\CNTK.GPU.targets&#39;)&quot; /&gt;" To="&lt;/Target&gt;"/>
+      
+      <RemoveLine Path="Southwind.Load\packages.config" 
+                  From="&lt;package id=&quot;CNTK.Deps.Cuda&quot; version=&quot;2.4.0&quot; targetFramework=&quot;net462&quot; />"
+                  To="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.4.0&quot; targetFramework=&quot;net462&quot; />"
+                  />
+      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" 
+                  From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.4, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" 
+                  To="&lt;/Reference&gt;"
+                  />
+      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" 
+                  From="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;))&quot; /&gt;"
+                  To="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;))&quot; /&gt;"
+                  />
+      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" 
+                  From="&lt;Import Project=&quot;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; /&gt;" 
+                  To="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;)&quot; /&gt;"
+                  />
+
+      <RemoveLine Path="Southwind.React\packages.config"
+                  From="&lt;package id=&quot;CNTK.Deps.Cuda&quot; version=&quot;2.4.0&quot; targetFramework=&quot;net462&quot; />"
+                  To="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.4.0&quot; targetFramework=&quot;net462&quot; />"
+                  />
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj"
+                  From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.4, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;"
+                  To="&lt;/Reference&gt;"
+                  />
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj"
+                  From="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;))&quot; /&gt;"
+                  To="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;))&quot; /&gt;"
+                  />
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj"
+                  From="&lt;Import Project=&quot;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; /&gt;"
+                  To="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;)&quot; /&gt;"
+                  />
+      
       <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" From="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot;&gt;" To="&lt;/ProjectReference&gt;"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.CNTK;"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="PredictorLogic.Start(sb, dqm, () => new FileTypeAlgorithm" To="PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="PredictorLogic.Start(sb, dqm, () => new FileTypeAlgorithm" To="}); //PredictorLogic"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(AutoconfigureNeuralNetworkEntity)"/>
-      <RemoveLine Path="Southwind.React\Southwind.React.csproj" From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.3.1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" To="&lt;/Reference&gt;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as PredictorClient from &quot;../../Extensions/Signum.React.Extensions/MachineLearning/PredictorClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="PredictorClient.start({ routes });"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Product.cs" From="[AutoInit]//Predictor" To="}//Predictor"/>
       <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\SalesEstimationController.cs"/>
       <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\SalesEstimation.tsx"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
@@ -503,7 +535,7 @@
     </Module>
 
     <Module Name="Dynamic">
-      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" From="&lt;Target Name=&quot;CopyRoslynFiles&quot; AfterTargets=&quot;AfterBuild&quot; Condition=&quot;true&quot;>" To="&lt;/Target>"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="DynamicLogicStarter.AssertRoslynIsPresent();"/>
       <RemoveFiles Path="Southwind.Logic\DynamicLogicStarter.cs" />
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredDatabaseMismatches = new List&lt;Exception>();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredCodeErrors = new List&lt;Exception>();"/>
