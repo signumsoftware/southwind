@@ -74,7 +74,7 @@
       <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Product.tsx"/>
       <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Supplier.tsx"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx"
-                  Line="&lt;LinkContainer to=&quot;~/find/order&quot;>&lt;MenuItem>Orders&lt;/MenuItem>&lt;/LinkContainer>" />"/>
+                  Line="&lt;LinkContainer to=&quot;~/find/order&quot;>&lt;DropdownItem>Orders&lt;/DropdownItem>&lt;/LinkContainer>" />"/>
     </Module>
 
     <Module Name="Disconnected" DependsOn="Windows">
@@ -240,7 +240,7 @@
       <RemoveLine DependsOn="Dashboard" Path="Southwind.React\App\Main.tsx" Line="new DashboardToolbarConfig(),"/>
       <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="; sideMenuVisible: boolean"/>
       <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span=", sideMenuVisible: true"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })}"/>
+      <!--<RemoveLine Path="Southwind.React\App\Layout.tsx" Line="onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })}"/>-->
       <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;SidebarContainer" To="&lt;/SidebarContainer>"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{/* Layout"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="Layout */}"/>
@@ -339,10 +339,8 @@
                  DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" From="Navigator.EntitySettings&lt;UserEntity&gt;().OverrideView += (usr, ctrl) =>" To="};" DependsOn="ExampleEntities"/>
       <RemoveSpanInLines Path="Southwind.Entities\Employee.cs" Span="get { return UserEntity.Current.Mixin&lt;UserEmployeeMixin>().Employee; } //" DependsOn="ExampleEntities" />>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="AuthClient.onCurrentUserChanged.push(this.handleResetUI);" />
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="AuthClient.onCurrentUserChanged.remove(this.handleResetUI);" />
       <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="AuthClient.currentUser() &amp;&amp;" />
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LoginUserControl />"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LoginDropdown />"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as AuthClient from &quot;../../Extensions/Signum.React.Extensions/Authorization/AuthClient&quot;"/>
       <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="AuthClient.autoLogin() //"/>
       <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="!!AuthClient.currentUser(); //"/>
@@ -381,8 +379,6 @@
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;CultureDropdown />"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="CultureClient.onCultureLoaded.push(this.handleResetUI);" />
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="CultureClient.onCultureLoaded.remove(this.handleResetUI);" />
     </Module>
 
     <Module Name="Auth_ResetPasswordRequest" DependsOn="Auth,Mailing">
@@ -434,7 +430,7 @@
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts;"/>
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
       <RemoveFiles Path="Southwind.React\App\PublicCatalog.tsx"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;MenuItem>Catalog&lt;/MenuItem>&lt;/LinkContainer>"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;DropdownItem>Catalog&lt;/DropdownItem>&lt;/LinkContainer>"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="routes.push(&lt;Route path=&quot;~/publicCatalog&quot; component={PublicCatalog} />);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import PublicCatalog from './PublicCatalog'"/>
       <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (Navigator.currentUser == null) {" To="}//PublicCatalog"/>
@@ -562,7 +558,7 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;WorkflowDropdown />"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WorkflowServer.Start(config);"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow= new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^0.23.1&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^0.27.5&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">

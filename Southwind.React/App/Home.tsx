@@ -36,9 +36,9 @@ export default class Home extends React.Component<{}, { loaded: boolean }> {
             <div>
                 <br/>
                 <div className="jumbotron">
-                    <h1>Welcome to Signum React</h1>
+                    <h1 className="display-4">Welcome to Signum React</h1>
                     <br />
-                    <p>Southwind is a demo application from <a href="http://www.signumsoftware.com" title="Signum Framework">Signum Software</a> based on Northwind database from Microsoft:</p>
+                    <p className="lead">Southwind is a demo application from <a href="http://www.signumsoftware.com" title="Signum Software">Signum Software</a> based on Northwind database from Microsoft:</p>
                     <p>
                         To learn more about Signum Framework visit <a href="http://www.signumframework.com" title="Signum Framework">http://www.signumframework.com</a>.
                     </p>

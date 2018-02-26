@@ -1,9 +1,10 @@
 ﻿require("react");
 require("react-dom");
 require("prop-types");
+require("react-popper");
 require("react-router");
 require("react-widgets");
-require("react-component-managers");
+require("react-overlays");
 require("query-string");
 require("moment");
 require("numbro");

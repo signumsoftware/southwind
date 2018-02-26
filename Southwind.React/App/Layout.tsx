@@ -13,6 +13,7 @@ import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modal
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 import ContainerToggle from "../../Framework/Signum.React/Scripts/Frames/ContainerToggle"
 import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
+import WorkflowDropdown from "../../Extensions/Signum.React.Extensions/Workflow/Workflow/WorkflowDropdown"
 import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
 import SidebarContainer from "../../Extensions/Signum.React.Extensions/Toolbar/SidebarContainer"
 import ToolbarRenderer from "../../Extensions/Signum.React.Extensions/Toolbar/Templates/ToolbarRenderer"
@@ -63,7 +64,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                                         <LinkContainer to="~/find/exception"><DropdownItem>Exceptions</DropdownItem></LinkContainer>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
-                                {/*<WorkflowDropdown />*/}
+                                <WorkflowDropdown />
                             </div>}
                             {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
                             <div className="navbar-nav ml-auto">
