@@ -14,7 +14,7 @@ body,
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: auto;
-    display:flex;
+    display: flex;
 }
 
 #footer {
@@ -31,6 +31,7 @@ body,
 }
 
 .navbar {
+    padding: 5px;
     margin: 0px;
     border-radius: 0px;
     background-color: #f8f8f8;
@@ -54,28 +55,15 @@ navbar-header {
     margin-top: 8px;
 }
 
-#sfOmnibox {
-    width: 200px;
-    margin-top: 8px;
-}
-
-/*Media */
 @media (max-width: 350px) {
-    .hidden-under-350 {
-        display: none !important;
+    .omnibox-container {
+        margin-top: 5px;
     }
 }
 
-.visible-under-350 {
-    display: none !important;
+.nav-link{
+    white-space: nowrap;
 }
-
-@media (max-width: 350px) {
-    .visible-under-350 {
-        display: block !important;
-    }
-}
-
 
 div.order-detail input.form-control {
     width: 100%;

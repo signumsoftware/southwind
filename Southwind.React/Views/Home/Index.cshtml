@@ -4,11 +4,11 @@
 @{
     string json = File.ReadAllText(Path.Combine(Server.MapPath("~/dist/"), "webpack-assets.json"));
     var webpackAssets = JObject.Parse(json).Properties()
-        .ToDictionary(a => a.Name, a => Url.Content("~/dist/" + (string)a.Value["js"]));
+        .ToDictionaryEx(a => a.Name, a => Url.Content("~/dist/" + (string)a.Value["js"]));
 
     string jsonDll = File.ReadAllText(Path.Combine(Server.MapPath("~/dist/"), "webpack-assets.dll.json"));
     var webpackAssetsDll = JObject.Parse(jsonDll).Properties()
-        .ToDictionary(a => a.Name, a => Url.Content("~/dist/" + (string)a.Value["js"]));
+        .ToDictionaryEx(a => a.Name, a => Url.Content("~/dist/" + (string)a.Value["js"]));
 }
 <!doctype html>
 <html>

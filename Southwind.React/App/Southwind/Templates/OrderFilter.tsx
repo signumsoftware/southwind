@@ -8,7 +8,7 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
     render() {
         const ctx = this.props.ctx.subCtx({ formGroupStyle: "Basic" });
         return (
-            <div className="form-vertical">
+            <div>
                 <div className="row">
                     <div className="col-sm-6">
                         <EntityCombo ctx={ctx.subCtx(o => o.customer) } />

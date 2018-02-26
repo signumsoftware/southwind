@@ -12,7 +12,7 @@ export default class Person extends React.Component<{ ctx: TypeContext<PersonEnt
         return (
             <div>
                 {ctx.value.corrupt && <ValueLine ctx={ctx.subCtx(p => p.corrupt)} inlineCheckbox={true} />}
-                <div className="form-vertical row">
+                <div className="row">
                     <div className="col-sm-2">
                         <ValueLine ctx={ctxBasic.subCtx(p => p.title)} />
                     </div>

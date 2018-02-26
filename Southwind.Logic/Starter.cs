@@ -131,6 +131,8 @@ namespace Southwind.Logic
             UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             ChartLogic.Start(sb, dqm);
+
+
             UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             DashboardLogic.Start(sb, dqm);

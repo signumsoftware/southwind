@@ -78,8 +78,8 @@ import { ImportRoute } from "../../Framework/Signum.React/Scripts/AsyncImport";
 Navigator.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle + " - Southwind" : "Southwind");
 Navigator.setTitle();
 
-numbro.culture("en-GB", require<any>("numbro/languages/en-GB"));
-numbro.culture("es-ES", require<any>("numbro/languages/es-ES"));
+numbro.registerLanguage(require<any>("numbro/languages/en-GB"));
+numbro.registerLanguage(require<any>("numbro/languages/es-ES"));
 
 declare let __webpack_public_path__: string;
 
@@ -96,9 +96,13 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
 CultureClient.onCultureLoaded.push(ci => {
     const culture = ci.name!; //"en";
     moment.locale((culture.tryBefore("-") || culture).toLowerCase());
-    numbro.culture(culture == "en" ? "en-GB" :
+    numbro.setLanguage(culture == "en" ? "en-GB" :
         culture == "es" ? "es-ES" : "Unkwnown");
 }); //Culture
+
+Services.VersionFilter.versionChanged = () => {
+    Navigator.resetUI();
+}
 
 Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 

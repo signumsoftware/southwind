@@ -173,7 +173,6 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<ScheduledTaskLogEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<SchedulerTaskExceptionLineEntity>(Download.None, Upload.None);
 
-
             //Signum.Entities.Word
             DisconnectedLogic.Register<WordTemplateEntity>(Download.All, Upload.None);
             DisconnectedLogic.Register<SystemWordTemplateEntity>(Download.All, Upload.None);

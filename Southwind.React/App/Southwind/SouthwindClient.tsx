@@ -35,7 +35,7 @@ export function start(options: { routes: JSX.Element[] }) {
     Navigator.addSettings(new EntitySettings(AddressEmbedded, a => import('./Templates/Address')));
     Navigator.addSettings(new EntitySettings(CategoryEntity, c => import('./Templates/Category')));
     Navigator.addSettings(new EntitySettings(CompanyEntity, c => import('./Templates/Company')));
-    Navigator.addSettings(new EntitySettings(EmployeeEntity, e => import('./Templates/Employee')));
+    //Navigator.addSettings(new EntitySettings(EmployeeEntity, e => import('./Templates/Employee')));
     Navigator.addSettings(new EntitySettings(OrderEntity, o => import('./Templates/Order')));
     Navigator.addSettings(new EntitySettings(PersonEntity, p => import('./Templates/Person')));
     Navigator.addSettings(new EntitySettings(ProductEntity, p => import('./Templates/Product')));
@@ -48,8 +48,8 @@ export function start(options: { routes: JSX.Element[] }) {
 
     Navigator.getSettings(UserEntity)!.overrideView((rep) => {
         rep.insertAfterLine(u => u.role, ctx => [
-            <ValueLine ctx={rep.ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.allowLogin, { labelColumns: { sm: 3 } })} />,
-            <EntityLine ctx={rep.ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.employee, { labelColumns: { sm: 3 } })} />
+            <ValueLine ctx={ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.allowLogin)} />,
+            <EntityLine ctx={ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.employee)} />
         ])
     });
 

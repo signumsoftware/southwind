@@ -31,9 +31,9 @@ export default class PublicCatalog extends React.Component<{}, { categories?: Ca
                 { this.state.categories && this.state.categories.map(c =>
                     <div key={c.category.id}>
                         <div className="media">
-                            { c.category.picture && <img className="pull-left" style={maxDimensions} src={"data:image/jpeg;base64," + c.category.picture.binaryFile}/> }
+                            {c.category.picture && <img className="d-flex mr-3" style={maxDimensions} src={"data:image/jpeg;base64," + c.category.picture.binaryFile}/> }
                             <div className="media-body">
-                                <h4 className="media-heading">{c.category.categoryName}</h4>
+                                <h4 className="mt-0">{c.category.categoryName}</h4>
                                 {c.category.description}
                             </div>
                         </div>

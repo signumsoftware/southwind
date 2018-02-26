@@ -19,7 +19,7 @@ export default class Employee extends React.Component<{ ctx: TypeContext<Employe
                 <div className="col-sm-9">
                     <fieldset>
                         <legend>Personal Info</legend>
-                        <div className="form-vertical row">
+                        <div className="row">
                             <div className="col-sm-2">
                                 <ValueLine ctx={ctxBasic.subCtx(p => p.title)} placeholderLabels={true} />
                             </div>
@@ -54,7 +54,7 @@ export default class Employee extends React.Component<{ ctx: TypeContext<Employe
 
                     <EmployeePhoto lite={ctx.value.photo} />
                     {/*photo*/}
-                    <div className="form-vertical">
+                    <div>
                         <ValueLine ctx={ctx.subCtx(e => e.notes, { formGroupStyle: "Basic" })} valueHtmlAttributes={{ rows: 10, className: "notes" }} />
                     </div>
                 </div>

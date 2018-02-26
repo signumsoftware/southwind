@@ -1,6 +1,6 @@
 ﻿import * as React from 'react'
 import { ProductEntity } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlStatic, FormGroup } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '../../../../Framework/Signum.React/Scripts/Lines'
 import * as Finder from '../../../../Framework/Signum.React/Scripts/Finder';
 import { is } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
 import { ajaxPost } from '../../../../Framework/Signum.React/Scripts/Services';
@@ -54,17 +54,23 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
         const color = this.state.estimation != null && this.gradient.getCachedColor(this.props.ctx.value.unitsInStock! / (Math.max(1, this.state.estimation)));
 
         return (
-            <FormGroup ctx={ctx} labelText="Sales next month" helpBlock="Monthly estimation using Predicitor extension">
+            <FormGroup ctx={ctx} labelText="Sales next month" helpText="Monthly estimation using Predicitor extension">
                 {
                     this.state.estimation != null &&
-                    <div className="input-group" >
-                        <div className="input-group-addon"><i className="fa fa-lightbulb-o" aria-hidden="true" /></div>
-                        <p className="form-control readonly numeric" style={{ color }}>{this.state.estimation}</p>
-                        <div className="input-group-btn">
-                            <a className={classes("sf-line-button", "sf-view", "btn btn-default")}
+                    <div className={ctx.inputGroupClass}>
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">
+                                <i className="fa fa-lightbulb-o" aria-hidden="true" />
+                            </span>
+                        </div>
+                        <p className={classes(ctx.formControlClass, "readonly numeric")} style={{ color }}>
+                            {this.state.estimation}
+                        </p>
+                        <div className="input-group-append">
+                            <a href="#" className={classes("sf-line-button", "sf-view", "btn input-group-text")}
                                 onClick={this.handleViewClick}
                                 title={EntityControlMessage.View.niceToString()}>
-                                <span className="glyphicon glyphicon-arrow-right" />
+                                <span className="fa fa-arrow-right" />
                             </a>
                         </div>
                     </div>
@@ -74,6 +80,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
     }
 
     handleViewClick = (e: React.MouseEvent<any>) => {
+        e.preventDefault();
         Finder.exploreWindowsOpen({ queryName: PredictorEntity, parentColumn: "Name", parentValue: "SalesEstimation" }, e);
     }
 }//SalesEstimation
