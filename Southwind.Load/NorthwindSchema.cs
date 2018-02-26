@@ -20,7 +20,7 @@ namespace Southwind.Load.NorthwindSchema
                     return connector;
 
                 var northwindConnectionString = UserConnections.Replace(global::Southwind.Load.Properties.Settings.Default.NorthwindConnectionString);
-                return connector = new SqlConnector(northwindConnectionString, new SchemaBuilder().Schema, null, SqlServerVersion.SqlServer2012);
+                return connector = new SqlConnector(northwindConnectionString, new SchemaBuilder(false).Schema, null, SqlServerVersion.SqlServer2012);
             }
         }
     }

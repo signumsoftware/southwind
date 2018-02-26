@@ -205,6 +205,10 @@ namespace Southwind.Logic
 
         public class CustomSchemaBuilder : SchemaBuilder
         {
+            public CustomSchemaBuilder() : base(true)
+            {
+            }
+
             public string LogDatabaseName;
 
             public override ObjectName GenerateTableName(Type type, TableNameAttribute tn)
