@@ -36,6 +36,9 @@ namespace Southwind.Logic
                         p.Discontinued
                     });
 
+                sb.AddUniqueIndexMList((ProductEntity pe) => pe.AdditionalInformation, mle => new { mle.Parent, mle.Element.Key });
+                dqm.RegisterExpressionDictionary((ProductEntity p) => p.AdditionalInformation, ai => ai.Key, ai => ai.Value);
+
                 ActiveProducts = sb.GlobalLazy(() =>
                     Database.Query<ProductEntity>()
                     .Where(a => !a.Discontinued)

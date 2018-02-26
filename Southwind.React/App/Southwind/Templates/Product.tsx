@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ProductEntity } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlStatic, FormGroup } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlStatic, FormGroup, EntityTable } from '../../../../Framework/Signum.React/Scripts/Lines'
 import * as Finder from '../../../../Framework/Signum.React/Scripts/Finder';
 import { PredictorEntity } from '../../../../Extensions/Signum.React.Extensions/MachineLearning/Signum.Entities.MachineLearning';
 import SalesEstimation from './SalesEstimation';
@@ -20,6 +20,7 @@ export default class Product extends React.Component<{ ctx: TypeContext<ProductE
                 <SalesEstimation ctx={ctx} />
                 <ValueLine ctx={ctx.subCtx(p => p.reorderLevel)} />
                 <ValueLine ctx={ctx.subCtx(p => p.discontinued)} />
+                <EntityTable ctx={ctx.subCtx(p => p.additionalInformation)} />
             </div>
         );
     }

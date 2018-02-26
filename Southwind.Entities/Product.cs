@@ -64,12 +64,26 @@ namespace Southwind.Entities
             get { return ValueInStockExpression.Evaluate(this); }
         }
 
+        [PreserveOrder]
+        [NotNullValidator, NoRepeatValidator]
+        public MList<AdditionalInformationEmbedded> AdditionalInformation { get; set; } = new MList<AdditionalInformationEmbedded>();
+
         static Expression<Func<ProductEntity, string>> ToStringExpression = e => e.ProductName;
         [ExpressionField]
         public override string ToString()
         {
             return ToStringExpression.Evaluate(this);
         }
+    }
+
+    [Serializable]
+    public class AdditionalInformationEmbedded : EmbeddedEntity
+    {
+        [StringLengthValidator(AllowNulls = false, Max = 100)]
+        public string Key { get; set; }
+
+        [StringLengthValidator(AllowNulls = false, Max = 400)]
+        public string Value { get; set; }
     }
 
     [AutoInit]

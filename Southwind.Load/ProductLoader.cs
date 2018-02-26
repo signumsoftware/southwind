@@ -66,17 +66,41 @@ namespace Southwind.Load
         {
             var products = Connector.Override(Northwind.Connector).Using(_ => Database.View<Products>().ToList());
 
-            products.Select(s => new ProductEntity
+            products.Select(s =>
             {
-                ProductName = s.ProductName,
-                Supplier = Lite.Create<SupplierEntity>(s.SupplierID.Value),
-                Category = Lite.Create<CategoryEntity>(s.CategoryID.Value),
-                QuantityPerUnit = s.QuantityPerUnit,
-                UnitPrice = s.UnitPrice.Value,
-                UnitsInStock = s.UnitsInStock.Value,
-                ReorderLevel = s.ReorderLevel.Value,
-                Discontinued = s.Discontinued,
-            }.SetId(s.ProductID))
+                var p = new ProductEntity
+                {
+                    ProductName = s.ProductName,
+                    Supplier = Lite.Create<SupplierEntity>(s.SupplierID.Value),
+                    Category = Lite.Create<CategoryEntity>(s.CategoryID.Value),
+                    QuantityPerUnit = s.QuantityPerUnit,
+                    UnitPrice = s.UnitPrice.Value,
+                    UnitsInStock = s.UnitsInStock.Value,
+                    ReorderLevel = s.ReorderLevel.Value,
+                    Discontinued = s.Discontinued,
+                }.SetId(s.ProductID);
+
+                p.AdditionalInformation.Add(new AdditionalInformationEmbedded { Key = "EAN", Value = "EAN000" + s.ProductID.ToString("0000") });
+
+                if (s.ProductID % 10 == 0)
+                    p.AdditionalInformation.Add(new AdditionalInformationEmbedded { Key = "Lactosa", Value = "True" });
+
+                if (s.ProductID % 7 == 0)
+                    p.AdditionalInformation.Add(new AdditionalInformationEmbedded { Key = "Gluten", Value = "True" });
+
+                var mod = s.ProductID % 13;
+                p.AdditionalInformation.Add(new AdditionalInformationEmbedded
+                {
+                    Key = "VegMode",
+                    Value =
+                    mod < 10 ? "No" :
+                    mod == 10 ? "Vegetarian" :
+                    mod == 11 ? "Vegan" :
+                    "Macrobiotic"
+                });
+
+                return p;
+            })
             .BulkInsert(disableIdentity: true);
         }
     }

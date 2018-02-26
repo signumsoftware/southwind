@@ -16,6 +16,13 @@ import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Sign
 
 
 
+export const AdditionalInformationEmbedded = new Type<AdditionalInformationEmbedded>("AdditionalInformationEmbedded");
+export interface AdditionalInformationEmbedded extends Entities.EmbeddedEntity {
+    Type: "AdditionalInformationEmbedded";
+    key?: string | null;
+    value?: string | null;
+}
+
 export const AddressEmbedded = new Type<AddressEmbedded>("AddressEmbedded");
 export interface AddressEmbedded extends Entities.EmbeddedEntity {
     Type: "AddressEmbedded";
@@ -211,6 +218,7 @@ export interface ProductEntity extends Entities.Entity {
     unitsInStock?: number;
     reorderLevel?: number;
     discontinued?: boolean;
+    additionalInformation: Entities.MList<AdditionalInformationEmbedded>;
 }
 
 export module ProductOperation {
