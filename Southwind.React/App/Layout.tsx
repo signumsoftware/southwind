@@ -8,7 +8,6 @@ import LoginDropdown from '../../Extensions/Signum.React.Extensions/Authorizatio
 import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorization/AuthClient'
 import OmniboxAutocomplete from '../../Extensions/Signum.React.Extensions/Omnibox/OmniboxAutocomplete'
 import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
-import { LinkContainer } from "../../Framework/Signum.React/Scripts/LinkContainer"
 import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modals"
 import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
 import ContainerToggle from "../../Framework/Signum.React/Scripts/Frames/ContainerToggle"
@@ -18,7 +17,7 @@ import * as CultureClient from "../../Extensions/Signum.React.Extensions/Transla
 import SidebarContainer from "../../Extensions/Signum.React.Extensions/Toolbar/SidebarContainer"
 import ToolbarRenderer from "../../Extensions/Signum.React.Extensions/Toolbar/Templates/ToolbarRenderer"
 import VersionChangedAlert from '../../Framework/Signum.React/Scripts/Frames/VersionChangedAlert';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse } from '../../Framework/Signum.React/Scripts/Components';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse, LinkContainer } from '../../Framework/Signum.React/Scripts/Components';
 
 export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean, isOpen: boolean }> {
 
