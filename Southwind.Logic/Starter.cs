@@ -91,7 +91,7 @@ namespace Southwind.Logic
 
             DynamicQueryManager dqm = new DynamicQueryManager();
 
-            Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm, SqlServerVersion.SqlServer2012);
+            Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm, SqlServerVersion.SqlServer2016);
 
             CacheLogic.Start(sb);
 
@@ -287,6 +287,8 @@ namespace Southwind.Logic
 
         private static void OverrideAttributes(SchemaBuilder sb)
         {
+            sb.Schema.Settings.TypeAttributes<OrderEntity>().Add(new SystemVersionedAttribute());
+
             sb.Schema.Settings.FieldAttributes((ExceptionEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((OperationLogEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((UserQueryEntity uq) => uq.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));

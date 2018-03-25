@@ -60,12 +60,9 @@ namespace Southwind.Load
                 }).ToMList(),
                 Customer = customers.GetOrThrow(Database.View<Customers>().Where(c => c.CustomerID == o.CustomerID).Select(a => a.ContactName).SingleOrDefaultEx()),
                 IsLegacy = true,
-            }.SetId(o.OrderID)).ToList())
-            ;
+            }.SetId(o.OrderID)).ToList());
 
             orders.BulkInsert(disableIdentity: true, validateFirst: true, message: "auto");
-
-
         }
 
         public static void UpdateOrdersDate()

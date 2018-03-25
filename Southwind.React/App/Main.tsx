@@ -147,7 +147,7 @@ function reload() {
                 ExcelClient.start({ routes, plainExcel: true, excelReport: true });
                 SchedulerClient.start({ routes });
                 TranslationClient.start({ routes });
-                DiffLogClient.start({ routes });
+                DiffLogClient.start({ routes, timeMachine: true });
                 ProfilerClient.start({ routes });
                 ChartClient.start({ routes });
                 DashboardClient.start({ routes });

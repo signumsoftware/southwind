@@ -50,7 +50,7 @@ namespace Southwind.Entities
         public decimal Freight { get; set; }
 
         [NotifyChildProperty, NotifyCollectionChanged]
-        [NotNullValidator, NoRepeatValidator]
+        [NotNullValidator, NoRepeatValidator, PreserveOrder]
         public MList<OrderDetailEmbedded> Details { get; set; } = new MList<OrderDetailEmbedded>();
 
         static Expression<Func<OrderEntity, decimal>> TotalPriceExpression =
