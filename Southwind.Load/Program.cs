@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using Signum.Engine;
 using Signum.Engine.Maps;
 using Signum.Utilities;
-using Southwind.Load.Properties;
 using Southwind.Logic;
 using Southwind.Entities;
 using Signum.Services;
@@ -29,11 +28,15 @@ using Signum.Entities.Authorization;
 using Signum.Engine.CodeGeneration;
 using Signum.Entities.MachineLearning;
 using Signum.Engine.MachineLearning;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace Southwind.Load
 {
     class Program
     {
+        public static IConfigurationRoot ConfigRoot;
+
         static int Main(string[] args)
         {
             try
@@ -43,7 +46,11 @@ namespace Southwind.Load
                 using (CultureInfoUtils.ChangeCultureUI("en"))
                 {
                     DynamicLogicStarter.AssertRoslynIsPresent();
-                    Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
+
+                    ConfigRoot = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+                    var connectionString = ConfigRoot.GetConnectionString("ConnectionString");
+                    var environment = ConfigRoot.GetSection("Environment").Value;
+                    Starter.Start(UserConnections.Replace(connectionString), environment);
 
                     Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
                     Console.WriteLine("Database: {0}", Regex.Match(((SqlConnector)Connector.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);

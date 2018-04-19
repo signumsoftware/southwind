@@ -32,7 +32,6 @@ using Signum.Engine.Cache;
 using Signum.Engine.Profiler;
 using Signum.Engine.Translation;
 using Signum.Engine.Files;
-using Southwind.Logic.Properties;
 using Signum.Entities.Alerts;
 using Signum.Entities.Notes;
 using Signum.Entities.UserAssets;
@@ -59,7 +58,7 @@ using Signum.Engine.Workflow;
 using Signum.Engine.Toolbar;
 using Signum.Engine.MachineLearning;
 using Signum.Entities.MachineLearning;
-using Signum.Engine.MachineLearning.CNTK;
+//using Signum.Engine.MachineLearning.CNTK;
 using Signum.Entities.Files;
 
 namespace Southwind.Logic
@@ -70,9 +69,12 @@ namespace Southwind.Logic
     {
         public static ResetLazy<ApplicationConfigurationEntity> Configuration;
 
+        public static string Environment; 
 
-        public static void Start(string connectionString)
+        public static void Start(string connectionString, string environment)
         {
+            Environment = environment;
+
             StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
             StartParameters.IgnoredCodeErrors = new List<Exception>();
 
@@ -162,7 +164,7 @@ namespace Southwind.Logic
             {
                 GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
             });
-            PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
+            PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, null/*new CNTKNeuralNetworkPredictorAlgorithm()*/);
             PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
             {
                 QueryName = typeof(OrderEntity)
@@ -328,7 +330,7 @@ namespace Southwind.Logic
                 });
 
             Configuration = sb.GlobalLazy<ApplicationConfigurationEntity>(
-                () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.Environment == Settings.Default.Environment),
+                () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.Environment == Environment),
                 new InvalidateWith(typeof(ApplicationConfigurationEntity)));
         }
 

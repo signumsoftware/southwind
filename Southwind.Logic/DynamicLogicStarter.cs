@@ -3,6 +3,7 @@ using Signum.Engine.DynamicQuery;
 using Signum.Engine.Maps;
 using Signum.Entities.Dynamic;
 using Signum.Utilities;
+using Southwind.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -68,10 +69,10 @@ namespace Southwind.Logic
                 "Southwind.Logic",
             });
 
-            DynamicCode.Assemblies.AddRange(new HashSet<string>
+            DynamicCode.AssemblyTypes.AddRange(new HashSet<Type>
             {
-                "Southwind.Entities.dll",
-                "Southwind.Logic.dll",
+                typeof(ApplicationConfigurationEntity),
+                typeof(Starter),
             });
         }
 

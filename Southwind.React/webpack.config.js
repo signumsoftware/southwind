@@ -9,10 +9,10 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: ["./App/Main.tsx"],
+        main: ["./ClientApp/Main.tsx"],
     },
     output: {
-        path: path.join(__dirname, "dist"),
+        path: path.join(__dirname, "wwwroot/dist"),
         filename: "bundle.[name].[chunkhash].js",
         chunkFilename: "bundle.[name].[chunkhash].js"
     },
@@ -63,8 +63,8 @@ module.exports = {
     },
     plugins: [
         new webpack.DllReferencePlugin({
-            context: path.join(__dirname, "App"),
-            manifest: require("./dist/vendor-manifest.json")
+            context: path.join(__dirname, "ClientApp"),
+            manifest: require("./wwwroot/dist/vendor-manifest.json")
         }),
         //new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
         //new webpack.optimize.UglifyJsPlugin(),
