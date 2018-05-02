@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-preview2-final" />
-  </ItemGroup>
-
-  <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
 
@@ -53,15 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
-    <ProjectReference Include="..\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
-    <ProjectReference Include="..\Extensions\Signum.React.Extensions\Signum.React.Extensions.csproj" />
-    <ProjectReference Include="..\Framework\Signum.Engine\Signum.Engine.csproj" />
-    <ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />
-    <ProjectReference Include="..\Framework\Signum.React\Signum.React.csproj" />
-    <ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
-    <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj" />
-    <ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-preview2-final" />
   </ItemGroup>
 
   <ItemGroup>
@@ -95,7 +83,7 @@
     <!-- In development, the dist files won't exist on the first run or when cloning to
          a different machine, so rebuild them if not already present. -->
     <Message Importance="high" Text="Performing first-run Webpack build..." />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.dll.js" />
     <Exec Command="node node_modules/webpack/bin/webpack.js" />
   </Target>
 
