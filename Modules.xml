@@ -483,37 +483,37 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
       
       <RemoveLine Path="Southwind.Load\packages.config" 
-                  From="&lt;package id=&quot;CNTK.Deps.Cuda&quot; version=&quot;2.4.0&quot; targetFramework=&quot;net462&quot; />"
-                  To="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.4.0&quot; targetFramework=&quot;net462&quot; />"
+                  From="&lt;package id=&quot;CNTK.Deps.Cuda&quot; version=&quot;2.5.1&quot; targetFramework=&quot;net462&quot; />"
+                  To="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.5.1&quot; targetFramework=&quot;net462&quot; />"
                   />
       <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" 
-                  From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.4, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" 
+                  From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.5.1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;" 
                   To="&lt;/Reference&gt;"
                   />
       <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" 
-                  From="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;))&quot; /&gt;"
-                  To="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;))&quot; /&gt;"
+                  From="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.Deps.Cuda.2.5.1\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.Deps.Cuda.2.5.1\build\net45\CNTK.Deps.Cuda.targets&apos;))&quot; /&gt;"
+                  To="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.GPU.2.5.1\build\net45\CNTK.GPU.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.GPU.2.5.1\build\net45\CNTK.GPU.targets&apos;))&quot; /&gt;"
                   />
       <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" 
-                  From="&lt;Import Project=&quot;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; /&gt;" 
-                  To="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;)&quot; /&gt;"
+                  From="&lt;Import Project=&quot;..\packages\CNTK.Deps.Cuda.2.5.1\build\net45\CNTK.Deps.Cuda.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.Deps.Cuda.2.5.1\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; /&gt;" 
+                  To="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.5.1\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.GPU.2.5.1\build\net45\CNTK.GPU.targets&apos;)&quot; /&gt;"
                   />
 
       <RemoveLine Path="Southwind.React\packages.config"
-                  From="&lt;package id=&quot;CNTK.Deps.Cuda&quot; version=&quot;2.4.0&quot; targetFramework=&quot;net462&quot; />"
-                  To="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.4.0&quot; targetFramework=&quot;net462&quot; />"
+                  From="&lt;package id=&quot;CNTK.Deps.Cuda&quot; version=&quot;2.5.1&quot; targetFramework=&quot;net462&quot; />"
+                  To="&lt;package id=&quot;CNTK.GPU&quot; version=&quot;2.5.1&quot; targetFramework=&quot;net462&quot; />"
                   />
       <RemoveLine Path="Southwind.React\Southwind.React.csproj"
-                  From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.4, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;"
+                  From="&lt;Reference Include=&quot;Cntk.Core.Managed-2.5.1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a82c1f3f67b62253, processorArchitecture=AMD64&quot;&gt;"
                   To="&lt;/Reference&gt;"
                   />
       <RemoveLine Path="Southwind.React\Southwind.React.csproj"
-                  From="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;))&quot; /&gt;"
-                  To="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;))&quot; /&gt;"
+                  From="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.Deps.Cuda.2.5.1\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.Deps.Cuda.2.5.1\build\net45\CNTK.Deps.Cuda.targets&apos;))&quot; /&gt;"
+                  To="&lt;Error Condition=&quot;!Exists(&apos;..\packages\CNTK.GPU.2.5.1\build\net45\CNTK.GPU.targets&apos;)&quot; Text=&quot;$([System.String]::Format(&apos;$(ErrorText)&apos;, &apos;..\packages\CNTK.GPU.2.5.1\build\net45\CNTK.GPU.targets&apos;))&quot; /&gt;"
                   />
       <RemoveLine Path="Southwind.React\Southwind.React.csproj"
-                  From="&lt;Import Project=&quot;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.Deps.Cuda.2.4.0\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; /&gt;"
-                  To="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.GPU.2.4.0\build\net45\CNTK.GPU.targets&apos;)&quot; /&gt;"
+                  From="&lt;Import Project=&quot;..\packages\CNTK.Deps.Cuda.2.5.1\build\net45\CNTK.Deps.Cuda.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.Deps.Cuda.2.5.1\build\net45\CNTK.Deps.Cuda.targets&apos;)&quot; /&gt;"
+                  To="&lt;Import Project=&quot;..\packages\CNTK.GPU.2.5.1\build\net45\CNTK.GPU.targets&quot; Condition=&quot;Exists(&apos;..\packages\CNTK.GPU.2.5.1\build\net45\CNTK.GPU.targets&apos;)&quot; /&gt;"
                   />
       
       <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" From="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot;&gt;" To="&lt;/ProjectReference&gt;"/>
@@ -558,7 +558,7 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;WorkflowDropdown />"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WorkflowServer.Start(config);"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow= new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^0.27.5&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;0.27.5&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">
