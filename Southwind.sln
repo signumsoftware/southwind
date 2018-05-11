@@ -33,8 +33,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Load", "Southwind
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.React", "Southwind.React\Southwind.React.csproj", "{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Southwind.React.Core", "Southwind.React.Core\Southwind.React.Core.csproj", "{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -289,26 +287,6 @@ Global
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.To-Test|Any CPU.Build.0 = Release|Any CPU
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.To-Test|x64.ActiveCfg = Release|Any CPU
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.To-Test|x64.Build.0 = Release|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.Debug|x64.Build.0 = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.Release|x64.ActiveCfg = Release|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.Release|x64.Build.0 = Release|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Dev|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Dev|Any CPU.Build.0 = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Dev|x64.ActiveCfg = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Dev|x64.Build.0 = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Live|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Live|Any CPU.Build.0 = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Live|x64.ActiveCfg = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Live|x64.Build.0 = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Test|Any CPU.Build.0 = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Test|x64.ActiveCfg = Debug|Any CPU
-		{A9EAB8F7-030A-44CB-A632-2F1B2DDFE2EB}.To-Test|x64.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
