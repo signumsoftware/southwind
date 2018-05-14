@@ -243,6 +243,8 @@ namespace Southwind.Logic
             DisconnectedLogic.Register<WorkflowScriptEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<WorkflowScriptRetryStrategyEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<WorkflowConnectionEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<WorkflowTimerConditionEntity>(Download.None, Upload.None);
+            DisconnectedLogic.Register<CaseActivityExecutedTimerEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<CaseEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<CaseTagTypeEntity>(Download.None, Upload.None);
             DisconnectedLogic.Register<CaseTagEntity>(Download.None, Upload.None);
