@@ -1,6 +1,5 @@
 var path = require("path");
 var webpack = require("webpack");
-var AssetsPlugin = require('assets-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -16,13 +15,7 @@ module.exports = {
             path: path.join(__dirname, "wwwroot/dist", "[name]-manifest.json"),
             name: "[name]_[hash]",
             context: path.resolve(__dirname, "ClientApp")
-        }),
-        new AssetsPlugin({
-            path: path.join(__dirname, 'wwwroot/dist'),
-            filename: "webpack-assets.dll.json"
-        }),
-        //new webpack.optimize.OccurenceOrderPlugin()//,
-        //new webpack.optimize.UglifyJsPlugin()
+        })
     ],
     resolve: {
         modules: [

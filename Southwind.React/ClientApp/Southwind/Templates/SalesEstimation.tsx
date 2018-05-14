@@ -51,7 +51,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
     render() {
         const ctx = this.props.ctx;
 
-        const color = this.state.estimation != null && this.gradient.getCachedColor(this.props.ctx.value.unitsInStock! / (Math.max(1, this.state.estimation)));
+        const color = this.state.estimation != null ? this.gradient.getCachedColor(this.props.ctx.value.unitsInStock! / (Math.max(1, this.state.estimation))) : undefined;
 
         return (
             <FormGroup ctx={ctx} labelText="Sales next month" helpText="Monthly estimation using Predicitor extension">
@@ -63,7 +63,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
                                 <i className="fa fa-lightbulb-o" aria-hidden="true" />
                             </span>
                         </div>
-                        <p className={classes(ctx.formControlClass, "readonly numeric")} style={{ color }}>
+                        <p className={classes(ctx.formControlClass, "readonly numeric")} style={{ color: color && color.toString() }}>
                             {this.state.estimation}
                         </p>
                         <div className="input-group-append">
