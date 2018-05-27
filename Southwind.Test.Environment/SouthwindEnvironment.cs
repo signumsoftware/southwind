@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Signum.Engine;
 using Signum.Engine.Maps;
 using Signum.Entities;
 using Signum.Entities.Authorization;
 using Signum.Entities.Basics;
+using Signum.Entities.Mailing;
+using Signum.Entities.SMS;
+using Signum.Entities.Workflow;
 using Signum.Services;
 using Signum.Utilities;
 using Southwind.Entities;
 using Southwind.Logic;
-using Southwind.Test.Environment.Properties;
 
 namespace Southwind.Test.Environment
 {
@@ -198,8 +202,10 @@ namespace Southwind.Test.Environment
         {
             if (!started)
             {
-                var cs = UserConnections.Replace(Settings.Default.ConnectionString);
-
+                var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+                var connectionString = config.GetConnectionString("ConnectionString");
+                
+                var cs = UserConnections.Replace(connectionString);
                 if (!cs.Contains("Test")) //Security mechanism to avoid passing test on production
                     throw new InvalidOperationException("ConnectionString does not contain the word 'Test'.");
 
@@ -218,6 +224,40 @@ namespace Southwind.Test.Environment
         {
             var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
             var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
+
+            new ApplicationConfigurationEntity
+            {
+                Environment = "Test",
+                DatabaseName = "Southwind_Test",
+                Email = new EmailConfigurationEmbedded
+                {
+                    SendEmails = false,
+                    DefaultCulture = en,
+                    UrlLeft = "http://localhost/Southwind",
+                },
+                AuthTokens = new AuthTokenConfigurationEmbedded
+                {
+                }, //Auth
+                SmtpConfiguration = new SmtpConfigurationEntity
+                {
+                    Name = "localhost",
+                    Network = new SmtpNetworkDeliveryEmbedded
+                    {
+                        Host = "localhost"
+                    }
+                }, //Email
+                Sms = new SMSConfigurationEmbedded
+                {
+                    DefaultCulture = en,
+                }, //Sms
+                Workflow = new WorkflowConfigurationEmbedded
+                {
+                }, //Workflow
+                Folders = new FoldersConfigurationEmbedded
+                {
+                    PredictorModelFolder = @"c:/Southwind/PredictorModels"
+                }
+            }.Save();
         }
     }
 }

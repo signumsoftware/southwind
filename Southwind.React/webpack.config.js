@@ -12,7 +12,7 @@ module.exports = {
         main: ["./ClientApp/Main.tsx"],
     },
     output: {
-        path: path.join(__dirname, "wwwroot/dist"),
+        path: path.join(__dirname, "wwwroot", "dist"),
         filename: "bundle.[name].[chunkhash].js",
         chunkFilename: "bundle.[name].[chunkhash].js"
     },
@@ -70,12 +70,12 @@ module.exports = {
         //new webpack.optimize.UglifyJsPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
         new AssetsPlugin({
-            path: path.join(__dirname, 'dist')
+            path: path.join(__dirname, "wwwroot", "dist")
         }),
         new WebpackNotifierPlugin({ alwaysNotify: true }),
         new CopyWebpackPlugin([
-            { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, 'dist/es6-promise.auto.min.js') },
-            { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, 'dist/fetch.js') },
+            { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, "wwwroot/dist/es6-promise.auto.min.js") },
+            { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, "wwwroot/dist/fetch.js") },
         ])
     ],
     devtool: "source-map",

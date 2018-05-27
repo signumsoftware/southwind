@@ -1,6 +1,10 @@
-﻿using Signum.Engine.Dynamic;
+﻿using Signum.Engine;
+using Signum.Engine.Authorization;
+using Signum.Engine.Dynamic;
 using Signum.Engine.DynamicQuery;
 using Signum.Engine.Maps;
+using Signum.Entities;
+using Signum.Entities.Authorization;
 using Signum.Entities.Dynamic;
 using Signum.Utilities;
 using Southwind.Entities;
@@ -15,43 +19,6 @@ namespace Southwind.Logic
 {
     public class DynamicLogicStarter
     {
-        public static void AssertRoslynIsPresent()
-        {
-            if (!File.Exists(@"bin\roslyn\csc.exe"))
-            {
-                SafeConsole.WriteLineColor(ConsoleColor.Yellow, $@"Dynamic requires roslyn compiler to be in {Directory.GetCurrentDirectory()}\bin\roslyn\csc.exe");
-                
-                var toolsPath = GetToolsPath();
-
-                if (toolsPath != null)
-                {
-                    Directory.CreateDirectory(@"bin\roslyn\");
-
-                    foreach (var file in Directory.GetFiles(toolsPath))
-                        File.Copy(file, Path.Combine(@"bin\roslyn\", Path.GetFileName(file)));
-                }
-                else
-                {
-                    SafeConsole.WriteLineColor(ConsoleColor.Red, $@"Impossible to copy roslyn automatically from packages folder, you need to do it manually!");
-                }
-            }
-        }
-
-        private static string GetToolsPath()
-        {   
-            if (!Directory.Exists(@"..\..\..\packages"))
-                return null;
-
-            var dir = Directory.GetDirectories(@"..\..\..\packages", "Microsoft.Net.Compilers.*").SingleOrDefaultEx();
-
-            var result = Path.Combine(dir, "tools");
-
-            if (Directory.Exists(result))
-                return result;
-
-            return null;
-        }
-
         public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
         {
             DynamicLogic.Start(sb, dqm);
@@ -71,9 +38,16 @@ namespace Southwind.Logic
 
             DynamicCode.AssemblyTypes.AddRange(new HashSet<Type>
             {
-                typeof(ApplicationConfigurationEntity),
-                typeof(Starter),
+                typeof(Database),
             });
+
+            DynamicCode.AddFullAssembly(typeof(Entity));
+            DynamicCode.AddFullAssembly(typeof(Database));
+            DynamicCode.AddFullAssembly(typeof(AuthLogic));
+            DynamicCode.AddFullAssembly(typeof(UserEntity));
+            DynamicCode.AddFullAssembly(typeof(ApplicationConfigurationEntity));
+            DynamicCode.AddFullAssembly(typeof(Starter));
+
         }
 
         

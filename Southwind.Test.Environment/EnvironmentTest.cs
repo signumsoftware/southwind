@@ -9,7 +9,6 @@ using Signum.Engine.Maps;
 using Signum.Engine.Operations;
 using Signum.Utilities;
 using Southwind.Logic;
-using Southwind.Test.Environment.Properties;
 
 namespace Southwind.Test.Environment
 {
@@ -19,7 +18,7 @@ namespace Southwind.Test.Environment
         [TestMethod]
         public void GenerateEnvironment()
         {
-            var authRules = XDocument.Load(@"..\..\..\Southwind.Load\AuthRules.xml");
+            var authRules = XDocument.Load(@"..\..\..\..\Southwind.Load\AuthRules.xml");
 
             SouthwindEnvironment.Start();
 

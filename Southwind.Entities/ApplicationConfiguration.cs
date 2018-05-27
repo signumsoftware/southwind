@@ -19,6 +19,9 @@ namespace Southwind.Entities
         [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
         public string Environment { get; set; }
 
+        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
+        public string DatabaseName { get; set; }
+
         /*Email*/
         [NotNullValidator]
         public EmailConfigurationEmbedded Email { get; set; }

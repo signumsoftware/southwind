@@ -69,12 +69,8 @@ namespace Southwind.Logic
     {
         public static ResetLazy<ApplicationConfigurationEntity> Configuration;
 
-        public static string Environment; 
-
-        public static void Start(string connectionString, string environment)
+        public static void Start(string connectionString)
         {
-            Environment = environment;
-
             StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
             StartParameters.IgnoredCodeErrors = new List<Exception>();
 
@@ -330,7 +326,7 @@ namespace Southwind.Logic
                 });
 
             Configuration = sb.GlobalLazy<ApplicationConfigurationEntity>(
-                () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.Environment == Environment),
+                () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.DatabaseName == Connector.Current.DatabaseName()),
                 new InvalidateWith(typeof(ApplicationConfigurationEntity)));
         }
 
