@@ -8,6 +8,11 @@ var node_modules = path.join(__dirname, "node_modules");
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    mode: "development",  //Now mandatory, alternatively “production”
+    devtool: false, //To remove source maps in “development”, avoids problems with errors in Chrome
+    stats: {
+        warningsFilter: [w => w.indexOf("was not found in") >= 0], //Removes warnings because of transpileOnly
+    },
     entry: {
         main: ["./App/Main.tsx"],
     },
@@ -38,7 +43,7 @@ module.exports = {
                    },
                ]
            },
-           { test: /\.json?$/, use: [{ loader: 'json-loader' }] },
+           //{ test: /\.json?$/, use: [{ loader: 'json-loader' }] },
            //{ test: /\.jsx?$/, use: [{ loader: "babel-loader"  }] },
            {
                test: /\.css$/,
@@ -78,5 +83,4 @@ module.exports = {
             { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, 'dist/fetch.js') },
         ])
     ],
-    devtool: "source-map",
 }
