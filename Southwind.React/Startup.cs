@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Engine.Basics;
@@ -30,6 +33,7 @@ using Signum.Entities.Dynamic;
 using Signum.Entities.Map;
 using Signum.Entities.Omnibox;
 using Signum.Entities.UserQueries;
+using Signum.React;
 using Signum.React.Authorization;
 using Signum.React.Cache;
 using Signum.React.Chart;
@@ -40,6 +44,7 @@ using Signum.React.Excel;
 using Signum.React.Facades;
 using Signum.React.Files;
 using Signum.React.Filters;
+using Signum.React.Json;
 using Signum.React.MachineLearning;
 using Signum.React.Mailing;
 using Signum.React.Map;
@@ -71,7 +76,18 @@ namespace WebApplication2
         {
             services
                 .AddMvc(options => options.AddSignumGlobalFilters())
-                .AddJsonOptions(options => options.AddSignumJsonConverters());
+                .AddJsonOptions(options => options.AddSignumJsonConverters())
+                .ConfigureApplicationPartManager(apm =>
+                {
+                    apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
+                });
+
+            services.AddSingleton<IObjectModelValidator>(s =>
+            {
+                var options = s.GetRequiredService<IOptions<MvcOptions>>().Value;
+                var modelMetadataProvider = s.GetRequiredService<IModelMetadataProvider>();
+                return new SignumObjectModelValidator(modelMetadataProvider, options.ModelValidatorProviders);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,7 +122,7 @@ namespace WebApplication2
 
             VersionFilterAttribute.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            DynamicCode.CodeGenDirectory = env.WebRootPath + "/CodeGen";
+            DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
             Starter.Start(UserConnections.Replace(Configuration.GetConnectionString("ConnectionString")));
 
             using (AuthLogic.Disable())
