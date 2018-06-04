@@ -155,7 +155,7 @@
       <ToolbarElement Type="Link" Label="Profiler (Times)" IconName="fa fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewTimeTracker" Url="~/profiler/times" />
       <ToolbarElement Type="Link" Label="Processes Panel" IconName="fa fa-cogs" IconColor="#9b6bcc" Content="ProcessPermission.ViewProcessPanel" Url="~/processes/view" />
       <ToolbarElement Type="Link" Label="Dynamic Panel" IconName="fa fa-arrows-alt" IconColor="#9b6bcc" Content="DynamicPanelPermission.ViewDynamicPanel" Url="~/dynamic/panel" />
-      <ToolbarElement Type="Link" Label="Workflow Script Runner" IconName="fa fa-random" IconColor="#9b6bcc" Content="WorkflowScriptRunnerPanelPermission.ViewWorkflowScriptRunnerPanel" Url="~/workflow/panel" />
+      <ToolbarElement Type="Link" Label="Workflow Script Runner" IconName="fa fa-random" IconColor="#9b6bcc" Content="WorkflowPanelPermission.ViewWorkflowPanel" Url="~/workflow/panel" />
       <ToolbarElement Type="Link" Label="Async Email Sender" IconName="fa fa-send" IconColor="#3498db" Content="AsyncEmailSenderPermission.ViewAsyncEmailSenderPanel" Url="~/asyncEmailSender/view" />
       <ToolbarElement Type="Link" Label="Code Translation" IconName="fa fa-language" IconColor="#1abc9c" Content="TranslationPermission.TranslateCode" Url="~/translation/status" />
     </Elements>
