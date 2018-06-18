@@ -108,23 +108,35 @@ namespace WebApplication2
                     defaults: new { controller = "Home", action = "Index" });
             });
 
-            VersionFilterAttribute.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            using (HeavyProfiler.Log("Startup"))
+            using (var log = HeavyProfiler.Log("Initial"))
+            {
+                HeavyProfiler.Enabled = true;
 
-            DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
-            Starter.Start(UserConnections.Replace(Configuration.GetConnectionString("ConnectionString")));
+                VersionFilterAttribute.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            using (AuthLogic.Disable())
-                Schema.Current.Initialize();
+                DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
 
-            Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
+                Starter.Start(UserConnections.Replace(Configuration.GetConnectionString("ConnectionString")));
 
-            WebStart(app, lifetime, env);
-            
-            ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
+                log.Switch("Initialize");
+                using (AuthLogic.Disable())
+                    Schema.Current.Initialize();
 
-            SchedulerLogic.StartScheduledTasks();
+                Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
 
-            AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
+                log.Switch("WebStart");
+                WebStart(app, lifetime, env);
+
+                log.Switch("StartRunningProcesses");
+                ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
+
+                log.Switch("StartScheduledTasks");
+                SchedulerLogic.StartScheduledTasks();
+
+                log.Switch("StartRunningEmailSenderAsync");
+                AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
+            }
         }
 
         public static void WebStart(IApplicationBuilder app, IApplicationLifetime lifetime, IHostingEnvironment env)
