@@ -6,7 +6,7 @@ module.exports = {
     mode: "development",  //Now mandatory, alternatively “production”
     devtool: false, //To remove source maps in “development”, avoids problems with errors in Chrome
     entry: {
-        vendor: [path.join(__dirname, "ClientApp", "vendors.js")]
+        vendor: [path.join(__dirname, "App", "vendors.js")]
     },
     output: {
         path: path.join(__dirname, "wwwroot", "dist"),
@@ -17,7 +17,7 @@ module.exports = {
         new webpack.DllPlugin({
             path: path.join(__dirname, "wwwroot",  "dist", "[name]-manifest.json"),
             name: "[name]_[hash]",
-            context: path.resolve(__dirname, "ClientApp")
+            context: path.resolve(__dirname, "App")
         }),
         new AssetsPlugin({
             path: path.join(__dirname, "wwwroot", "dist"),

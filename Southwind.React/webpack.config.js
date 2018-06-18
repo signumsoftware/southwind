@@ -14,7 +14,7 @@ module.exports = {
         warningsFilter: [w => w.indexOf("was not found in") >= 0], //Removes warnings because of transpileOnly
     },
     entry: {
-        main: ["./ClientApp/Main.tsx"],
+        main: ["./App/Main.tsx"],
     },
     output: {
         path: path.join(__dirname, "wwwroot", "dist"),
@@ -68,7 +68,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DllReferencePlugin({
-            context: path.join(__dirname, "ClientApp"),
+            context: path.join(__dirname, "App"),
             manifest: require("./wwwroot/dist/vendor-manifest.json")
         }),
         //new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!

@@ -28,24 +28,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\Home.tsx" />
-    <None Remove="ClientApp\Layout.tsx" />
-    <None Remove="ClientApp\Main.tsx" />
-    <None Remove="ClientApp\NotFound.tsx" />
-    <None Remove="ClientApp\PublicCatalog.tsx" />
-    <None Remove="ClientApp\Southwind\Southwind.Entities.ts" />
-    <None Remove="ClientApp\Southwind\SouthwindClient.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\Address.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\ApplicationConfiguration.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\Category.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\Company.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\Employee.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\Order.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\OrderFilter.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\Person.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\Product.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\SalesEstimation.tsx" />
-    <None Remove="ClientApp\Southwind\Templates\Supplier.tsx" />
+    <None Remove="App\Home.tsx" />
+    <None Remove="App\Layout.tsx" />
+    <None Remove="App\Main.tsx" />
+    <None Remove="App\NotFound.tsx" />
+    <None Remove="App\PublicCatalog.tsx" />
+    <None Remove="App\Southwind\Southwind.Entities.ts" />
+    <None Remove="App\Southwind\SouthwindClient.tsx" />
+    <None Remove="App\Southwind\Templates\Address.tsx" />
+    <None Remove="App\Southwind\Templates\ApplicationConfiguration.tsx" />
+    <None Remove="App\Southwind\Templates\Category.tsx" />
+    <None Remove="App\Southwind\Templates\Company.tsx" />
+    <None Remove="App\Southwind\Templates\Employee.tsx" />
+    <None Remove="App\Southwind\Templates\Order.tsx" />
+    <None Remove="App\Southwind\Templates\OrderFilter.tsx" />
+    <None Remove="App\Southwind\Templates\Person.tsx" />
+    <None Remove="App\Southwind\Templates\Product.tsx" />
+    <None Remove="App\Southwind\Templates\SalesEstimation.tsx" />
+    <None Remove="App\Southwind\Templates\Supplier.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,24 +65,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\Home.tsx" />
-    <TypeScriptCompile Include="ClientApp\Layout.tsx" />
-    <TypeScriptCompile Include="ClientApp\Main.tsx" />
-    <TypeScriptCompile Include="ClientApp\NotFound.tsx" />
-    <TypeScriptCompile Include="ClientApp\PublicCatalog.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Southwind.Entities.ts" />
-    <TypeScriptCompile Include="ClientApp\Southwind\SouthwindClient.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\Address.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\ApplicationConfiguration.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\Category.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\Company.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\Employee.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\Order.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\OrderFilter.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\Person.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\Product.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\SalesEstimation.tsx" />
-    <TypeScriptCompile Include="ClientApp\Southwind\Templates\Supplier.tsx" />
+    <TypeScriptCompile Include="App\Home.tsx" />
+    <TypeScriptCompile Include="App\Layout.tsx" />
+    <TypeScriptCompile Include="App\Main.tsx" />
+    <TypeScriptCompile Include="App\NotFound.tsx" />
+    <TypeScriptCompile Include="App\PublicCatalog.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Southwind.Entities.ts" />
+    <TypeScriptCompile Include="App\Southwind\SouthwindClient.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Address.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\ApplicationConfiguration.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Category.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Company.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Employee.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Order.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\OrderFilter.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Person.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Product.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\SalesEstimation.tsx" />
+    <TypeScriptCompile Include="App\Southwind\Templates\Supplier.tsx" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
