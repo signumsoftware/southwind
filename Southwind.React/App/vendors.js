@@ -1,7 +1,6 @@
 ﻿require("react");
 require("react-dom");
 require("prop-types");
-require("react-popper");
 require("react-router");
 require("react-widgets");
 require("react-overlays");
