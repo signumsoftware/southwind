@@ -42,7 +42,6 @@ namespace Southwind.Load
                 using (CultureInfoUtils.ChangeCulture("en"))
                 using (CultureInfoUtils.ChangeCultureUI("en"))
                 {
-                    DynamicLogicStarter.AssertRoslynIsPresent();
                     Starter.Start(UserConnections.Replace(Settings.Default.ConnectionString));
 
                     Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");

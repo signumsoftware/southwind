@@ -91,10 +91,10 @@ namespace Southwind.Logic
 
             DynamicQueryManager dqm = new DynamicQueryManager();
 
-            Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm, SqlServerVersion.SqlServer2016);
+            var detector = SqlServerVersionDetector.Detect(connectionString);
+            Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm, detector.Value);
 
             CacheLogic.Start(sb);
-
 
             DynamicLogicStarter.Start(sb, dqm);
             DynamicLogic.CompileDynamicCode();

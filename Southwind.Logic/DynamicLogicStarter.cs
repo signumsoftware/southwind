@@ -14,28 +14,6 @@ namespace Southwind.Logic
 {
     public class DynamicLogicStarter
     {
-        public static void AssertRoslynIsPresent()
-        {
-            if (!File.Exists(@"bin\roslyn\csc.exe"))
-            {
-                SafeConsole.WriteLineColor(ConsoleColor.Yellow, $@"Dynamic requires roslyn compiler to be in {Directory.GetCurrentDirectory()}\bin\roslyn\csc.exe");
-                
-                var toolsPath = GetToolsPath();
-
-                if (toolsPath != null)
-                {
-                    Directory.CreateDirectory(@"bin\roslyn\");
-
-                    foreach (var file in Directory.GetFiles(toolsPath))
-                        File.Copy(file, Path.Combine(@"bin\roslyn\", Path.GetFileName(file)));
-                }
-                else
-                {
-                    SafeConsole.WriteLineColor(ConsoleColor.Red, $@"Impossible to copy roslyn automatically from packages folder, you need to do it manually!");
-                }
-            }
-        }
-
         private static string GetToolsPath()
         {   
             if (!Directory.Exists(@"..\..\..\packages"))
