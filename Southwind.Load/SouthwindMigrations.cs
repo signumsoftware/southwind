@@ -188,25 +188,25 @@ namespace Southwind.Load
                             {
                                 Usage = PredictorColumnUsage.Input,
                                 Token = new QueryTokenEmbedded("Entity.OrderDate.Year"),
-                                Encoding = PredictorColumnEncoding.NormalizeZScore
+                                Encoding = DefaultColumnEncodings.NormalizeZScore
                             },
                             new PredictorColumnEmbedded
                             {
                                 Usage = PredictorColumnUsage.Input,
                                 Token = new QueryTokenEmbedded("Entity.OrderDate.Month"),
-                                Encoding = PredictorColumnEncoding.NormalizeZScore
+                                Encoding = DefaultColumnEncodings.NormalizeZScore
                             },
                             new PredictorColumnEmbedded
                             {
                                 Usage = PredictorColumnUsage.Input,
                                 Token = new QueryTokenEmbedded("Entity.Details.Element.Product"),
-                                Encoding = PredictorColumnEncoding.OneHot
+                                Encoding = DefaultColumnEncodings.OneHot
                             },
                             new PredictorColumnEmbedded
                             {
                                 Usage = PredictorColumnUsage.Output,
                                 Token = new QueryTokenEmbedded("Entity.Details.Element.Quantity.Sum"),
-                                Encoding = PredictorColumnEncoding.NormalizeZScore
+                                Encoding = DefaultColumnEncodings.NormalizeZScore
                             },
                         }
                     },
