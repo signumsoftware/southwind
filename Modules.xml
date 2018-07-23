@@ -16,7 +16,8 @@
       <RemoveFiles Path="Southwind.Logic\OrderLogic.cs"/>
       <RemoveFiles Path="Southwind.Logic\ProductLogic.cs"/>
       <RemoveFiles Path="Southwind.Logic\ShipperLogic.cs"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="EmployeeLogic.Start(sb, dqm);" To="ShipperLogic.Start(sb, dqm);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="sb.Schema.Settings.TypeAttributes&lt;OrderEntity>().Add(new SystemVersionedAttribute());"/>
+	  <RemoveLine Path="Southwind.Logic\Starter.cs" From="EmployeeLogic.Start(sb, dqm);" To="ShipperLogic.Start(sb, dqm);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs"
                   From="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);"
                   To="TypeConditionLogic.Register&lt;CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);"/>
@@ -290,7 +291,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.DefaultFrom.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SmtpConfigurationLogic.Start(sb, dqm);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, et => Configuration.Value.SmtpConfiguration);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, (et, target) => Configuration.Value.SmtpConfiguration);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="s.Email.SendEmails," To="s.Email.UrlLeft"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="MailingServer.Start(config);" />
@@ -558,7 +559,7 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;WorkflowDropdown />"/>
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="WorkflowServer.Start(config);"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow= new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^2.1.0&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;^2.3.1&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">

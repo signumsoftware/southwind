@@ -5,12 +5,10 @@
 
 @{
     string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
-    var webpackAssets = JObject.Parse(json).Properties()
-        .ToDictionaryEx(a => a.Name, a => Url.Content("~/dist/" + (string)a.Value["js"]));
+    var main = (string)JObject.Parse(json).Property("main").Value["js"];
 
     string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
-    var webpackAssetsDll = JObject.Parse(jsonDll).Properties()
-        .ToDictionaryEx(a => a.Name, a => Url.Content("~/dist/" + (string)a.Value["js"]));
+    var vendor = (string)JObject.Parse(jsonDll).Property("vendor").Value["js"];
 }
 <!doctype html>
 <html>
@@ -28,7 +26,7 @@
     </script>
     <script language="javascript" src="@Url.Content("~/dist/es6-promise.auto.min.js")"></script>
     <script language="javascript" src="@Url.Content("~/dist/fetch.js")"></script>
-    <script language="javascript" src="@webpackAssetsDll.GetOrThrow("vendor")"></script>
-    <script language="javascript" src="@webpackAssets.GetOrThrow("main")"></script>
+    <script language="javascript" src="@Url.Content("~/dist/" + vendor)"></script>
+    <script language="javascript" src="@Url.Content("~/dist/" + main)"></script>
 </body>
 </html>

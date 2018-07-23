@@ -74,6 +74,7 @@ import NotFound from './NotFound'
 
 import * as ConfigureReactWidgets from "../../Framework/Signum.React/Scripts/ConfigureReactWidgets"
 import { ImportRoute } from "../../Framework/Signum.React/Scripts/AsyncImport";
+import VersionChangedAlert from "../../Framework/Signum.React/Scripts/Frames/VersionChangedAlert";
 
 Navigator.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle + " - Southwind" : "Southwind");
 Navigator.setTitle();
@@ -89,8 +90,7 @@ ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
 
 Services.NotifyPendingFilter.notifyPendingRequests = pending => {
-    if (Notify.singletone)
-        Notify.singletone.notifyPendingRequest(pending);
+    Notify.singleton && Notify.singleton.notifyPendingRequest(pending);
 }
 
 CultureClient.onCultureLoaded.push(ci => {
@@ -100,8 +100,8 @@ CultureClient.onCultureLoaded.push(ci => {
         culture == "es" ? "es-ES" : "Unkwnown");
 }); //Culture
 
-Services.VersionFilter.versionChanged = () => {
-    Navigator.resetUI();
+Services.VersionFilter.versionHasChanged = () => {
+    VersionChangedAlert.singleton && VersionChangedAlert.singleton.forceUpdate();
 }
 
 Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
