@@ -25,31 +25,12 @@
     <None Remove="CodeGen\**" />
     <None Remove="dist\**" />
     <None Remove="Translations\**" />
+    <TypeScriptCompile Include="**\*.tsx" />
+    <TypeScriptCompile Include="**\*.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="App\Home.tsx" />
-    <None Remove="App\Layout.tsx" />
-    <None Remove="App\Main.tsx" />
-    <None Remove="App\NotFound.tsx" />
-    <None Remove="App\PublicCatalog.tsx" />
-    <None Remove="App\Southwind\Southwind.Entities.ts" />
-    <None Remove="App\Southwind\SouthwindClient.tsx" />
-    <None Remove="App\Southwind\Templates\Address.tsx" />
-    <None Remove="App\Southwind\Templates\ApplicationConfiguration.tsx" />
-    <None Remove="App\Southwind\Templates\Category.tsx" />
-    <None Remove="App\Southwind\Templates\Company.tsx" />
-    <None Remove="App\Southwind\Templates\Employee.tsx" />
-    <None Remove="App\Southwind\Templates\Order.tsx" />
-    <None Remove="App\Southwind\Templates\OrderFilter.tsx" />
-    <None Remove="App\Southwind\Templates\Person.tsx" />
-    <None Remove="App\Southwind\Templates\Product.tsx" />
-    <None Remove="App\Southwind\Templates\SalesEstimation.tsx" />
-    <None Remove="App\Southwind\Templates\Supplier.tsx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,27 +43,6 @@
     <ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
     <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj" />
     <ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="App\Home.tsx" />
-    <TypeScriptCompile Include="App\Layout.tsx" />
-    <TypeScriptCompile Include="App\Main.tsx" />
-    <TypeScriptCompile Include="App\NotFound.tsx" />
-    <TypeScriptCompile Include="App\PublicCatalog.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Southwind.Entities.ts" />
-    <TypeScriptCompile Include="App\Southwind\SouthwindClient.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\Address.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\ApplicationConfiguration.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\Category.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\Company.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\Employee.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\Order.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\OrderFilter.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\Person.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\Product.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\SalesEstimation.tsx" />
-    <TypeScriptCompile Include="App\Southwind\Templates\Supplier.tsx" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
