@@ -1,15 +1,14 @@
 ﻿import * as React from 'react'
 import { ProductEntity } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '../../../../Framework/Signum.React/Scripts/Lines'
-import * as Finder from '../../../../Framework/Signum.React/Scripts/Finder';
-import { is } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
-import { ajaxPost } from '../../../../Framework/Signum.React/Scripts/Services';
-import { Gradient, Color } from '../../../../Extensions/Signum.React.Extensions/Basics/Color';
-import { toLite } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
-import { classes } from '../../../../Framework/Signum.React/Scripts/Globals';
-import { EntityControlMessage } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
-import { PredictorEntity } from '../../../../Extensions/Signum.React.Extensions/MachineLearning/Signum.Entities.MachineLearning';
-
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '@framework/Lines'
+import * as Finder from '@framework/Finder';
+import { is } from '@framework/Signum.Entities';
+import { ajaxPost } from '@framework/Services';
+import { Gradient, Color } from '@extensions/Basics/Color';
+import { toLite } from '@framework/Signum.Entities';
+import { classes } from '@framework/Globals';
+import { EntityControlMessage } from '@framework/Signum.Entities';
+import { PredictorEntity } from '@extensions/MachineLearning/Signum.Entities.MachineLearning';
 
 interface SalesEstimationProps {
     ctx: TypeContext<ProductEntity>

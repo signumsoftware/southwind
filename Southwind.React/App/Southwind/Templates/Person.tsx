@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { PersonEntity, OrderEntity, OrderOperation } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
-import SearchControl from '../../../../Framework/Signum.React/Scripts/SearchControl/SearchControl';
-import * as Reflection from '../../../../Framework/Signum.React/Scripts/Reflection';
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
+import SearchControl from '@framework/SearchControl/SearchControl';
+import * as Reflection from '@framework/Reflection';
 
 export default class Person extends React.Component<{ ctx: TypeContext<PersonEntity> }> {
 

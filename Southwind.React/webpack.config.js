@@ -24,7 +24,10 @@ module.exports = {
     resolve: {
         modules: [node_modules],
         extensions: ['.Webpack.js', '.web.js', '.ts', '.js', '.tsx'],
-
+        alias: {
+            '@framework': path.resolve(__dirname, '../Framework/Signum.React/Scripts'),
+            '@extensions': path.resolve(__dirname, '../Extensions/Signum.React.Extensions')
+        }
     },
     resolveLoader: { modules: [node_modules] },
     module: {

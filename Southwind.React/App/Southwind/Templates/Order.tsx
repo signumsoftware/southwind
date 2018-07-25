@@ -1,10 +1,10 @@
 ﻿import * as React from 'react'
 import * as numbro from 'numbro'
 import * as moment from 'moment'
-import { Dic } from '../../../../Framework/Signum.React/Scripts/Globals'
-import * as Navigator from '../../../../Framework/Signum.React/Scripts/Navigator'
+import { Dic } from '@framework/Globals'
+import * as Navigator from '@framework/Navigator'
 import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState, AddressEmbedded, OrderMessage } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlReadonly, EntityTable, ChangeEvent } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlReadonly, EntityTable, ChangeEvent } from '@framework/Lines'
 
 export default class Order extends React.Component<{ ctx: TypeContext<OrderEntity> }> {
 

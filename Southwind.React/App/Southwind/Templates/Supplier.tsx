@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { SupplierEntity } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
 
 export default class Supplier extends React.Component<{ ctx: TypeContext<SupplierEntity> }> {
 

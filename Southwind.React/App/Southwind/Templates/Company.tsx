@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { CompanyEntity, OrderEntity } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
-import { SearchControl } from '../../../../Framework/Signum.React/Scripts/Search';
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
+import { SearchControl } from '@framework/Search';
 
 export default class Company extends React.Component<{ ctx: TypeContext<CompanyEntity> }> {
 

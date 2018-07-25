@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { EmployeeEntity } from '../Southwind.Entities'
 import Person from './Person'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityCheckboxList } from '../../../../Framework/Signum.React/Scripts/Lines'
-import * as Navigator from '../../../../Framework/Signum.React/Scripts/Navigator'
-import FileLine from '../../../../Extensions/Signum.React.Extensions/Files/FileLine'
-import * as FilesClient from '../../../../Extensions/Signum.React.Extensions/Files/FilesClient'
-import { FileEntity } from '../../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
-import { is } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
-import { Lite } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityCheckboxList } from '@framework/Lines'
+import * as Navigator from '@framework/Navigator'
+import FileLine from '@extensions/Files/FileLine'
+import * as FilesClient from '@extensions/Files/FilesClient'
+import { FileEntity } from '@extensions/Files/Signum.Entities.Files'
+import { is } from '@framework/Signum.Entities';
+import { Lite } from '@framework/Signum.Entities';
 
 export default class Employee extends React.Component<{ ctx: TypeContext<EmployeeEntity> }> 
 {

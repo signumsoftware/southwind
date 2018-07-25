@@ -4,20 +4,20 @@ import { RouteComponentProps } from 'react-router'
 import * as moment from 'moment'
 import * as numbro from 'numbro'
 import { Link } from 'react-router-dom'
-import LoginDropdown from '../../Extensions/Signum.React.Extensions/Authorization/Login/LoginDropdown'
-import * as AuthClient from '../../Extensions/Signum.React.Extensions/Authorization/AuthClient'
-import OmniboxAutocomplete from '../../Extensions/Signum.React.Extensions/Omnibox/OmniboxAutocomplete'
-import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
-import { GlobalModalContainer } from "../../Framework/Signum.React/Scripts/Modals"
-import Notify from "../../Framework/Signum.React/Scripts/Frames/Notify"
-import ContainerToggle from "../../Framework/Signum.React/Scripts/Frames/ContainerToggle"
-import CultureDropdown from "../../Extensions/Signum.React.Extensions/Translation/CultureDropdown"
-import WorkflowDropdown from "../../Extensions/Signum.React.Extensions/Workflow/Workflow/WorkflowDropdown"
-import * as CultureClient from "../../Extensions/Signum.React.Extensions/Translation/CultureClient"
-import SidebarContainer from "../../Extensions/Signum.React.Extensions/Toolbar/SidebarContainer"
-import ToolbarRenderer from "../../Extensions/Signum.React.Extensions/Toolbar/Templates/ToolbarRenderer"
-import VersionChangedAlert from '../../Framework/Signum.React/Scripts/Frames/VersionChangedAlert';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse, LinkContainer } from '../../Framework/Signum.React/Scripts/Components';
+import LoginDropdown from '@extensions/Authorization/Login/LoginDropdown'
+import * as AuthClient from '@extensions/Authorization/AuthClient'
+import OmniboxAutocomplete from '@extensions/Omnibox/OmniboxAutocomplete'
+import * as Navigator from "@framework/Navigator"
+import { GlobalModalContainer } from "@framework/Modals"
+import Notify from "@framework/Frames/Notify"
+import ContainerToggle from "@framework/Frames/ContainerToggle"
+import CultureDropdown from "@extensions/Translation/CultureDropdown"
+import WorkflowDropdown from "@extensions/Workflow/Workflow/WorkflowDropdown"
+import * as CultureClient from "@extensions/Translation/CultureClient"
+import SidebarContainer from "@extensions/Toolbar/SidebarContainer"
+import ToolbarRenderer from "@extensions/Toolbar/Templates/ToolbarRenderer"
+import VersionChangedAlert from '@framework/Frames/VersionChangedAlert';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse, LinkContainer } from '@framework/Components';
 
 export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean, isOpen: boolean }> {
 

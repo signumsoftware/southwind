@@ -1,22 +1,22 @@
 import * as React from 'react'
 import { Route } from 'react-router'
 import * as moment from 'moment'
-import { ajaxPost, ajaxGet } from '../../../Framework/Signum.React/Scripts/Services';
-import { EntitySettings, ViewPromise } from '../../../Framework/Signum.React/Scripts/Navigator'
-import * as Navigator from '../../../Framework/Signum.React/Scripts/Navigator'
-import * as Finder from '../../../Framework/Signum.React/Scripts/Finder'
-import { EntityOperationSettings, ConstructorOperationSettings, ContextualOperationSettings } from '../../../Framework/Signum.React/Scripts/Operations'
-import * as Operations from '../../../Framework/Signum.React/Scripts/Operations'
-import { Retrieve } from '../../../Framework/Signum.React/Scripts/Retrieve'
-import { defaultContextualClick } from '../../../Framework/Signum.React/Scripts/Operations/ContextualOperations'
-import { defaultExecuteEntity } from '../../../Framework/Signum.React/Scripts/Operations/EntityOperations'
+import { ajaxPost, ajaxGet } from '@framework/Services';
+import { EntitySettings, ViewPromise } from '@framework/Navigator'
+import * as Navigator from '@framework/Navigator'
+import * as Finder from '@framework/Finder'
+import { EntityOperationSettings, ConstructorOperationSettings, ContextualOperationSettings } from '@framework/Operations'
+import * as Operations from '@framework/Operations'
+import { Retrieve } from '@framework/Retrieve'
+import { defaultContextualClick } from '@framework/Operations/ContextualOperations'
+import { defaultExecuteEntity } from '@framework/Operations/EntityOperations'
 
-import { getMixin, Entity, Lite } from '../../../Framework/Signum.React/Scripts/Signum.Entities'
-import { UserEntity } from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
-import { FileEmbedded, FileEntity } from '../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
+import { getMixin, Entity, Lite } from '@framework/Signum.Entities'
+import { UserEntity } from '@extensions/Authorization/Signum.Entities.Authorization'
+import { FileEmbedded, FileEntity } from '@extensions/Files/Signum.Entities.Files'
 
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../Framework/Signum.React/Scripts/Lines'
-import ValueLineModal from '../../../Framework/Signum.React/Scripts/ValueLineModal'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
+import ValueLineModal from '@framework/ValueLineModal'
 
 import OrderFilter from './Templates/OrderFilter'
 

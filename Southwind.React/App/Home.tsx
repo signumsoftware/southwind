@@ -1,6 +1,6 @@
 ﻿import * as React from 'react'
-import * as Navigator from "../../Framework/Signum.React/Scripts/Navigator"
-import * as DashboardClient from "../../Extensions/Signum.React.Extensions/Dashboard/DashboardClient"
+import * as Navigator from "@framework/Navigator"
+import * as DashboardClient from "@extensions/Dashboard/DashboardClient"
 
 export default class Home extends React.Component<{}, { loaded: boolean }> {
     
