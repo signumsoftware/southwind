@@ -1,5 +1,5 @@
 ﻿import * as React from 'react'
-import { ProductEntity } from '../Southwind.Entities'
+import { ProductEntity, ProductPredictorPublication } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '@framework/Lines'
 import * as Finder from '@framework/Finder';
 import { is } from '@framework/Signum.Entities';
@@ -81,7 +81,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
 
     handleViewClick = (e: React.MouseEvent<any>) => {
         e.preventDefault();
-        Finder.exploreWindowsOpen({ queryName: PredictorEntity, parentColumn: "Name", parentValue: "SalesEstimation" }, e);
+        Finder.exploreWindowsOpen({ queryName: PredictorEntity, parentColumn: "Entity.Publication", parentValue: ProductPredictorPublication.MonthlySales }, e);
     }
 }//SalesEstimation
 
