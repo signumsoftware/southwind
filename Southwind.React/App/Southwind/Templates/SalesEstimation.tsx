@@ -9,6 +9,7 @@ import { toLite } from '@framework/Signum.Entities';
 import { classes } from '@framework/Globals';
 import { EntityControlMessage } from '@framework/Signum.Entities';
 import { PredictorEntity } from '@extensions/MachineLearning/Signum.Entities.MachineLearning';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface SalesEstimationProps {
     ctx: TypeContext<ProductEntity>
@@ -59,7 +60,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
                     <div className={ctx.inputGroupClass}>
                         <div className="input-group-prepend">
                             <span className="input-group-text">
-                                <i className="fa fa-lightbulb-o" aria-hidden="true" />
+                                <FontAwesomeIcon icon={["far", "lightbulb"]} />
                             </span>
                         </div>
                         <p className={classes(ctx.formControlClass, "readonly numeric")} style={{ color: color && color.toString() }}>
@@ -69,7 +70,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
                             <a href="#" className={classes("sf-line-button", "sf-view", "btn input-group-text")}
                                 onClick={this.handleViewClick}
                                 title={EntityControlMessage.View.niceToString()}>
-                                <span className="fa fa-arrow-right" />
+                                <FontAwesomeIcon icon={"arrow-right"} />
                             </a>
                         </div>
                     </div>

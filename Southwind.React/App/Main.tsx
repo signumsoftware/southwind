@@ -1,5 +1,4 @@
 ﻿import "../node_modules/bootstrap/dist/css/bootstrap.css";
-import "../node_modules/font-awesome/css/font-awesome.css";
 import "./site.css";
 import "@framework/Frames/Frames.css";
 
@@ -76,6 +75,11 @@ import * as ConfigureReactWidgets from "@framework/ConfigureReactWidgets"
 import { ImportRoute } from "@framework/AsyncImport";
 import VersionChangedAlert from "@framework/Frames/VersionChangedAlert";
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+
+library.add(fas, far);
 
 Navigator.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle + " - Southwind" : "Southwind");
 Navigator.setTitle();
