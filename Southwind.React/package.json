@@ -31,6 +31,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
     "@fortawesome/react-fontawesome": "^0.1.0",
+    "@types/react": "file:../Framework/Signum.React/node_modules/@types/react",
     "bootstrap": "^4.1.1",
     "bpmn-js": "^2.3.1",
     "codemirror": "^5.39.0",
@@ -65,10 +66,10 @@
     "rimraf": "^2.6.2",
     "style-loader": "^0.21.0",
     "ts-loader": "^4.4.2",
-    "typescript": "^2.9.2",
+    "typescript": "^3.0.1",
     "url-loader": "^1.0.1",
-    "webpack": "^4.15.1",
-    "webpack-cli": "^3.0.8",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0",
     "webpack-notifier": "^1.6.0"
   },
   "-vs-binding": {

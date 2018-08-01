@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { CategoryEntity } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
+import { ValueLine, TypeContext } from '@framework/Lines'
 import FileLine from '@extensions/Files/FileLine'
 
 export default class Category extends React.Component<{ ctx: TypeContext<CategoryEntity> }> {
