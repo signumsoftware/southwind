@@ -207,13 +207,13 @@ function reload() {
         });
 }
 
-AuthClient.Options.onLogin = () => {
+AuthClient.Options.onLogin = (url? : string) => {
     reload().then(() => {
         var loc = Navigator.history.location;
 
         var back: History.Location = loc && loc.state && loc.state.back;
 
-        Navigator.history.push(back || "~/");
+        Navigator.history.push(back || url || "~/");
     }).done();
 };
 
