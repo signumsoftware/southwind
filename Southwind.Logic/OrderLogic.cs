@@ -169,8 +169,8 @@ namespace Southwind.Logic
                 {
                     FromStates = { OrderState.New },
                     ToStates = { OrderState.Ordered },
-                    AllowsNew = true,
-                    Lite = false,
+                    CanBeNew = true,
+                    CanBeModified = true,
                     Execute = (o, args) =>
                     {
                         o.OrderDate = DateTime.Now;
@@ -182,7 +182,7 @@ namespace Southwind.Logic
                 {
                     FromStates = { OrderState.Ordered },
                     ToStates = { OrderState.Ordered },
-                    Lite = false,
+                    CanBeModified = true,
                     Execute = (o, _) =>
                     {
                     }
@@ -193,7 +193,7 @@ namespace Southwind.Logic
                     CanExecute = o => o.Details.IsEmpty() ? "No order lines" : null,
                     FromStates = { OrderState.Ordered },
                     ToStates = { OrderState.Shipped },
-                    Lite = false,
+                    CanBeModified = true,
                     Execute = (o, args) =>
                     {
                         o.ShippedDate = args.TryGetArgS<DateTime>() ?? DateTime.Now;
