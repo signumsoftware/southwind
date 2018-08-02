@@ -87,7 +87,7 @@ namespace Southwind.Local
             string databaseName = csb.InitialCatalog;
             csb.InitialCatalog = "";
 
-            using (Connector.Override(new SqlConnector(csb.ToString(), null, null, SqlServerVersion.SqlServer2012)))
+            using (Connector.Override(new SqlConnector(csb.ToString(), null, SqlServerVersion.SqlServer2012)))
             {
                 DisconnectedLogic.LocalBackupManager.BackupDatabase(new DatabaseName(null, databaseName), backupFile);
             }
@@ -99,7 +99,7 @@ namespace Southwind.Local
             string databaseName = csb.InitialCatalog;
             csb.InitialCatalog = "";
 
-            using (Connector.Override(new SqlConnector(csb.ToString(), null, null, SqlServerVersion.SqlServer2012)))
+            using (Connector.Override(new SqlConnector(csb.ToString(), null, SqlServerVersion.SqlServer2012)))
             {
                 DisconnectedLogic.LocalBackupManager.DropDatabase(new DatabaseName(null, databaseName));
             }

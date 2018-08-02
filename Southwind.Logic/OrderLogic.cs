@@ -15,17 +15,18 @@ using Signum.Entities.Authorization;
 using Signum.Engine.Processes;
 using Signum.Engine.Scheduler;
 using Signum.Entities.Processes;
+using Signum.Engine.Basics;
 
 namespace Southwind.Logic
 {
     public static class OrderLogic
     {
-        public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
+        public static void Start(SchemaBuilder sb)
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
                 sb.Include<OrderEntity>()
-                    .WithQuery(dqm, () => o => new
+                    .WithQuery(() => o => new
                     {
                         Entity = o,
                         o.Id,
@@ -38,7 +39,7 @@ namespace Southwind.Logic
                         o.ShipVia,
                     });
                 
-                dqm.RegisterQuery(OrderQuery.OrderLines, () =>
+                QueryLogic.Queries.Register(OrderQuery.OrderLines, () =>
                     from o in Database.Query<OrderEntity>()
                     from od in o.Details
                     select new
