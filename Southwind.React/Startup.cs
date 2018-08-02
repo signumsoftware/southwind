@@ -76,6 +76,8 @@ namespace WebApplication2
         {
             services
                 .AddMvc(options => options.AddSignumGlobalFilters())
+                .AddApplicationPart(typeof(SignumServer).Assembly)
+                .AddApplicationPart(typeof(AuthServer).Assembly)
                 .AddJsonOptions(options => options.AddSignumJsonConverters())
                 .ConfigureApplicationPartManager(apm =>
                 {
