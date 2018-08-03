@@ -10,6 +10,7 @@ using Signum.Engine;
 using Signum.Utilities;
 using Signum.Entities;
 using Signum.Engine.Operations;
+using Signum.Engine.Basics;
 
 namespace Southwind.Logic
 {
@@ -17,13 +18,13 @@ namespace Southwind.Logic
     {
         public static ResetLazy<Dictionary<CategoryEntity, List<ProductEntity>>> ActiveProducts;
 
-        public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
+        public static void Start(SchemaBuilder sb)
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
                 sb.Include<ProductEntity>()
                     .WithSave(ProductOperation.Save)
-                    .WithQuery(dqm, () => p => new
+                    .WithQuery(() => p => new
                     {
                         Entity = p,
                         p.Id,
@@ -37,7 +38,7 @@ namespace Southwind.Logic
                     });
 
                 sb.AddUniqueIndexMList((ProductEntity pe) => pe.AdditionalInformation, mle => new { mle.Parent, mle.Element.Key });
-                dqm.RegisterExpressionDictionary((ProductEntity p) => p.AdditionalInformation, ai => ai.Key, ai => ai.Value);
+                QueryLogic.Expressions.RegisterDictionary((ProductEntity p) => p.AdditionalInformation, ai => ai.Key, ai => ai.Value);
 
                 ActiveProducts = sb.GlobalLazy(() =>
                     Database.Query<ProductEntity>()
@@ -46,7 +47,7 @@ namespace Southwind.Logic
                     .GroupToDictionary(a => a.Category, a => a.Product),
                     new InvalidateWith(typeof(ProductEntity)));
                 
-                dqm.RegisterQuery(ProductQuery.CurrentProducts, () =>
+                QueryLogic.Queries.Register(ProductQuery.CurrentProducts, () =>
                     from p in Database.Query<ProductEntity>()
                     where !p.Discontinued
                     select new
@@ -63,7 +64,7 @@ namespace Southwind.Logic
 
                 sb.Include<SupplierEntity>()
                     .WithSave(SupplierOperation.Save)
-                    .WithQuery(dqm, () => s => new
+                    .WithQuery(() => s => new
                     {
                         Entity = s,
                         s.Id,
@@ -77,7 +78,7 @@ namespace Southwind.Logic
 
                 sb.Include<CategoryEntity>()
                     .WithSave(CategoryOperation.Save)
-                    .WithQuery(dqm, () => s => new
+                    .WithQuery(() => s => new
                     {
                         Entity = s,
                         s.Id,

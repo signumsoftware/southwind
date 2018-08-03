@@ -1,15 +1,15 @@
 ﻿import * as React from 'react'
-import { ProductEntity } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '../../../../Framework/Signum.React/Scripts/Lines'
-import * as Finder from '../../../../Framework/Signum.React/Scripts/Finder';
-import { is } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
-import { ajaxPost } from '../../../../Framework/Signum.React/Scripts/Services';
-import { Gradient, Color } from '../../../../Extensions/Signum.React.Extensions/Basics/Color';
-import { toLite } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
-import { classes } from '../../../../Framework/Signum.React/Scripts/Globals';
-import { EntityControlMessage } from '../../../../Framework/Signum.React/Scripts/Signum.Entities';
-import { PredictorEntity } from '../../../../Extensions/Signum.React.Extensions/MachineLearning/Signum.Entities.MachineLearning';
-
+import { ProductEntity, ProductPredictorPublication } from '../Southwind.Entities'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '@framework/Lines'
+import * as Finder from '@framework/Finder';
+import { is } from '@framework/Signum.Entities';
+import { ajaxPost } from '@framework/Services';
+import { Gradient, Color } from '@extensions/Basics/Color';
+import { toLite } from '@framework/Signum.Entities';
+import { classes } from '@framework/Globals';
+import { EntityControlMessage } from '@framework/Signum.Entities';
+import { PredictorEntity } from '@extensions/MachineLearning/Signum.Entities.MachineLearning';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface SalesEstimationProps {
     ctx: TypeContext<ProductEntity>
@@ -60,7 +60,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
                     <div className={ctx.inputGroupClass}>
                         <div className="input-group-prepend">
                             <span className="input-group-text">
-                                <i className="fa fa-lightbulb-o" aria-hidden="true" />
+                                <FontAwesomeIcon icon={["far", "lightbulb"]} />
                             </span>
                         </div>
                         <p className={classes(ctx.formControlClass, "readonly numeric")} style={{ color: color && color.toString() }}>
@@ -70,7 +70,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
                             <a href="#" className={classes("sf-line-button", "sf-view", "btn input-group-text")}
                                 onClick={this.handleViewClick}
                                 title={EntityControlMessage.View.niceToString()}>
-                                <span className="fa fa-arrow-right" />
+                                <FontAwesomeIcon icon={"arrow-right"} />
                             </a>
                         </div>
                     </div>
@@ -81,7 +81,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
 
     handleViewClick = (e: React.MouseEvent<any>) => {
         e.preventDefault();
-        Finder.exploreWindowsOpen({ queryName: PredictorEntity, parentColumn: "Name", parentValue: "SalesEstimation" }, e);
+        Finder.exploreWindowsOpen({ queryName: PredictorEntity, parentColumn: "Entity.Publication", parentValue: ProductPredictorPublication.MonthlySales }, e);
     }
 }//SalesEstimation
 

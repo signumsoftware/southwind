@@ -74,137 +74,135 @@ namespace Southwind.Logic
             using (HeavyProfiler.Log("Start"))
             using (var initial = HeavyProfiler.Log("Initial"))
             {
-                StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
-                StartParameters.IgnoredCodeErrors = new List<Exception>();
+            StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
+            StartParameters.IgnoredCodeErrors = new List<Exception>();
 
-                string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
+            string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
                 SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial };
-                sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
-                sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
+            sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
+            sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
-                MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
-                MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
+            MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
+            MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
 
-                OverrideAttributes(sb);
+            OverrideAttributes(sb);
 
-                SetupDisconnectedStrategies(sb);
+            SetupDisconnectedStrategies(sb);
 
-                DynamicQueryManager dqm = new DynamicQueryManager();
+            var detector = SqlServerVersionDetector.Detect(connectionString);
+            Connector.Default = new SqlConnector(connectionString, sb.Schema, detector.Value);
 
-                Connector.Default = new SqlConnector(connectionString, sb.Schema, dqm, SqlServerVersion.SqlServer2016);
+            CacheLogic.Start(sb);
 
-                CacheLogic.Start(sb);
+            DynamicLogicStarter.Start(sb);
+            DynamicLogic.CompileDynamicCode();
 
+            DynamicLogic.RegisterMixins();
+            DynamicLogic.BeforeSchema(sb);
 
-                DynamicLogicStarter.Start(sb, dqm);
-                DynamicLogic.CompileDynamicCode();
+            TypeLogic.Start(sb);
 
-                DynamicLogic.RegisterMixins();
-                DynamicLogic.BeforeSchema(sb);
+            OperationLogic.Start(sb);
+            ExceptionLogic.Start(sb);
 
-                TypeLogic.Start(sb, dqm);
+            MigrationLogic.Start(sb);
 
-                OperationLogic.Start(sb, dqm);
-                ExceptionLogic.Start(sb, dqm);
+            CultureInfoLogic.Start(sb);
+            FilePathEmbeddedLogic.Start(sb);
+            SmtpConfigurationLogic.Start(sb);
+            EmailLogic.Start(sb, () => Configuration.Value.Email, (et, target) => Configuration.Value.SmtpConfiguration);
 
-                MigrationLogic.Start(sb, dqm);
+            AuthLogic.Start(sb, "System", null);
 
-                CultureInfoLogic.Start(sb, dqm);
-                FilePathEmbeddedLogic.Start(sb, dqm);
-                SmtpConfigurationLogic.Start(sb, dqm);
-                EmailLogic.Start(sb, dqm, () => Configuration.Value.Email, (et, target) => Configuration.Value.SmtpConfiguration);
+            AuthLogic.StartAllModules(sb);
+            ResetPasswordRequestLogic.Start(sb);
+            UserTicketLogic.Start(sb);
+            SessionLogLogic.Start(sb);
 
-                AuthLogic.Start(sb, dqm, "System", null);
+            ProcessLogic.Start(sb);
+            PackageLogic.Start(sb, packages: true, packageOperations: true);
 
-                AuthLogic.StartAllModules(sb, dqm);
-                ResetPasswordRequestLogic.Start(sb, dqm);
-                UserTicketLogic.Start(sb, dqm);
-                SessionLogLogic.Start(sb, dqm);
+            SchedulerLogic.Start(sb);
 
-                ProcessLogic.Start(sb, dqm);
-                PackageLogic.Start(sb, dqm, packages: true, packageOperations: true);
-
-                SchedulerLogic.Start(sb, dqm);
-
-                QueryLogic.Start(sb, dqm);
-                UserQueryLogic.Start(sb, dqm);
-                UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-                UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-                ChartLogic.Start(sb, dqm);
+            QueryLogic.Start(sb);
+            UserQueryLogic.Start(sb);
+            UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+            UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+            ChartLogic.Start(sb);
 
 
-                UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-                UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-                DashboardLogic.Start(sb, dqm);
-                DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-                DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-                ViewLogLogic.Start(sb, dqm, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
-                DiffLogLogic.Start(sb, dqm, registerAll: true);
-                ExcelLogic.Start(sb, dqm, excelReport: true);
-                ToolbarLogic.Start(sb, dqm);
+            UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+            UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+            DashboardLogic.Start(sb);
+            DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+            DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+            ViewLogLogic.Start(sb, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
+            DiffLogLogic.Start(sb, registerAll: true);
+            ExcelLogic.Start(sb, excelReport: true);
+            ToolbarLogic.Start(sb);
 
-                SMSLogic.Start(sb, dqm, null, () => Configuration.Value.Sms);
-                SMSLogic.RegisterPhoneNumberProvider<PersonEntity>(p => p.Phone, p => null);
-                SMSLogic.RegisterDataObjectProvider((PersonEntity p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
-                SMSLogic.RegisterPhoneNumberProvider<CompanyEntity>(p => p.Phone, p => null);
+            SMSLogic.Start(sb, null, () => Configuration.Value.Sms);
+            SMSLogic.RegisterPhoneNumberProvider<PersonEntity>(p => p.Phone, p => null);
+            SMSLogic.RegisterDataObjectProvider((PersonEntity p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
+            SMSLogic.RegisterPhoneNumberProvider<CompanyEntity>(p => p.Phone, p => null);
 
-                NoteLogic.Start(sb, dqm, typeof(UserEntity), /*Note*/typeof(OrderEntity));
-                AlertLogic.Start(sb, dqm, typeof(UserEntity), /*Alert*/typeof(OrderEntity));
-                FileLogic.Start(sb, dqm);
+            NoteLogic.Start(sb, typeof(UserEntity), /*Note*/typeof(OrderEntity));
+            AlertLogic.Start(sb, typeof(UserEntity), /*Alert*/typeof(OrderEntity));
+            FileLogic.Start(sb);
 
-                TranslationLogic.Start(sb, dqm, countLocalizationHits: false);
-                TranslatedInstanceLogic.Start(sb, dqm, () => CultureInfo.GetCultureInfo("en"));
+            TranslationLogic.Start(sb, countLocalizationHits: false);
+            TranslatedInstanceLogic.Start(sb, () => CultureInfo.GetCultureInfo("en"));
 
-                HelpLogic.Start(sb, dqm);
-                WordTemplateLogic.Start(sb, dqm);
-                MapLogic.Start(sb, dqm);
-                PredictorLogic.Start(sb, dqm, () => new FileTypeAlgorithm
-                {
-                    GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
-                });
+            HelpLogic.Start(sb);
+            WordTemplateLogic.Start(sb);
+            MapLogic.Start(sb);
+            PredictorLogic.Start(sb, () => new FileTypeAlgorithm
+            {
+                GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
+            });
                 //PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
-                PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
-                {
-                    QueryName = typeof(OrderEntity)
-                }); //PredictorLogic
+            PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
+            {
+                QueryName = typeof(OrderEntity)
+            }); //PredictorLogic
 
-                WorkflowLogicStarter.Start(sb, dqm, () => Starter.Configuration.Value.Workflow);
+            WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);
 
-                EmployeeLogic.Start(sb, dqm);
-                ProductLogic.Start(sb, dqm);
-                CustomerLogic.Start(sb, dqm);
-                OrderLogic.Start(sb, dqm);
-                ShipperLogic.Start(sb, dqm);
+            EmployeeLogic.Start(sb);
+            ProductLogic.Start(sb);
+            CustomerLogic.Start(sb);
+            OrderLogic.Start(sb);
+            ShipperLogic.Start(sb);
 
-                StartSouthwindConfiguration(sb, dqm);
+            StartSouthwindConfiguration(sb);
 
-                TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);
-                TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => EmployeeEntity.Current.RefersTo(e));
+            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);
+            TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => EmployeeEntity.Current.RefersTo(e));
 
-                TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
-                TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
-                TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
+            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
+            TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
+            TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
 
-                DisconnectedLogic.Start(sb, dqm);
-                DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
-                DisconnectedLogic.BackupNetworkFolder = @"D:\SouthwindTemp\Backups";
-                DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Database";
+            DisconnectedLogic.Start(sb);
+            DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
+            DisconnectedLogic.BackupNetworkFolder = @"D:\SouthwindTemp\Backups";
+            DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Database";
 
-                ProfilerLogic.Start(sb, dqm,
-                    timeTracker: true,
-                    heavyProfiler: true,
-                    overrideSessionTimeout: true);
+            ProfilerLogic.Start(sb,
+                timeTracker: true,
+                heavyProfiler: true,
+                overrideSessionTimeout: true);
 
-                DynamicLogic.StartDynamicModules(sb, dqm);
-                DynamicLogic.RegisterExceptionIfAny();
+            DynamicLogic.StartDynamicModules(sb);
+            DynamicLogic.RegisterExceptionIfAny();
+            
+            Starter.DynamicDisconnectedStrategis(sb);
 
-                Starter.DynamicDisconnectedStrategis(sb);
+            SetupCache(sb);
 
-                SetupCache(sb);
-
-                Schema.Current.OnSchemaCompleted();
-            }
+            Schema.Current.OnSchemaCompleted();
+        }
         }
 
         public class CustomSchemaBuilder : SchemaBuilder
@@ -314,11 +312,11 @@ namespace Southwind.Logic
             sb.Schema.Settings.FieldAttributes((DashboardEntity a) => a.Parts[0].Content).Replace(new ImplementedByAttribute(typeof(UserChartPartEntity), typeof(UserQueryPartEntity), typeof(ValueUserQueryListPartEntity), typeof(LinkListPartEntity)));
         }
 
-        private static void StartSouthwindConfiguration(SchemaBuilder sb, DynamicQueryManager dqm)
+        private static void StartSouthwindConfiguration(SchemaBuilder sb)
         {
             sb.Include<ApplicationConfigurationEntity>()
                 .WithSave(ApplicationConfigurationOperation.Save)
-                .WithQuery(dqm, () => s => new
+                .WithQuery(() => s => new
                 {
                     Entity = s,
                     s.Id,
