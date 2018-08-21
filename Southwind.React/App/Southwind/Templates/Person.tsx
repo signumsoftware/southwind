@@ -28,7 +28,7 @@ export default class Person extends React.Component<{ ctx: TypeContext<PersonEnt
                 <h2>{OrderEntity.nicePluralName()}</h2>
                 <SearchControl findOptions={{
                     queryName: OrderEntity,
-                    parentColumn: "Customer",
+                    parentToken: "Customer",
                     parentValue: ctx.value
                 }} showSimpleFilterBuilder={false} />
             </div>

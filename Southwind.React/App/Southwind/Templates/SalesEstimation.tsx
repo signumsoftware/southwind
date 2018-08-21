@@ -81,7 +81,7 @@ export default class SalesEstimation extends React.Component<SalesEstimationProp
 
     handleViewClick = (e: React.MouseEvent<any>) => {
         e.preventDefault();
-        Finder.exploreWindowsOpen({ queryName: PredictorEntity, parentColumn: "Entity.Publication", parentValue: ProductPredictorPublication.MonthlySales }, e);
+        Finder.exploreWindowsOpen({ queryName: PredictorEntity, parentToken: "Entity.Publication", parentValue: ProductPredictorPublication.MonthlySales }, e);
     }
 }//SalesEstimation
 

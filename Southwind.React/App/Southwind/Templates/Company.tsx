@@ -15,7 +15,7 @@ export default class Company extends React.Component<{ ctx: TypeContext<CompanyE
                 <h2>{OrderEntity.nicePluralName()}</h2>
                 <SearchControl findOptions={{
                     queryName: OrderEntity,
-                    parentColumn: "Customer",
+                    parentToken: "Customer",
                     parentValue: ctx.value
                 }} showSimpleFilterBuilder={false} />
             </div>
