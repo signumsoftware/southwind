@@ -10,12 +10,13 @@ using Signum.Engine;
 using Signum.Entities;
 using Signum.Entities.DynamicQuery;
 using Signum.Engine.Operations;
+using Signum.Engine.Basics;
 
 namespace Southwind.Logic
 {
     public static class CustomerLogic
     {
-        public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
+        public static void Start(SchemaBuilder sb)
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
@@ -24,7 +25,7 @@ namespace Southwind.Logic
 
                 sb.Include<PersonEntity>()
                     .WithSave(CustomerOperation.Save)
-                    .WithQuery(dqm, () => r => new
+                    .WithQuery(() => r => new
                     {
                         Entity = r,
                         r.Id,
@@ -38,7 +39,7 @@ namespace Southwind.Logic
                 
                 sb.Include<CompanyEntity>()
                     .WithSave(CustomerOperation.Save)
-                    .WithQuery(dqm, () => r => new
+                    .WithQuery(() => r => new
                     {
                         Entity = r,
                         r.Id,
@@ -50,7 +51,7 @@ namespace Southwind.Logic
                         r.Address,
                     });
 
-                dqm.RegisterQuery(CustomerQuery.Customer, () => DynamicQueryCore.Manual(async (request, descriptions, token) =>
+                QueryLogic.Queries.Register(CustomerQuery.Customer, () => DynamicQueryCore.Manual(async (request, descriptions, token) =>
                 {
                     var persons = Database.Query<PersonEntity>().Select(p => new
                     {
@@ -95,9 +96,9 @@ namespace Southwind.Logic
                     PropertyRoute.Construct((CompanyEntity p) => p.Fax))
                 , entityImplementations: Implementations.By(typeof(PersonEntity), typeof(CompanyEntity)));
 
-                dqm.RegisterExpression((CustomerEntity c) => c.Address).ForcePropertyRoute = PropertyRoute.Construct((PersonEntity p) => p.Address);
-                dqm.RegisterExpression((CustomerEntity c) => c.Phone).ForcePropertyRoute = PropertyRoute.Construct((PersonEntity p) => p.Address);
-                dqm.RegisterExpression((CustomerEntity c) => c.Fax).ForcePropertyRoute = PropertyRoute.Construct((PersonEntity p) => p.Address);
+                QueryLogic.Expressions.Register((CustomerEntity c) => c.Address).ForcePropertyRoute = PropertyRoute.Construct((PersonEntity p) => p.Address);
+                QueryLogic.Expressions.Register((CustomerEntity c) => c.Phone).ForcePropertyRoute = PropertyRoute.Construct((PersonEntity p) => p.Address);
+                QueryLogic.Expressions.Register((CustomerEntity c) => c.Fax).ForcePropertyRoute = PropertyRoute.Construct((PersonEntity p) => p.Address);
 
             }
         }

@@ -19,16 +19,16 @@ namespace Southwind.Logic
 {
     public class DynamicLogicStarter
     {
-        public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
+        public static void Start(SchemaBuilder sb)
         {
-            DynamicLogic.Start(sb, dqm);
-            DynamicSqlMigrationLogic.Start(sb, dqm);
-            DynamicValidationLogic.Start(sb, dqm);
-            DynamicViewLogic.Start(sb, dqm);
-            DynamicTypeLogic.Start(sb, dqm);
-            DynamicTypeConditionLogic.Start(sb, dqm);
-            DynamicExpressionLogic.Start(sb, dqm);
-            DynamicMixinConnectionLogic.Start(sb, dqm);
+            DynamicLogic.Start(sb);
+            DynamicSqlMigrationLogic.Start(sb);
+            DynamicValidationLogic.Start(sb);
+            DynamicViewLogic.Start(sb);
+            DynamicTypeLogic.Start(sb);
+            DynamicTypeConditionLogic.Start(sb);
+            DynamicExpressionLogic.Start(sb);
+            DynamicMixinConnectionLogic.Start(sb);
 
             DynamicCode.Namespaces.AddRange(new HashSet<string>
             {

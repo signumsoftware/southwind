@@ -13,13 +13,13 @@ namespace Southwind.Logic
 {
     public static class ShipperLogic
     {
-        public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
+        public static void Start(SchemaBuilder sb)
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
                 sb.Include<ShipperEntity>()
                     .WithSave(ShipperOperation.Save)
-                    .WithQuery(dqm, () => a => new
+                    .WithQuery(() => a => new
                     {
                         Entity = a,
                         a.Id,
