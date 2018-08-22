@@ -59,9 +59,14 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                     {
                         header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "15%" } },
                         template: dc => <FormGroup ctx={dc}>
-                            <FormControlReadonly ctx={dc}>
-                                {numbro(subTotalPrice(dc.value)).format()} €
-                            </FormControlReadonly>
+                            <div className={dc.inputGroupClass}>
+                                <FormControlReadonly ctx={dc}>
+                                    {numbro(subTotalPrice(dc.value)).format("0.00")}
+                                </FormControlReadonly>
+                                <div className="input-group-append">
+                                    <span className="input-group-text">€</span>
+                                </div>
+                            </div>
                         </FormGroup>
                     },
                 ])} />
@@ -74,9 +79,14 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
                     </div>
                     <div className="col-sm-4">
                         <FormGroup ctx={ctx4} labelText="TotalPrice">
-                            <FormControlReadonly ctx={ctx4}>
-                                {numbro(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum()).format()} €
-                            </FormControlReadonly>
+                            <div className={ctx4.inputGroupClass}>
+                                <FormControlReadonly ctx={ctx4}>
+                                    {numbro(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum()).format("0.00")}
+                                </FormControlReadonly>
+                                <div className="input-group-append">
+                                    <span className="input-group-text">€</span>
+                                </div>
+                            </div>
                         </FormGroup>
                     </div>
                 </div>
@@ -111,5 +121,3 @@ function stateColor(s: OrderState | undefined) {
 function subTotalPrice(od: OrderDetailEmbedded) {
     return (od.quantity || 0) * (od.unitPrice || 0) * (1 - (od.discount || 0));
 }
-
-
