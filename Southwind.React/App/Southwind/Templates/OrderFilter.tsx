@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { OrderFilterModel } from '../Southwind.Entities'
-import { ISimpleFilterBuilder, FilterOption, FindOptions, FindOptionsParsed, FilterOperation, FilterOptionParsed, extractFilterValue } from '../../../../Framework/Signum.React/Scripts/Search'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '../../../../Framework/Signum.React/Scripts/Lines'
+import { ISimpleFilterBuilder, FilterOption, FindOptions, FindOptionsParsed, FilterOperation, FilterOptionParsed, extractFilterValue } from '@framework/Search'
+import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
 
 export default class OrderFilter extends React.Component<{ ctx: TypeContext<OrderFilterModel> }> implements ISimpleFilterBuilder {
 

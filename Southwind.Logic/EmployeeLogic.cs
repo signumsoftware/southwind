@@ -12,6 +12,7 @@ using Signum.Entities;
 using Signum.Engine.Operations;
 using Signum.Utilities.ExpressionTrees;
 using System.Linq.Expressions;
+using Signum.Engine.Basics;
 
 namespace Southwind.Logic
 {
@@ -25,13 +26,13 @@ namespace Southwind.Logic
             return TerritoriesExpression.Evaluate(r);
         }
 
-        public static void Start(SchemaBuilder sb, DynamicQueryManager dqm)
+        public static void Start(SchemaBuilder sb)
         {
             if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
             {
                 sb.Include<EmployeeEntity>()
                     .WithSave(EmployeeOperation.Save)
-                    .WithQuery(dqm, () => e => new
+                    .WithQuery(() => e => new
                     {
                         Entity = e,
                         e.Id,
@@ -41,7 +42,7 @@ namespace Southwind.Logic
                         e.Photo, //1
                     });
 
-                dqm.RegisterQuery(EmployeeQuery.EmployeesByTerritory, () =>
+                QueryLogic.Queries.Register(EmployeeQuery.EmployeesByTerritory, () =>
                     from e in Database.Query<EmployeeEntity>()
                     from t in e.Territories
                     select new
@@ -57,7 +58,7 @@ namespace Southwind.Logic
 
                 sb.Include<RegionEntity>()
                     .WithSave(RegionOperation.Save)
-                    .WithQuery(dqm, () => r => new
+                    .WithQuery(() => r => new
                     {
                         Entity = r,
                         r.Id,
@@ -66,8 +67,8 @@ namespace Southwind.Logic
 
                 sb.Include<TerritoryEntity>()
                     .WithSave(TerritoryOperation.Save)
-                    .WithExpressionFrom(dqm, (RegionEntity r) => r.Territories())
-                    .WithQuery(dqm, () => t => new
+                    .WithExpressionFrom((RegionEntity r) => r.Territories())
+                    .WithQuery(() => t => new
                     {
                         Entity = t,
                         t.Id,
