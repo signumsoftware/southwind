@@ -17,7 +17,7 @@ import * as CultureClient from "@extensions/Translation/CultureClient"
 import SidebarContainer from "@extensions/Toolbar/SidebarContainer"
 import ToolbarRenderer from "@extensions/Toolbar/Templates/ToolbarRenderer"
 import VersionChangedAlert from '@framework/Frames/VersionChangedAlert';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse, LinkContainer } from '@framework/Components';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse, LinkContainer, ErrorBoundary } from '@framework/Components';
 
 export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean, isOpen: boolean }> {
 
@@ -37,8 +37,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
 
     render() {
         return (
-            <ErrorBoundary >
-
+            <ErrorBoundary>
                 <div id="main" key={this.state.refreshId}>
                     <div>
                         <nav className="navbar navbar-light navbar-expand">

@@ -60,6 +60,7 @@ using Signum.Engine.MachineLearning;
 using Signum.Entities.MachineLearning;
 //using Signum.Engine.MachineLearning.CNTK;
 using Signum.Entities.Files;
+using Signum.Engine.MachineLearning.CNTK;
 
 namespace Southwind.Logic
 {
@@ -161,7 +162,7 @@ namespace Southwind.Logic
             {
                 GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
             });
-                //PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
+            PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
             PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
             {
                 QueryName = typeof(OrderEntity)
