@@ -37,7 +37,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
 
     render() {
         return (
-            <ErrorBoundary>
+            <ErrorBoundary >
                 <div id="main" key={this.state.refreshId}>
                     <div>
                         <nav className="navbar navbar-light navbar-expand">

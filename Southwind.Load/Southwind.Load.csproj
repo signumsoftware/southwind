@@ -6,6 +6,7 @@
     <OutputType>Exe</OutputType>
     <StartupObject>Southwind.Load.Program</StartupObject>
     <Platforms>AnyCPU;x64</Platforms>
+	<LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -14,7 +15,6 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LangVersion>latest</LangVersion>
-    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

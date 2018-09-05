@@ -68,6 +68,7 @@
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;basicHttpBinding>" To="&lt;/basicHttpBinding>"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;service name=&quot;Southwind.React.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
+	  <RemoveLine Path="Southwind.React\Startup.cs" Line="DisconnectedServer.Start(config);"/>
     </Module>-->
 
     <Module Name="Migrations">
@@ -423,6 +424,7 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="&lt;SalesEstimation ctx={ctx} />"/>
       <RemoveProjectReference Path="Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj"/>
+      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="PredictorServer.Start(config);"/>
     </Module>
 
     <Module Name="Dynamic">

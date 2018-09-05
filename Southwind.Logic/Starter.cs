@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -58,7 +58,6 @@ using Signum.Engine.Workflow;
 using Signum.Engine.Toolbar;
 using Signum.Engine.MachineLearning;
 using Signum.Entities.MachineLearning;
-//using Signum.Engine.MachineLearning.CNTK;
 using Signum.Entities.Files;
 using Signum.Engine.MachineLearning.CNTK;
 
@@ -75,32 +74,32 @@ namespace Southwind.Logic
             using (HeavyProfiler.Log("Start"))
             using (var initial = HeavyProfiler.Log("Initial"))
             {
-            StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
-            StartParameters.IgnoredCodeErrors = new List<Exception>();
+                StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
+                StartParameters.IgnoredCodeErrors = new List<Exception>();
 
-            string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
+                string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
                 SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial };
-            sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
-            sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
+                sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
+                sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
-            MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
-            MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
+                MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
+                MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
 
-            OverrideAttributes(sb);
+                OverrideAttributes(sb);
 
-            SetupDisconnectedStrategies(sb);
+                SetupDisconnectedStrategies(sb);
 
             var detector = SqlServerVersionDetector.Detect(connectionString);
             Connector.Default = new SqlConnector(connectionString, sb.Schema, detector.Value);
 
-            CacheLogic.Start(sb);
+                CacheLogic.Start(sb);
 
             DynamicLogicStarter.Start(sb);
             DynamicLogic.CompileDynamicCode();
 
-            DynamicLogic.RegisterMixins();
-            DynamicLogic.BeforeSchema(sb);
+                DynamicLogic.RegisterMixins();
+                DynamicLogic.BeforeSchema(sb);
 
             TypeLogic.Start(sb);
 
@@ -133,8 +132,8 @@ namespace Southwind.Logic
             ChartLogic.Start(sb);
 
 
-            UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-            UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+                UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+                UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             DashboardLogic.Start(sb);
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
@@ -178,12 +177,12 @@ namespace Southwind.Logic
 
             StartSouthwindConfiguration(sb);
 
-            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);
-            TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => EmployeeEntity.Current.RefersTo(e));
+                TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);
+                TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => EmployeeEntity.Current.RefersTo(e));
 
-            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
-            TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
-            TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
+                TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
+                TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
+                TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
 
             DisconnectedLogic.Start(sb);
             DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
@@ -200,10 +199,10 @@ namespace Southwind.Logic
             
             Starter.DynamicDisconnectedStrategis(sb);
 
-            SetupCache(sb);
+                SetupCache(sb);
 
-            Schema.Current.OnSchemaCompleted();
-        }
+                Schema.Current.OnSchemaCompleted();
+            }
         }
 
         public class CustomSchemaBuilder : SchemaBuilder
