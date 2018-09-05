@@ -216,7 +216,7 @@ namespace WebApplication2
             if (ciRequest != null)
                 return ciRequest;
 
-            return DefaultCulture;
+            return DefaultCulture; //Translation
         }
     }
 }
