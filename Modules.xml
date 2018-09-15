@@ -424,7 +424,7 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="&lt;SalesEstimation ctx={ctx} />"/>
       <RemoveProjectReference Path="Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj"/>
-      <RemoveLine Path="Southwind.React\Global.asax.cs" Line="PredictorServer.Start(config);"/>
+      <RemoveLine Path="Southwind.React\Startup.cs" Line="PredictorServer.Start(app);"/>
     </Module>
 
     <Module Name="Dynamic">

@@ -74,7 +74,7 @@ export function start(options: { routes: JSX.Element[] }) {
 
             return <OrderFilter ctx={TypeContext.root(model) }/>;
         },
-        hiddenColumns: [{ columnName: "State" }], 
+        hiddenColumns: [{ token: "State" }], 
         rowAttributes: (row, columns) => {
             var state = row.columns[columns.indexOf("State")] as OrderState;
 
