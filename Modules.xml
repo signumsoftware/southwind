@@ -59,7 +59,7 @@
                   To="DisconnectedLogic.Register&lt;OperationLogEntity>(operationLogCondition, Upload.New);"/>
       <RemoveLine Path="Southwind.Logic\Starter.Disconnected.cs" DependsOn="ExampleEntities"
                   From="DisconnectedLogic.Register&lt;ExceptionEntity>(e => Database.Query&lt;OperationLogEntity>()"
-                  To=".Any(ol => operationLogCondition.Evaluate(ol) &amp;&amp; ol.Exception.RefersTo(e)), Upload.New);"/>
+                  To=".Any(ol => operationLogCondition.Evaluate(ol) &amp;&amp; ol.Exception.Is(e)), Upload.New);"/>
       <RemoveLine Path="Southwind.Logic\Starter.Disconnected.cs" DependsOn="ExampleEntities"
             From="DisconnectedLogic.Register&lt;EmployeeEntity>(Download.All, Upload.None);"
             To="DisconnectedLogic.Register&lt;ShipperEntity>(Download.All, Upload.None);" />

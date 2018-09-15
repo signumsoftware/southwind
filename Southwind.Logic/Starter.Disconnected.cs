@@ -191,7 +191,7 @@ namespace Southwind.Logic
 
             //Signum.Entities.Exceptions
             DisconnectedLogic.Register<ExceptionEntity>(e => Database.Query<OperationLogEntity>()
-                .Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.RefersTo(e)), Upload.New);
+                .Any(ol => operationLogCondition.Evaluate(ol) && ol.Exception.Is(e)), Upload.New);
 
             //Signum.Entities.ViewLog
             DisconnectedLogic.Register<ViewLogEntity>(Download.None, Upload.New);
