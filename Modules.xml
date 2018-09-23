@@ -410,8 +410,8 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" Line="{99, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
-      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.6.0-rc0.dev20180821&quot; />"/>
-      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.6.0-rc0.dev20180821&quot; />"/>
+      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.6.0&quot; />"/>
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.6.0&quot; />"/>
 "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot; />"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.CNTK;"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="PredictorLogic.Start(sb, () => new FileTypeAlgorithm" To="}); //PredictorLogic"/>
