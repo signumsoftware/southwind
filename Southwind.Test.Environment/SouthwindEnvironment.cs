@@ -202,14 +202,16 @@ namespace Southwind.Test.Environment
         {
             if (!started)
             {
-                var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+                var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .AddUserSecrets(typeof(SouthwindEnvironment).Assembly)
+                    .Build();
                 var connectionString = config.GetConnectionString("ConnectionString");
                 
-                var cs = UserConnections.Replace(connectionString);
-                if (!cs.Contains("Test")) //Security mechanism to avoid passing test on production
+                if (!connectionString.Contains("Test")) //Security mechanism to avoid passing test on production
                     throw new InvalidOperationException("ConnectionString does not contain the word 'Test'.");
 
-                Starter.Start(cs);
+                Starter.Start(connectionString);
                 started = true;
             }
         }

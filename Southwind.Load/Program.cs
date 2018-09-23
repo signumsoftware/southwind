@@ -45,9 +45,9 @@ namespace Southwind.Load
                 using (CultureInfoUtils.ChangeCulture("en"))
                 using (CultureInfoUtils.ChangeCultureUI("en"))
                 {
-                    ConfigRoot = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+                    ConfigRoot = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").AddUserSecrets<Program>().Build();
                     var connectionString = ConfigRoot.GetConnectionString("ConnectionString");
-                    Starter.Start(UserConnections.Replace(connectionString));
+                    Starter.Start(connectionString);
 
                     Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
                     Console.WriteLine("Database: {0}", Regex.Match(((SqlConnector)Connector.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);

@@ -136,7 +136,7 @@ namespace WebApplication2
 
                 DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
 
-                Starter.Start(UserConnections.Replace(Configuration.GetConnectionString("ConnectionString")));
+                Starter.Start(Configuration.GetConnectionString("ConnectionString"));
 
                 log.Switch("Initialize");
                 using (AuthLogic.Disable())
