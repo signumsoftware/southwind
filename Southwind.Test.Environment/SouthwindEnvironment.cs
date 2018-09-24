@@ -202,8 +202,10 @@ namespace Southwind.Test.Environment
         {
             if (!started)
             {
-                var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                var config = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json")
+                    .AddJsonFile($"appsettings.{System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
                     .AddUserSecrets(typeof(SouthwindEnvironment).Assembly)
                     .Build();
                 var connectionString = config.GetConnectionString("ConnectionString");

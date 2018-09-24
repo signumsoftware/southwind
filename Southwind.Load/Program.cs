@@ -45,7 +45,12 @@ namespace Southwind.Load
                 using (CultureInfoUtils.ChangeCulture("en"))
                 using (CultureInfoUtils.ChangeCultureUI("en"))
                 {
-                    ConfigRoot = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").AddUserSecrets<Program>().Build();
+                    ConfigRoot = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json")
+                        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
+                        .AddUserSecrets<Program>().Build();
+
                     var connectionString = ConfigRoot.GetConnectionString("ConnectionString");
                     Starter.Start(connectionString);
 
