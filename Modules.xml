@@ -170,6 +170,7 @@
       <RemoveLine Path="Southwind.React\Global.asax.cs" Line="ChartServer.Start(config);"/>
       <RemoveLine Path="Southwind.Windows\App.xaml.cs" Line="ChartClient.Start();"/>
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{42, ChartScriptLogic.ImportExportChartScripts},"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ChartScriptLogic.ImportChartScriptsAuto,"/>
       <RemoveLine Path="Southwind.Windows\Main.xaml" Line="&lt;MenuItem Tag=&quot;{m:Explore QueryName={x:Type sec:UserChartEntity}}&quot;/>"/>
     </Module>
 

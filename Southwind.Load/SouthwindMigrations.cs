@@ -109,15 +109,15 @@ namespace Southwind.Load
                 new ApplicationConfigurationEntity
                 {
                     Environment = "Development",
+                    AuthTokens = new AuthTokenConfigurationEmbedded
+                    {
+                    }, //Auth
                     Email = new EmailConfigurationEmbedded
                     {
                         SendEmails = true,
                         DefaultCulture = en,
                         UrlLeft = "http://localhost/Southwind"
                     },
-                    AuthTokens = new AuthTokenConfigurationEmbedded
-                    {
-                    }, //Auth
                     SmtpConfiguration = new SmtpConfigurationEntity
                     {
                         Name = "localhost",
