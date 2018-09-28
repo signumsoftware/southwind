@@ -147,14 +147,17 @@ namespace WebApplication2
                 log.Switch("WebStart");
                 WebStart(app, lifetime, env);
 
-                log.Switch("StartRunningProcesses");
-                ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
+                if (Configuration.GetValue<bool>("StartBackgroundProcesses"))
+                {
+                    log.Switch("StartRunningProcesses");
+                    ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
 
-                log.Switch("StartScheduledTasks");
-                SchedulerLogic.StartScheduledTasks();
+                    log.Switch("StartScheduledTasks");
+                    SchedulerLogic.StartScheduledTasks();
 
-                log.Switch("StartRunningEmailSenderAsync");
-                AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
+                    log.Switch("StartRunningEmailSenderAsync");
+                    AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
+                }
             }
         }
 
