@@ -84,8 +84,8 @@ library.add(fas, far);
 Navigator.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle + " - Southwind" : "Southwind");
 Navigator.setTitle();
 
-numbro.registerLanguage(require<any>("numbro/languages/en-GB"));
-numbro.registerLanguage(require<any>("numbro/languages/es-ES"));
+numbro.registerLanguage(require<any>("numbro/dist/languages/en-GB.min"));
+numbro.registerLanguage(require<any>("numbro/dist/languages/es-ES.min"));
 
 declare let __webpack_public_path__: string;
 
