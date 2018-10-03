@@ -7,11 +7,11 @@
     <StartupObject>Southwind.Load.Program</StartupObject>
     <Platforms>AnyCPU;x64</Platforms>
     <LangVersion>latest</LangVersion>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <UserSecretsId>Southwind</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LangVersion>latest</LangVersion>
     <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 

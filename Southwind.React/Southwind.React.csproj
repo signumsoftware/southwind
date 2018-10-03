@@ -6,6 +6,8 @@
     <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <IsPackable>false</IsPackable>
+    <LangVersion>latest</LangVersion>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <UserSecretsId>Southwind</UserSecretsId>
   </PropertyGroup>
 
