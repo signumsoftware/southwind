@@ -127,6 +127,7 @@
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Startup.cs" Line="new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="ChartServer.Start(app);"/>
       <RemoveLine Path="Southwind.Load\Program.cs" Line="{42, ChartScriptLogic.ImportExportChartScripts},"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ChartScriptLogic.ImportChartScriptsAuto,"/>
     </Module>
 
     <Module Name="Files">
