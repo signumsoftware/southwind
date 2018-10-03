@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Analyzer Include="..\Framework\Signum.Analyzer\Binaries\Signum.Analyzer.dll" />
+    <PackageReference Include="Signum.Analyzer" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,10 +18,6 @@
     <ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />
     <ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
     <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
   <Target Name="SignumAfterCompile" AfterTargets="AfterCompile" Outputs="$(TargetPath)">

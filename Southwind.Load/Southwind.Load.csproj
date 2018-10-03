@@ -16,11 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Analyzer Include="..\Framework\Signum.Analyzer\Binaries\Signum.Analyzer.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
+    <PackageReference Include="Signum.Analyzer" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
