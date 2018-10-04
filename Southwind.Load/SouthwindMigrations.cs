@@ -131,7 +131,7 @@ namespace Southwind.Load
                     {
                         DefaultCulture = en,
                     }, //Sms
-                    Workflow= new WorkflowConfigurationEmbedded
+                    Workflow = new WorkflowConfigurationEmbedded
                     {
                     }, //Workflow
                     Folders = new FoldersConfigurationEmbedded

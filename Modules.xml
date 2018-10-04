@@ -68,7 +68,7 @@
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;basicHttpBinding>" To="&lt;/basicHttpBinding>"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;service name=&quot;Southwind.React.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
       <RemoveLine Path="Southwind.React\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
-	  <RemoveLine Path="Southwind.React\Startup.cs" Line="DisconnectedServer.Start(config);"/>
+    <RemoveLine Path="Southwind.React\Startup.cs" Line="DisconnectedServer.Start(config);"/>
     </Module>-->
 
     <Module Name="Migrations">
@@ -258,6 +258,7 @@
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Sms*/" To="public SMSConfigurationEmbedded Sms { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms) }>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
     </Module>
 
     <Module Name="Auth">
@@ -455,7 +456,8 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="import WorkflowDropdown from &quot;@extensions/Workflow/Workflow/WorkflowDropdown&quot;"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;WorkflowDropdown />"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="WorkflowServer.Start(app);"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow= new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
+      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;2.5.2&quot;,"/>
     </Module>
 
