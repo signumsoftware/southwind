@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <IsPackable>false</IsPackable>
     <LangVersion>latest</LangVersion>
@@ -41,7 +41,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Signum.Analyzer" Version="1.0.0" />
     <PackageReference Include="CNTK.CPUOnly" Version="2.6.0" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.0.3">
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.1.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

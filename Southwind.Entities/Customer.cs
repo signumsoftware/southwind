@@ -48,7 +48,7 @@ namespace Southwind.Entities
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10)]
         public string Title { get; set; }
 
-        [DateTimePrecissionValidator(DateTimePrecision.Days)]
+        [DateTimePrecisionValidator(DateTimePrecision.Days)]
         public DateTime? DateOfBirth { get; set; }
 
         public bool Corrupt { get; set; }
@@ -82,7 +82,7 @@ namespace Southwind.Entities
 
         static PersonEntity()
         {
-            Validator.PropertyValidator((PersonEntity p) => p.DateOfBirth).IsApplicableValidator<DateTimePrecissionValidatorAttribute>(p => Corruption.Strict);
+            Validator.PropertyValidator((PersonEntity p) => p.DateOfBirth).IsApplicableValidator<DateTimePrecisionValidatorAttribute>(p => Corruption.Strict);
             Validator.PropertyValidator((PersonEntity p) => p.Title).IsApplicableValidator<StringLengthValidatorAttribute>(p => Corruption.Strict);
         }
     }

@@ -28,7 +28,7 @@ namespace Southwind.Entities
         [StringLengthValidator(AllowNulls = true, Min = 3, Max = 25)]
         public string TitleOfCourtesy { get; set; }
 
-        [DateTimePrecissionValidator(DateTimePrecision.Days)]
+        [DateTimePrecisionValidator(DateTimePrecision.Days)]
         public DateTime? BirthDate { get; set; }
 
         public DateTime? HireDate { get; set; }
