@@ -85,6 +85,7 @@ module.exports = {
             { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, "wwwroot/dist/es6-promise.auto.min.js") },
             { from: 'node_modules/es6-object-assign/dist/object-assign-auto.min.js', to: path.join(__dirname, "wwwroot/dist/object-assign-auto.min.js") },
             { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, "wwwroot/dist/fetch.js") },
+            { from: 'node_modules/abortcontroller-polyfill/dist/polyfill-patch-fetch.js', to: path.join(__dirname, 'wwwroot/dist/polyfill-patch-fetch.js') },
         ])
     ],
 }
