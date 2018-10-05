@@ -5,16 +5,20 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject>Southwind.Load.Program</StartupObject>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>x64</Platforms>
     <LangVersion>latest</LangVersion>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <UserSecretsId>Southwind</UserSecretsId>
   </PropertyGroup>
-
+  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
-
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="Signum.Analyzer" Version="1.0.0" />
   </ItemGroup>
