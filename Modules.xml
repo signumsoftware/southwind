@@ -413,7 +413,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredDatabaseMismatches = new List&lt;Exception>();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredCodeErrors = new List&lt;Exception>();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="DynamicLogicStarter.Start(sb);" To="DynamicLogic.BeforeSchema(sb);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="DynamicLogic.StartDynamicModules(sb);" To="Starter.DynamicDisconnectedStrategis(sb);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="DynamicLogic.StartDynamicModules(sb);" To="DynamicLogic.RegisterExceptionIfAny();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (type.Namespace == DynamicCode.CodeGenEntitiesNamespace)" To="return &quot;codegen&quot;;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx"
                   From="import * as DynamicClient from &quot;@extensions/Dynamic/DynamicClient&quot;"
@@ -471,7 +471,6 @@
   <Projects>
     <Project Path ="Southwind.Entities\Southwind.Entities.csproj"/>
     <Project Path ="Southwind.Load\Southwind.Load.csproj"/>
-    <Project Path ="Southwind.Local\Southwind.Local.csproj"/>
     <Project Path ="Southwind.Logic\Southwind.Logic.csproj"/>
     <Project Path ="Southwind.React\Southwind.React.csproj"/>
     <Project Path ="Southwind.Test.Environment\Southwind.Test.Environment.csproj"/>
