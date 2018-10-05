@@ -4,6 +4,10 @@
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
 
 @{
+    //FileNotFoundException??? You need to run 'yarn watch'. Requires:
+    //- Node.js: https://nodejs.org/ 
+    //- Yarn: https://yarnpkg.com/en/ 
+    //- NPM Task Runner: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner)
     string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
     var main = (string)JObject.Parse(json).Property("main").Value["js"];
 
