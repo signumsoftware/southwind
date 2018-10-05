@@ -60,7 +60,7 @@ using Signum.React.Workflow;
 using Signum.Utilities;
 using Southwind.Logic;
 
-namespace WebApplication2
+namespace Southwind.React
 {
     public class Startup
     {
