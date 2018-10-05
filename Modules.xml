@@ -65,6 +65,7 @@
       <RemoveFiles Path="Southwind.Load\OrderLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\ProductLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\SupplierFaxes.csv"/>
+      <RemoveFiles Path="Southwind.Load\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True&quot;"/>
     </Module>
 
     <Module Name="UserQuery">
