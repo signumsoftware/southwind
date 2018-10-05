@@ -394,7 +394,8 @@
       <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.6.0&quot; />"/>
 "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot; />"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.CNTK;"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="PredictorLogic.Start(sb, () => new FileTypeAlgorithm" To="}); //PredictorLogic"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="PredictorLogic.Start(sb, () => new FileTypeAlgorithm" To="PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" DependsOn="ExampleEntities" From="PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings" To="}); //ProductPredictorPublication"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(AutoconfigureNeuralNetworkEntity)"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as PredictorClient from &quot;@extensions/MachineLearning/PredictorClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="PredictorClient.start({ routes });"/>

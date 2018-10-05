@@ -163,7 +163,7 @@ namespace Southwind.Logic
                 PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
                 {
                     QueryName = typeof(OrderEntity)
-                }); //PredictorLogic
+                }); //ProductPredictorPublication
 
                 WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);
 
