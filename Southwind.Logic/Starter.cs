@@ -87,9 +87,7 @@ namespace Southwind.Logic
                 MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
 
                 OverrideAttributes(sb);
-
-                SetupDisconnectedStrategies(sb);
-
+                
                 var detector = SqlServerVersionDetector.Detect(connectionString);
                 Connector.Default = new SqlConnector(connectionString, sb.Schema, detector.Value);
 
@@ -184,11 +182,6 @@ namespace Southwind.Logic
                 TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
                 TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
 
-                DisconnectedLogic.Start(sb);
-                DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
-                DisconnectedLogic.BackupNetworkFolder = @"D:\SouthwindTemp\Backups";
-                DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Database";
-
                 ProfilerLogic.Start(sb,
                     timeTracker: true,
                     heavyProfiler: true,
@@ -196,8 +189,6 @@ namespace Southwind.Logic
 
                 DynamicLogic.StartDynamicModules(sb);
                 DynamicLogic.RegisterExceptionIfAny();
-
-                Starter.DynamicDisconnectedStrategis(sb);
 
                 SetupCache(sb);
 

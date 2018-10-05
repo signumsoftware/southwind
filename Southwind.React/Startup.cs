@@ -178,7 +178,6 @@ namespace WebApplication2
             TranslationServer.Start(app, new AlreadyTranslatedTranslator(new AzureTranslator("Your API Key for Azure Translate")));
             SchedulerServer.Start(app, lifetime);
             ProcessServer.Start(app);
-            DisconnectedServer.Start(app);
             MailingServer.Start(app);
             ProfilerServer.Start(app);
             DiffLogServer.Start(app);

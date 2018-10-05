@@ -49,28 +49,6 @@
                   Line="&lt;LinkContainer to=&quot;~/find/order&quot;>&lt;DropdownItem>Orders&lt;/DropdownItem>&lt;/LinkContainer>" />"/>
     </Module>
 
-    <!--<Module Name="Disconnected">
-      <RemoveFiles Path="Southwind.Local"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="DisconnectedLogic.Start(sb);" To="DisconnectedLogic.DatabaseFolder = @&quot;D:\SouthwindTemp\Database&quot;;"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetupDisconnectedStrategies(sb);"/>
-      <RemoveFiles Path="Southwind.Logic\Starter.Disconnected.cs"/>
-      <RemoveLine Path="Southwind.Logic\Starter.Disconnected.cs" DependsOn="ExampleEntities"
-                  From="Expression&lt;Func&lt;OperationLogEntity, bool>> operationLogCondition = ol =>"
-                  To="DisconnectedLogic.Register&lt;OperationLogEntity>(operationLogCondition, Upload.New);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.Disconnected.cs" DependsOn="ExampleEntities"
-                  From="DisconnectedLogic.Register&lt;ExceptionEntity>(e => Database.Query&lt;OperationLogEntity>()"
-                  To=".Any(ol => operationLogCondition.Evaluate(ol) &amp;&amp; ol.Exception.Is(e)), Upload.New);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.Disconnected.cs" DependsOn="ExampleEntities"
-            From="DisconnectedLogic.Register&lt;EmployeeEntity>(Download.All, Upload.None);"
-            To="DisconnectedLogic.Register&lt;ShipperEntity>(Download.All, Upload.None);" />
-      <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc"/>
-      <RemoveFiles Path="Southwind.React\ServerSouthwindTransfer.svc.cs"/>
-      <RemoveLine Path="Southwind.React\Web.config" From="&lt;basicHttpBinding>" To="&lt;/basicHttpBinding>"/>
-      <RemoveLine Path="Southwind.React\Web.config" From="&lt;service name=&quot;Southwind.React.ServerSouthwindTransfer&quot; behaviorConfiguration=&quot;TransferBehavior&quot;&gt;" To="&lt;/service&gt;"/>
-      <RemoveLine Path="Southwind.React\Web.config" From="&lt;behavior name=&quot;TransferBehavior&quot;&gt;" To="&lt;/behavior&gt;"/>
-    <RemoveLine Path="Southwind.React\Startup.cs" Line="DisconnectedServer.Start(config);"/>
-    </Module>-->
-
     <Module Name="Migrations">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MigrationLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Load\Program.cs" From="if (args.Any())" To="} //if(args.Any())"/>
