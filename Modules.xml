@@ -333,7 +333,7 @@
 
     <Module Name="SplitDB">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, &quot;_Log&quot;);"/>
-      <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="LogDatabaseName = logDatabase"/>
+      <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="LogDatabaseName = logDatabase, "/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="public string LogDatabaseName;"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="public Type[] InLogDatabase = new Type[]" To="};"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (this.LogDatabaseName == null)" To="return new DatabaseName(null, this.LogDatabaseName);"/>
