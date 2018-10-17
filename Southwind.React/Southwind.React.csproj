@@ -67,6 +67,14 @@
     </Exec>
   </Target>
 
+  <PropertyGroup>
+    <CompileTypeScriptDependsOn>
+      GenerateSignumTS;
+      $(CompileTypeScriptDependsOn);
+    </CompileTypeScriptDependsOn>
+    <ApplicationIcon />
+  </PropertyGroup>
+
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec Command="npm install" />
