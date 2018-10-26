@@ -4,15 +4,15 @@
 
 import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../../Framework/Signum.React/Scripts/Reflection'
 import * as Entities from '../../../Framework/Signum.React/Scripts/Signum.Entities'
-import * as Files from '../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
 import * as Mailing from '../../../Extensions/Signum.React.Extensions/Mailing/Signum.Entities.Mailing'
 import * as SMS from '../../../Extensions/Signum.React.Extensions/SMS/Signum.Entities.SMS'
 import * as Authorization from '../../../Extensions/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
 import * as Workflow from '../../../Extensions/Signum.React.Extensions/Workflow/Signum.Entities.Workflow'
+import * as Files from '../../../Extensions/Signum.React.Extensions/Files/Signum.Entities.Files'
+import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Signum.Entities.Basics'
 import * as Processes from '../../../Extensions/Signum.React.Extensions/Processes/Signum.Entities.Processes'
 import * as Scheduler from '../../../Extensions/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler'
 import * as MachineLearning from '../../../Extensions/Signum.React.Extensions/MachineLearning/Signum.Entities.MachineLearning'
-import * as Basics from '../../../Extensions/Signum.React.Extensions/Basics/Signum.Entities.Basics'
 
 
 
@@ -43,6 +43,7 @@ export const ApplicationConfigurationEntity = new Type<ApplicationConfigurationE
 export interface ApplicationConfigurationEntity extends Entities.Entity {
     Type: "ApplicationConfiguration";
     environment?: string | null;
+    databaseName?: string | null;
     email?: Mailing.EmailConfigurationEmbedded | null;
     smtpConfiguration?: Mailing.SmtpConfigurationEntity | null;
     sms?: SMS.SMSConfigurationEmbedded | null;
