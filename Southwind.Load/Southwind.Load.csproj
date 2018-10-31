@@ -20,6 +20,20 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <None Remove="appsettings.live.json" />
+    <None Remove="appsettings.test.json" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="appsettings.live.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="appsettings.test.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
     <PackageReference Include="Signum.Analyzer" Version="1.0.0" />
   </ItemGroup>
 
