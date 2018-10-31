@@ -1,0 +1,102 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: normal
+
+stages:
+  - deploy
+  - testLogic
+  - testUI
+
+dev-deploy:
+  environment:
+     name: DEV
+     url: http://dev.southwind.firm/
+  stage: deploy
+  variables:
+    ASPNETCORE_ENVIRONMENT: Dev
+  script:
+    - cd Southwind.React/; yarn install --ignore-optional; cd ..
+    - dotnet build Southwind.sln /p:Configuration=Release /p:Platform=x64 /p:VisualStudioVersion=15.0 /m
+    - cd Southwind.React/; yarn run build; cd ..
+    - dotnet publish Southwind.React/Southwind.React.csproj -c Release --runtime win7-x64 /p:EnableMSDeployAppOffline=true /p:PublishProfile=Dev /p:Username=$env:MSBUILD_USER /p:Password=$env:MSBUILD_PASSWORD /v:normal
+    - dotnet test Southwind.Test.Environment/Southwind.Test.Environment.csproj -c Release
+  tags:
+    - desrv148
+  except: 
+    - TEST
+    - LIVE
+
+unit-tests-logic:
+  environment:
+     name: DEV
+     url: http://dev.southwind.firm/
+  stage: testLogic
+  variables:
+    ASPNETCORE_ENVIRONMENT: Dev
+  script:
+  - dotnet test Southwind.Test.Logic/Southwind.Test.Logic.csproj -c Release
+  allow_failure: true
+  tags:
+    - desrv148
+  except: 
+    - TEST
+    - LIVE
+
+unit-tests-ui:
+  environment:
+     name: DEV
+     url: http://dev.southwind.firm/
+  stage: testUI
+  variables:
+    ASPNETCORE_ENVIRONMENT: dev
+  script:
+    - dotnet test Southwind.Test.React/Southwind.Test.React.csproj -c Release
+  allow_failure: true
+  tags:
+    - desrv148
+  except: 
+    - TEST
+    - LIVE
+
+test-deploy:
+  environment:
+    name: TEST
+    url: http://test.southwind.firm
+  stage: deploy
+  variables:
+    ASPNETCORE_ENVIRONMENT: test
+  script:
+    - cd Southwind.React/; yarn install --ignore-optional; cd ..
+    - dotnet build Southwind.sln /p:Configuration=Release /p:Platform=x64 /p:VisualStudioVersion=15.0 /m
+    - cd Southwind.React/; yarn run build; cd ..
+    - dotnet publish Southwind.React/Southwind.React.csproj -c Release --runtime win7-x64 /p:EnableMSDeployAppOffline=true /p:PublishProfile=Test /p:Username=$env:MSBUILD_USER /p:Password=$env:MSBUILD_PASSWORD /v:m
+    - cd Southwind.Load/bin/Release/netcoreapp2.1/
+    - dotnet Southwind.Load.dll sql
+    - dotnet Southwind.Load.dll csharp
+    - dotnet Southwind.Load.dll auth
+    - cd ../../../..
+  tags:
+    - desrv148
+  only: 
+    - TEST
+
+live-deploy:
+  environment:
+    name: LIVE
+    url: http://live.southwind.firm
+  stage: deploy
+  variables:
+    ASPNETCORE_ENVIRONMENT: live
+  script:
+    - cd Southwind.React/; yarn install --ignore-optional; cd ..
+    - dotnet build Southwind.sln /p:Configuration=Release /p:Platform=x64 /p:VisualStudioVersion=15.0 /m
+    - cd Southwind.React/; yarn run build; cd ..
+    - dotnet publish Southwind.React/Southwind.React.csproj -c Release --runtime win7-x64 /p:EnableMSDeployAppOffline=true /p:PublishProfile=Live /p:Username=$env:MSBUILD_USER /p:Password=$env:MSBUILD_PASSWORD /v:m
+    - cd Southwind.Load/bin/Release/netcoreapp2.1/
+    - dotnet Southwind.Load.dll sql
+    - dotnet Southwind.Load.dll csharp
+    - dotnet Southwind.Load.dll auth
+    - cd ../../../..
+  tags:
+    - desrv148
+  only: 
+    - LIVE
