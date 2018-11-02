@@ -60,6 +60,8 @@ using Signum.Engine.MachineLearning;
 using Signum.Entities.MachineLearning;
 using Signum.Entities.Files;
 using Signum.Engine.MachineLearning.CNTK;
+using Signum.Entities.Rest;
+using Signum.Engine.Rest;
 
 namespace Southwind.Logic
 {
@@ -164,6 +166,9 @@ namespace Southwind.Logic
                 {
                     QueryName = typeof(OrderEntity)
                 }); //ProductPredictorPublication
+
+                RestLogLogic.Start(sb);
+                RestApiKeyLogic.Start(sb);
 
                 WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);
 
@@ -280,6 +285,7 @@ namespace Southwind.Logic
         {
             sb.Schema.Settings.TypeAttributes<OrderEntity>().Add(new SystemVersionedAttribute());
 
+            sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ExceptionEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((OperationLogEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((UserQueryEntity uq) => uq.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));

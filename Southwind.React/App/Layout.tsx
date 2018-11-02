@@ -18,6 +18,7 @@ import SidebarContainer from "@extensions/Toolbar/SidebarContainer"
 import ToolbarRenderer from "@extensions/Toolbar/Templates/ToolbarRenderer"
 import VersionChangedAlert from '@framework/Frames/VersionChangedAlert';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse, LinkContainer, ErrorBoundary } from '@framework/Components';
+import * as RestClient from "@extensions/Rest/RestClient"
 
 export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean, isOpen: boolean }> {
 
@@ -33,6 +34,13 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
         this.setState({
             isOpen: !this.state.isOpen
         });
+    }
+    
+    handleSwaggerClick = (e: React.MouseEvent<any>) => {
+        e.preventDefault();
+        RestClient.API.getCurrentRestApiKey().then(key => {
+            window.location.assign(Navigator.toAbsoluteUrl("~/swagger/ui/index?apiKey=" + (key || "")));
+        }).done();
     }
 
     render() {
@@ -68,6 +76,9 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                                 </div>}
                                 {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
                                 <div className="navbar-nav ml-auto">
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="#" onClick={this.handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
+                                    </li>
                                     <CultureDropdown />
                                     <LoginDropdown />
                                 </div>
