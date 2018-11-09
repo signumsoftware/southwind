@@ -172,7 +172,7 @@
   </ToolbarMenu>
   <Toolbar Guid="eb64a1af-852c-468b-a94f-19e28357ac0e" Name="Side Toolbar" Location="Side">
     <Elements>
-      <ToolbarElement Type="Link" IconName="fas fa-dashboard" IconColor="blue" Content="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" />
+      <ToolbarElement Type="Link" IconName="fas fa-tachometer-alt" IconColor="blue" Content="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" />
       <ToolbarElement Type="Link" Label="Map" IconName="fas fa-map" IconColor="mediumvioletred" Content="MapPermission.ViewMap" Url="~/Map" />
       <ToolbarElement Type="Link" Label="Public catalog" IconName="fas fa-shopping-bag" IconColor="orangered" Url="~/PublicCatalog" />
       <ToolbarElement Type="Divider" />

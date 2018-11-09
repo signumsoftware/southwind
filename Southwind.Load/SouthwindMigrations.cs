@@ -109,15 +109,16 @@ namespace Southwind.Load
                 new ApplicationConfigurationEntity
                 {
                     Environment = "Development",
+                    DatabaseName = "Southwind",
+                    AuthTokens = new AuthTokenConfigurationEmbedded
+                    {
+                    }, //Auth
                     Email = new EmailConfigurationEmbedded
                     {
                         SendEmails = true,
                         DefaultCulture = en,
                         UrlLeft = "http://localhost/Southwind"
                     },
-                    AuthTokens = new AuthTokenConfigurationEmbedded
-                    {
-                    }, //Auth
                     SmtpConfiguration = new SmtpConfigurationEntity
                     {
                         Name = "localhost",
@@ -130,7 +131,7 @@ namespace Southwind.Load
                     {
                         DefaultCulture = en,
                     }, //Sms
-                    Workflow= new WorkflowConfigurationEmbedded
+                    Workflow = new WorkflowConfigurationEmbedded
                     {
                     }, //Workflow
                     Folders = new FoldersConfigurationEmbedded
@@ -156,14 +157,14 @@ namespace Southwind.Load
                 Name = "Order template",
                 Query = QueryLogic.GetQueryEntity(typeof(OrderEntity)),
                 Culture = CultureInfo.GetCultureInfo("en").ToCultureInfoEntity(),
-                Template = new FileEntity("../../WordTemplates/Order.docx").ToLiteFat(),
+                Template = new FileEntity("../../../WordTemplates/Order.docx").ToLiteFat(),
                 FileName = "Order.docx"
             }.Save();
         }
 
         public static void ImportUserAssets()
         {
-            var bytes = File.ReadAllBytes("../../UserAssets.xml");
+            var bytes = File.ReadAllBytes("../../../UserAssets.xml");
             var preview = UserAssetsImporter.Preview(bytes);
             UserAssetsImporter.Import(bytes, preview);
         }

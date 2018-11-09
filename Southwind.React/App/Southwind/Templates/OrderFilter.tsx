@@ -30,16 +30,16 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
         const val = this.props.ctx.value;
 
         if (val.customer)
-            result.push({ columnName: "Customer", value: val.customer });
+            result.push({ token: "Customer", value: val.customer });
 
         if (val.employee)
-            result.push({ columnName: "Employee", value: val.employee });
+            result.push({ token: "Employee", value: val.employee });
 
         if (val.minOrderDate)
-            result.push({ columnName: "OrderDate", value: val.minOrderDate, operation: "GreaterThanOrEqual" });
+            result.push({ token: "OrderDate", value: val.minOrderDate, operation: "GreaterThanOrEqual" });
 
         if (val.maxOrderDate)
-            result.push({ columnName: "OrderDate", value: val.maxOrderDate, operation: "LessThan" });
+            result.push({ token: "OrderDate", value: val.maxOrderDate, operation: "LessThan" });
 
         return result;
     }

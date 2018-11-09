@@ -5,19 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
 using Signum.React.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace Southwind.Test.React
 {
-    [TestClass]
-    [DeploymentItem("chromedriver.exe", "")]
     public class SouthwindTestClass
     {
+        public static string BaseUrl { get; private set; }
+
+        static SouthwindTestClass()
+        {
+            var config = new ConfigurationBuilder()
+                 .SetBasePath(Directory.GetCurrentDirectory())
+                 .AddJsonFile("appsettings.json")
+                 .AddJsonFile($"appsettings.{System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
+                 .AddUserSecrets(typeof(SouthwindTestClass).Assembly)
+                 .Build();
+
+            BaseUrl = config["Url"];
+        }
+
         public static void Browse(string username, Action<SouthwindBrowser> action)
         {
             var selenium = new ChromeDriver();
@@ -44,8 +57,7 @@ namespace Southwind.Test.React
     {
         public override string Url(string url)
         {
-            //return "http://localhost/Southwind.React/" + url;
-            return "http://localhost:7654/" + url;
+            return SouthwindTestClass.BaseUrl + url;
         }
 
         public SouthwindBrowser(RemoteWebDriver driver)

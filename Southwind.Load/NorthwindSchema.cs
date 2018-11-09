@@ -1,4 +1,5 @@
-﻿using Signum.Engine;
+﻿using Microsoft.Extensions.Configuration;
+using Signum.Engine;
 using Signum.Engine.Maps;
 using Signum.Entities;
 using System;
@@ -19,7 +20,7 @@ namespace Southwind.Load.NorthwindSchema
                 if (connector != null)
                     return connector;
 
-                var northwindConnectionString = UserConnections.Replace(global::Southwind.Load.Properties.Settings.Default.NorthwindConnectionString);
+                var northwindConnectionString = Program.ConfigRoot.GetConnectionString("NorthwindConnectionString");
                 return connector = new SqlConnector(northwindConnectionString, new SchemaBuilder(false).Schema, SqlServerVersion.SqlServer2012);
             }
         }

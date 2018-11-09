@@ -84,8 +84,8 @@ library.add(fas, far);
 Navigator.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle + " - Southwind" : "Southwind");
 Navigator.setTitle();
 
-numbro.registerLanguage(require<any>("numbro/languages/en-GB"));
-numbro.registerLanguage(require<any>("numbro/languages/es-ES"));
+numbro.registerLanguage(require<any>("numbro/dist/languages/en-GB.min"));
+numbro.registerLanguage(require<any>("numbro/dist/languages/es-ES.min"));
 
 declare let __webpack_public_path__: string;
 
@@ -115,17 +115,14 @@ AuthClient.registerUserTicketAuthenticator();
 
 window.onerror = (message: Event | string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
 
-let loaded = false;
 
 function reload() {
     return AuthClient.autoLogin() //Promise.resolve()
         .then(() => reloadTypes())
         .then(() => CultureClient.loadCurrentCulture())
         .then(() => {
-            const isFull = !!AuthClient.currentUser(); //true;
 
-            if (loaded)
-                return;
+            Navigator.clearAllSettings();
 
             const routes: JSX.Element[] = [];
 
@@ -133,6 +130,7 @@ function reload() {
             routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
             AuthClient.startPublic({ routes, userTicket: true, resetPassword: true, notifyLogout: true });
 
+            const isFull = !!AuthClient.currentUser(); //true;
             if (isFull) {
                 Operations.start();
                 Navigator.start({ routes });
@@ -200,9 +198,6 @@ function reload() {
                     <Layout />
                 </Router>, reactDiv);
 
-            if (isFull)
-                loaded = true;
-
             return isFull;
         });
 }
@@ -215,6 +210,11 @@ AuthClient.Options.onLogin = (url? : string) => {
 
         Navigator.history.push(back || url || "~/");
     }).done();
+};
+
+AuthClient.Options.onLogout = () => {
+    Navigator.history.push("~/");
+    reload().done();
 };
 
 reload();

@@ -1,11 +1,17 @@
 ﻿@using Signum.Utilities;
+@using System.IO;
 @using Newtonsoft.Json.Linq;
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
 
 @{
-    string json = File.ReadAllText(Path.Combine(Server.MapPath("~/dist/"), "webpack-assets.json"));
+    //FileNotFoundException??? You need to run 'yarn watch'. Requires:
+    //- Node.js: https://nodejs.org/ 
+    //- Yarn: https://yarnpkg.com/en/ 
+    //- NPM Task Runner: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner)
+    string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
     var main = (string)JObject.Parse(json).Property("main").Value["js"];
 
-    string jsonDll = File.ReadAllText(Path.Combine(Server.MapPath("~/dist/"), "webpack-assets.dll.json"));
+    string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
     var vendor = (string)JObject.Parse(jsonDll).Property("vendor").Value["js"];
 }
 <!doctype html>
@@ -22,8 +28,9 @@
     <script>
         var __baseUrl = "@Url.Content("~/")";
     </script>
+    <script language="javascript" src="@Url.Content("~/dist/object-assign-auto.min.js")"></script>
     <script language="javascript" src="@Url.Content("~/dist/es6-promise.auto.min.js")"></script>
-    <script language="javascript" src="@Url.Content("~/dist/fetch.js")"></script>
+    @*<script language="javascript" src="@Url.Content("~/dist/fetch.js")"></script>*@
     <script language="javascript" src="@Url.Content("~/dist/" + vendor)"></script>
     <script language="javascript" src="@Url.Content("~/dist/" + main)"></script>
 </body>

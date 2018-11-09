@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Engine.Operations;
 using Signum.Utilities;
 using Southwind.Entities;
 using Southwind.Test.Environment;
+using Xunit;
 
 namespace Southwind.Test.Logic
 {
-    [TestClass]
     public class OrderTest
     {
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext testContext)
+        public OrderTest()
         {
             SouthwindEnvironment.StartAndInitialize();
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderTestExample()
         {
             using (AuthLogic.UnsafeUserSession("Normal"))
@@ -36,7 +34,7 @@ namespace Southwind.Test.Logic
 
                     order.Execute(OrderOperation.SaveNew);
 
-                    Assert.AreEqual(order.TotalPrice, sonic.UnitPrice);
+                    Assert.Equal(order.TotalPrice, sonic.UnitPrice);
  
 
                     //tr.Commit();

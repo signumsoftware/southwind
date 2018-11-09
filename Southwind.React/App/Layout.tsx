@@ -17,7 +17,7 @@ import * as CultureClient from "@extensions/Translation/CultureClient"
 import SidebarContainer from "@extensions/Toolbar/SidebarContainer"
 import ToolbarRenderer from "@extensions/Toolbar/Templates/ToolbarRenderer"
 import VersionChangedAlert from '@framework/Frames/VersionChangedAlert';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse, LinkContainer } from '@framework/Components';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse, LinkContainer, ErrorBoundary } from '@framework/Components';
 
 export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean, isOpen: boolean }> {
 
@@ -37,70 +37,67 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
 
     render() {
         return (
-            <div id="main" key={this.state.refreshId}>
-                <div>
-                    <nav className="navbar navbar-light navbar-expand">
-                        <button type="button" className="navbar-toggler" onClick={this.handleToggle}>
-                            <span className="navbar-toggler-icon"/>
-                        </button>
-                        <Link to="~/" className="navbar-brand">Southwind</Link>
-                        <Collapse isOpen={this.state.isOpen} navbar>
-                            {AuthClient.currentUser() && <div className="navbar-nav mr-auto">
-                                <li>
-                                    <div className="omnibox-container" style={{ width: "200px" }}>
-                                        <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
-                                    </div>
-                                </li>
-                                <UncontrolledDropdown>
-                                    <DropdownToggle nav caret>
-                                       Menu
+            <ErrorBoundary >
+                <div id="main" key={this.state.refreshId}>
+                    <div>
+                        <nav className="navbar navbar-light navbar-expand">
+                            <button type="button" className="navbar-toggler" onClick={this.handleToggle}>
+                                <span className="navbar-toggler-icon" />
+                            </button>
+                            <Link to="~/" className="navbar-brand">Southwind</Link>
+                            <Collapse isOpen={this.state.isOpen} navbar>
+                                {AuthClient.currentUser() && <div className="navbar-nav mr-auto">
+                                    <li>
+                                        <div className="omnibox-container" style={{ width: "200px" }}>
+                                            <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
+                                        </div>
+                                    </li>
+                                    <UncontrolledDropdown>
+                                        <DropdownToggle nav caret>
+                                            Menu
                                     </DropdownToggle>
-                                    <DropdownMenu>
-                                        <LinkContainer to="~/" exact={true}><DropdownItem>Home</DropdownItem></LinkContainer>
-                                        <LinkContainer to="~/publicCatalog"><DropdownItem>Catalog</DropdownItem></LinkContainer>
-                                        <DropdownItem divider />
-                                        <LinkContainer to="~/find/order"><DropdownItem>Orders</DropdownItem></LinkContainer>
-                                        <LinkContainer to="~/find/exception"><DropdownItem>Exceptions</DropdownItem></LinkContainer>
-                                    </DropdownMenu>
-                                </UncontrolledDropdown>
-                                <WorkflowDropdown />
-                            </div>}
-                            {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
-                            <div className="navbar-nav ml-auto">
-                                <CultureDropdown />
-                                <LoginDropdown />
-                            </div>
-                        </Collapse>
-                    </nav>
-                </div>
-                <Notify />
-                <div id="main-container">
-                    <SidebarContainer
-                        sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible}
-                        sidebarContent={<ToolbarRenderer location="Side" />}>
-                        <VersionChangedAlert />
-                        {Layout.switch}
-                    </SidebarContainer>
-                    {/* Layout
+                                        <DropdownMenu>
+                                            <LinkContainer to="~/" exact={true}><DropdownItem>Home</DropdownItem></LinkContainer>
+                                            <LinkContainer to="~/publicCatalog"><DropdownItem>Catalog</DropdownItem></LinkContainer>
+                                            <DropdownItem divider />
+                                            <LinkContainer to="~/find/order"><DropdownItem>Orders</DropdownItem></LinkContainer>
+                                            <LinkContainer to="~/find/exception"><DropdownItem>Exceptions</DropdownItem></LinkContainer>
+                                        </DropdownMenu>
+                                    </UncontrolledDropdown>
+                                    <WorkflowDropdown />
+                                </div>}
+                                {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
+                                <div className="navbar-nav ml-auto">
+                                    <CultureDropdown />
+                                    <LoginDropdown />
+                                </div>
+                            </Collapse>
+                        </nav>
+                    </div>
+                    <Notify />
+                    <div id="main-container">
+                        <SidebarContainer
+                            sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible}
+                            sidebarContent={<ToolbarRenderer location="Side" />}>
+                            <VersionChangedAlert />
+                            {Layout.switch}
+                        </SidebarContainer>
+                        {/* Layout
                     <ContainerToggle>
                         <VersionChangedAlert />
                         {Layout.switch}
                     </ContainerToggle>
                     Layout */}
-                </div>
-                <GlobalModalContainer />
-                <div id="footer">
-                    <div className="container">
-                        <p className="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
+                    </div>
+                    <GlobalModalContainer />
+                    <div id="footer">
+                        <div className="container">
+                            <p className="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </ErrorBoundary>
         );
-    }
-
-    componentDidCatch(error: any, info: any) {
-        console.log(error);
-        console.log(info);
     }
 
     componentWillMount() {

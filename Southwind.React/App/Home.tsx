@@ -1,6 +1,7 @@
 ﻿import * as React from 'react'
 import * as Navigator from "@framework/Navigator"
 import * as DashboardClient from "@extensions/Dashboard/DashboardClient"
+import * as AuthClient from '@extensions/Authorization/AuthClient'
 
 export default class Home extends React.Component<{}, { loaded: boolean }> {
     
@@ -10,12 +11,12 @@ export default class Home extends React.Component<{}, { loaded: boolean }> {
     }
 
     componentWillMount() {
-        if (Navigator.currentUser == null) {
+        if (!AuthClient.currentUser()) {
             Navigator.history.push("~/publicCatalog");
             return;
         }//PublicCatalog
 
-        if (true as any) {
+        if (AuthClient.currentUser()) {
             DashboardClient.API.home()
                 .then(h => {
                     if (h)

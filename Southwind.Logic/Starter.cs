@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -32,7 +32,6 @@ using Signum.Engine.Cache;
 using Signum.Engine.Profiler;
 using Signum.Engine.Translation;
 using Signum.Engine.Files;
-using Southwind.Logic.Properties;
 using Signum.Entities.Alerts;
 using Signum.Entities.Notes;
 using Signum.Entities.UserAssets;
@@ -59,8 +58,8 @@ using Signum.Engine.Workflow;
 using Signum.Engine.Toolbar;
 using Signum.Engine.MachineLearning;
 using Signum.Entities.MachineLearning;
-using Signum.Engine.MachineLearning.CNTK;
 using Signum.Entities.Files;
+using Signum.Engine.MachineLearning.CNTK;
 
 namespace Southwind.Logic
 {
@@ -70,137 +69,131 @@ namespace Southwind.Logic
     {
         public static ResetLazy<ApplicationConfigurationEntity> Configuration;
 
-
         public static void Start(string connectionString)
         {
-            StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
-            StartParameters.IgnoredCodeErrors = new List<Exception>();
-
-            string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
-
-            SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase };
-            sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
-            sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
-
-            MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
-            MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
-
-            OverrideAttributes(sb);
-
-            SetupDisconnectedStrategies(sb);
-
-            var detector = SqlServerVersionDetector.Detect(connectionString);
-            Connector.Default = new SqlConnector(connectionString, sb.Schema, detector.Value);
-
-            CacheLogic.Start(sb);
-
-            DynamicLogicStarter.Start(sb);
-            DynamicLogic.CompileDynamicCode();
-
-            DynamicLogic.RegisterMixins();
-            DynamicLogic.BeforeSchema(sb);
-
-            TypeLogic.Start(sb);
-
-            OperationLogic.Start(sb);
-            ExceptionLogic.Start(sb);
-
-            MigrationLogic.Start(sb);
-
-            CultureInfoLogic.Start(sb);
-            FilePathEmbeddedLogic.Start(sb);
-            SmtpConfigurationLogic.Start(sb);
-            EmailLogic.Start(sb, () => Configuration.Value.Email, (et, target) => Configuration.Value.SmtpConfiguration);
-
-            AuthLogic.Start(sb, "System", null);
-
-            AuthLogic.StartAllModules(sb);
-            ResetPasswordRequestLogic.Start(sb);
-            UserTicketLogic.Start(sb);
-            SessionLogLogic.Start(sb);
-
-            ProcessLogic.Start(sb);
-            PackageLogic.Start(sb, packages: true, packageOperations: true);
-
-            SchedulerLogic.Start(sb);
-
-            QueryLogic.Start(sb);
-            UserQueryLogic.Start(sb);
-            UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-            UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-            ChartLogic.Start(sb);
-
-
-            UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-            UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-            DashboardLogic.Start(sb);
-            DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-            DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-            ViewLogLogic.Start(sb, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
-            DiffLogLogic.Start(sb, registerAll: true);
-            ExcelLogic.Start(sb, excelReport: true);
-            ToolbarLogic.Start(sb);
-
-            SMSLogic.Start(sb, null, () => Configuration.Value.Sms);
-            SMSLogic.RegisterPhoneNumberProvider<PersonEntity>(p => p.Phone, p => null);
-            SMSLogic.RegisterDataObjectProvider((PersonEntity p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
-            SMSLogic.RegisterPhoneNumberProvider<CompanyEntity>(p => p.Phone, p => null);
-
-            NoteLogic.Start(sb, typeof(UserEntity), /*Note*/typeof(OrderEntity));
-            AlertLogic.Start(sb, typeof(UserEntity), /*Alert*/typeof(OrderEntity));
-            FileLogic.Start(sb);
-
-            TranslationLogic.Start(sb, countLocalizationHits: false);
-            TranslatedInstanceLogic.Start(sb, () => CultureInfo.GetCultureInfo("en"));
-
-            HelpLogic.Start(sb);
-            WordTemplateLogic.Start(sb);
-            MapLogic.Start(sb);
-            PredictorLogic.Start(sb, () => new FileTypeAlgorithm
+            using (HeavyProfiler.Log("Start"))
+            using (var initial = HeavyProfiler.Log("Initial"))
             {
-                GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
-            });
-            PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
-            PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
-            {
-                QueryName = typeof(OrderEntity)
-            }); //PredictorLogic
+                StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
+                StartParameters.IgnoredCodeErrors = new List<Exception>();
 
-            WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);
+                string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
-            EmployeeLogic.Start(sb);
-            ProductLogic.Start(sb);
-            CustomerLogic.Start(sb);
-            OrderLogic.Start(sb);
-            ShipperLogic.Start(sb);
+                SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial };
+                sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
+                sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
-            StartSouthwindConfiguration(sb);
+                MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
+                MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
 
-            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);
-            TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => EmployeeEntity.Current.RefersTo(e));
+                OverrideAttributes(sb);
+                
+                var detector = SqlServerVersionDetector.Detect(connectionString);
+                Connector.Default = new SqlConnector(connectionString, sb.Schema, detector.Value);
 
-            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
-            TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
-            TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
+                CacheLogic.Start(sb);
 
-            DisconnectedLogic.Start(sb);
-            DisconnectedLogic.BackupFolder = @"D:\SouthwindTemp\Backups";
-            DisconnectedLogic.BackupNetworkFolder = @"D:\SouthwindTemp\Backups";
-            DisconnectedLogic.DatabaseFolder = @"D:\SouthwindTemp\Database";
+                DynamicLogicStarter.Start(sb);
+                DynamicLogic.CompileDynamicCode();
 
-            ProfilerLogic.Start(sb,
-                timeTracker: true,
-                heavyProfiler: true,
-                overrideSessionTimeout: true);
+                DynamicLogic.RegisterMixins();
+                DynamicLogic.BeforeSchema(sb);
 
-            DynamicLogic.StartDynamicModules(sb);
-            DynamicLogic.RegisterExceptionIfAny();
-            
-            Starter.DynamicDisconnectedStrategis(sb);
+                TypeLogic.Start(sb);
 
-            SetupCache(sb);
+                OperationLogic.Start(sb);
+                ExceptionLogic.Start(sb);
 
-            Schema.Current.OnSchemaCompleted();
+                MigrationLogic.Start(sb);
+
+                CultureInfoLogic.Start(sb);
+                FilePathEmbeddedLogic.Start(sb);
+                SmtpConfigurationLogic.Start(sb);
+                EmailLogic.Start(sb, () => Configuration.Value.Email, (et, target) => Configuration.Value.SmtpConfiguration);
+
+                AuthLogic.Start(sb, "System", null);
+
+                AuthLogic.StartAllModules(sb);
+                ResetPasswordRequestLogic.Start(sb);
+                UserTicketLogic.Start(sb);
+                SessionLogLogic.Start(sb);
+
+                ProcessLogic.Start(sb);
+                PackageLogic.Start(sb, packages: true, packageOperations: true);
+
+                SchedulerLogic.Start(sb);
+
+                QueryLogic.Start(sb);
+                UserQueryLogic.Start(sb);
+                UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+                UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+                ChartLogic.Start(sb);
+
+
+                UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+                UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+                DashboardLogic.Start(sb);
+                DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
+                DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+                ViewLogLogic.Start(sb, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
+                DiffLogLogic.Start(sb, registerAll: true);
+                ExcelLogic.Start(sb, excelReport: true);
+                ToolbarLogic.Start(sb);
+
+                SMSLogic.Start(sb, null, () => Configuration.Value.Sms);
+                SMSLogic.RegisterPhoneNumberProvider<PersonEntity>(p => p.Phone, p => null);
+                SMSLogic.RegisterDataObjectProvider((PersonEntity p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
+                SMSLogic.RegisterPhoneNumberProvider<CompanyEntity>(p => p.Phone, p => null);
+
+                NoteLogic.Start(sb, typeof(UserEntity), /*Note*/typeof(OrderEntity));
+                AlertLogic.Start(sb, typeof(UserEntity), /*Alert*/typeof(OrderEntity));
+                FileLogic.Start(sb);
+
+                TranslationLogic.Start(sb, countLocalizationHits: false);
+                TranslatedInstanceLogic.Start(sb, () => CultureInfo.GetCultureInfo("en"));
+
+                HelpLogic.Start(sb);
+                WordTemplateLogic.Start(sb);
+                MapLogic.Start(sb);
+                PredictorLogic.Start(sb, () => new FileTypeAlgorithm
+                {
+                    GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
+                });
+                PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
+                PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
+                {
+                    QueryName = typeof(OrderEntity)
+                }); //ProductPredictorPublication
+
+                WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);
+
+                EmployeeLogic.Start(sb);
+                ProductLogic.Start(sb);
+                CustomerLogic.Start(sb);
+                OrderLogic.Start(sb);
+                ShipperLogic.Start(sb);
+
+                StartSouthwindConfiguration(sb);
+
+                TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);
+                TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => EmployeeEntity.Current.Is(e));
+
+                TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
+                TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
+                TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
+
+                ProfilerLogic.Start(sb,
+                    timeTracker: true,
+                    heavyProfiler: true,
+                    overrideSessionTimeout: true);
+
+                DynamicLogic.StartDynamicModules(sb);
+                DynamicLogic.RegisterExceptionIfAny();
+
+                SetupCache(sb);
+
+                Schema.Current.OnSchemaCompleted();
+            }
         }
 
         public class CustomSchemaBuilder : SchemaBuilder
@@ -326,7 +319,7 @@ namespace Southwind.Logic
                 });
 
             Configuration = sb.GlobalLazy<ApplicationConfigurationEntity>(
-                () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.Environment == Settings.Default.Environment),
+                () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.DatabaseName == Connector.Current.DatabaseName()),
                 new InvalidateWith(typeof(ApplicationConfigurationEntity)));
         }
 

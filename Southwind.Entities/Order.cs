@@ -264,10 +264,10 @@ namespace Southwind.Entities
 
         public Lite<EmployeeEntity> Employee { get; set; }
 
-        [DaysPrecissionValidator]
+        [DaysPrecisionValidator]
         public DateTime? MinOrderDate { get; set; }
 
-        [DaysPrecissionValidator]
+        [DaysPrecisionValidator]
         public DateTime? MaxOrderDate { get; set; }
     }
 }

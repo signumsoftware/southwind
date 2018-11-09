@@ -17,7 +17,7 @@ module.exports = {
         main: ["./App/Main.tsx"],
     },
     output: {
-        path: path.join(__dirname, "dist"),
+        path: path.join(__dirname, "wwwroot", "dist"),
         filename: "bundle.[name].[chunkhash].js",
         chunkFilename: "bundle.[name].[chunkhash].js"
     },
@@ -72,18 +72,20 @@ module.exports = {
     plugins: [
         new webpack.DllReferencePlugin({
             context: path.join(__dirname, "App"),
-            manifest: require("./dist/vendor-manifest.json")
+            manifest: require("./wwwroot/dist/vendor-manifest.json")
         }),
         //new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
         //new webpack.optimize.UglifyJsPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
         new AssetsPlugin({
-            path: path.join(__dirname, 'dist')
+            path: path.join(__dirname, "wwwroot", "dist")
         }),
         new WebpackNotifierPlugin({ alwaysNotify: true }),
         new CopyWebpackPlugin([
-            { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, 'dist/es6-promise.auto.min.js') },
-            { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, 'dist/fetch.js') },
+            { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, "wwwroot/dist/es6-promise.auto.min.js") },
+            { from: 'node_modules/es6-object-assign/dist/object-assign-auto.min.js', to: path.join(__dirname, "wwwroot/dist/object-assign-auto.min.js") },
+            { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, "wwwroot/dist/fetch.js") },
+            { from: 'node_modules/abortcontroller-polyfill/dist/polyfill-patch-fetch.js', to: path.join(__dirname, 'wwwroot/dist/polyfill-patch-fetch.js') },
         ])
     ],
 }

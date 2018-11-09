@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Entities;
@@ -7,20 +6,19 @@ using Signum.Utilities;
 using Signum.React.Selenium;
 using Southwind.Entities;
 using Southwind.Test.Environment;
+using Xunit;
 
 namespace Southwind.Test.React
 {
-    [TestClass]
     public class OrderReactTest : SouthwindTestClass
     {
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext testContext)
+        public OrderReactTest()
         {
             SouthwindEnvironment.StartAndInitialize();
             AuthLogic.GloballyEnabled = false;
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderWebTestExample()
         {
             Browse("Normal", b =>
@@ -45,20 +43,20 @@ namespace Southwind.Test.React
                             var line = order.EntityDetail(a => a.Details).GetOrCreateDetailControl<OrderDetailEmbedded>();
                             line.EntityLineValue(a => a.Product, sonicProduct.ToLite());
 
-                            Assert.AreEqual(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
+                            Assert.Equal(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
 
                             order.Execute(OrderOperation.SaveNew);
 
                             lite = order.GetLite();
 
-                            Assert.AreEqual(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
+                            Assert.Equal(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
                         }
 
                         return b.NormalPage(lite);
 
                     }).EndUsing(order =>
                     {
-                        Assert.AreEqual(lite.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
+                        Assert.Equal(lite.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
                     });
                 }
                 finally

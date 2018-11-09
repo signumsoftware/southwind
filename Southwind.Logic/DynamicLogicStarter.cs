@@ -1,8 +1,13 @@
-﻿using Signum.Engine.Dynamic;
+﻿using Signum.Engine;
+using Signum.Engine.Authorization;
+using Signum.Engine.Dynamic;
 using Signum.Engine.DynamicQuery;
 using Signum.Engine.Maps;
+using Signum.Entities;
+using Signum.Entities.Authorization;
 using Signum.Entities.Dynamic;
 using Signum.Utilities;
+using Southwind.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,21 +19,6 @@ namespace Southwind.Logic
 {
     public class DynamicLogicStarter
     {
-        private static string GetToolsPath()
-        {   
-            if (!Directory.Exists(@"..\..\..\packages"))
-                return null;
-
-            var dir = Directory.GetDirectories(@"..\..\..\packages", "Microsoft.Net.Compilers.*").SingleOrDefaultEx();
-
-            var result = Path.Combine(dir, "tools");
-
-            if (Directory.Exists(result))
-                return result;
-
-            return null;
-        }
-
         public static void Start(SchemaBuilder sb)
         {
             DynamicLogic.Start(sb);
@@ -46,11 +36,18 @@ namespace Southwind.Logic
                 "Southwind.Logic",
             });
 
-            DynamicCode.Assemblies.AddRange(new HashSet<string>
+            DynamicCode.AssemblyTypes.AddRange(new HashSet<Type>
             {
-                "Southwind.Entities.dll",
-                "Southwind.Logic.dll",
+                typeof(Database),
             });
+
+            DynamicCode.AddFullAssembly(typeof(Entity));
+            DynamicCode.AddFullAssembly(typeof(Database));
+            DynamicCode.AddFullAssembly(typeof(AuthLogic));
+            DynamicCode.AddFullAssembly(typeof(UserEntity));
+            DynamicCode.AddFullAssembly(typeof(ApplicationConfigurationEntity));
+            DynamicCode.AddFullAssembly(typeof(Starter));
+
         }
 
         

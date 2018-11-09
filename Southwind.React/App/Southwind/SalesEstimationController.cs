@@ -1,29 +1,17 @@
-﻿using Signum.Engine;
+﻿using Microsoft.AspNetCore.Mvc;
 using Signum.Engine.MachineLearning;
 using Signum.Entities;
-using Signum.Entities.MachineLearning;
-using Signum.Entities.Reflection;
-using Signum.React.Filters;
+using Signum.React.ApiControllers;
 using Signum.Utilities;
 using Southwind.Entities;
-using Southwind.Logic;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
 
 namespace Southwind.React.ApiControllers
 {
     public class SalesEstimationController : ApiController
     {
         [Route("api/salesEstimation"), HttpPost]
-        public decimal? SalesEstimation(Lite<ProductEntity> product)
+        public decimal? SalesEstimation([FromBody]Lite<ProductEntity> product)
         {
             var ctx = PredictorPredictLogic.GetCurrentPredictor(ProductPredictorPublication.MonthlySales).GetPredictContext();
             var pred = ctx.Predictor;

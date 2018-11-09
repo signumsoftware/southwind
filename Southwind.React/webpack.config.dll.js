@@ -9,18 +9,18 @@ module.exports = {
         vendor: [path.join(__dirname, "App", "vendors.js")]
     },
     output: {
-        path: path.join(__dirname, "dist"),
+        path: path.join(__dirname, "wwwroot", "dist"),
         filename: "dll.[name].[hash].js",
         library: "[name]_[hash]"
     },
     plugins: [
         new webpack.DllPlugin({
-            path: path.join(__dirname, "dist", "[name]-manifest.json"),
+            path: path.join(__dirname, "wwwroot",  "dist", "[name]-manifest.json"),
             name: "[name]_[hash]",
             context: path.resolve(__dirname, "App")
         }),
         new AssetsPlugin({
-            path: path.join(__dirname, 'dist'),
+            path: path.join(__dirname, "wwwroot", "dist"),
             filename: "webpack-assets.dll.json"
         }),
         //new webpack.optimize.OccurenceOrderPlugin()//,
