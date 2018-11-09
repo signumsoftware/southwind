@@ -1,0 +1,40 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/"
+      },
+      "windows": {
+        "command": "dotnet build"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "yarn watch",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/Southwind.React"
+      },
+      "windows": {
+        "command": "yarn watch"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "yarn install",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/Southwind.React"
+      },
+      "windows": {
+        "command": "yarn"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
