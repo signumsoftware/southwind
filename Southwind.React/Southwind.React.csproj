@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
     <Platforms>x64</Platforms>
     <IsPackable>false</IsPackable>
@@ -38,9 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Signum.Analyzer" Version="1.0.0" />
     <PackageReference Include="CNTK.CPUOnly" Version="2.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.5" />
+    <PackageReference Include="Signum.Analyzer" Version="1.0.0" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.1.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -74,18 +73,6 @@
       $(CompileTypeScriptDependsOn);
     </CompileTypeScriptDependsOn>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' != 'Debug|x64'">
-    <CompileTypeScriptDependsOn>
-      $(CompileTypeScriptDependsOn);
-      WebPackBuild;
-    </CompileTypeScriptDependsOn>
-  </PropertyGroup>
-
-  <Target Name="WebPackBuild">
-    <Exec Command="yarn install" />
-    <Exec Command="yarn run build" />
-  </Target>
 
   <Target Name="PublishCollectDist" AfterTargets="ComputeFilesToPublish">
     <!-- Include the newly-built files in the publish output -->
