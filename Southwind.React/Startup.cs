@@ -199,7 +199,7 @@ namespace Southwind.React
 
             SignumCultureSelectorFilter.GetCurrentCultures = (ctx) => GetCulture(ctx);
         }
-        
+
         static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
 
         private static CultureInfo GetCulture(ActionContext context)

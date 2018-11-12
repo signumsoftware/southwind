@@ -209,7 +209,7 @@ namespace Southwind.Test.Environment
                     .AddUserSecrets(typeof(SouthwindEnvironment).Assembly)
                     .Build();
                 var connectionString = config.GetConnectionString("ConnectionString");
-                
+
                 if (!connectionString.Contains("Test")) //Security mechanism to avoid passing test on production
                     throw new InvalidOperationException("ConnectionString does not contain the word 'Test'.");
 

@@ -12,7 +12,7 @@ namespace Southwind.Load.NorthwindSchema
 {
     public static class Northwind
     {
-        static Connector connector; 
+        static Connector connector;
         public static Connector Connector
         {
             get
@@ -127,7 +127,7 @@ namespace Southwind.Load.NorthwindSchema
         public int Quantity;
         public float Discount;
     }
-    
+
     public class Products : IView
     {
         [ViewPrimaryKey]

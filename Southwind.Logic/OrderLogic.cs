@@ -38,7 +38,7 @@ namespace Southwind.Logic
                         o.ShipAddress,
                         o.ShipVia,
                     });
-                
+
                 QueryLogic.Queries.Register(OrderQuery.OrderLines, () =>
                     from o in Database.Query<OrderEntity>()
                     from od in o.Details
@@ -62,12 +62,12 @@ namespace Southwind.Logic
                     var package = new PackageEntity().CreateLines(Database.Query<OrderEntity>().Where(a => a.OrderDate < DateTime.Now.AddDays(-7) && a.State != OrderState.Canceled));
 
                     var process = ProcessLogic.Create(OrderProcess.CancelOrders, package);
-                        
+
                     process.Execute(ProcessOperation.Execute);
-                    
+
                     return process.ToLite();
                 });
- 
+
                 SimpleTaskLogic.Register(OrderTask.CancelOldOrders, ctx =>
                 {
                     Database.Query<OrderEntity>()
@@ -78,7 +78,7 @@ namespace Southwind.Logic
                         .Execute();
 
                     return null;
-                });//CancelOldOrdersProcess 
+                });//CancelOldOrdersProcess
             }
         }
 
@@ -101,7 +101,7 @@ namespace Southwind.Logic
                 new Construct(OrderOperation.Create)
                 {
                     ToStates = { OrderState.New },
-                    Construct = (args) => 
+                    Construct = (args) =>
                     {
                         var customer = args.TryGetArgC<Lite<CustomerEntity>>()?.Retrieve();
 
@@ -118,7 +118,7 @@ namespace Southwind.Logic
 
                 new ConstructFrom<CustomerEntity>(OrderOperation.CreateOrderFromCustomer)
                 {
-                    ToStates = { OrderState.New },  
+                    ToStates = { OrderState.New },
                     Construct = (c, _) => new OrderEntity
                     {
                         State = OrderState.New,

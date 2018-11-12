@@ -87,7 +87,7 @@ namespace Southwind.Logic
                 MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
 
                 OverrideAttributes(sb);
-                
+
                 var detector = SqlServerVersionDetector.Detect(connectionString);
                 Connector.Default = new SqlConnector(connectionString, sb.Schema, detector.Value);
 

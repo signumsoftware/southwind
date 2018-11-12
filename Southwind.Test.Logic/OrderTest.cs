@@ -35,7 +35,7 @@ namespace Southwind.Test.Logic
                     order.Execute(OrderOperation.SaveNew);
 
                     Assert.Equal(order.TotalPrice, sonic.UnitPrice);
- 
+
 
                     //tr.Commit();
                 }
