@@ -35,7 +35,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
             isOpen: !this.state.isOpen
         });
     }
-    
+
     handleSwaggerClick = (e: React.MouseEvent<any>) => {
         e.preventDefault();
         RestClient.API.getCurrentRestApiKey().then(key => {

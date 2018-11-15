@@ -86,7 +86,7 @@ namespace Southwind.Load
             Administrator.SaveListDisableIdentity(employees.Select(a=>a.employee));
 
             var dictionary = employees.Select(a => a.employee).ToDictionary(a => a.Id);
-            
+
             foreach (var pair in employees)
             {
                 pair.employee.ReportsTo = pair.ReportsTo == null ? null : dictionary.GetOrThrow(pair.ReportsTo.Value).ToLite();

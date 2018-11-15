@@ -5,58 +5,58 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 
 export default class OrderFilter extends React.Component<{ ctx: TypeContext<OrderFilterModel> }> implements ISimpleFilterBuilder {
 
-    render() {
-        const ctx = this.props.ctx.subCtx({ formGroupStyle: "Basic" });
-        return (
-            <div>
-                <div className="row">
-                    <div className="col-sm-6">
-                        <EntityCombo ctx={ctx.subCtx(o => o.customer) } />
-                        <ValueLine ctx={ctx.subCtx(o => o.minOrderDate) } />
-                    </div>
-                    <div className="col-sm-6">
-                        <EntityLine ctx={ctx.subCtx(o => o.employee) } />
-                        <ValueLine ctx={ctx.subCtx(o => o.maxOrderDate) } />
-                    </div>
-                </div>
-            </div>
-        );
-    }
+  render() {
+    const ctx = this.props.ctx.subCtx({ formGroupStyle: "Basic" });
+    return (
+      <div>
+        <div className="row">
+          <div className="col-sm-6">
+            <EntityCombo ctx={ctx.subCtx(o => o.customer)} />
+            <ValueLine ctx={ctx.subCtx(o => o.minOrderDate)} />
+          </div>
+          <div className="col-sm-6">
+            <EntityLine ctx={ctx.subCtx(o => o.employee)} />
+            <ValueLine ctx={ctx.subCtx(o => o.maxOrderDate)} />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-    getFilters(): FilterOption[] {
+  getFilters(): FilterOption[] {
 
-        const result: FilterOption[] = []; 
+    const result: FilterOption[] = [];
 
-        const val = this.props.ctx.value;
+    const val = this.props.ctx.value;
 
-        if (val.customer)
-            result.push({ token: "Customer", value: val.customer });
+    if (val.customer)
+      result.push({ token: "Customer", value: val.customer });
 
-        if (val.employee)
-            result.push({ token: "Employee", value: val.employee });
+    if (val.employee)
+      result.push({ token: "Employee", value: val.employee });
 
-        if (val.minOrderDate)
-            result.push({ token: "OrderDate", value: val.minOrderDate, operation: "GreaterThanOrEqual" });
+    if (val.minOrderDate)
+      result.push({ token: "OrderDate", value: val.minOrderDate, operation: "GreaterThanOrEqual" });
 
-        if (val.maxOrderDate)
-            result.push({ token: "OrderDate", value: val.maxOrderDate, operation: "LessThan" });
+    if (val.maxOrderDate)
+      result.push({ token: "OrderDate", value: val.maxOrderDate, operation: "LessThan" });
 
-        return result;
-    }
+    return result;
+  }
 
-    static extract(fos: FilterOptionParsed[]) {
-        const filters = fos.clone();
+  static extract(fos: FilterOptionParsed[]) {
+    const filters = fos.clone();
 
-        const result = OrderFilterModel.New({
-            customer: extractFilterValue(filters, "Customer", "EqualTo"),
-            employee: extractFilterValue(filters, "Employee", "EqualTo"),
-            minOrderDate: extractFilterValue(filters, "OrderDate", "GreaterThanOrEqual"),
-            maxOrderDate: extractFilterValue(filters, "OrderDate", "LessThan"),
-        });
+    const result = OrderFilterModel.New({
+      customer: extractFilterValue(filters, "Customer", "EqualTo"),
+      employee: extractFilterValue(filters, "Employee", "EqualTo"),
+      minOrderDate: extractFilterValue(filters, "OrderDate", "GreaterThanOrEqual"),
+      maxOrderDate: extractFilterValue(filters, "OrderDate", "LessThan"),
+    });
 
-        if (filters.length)
-            return undefined;
+    if (filters.length)
+      return undefined;
 
-        return result;
-    }
+    return result;
+  }
 }

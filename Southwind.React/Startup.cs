@@ -238,7 +238,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
             SignumCultureSelectorFilter.GetCurrentCultures = (ctx) => GetCulture(ctx);
         }
-        
+
         static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
 
         private static CultureInfo GetCulture(ActionContext context)

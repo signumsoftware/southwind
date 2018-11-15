@@ -36,7 +36,7 @@ namespace Southwind.Logic
                         r.Fax,
                         r.Address,
                     });
-                
+
                 sb.Include<CompanyEntity>()
                     .WithSave(CustomerOperation.Save)
                     .WithQuery(() => r => new
