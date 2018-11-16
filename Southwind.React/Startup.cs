@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -61,9 +62,37 @@ using Signum.React.Workflow;
 using Signum.Utilities;
 using Southwind.Logic;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.Swagger;
+using Schema = Signum.Engine.Maps.Schema;
+using System.Net;
 
 namespace Southwind.React
 {
+    public class ErrorResponsesOperationFilter : IOperationFilter
+    {
+        public void Apply(Operation operation, OperationFilterContext context)
+        {
+            var authAttributes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
+                .Union(context.MethodInfo.GetCustomAttributes(true))
+                .OfType<AllowAnonymousAttribute>();
+
+            AddError(HttpStatusCode.BadRequest);
+            if (!authAttributes.Any())
+                AddError(HttpStatusCode.Unauthorized);
+            AddError(HttpStatusCode.Forbidden);
+            AddError(HttpStatusCode.InternalServerError);
+
+            void AddError(HttpStatusCode code)
+            {
+                operation.Responses.Add(((int)code).ToString(), new Response
+                {
+                    Description = code.ToString(),
+                    Schema = context.SchemaRegistry.GetOrRegister(typeof(Signum.React.Filters.HttpError))
+                });
+            }
+        }
+    }
+
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class IncludeInDocumentationAttribute : Attribute
     {
@@ -132,6 +161,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 c.IncludeXmlComments(xmlPath);
 
                 c.DocInclusionPredicate((docName, apiDesc) => apiDesc.TryGetMethodInfo(out var mi) && mi.DeclaringType.HasAttribute<IncludeInDocumentationAttribute>());
+                c.OperationFilter<ErrorResponsesOperationFilter>();
             });
         }
 
