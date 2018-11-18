@@ -19,6 +19,8 @@ namespace Southwind.React
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .CaptureStartupErrors(true) // the default
+                .UseSetting("detailedErrors", "true")
                 .UseStartup<Startup>()
                 .Build();
     }

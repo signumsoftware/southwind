@@ -1,0 +1,16 @@
+{
+  "dotnet-test-explorer.enableTelemetry": false,
+  "dotnet-test-explorer.testProjectPath": "*.Test*",
+  "bracketPairColorizer.showHorizontalScopeLine": false,
+  "bracketPairColorizer.showVerticalScopeLine": false,
+  "auto-rename-tag.activationOnLanguage": [
+    "html",
+    "xml",
+    "php",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
+  "editor.detectIndentation": false,
+}

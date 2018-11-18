@@ -95,18 +95,18 @@ ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
 
 Services.NotifyPendingFilter.notifyPendingRequests = pending => {
-    Notify.singleton && Notify.singleton.notifyPendingRequest(pending);
+  Notify.singleton && Notify.singleton.notifyPendingRequest(pending);
 }
 
 CultureClient.onCultureLoaded.push(ci => {
-    const culture = ci.name!; //"en";
-    moment.locale((culture.tryBefore("-") || culture).toLowerCase());
-    numbro.setLanguage(culture == "en" ? "en-GB" :
-        culture == "es" ? "es-ES" : "Unkwnown");
+  const culture = ci.name!; //"en";
+  moment.locale((culture.tryBefore("-") || culture).toLowerCase());
+  numbro.setLanguage(culture == "en" ? "en-GB" :
+    culture == "es" ? "es-ES" : "Unkwnown");
 }); //Culture
 
 Services.VersionFilter.versionHasChanged = () => {
-    VersionChangedAlert.singleton && VersionChangedAlert.singleton.forceUpdate();
+  VersionChangedAlert.singleton && VersionChangedAlert.singleton.forceUpdate();
 }
 
 Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
@@ -115,106 +115,106 @@ AuthClient.registerUserTicketAuthenticator();
 
 window.onerror = (message: Event | string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
 
-let loaded = false;
 
 function reload() {
-    return AuthClient.autoLogin() //Promise.resolve()
-        .then(() => reloadTypes())
-        .then(() => CultureClient.loadCurrentCulture())
-        .then(() => {
-            const isFull = !!AuthClient.currentUser(); //true;
+  return AuthClient.autoLogin() //Promise.resolve()
+    .then(() => reloadTypes())
+    .then(() => CultureClient.loadCurrentCulture())
+    .then(() => {
 
-            if (loaded)
-                return;
+      Navigator.clearAllSettings();
 
-            const routes: JSX.Element[] = [];
+      const routes: JSX.Element[] = [];
 
-            routes.push(<Route exact path="~/" component={Home} />);
-            routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
-            AuthClient.startPublic({ routes, userTicket: true, resetPassword: true, notifyLogout: true });
+      routes.push(<Route exact path="~/" component={Home} />);
+      routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
+      AuthClient.startPublic({ routes, userTicket: true, resetPassword: true, notifyLogout: true });
 
-            if (isFull) {
-                Operations.start();
-                Navigator.start({ routes });
-                Finder.start({ routes });
-                QuickLinks.start();
+      const isFull = !!AuthClient.currentUser(); //true;
+      if (isFull) {
+        Operations.start();
+        Navigator.start({ routes });
+        Finder.start({ routes });
+        QuickLinks.start();
 
-                AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
+        AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
 
-                ExceptionClient.start({ routes });
+        ExceptionClient.start({ routes });
 
-                FilesClient.start({ routes });
-                UserQueryClient.start({ routes });
-                CacheClient.start({ routes });
-                ProcessClient.start({ routes, packages: true, packageOperations: true });
-                MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true, quickLinksFrom: undefined });
-                WordClient.start({ routes, contextual: true, queryButton: true, entityButton: false });
-                ExcelClient.start({ routes, plainExcel: true, excelReport: true });
-                SchedulerClient.start({ routes });
-                TranslationClient.start({ routes });
-                DiffLogClient.start({ routes, timeMachine: true });
-                ProfilerClient.start({ routes });
-                ChartClient.start({ routes });
-                DashboardClient.start({ routes });
-                MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
-                WorkflowClient.start({ routes });
-                PredictorClient.start({ routes });
-                ToolbarClient.start({ routes },
-                    new QueryToolbarConfig(),
-                    new UserQueryToolbarConfig(),
-                    new UserChartToolbarConfig(),
-                    new DashboardToolbarConfig(),
-                );
+        FilesClient.start({ routes });
+        UserQueryClient.start({ routes });
+        CacheClient.start({ routes });
+        ProcessClient.start({ routes, packages: true, packageOperations: true });
+        MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true, quickLinksFrom: undefined });
+        WordClient.start({ routes, contextual: true, queryButton: true, entityButton: false });
+        ExcelClient.start({ routes, plainExcel: true, excelReport: true });
+        SchedulerClient.start({ routes });
+        TranslationClient.start({ routes });
+        DiffLogClient.start({ routes, timeMachine: true });
+        ProfilerClient.start({ routes });
+        ChartClient.start({ routes });
+        DashboardClient.start({ routes });
+        MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });
+        WorkflowClient.start({ routes });
+        PredictorClient.start({ routes });
+        ToolbarClient.start({ routes },
+          new QueryToolbarConfig(),
+          new UserQueryToolbarConfig(),
+          new UserChartToolbarConfig(),
+          new DashboardToolbarConfig(),
+        );
 
-                DynamicClient.start({ routes });
-                DynamicExpressionClient.start({ routes });
-                DynamicTypeClient.start({ routes });
-                DynamicTypeConditionClient.start({ routes });
-                DynamicValidationClient.start({ routes });
-                DynamicViewClient.start({ routes });
+        DynamicClient.start({ routes });
+        DynamicExpressionClient.start({ routes });
+        DynamicTypeClient.start({ routes });
+        DynamicTypeConditionClient.start({ routes });
+        DynamicValidationClient.start({ routes });
+        DynamicViewClient.start({ routes });
 
-                SouthwindClient.start({ routes });
+        SouthwindClient.start({ routes });
 
-                OmniboxClient.start(
-                    new DynamicQueryOmniboxProvider(),
-                    new EntityOmniboxProvider(),
-                    new ChartOmniboxProvider(),
-                    new UserChartOmniboxProvider(),
-                    new UserQueryOmniboxProvider(),
-                    new DashboardOmniboxProvider(),
-                    new MapOmniboxProvider(),
-                    new SpecialOmniboxProvider()
-                );//Omnibox
-            }
+        OmniboxClient.start(
+          new DynamicQueryOmniboxProvider(),
+          new EntityOmniboxProvider(),
+          new ChartOmniboxProvider(),
+          new UserChartOmniboxProvider(),
+          new UserQueryOmniboxProvider(),
+          new DashboardOmniboxProvider(),
+          new MapOmniboxProvider(),
+          new SpecialOmniboxProvider()
+        );//Omnibox
+      }
 
-            routes.push(<Route component={NotFound}/>);
-            
-            Layout.switch = React.createElement(Switch, undefined, ...routes);
-            const reactDiv = document.getElementById("reactDiv")!;
-            unmountComponentAtNode(reactDiv);
+      routes.push(<Route component={NotFound} />);
 
-            var h = Navigator.createAppRelativeHistory();
+      Layout.switch = React.createElement(Switch, undefined, ...routes);
+      const reactDiv = document.getElementById("reactDiv")!;
+      unmountComponentAtNode(reactDiv);
 
-            render(
-                <Router history={h}>
-                    <Layout />
-                </Router>, reactDiv);
+      var h = Navigator.createAppRelativeHistory();
 
-            if (isFull)
-                loaded = true;
+      render(
+        <Router history={h}>
+          <Layout />
+        </Router>, reactDiv);
 
-            return isFull;
-        });
+      return isFull;
+    });
 }
 
-AuthClient.Options.onLogin = (url? : string) => {
-    reload().then(() => {
-        var loc = Navigator.history.location;
+AuthClient.Options.onLogin = (url?: string) => {
+  reload().then(() => {
+    var loc = Navigator.history.location;
 
-        var back: History.Location = loc && loc.state && loc.state.back;
+    var back: History.Location = loc && loc.state && loc.state.back;
 
-        Navigator.history.push(back || url || "~/");
-    }).done();
+    Navigator.history.push(back || url || "~/");
+  }).done();
+};
+
+AuthClient.Options.onLogout = () => {
+  Navigator.history.push("~/");
+  reload().done();
 };
 
 reload();

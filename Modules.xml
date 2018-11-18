@@ -65,7 +65,7 @@
       <RemoveFiles Path="Southwind.Load\OrderLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\ProductLoader.cs"/>
       <RemoveFiles Path="Southwind.Load\SupplierFaxes.csv"/>
-      <RemoveFiles Path="Southwind.Load\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True&quot;"/>
+      <RemoveLine Path="Southwind.Load\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=localhost;Initial Catalog=Northwind;Integrated Security=True&quot;"/>
     </Module>
 
     <Module Name="UserQuery">
@@ -141,7 +141,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
-      <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (true as any) {" To="else //Dashboard"/>
+      <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (AuthClient.currentUser()) {" To="else //Dashboard"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as DashboardClient from &quot;@extensions/Dashboard/DashboardClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="DashboardClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="DashboardServer.Start(app);"/>
@@ -347,7 +347,7 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;DropdownItem>Catalog&lt;/DropdownItem>&lt;/LinkContainer>"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="routes.push(&lt;Route path=&quot;~/publicCatalog&quot; component={PublicCatalog} />);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import PublicCatalog from './PublicCatalog'"/>
-      <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (Navigator.currentUser == null) {" To="}//PublicCatalog"/>
+      <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (!AuthClient.currentUser()) {" To="}//PublicCatalog"/>
       <RemoveFiles Path="Southwind.React\App\Southwind\CatalogController.cs"/>
     </Module>
 
