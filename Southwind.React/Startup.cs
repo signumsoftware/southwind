@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -59,9 +61,43 @@ using Signum.React.Word;
 using Signum.React.Workflow;
 using Signum.Utilities;
 using Southwind.Logic;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.Swagger;
+using Schema = Signum.Engine.Maps.Schema;
+using System.Net;
 
 namespace Southwind.React
 {
+    public class ErrorResponsesOperationFilter : IOperationFilter
+    {
+        public void Apply(Operation operation, OperationFilterContext context)
+        {
+            var authAttributes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
+                .Union(context.MethodInfo.GetCustomAttributes(true))
+                .OfType<AllowAnonymousAttribute>();
+
+            AddError(HttpStatusCode.BadRequest);
+            if (!authAttributes.Any())
+                AddError(HttpStatusCode.Unauthorized);
+            AddError(HttpStatusCode.Forbidden);
+            AddError(HttpStatusCode.InternalServerError);
+
+            void AddError(HttpStatusCode code)
+            {
+                operation.Responses.Add(((int)code).ToString(), new Response
+                {
+                    Description = code.ToString(),
+                    Schema = context.SchemaRegistry.GetOrRegister(typeof(Signum.React.Filters.HttpError))
+                });
+            }
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
+    public class IncludeInDocumentationAttribute : Attribute
+    {
+    }
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -90,6 +126,43 @@ namespace Southwind.React
                 var modelMetadataProvider = s.GetRequiredService<IModelMetadataProvider>();
                 return new SignumObjectModelValidator(modelMetadataProvider, options.ModelValidatorProviders);
             });
+
+            //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "Southwind API",
+                    Version = "v1",
+                    Description = @"Welcome to the Southwind API, which allows you to seamlessly integrate Southwind with your application.
+
+### <a name=""authentication""></a> Authentication
+This API is secured by an API Key.The API Key has either to be sent in the `X-ApiKey` HTTP Header:
+
+```
+GET http://localhost/Southwind.React/api/resource
+X-ApiKey: YOUR_API_KEY
+```
+
+or as the `apiKey` query parameter:
+
+```
+GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
+```",
+                });
+
+                c.AddSecurityDefinition("Bearer", new Swashbuckle.AspNetCore.Swagger.ApiKeyScheme { In = "header", Description = "Use the API Key provided", Name = "X-ApiKey", Type = "apiKey" });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                    { "Bearer", Enumerable.Empty<string>() },
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
+                c.DocInclusionPredicate((docName, apiDesc) => apiDesc.TryGetMethodInfo(out var mi) && mi.DeclaringType.HasAttribute<IncludeInDocumentationAttribute>());
+                c.OperationFilter<ErrorResponsesOperationFilter>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,16 +172,12 @@ namespace Southwind.React
 
             app.UseStaticFiles();
 
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-
-            //    routes.MapSpaFallbackRoute(
-            //        name: "spa-fallback",
-            //        defaults: new { controller = "Home", action = "Index" });
-            //});
+            //Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("../swagger/v1/swagger.json", "MobileCheck API");
+            });
 
             app.UseMvc(routes =>
             {
@@ -199,7 +268,7 @@ namespace Southwind.React
 
             SignumCultureSelectorFilter.GetCurrentCultures = (ctx) => GetCulture(ctx);
         }
-        
+
         static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
 
         private static CultureInfo GetCulture(ActionContext context)

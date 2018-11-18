@@ -41,6 +41,7 @@ import * as DiffLogClient from "@extensions/DiffLog/DiffLogClient"
 import * as CultureClient from "@extensions/Translation/CultureClient"
 import * as WorkflowClient from "@extensions/Workflow/WorkflowClient"
 import * as PredictorClient from "@extensions/MachineLearning/PredictorClient"
+import * as RestClient from "@extensions/Rest/RestClient"
 
 import * as ToolbarClient from "@extensions/Toolbar/ToolbarClient"
 import QueryToolbarConfig from "@extensions/Toolbar/QueryToolbarConfig"

@@ -19,7 +19,7 @@ namespace Southwind.Load
         public class SupplierFaxCSV
         {
             public int SupplierID;
-            public string Fax; 
+            public string Fax;
         }
 #pragma warning restore 0649
         public static void LoadSuppliers()

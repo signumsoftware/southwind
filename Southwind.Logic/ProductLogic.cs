@@ -46,7 +46,7 @@ namespace Southwind.Logic
                     .Select(p => new { Category = p.Category.Entity, Product = p })
                     .GroupToDictionary(a => a.Category, a => a.Product),
                     new InvalidateWith(typeof(ProductEntity)));
-                
+
                 QueryLogic.Queries.Register(ProductQuery.CurrentProducts, () =>
                     from p in Database.Query<ProductEntity>()
                     where !p.Discontinued

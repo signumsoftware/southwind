@@ -4,7 +4,7 @@
   "description": "Example LOB application using Signum Framework and React",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf ./wwwroot/dist",
     "build:dll": "webpack --config webpack.config.dll.js",
     "build:webpack": "webpack --config webpack.config.js",
     "build": "yarn run clean && yarn run build:dll && yarn run build:webpack",
