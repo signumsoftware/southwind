@@ -53,7 +53,7 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
 }
 
 export module ApplicationConfigurationOperation {
-  export const Save: Entities.ExecuteSymbol<ApplicationConfigurationEntity> = registerSymbol("Operation", "ApplicationConfigurationOperation.Save");
+  export const Save : Entities.ExecuteSymbol<ApplicationConfigurationEntity> = registerSymbol("Operation", "ApplicationConfigurationOperation.Save");
 }
 
 export const CategoryEntity = new Type<CategoryEntity>("Category");
@@ -65,7 +65,7 @@ export interface CategoryEntity extends Entities.Entity {
 }
 
 export module CategoryOperation {
-  export const Save: Entities.ExecuteSymbol<CategoryEntity> = registerSymbol("Operation", "CategoryOperation.Save");
+  export const Save : Entities.ExecuteSymbol<CategoryEntity> = registerSymbol("Operation", "CategoryOperation.Save");
 }
 
 export const CompanyEntity = new Type<CompanyEntity>("Company");
@@ -83,7 +83,7 @@ export interface CustomerEntity extends Entities.Entity {
 }
 
 export module CustomerOperation {
-  export const Save: Entities.ExecuteSymbol<CustomerEntity> = registerSymbol("Operation", "CustomerOperation.Save");
+  export const Save : Entities.ExecuteSymbol<CustomerEntity> = registerSymbol("Operation", "CustomerOperation.Save");
 }
 
 export module CustomerQuery {
@@ -110,7 +110,7 @@ export interface EmployeeEntity extends Entities.Entity {
 }
 
 export module EmployeeOperation {
-  export const Save: Entities.ExecuteSymbol<EmployeeEntity> = registerSymbol("Operation", "EmployeeOperation.Save");
+  export const Save : Entities.ExecuteSymbol<EmployeeEntity> = registerSymbol("Operation", "EmployeeOperation.Save");
 }
 
 export module EmployeeQuery {
@@ -167,19 +167,19 @@ export module OrderMessage {
 }
 
 export module OrderOperation {
-  export const Create: Entities.ConstructSymbol_Simple<OrderEntity> = registerSymbol("Operation", "OrderOperation.Create");
-  export const SaveNew: Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.SaveNew");
-  export const Save: Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Save");
-  export const Ship: Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Ship");
-  export const Cancel: Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Cancel");
-  export const CreateOrderFromCustomer: Entities.ConstructSymbol_From<OrderEntity, CustomerEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromCustomer");
-  export const CreateOrderFromProducts: Entities.ConstructSymbol_FromMany<OrderEntity, ProductEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromProducts");
-  export const Delete: Entities.DeleteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Delete");
-  export const CancelWithProcess: Entities.ConstructSymbol_FromMany<Processes.ProcessEntity, OrderEntity> = registerSymbol("Operation", "OrderOperation.CancelWithProcess");
+  export const Create : Entities.ConstructSymbol_Simple<OrderEntity> = registerSymbol("Operation", "OrderOperation.Create");
+  export const SaveNew : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.SaveNew");
+  export const Save : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Save");
+  export const Ship : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Ship");
+  export const Cancel : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Cancel");
+  export const CreateOrderFromCustomer : Entities.ConstructSymbol_From<OrderEntity, CustomerEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromCustomer");
+  export const CreateOrderFromProducts : Entities.ConstructSymbol_FromMany<OrderEntity, ProductEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromProducts");
+  export const Delete : Entities.DeleteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Delete");
+  export const CancelWithProcess : Entities.ConstructSymbol_FromMany<Processes.ProcessEntity, OrderEntity> = registerSymbol("Operation", "OrderOperation.CancelWithProcess");
 }
 
 export module OrderProcess {
-  export const CancelOrders: Processes.ProcessAlgorithmSymbol = registerSymbol("ProcessAlgorithm", "OrderProcess.CancelOrders");
+  export const CancelOrders : Processes.ProcessAlgorithmSymbol = registerSymbol("ProcessAlgorithm", "OrderProcess.CancelOrders");
 }
 
 export module OrderQuery {
@@ -194,8 +194,8 @@ export type OrderState =
   "Canceled";
 
 export module OrderTask {
-  export const CancelOldOrdersWithProcess: Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrdersWithProcess");
-  export const CancelOldOrders: Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrders");
+  export const CancelOldOrdersWithProcess : Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrdersWithProcess");
+  export const CancelOldOrders : Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrders");
 }
 
 export const PersonEntity = new Type<PersonEntity>("Person");
@@ -223,11 +223,11 @@ export interface ProductEntity extends Entities.Entity {
 }
 
 export module ProductOperation {
-  export const Save: Entities.ExecuteSymbol<ProductEntity> = registerSymbol("Operation", "ProductOperation.Save");
+  export const Save : Entities.ExecuteSymbol<ProductEntity> = registerSymbol("Operation", "ProductOperation.Save");
 }
 
 export module ProductPredictorPublication {
-  export const MonthlySales: MachineLearning.PredictorPublicationSymbol = registerSymbol("PredictorPublication", "ProductPredictorPublication.MonthlySales");
+  export const MonthlySales : MachineLearning.PredictorPublicationSymbol = registerSymbol("PredictorPublication", "ProductPredictorPublication.MonthlySales");
 }
 
 export module ProductQuery {
@@ -241,7 +241,7 @@ export interface RegionEntity extends Entities.Entity {
 }
 
 export module RegionOperation {
-  export const Save: Entities.ExecuteSymbol<RegionEntity> = registerSymbol("Operation", "RegionOperation.Save");
+  export const Save : Entities.ExecuteSymbol<RegionEntity> = registerSymbol("Operation", "RegionOperation.Save");
 }
 
 export const ShipperEntity = new Type<ShipperEntity>("Shipper");
@@ -252,13 +252,13 @@ export interface ShipperEntity extends Entities.Entity {
 }
 
 export module ShipperOperation {
-  export const Save: Entities.ExecuteSymbol<ShipperEntity> = registerSymbol("Operation", "ShipperOperation.Save");
+  export const Save : Entities.ExecuteSymbol<ShipperEntity> = registerSymbol("Operation", "ShipperOperation.Save");
 }
 
 export module SouthwindGroup {
-  export const UserEntities: Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindGroup.UserEntities");
-  export const RoleEntities: Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindGroup.RoleEntities");
-  export const CurrentCustomer: Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindGroup.CurrentCustomer");
+  export const UserEntities : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindGroup.UserEntities");
+  export const RoleEntities : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindGroup.RoleEntities");
+  export const CurrentCustomer : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindGroup.CurrentCustomer");
 }
 
 export const SupplierEntity = new Type<SupplierEntity>("Supplier");
@@ -274,7 +274,7 @@ export interface SupplierEntity extends Entities.Entity {
 }
 
 export module SupplierOperation {
-  export const Save: Entities.ExecuteSymbol<SupplierEntity> = registerSymbol("Operation", "SupplierOperation.Save");
+  export const Save : Entities.ExecuteSymbol<SupplierEntity> = registerSymbol("Operation", "SupplierOperation.Save");
 }
 
 export const TerritoryEntity = new Type<TerritoryEntity>("Territory");
@@ -285,7 +285,7 @@ export interface TerritoryEntity extends Entities.Entity {
 }
 
 export module TerritoryOperation {
-  export const Save: Entities.ExecuteSymbol<TerritoryEntity> = registerSymbol("Operation", "TerritoryOperation.Save");
+  export const Save : Entities.ExecuteSymbol<TerritoryEntity> = registerSymbol("Operation", "TerritoryOperation.Save");
 }
 
 export const UserEmployeeMixin = new Type<UserEmployeeMixin>("UserEmployeeMixin");

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Signum.Engine.MachineLearning;
 using Signum.Entities;
 using Signum.React.ApiControllers;
@@ -8,7 +8,7 @@ using System;
 
 namespace Southwind.React.ApiControllers
 {
-    public class SalesEstimationController : ApiController
+    public class SalesEstimationController : ControllerBase
     {
         [Route("api/salesEstimation"), HttpPost]
         public decimal? SalesEstimation([FromBody]Lite<ProductEntity> product)

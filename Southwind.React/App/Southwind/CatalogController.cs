@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Signum.Engine;
 using Signum.Entities;
@@ -17,9 +17,9 @@ using System.Web;
 
 namespace Southwind.React.ApiControllers
 {
-    public class CatalogController : ApiController
+    public class CatalogController : ControllerBase
     {
-        [Route("api/catalog"), HttpGet, AllowAnonymous]
+        [HttpGet("api/catalog"), AllowAnonymous]
         public List<CategoryWithProducts> Catalog()
         {
             return ProductLogic.ActiveProducts.Value.Select(a => new CategoryWithProducts
