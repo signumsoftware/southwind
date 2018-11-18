@@ -8,7 +8,7 @@
       <RemoveFiles Path="Southwind.Entities\Order.cs"/>
       <RemoveFiles Path="Southwind.Entities\Product.cs"/>
 
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{100, ShowOrder},"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;SO&quot;, ShowOrder},"/>
       <RemoveLine Path="Southwind.Load\Program.cs" From="static void ShowOrder()" To="}//ShowOrder"/>
 
       <RemoveFiles Path="Southwind.Logic\CustomerLogic.cs"/>
@@ -105,8 +105,6 @@
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Startup.cs" Line="new ChartOmniboxResultGenerator(),"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Startup.cs" Line="new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="ChartServer.Start(app);"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{42, ChartScriptLogic.ImportExportChartScripts},"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ChartScriptLogic.ImportChartScriptsAuto,"/>
     </Module>
 
     <Module Name="Files">
@@ -123,7 +121,7 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\ProductLogic.cs" Line="s.Picture"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //1"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //2"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\SouthwindClient.tsx" From="{/*Files*/}" To="{/*Files*/}"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\SouthwindClient.tsx" From="{/*Files*/ }" To="{/*Files*/ }"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" Line="&lt;FileLine ctx={ctx.subCtx(c => c.picture)} onChange={() => this.forceUpdate()} />"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" From="&lt;div className=&quot;col-sm-3&quot;>{/*photo*/}" To="&lt;/div>{/*photo*/}"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Employee.tsx" From="{/*photo*/}" To="{/*photo*/}"/>
@@ -176,6 +174,11 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;ToolbarRenderer location=&quot;Top&quot; />}"/>
       <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
       <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarElement Type=&quot;Link&quot; IconName=&quot;fas fa-shopping-cart&quot; IconColor=&quot;orange&quot; Content=&quot;Order&quot; />" 
+                  To="&lt;ToolbarElement Type=&quot;Menu&quot; IconName=&quot;fas fa-user&quot; IconColor=&quot;seagreen&quot; Content=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; />" />
+      <RemoveLine DemendsOn="Dynamic" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Link&quot; Label=&quot;Dynamic Panel&quot; IconName=&quot;fas fa-arrows-alt&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;DynamicPanelPermission.ViewDynamicPanel&quot; Url=&quot;~/dynamic/panel&quot; />" />
+      <RemoveLine DemendsOn="Workflow" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Link&quot; Label=&quot;Workflow Script Runner&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;WorkflowPanelPermission.ViewWorkflowPanel&quot; Url=&quot;~/workflow/panel&quot; />" />
+      <RemoveLine DemendsOn="Workflow" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; Name=&quot;Workflow&quot;>" To="&lt;/ToolbarMenu>" />
       <RemoveLine Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
 
     </Module>
@@ -225,7 +228,7 @@
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MailingClient.start({ routes, smtpConfig: true, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true, quickLinksFrom: undefined });"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Email*/" To="public EmailConfigurationEmbedded Email { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="[NotNullValidator]/*Smtp*/" To="public SmtpConfigurationEntity SmtpConfiguration { get; set; }"/>
-      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email) }>" To="&lt;/Tab>"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email)}>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Email = new EmailConfigurationEmbedded" To="}, //Email"/>
     </Module>
 
@@ -235,7 +238,7 @@
                   From="SMSLogic.RegisterPhoneNumberProvider&lt;PersonEntity>(p => p.Phone, p => null);"
                   To="SMSLogic.RegisterPhoneNumberProvider&lt;CompanyEntity&gt;(p => p.Phone, p => null);"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Sms*/" To="public SMSConfigurationEmbedded Sms { get; set; }"/>
-      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms) }>" To="&lt;/Tab>"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms)}>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
     </Module>
@@ -247,10 +250,10 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*AuthTokens*/" To="public AuthTokenConfigurationEmbedded AuthTokens { get; set; }"/>
-      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;auth&quot; title={ctx.niceName(a => a.authTokens) }>" To="&lt;/Tab>"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;auth&quot; title={ctx.niceName(a => a.authTokens)}>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="AuthTokens = new AuthTokenConfigurationEmbedded" To="}, //Auth"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="AuthServer.Start(app, () => Starter.Configuration.Value.AuthTokens, &quot;IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!&quot;);" />
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{43, AuthLogic.ImportExportAuthRules},"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;AR&quot;, AuthLogic.ImportExportAuthRules},"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations,LoadNorthwind"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="CreateRoles," To="CreateSystemUser,"/>
       <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" From="internal static void CreateUsers()" To="} //CreateUsers"/>
@@ -270,7 +273,8 @@
       <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="!!AuthClient.currentUser(); //"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, resetPassword: true, notifyLogout: true });"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" From="AuthClient.Options.onLogin = (url? : string) => {" To="};"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" From="AuthClient.Options.onLogin = (url?: string) => {" To="};"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" From="AuthClient.Options.onLogout = () => {" To="};"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().Single(e => e.FirstName == userName).ToLite());" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
@@ -379,8 +383,22 @@
     </Module>
 
     <Module Name="Help">
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{45, HelpXml.ImportExportHelp},"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;HL&quot;, HelpXml.ImportExportHelp},"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="HelpLogic.Start(sb);"/>
+    </Module>
+
+    <Module Name="PublicAPI">
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="RestLogLogic.Start(sb);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="RestApiKeyLogic.Start(sb);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/swagger&quot;>&lt;DropdownItem>Swagger&lt;/DropdownItem>&lt;/LinkContainer>"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as RestClient from &quot;@extensions/Rest/RestClient&quot;"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="RestClient.start({ routes });"/>
+      <RemoveFiles Path="Southwind.React\PublicAPI\CatalogController.cs" />
+      <RemoveLine Path="Southwind.React\Startup.cs" From="using Swashbuckle.AspNetCore.SwaggerGen;" To="using System.Net;"/>
+      <RemoveLine Path="Southwind.React\Startup.cs" From="public class ErrorResponsesOperationFilter : IOperationFilter" To="} //Swagger Attributes"/>
+      <RemoveLine Path="Southwind.React\Startup.cs" From="//https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&amp;tabs=visual-studio%2Cvisual-studio-xml" To="}); //Swagger Services"/>
+      <RemoveLine Path="Southwind.React\Startup.cs" From="//Enable middleware to serve generated Swagger as a JSON endpoint." To="});//Swagger Configure"/>
     </Module>
 
     <Module Name="Predictor">
@@ -388,7 +406,7 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportPredictor,"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="PredictorModelFolder = @&quot;c:/Southwind/PredictorModels&quot;"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" Line="{99, TrainPredictor},"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
       <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.6.0&quot; />"/>
@@ -459,12 +477,12 @@
 
     <Module Name="Test.Logic" DependsOn="Test.Environment">
       <RemoveFiles Path="Southwind.Test.Logic"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Logic\OrderTest.cs" From="[TestMethod]" To="}//OrderTestExample"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Logic\OrderTest.cs" From="[Fact]" To="}//OrderTestExample"/>
     </Module>vp
 
     <Module Name="Test.React" DependsOn="Test.Environment">
       <RemoveFiles Path="Southwind.Test.React"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.React\OrderReactTest.cs" From="[TestMethod]" To="}//OrderReactTestExample"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.React\OrderReactTest.cs" From="[Fact]" To="}//OrderReactTestExample"/>
       <RemoveProjectReference Path="Extensions\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj"/>
     </Module>
   </Modules>

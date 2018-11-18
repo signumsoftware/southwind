@@ -67,6 +67,7 @@ export default class Layout extends React.Component<{}, { refreshId: number; sid
                                         <DropdownMenu>
                                             <LinkContainer to="~/" exact={true}><DropdownItem>Home</DropdownItem></LinkContainer>
                                             <LinkContainer to="~/publicCatalog"><DropdownItem>Catalog</DropdownItem></LinkContainer>
+                                            <LinkContainer to="~/swagger"><DropdownItem>Swagger</DropdownItem></LinkContainer>
                                             <DropdownItem divider />
                                             <LinkContainer to="~/find/order"><DropdownItem>Orders</DropdownItem></LinkContainer>
                                             <LinkContainer to="~/find/exception"><DropdownItem>Exceptions</DropdownItem></LinkContainer>

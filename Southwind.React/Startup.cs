@@ -96,7 +96,7 @@ namespace Southwind.React
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class IncludeInDocumentationAttribute : Attribute
     {
-    }
+    } //Swagger Attributes
 
     public class Startup
     {
@@ -162,7 +162,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
                 c.DocInclusionPredicate((docName, apiDesc) => apiDesc.TryGetMethodInfo(out var mi) && mi.DeclaringType.HasAttribute<IncludeInDocumentationAttribute>());
                 c.OperationFilter<ErrorResponsesOperationFilter>();
-            });
+            }); //Swagger Services
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -177,7 +177,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("../swagger/v1/swagger.json", "MobileCheck API");
-            });
+            });//Swagger Configure
 
             app.UseMvc(routes =>
             {
