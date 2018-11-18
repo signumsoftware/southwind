@@ -57,7 +57,6 @@ namespace Southwind.Load
                 EmployeeLoader.CreateUsers,
                 OrderLoader.UpdateOrdersDate,
                 CreateCultureInfo,
-                ChartScriptLogic.ImportChartScriptsAuto,
                 ImportSpanishInstanceTranslations,
                 ImportWordReportTemplateForOrder,
                 ImportUserAssets,

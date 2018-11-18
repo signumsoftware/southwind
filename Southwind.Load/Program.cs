@@ -115,13 +115,12 @@ namespace Southwind.Load
 
             while (true)
             {
-                var actions = new ConsoleSwitch<int, Action>
+                var actions = new ConsoleSwitch<string, Action>
                 {
-                    {42, ChartScriptLogic.ImportExportChartScripts},
-                    {43, AuthLogic.ImportExportAuthRules},
-                    {45, HelpXml.ImportExportHelp},
-                    {99, TrainPredictor},
-                    {100, ShowOrder},
+                    {"AR", AuthLogic.ImportExportAuthRules},
+                    {"HL", HelpXml.ImportExportHelp},
+                    {"TP", TrainPredictor},
+                    {"SO", ShowOrder},
                 }.ChooseMultipleWithDescription(args);
 
                 if (actions == null)
