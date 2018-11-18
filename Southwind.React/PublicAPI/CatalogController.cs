@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Signum.Engine;
 using Signum.React.RestLog;
@@ -12,8 +12,8 @@ namespace Southwind.React.Controllers
     [IncludeInDocumentation, RestLogFilter(allowReplay: true)]
     public class CatalogController : Controller
     {
-        [HttpGet("api/tsc/manufacturers")]
-        public List<CategoryDTO> GetManufacturers()
+        [HttpGet("api/categories")]
+        public List<CategoryDTO> GetCategories()
         {
             return Database.Query<CategoryEntity>().Select(a => new CategoryDTO
             {

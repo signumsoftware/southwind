@@ -1,4 +1,4 @@
-﻿import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import "./site.css";
 import "@framework/Frames/Frames.css";
 
@@ -164,6 +164,7 @@ function reload() {
           new UserChartToolbarConfig(),
           new DashboardToolbarConfig(),
         );
+        RestClient.start({ routes });
 
         DynamicClient.start({ routes });
         DynamicExpressionClient.start({ routes });

@@ -8,8 +8,8 @@ var node_modules = path.join(__dirname, "node_modules");
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    mode: "development",  //Now mandatory, alternatively “production”
-    devtool: false, //To remove source maps in “development”, avoids problems with errors in Chrome
+    mode: "development",  //Now mandatory, alternatively â€œproductionâ€
+    devtool: false, //To remove source maps in â€œdevelopmentâ€, avoids problems with errors in Chrome
     stats: {
         warningsFilter: [w => w.indexOf("was not found in") >= 0], //Removes warnings because of transpileOnly
     },
@@ -84,7 +84,7 @@ module.exports = {
         new CopyWebpackPlugin([
             { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, "wwwroot/dist/es6-promise.auto.min.js") },
             { from: 'node_modules/es6-object-assign/dist/object-assign-auto.min.js', to: path.join(__dirname, "wwwroot/dist/object-assign-auto.min.js") },
-            { from: 'node_modules/whatwg-fetch/fetch.js', to: path.join(__dirname, "wwwroot/dist/fetch.js") },
+            { from: 'node_modules/whatwg-fetch/dist/fetch.umd.js', to: path.join(__dirname, "wwwroot/dist/fetch.js") },
             { from: 'node_modules/abortcontroller-polyfill/dist/polyfill-patch-fetch.js', to: path.join(__dirname, 'wwwroot/dist/polyfill-patch-fetch.js') },
         ])
     ],
