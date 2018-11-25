@@ -12,6 +12,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutputPath>bin\</OutputPath>
+    <NoWarn>1701;1702,1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
