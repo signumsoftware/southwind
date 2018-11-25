@@ -16,6 +16,6 @@ indent_style = space
 indent_size = 4
 
 # Indentation override for all js, ts and json files
-[*.{js,jsx,ts,tsx,json}]
+[*.{js,jsx,ts,tsx,t4s,json}]
 indent_style = space
 indent_size = 2
