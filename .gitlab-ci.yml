@@ -69,11 +69,9 @@ test-deploy:
     - dotnet build Southwind.sln /p:Configuration=Release /p:Platform=x64 /p:VisualStudioVersion=15.0 /m
     - cd Southwind.React/; yarn run build; cd ..
     - dotnet publish Southwind.React/Southwind.React.csproj -c Release --runtime win7-x64 /p:EnableMSDeployAppOffline=true /p:PublishProfile=Test /p:Username=$env:MSBUILD_USER /p:Password=$env:MSBUILD_PASSWORD /v:m
-    - cd Southwind.Load/bin/Release/netcoreapp2.1/
-    - dotnet Southwind.Load.dll sql
-    - dotnet Southwind.Load.dll csharp
-    - dotnet Southwind.Load.dll auth
-    - cd ../../../..
+    - cd Southwind.Load; dotnet run -c Release sql; cd ..
+    - cd Southwind.Load; dotnet run -c Release csharp; cd ..
+    - cd Southwind.Load; dotnet run -c Release auth; cd ..
   tags:
     - desrv148
   only: 
@@ -91,11 +89,9 @@ live-deploy:
     - dotnet build Southwind.sln /p:Configuration=Release /p:Platform=x64 /p:VisualStudioVersion=15.0 /m
     - cd Southwind.React/; yarn run build; cd ..
     - dotnet publish Southwind.React/Southwind.React.csproj -c Release --runtime win7-x64 /p:EnableMSDeployAppOffline=true /p:PublishProfile=Live /p:Username=$env:MSBUILD_USER /p:Password=$env:MSBUILD_PASSWORD /v:m
-    - cd Southwind.Load/bin/Release/netcoreapp2.1/
-    - dotnet Southwind.Load.dll sql
-    - dotnet Southwind.Load.dll csharp
-    - dotnet Southwind.Load.dll auth
-    - cd ../../../..
+    - cd Southwind.Load; dotnet run -c Release sql; cd ..
+    - cd Southwind.Load; dotnet run -c Release csharp; cd ..
+    - cd Southwind.Load; dotnet run -c Release auth; cd ..
   tags:
     - desrv148
   only: 
