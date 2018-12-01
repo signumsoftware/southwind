@@ -44,11 +44,12 @@
   <ItemGroup>
     <PackageReference Include="CNTK.CPUOnly" Version="2.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Signum.Analyzer" Version="1.0.0" />
+    <PackageReference Include="Signum.Analyzer" Version="1.0.1" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.1.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Signum.TSGenerator" Version="1.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
@@ -63,22 +64,6 @@
     <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj" />
     <ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj" />
   </ItemGroup>
-
-  <Target Name="GenerateSignumTS">
-    <WriteLinesToFile File="$(BaseIntermediateOutputPath)SignumReferences.txt" Lines="@(ReferencePath)" Overwrite="true" Encoding="Unicode" />
-    <WriteLinesToFile File="$(BaseIntermediateOutputPath)SignumContent.txt" Lines="@(Content);@(None)" Overwrite="true" Encoding="Unicode" />
-    <Exec command="dotnet &quot;..\Framework\Signum.TSGenerator\Binaries\netcoreapp2.1\Signum.TSGenerator.dll&quot; &quot;@(IntermediateAssembly)&quot; &quot;$(BaseIntermediateOutputPath)SignumReferences.txt&quot; &quot;$(BaseIntermediateOutputPath)SignumContent.txt&quot;" ConsoleToMSBuild="false">
-      <Output TaskParameter="ConsoleOutput" PropertyName="OutputOfExec" />
-    </Exec>
-  </Target>
-
-  <PropertyGroup>
-    <CompileTypeScriptDependsOn>
-      GenerateSignumTS;
-      $(CompileTypeScriptDependsOn);
-    </CompileTypeScriptDependsOn>
-  </PropertyGroup>
-
 
   <Target Name="PublishCollectDist" AfterTargets="ComputeFilesToPublish">
     <!-- Include the newly-built files in the publish output -->

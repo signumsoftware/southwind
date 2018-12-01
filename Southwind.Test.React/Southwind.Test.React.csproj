@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Signum.Analyzer" Version="1.0.0" />
+    <PackageReference Include="Signum.Analyzer" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
