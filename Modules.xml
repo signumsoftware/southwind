@@ -376,7 +376,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MapLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="MapServer.Start(app);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as MapClient from &quot;@extensions/Map/MapClient&quot;"/>
-      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MapClient.start({ routes, auth: true, cache: true, disconnected: true, isolation: false });"/>
+      <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MapClient.start({ routes, auth: true, cache: true, disconnected: false, isolation: false });"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="import MapOmniboxProvider from &quot;@extensions/Map/MapOmniboxProvider&quot;"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="new MapOmniboxProvider(),"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Startup.cs" Line="new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),"/>
