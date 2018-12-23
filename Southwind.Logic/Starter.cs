@@ -283,6 +283,8 @@ namespace Southwind.Logic
 
         private static void OverrideAttributes(SchemaBuilder sb)
         {
+            PredictorLogic.IgnorePinned(sb);
+
             sb.Schema.Settings.TypeAttributes<OrderEntity>().Add(new SystemVersionedAttribute());
 
             sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
