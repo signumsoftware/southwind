@@ -86,6 +86,19 @@ export function start(options: { routes: JSX.Element[] }) {
     }
   });
 
+  Finder.addSettings({
+    queryName: ProductEntity,
+    defaultFilters: [{
+      groupOperation: "Or",
+      filters: [
+        { token: ProductEntity.token(a => a.productName), operation: "Contains" },
+        { token: ProductEntity.token(a => a.supplier!).implicit(a => a.entity!).append(a => a.companyName), operation: "Contains" },
+        { token: ProductEntity.token(a => a.category!).implicit(a => a.entity!).append(a => a.categoryName), operation: "Contains" },
+      ],
+      pinned: { splitText: true, disableOnNull: true },
+    }]
+  });
+
   Operations.addSettings(new ConstructorOperationSettings(OrderOperation.Create, {
     onConstruct: coc => {
       return Finder.find({ queryName: CustomerQuery.Customer }).then(c => {
