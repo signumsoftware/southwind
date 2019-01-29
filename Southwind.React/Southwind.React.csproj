@@ -43,7 +43,7 @@
     <PackageReference Include="CNTK.CPUOnly" Version="2.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Signum.Analyzer" Version="1.0.1" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.2.1">
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.2.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

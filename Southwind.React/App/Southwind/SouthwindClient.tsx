@@ -92,8 +92,8 @@ export function start(options: { routes: JSX.Element[] }) {
       groupOperation: "Or",
       filters: [
         { token: ProductEntity.token(a => a.productName), operation: "Contains" },
-        { token: ProductEntity.token(a => a.supplier!).implicit(a => a.entity!).append(a => a.companyName), operation: "Contains" },
-        { token: ProductEntity.token(a => a.category!).implicit(a => a.entity!).append(a => a.categoryName), operation: "Contains" },
+        { token: ProductEntity.token(a => a.supplier!.entity!.companyName), operation: "Contains" },
+        { token: ProductEntity.token(a => a.category!.entity!.categoryName), operation: "Contains" },
       ],
       pinned: { splitText: true, disableOnNull: true },
     }]
