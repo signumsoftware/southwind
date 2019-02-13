@@ -112,80 +112,80 @@
   </Dashboard>
   <ToolbarMenu Guid="fd577065-f887-4567-8da3-9d5bcc1cedfd" Name="Products">
     <Elements>
-      <ToolbarElement Type="Link" Content="Product" />
-      <ToolbarElement Type="Link" Content="Category" />
-      <ToolbarElement Type="Link" Content="Supplier" />
-      <ToolbarElement Type="Link" Content="Shipper" />
+      <ToolbarElement Type="Item" Content="Product" />
+      <ToolbarElement Type="Item" Content="Category" />
+      <ToolbarElement Type="Item" Content="Supplier" />
+      <ToolbarElement Type="Item" Content="Shipper" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="8b7e4ac5-cf45-41cb-8cff-4ce04506e12f" Name="Employee">
     <Elements>
-      <ToolbarElement Type="Link" Content="Employee" />
-      <ToolbarElement Type="Link" Content="Territory" />
-      <ToolbarElement Type="Link" Content="EmployeesByTerritory" />
+      <ToolbarElement Type="Item" Content="Employee" />
+      <ToolbarElement Type="Item" Content="Territory" />
+      <ToolbarElement Type="Item" Content="EmployeesByTerritory" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="2deb71ea-f065-4fe3-9215-90460bc2d5ec" Name="Reports">
     <Elements>
-      <ToolbarElement Type="Link" Content="WordTemplate" />
-      <ToolbarElement Type="Link" Content="EmailTemplate" />
-      <ToolbarElement Type="Link" Content="UserQuery" />
-      <ToolbarElement Type="Link" Content="UserChart" />
-      <ToolbarElement Type="Link" Content="Dashboard" />
-      <ToolbarElement Type="Link" Content="Toolbar" />
+      <ToolbarElement Type="Item" Content="WordTemplate" />
+      <ToolbarElement Type="Item" Content="EmailTemplate" />
+      <ToolbarElement Type="Item" Content="UserQuery" />
+      <ToolbarElement Type="Item" Content="UserChart" />
+      <ToolbarElement Type="Item" Content="Dashboard" />
+      <ToolbarElement Type="Item" Content="Toolbar" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="af61b3b1-dc30-4129-a37f-aaf72450a939" Name="Logs">
     <Elements>
-      <ToolbarElement Type="Link" Content="OperationLog" />
-      <ToolbarElement Type="Link" Content="ViewLog" />
-      <ToolbarElement Type="Link" Content="SessionLog" />
+      <ToolbarElement Type="Item" Content="OperationLog" />
+      <ToolbarElement Type="Item" Content="ViewLog" />
+      <ToolbarElement Type="Item" Content="SessionLog" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="3dbf3d73-02f6-4ad8-88f4-2fe03d34edeb" Name="Security">
     <Elements>
-      <ToolbarElement Type="Link" Content="User" />
-      <ToolbarElement Type="Link" Content="Role" />
+      <ToolbarElement Type="Item" Content="User" />
+      <ToolbarElement Type="Item" Content="Role" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="aa00a50a-ff58-4950-94de-e200769effdc" Name="System Panels">
     <Elements>
-      <ToolbarElement Type="Link" Label="Cache" IconName="fas fa-database" IconColor="#e74c3c" Content="CachePermission.ViewCache" Url="~/cache/statistics" />
-      <ToolbarElement Type="Link" Label="Profiler (Heavy)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewHeavyProfiler" Url="~/profiler/heavy" />
-      <ToolbarElement Type="Link" Label="Profiler (Times)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewTimeTracker" Url="~/profiler/times" />
-      <ToolbarElement Type="Link" Label="Processes Panel" IconName="fas fa-cogs" IconColor="#9b6bcc" Content="ProcessPermission.ViewProcessPanel" Url="~/processes/view" />
-      <ToolbarElement Type="Link" Label="Dynamic Panel" IconName="fas fa-arrows-alt" IconColor="#9b6bcc" Content="DynamicPanelPermission.ViewDynamicPanel" Url="~/dynamic/panel" />
-      <ToolbarElement Type="Link" Label="Workflow Script Runner" IconName="fas fa-random" IconColor="#9b6bcc" Content="WorkflowPanelPermission.ViewWorkflowPanel" Url="~/workflow/panel" />
-      <ToolbarElement Type="Link" Label="Async Email Sender" IconName="fas fa-send" IconColor="#3498db" Content="AsyncEmailSenderPermission.ViewAsyncEmailSenderPanel" Url="~/asyncEmailSender/view" />
-      <ToolbarElement Type="Link" Label="Code Translation" IconName="fas fa-language" IconColor="#1abc9c" Content="TranslationPermission.TranslateCode" Url="~/translation/status" />
+      <ToolbarElement Type="Item" Label="Cache" IconName="fas fa-database" IconColor="#e74c3c" Content="CachePermission.ViewCache" Url="~/cache/statistics" />
+      <ToolbarElement Type="Item" Label="Profiler (Heavy)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewHeavyProfiler" Url="~/profiler/heavy" />
+      <ToolbarElement Type="Item" Label="Profiler (Times)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewTimeTracker" Url="~/profiler/times" />
+      <ToolbarElement Type="Item" Label="Processes Panel" IconName="fas fa-cogs" IconColor="#9b6bcc" Content="ProcessPermission.ViewProcessPanel" Url="~/processes/view" />
+      <ToolbarElement Type="Item" Label="Dynamic Panel" IconName="fas fa-arrows-alt" IconColor="#9b6bcc" Content="DynamicPanelPermission.ViewDynamicPanel" Url="~/dynamic/panel" />
+      <ToolbarElement Type="Item" Label="Workflow Script Runner" IconName="fas fa-random" IconColor="#9b6bcc" Content="WorkflowPanelPermission.ViewWorkflowPanel" Url="~/workflow/panel" />
+      <ToolbarElement Type="Item" Label="Async Email Sender" IconName="fas fa-send" IconColor="#3498db" Content="AsyncEmailSenderPermission.ViewAsyncEmailSenderPanel" Url="~/asyncEmailSender/view" />
+      <ToolbarElement Type="Item" Label="Code Translation" IconName="fas fa-language" IconColor="#1abc9c" Content="TranslationPermission.TranslateCode" Url="~/translation/status" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="b9423939-ec3d-4495-9361-a335390d93a6" Name="Workflow">
     <Elements>
-      <ToolbarElement Type="Link" Content="Workflow" />
-      <ToolbarElement Type="Link" Content="WorkflowActivity" />
+      <ToolbarElement Type="Item" Content="Workflow" />
+      <ToolbarElement Type="Item" Content="WorkflowActivity" />
       <ToolbarElement Type="Divider" />
-      <ToolbarElement Type="Link" Content="Case" />
-      <ToolbarElement Type="Link" Content="CaseActivity" />
-      <ToolbarElement Type="Link" Content="CaseTagType" />
+      <ToolbarElement Type="Item" Content="Case" />
+      <ToolbarElement Type="Item" Content="CaseActivity" />
+      <ToolbarElement Type="Item" Content="CaseTagType" />
     </Elements>
   </ToolbarMenu>
   <Toolbar Guid="eb64a1af-852c-468b-a94f-19e28357ac0e" Name="Side Toolbar" Location="Side">
     <Elements>
-      <ToolbarElement Type="Link" IconName="fas fa-tachometer-alt" IconColor="blue" Content="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" />
-      <ToolbarElement Type="Link" Label="Map" IconName="fas fa-map" IconColor="mediumvioletred" Content="MapPermission.ViewMap" Url="~/Map" />
-      <ToolbarElement Type="Link" Label="Public catalog" IconName="fas fa-shopping-bag" IconColor="orangered" Url="~/PublicCatalog" />
+      <ToolbarElement Type="Item" IconName="fas fa-tachometer-alt" IconColor="blue" Content="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" />
+      <ToolbarElement Type="Item" Label="Map" IconName="fas fa-map" IconColor="mediumvioletred" Content="MapPermission.ViewMap" Url="~/Map" />
+      <ToolbarElement Type="Item" Label="Public catalog" IconName="fas fa-shopping-bag" IconColor="orangered" Url="~/PublicCatalog" />
       <ToolbarElement Type="Divider" />
       <ToolbarElement Type="Header" Label="Entities" />
-      <ToolbarElement Type="Link" IconName="fas fa-shopping-cart" IconColor="orange" Content="Order" />
-      <ToolbarElement Type="Menu" IconName="fas fa-apple-alt" IconColor="gold" Content="fd577065-f887-4567-8da3-9d5bcc1cedfd" />
-      <ToolbarElement Type="Menu" IconName="fas fa-user" IconColor="seagreen" Content="8b7e4ac5-cf45-41cb-8cff-4ce04506e12f" />
-      <ToolbarElement Type="Menu" IconName="fas fa-file" IconColor="mediumaquamarine" Content="2deb71ea-f065-4fe3-9215-90460bc2d5ec" />
-      <ToolbarElement Type="Menu" IconName="fas fa-calendar-alt" IconColor="skyblue" Content="af61b3b1-dc30-4129-a37f-aaf72450a939" />
-      <ToolbarElement Type="Menu" IconName="fas fa-unlock-alt" IconColor="steelblue" Content="3dbf3d73-02f6-4ad8-88f4-2fe03d34edeb" />
+      <ToolbarElement Type="Item" IconName="fas fa-shopping-cart" IconColor="orange" Content="Order" />
+      <ToolbarElement Type="Item" IconName="fas fa-apple-alt" IconColor="gold" Content="fd577065-f887-4567-8da3-9d5bcc1cedfd" />
+      <ToolbarElement Type="Item" IconName="fas fa-user" IconColor="seagreen" Content="8b7e4ac5-cf45-41cb-8cff-4ce04506e12f" />
+      <ToolbarElement Type="Item" IconName="fas fa-file" IconColor="mediumaquamarine" Content="2deb71ea-f065-4fe3-9215-90460bc2d5ec" />
+      <ToolbarElement Type="Item" IconName="fas fa-calendar-alt" IconColor="skyblue" Content="af61b3b1-dc30-4129-a37f-aaf72450a939" />
+      <ToolbarElement Type="Item" IconName="fas fa-unlock-alt" IconColor="steelblue" Content="3dbf3d73-02f6-4ad8-88f4-2fe03d34edeb" />
       <ToolbarElement Type="Divider" />
-      <ToolbarElement Type="Menu" IconName="fas fa-cogs" IconColor="gray" Content="aa00a50a-ff58-4950-94de-e200769effdc" />
-      <ToolbarElement Type="Menu" IconName="fas fa-random" IconColor="saddlebrown" Content="b9423939-ec3d-4495-9361-a335390d93a6" />
+      <ToolbarElement Type="Item" IconName="fas fa-cogs" IconColor="gray" Content="aa00a50a-ff58-4950-94de-e200769effdc" />
+      <ToolbarElement Type="Item" IconName="fas fa-random" IconColor="saddlebrown" Content="b9423939-ec3d-4495-9361-a335390d93a6" />
     </Elements>
   </Toolbar>
 </Entities>
