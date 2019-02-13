@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -110,7 +110,7 @@ namespace Southwind.Logic
                             Customer = customer,
                             ShipAddress = customer?.Address.Clone(),
                             State = OrderState.New,
-                            Employee = EmployeeEntity.Current,
+                            Employee = EmployeeEntity.Current!,
                             RequiredDate = DateTime.Now.AddDays(3),
                         };
                     }
@@ -123,7 +123,7 @@ namespace Southwind.Logic
                     {
                         State = OrderState.New,
                         Customer = c,
-                        Employee = EmployeeEntity.Current,
+                        Employee = EmployeeEntity.Current!,
                         ShipAddress = c.Address,
                         RequiredDate = DateTime.Now.AddDays(3),
                     }
@@ -145,7 +145,7 @@ namespace Southwind.Logic
                             Customer = customer,
                             ShipAddress = customer?.Address.Clone(),
                             State = OrderState.New,
-                            Employee = EmployeeEntity.Current,
+                            Employee = EmployeeEntity.Current!,
                             RequiredDate = DateTime.Now.AddDays(3),
                             Details = prods.Select(p => new OrderDetailEmbedded
                             {

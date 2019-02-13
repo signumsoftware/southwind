@@ -1,4 +1,4 @@
-﻿import * as React from 'react'
+import * as React from 'react'
 import * as numbro from 'numbro'
 import * as moment from 'moment'
 import { Dic } from '@framework/Globals'
@@ -11,7 +11,7 @@ export default class Order extends React.Component<{ ctx: TypeContext<OrderEntit
   handleCustomerChange = (c: ChangeEvent) => {
     var order = this.props.ctx.value;
     var customer = c.newValue as CustomerEntity; //order.customer will also work
-    order.shipAddress = c.newValue == undefined ? undefined : AddressEmbedded.New({ ...customer.address });
+    order.shipAddress = c.newValue == null ? null! : AddressEmbedded.New({ ...customer.address });
     order.modified = true;
     this.forceUpdate();
   }

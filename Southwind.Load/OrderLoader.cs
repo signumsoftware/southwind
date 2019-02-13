@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,12 +35,12 @@ namespace Southwind.Load
 
             var orders = Connector.Override(Northwind.Connector).Using(_ => Database.View<Orders>().Select(o => new OrderEntity
             {
-                Employee = Lite.Create<EmployeeEntity>(o.EmployeeID.Value),
-                OrderDate = o.OrderDate.Value,
-                RequiredDate = o.RequiredDate.Value,
+                Employee = Lite.Create<EmployeeEntity>(o.EmployeeID!.Value),
+                OrderDate = o.OrderDate!.Value,
+                RequiredDate = o.RequiredDate!.Value,
                 ShippedDate = o.ShippedDate,
                 State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
-                ShipVia = Lite.Create<ShipperEntity>(o.ShipVia.Value),
+                ShipVia = Lite.Create<ShipperEntity>(o.ShipVia!.Value),
                 ShipName = o.ShipName,
                 ShipAddress = new AddressEmbedded
                 {
@@ -50,7 +50,7 @@ namespace Southwind.Load
                     PostalCode = o.ShipPostalCode,
                     Country = o.ShipCountry,
                 },
-                Freight = o.Freight.Value,
+                Freight = o.Freight!.Value,
                 Details = Database.View<OrderDetails>().Where(od => od.OrderID == o.OrderID).Select(od => new OrderDetailEmbedded
                 {
                     Discount = (decimal)od.Discount,
@@ -76,7 +76,7 @@ namespace Southwind.Load
 
             Database.Query<OrderEntity>().UnsafeUpdate()
                 .Set(o => o.OrderDate, o => o.OrderDate.AddDays(ts))
-                .Set(o => o.ShippedDate, o => o.ShippedDate.Value.AddDays(ts))
+                .Set(o => o.ShippedDate, o => o.ShippedDate!.Value.AddDays(ts))
                 .Set(o => o.RequiredDate, o => o.RequiredDate.AddDays(ts))
                 .Set(o => o.CancelationDate, o => null)
                 .Execute();

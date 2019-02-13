@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,7 +44,7 @@ namespace Southwind.Logic
                     Database.Query<ProductEntity>()
                     .Where(a => !a.Discontinued)
                     .Select(p => new { Category = p.Category.Entity, Product = p })
-                    .GroupToDictionary(a => a.Category, a => a.Product),
+                    .GroupToDictionary(a => a.Category!, a => a.Product!), /*CSBUG*/
                     new InvalidateWith(typeof(ProductEntity)));
 
                 QueryLogic.Queries.Register(ProductQuery.CurrentProducts, () =>
