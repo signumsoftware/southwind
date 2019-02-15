@@ -21,7 +21,8 @@
       "ancmHostingModel": "InProcess"
     },
     "IIS": {
-      "commandName": "IIS"
+      "commandName": "IIS",
+      "launchBrowser": true
     }
   }
 }
