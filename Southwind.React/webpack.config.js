@@ -13,7 +13,7 @@ module.exports = {
         warningsFilter: [w => w.indexOf("was not found in") >= 0], //Removes warnings because of transpileOnly
     },
     entry: {
-        main: ['es6-promise', 'whatwg-fetch', 'abortcontroller-polyfill', './App/Main.tsx'],
+        main: ['es6-object-assign', 'es6-promise', 'whatwg-fetch', 'abortcontroller-polyfill', './App/Main.tsx'],
     },
     output: {
         path: path.join(__dirname, "wwwroot", "dist"),
@@ -78,9 +78,6 @@ module.exports = {
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
         new AssetsPlugin({
             path: path.join(__dirname, "wwwroot", "dist")
-        }),
-        new webpack.ProvidePlugin({
-            'Object.Assign': ['object-assign']
         }),
         new WebpackNotifierPlugin({ alwaysNotify: true }),
     ],
