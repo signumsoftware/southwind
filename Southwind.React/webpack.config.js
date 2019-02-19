@@ -5,7 +5,6 @@ var webpack = require('webpack');
 var AssetsPlugin = require('assets-webpack-plugin');
 var WebpackNotifierPlugin = require('webpack-notifier');
 var node_modules = path.join(__dirname, "node_modules");
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: "development",  //Now mandatory, alternatively “production”
@@ -14,7 +13,7 @@ module.exports = {
         warningsFilter: [w => w.indexOf("was not found in") >= 0], //Removes warnings because of transpileOnly
     },
     entry: {
-        main: ["./App/Main.tsx"],
+        main: ['es6-promise', 'whatwg-fetch', 'abortcontroller-polyfill', './App/Main.tsx'],
     },
     output: {
         path: path.join(__dirname, "wwwroot", "dist"),
@@ -80,12 +79,9 @@ module.exports = {
         new AssetsPlugin({
             path: path.join(__dirname, "wwwroot", "dist")
         }),
+        new webpack.ProvidePlugin({
+            'Object.Assign': ['object-assign']
+        }),
         new WebpackNotifierPlugin({ alwaysNotify: true }),
-        new CopyWebpackPlugin([
-            { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, "wwwroot/dist/es6-promise.auto.min.js") },
-            { from: 'node_modules/es6-object-assign/dist/object-assign-auto.min.js', to: path.join(__dirname, "wwwroot/dist/object-assign-auto.min.js") },
-            { from: 'node_modules/whatwg-fetch/dist/fetch.umd.js', to: path.join(__dirname, "wwwroot/dist/fetch.js") },
-            { from: 'node_modules/abortcontroller-polyfill/dist/polyfill-patch-fetch.js', to: path.join(__dirname, 'wwwroot/dist/polyfill-patch-fetch.js') },
-        ])
     ],
 }
