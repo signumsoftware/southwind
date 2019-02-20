@@ -44,6 +44,7 @@ namespace Southwind.Load
             {
                 CreateRoles,
                 CreateSystemUser,
+                CreateCultureInfo,
                 EmployeeLoader.LoadRegions,
                 EmployeeLoader.LoadTerritories,
                 EmployeeLoader.LoadEmployees,
@@ -56,7 +57,6 @@ namespace Southwind.Load
                 OrderLoader.LoadOrders,
                 EmployeeLoader.CreateUsers,
                 OrderLoader.UpdateOrdersDate,
-                CreateCultureInfo,
                 ImportSpanishInstanceTranslations,
                 ImportWordReportTemplateForOrder,
                 ImportUserAssets,
