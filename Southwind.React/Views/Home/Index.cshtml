@@ -11,8 +11,6 @@
     string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
     var main = (string)JObject.Parse(json).Property("main").Value["js"];
 
-    string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
-    var vendor = (string)JObject.Parse(jsonDll).Property("vendor").Value["js"];
 }
 <!doctype html>
 <html>
@@ -28,11 +26,6 @@
     <script>
         var __baseUrl = "@Url.Content("~/")";
     </script>
-    <script language="javascript" src="@Url.Content("~/dist/object-assign-auto.min.js")"></script>
-    <script language="javascript" src="@Url.Content("~/dist/es6-promise.auto.min.js")"></script>
-    <script language="javascript" src="@Url.Content("~/dist/fetch.js")"></script>
-    <script language="javascript" src="@Url.Content("~/dist/polyfill-patch-fetch.js")"></script>
-    <script language="javascript" src="@Url.Content("~/dist/" + vendor)"></script>
     <script language="javascript" src="@Url.Content("~/dist/" + main)"></script>
 </body>
 </html>

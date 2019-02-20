@@ -1,12 +1,16 @@
 ﻿{
   "compilerOptions": {
     "target": "es5",
-    "sourceMap": false,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "jsx": "react",
+    "resolveJsonModule": true,
     "noEmit": true,
-    "strict": true,
+    "jsx": "react",
     "baseUrl": ".",
     "paths": {
       "*": [
@@ -14,14 +18,23 @@
         "../Framework/Signum.React/node_modules/*",
         "*"
       ],
-      "@framework/*": [ "../Framework/Signum.React/Scripts/*" ],
-      "@extensions/*": [ "../Extensions/Signum.React.Extensions/*" ]
+      "@framework/*": [
+        "../Framework/Signum.React/Scripts/*"
+      ],
+      "@extensions/*": [
+        "../Extensions/Signum.React.Extensions/*"
+      ]
     },
     "lib": [
-      "es2017",
-      //"esnext",
-      "dom"
+      "dom",
+      "dom.iterable",
+      "esnext"
     ]
   },
-  "exclude": [ "node_modules" ]
+  "include": [
+    "App"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

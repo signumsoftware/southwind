@@ -1,91 +1,97 @@
-/// <binding />
 "use strict";
-var path = require('path');
-var webpack = require('webpack');
-var AssetsPlugin = require('assets-webpack-plugin');
-var WebpackNotifierPlugin = require('webpack-notifier');
-var node_modules = path.join(__dirname, "node_modules");
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = {
-    mode: "development",  //Now mandatory, alternatively “production”
-    devtool: false, //To remove source maps in “development”, avoids problems with errors in Chrome
-    stats: {
-        warningsFilter: [w => w.indexOf("was not found in") >= 0], //Removes warnings because of transpileOnly
-    },
+const path = require('path');
+const webpack = require('webpack');
+const AssetsPlugin = require('assets-webpack-plugin');
+const WebpackNotifierPlugin = require('webpack-notifier');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const node_modules = path.join(__dirname, "node_modules");
+
+// Source maps are resource heavy and can cause out of memory issue for large source files.
+const shouldUseSourceMap = 'false';
+
+module.exports = env => {
+  const isEnvDevelopment = env.NODE_ENV === 'development';
+  const isEnvProduction = env.NODE_ENV === 'production';
+
+  return {
+    mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
+    bail: isEnvProduction,
+    devtool: isEnvProduction
+      ? shouldUseSourceMap
+        ? 'source-map'
+        : false
+      : isEnvDevelopment && 'eval-source-map',
     entry: {
-        main: ["./App/Main.tsx"],
+      main: ['./polyfills.js', './App/Main.tsx'],
     },
     output: {
-        path: path.join(__dirname, "wwwroot", "dist"),
-        filename: "bundle.[name].[chunkhash].js",
-        chunkFilename: "bundle.[name].[chunkhash].js"
+      path: path.join(__dirname, "wwwroot", "dist"),
+      filename: "bundle.[name].[chunkhash].js",
+      chunkFilename: "bundle.[name].[chunkhash].js"
     },
     resolve: {
-        modules: [node_modules],
-        extensions: ['.Webpack.js', '.web.js', '.ts', '.js', '.tsx'],
-        alias: {
-            '@framework': path.resolve(__dirname, '../Framework/Signum.React/Scripts'),
-            '@extensions': path.resolve(__dirname, '../Extensions/Signum.React.Extensions')
-        }
+      modules: [node_modules],
+      extensions: ['.js', '.tsx', '.ts', '.tsx', ".mjs"],
+      alias: {
+        '@framework': path.resolve(__dirname, '../Framework/Signum.React/Scripts'),
+        '@extensions': path.resolve(__dirname, '../Extensions/Signum.React.Extensions')
+      }
     },
     resolveLoader: { modules: [node_modules] },
     module: {
-        rules: [
-           {
-               test: /\.tsx?$/,
-               use: [
-                   {
-                       loader: 'ts-loader',
-                       options: {
-                           transpileOnly: true,
-                           compilerOptions: {
-                               "noEmit": false
-                           }
-                       }
-                   },
-               ]
-           },
-           //{ test: /\.json?$/, use: [{ loader: 'json-loader' }] },
-           //{ test: /\.jsx?$/, use: [{ loader: "babel-loader"  }] },
-           {
-               test: /\.css$/,
-               use: [
-                   { loader: "style-loader" },
-                   { loader: "css-loader" }
-               ]
-           },
-           {
-               test: /\.less$/,
-               use: [
-                   { loader: "style-loader" },
-                   { loader: "css-loader" },
-                   { loader: "less-loader" }
-               ]
-           },
-           { test: /\.gif$/, use: [{ loader: "url-loader", options: { "mimetype": "image/gif" } }] },
-           { test: /\.png$/, use: [{ loader: "url-loader", options: { "mimetype": "image/png" } }] },
-           { test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/, use: [{ loader: "url-loader", options: { "mimetype": "application/font-woff" } }] },
-           { test: /\.(ttf|eot|svg)(\?.*)?$/, use: [{ loader: "file-loader", options: { "name": "[name].[ext]" } }] }
-        ]
+      rules: [
+        {
+          test: /\.(ts|tsx)$/,
+          loader: 'awesome-typescript-loader',
+          options: {
+            useCache: true,
+            useBabel: false,
+          }
+        },
+        {
+          test: /\.(js|mjs)$/,
+          include: /node_modules/,
+          type: "javascript/auto"
+        },
+        {
+          test: /\.css$/,
+          use: [
+            { loader: "style-loader" },
+            { loader: "css-loader" }
+          ]
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            { loader: "style-loader" },
+            { loader: "css-loader" },
+            { loader: "sass-loader" }
+          ]
+        },
+        { test: /\.gif$/, use: [{ loader: "url-loader", options: { "mimetype": "image/gif" } }] },
+        { test: /\.png$/, use: [{ loader: "url-loader", options: { "mimetype": "image/png" } }] },
+        { test: /\.svg$/, use: [{ loader: "url-loader", options: { "mimetype": "image/svg+xml" } }] },
+        { test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/, use: [{ loader: "url-loader", options: { "mimetype": "application/font-woff" } }] },
+        { test: /\.(ttf|eot)(\?.*)?$/, use: [{ loader: "file-loader", options: { "name": "[name].[ext]" } }] }
+      ]
     },
     plugins: [
-        new webpack.DllReferencePlugin({
-            context: path.join(__dirname, "App"),
-            manifest: require("./wwwroot/dist/vendor-manifest.json")
-        }),
-        //new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
-        //new webpack.optimize.UglifyJsPlugin(),
-        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
-        new AssetsPlugin({
-            path: path.join(__dirname, "wwwroot", "dist")
-        }),
-        new WebpackNotifierPlugin({ alwaysNotify: true }),
-        new CopyWebpackPlugin([
-            { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, "wwwroot/dist/es6-promise.auto.min.js") },
-            { from: 'node_modules/es6-object-assign/dist/object-assign-auto.min.js', to: path.join(__dirname, "wwwroot/dist/object-assign-auto.min.js") },
-            { from: 'node_modules/whatwg-fetch/dist/fetch.umd.js', to: path.join(__dirname, "wwwroot/dist/fetch.js") },
-            { from: 'node_modules/abortcontroller-polyfill/dist/polyfill-patch-fetch.js', to: path.join(__dirname, 'wwwroot/dist/polyfill-patch-fetch.js') },
-        ])
+      new ForkTsCheckerWebpackPlugin({
+        checkSyntacticErrors: true,
+        reportFiles: [
+          'App/**/*.{ts,tsx}',
+          '!**/*.json',
+        ],
+        watch: "./App",
+        silent: true,
+      }),
+      // Ignore all locale files of moment.js
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new AssetsPlugin({
+        path: path.join(__dirname, "wwwroot", "dist")
+      }),
+      new WebpackNotifierPlugin({ alwaysNotify: true }),
     ],
+  }
 }

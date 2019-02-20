@@ -15,13 +15,13 @@
       "problemMatcher": []
     },
     {
-      "label": "yarn watch",
+      "label": "yarn start",
       "type": "shell",
       "options": {
         "cwd": "${workspaceFolder}/Southwind.React"
       },
       "windows": {
-        "command": "yarn watch"
+        "command": "yarn start"
       },
       "problemMatcher": []
     },

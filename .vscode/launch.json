@@ -9,14 +9,14 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.Load/bin/Debug/netcoreapp2.1/Southwind.Load.dll",
+      "program": "${workspaceFolder}/Southwind.Load/bin/Debug/netcoreapp2.2/Southwind.Load.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Southwind.Load/bin/Debug/netcoreapp2.1/",
+      "cwd": "${workspaceFolder}/Southwind.Load/bin/Debug/netcoreapp2.2/",
       "console": "integratedTerminal",
       "stopAtEntry": false,
       "internalConsoleOptions": "openOnSessionStart",
       "env": {
-        "ASPNETCORE_ENVIRONMENT": "dev"
+        "ASPNETCORE_ENVIRONMENT": "test"
       },
     },
     {
@@ -24,7 +24,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.React/bin/x64/Debug/netcoreapp2.1/Southwind.React.dll",
+      "program": "${workspaceFolder}/Southwind.React/bin/netcoreapp2.2/Southwind.React.dll",
       "args": [],
       "cwd": "${workspaceFolder}/Southwind.React/",
       "stopAtEntry": false,
@@ -44,7 +44,7 @@
         }
       },
       "env": {
-        "ASPNETCORE_ENVIRONMENT": "dev"
+        "ASPNETCORE_ENVIRONMENT": "test"
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"

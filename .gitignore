@@ -39,3 +39,4 @@ Southwind.React/Translations/*
 Southwind.React/CodeGen/*
 /Southwind.React/wwwroot/dist/*
 /Southwind.React/web.config
+.awcache
