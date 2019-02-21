@@ -46,6 +46,9 @@ module.exports = env => {
           test: /\.(ts|tsx)$/,
           loader: 'awesome-typescript-loader',
           options: {
+            useCache: true,
+            useBabel: false,
+            transpileOnly: true,
             reportFiles: [
               "App/**/*.{ts,tsx}"
             ]
@@ -94,7 +97,7 @@ module.exports = env => {
       new AssetsPlugin({
         path: path.join(__dirname, "wwwroot", "dist")
       }),
-      new WebpackNotifierPlugin({ alwaysNotify: true }),
+      new WebpackNotifierPlugin({ title: 'Signum', excludeWarnings: true, alwaysNotify: true }),
     ],
   }
 }
