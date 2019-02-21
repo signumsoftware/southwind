@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const node_modules = path.join(__dirname, "node_modules");
 
@@ -45,8 +46,9 @@ module.exports = env => {
           test: /\.(ts|tsx)$/,
           loader: 'awesome-typescript-loader',
           options: {
-            useCache: true,
-            useBabel: false,
+            reportFiles: [
+              "App/**/*.{ts,tsx}"
+            ]
           }
         },
         {
@@ -83,9 +85,10 @@ module.exports = env => {
           'App/**/*.{ts,tsx}',
           '!**/*.json',
         ],
-        watch: "./App",
+        watch: "App",
         silent: true,
       }),
+      new HardSourceWebpackPlugin(),
       // Ignore all locale files of moment.js
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new AssetsPlugin({
