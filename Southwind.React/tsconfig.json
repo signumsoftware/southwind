@@ -9,7 +9,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "noEmit": false,
+    "noEmit": true,
     "isolatedModules": true,
     "jsx": "react",
     "baseUrl": ".",
