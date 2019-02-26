@@ -31,6 +31,26 @@ module.exports = env => {
       filename: "bundle.[name].[chunkhash].js",
       chunkFilename: "bundle.[name].[chunkhash].js"
     },
+    optimization: {
+      runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        minSize: 0,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              // get the name. E.g. node_modules/packageName/not/this/part.js
+              // or node_modules/packageName
+              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              // npm package names are URL-safe, but some servers don't like @ symbols
+              return `npm.${packageName.replace('@', '')}`;
+            },
+          },
+        },
+      },
+    },
     resolve: {
       modules: [node_modules],
       extensions: ['.js', '.tsx', '.ts', '.tsx', ".mjs"],
@@ -66,14 +86,6 @@ module.exports = env => {
             { loader: "css-loader" }
           ]
         },
-        {
-          test: /\.scss$/,
-          use: [
-            { loader: "style-loader" },
-            { loader: "css-loader" },
-            { loader: "sass-loader" }
-          ]
-        },
         { test: /\.gif$/, use: [{ loader: "url-loader", options: { "mimetype": "image/gif" } }] },
         { test: /\.png$/, use: [{ loader: "url-loader", options: { "mimetype": "image/png" } }] },
         { test: /\.svg$/, use: [{ loader: "url-loader", options: { "mimetype": "image/svg+xml" } }] },
@@ -82,6 +94,7 @@ module.exports = env => {
       ]
     },
     plugins: [
+      new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
       new ForkTsCheckerWebpackPlugin({
         checkSyntacticErrors: true,
         reportFiles: [
