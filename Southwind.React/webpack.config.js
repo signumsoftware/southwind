@@ -35,7 +35,7 @@ module.exports = env => {
       splitChunks: {
         cacheGroups: {
           vendor: {
-            test: /[\\/]node_modules[\\/](^react|query-string|moment|numbro|moment-duration-format|d3)[\\/]/,
+            test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-widgets|react-popper|react-overlays|query-string|moment|numbro|moment-duration-format|d3)[\\/]/,
             name: 'vendor',
             chunks: 'all',
           }
