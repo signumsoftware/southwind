@@ -3,9 +3,10 @@ import { ProductEntity, ProductPredictorPublication } from '../Southwind.Entitie
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '@framework/Lines'
 import * as Finder from '@framework/Finder';
 import { is, liteKey } from '@framework/Signum.Entities';
-import { ajaxPost, useAPI } from '@framework/Services';
+import { ajaxPost } from '@framework/Services';
 import { Gradient, Color } from '@extensions/Basics/Color';
 import { toLite } from '@framework/Signum.Entities';
+import { useAPI } from '@framework/Hooks';
 import { classes } from '@framework/Globals';
 import { EntityControlMessage } from '@framework/Signum.Entities';
 import { PredictorEntity } from '@extensions/MachineLearning/Signum.Entities.MachineLearning';
