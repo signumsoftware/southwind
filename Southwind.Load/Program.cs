@@ -33,27 +33,12 @@ using System.IO;
 
 namespace Southwind.Load
 {
-    public class ReactHookConv : ReactHookConverter
-    {
-        public override IEnumerable<string> SelectFiles(string folder, IEnumerable<string> files)
-        {
-            return base.SelectFiles(folder, files.OrderBy(a => a));
-        }
-
-        public override string GetFolder()
-        {
-            return @"D:\Signum\southwind\Extensions\Signum.React.Extensions\";
-        }
-    }
-
     class Program
     {
         public static IConfigurationRoot ConfigRoot;
 
         static int Main(string[] args)
         {
-            CodeGenerator.Hook = new ReactHookConv();
-
             try
             {
                 using (AuthLogic.Disable())
