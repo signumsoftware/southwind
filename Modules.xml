@@ -122,7 +122,9 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //1"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //2"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\SouthwindClient.tsx" From="{/*Files*/ }" To="{/*Files*/ }"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" Line="&lt;FileLine ctx={ctx.subCtx(c => c.picture)} onChange={() => this.forceUpdate()} />"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" Line="const forceUpdate = useForceUpdate();"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" Line="const maxDimensions: React.CSSProperties = { maxWidth: &quot;96px&quot;, maxHeight: &quot;96px&quot; };"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" Line="&lt;FileLine ctx={ctx.subCtx(c => c.picture)} onChange={() => forceUpdate()} />"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" From="&lt;div className=&quot;col-sm-3&quot;>{/*photo*/}" To="&lt;/div>{/*photo*/}"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Employee.tsx" From="{/*photo*/}" To="{/*photo*/}"/>
     </Module>
