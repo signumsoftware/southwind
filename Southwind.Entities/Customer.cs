@@ -90,7 +90,7 @@ namespace Southwind.Entities
     public class CompanyEntity : CustomerEntity
     {
         [StringLengthValidator(Min = 3, Max = 40)]
-        public string? CompanyName { get; set; }
+        public string CompanyName { get; set; }
 
         [StringLengthValidator(Min = 3, Max = 30)]
         public string ContactName { get; set; }

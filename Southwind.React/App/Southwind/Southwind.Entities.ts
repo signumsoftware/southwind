@@ -71,7 +71,7 @@ export module CategoryOperation {
 export const CompanyEntity = new Type<CompanyEntity>("Company");
 export interface CompanyEntity extends CustomerEntity {
   Type: "Company";
-  companyName: string | null;
+  companyName: string;
   contactName: string;
   contactTitle: string;
 }
