@@ -165,26 +165,19 @@ namespace Southwind.Logic
                     }
                 }.Register();
 
-                new Execute(OrderOperation.SaveNew)
+                new Execute(OrderOperation.Save)
                 {
-                    FromStates = { OrderState.New },
+                    FromStates = { OrderState.New, OrderState.Ordered },
                     ToStates = { OrderState.Ordered },
                     CanBeNew = true,
                     CanBeModified = true,
                     Execute = (o, args) =>
                     {
-                        o.OrderDate = DateTime.Now;
+                        if (o.IsNew)
+                        {
+                            o.OrderDate = DateTime.Now;
+                        }
                         o.State = OrderState.Ordered;
-                    }
-                }.Register();
-
-                new Execute(OrderOperation.Save)
-                {
-                    FromStates = { OrderState.Ordered },
-                    ToStates = { OrderState.Ordered },
-                    CanBeModified = true,
-                    Execute = (o, _) =>
-                    {
                     }
                 }.Register();
 

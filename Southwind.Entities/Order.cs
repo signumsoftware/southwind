@@ -123,7 +123,6 @@ namespace Southwind.Entities
     public static class OrderOperation
     {
         public static ConstructSymbol<OrderEntity>.Simple Create;
-        public static ExecuteSymbol<OrderEntity> SaveNew;
         public static ExecuteSymbol<OrderEntity> Save;
         public static ExecuteSymbol<OrderEntity> Ship;
         public static ExecuteSymbol<OrderEntity> Cancel;
