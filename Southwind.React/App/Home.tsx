@@ -42,7 +42,7 @@ export default class Home extends React.Component<{}, { loaded: boolean }> {
           <p className="lead">Southwind is a demo application from <a href="http://www.signumsoftware.com" title="Signum Software">Signum Software</a> based on Northwind database from Microsoft:</p>
           <p>
             To learn more about Signum Framework visit <a href="http://www.signumframework.com" title="Signum Framework">http://www.signumframework.com</a>.
-                    </p>
+          </p>
           <p> To be effective in Signum React you will also need to know:</p>
           <ul>
             <li><a href="http://www.typescriptlang.org/" title="Typescript">Typescript</a></li>
