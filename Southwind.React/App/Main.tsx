@@ -85,6 +85,9 @@ library.add(fas, far);
 Navigator.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle + " - Southwind" : "Southwind");
 Navigator.setTitle();
 
+//require('moment/locale/en');
+require('moment/locale/es');
+
 numbro.registerLanguage(require<any>("numbro/dist/languages/en-GB.min"));
 numbro.registerLanguage(require<any>("numbro/dist/languages/es-ES.min"));
 
