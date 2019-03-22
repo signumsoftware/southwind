@@ -6,7 +6,7 @@
     "TEST": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "live"
+        "ASPNETCORE_ENVIRONMENT": "test"
       }
     },
     "LIVE": {
