@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Signum.Engine;
 using Signum.Engine.Maps;
 using Signum.Entities;
@@ -26,6 +26,7 @@ namespace Southwind.Load.NorthwindSchema
         }
     }
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized.
     public class Categories : IView
     {
         [ViewPrimaryKey]

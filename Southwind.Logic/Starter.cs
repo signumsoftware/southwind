@@ -79,7 +79,7 @@ namespace Southwind.Logic
                 StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
                 StartParameters.IgnoredCodeErrors = new List<Exception>();
 
-                string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
+                string? logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
                 SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial };
                 sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
@@ -91,7 +91,7 @@ namespace Southwind.Logic
                 OverrideAttributes(sb);
 
                 var detector = SqlServerVersionDetector.Detect(connectionString);
-                Connector.Default = new SqlConnector(connectionString, sb.Schema, detector.Value);
+                Connector.Default = new SqlConnector(connectionString, sb.Schema, detector!.Value);
 
                 CacheLogic.Start(sb);
 
@@ -157,15 +157,9 @@ namespace Southwind.Logic
                 HelpLogic.Start(sb);
                 WordTemplateLogic.Start(sb);
                 MapLogic.Start(sb);
-                PredictorLogic.Start(sb, () => new FileTypeAlgorithm
-                {
-                    GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
-                });
+                PredictorLogic.Start(sb, () => new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)));
                 PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
-                PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
-                {
-                    QueryName = typeof(OrderEntity)
-                }); //ProductPredictorPublication
+                PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));
 
                 RestLogLogic.Start(sb);
                 RestApiKeyLogic.Start(sb);
@@ -207,14 +201,14 @@ namespace Southwind.Logic
             {
             }
 
-            public string LogDatabaseName;
+            public string? LogDatabaseName;
 
-            public override ObjectName GenerateTableName(Type type, TableNameAttribute tn)
+            public override ObjectName GenerateTableName(Type type, TableNameAttribute? tn)
             {
                 return base.GenerateTableName(type, tn).OnSchema(GetSchemaName(type));
             }
 
-            public override ObjectName GenerateTableNameCollection(Table table, NameSequence name, TableNameAttribute tn)
+            public override ObjectName GenerateTableNameCollection(Table table, NameSequence name, TableNameAttribute? tn)
             {
                 return base.GenerateTableNameCollection(table, name, tn).OnSchema(GetSchemaName(table.Type));
             }
@@ -229,7 +223,8 @@ namespace Southwind.Logic
                 typeof(OperationLogEntity),
                 typeof(ExceptionEntity),
             };
-            DatabaseName GetDatabaseName(Type type)
+
+            DatabaseName? GetDatabaseName(Type type)
             {
                 if (this.LogDatabaseName == null)
                     return null;
@@ -240,7 +235,7 @@ namespace Southwind.Logic
                 return null;
             }
 
-            static string GetSchemaNameName(Type type)
+            static string? GetSchemaNameName(Type type)
             {
                 type = EnumEntity.Extract(type) ?? type;
 
@@ -304,7 +299,7 @@ namespace Southwind.Logic
             sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.From.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
-            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.DefaultFrom.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.DefaultFrom!.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ScheduledTaskEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));

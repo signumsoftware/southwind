@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,32 +16,26 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
     public class ApplicationConfigurationEntity : Entity
     {
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
+        [StringLengthValidator(Min = 3, Max = 100)]
         public string Environment { get; set; }
 
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
+        [StringLengthValidator(Min = 3, Max = 100)]
         public string DatabaseName { get; set; }
 
         /*Email*/
-        [NotNullValidator]
         public EmailConfigurationEmbedded Email { get; set; }
 
-        [NotNullValidator]/*Smtp*/
         public SmtpConfigurationEntity SmtpConfiguration { get; set; }
 
         /*Sms*/
-        [NotNullValidator]
         public SMSConfigurationEmbedded Sms { get; set; }
 
         /*AuthTokens*/
-        [NotNullValidator]
         public AuthTokenConfigurationEmbedded AuthTokens { get; set; }
 
         /*Workflow*/
-        [NotNullValidator]
         public WorkflowConfigurationEmbedded Workflow { get; set; }
 
-        [NotNullValidator]
         public FoldersConfigurationEmbedded Folders { get; set; }
     }
 
@@ -63,7 +57,7 @@ namespace Southwind.Entities
     public class FoldersConfigurationEmbedded : EmbeddedEntity
     {
         /*Predictor*/
-        [StringLengthValidator(AllowNulls = false, Max = 300), FileNameValidator]
+        [StringLengthValidator(Max = 300), FileNameValidator]
         public string PredictorModelFolder { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,12 +16,15 @@ namespace Southwind.Load
     internal static class ProductLoader
     {
 #pragma warning disable 0649
+#pragma warning disable CS8618 // Non-nullable field is uninitialized.
         public class SupplierFaxCSV
         {
             public int SupplierID;
             public string Fax;
         }
+#pragma warning restore CS8618 // Non-nullable field is uninitialized.
 #pragma warning restore 0649
+
         public static void LoadSuppliers()
         {
             var suppliers = Connector.Override(Northwind.Connector).Using(_ => Database.View<Suppliers>().ToList());
@@ -71,12 +74,12 @@ namespace Southwind.Load
                 var p = new ProductEntity
                 {
                     ProductName = s.ProductName,
-                    Supplier = Lite.Create<SupplierEntity>(s.SupplierID.Value),
-                    Category = Lite.Create<CategoryEntity>(s.CategoryID.Value),
+                    Supplier = Lite.Create<SupplierEntity>(s.SupplierID!.Value),
+                    Category = Lite.Create<CategoryEntity>(s.CategoryID!.Value),
                     QuantityPerUnit = s.QuantityPerUnit,
-                    UnitPrice = s.UnitPrice.Value,
-                    UnitsInStock = s.UnitsInStock.Value,
-                    ReorderLevel = s.ReorderLevel.Value,
+                    UnitPrice = s.UnitPrice!.Value,
+                    UnitsInStock = s.UnitsInStock!.Value,
+                    ReorderLevel = s.ReorderLevel!.Value,
                     Discontinued = s.Discontinued,
                 }.SetId(s.ProductID);
 

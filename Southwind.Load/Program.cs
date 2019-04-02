@@ -79,7 +79,7 @@ namespace Southwind.Load
 
                     while (true)
                     {
-                        Action action = new ConsoleSwitch<string, Action>
+                        Action? action = new ConsoleSwitch<string, Action>
                         {
                             {"N", NewDatabase},
                             {"G", CodeGenerator.GenerateCodeConsole },
@@ -107,7 +107,7 @@ namespace Southwind.Load
 
 
 
-        private static void Load(string[] args)
+        private static void Load(string[]? args)
         {
             Schema.Current.Initialize();
 
@@ -151,7 +151,7 @@ namespace Southwind.Load
             Console.WriteLine("executing it in SQL Server Management Studio: ");
             Console.WriteLine();
 
-            SqlPreCommand command = Administrator.TotalSynchronizeScript();
+            SqlPreCommand? command = Administrator.TotalSynchronizeScript();
             if (command == null)
             {
                 SafeConsole.WriteLineColor(ConsoleColor.Green, "Already synchronized!");

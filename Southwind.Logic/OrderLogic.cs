@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -110,7 +110,7 @@ namespace Southwind.Logic
                             Customer = customer,
                             ShipAddress = customer?.Address.Clone(),
                             State = OrderState.New,
-                            Employee = EmployeeEntity.Current,
+                            Employee = EmployeeEntity.Current!,
                             RequiredDate = DateTime.Now.AddDays(3),
                         };
                     }
@@ -123,7 +123,7 @@ namespace Southwind.Logic
                     {
                         State = OrderState.New,
                         Customer = c,
-                        Employee = EmployeeEntity.Current,
+                        Employee = EmployeeEntity.Current!,
                         ShipAddress = c.Address,
                         RequiredDate = DateTime.Now.AddDays(3),
                     }
@@ -145,7 +145,7 @@ namespace Southwind.Logic
                             Customer = customer,
                             ShipAddress = customer?.Address.Clone(),
                             State = OrderState.New,
-                            Employee = EmployeeEntity.Current,
+                            Employee = EmployeeEntity.Current!,
                             RequiredDate = DateTime.Now.AddDays(3),
                             Details = prods.Select(p => new OrderDetailEmbedded
                             {
@@ -165,26 +165,19 @@ namespace Southwind.Logic
                     }
                 }.Register();
 
-                new Execute(OrderOperation.SaveNew)
+                new Execute(OrderOperation.Save)
                 {
-                    FromStates = { OrderState.New },
+                    FromStates = { OrderState.New, OrderState.Ordered },
                     ToStates = { OrderState.Ordered },
                     CanBeNew = true,
                     CanBeModified = true,
                     Execute = (o, args) =>
                     {
-                        o.OrderDate = DateTime.Now;
+                        if (o.IsNew)
+                        {
+                            o.OrderDate = DateTime.Now;
+                        }
                         o.State = OrderState.Ordered;
-                    }
-                }.Register();
-
-                new Execute(OrderOperation.Save)
-                {
-                    FromStates = { OrderState.Ordered },
-                    ToStates = { OrderState.Ordered },
-                    CanBeModified = true,
-                    Execute = (o, _) =>
-                    {
                     }
                 }.Register();
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28531.58
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Framework", "1.Framework", "{8636251D-0291-4B49-BD87-644F49A928F4}"
 EndProject
@@ -93,10 +93,10 @@ Global
 		{4B17650F-0340-4CA0-A983-A2ECB8AC2629}.Debug|x64.Build.0 = Debug|x64
 		{4B17650F-0340-4CA0-A983-A2ECB8AC2629}.Release|x64.ActiveCfg = Release|x64
 		{4B17650F-0340-4CA0-A983-A2ECB8AC2629}.Release|x64.Build.0 = Release|x64
-		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Debug|x64.ActiveCfg = Debug|x64
-		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Debug|x64.Build.0 = Debug|x64
-		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Release|x64.ActiveCfg = Release|x64
-		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Release|x64.Build.0 = Release|x64
+		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Debug|x64.Build.0 = Debug|Any CPU
+		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Release|x64.ActiveCfg = Release|Any CPU
+		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Release|x64.Build.0 = Release|Any CPU
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.Debug|x64.ActiveCfg = Debug|x64
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.Debug|x64.Build.0 = Debug|x64
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.Release|x64.ActiveCfg = Release|x64

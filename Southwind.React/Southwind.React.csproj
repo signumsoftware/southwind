@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <TypeScriptToolsVersion>3.4</TypeScriptToolsVersion>
+    <LangVersion>8.0</LangVersion>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+    <NullableContextOptions>enable</NullableContextOptions>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Platforms>x64</Platforms>
     <IsPackable>false</IsPackable>
-    <LangVersion>latest</LangVersion>
-    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <UserSecretsId>Southwind</UserSecretsId>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
@@ -42,12 +44,12 @@
   <ItemGroup>
     <PackageReference Include="CNTK.CPUOnly" Version="2.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Signum.Analyzer" Version="1.0.1" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.4.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Signum.TSGenerator" Version="1.0.3" />
+    <PackageReference Include="Signum.Analyzer" Version="1.0.1" />
+    <PackageReference Include="Signum.TSGenerator" Version="2.0.0-beta2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 

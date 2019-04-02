@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -83,13 +83,13 @@ namespace Southwind.Load
             })
             .ToList());
 
-            Administrator.SaveListDisableIdentity(employees.Select(a=>a.employee));
+            Administrator.SaveListDisableIdentity(employees.Select(a=>a.employee!)); /*CSBUG*/
 
-            var dictionary = employees.Select(a => a.employee).ToDictionary(a => a.Id);
+            var dictionary = employees.Select(a => a.employee!).ToDictionary(a => a.Id); /*CSBUG*/
 
             foreach (var pair in employees)
             {
-                pair.employee.ReportsTo = pair.ReportsTo == null ? null : dictionary.GetOrThrow(pair.ReportsTo.Value).ToLite();
+                pair.employee!.ReportsTo = pair.ReportsTo == null ? null : dictionary.GetOrThrow(pair.ReportsTo!.Value).ToLite();
             }
 
             dictionary.Values.SaveList();
@@ -108,7 +108,7 @@ namespace Southwind.Load
             {
                 var roles = Database.Query<RoleEntity>().ToDictionary(a => a.Name);
 
-                var employees = Database.Query<EmployeeEntity>().OrderByDescending(a => a.Notes.Length).ToList();
+                var employees = Database.Query<EmployeeEntity>().OrderByDescending(a => a.Notes!.Length).ToList();
 
                 employees.Select((employee, i) => new UserEntity
                 {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,41 +16,40 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
     public class EmployeeEntity : Entity
     {
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 20)]
+        [StringLengthValidator(Min = 3, Max = 20)]
         public string LastName { get; set; }
 
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 10)]
+        [StringLengthValidator(Min = 3, Max = 10)]
         public string FirstName { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 30)]
-        public string Title { get; set; }
+        [StringLengthValidator(Min = 3, Max = 30)]
+        public string? Title { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 25)]
-        public string TitleOfCourtesy { get; set; }
+        [StringLengthValidator(Min = 3, Max = 25)]
+        public string? TitleOfCourtesy { get; set; }
 
         [DateTimePrecisionValidator(DateTimePrecision.Days)]
         public DateTime? BirthDate { get; set; }
 
         public DateTime? HireDate { get; set; }
 
-        [NotNullValidator]
         public AddressEmbedded Address { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 25), TelephoneValidator]
-        public string HomePhone { get; set; }
+        [StringLengthValidator(Min = 3, Max = 25), TelephoneValidator]
+        public string? HomePhone { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 4), TelephoneValidator]
-        public string Extension { get; set; }
+        [StringLengthValidator(Min = 3, Max = 4), TelephoneValidator]
+        public string? Extension { get; set; }
 
-        public Lite<FileEntity> Photo { get; set; }
+        public Lite<FileEntity>? Photo { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, MultiLine = true)]
-        public string Notes { get; set; }
+        [StringLengthValidator(Min = 3, MultiLine = true)]
+        public string? Notes { get; set; }
 
-        public Lite<EmployeeEntity> ReportsTo { get; set; }
+        public Lite<EmployeeEntity>? ReportsTo { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 255), URLValidator]
-        public string PhotoPath { get; set; }
+        [StringLengthValidator(Min = 3, Max = 255), URLValidator]
+        public string? PhotoPath { get; set; }
 
         [NoRepeatValidator, NoRepeatValidator]
         public MList<TerritoryEntity> Territories { get; set; } = new MList<TerritoryEntity>();
@@ -60,7 +59,7 @@ namespace Southwind.Entities
             return "{0} {1}".FormatWith(FirstName, LastName);
         }
 
-        public static Lite<EmployeeEntity> Current
+        public static Lite<EmployeeEntity>? Current
         {
             get { return UserEntity.Current.Mixin<UserEmployeeMixin>().Employee; } //get { return null; }
         } //Current
@@ -75,11 +74,10 @@ namespace Southwind.Entities
     [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
     public class TerritoryEntity : Entity
     {
-        [NotNullValidator]
         public RegionEntity Region { get; set; }
 
         [UniqueIndex]
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
+        [StringLengthValidator(Min = 3, Max = 100)]
         public string Description { get; set; }
 
         static Expression<Func<TerritoryEntity, string>> ToStringExpression = e => e.Description;
@@ -100,7 +98,7 @@ namespace Southwind.Entities
     public class RegionEntity : Entity
     {
         [UniqueIndex]
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 50)]
+        [StringLengthValidator(Min = 3, Max = 50)]
         public string Description { get; set; }
 
         static Expression<Func<RegionEntity, string>> ToStringExpression = e => e.Description;

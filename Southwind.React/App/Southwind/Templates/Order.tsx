@@ -12,7 +12,7 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
   function handleCustomerChange(c: ChangeEvent) {
     var order = p.ctx.value;
     var customer = c.newValue as CustomerEntity; //order.customer will also work
-    order.shipAddress = c.newValue == undefined ? undefined : AddressEmbedded.New({ ...customer.address });
+    order.shipAddress = c.newValue == null ? null! : AddressEmbedded.New({ ...customer.address });
     order.modified = true;
     forceUpdate();
   }

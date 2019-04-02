@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +11,22 @@ namespace Southwind.Entities
     [Serializable]
     public class AddressEmbedded : EmbeddedEntity
     {
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 60, MultiLine = true)]
+        [StringLengthValidator(Min = 3, Max = 60, MultiLine = true)]
         public string Address { get; set; }
 
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 15)]
+        [StringLengthValidator(Min = 3, Max = 15)]
         public string City { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 2, Max = 15)]
-        public string Region { get; set; }
+        [StringLengthValidator(Min = 2, Max = 15)]
+        public string? Region { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 10)]
-        public string PostalCode { get; set; }
+        [StringLengthValidator(Min = 3, Max = 10)]
+        public string? PostalCode { get; set; }
 
-        [StringLengthValidator(AllowNulls = false, Min = 2, Max = 15)]
+        [StringLengthValidator(Min = 2, Max = 15)]
         public string Country { get; set; }
 
-        protected override string PropertyValidation(PropertyInfo pi)
+        protected override string? PropertyValidation(PropertyInfo pi)
         {
             if (pi.Name == nameof(PostalCode))
             {

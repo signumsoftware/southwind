@@ -280,10 +280,10 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
             // 2 user preference
             if (UserEntity.Current?.CultureInfo != null)
-                return UserEntity.Current.CultureInfo.ToCultureInfo();
+                return UserEntity.Current.CultureInfo!.ToCultureInfo();
 
             //3 requestCulture or default
-            CultureInfo ciRequest = TranslationServer.GetCultureRequest(context);
+            CultureInfo? ciRequest = TranslationServer.GetCultureRequest(context);
             if (ciRequest != null)
                 return ciRequest;
 
