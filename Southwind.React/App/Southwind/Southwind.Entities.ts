@@ -168,7 +168,6 @@ export module OrderMessage {
 
 export module OrderOperation {
   export const Create : Entities.ConstructSymbol_Simple<OrderEntity> = registerSymbol("Operation", "OrderOperation.Create");
-  export const SaveNew : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.SaveNew");
   export const Save : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Save");
   export const Ship : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Ship");
   export const Cancel : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Cancel");
