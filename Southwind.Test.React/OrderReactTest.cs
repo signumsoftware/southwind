@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Entities;
@@ -45,7 +45,7 @@ namespace Southwind.Test.React
 
                             Assert.Equal(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
 
-                            order.Execute(OrderOperation.SaveNew);
+                            order.Execute(OrderOperation.Save);
 
                             lite = order.GetLite();
 

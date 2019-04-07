@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Signum.Engine;
 using Signum.Engine.Authorization;
@@ -32,7 +32,7 @@ namespace Southwind.Test.Logic
 
                     var line = order.AddLine(sonic);
 
-                    order.Execute(OrderOperation.SaveNew);
+                    order.Execute(OrderOperation.Save);
 
                     Assert.Equal(order.TotalPrice, sonic.UnitPrice);
 
