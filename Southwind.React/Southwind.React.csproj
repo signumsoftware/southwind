@@ -28,17 +28,25 @@
     <Compile Remove="CodeGen\**" />
     <Compile Remove="dist\**" />
     <Compile Remove="Translations\**" />
+    <Compile Remove="ts_out\**" />
     <Content Remove="CodeGen\**" />
     <Content Remove="dist\**" />
     <Content Remove="Translations\**" />
+    <Content Remove="ts_out\**" />
     <EmbeddedResource Remove="CodeGen\**" />
     <EmbeddedResource Remove="dist\**" />
     <EmbeddedResource Remove="Translations\**" />
+    <EmbeddedResource Remove="ts_out\**" />
     <None Remove="CodeGen\**" />
     <None Remove="dist\**" />
     <None Remove="Translations\**" />
+    <None Remove="ts_out\**" />
     <TypeScriptCompile Include="**\*.tsx" />
     <TypeScriptCompile Include="**\*.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Remove="ts_out\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,7 +57,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Signum.Analyzer" Version="1.0.1" />
-    <PackageReference Include="Signum.TSGenerator" Version="2.0.0" />
+    <PackageReference Include="Signum.TSGenerator" Version="2.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
