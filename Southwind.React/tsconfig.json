@@ -30,4 +30,8 @@
     "../Framework/Signum.React/ts_out",
     "../Extensions/Signum.React.Extensions/ts_out"
   ],
+  //"references": [
+  //  { "path": "../Framework/Signum.React" },
+  //  { "path": "../Extensions/Signum.React.Extensions" }
+  //]
 }
