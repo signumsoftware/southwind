@@ -102,9 +102,9 @@ export interface EmployeeEntity extends Entities.Entity {
   address: AddressEmbedded;
   homePhone: string | null;
   extension: string | null;
-  photo: Entities.Lite<Files.FileEntity>;
+  photo: Entities.Lite<Files.FileEntity> | null;
   notes: string | null;
-  reportsTo: Entities.Lite<EmployeeEntity>;
+  reportsTo: Entities.Lite<EmployeeEntity> | null;
   photoPath: string | null;
   territories: Entities.MList<TerritoryEntity>;
 }
@@ -141,7 +141,7 @@ export interface OrderEntity extends Entities.Entity {
   requiredDate: string;
   shippedDate: string | null;
   cancelationDate: string | null;
-  shipVia: Entities.Lite<ShipperEntity>;
+  shipVia: Entities.Lite<ShipperEntity> | null;
   shipName: string | null;
   shipAddress: AddressEmbedded;
   freight: number;
@@ -153,8 +153,8 @@ export interface OrderEntity extends Entities.Entity {
 export const OrderFilterModel = new Type<OrderFilterModel>("OrderFilterModel");
 export interface OrderFilterModel extends Entities.ModelEntity {
   Type: "OrderFilterModel";
-  customer: Entities.Lite<CustomerEntity>;
-  employee: Entities.Lite<EmployeeEntity>;
+  customer: Entities.Lite<CustomerEntity> | null;
+  employee: Entities.Lite<EmployeeEntity> | null;
   minOrderDate: string | null;
   maxOrderDate: string | null;
 }
@@ -291,7 +291,7 @@ export const UserEmployeeMixin = new Type<UserEmployeeMixin>("UserEmployeeMixin"
 export interface UserEmployeeMixin extends Entities.MixinEntity {
   Type: "UserEmployeeMixin";
   allowLogin: AllowLogin;
-  employee: Entities.Lite<EmployeeEntity>;
+  employee: Entities.Lite<EmployeeEntity> | null;
 }
 
 
