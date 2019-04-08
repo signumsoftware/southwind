@@ -23,7 +23,7 @@ namespace Southwind.Test.React
         {
             Browse("Normal", b =>
             {
-                Lite<OrderEntity> lite = null;
+                Lite<OrderEntity>? lite = null;
                 try
                 {
                     b.SearchPage(typeof(PersonEntity)).Using(persons =>

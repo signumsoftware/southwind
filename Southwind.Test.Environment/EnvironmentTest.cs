@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
@@ -38,7 +38,7 @@ namespace Southwind.Test.Environment
                 SouthwindEnvironment.LoadCustomers();
                 SouthwindEnvironment.LoadShippers();
 
-                AuthLogic.ImportRulesScript(authRules, interactive: false).PlainSqlCommand().ExecuteLeaves();
+                AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();
             }
 
             OperationLogic.AllowSaveGlobally = false;
