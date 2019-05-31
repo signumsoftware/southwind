@@ -281,7 +281,7 @@
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\..\Southwind.Load\AuthRules.xml&quot;);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
-      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules, interactive: false).PlainSqlCommand().ExecuteLeaves();"/>
+      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();"/>
     </Module>
 
     <Module Name="Translation">
@@ -410,8 +410,8 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
-      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.6.0&quot; />"/>
-      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.6.0&quot; />"/>
+      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.7.0&quot; />"/>
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.7.0&quot; />"/>
 "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot; />"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.CNTK;"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" 

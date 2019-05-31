@@ -66,8 +66,8 @@ export function start(options: { routes: JSX.Element[] }) {
 
   Finder.addSettings({
     queryName: OrderEntity,
-    simpleFilterBuilder: (qd, fop) => {
-      const model = OrderFilter.extract(fop);
+    simpleFilterBuilder: ctx => {
+      const model = OrderFilter.extract(ctx.initialFilterOptions);
 
       if (!model)
         return undefined;
