@@ -56,7 +56,7 @@ namespace Southwind.Test.React
 
                     }).EndUsing(order =>
                     {
-                        Assert.Equal(lite.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
+                        Assert.Equal(lite!.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
                     });
                 }
                 finally
