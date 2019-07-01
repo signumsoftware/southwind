@@ -22,7 +22,7 @@ using Signum.Engine.Basics;
 using Signum.Engine.Chart;
 using Signum.Engine.Dashboard;
 using Signum.Engine.Mailing;
-using Signume.Engine.Maps;
+using Signum.Engine.Maps;
 using Signum.Engine.Operations;
 using Signum.Engine.Processes;
 using Signum.Engine.Scheduler;
