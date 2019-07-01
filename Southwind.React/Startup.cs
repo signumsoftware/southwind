@@ -22,7 +22,7 @@ using Signum.Engine.Basics;
 using Signum.Engine.Chart;
 using Signum.Engine.Dashboard;
 using Signum.Engine.Mailing;
-using Signum.Engine.Maps;
+using Signume.Engine.Maps;
 using Signum.Engine.Operations;
 using Signum.Engine.Processes;
 using Signum.Engine.Scheduler;
@@ -176,7 +176,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("../swagger/v1/swagger.json", "MobileCheck API");
+                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
             });//Swagger Configure
 
             app.UseMvc(routes =>
