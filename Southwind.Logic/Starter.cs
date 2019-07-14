@@ -143,9 +143,6 @@ namespace Southwind.Logic
                 ToolbarLogic.Start(sb);
 
                 SMSLogic.Start(sb, null, () => Configuration.Value.Sms);
-                SMSLogic.RegisterPhoneNumberProvider<PersonEntity>(p => p.Phone, p => null);
-                SMSLogic.RegisterDataObjectProvider((PersonEntity p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
-                SMSLogic.RegisterPhoneNumberProvider<CompanyEntity>(p => p.Phone, p => null);
 
                 NoteLogic.Start(sb, typeof(UserEntity), /*Note*/typeof(OrderEntity));
                 AlertLogic.Start(sb, typeof(UserEntity), /*Alert*/typeof(OrderEntity));

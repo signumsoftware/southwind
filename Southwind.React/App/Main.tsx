@@ -132,7 +132,7 @@ function reload() {
 
       routes.push(<Route exact path="~/" component={Home} />);
       routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
-      AuthClient.startPublic({ routes, userTicket: true, resetPassword: true, notifyLogout: true });
+      AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true,  });
 
       const isFull = !!AuthClient.currentUser(); //true;
       if (isFull) {
