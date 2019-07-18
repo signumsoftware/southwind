@@ -103,7 +103,7 @@ namespace Southwind.Logic
                     ToStates = { OrderState.New },
                     Construct = (args) =>
                     {
-                        var customer = args.TryGetArgC<Lite<CustomerEntity>>()?.Retrieve();
+                        var customer = args.TryGetArgC<Lite<CustomerEntity>>()?.RetrieveAndForget();
 
                         return new OrderEntity
                         {
@@ -138,7 +138,7 @@ namespace Southwind.Logic
                             .Where(p => prods.Contains(p.ToLite()))
                             .Select(p => new KeyValuePair<Lite<ProductEntity>, decimal>(p.ToLite(), p.UnitPrice)).ToDictionary();
 
-                        var customer = args.TryGetArgC<Lite<CustomerEntity>>()?.Retrieve();
+                        var customer = args.TryGetArgC<Lite<CustomerEntity>>()?.RetrieveAndForget();
 
                         return new OrderEntity
                         {
