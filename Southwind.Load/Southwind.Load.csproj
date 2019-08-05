@@ -7,7 +7,7 @@
     <StartupObject>Southwind.Load.Program</StartupObject>
     <LangVersion>8.0</LangVersion>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
-    <NullableContextOptions>enable</NullableContextOptions>
+    <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <UserSecretsId>Southwind</UserSecretsId>
     <Platforms>x64</Platforms>

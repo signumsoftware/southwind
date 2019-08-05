@@ -5,7 +5,7 @@
     <TypeScriptToolsVersion>3.5</TypeScriptToolsVersion>
     <LangVersion>8.0</LangVersion>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
-    <NullableContextOptions>enable</NullableContextOptions>
+    <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Platforms>x64</Platforms>
     <IsPackable>false</IsPackable>
@@ -52,12 +52,12 @@
   <ItemGroup>
     <PackageReference Include="CNTK.CPUOnly" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.5.1">
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.5.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Signum.Analyzer" Version="2.0.0" />
-    <PackageReference Include="Signum.TSGenerator" Version="2.0.2" />
+    <PackageReference Include="Signum.TSGenerator" Version="2.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
