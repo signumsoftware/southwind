@@ -80,12 +80,8 @@ namespace Southwind.Entities
         [StringLengthValidator(Min = 3, Max = 100)]
         public string Description { get; set; }
 
-        static Expression<Func<TerritoryEntity, string>> ToStringExpression = e => e.Description;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => Description);
     }
 
     [AutoInit]
@@ -101,12 +97,8 @@ namespace Southwind.Entities
         [StringLengthValidator(Min = 3, Max = 50)]
         public string Description { get; set; }
 
-        static Expression<Func<RegionEntity, string>> ToStringExpression = e => e.Description;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => Description);
     }
 
     [AutoInit]

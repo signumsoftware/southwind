@@ -50,13 +50,8 @@ namespace Southwind.Entities
         [NoRepeatValidator, PreserveOrder]
         public MList<OrderDetailEmbedded> Details { get; set; } = new MList<OrderDetailEmbedded>();
 
-        static Expression<Func<OrderEntity, decimal>> TotalPriceExpression =
-            o => o.Details.Sum(od => od.SubTotalPrice);
-        [ExpressionField, Unit("€")]
-        public decimal TotalPrice
-        {
-            get { return TotalPriceExpression.Evaluate(this); }
-        }
+        [AutoExpressionField, Unit("€")]
+        public decimal TotalPrice => As.Expression(() => Details.Sum(od => od.SubTotalPrice));
 
         public bool IsLegacy { get; set; }
 
@@ -173,13 +168,8 @@ namespace Southwind.Entities
             }
         }
 
-        static Expression<Func<OrderDetailEmbedded, decimal>> SubTotalPriceExpression =
-            od => od.Quantity * od.UnitPrice * (decimal)(1 - od.Discount);
-        [ExpressionField, Unit("€")]
-        public decimal SubTotalPrice
-        {
-            get { return SubTotalPriceExpression.Evaluate(this); }
-        }
+        [AutoExpressionField]
+        public decimal SubTotalPrice => As.Expression(() => Quantity * UnitPrice * (decimal)(1 - Discount));
     }
 
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
@@ -192,12 +182,8 @@ namespace Southwind.Entities
         [StringLengthValidator(Min = 3, Max = 24), TelephoneValidator]
         public string Phone { get; set; }
 
-        static Expression<Func<ShipperEntity, string>> ToStringExpression = e => e.CompanyName;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => CompanyName);
     }
 
     [AutoInit]

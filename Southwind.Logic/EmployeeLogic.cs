@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,13 +18,9 @@ namespace Southwind.Logic
 {
     public static class EmployeeLogic
     {
-        static Expression<Func<RegionEntity, IQueryable<TerritoryEntity>>> TerritoriesExpression =
-            r => Database.Query<TerritoryEntity>().Where(a => a.Region == r);
-        [ExpressionField]
-        public static IQueryable<TerritoryEntity> Territories(this RegionEntity r)
-        {
-            return TerritoriesExpression.Evaluate(r);
-        }
+        [AutoExpressionField]
+        public static IQueryable<TerritoryEntity> Territories(this RegionEntity r) =>
+            As.Expression(() => Database.Query<TerritoryEntity>().Where(a => a.Region == r));
 
         public static void Start(SchemaBuilder sb)
         {

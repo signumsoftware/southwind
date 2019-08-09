@@ -98,12 +98,8 @@ namespace Southwind.Entities
         [StringLengthValidator(Min = 3, Max = 30)]
         public string ContactTitle { get; set; }
 
-        static Expression<Func<CompanyEntity, string>> ToStringExpression = e => e.CompanyName;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => CompanyName);
     }
 
     [AutoInit]

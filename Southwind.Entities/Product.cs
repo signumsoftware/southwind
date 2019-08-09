@@ -54,24 +54,15 @@ namespace Southwind.Entities
 
         public bool Discontinued { get; set; }
 
-        static Expression<Func<ProductEntity, decimal>> ValueInStockExpression =
-            p => p.unitPrice * p.unitsInStock;
-        [ExpressionField, Unit("$")]
-        public decimal ValueInStock
-        {
-            get { return ValueInStockExpression.Evaluate(this); }
-        }
+        [AutoExpressionField, Unit("$")]
+        public decimal ValueInStock => As.Expression(() => unitPrice * unitsInStock);
 
         [PreserveOrder]
         [NoRepeatValidator]
         public MList<AdditionalInformationEmbedded> AdditionalInformation { get; set; } = new MList<AdditionalInformationEmbedded>();
 
-        static Expression<Func<ProductEntity, string>> ToStringExpression = e => e.ProductName;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => ProductName);
     }
 
     [Serializable]
@@ -114,12 +105,8 @@ namespace Southwind.Entities
         [StringLengthValidator(Min = 3, MultiLine = true)]
         public string? HomePage { get; set; }
 
-        static Expression<Func<SupplierEntity, string>> ToStringExpression = e => e.CompanyName;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => CompanyName);
     }
 
     [AutoInit]
@@ -142,12 +129,8 @@ namespace Southwind.Entities
 
         public FileEmbedded? Picture { get; set; }
 
-        static Expression<Func<CategoryEntity, string>> ToStringExpression = e => e.CategoryName;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => CategoryName);
     }
 
     [AutoInit]
