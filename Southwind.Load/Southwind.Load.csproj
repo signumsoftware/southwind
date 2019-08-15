@@ -11,6 +11,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <UserSecretsId>Southwind</UserSecretsId>
     <Platforms>x64</Platforms>
+    <NoWarn>$(NoWarn);NU1605</NoWarn>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -26,8 +27,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.2.0" />
-    <PackageReference Include="Signum.Analyzer" Version="2.3.0" />
-    <PackageReference Include="Signum.MSBuildTask" Version="1.0.5" />
+    <PackageReference Include="Signum.Analyzer" Version="2.4.5" />
+    <PackageReference Include="Signum.MSBuildTask" Version="1.0.6" />
   </ItemGroup>
 
   <ItemGroup>
