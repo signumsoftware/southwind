@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Auth>
-  <Imported On="2015-03-05T08:20:31" />
-  <Exported On="2017-10-17T21:03:31" />
   <Roles>
     <Role Name="Super user" MergeStrategy="Intersection" Contains="" />
     <Role Name="User" Contains="" />
@@ -9,7 +7,9 @@
   </Roles>
   <Operations>
     <Role Name="Super user" />
-    <Role Name="User" />
+    <Role Name="User">
+      <Operation Resource="CaseActivityOperation.CreateCaseActivityFromWorkflow/Workflow" Allowed="Allow" />
+    </Role>
     <Role Name="Advanced user" />
   </Operations>
   <Permissions>
@@ -34,67 +34,33 @@
   <Types>
     <Role Name="Super user" />
     <Role Name="User">
-      <Type Resource="Alert" Allowed="Create" />
+      <Type Resource="Alert" Allowed="Write" />
       <Type Resource="AlertType" Allowed="Read" />
-      <Type Resource="ApplicationConfiguration" Allowed="Read" />
-      <Type Resource="Category" Allowed="Read" />
-      <Type Resource="ChartColor" Allowed="Read" />
-      <Type Resource="ChartScript" Allowed="Read" />
-      <Type Resource="Company" Allowed="Create" />
+      <Type Resource="Case" Allowed="Write" />
+      <Type Resource="CaseActivity" Allowed="Write" />
+      <Type Resource="CaseActivityExecutedTimer" Allowed="Write" />
+      <Type Resource="CaseNotification" Allowed="Write" />
+      <Type Resource="CaseTag" Allowed="Write" />
+      <Type Resource="CaseTagType" Allowed="Write" />
       <Type Resource="CultureInfo" Allowed="Read" />
-      <Type Resource="Dashboard" Allowed="None">
-        <Condition Name="SouthwindGroup.RoleEntities" Allowed="Read" />
-        <Condition Name="SouthwindGroup.UserEntities" Allowed="Create" />
-      </Type>
-      <Type Resource="DisconnectedMachine" Allowed="Read" />
-      <Type Resource="Employee" Allowed="Create" />
-      <Type Resource="Exception" Allowed="Read" />
-      <Type Resource="File" Allowed="Create" />
-      <Type Resource="LinkListPart" Allowed="None">
-        <Condition Name="SouthwindGroup.RoleEntities" Allowed="Read" />
-        <Condition Name="SouthwindGroup.UserEntities" Allowed="Create" />
-      </Type>
-      <Type Resource="Note" Allowed="Create" />
-      <Type Resource="NoteType" Allowed="Read" />
-      <Type Resource="OperationLog" Allowed="Read" />
-      <Type Resource="Order" Allowed="Create" />
-      <Type Resource="Package" Allowed="Create" />
-      <Type Resource="PackageLine" Allowed="Create" />
-      <Type Resource="PackageOperation" Allowed="Create" />
-      <Type Resource="Person" Allowed="Create" />
-      <Type Resource="Process" Allowed="Create" />
-      <Type Resource="ProcessExceptionLine" Allowed="Create" />
-      <Type Resource="Product" Allowed="Read" />
-      <Type Resource="PropertyRoute" Allowed="Read" />
-      <Type Resource="Query" Allowed="Read" />
-      <Type Resource="Region" Allowed="Read" />
-      <Type Resource="ResetPasswordRequest" Allowed="Create" />
-      <Type Resource="Shipper" Allowed="Read" />
-      <Type Resource="Supplier" Allowed="Read" />
-      <Type Resource="Territory" Allowed="Read" />
+      <Type Resource="HolidayRequest" Allowed="Write" />
+      <Type Resource="Operation" Allowed="Read" />
       <Type Resource="Type" Allowed="Read" />
-      <Type Resource="User" Allowed="Read" />
-      <Type Resource="UserChart" Allowed="None">
-        <Condition Name="SouthwindGroup.RoleEntities" Allowed="Read" />
-        <Condition Name="SouthwindGroup.UserEntities" Allowed="Create" />
-      </Type>
-      <Type Resource="UserChartPart" Allowed="None">
-        <Condition Name="SouthwindGroup.RoleEntities" Allowed="Read" />
-        <Condition Name="SouthwindGroup.UserEntities" Allowed="Create" />
-      </Type>
-      <Type Resource="UserQuery" Allowed="None">
-        <Condition Name="SouthwindGroup.RoleEntities" Allowed="Read" />
-        <Condition Name="SouthwindGroup.UserEntities" Allowed="Create" />
-      </Type>
+      <Type Resource="Workflow" Allowed="Read" />
+      <Type Resource="WorkflowAction" Allowed="Read" />
+      <Type Resource="WorkflowActivity" Allowed="Read" />
+      <Type Resource="WorkflowCondition" Allowed="Read" />
+      <Type Resource="WorkflowConnection" Allowed="Read" />
+      <Type Resource="WorkflowEvent" Allowed="Read" />
+      <Type Resource="WorkflowEventTask" Allowed="Read" />
+      <Type Resource="WorkflowEventTaskConditionResult" Allowed="Read" />
+      <Type Resource="WorkflowGateway" Allowed="Read" />
+      <Type Resource="WorkflowLane" Allowed="Read" />
+      <Type Resource="WorkflowPool" Allowed="Read" />
+      <Type Resource="WorkflowScript" Allowed="Read" />
+      <Type Resource="WorkflowScriptRetryStrategy" Allowed="Read" />
+      <Type Resource="WorkflowTimerCondition" Allowed="Read" />
     </Role>
-    <Role Name="Advanced user">
-      <Type Resource="AlertType" Allowed="Create" />
-      <Type Resource="Category" Allowed="Create" />
-      <Type Resource="Product" Allowed="Create" />
-      <Type Resource="Region" Allowed="Create" />
-      <Type Resource="Shipper" Allowed="Create" />
-      <Type Resource="Supplier" Allowed="Create" />
-      <Type Resource="Territory" Allowed="Create" />
-    </Role>
+    <Role Name="Advanced user" />
   </Types>
 </Auth>
