@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -65,6 +64,8 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.Swagger;
 using Schema = Signum.Engine.Maps.Schema;
 using System.Net;
+using Signum.React.JsonModelValidators;
+using Microsoft.Extensions.Hosting;
 
 namespace Southwind.React
 {
@@ -72,7 +73,7 @@ namespace Southwind.React
     {
         public void Apply(Operation operation, OperationFilterContext context)
         {
-            var authAttributes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
+            var authAttributes = context.MethodInfo.DeclaringType!.GetCustomAttributes(true)
                 .Union(context.MethodInfo.GetCustomAttributes(true))
                 .OfType<AllowAnonymousAttribute>();
 
@@ -114,7 +115,7 @@ namespace Southwind.React
                 .AddMvc(options => options.AddSignumGlobalFilters())
                 .AddApplicationPart(typeof(SignumServer).Assembly)
                 .AddApplicationPart(typeof(AuthServer).Assembly)
-                .AddJsonOptions(options => options.AddSignumJsonConverters())
+                .AddNewtonsoftJson(options => options.AddSignumJsonConverters())
                 .ConfigureApplicationPartManager(apm =>
                 {
                     apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
@@ -160,13 +161,13 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
 
-                c.DocInclusionPredicate((docName, apiDesc) => apiDesc.TryGetMethodInfo(out var mi) && mi.DeclaringType.HasAttribute<IncludeInDocumentationAttribute>());
+                c.DocInclusionPredicate((docName, apiDesc) => apiDesc.TryGetMethodInfo(out var mi) && mi.DeclaringType!.HasAttribute<IncludeInDocumentationAttribute>());
                 c.OperationFilter<ErrorResponsesOperationFilter>();
             }); //Swagger Services
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
         {
             app.UseDeveloperExceptionPage();
 
@@ -179,29 +180,32 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
             });//Swagger Configure
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(routes =>
             {
-                routes.MapRoute(
+                routes.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
-            {
-                builder.UseMvc(routes =>
-                {
-                    routes.MapSpaFallbackRoute(
-                        name: "spa-fallback",
-                        defaults: new { controller = "Home", action = "Index" });
-                });
-            });
+
+
+            //app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
+            //{
+            //    builder.UseEndpoints(routes =>
+            //    {
+            //        routes.MapControllerRoute(
+            //            name: "spa-fallback",
+                        
+            //            defaults: new { controller = "Home", action = "Index" });
+            //    });
+            //});
 
             using (HeavyProfiler.Log("Startup"))
             using (var log = HeavyProfiler.Log("Initial"))
             {
                 HeavyProfiler.Enabled = true;
 
-                VersionFilterAttribute.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                VersionFilterAttribute.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
 
                 DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
 
@@ -214,7 +218,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
 
                 log.Switch("WebStart");
-                WebStart(app, lifetime, env);
+                WebStart(app, env, lifetime);
 
                 if (Configuration.GetValue<bool>("StartBackgroundProcesses"))
                 {
@@ -230,7 +234,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             }
         }
 
-        public static void WebStart(IApplicationBuilder app, IApplicationLifetime lifetime, IHostingEnvironment env)
+        public static void WebStart(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
         {
             SignumServer.Start(app, env, typeof(Startup).Assembly);
 

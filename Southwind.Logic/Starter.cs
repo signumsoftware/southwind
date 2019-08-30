@@ -69,7 +69,7 @@ namespace Southwind.Logic
     //Starts-up the engine for Southwind Entities, used by Web and Load Application
     public static partial class Starter
     {
-        public static ResetLazy<ApplicationConfigurationEntity> Configuration;
+        public static ResetLazy<ApplicationConfigurationEntity> Configuration = null!;
 
         public static void Start(string connectionString)
         {
@@ -82,7 +82,7 @@ namespace Southwind.Logic
                 string? logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
                 SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial };
-                sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
+                sb.Schema.Version = typeof(Starter).Assembly.GetName().Version!;
                 sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
                 MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
@@ -253,7 +253,7 @@ namespace Southwind.Logic
 
                 if (type.Assembly == typeof(DashboardEntity).Assembly)
                 {
-                    var name = type.Namespace.Replace("Signum.Entities.", "");
+                    var name = type.Namespace!.Replace("Signum.Entities.", "");
 
                     name = (name.TryBefore('.') ?? name);
 
