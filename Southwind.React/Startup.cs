@@ -65,6 +65,8 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.Swagger;
 using Schema = Signum.Engine.Maps.Schema;
 using System.Net;
+using Signum.React.Rest;
+using Signum.React.RestLog;
 
 namespace Southwind.React
 {
@@ -250,6 +252,8 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             MailingServer.Start(app);
             ProfilerServer.Start(app);
             DiffLogServer.Start(app);
+            RestServer.Start(app);
+            RestLogServer.Start(app);
             PredictorServer.Start(app);
             WorkflowServer.Start(app);
             DynamicServer.Start(app);
