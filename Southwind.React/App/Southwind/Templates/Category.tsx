@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { CategoryEntity } from '../Southwind.Entities'
 import { ValueLine, TypeContext } from '@framework/Lines'
-import FileLine from '@extensions/Files/FileLine'
+import { FileLine } from '@extensions/Files/FileLine'
 import { useForceUpdate } from '@framework/Hooks'
 
 export default function Category(p : { ctx: TypeContext<CategoryEntity> }){

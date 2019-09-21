@@ -3,7 +3,7 @@ import { EmployeeEntity } from '../Southwind.Entities'
 import Person from './Person'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityCheckboxList } from '@framework/Lines'
 import * as Navigator from '@framework/Navigator'
-import FileLine from '@extensions/Files/FileLine'
+import { FileLine } from '@extensions/Files/FileLine'
 import * as FilesClient from '@extensions/Files/FilesClient'
 import { FileEntity } from '@extensions/Files/Signum.Entities.Files'
 import { is } from '@framework/Signum.Entities';

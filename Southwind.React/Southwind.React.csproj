@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Remove="node_modules\**" />
     <TypeScriptCompile Remove="ts_out\**" />
   </ItemGroup>
 

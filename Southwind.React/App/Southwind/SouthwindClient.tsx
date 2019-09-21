@@ -7,7 +7,7 @@ import * as Navigator from '@framework/Navigator'
 import * as Finder from '@framework/Finder'
 import { EntityOperationSettings, ConstructorOperationSettings, ContextualOperationSettings } from '@framework/Operations'
 import * as Operations from '@framework/Operations'
-import { Retrieve } from '@framework/Retrieve'
+import { Retrieve } from '@framework/Lines/Retrieve'
 import { defaultContextualClick } from '@framework/Operations/ContextualOperations'
 import { defaultExecuteEntity } from '@framework/Operations/EntityOperations'
 
@@ -60,8 +60,7 @@ export function start(options: { routes: JSX.Element[] }) {
     new Finder.CellFormatter((cell: FileEmbedded) => <img style={maxDimensions} src={"data:image/jpeg;base64," + cell.binaryFile} />));
 
   Finder.registerPropertyFormatter(EmployeeEntity.propertyRoute(ca => ca.photo),
-    new Finder.CellFormatter((cell: Lite<FileEntity>) => Retrieve.create(cell,
-      file => file && <img style={maxDimensions} src={"data:image/jpeg;base64," + (file as FileEntity).binaryFile} />)));
+    new Finder.CellFormatter((cell: Lite<FileEntity>) => <Retrieve lite={cell}>{file => file && <img style={maxDimensions} src={"data:image/jpeg;base64," + (file as FileEntity).binaryFile} />}</Retrieve>));
   {/*Files*/ }
 
   Finder.addSettings({

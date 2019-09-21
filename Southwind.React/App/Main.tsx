@@ -9,7 +9,7 @@ import { Router, Route, Redirect } from "react-router-dom"
 import { Switch } from "react-router"
 
 import * as moment from "moment"
-import * as numbro from "numbro"
+import numbro from "numbro"
 
 import { reloadTypes } from "@framework/Reflection"
 import * as Navigator from "@framework/Navigator"
@@ -110,7 +110,7 @@ CultureClient.onCultureLoaded.push(ci => {
 }); //Culture
 
 Services.VersionFilter.versionHasChanged = () => {
-  VersionChangedAlert.singleton && VersionChangedAlert.singleton.forceUpdate();
+  VersionChangedAlert.forceUpdateSingletone && VersionChangedAlert.forceUpdateSingletone();
 }
 
 Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
