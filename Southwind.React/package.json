@@ -4,9 +4,11 @@
   "description": "Example LOB application using Signum Framework and React",
   "main": "index.js",
   "scripts": {
-    "watch": "yarn run clean && webpack --env.NODE_ENV=development --config webpack.config.js --watch",
-    "build": "yarn run clean && webpack --env.NODE_ENV=production --config webpack.config.js",
-    "clean": "rimraf ./wwwroot/dist"
+    "clean": "rimraf ./wwwroot/dist",
+    "build:dll": "webpack --config webpack.config.dll.js",
+    "build:webpack": "webpack --config webpack.config.js",
+    "build": "yarn run clean && yarn run build:dll && yarn run build:webpack",
+    "watch": "yarn run clean && yarn run build:dll && webpack --config webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -48,14 +50,13 @@
     "popper.js": "1.15.0",
     "prop-types": "15.7.2",
     "query-string": "6.8.3",
-    "react-bootstrap": "1.0.0-beta.10",
+    "react-bootstrap": "1.0.0-beta.12",
     "react-router": "5.0.1",
     "react-router-dom": "5.0.1",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-rte": "0.16.1",
     "react-widgets": "4.4.11",
-    "uncontrollable": "7.0.1",
     "whatwg-fetch": "3.0.0"
   },
   "devDependencies": {

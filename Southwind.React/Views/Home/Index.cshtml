@@ -10,7 +10,9 @@
     //- NPM Task Runner: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner)
     string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
     var main = (string)JObject.Parse(json).Property("main").Value["js"];
-    var vendor = (string)JObject.Parse(json).Property("vendor").Value["js"];
+
+    string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
+    var vendor = (string)JObject.Parse(jsonDll).Property("vendor").Value["js"];
 }
 <!doctype html>
 <html>
