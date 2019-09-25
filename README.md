@@ -7,8 +7,8 @@ It has a similar schema to the famous Northwind example database (Order, OrderLi
 
 As we complete the application we will upload the sources here and write tutorials in Codeproject.
 
-- [Signum Framework website](http://www.signumframework.com/)
-- [Signum Framework github repository](https://github.com/signumframework/signumframework)
+- [Signum Framework website](https://www.signumsoftware.com/en/Framework)
+- [Signum Framework github repository](https://github.com/signumsoftware/framework)
 
 In order to compile it you need Visual Studio 2013. 
 
