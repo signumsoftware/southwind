@@ -58,7 +58,7 @@ namespace Southwind.Load
                     Quantity = od.Quantity,
                     UnitPrice = od.UnitPrice,
                 }).ToMList(),
-                Customer = customers.GetOrThrow(Database.View<Customers>().Where(c => c.CustomerID == o.CustomerID).Select(a => a.ContactName).SingleOrDefaultEx()),
+                Customer = customers.GetOrThrow(Database.View<Customers>().Where(c => c.CustomerID == o.CustomerID).Select(a => a.ContactName).SingleOrDefaultEx()!),
                 IsLegacy = true,
             }.SetId(o.OrderID)).ToList());
 

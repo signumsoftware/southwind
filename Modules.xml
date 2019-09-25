@@ -343,7 +343,7 @@
     </Module>
 
     <Module Name="PublicCatalog" DependsOn="ExampleEntities,Translation,Cache,Files">
-      <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts;"/>
+      <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
       <RemoveFiles Path="Southwind.React\App\PublicCatalog.tsx"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;DropdownItem>Catalog&lt;/DropdownItem>&lt;/LinkContainer>"/>
@@ -389,7 +389,8 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="RestLogLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="RestApiKeyLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/swagger&quot;>&lt;DropdownItem>Swagger&lt;/DropdownItem>&lt;/LinkContainer>"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;li className=&quot;nav-item&quot;>"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="handleSwaggerClick = (e: React.MouseEvent&lt;any>) => {" To="}//Swagger"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as RestClient from &quot;@extensions/Rest/RestClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="RestClient.start({ routes });"/>
       <RemoveFiles Path="Southwind.React\PublicAPI\CatalogController.cs" />
@@ -397,6 +398,8 @@
       <RemoveLine Path="Southwind.React\Startup.cs" From="public class ErrorResponsesOperationFilter : IOperationFilter" To="} //Swagger Attributes"/>
       <RemoveLine Path="Southwind.React\Startup.cs" From="//https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&amp;tabs=visual-studio%2Cvisual-studio-xml" To="}); //Swagger Services"/>
       <RemoveLine Path="Southwind.React\Startup.cs" From="//Enable middleware to serve generated Swagger as a JSON endpoint." To="});//Swagger Configure"/>
+      <RemoveLine Path="Southwind.React\Startup.cs" Line="RestServer.Start(app);"/>
+      <RemoveLine Path="Southwind.React\Startup.cs" Line="RestLogServer.Start(app);"/>
     </Module>
 
     <Module Name="Predictor">
