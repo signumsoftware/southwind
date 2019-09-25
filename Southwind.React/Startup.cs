@@ -174,13 +174,14 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
+            app.UseRouting();
 
             //Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
-            });//Swagger Configure
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
+            //});//Swagger Configure
 
             app.UseEndpoints(routes =>
             {
@@ -189,18 +190,17 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-
-
-            //app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
-            //{
-            //    builder.UseEndpoints(routes =>
-            //    {
-            //        routes.MapControllerRoute(
-            //            name: "spa-fallback",
-                        
-            //            defaults: new { controller = "Home", action = "Index" });
-            //    });
-            //});
+            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
+            {
+                builder.UseRouting();
+                builder.UseEndpoints(routes =>
+                {
+                    routes.MapControllerRoute(
+                        name: "spa-fallback",
+                        pattern: "{*url}",
+                        defaults: new { controller = "Home", action = "Index" });
+                });
+            });
 
             using (HeavyProfiler.Log("Startup"))
             using (var log = HeavyProfiler.Log("Initial"))
@@ -274,7 +274,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 //new HelpModuleOmniboxResultGenerator(),
                 );//Omnibox
 
-            SignumCultureSelectorFilter.GetCurrentCultures = (ctx) => GetCulture(ctx);
+            SignumCultureSelectorFilter.GetCurrentCulture = (ctx) => GetCulture(ctx);
         }
 
         static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
