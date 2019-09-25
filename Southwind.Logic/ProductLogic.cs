@@ -16,7 +16,7 @@ namespace Southwind.Logic
 {
     public static class ProductLogic
     {
-        public static ResetLazy<Dictionary<CategoryEntity, List<ProductEntity>>> ActiveProducts;
+        public static ResetLazy<Dictionary<CategoryEntity, List<ProductEntity>>> ActiveProducts = null!;
 
         public static void Start(SchemaBuilder sb)
         {

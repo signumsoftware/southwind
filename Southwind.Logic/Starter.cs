@@ -69,7 +69,7 @@ namespace Southwind.Logic
     //Starts-up the engine for Southwind Entities, used by Web and Load Application
     public static partial class Starter
     {
-        public static ResetLazy<ApplicationConfigurationEntity> Configuration;
+        public static ResetLazy<ApplicationConfigurationEntity> Configuration = null!;
 
         public static void Start(string connectionString)
         {

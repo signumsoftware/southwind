@@ -35,7 +35,7 @@ namespace Southwind.Load
 {
     class Program
     {
-        public static IConfigurationRoot ConfigRoot;
+        public static IConfigurationRoot ConfigRoot = null!;
 
         static int Main(string[] args)
         {
