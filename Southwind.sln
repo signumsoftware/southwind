@@ -43,8 +43,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Test.React", "Sou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.React.Extensions.Selenium", "Extensions\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj", "{B80F1384-E5B6-463C-8316-28E847DFB8C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication3", "WebApplication3\WebApplication3.csproj", "{BE83D1B9-4577-485D-8A27-D8067AE94640}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,14 +173,6 @@ Global
 		{B80F1384-E5B6-463C-8316-28E847DFB8C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B80F1384-E5B6-463C-8316-28E847DFB8C8}.Release|x64.ActiveCfg = Release|x64
 		{B80F1384-E5B6-463C-8316-28E847DFB8C8}.Release|x64.Build.0 = Release|x64
-		{BE83D1B9-4577-485D-8A27-D8067AE94640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE83D1B9-4577-485D-8A27-D8067AE94640}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE83D1B9-4577-485D-8A27-D8067AE94640}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BE83D1B9-4577-485D-8A27-D8067AE94640}.Debug|x64.Build.0 = Debug|Any CPU
-		{BE83D1B9-4577-485D-8A27-D8067AE94640}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE83D1B9-4577-485D-8A27-D8067AE94640}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE83D1B9-4577-485D-8A27-D8067AE94640}.Release|x64.ActiveCfg = Release|Any CPU
-		{BE83D1B9-4577-485D-8A27-D8067AE94640}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
