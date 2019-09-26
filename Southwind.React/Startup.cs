@@ -68,16 +68,17 @@ using Signum.React.JsonModelValidators;
 using Microsoft.Extensions.Hosting;
 using Signum.React.Rest;
 using Signum.React.RestLog;
+using Microsoft.OpenApi.Models;
 
 namespace Southwind.React
 {
     public class ErrorResponsesOperationFilter : IOperationFilter
     {
-        public void Apply(Operation operation, OperationFilterContext context)
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             var authAttributes = context.MethodInfo.DeclaringType!.GetCustomAttributes(true)
-                .Union(context.MethodInfo.GetCustomAttributes(true))
-                .OfType<AllowAnonymousAttribute>();
+                 .Union(context.MethodInfo.GetCustomAttributes(true))
+                 .OfType<AllowAnonymousAttribute>();
 
             AddError(HttpStatusCode.BadRequest);
             if (!authAttributes.Any())
@@ -87,11 +88,17 @@ namespace Southwind.React
 
             void AddError(HttpStatusCode code)
             {
-                operation.Responses.Add(((int)code).ToString(), new Response
+                operation.Responses[((int)code).ToString()] = new OpenApiResponse
                 {
                     Description = code.ToString(),
-                    Schema = context.SchemaRegistry.GetOrRegister(typeof(Signum.React.Filters.HttpError))
-                });
+                    Content = new Dictionary<string, OpenApiMediaType>
+                    {
+                        ["application/json"] = new OpenApiMediaType
+                        {
+                            Schema = context.SchemaGenerator.GenerateSchema(typeof(Signum.React.Filters.HttpError), context.SchemaRepository)
+                        }
+                    }
+                };
             }
         }
     }
@@ -123,6 +130,8 @@ namespace Southwind.React
                     apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
                 });
 
+            services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
+
             services.AddSingleton<IObjectModelValidator>(s =>
             {
                 var options = s.GetRequiredService<IOptions<MvcOptions>>().Value;
@@ -133,7 +142,7 @@ namespace Southwind.React
             //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Southwind API",
                     Version = "v1",
@@ -154,10 +163,9 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 ```",
                 });
 
-                c.AddSecurityDefinition("Bearer", new Swashbuckle.AspNetCore.Swagger.ApiKeyScheme { In = "header", Description = "Use the API Key provided", Name = "X-ApiKey", Type = "apiKey" });
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
-                    { "Bearer", Enumerable.Empty<string>() },
-                });
+                var scheme = new OpenApiSecurityScheme { In = ParameterLocation.Header, Description = "Use the API Key provided", Name = "X-ApiKey", Type = SecuritySchemeType.ApiKey };
+                c.AddSecurityDefinition("Bearer", scheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement { { scheme, new List<string>() } });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -175,7 +183,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
             app.UseStaticFiles();
 
-            
+
             using (HeavyProfiler.Log("Startup"))
             using (var log = HeavyProfiler.Log("Initial"))
             {
@@ -196,15 +204,14 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 log.Switch("WebStart");
                 WebStart(app, env, lifetime);
 
-
                 log.Switch("UseEndpoints");
 
                 //Enable middleware to serve generated Swagger as a JSON endpoint.
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c =>
-                //{
-                //    c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
-                //});//Swagger Configure
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
+                });//Swagger Configure
 
                 app.UseRouting();
                 app.UseEndpoints(routes =>
