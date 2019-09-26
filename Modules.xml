@@ -285,7 +285,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="TranslationLogic.Start(sb, countLocalizationHits: false);" To="TranslatedInstanceLogic.Start(sb, () => CultureInfo.GetCultureInfo(&quot;en&quot;));"/>
       <RemoveFiles Path="Southwind.Entities\Translations" DependsOn="ExampleEntities" />
       <RemoveLine Path="Southwind.React\Startup.cs" Line="TranslationServer.Start(app, new AlreadyTranslatedTranslator(new AzureTranslator(&quot;Your API Key for Azure Translate&quot;)));" />
-      <RemoveLine Path="Southwind.React\Startup.cs" From="SignumCultureSelectorFilter.GetCurrentCultures = (ctx) => GetCulture(ctx);" To="return DefaultCulture; //Translation" />
+      <RemoveLine Path="Southwind.React\Startup.cs" From="SignumCultureSelectorFilter.GetCurrentCulture = (ctx) => GetCulture(ctx);" To="return DefaultCulture; //Translation" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as TranslationClient from &quot;@extensions/Translation/TranslationClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="TranslationClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as CultureClient from &quot;@extensions/Translation/CultureClient&quot;"/>
@@ -389,7 +389,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="RestLogLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="RestApiKeyLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;li className=&quot;nav-item&quot;>"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;li className=&quot;nav-item&quot;>" To="&lt;/li>"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" From="handleSwaggerClick = (e: React.MouseEvent&lt;any>) => {" To="}//Swagger"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as RestClient from &quot;@extensions/Rest/RestClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="RestClient.start({ routes });"/>
