@@ -106,23 +106,11 @@ namespace Southwind.Load
             }
         }
 
-        private static void GetLite()
-        {
-            var juas = Database.Query<RoleEntity>().Single(a => a.Name == "Juas");
-
-            new RoleEntity
-            {
-                Name = "Bla",
-                Roles = { juas.ToLite()}
-            }.Save();
-        }
-
         private static void Load(string[]? args)
         {
             Schema.Current.Initialize();
 
             OperationLogic.AllowSaveGlobally = true;
-            GetLite();
 
             while (true)
             {
