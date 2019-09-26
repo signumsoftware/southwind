@@ -183,11 +183,10 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
             app.UseStaticFiles();
 
+            //HeavyProfiler.Enabled = true;
             using (HeavyProfiler.Log("Startup"))
             using (var log = HeavyProfiler.Log("Initial"))
             {
-                HeavyProfiler.Enabled = true;
-
                 VersionFilterAttribute.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
 
                 DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
