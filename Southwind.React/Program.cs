@@ -19,6 +19,7 @@ namespace Southwind.React
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureKestrel(a => a.AllowSynchronousIO = true) //JSon.Net needs it for deserialization
                 .CaptureStartupErrors(true) // the default
                 .UseSetting("detailedErrors", "true")
                 .UseStartup<Startup>()

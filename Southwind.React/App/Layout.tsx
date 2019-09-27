@@ -31,7 +31,7 @@ export default function Layout() {
   function handleSwaggerClick(e: React.MouseEvent<any>) {
     e.preventDefault();
     RestClient.API.getCurrentRestApiKey().then(key => {
-      window.location.assign(Navigator.toAbsoluteUrl("~/swagger/ui/index?apiKey=" + (key || "")));
+      window.location.assign(Navigator.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || "")));
     }).done();
   }
 
@@ -53,7 +53,6 @@ export default function Layout() {
                   <NavDropdown title="Menu" id="layoutMenu">
                     <LinkContainer to="~/" exact={true}><NavDropdown.Item>Home</NavDropdown.Item></LinkContainer>
                     <LinkContainer to="~/publicCatalog"><NavDropdown.Item>Catalog</NavDropdown.Item></LinkContainer>
-                    <LinkContainer to="~/swagger"><NavDropdown.Item>Swagger</NavDropdown.Item></LinkContainer>
                     <NavDropdown.Divider />
                     <LinkContainer to="~/find/order"><NavDropdown.Item>Orders</NavDropdown.Item></LinkContainer>
                     <LinkContainer to="~/find/exception"><NavDropdown.Item>Exceptions</NavDropdown.Item></LinkContainer>

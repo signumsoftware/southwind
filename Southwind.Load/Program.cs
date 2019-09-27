@@ -30,12 +30,13 @@ using Signum.Entities.MachineLearning;
 using Signum.Engine.MachineLearning;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using System.Reflection;
 
 namespace Southwind.Load
 {
     class Program
     {
-        public static IConfigurationRoot ConfigRoot;
+        public static IConfigurationRoot ConfigRoot = null!;
 
         static int Main(string[] args)
         {
@@ -100,12 +101,10 @@ namespace Southwind.Load
             {
                 SafeConsole.WriteColor(ConsoleColor.DarkRed, e.GetType().Name + ": ");
                 SafeConsole.WriteLineColor(ConsoleColor.Red, e.Message);
-                SafeConsole.WriteLineColor(ConsoleColor.DarkRed, e.StackTrace.Indent(4));
+                SafeConsole.WriteLineColor(ConsoleColor.DarkRed, e.StackTrace!.Indent(4));
                 return -1;
             }
         }
-
-
 
         private static void Load(string[]? args)
         {
