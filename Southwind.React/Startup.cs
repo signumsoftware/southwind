@@ -129,15 +129,8 @@ namespace Southwind.React
                 {
                     apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
                 });
-
+            services.AddSignumValidation();
             services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
-
-            services.AddSingleton<IObjectModelValidator>(s =>
-            {
-                var options = s.GetRequiredService<IOptions<MvcOptions>>().Value;
-                var modelMetadataProvider = s.GetRequiredService<IModelMetadataProvider>();
-                return new SignumObjectModelValidator(modelMetadataProvider, options.ModelValidatorProviders);
-            });
 
             //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
             services.AddSwaggerGen(c =>
