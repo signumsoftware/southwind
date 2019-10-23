@@ -47,7 +47,7 @@ export default function Layout() {
                 <Nav className="mr-auto">
                   <li>
                     <div className="omnibox-container" style={{ width: "200px" }}>
-                      <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
+                    <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
                     </div>
                   </li>
                   <NavDropdown title="Menu" id="layoutMenu">
