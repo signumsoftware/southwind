@@ -1,4 +1,4 @@
-﻿import * as React from 'react'
+import * as React from 'react'
 import * as Navigator from "@framework/Navigator"
 
 export default class NotFound extends React.Component {

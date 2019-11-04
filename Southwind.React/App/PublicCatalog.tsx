@@ -12,7 +12,7 @@ export interface CategoryWithProducts {
 
 export default function PublicCatalog() {
 
-  const categories = useAPI(undefined, () => ajaxGet<CategoryWithProducts[]>({ url: "~/api/catalog" }), []);
+  const categories = useAPI(() => ajaxGet<CategoryWithProducts[]>({ url: "~/api/catalog" }), []);
 
   const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
 
