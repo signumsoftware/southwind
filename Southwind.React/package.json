@@ -54,8 +54,8 @@
     "react-bootstrap": "1.0.0-beta.14",
     "react-router": "5.1.2",
     "react-router-dom": "5.1.2",
-    "react": "16.10.2",
-    "react-dom": "16.10.2",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
     "react-rte": "0.16.1",
     "react-widgets": "4.4.11",
     "whatwg-fetch": "3.0.0"
