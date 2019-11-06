@@ -79,7 +79,7 @@ module.exports = {
     new AssetsPlugin({
       path: path.join(__dirname, "wwwroot", "dist")
     }),
-    new WebpackNotifierPlugin({ title: 'Signum', excludeWarnings: true, alwaysNotify: true }),
+    new WebpackNotifierPlugin({ title: 'Southwind', excludeWarnings: true, alwaysNotify: true }),
     //new CopyWebpackPlugin([
     //    { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, "wwwroot/dist/es6-promise.auto.min.js") },
     //    { from: 'node_modules/es6-object-assign/dist/object-assign-auto.min.js', to: path.join(__dirname, "wwwroot/dist/object-assign-auto.min.js") },
