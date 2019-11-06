@@ -8,12 +8,12 @@ import * as FilesClient from '@extensions/Files/FilesClient'
 import { FileEntity } from '@extensions/Files/Signum.Entities.Files'
 import { is } from '@framework/Signum.Entities';
 import { Lite } from '@framework/Signum.Entities';
-import { useForceUpdate, useFetchAndForget } from '@framework/Hooks'
+import { useForceUpdate, useFetchInState } from '@framework/Hooks'
 
 export default function Employee(p : { ctx: TypeContext<EmployeeEntity> }){
   const forceUpdate = useForceUpdate();
   const ctx = p.ctx;
-  const photo = useFetchAndForget(ctx.value.photo || null);
+  const photo = useFetchInState(ctx.value.photo || null);
   const ctxBasic = ctx.subCtx({ formGroupStyle: "SrOnly" });
   return (
     <div className="row">
