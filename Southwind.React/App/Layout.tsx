@@ -20,7 +20,7 @@ export default function Layout() {
   const [sideMenuVisible] = React.useState(true);
 
   function resetUI() {
-    setRefreshId(refreshId + 1);
+    setRefreshId(rID => rID + 1);
   };
 
   React.useEffect(() => {
@@ -85,7 +85,7 @@ export default function Layout() {
                     </ContainerToggle>
                     Layout */}
         </div>
-        <GlobalModalContainer />
+        <GlobalModalContainer/>
         <div id="footer">
           <div className="container">
             <p className="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
