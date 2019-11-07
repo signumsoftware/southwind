@@ -30,8 +30,8 @@ namespace Southwind.Load
         public static void LoadOrders()
         {
             Dictionary<string, CustomerEntity> customers = new Dictionary<string, CustomerEntity>();
-            customers.AddRange(Database.Query<CompanyEntity>().Select(c => KVP.Create(c.ContactName, (CustomerEntity)c)));
-            customers.AddRange(Database.Query<PersonEntity>().Select(p => KVP.Create(p.FirstName + " " + p.LastName, (CustomerEntity)p)));
+            customers.AddRange(Database.Query<CompanyEntity>().Select(c => KeyValuePair.Create(c.ContactName, (CustomerEntity)c)));
+            customers.AddRange(Database.Query<PersonEntity>().Select(p => KeyValuePair.Create(p.FirstName + " " + p.LastName, (CustomerEntity)p)));
 
             var orders = Connector.Override(Northwind.Connector).Using(_ => Database.View<Orders>().Select(o => new OrderEntity
             {
