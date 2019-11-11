@@ -46,7 +46,7 @@
       <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Product.tsx"/>
       <RemoveFiles Path="Southwind.React\App\Southwind\Templates\Supplier.tsx"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx"
-                  Line="&lt;LinkContainer to=&quot;~/find/order&quot;>&lt;DropdownItem>Orders&lt;/DropdownItem>&lt;/LinkContainer>" />"/>
+                  Line="&lt;LinkContainer to=&quot;~/find/order&quot;>&lt;NavDropdown.Item>Orders&lt;/NavDropdown.Item>&lt;/LinkContainer>" />"/>
     </Module>
 
     <Module Name="Migrations">
@@ -167,9 +167,7 @@
       <RemoveLine DependsOn="UserQuery" Path="Southwind.React\App\Main.tsx" Line="new UserQueryToolbarConfig(),"/>
       <RemoveLine DependsOn="Chart" Path="Southwind.React\App\Main.tsx" Line="new UserChartToolbarConfig(),"/>
       <RemoveLine DependsOn="Dashboard" Path="Southwind.React\App\Main.tsx" Line="new DashboardToolbarConfig(),"/>
-      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="; sideMenuVisible: boolean"/>
-      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span=", sideMenuVisible: true"/>
-      <!--<RemoveLine Path="Southwind.React\App\Layout.tsx" Line="onToggle={(visible: boolean) => this.setState({ sideMenuVisible: visible })}"/>-->
+      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="const [sideMenuVisible] = React.useState(true);"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;SidebarContainer" To="&lt;/SidebarContainer>"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{/* Layout"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="Layout */}"/>
@@ -346,7 +344,7 @@
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
       <RemoveFiles Path="Southwind.React\App\PublicCatalog.tsx"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;DropdownItem>Catalog&lt;/DropdownItem>&lt;/LinkContainer>"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;NavDropdown.Item>Catalog&lt;/NavDropdown.Item>&lt;/LinkContainer>"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="routes.push(&lt;Route path=&quot;~/publicCatalog&quot; component={PublicCatalog} />);"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import PublicCatalog from './PublicCatalog'"/>
       <RemoveLine Path="Southwind.React\App\Home.tsx" From="if (!AuthClient.currentUser()) {" To="}//PublicCatalog"/>
@@ -389,8 +387,8 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="RestLogLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="RestApiKeyLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;li className=&quot;nav-item&quot;>" To="&lt;/li>"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="handleSwaggerClick = (e: React.MouseEvent&lt;any>) => {" To="}//Swagger"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;Nav.Item> {/*Swagger*/}" To="&lt;/Nav.Item> {/*Swagger*/}"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="function handleSwaggerClick(e: React.MouseEvent&lt;any>) {" To="} //Swagger"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as RestClient from &quot;@extensions/Rest/RestClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="RestClient.start({ routes });"/>
       <RemoveFiles Path="Southwind.React\PublicAPI\CatalogController.cs" />
@@ -460,8 +458,9 @@
       <RemoveLine Path="Southwind.React\Startup.cs" Line="WorkflowServer.Start(app);"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;2.5.2&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;diagram-js-minimap&quot;: &quot;1.3.0&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;5.0.4&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;min-dash&quot;: &quot;3.5.1&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;diagram-js-minimap&quot;: &quot;2.0.1&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">

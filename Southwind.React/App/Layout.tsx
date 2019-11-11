@@ -33,7 +33,7 @@ export default function Layout() {
     RestClient.API.getCurrentRestApiKey().then(key => {
       window.location.assign(Navigator.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || "")));
     }).done();
-  }
+  } //Swagger
 
   return (
     <ErrorBoundary >
@@ -47,7 +47,7 @@ export default function Layout() {
                 <Nav className="mr-auto">
                   <li>
                     <div className="omnibox-container" style={{ width: "200px" }}>
-                    <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
+                      <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
                     </div>
                   </li>
                   <NavDropdown title="Menu" id="layoutMenu">
@@ -61,9 +61,9 @@ export default function Layout() {
                 </Nav>}
               {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
               <Nav className="ml-auto">
-                <Nav.Item>
+                <Nav.Item> {/*Swagger*/}
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
-                </Nav.Item>
+                </Nav.Item> {/*Swagger*/}
                 <CultureDropdown />
                 <LoginDropdown />
               </Nav>
@@ -85,7 +85,7 @@ export default function Layout() {
                     </ContainerToggle>
                     Layout */}
         </div>
-        <GlobalModalContainer/>
+        <GlobalModalContainer />
         <div id="footer">
           <div className="container">
             <p className="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
