@@ -148,8 +148,8 @@
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="import DashboardOmniboxProvider from &quot;@extensions/Dashboard/DashboardOmniboxProvider&quot;"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="new DashboardOmniboxProvider(),"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Startup.cs" Line="new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),"/>
-      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; Owner=&quot;User;2&quot; ChartScript=&quot;StackedLines&quot; GroupResults=&quot;true&quot;>"  To="&lt;/Dashboard>"/>
-      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; Owner=&quot;User;2&quot; ChartScript=&quot;StackedLines&quot; GroupResults=&quot;true&quot;>"  To="&lt;/Dashboard>"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
     </Module>
 
     <Module Name="Toolbar">
@@ -172,13 +172,13 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{/* Layout"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="Layout */}"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;ToolbarRenderer location=&quot;Top&quot; />}"/>
-      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
-      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
-      <RemoveLine DemendsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-shopping-cart&quot; IconColor=&quot;orange&quot; Content=&quot;Order&quot; />" 
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-shopping-cart&quot; IconColor=&quot;orange&quot; Content=&quot;Order&quot; />" 
                   To="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-user&quot; IconColor=&quot;seagreen&quot; Content=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; />" />
-      <RemoveLine DemendsOn="Dynamic" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Dynamic Panel&quot; IconName=&quot;fas fa-arrows-alt&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;DynamicPanelPermission.ViewDynamicPanel&quot; Url=&quot;~/dynamic/panel&quot; />" />
-      <RemoveLine DemendsOn="Workflow" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Workflow Script Runner&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;WorkflowPermission.ViewWorkflowPanel&quot; Url=&quot;~/workflow/panel&quot; />" />
-      <RemoveLine DemendsOn="Workflow" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; Name=&quot;Workflow&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine DependsOn="Dynamic" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Dynamic Panel&quot; IconName=&quot;fas fa-arrows-alt&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;DynamicPanelPermission.ViewDynamicPanel&quot; Url=&quot;~/dynamic/panel&quot; />" />
+      <RemoveLine DependsOn="Workflow" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Workflow Script Runner&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;WorkflowPermission.ViewWorkflowPanel&quot; Url=&quot;~/workflow/panel&quot; />" />
+      <RemoveLine DependsOn="Workflow" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; Name=&quot;Workflow&quot;>" To="&lt;/ToolbarMenu>" />
       <RemoveLine Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
 
     </Module>
@@ -391,7 +391,7 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" From="function handleSwaggerClick(e: React.MouseEvent&lt;any>) {" To="} //Swagger"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as RestClient from &quot;@extensions/Rest/RestClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="RestClient.start({ routes });"/>
-      <RemoveFiles Path="Southwind.React\PublicAPI\CatalogController.cs" />
+      <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.React\PublicAPI\CatalogController.cs" />
       <RemoveLine Path="Southwind.React\Startup.cs" From="using Swashbuckle.AspNetCore.SwaggerGen;" To="using System.Net;"/>
       <RemoveLine Path="Southwind.React\Startup.cs" From="public class ErrorResponsesOperationFilter : IOperationFilter" To="} //Swagger Attributes"/>
       <RemoveLine Path="Southwind.React\Startup.cs" From="//https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&amp;tabs=visual-studio%2Cvisual-studio-xml" To="}); //Swagger Services"/>
