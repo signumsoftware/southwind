@@ -24,10 +24,10 @@
 
   <ItemGroup>
     <PackageReference Include="CNTK.CPUOnly" Version="2.7.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.0.0" />
-    <PackageReference Include="Signum.Analyzer" Version="2.4.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.0.1" />
+    <PackageReference Include="Signum.Analyzer" Version="2.5.0" />
     <PackageReference Include="Signum.MSBuildTask" Version="1.0.7" />
   </ItemGroup>
 
