@@ -5,14 +5,14 @@
 
 @{
     //FileNotFoundException??? You need to run 'yarn watch'. Requires:
-    //- Node.js: https://nodejs.org/ 
-    //- Yarn: https://yarnpkg.com/en/ 
+    //- Node.js: https://nodejs.org/
+    //- Yarn: https://yarnpkg.com/en/
     //- NPM Task Runner: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner)
     string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
-    var main = (string)JObject.Parse(json).Property("main").Value["js"];
+    var main = (string)JObject.Parse(json).Property("main")!.Value["js"]!;
 
     string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
-    var vendor = (string)JObject.Parse(jsonDll).Property("vendor").Value["js"];
+    var vendor = (string)JObject.Parse(jsonDll).Property("vendor")!.Value["js"]!;
 }
 <!doctype html>
 <html>
