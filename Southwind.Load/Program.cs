@@ -118,6 +118,7 @@ namespace Southwind.Load
                 {
                     {"AR", AuthLogic.ImportExportAuthRules},
                     {"HL", HelpXml.ImportExportHelp},
+                    {"CT", TranslationLogic.CopyTranslations},
                     {"TP", TrainPredictor},
                     {"SO", ShowOrder},
                 }.ChooseMultipleWithDescription(args);
