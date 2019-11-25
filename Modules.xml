@@ -179,6 +179,7 @@
       <RemoveLine DependsOn="Dynamic" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Dynamic Panel&quot; IconName=&quot;fas fa-arrows-alt&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;DynamicPanelPermission.ViewDynamicPanel&quot; Url=&quot;~/dynamic/panel&quot; />" />
       <RemoveLine DependsOn="Workflow" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Workflow Script Runner&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;WorkflowPermission.ViewWorkflowPanel&quot; Url=&quot;~/workflow/panel&quot; />" />
       <RemoveLine DependsOn="Workflow" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; Name=&quot;Workflow&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine DependsOn="Workflow" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;saddlebrown&quot; Content=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; />" />
       <RemoveLine Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
 
     </Module>
@@ -290,6 +291,7 @@
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line=".then(() => CultureClient.loadCurrentCulture())"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="CultureClient.onCultureLoaded.push(ci => {"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="}); //Culture"/>
+      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;CT&quot;, TranslationLogic.CopyTranslations},"/>
       <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="ci.name!; //"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportSpanishInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
       <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
@@ -309,6 +311,7 @@
 
     <Module Name="SessionLog" DependsOn="Auth">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SessionLogLogic.Start(sb);"/>
+      <RemoveLine Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Content=&quot;SessionLog&quot; />" />
     </Module>
 
     <Module Name="Alerts">
