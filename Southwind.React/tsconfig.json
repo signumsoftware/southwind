@@ -6,6 +6,7 @@
     "moduleResolution": "node",
     "jsx": "react",
     "incremental": true,
+    "composite": true,
     "outDir": "./ts_out",
     //"noEmit": true,
     "strict": true,
@@ -26,8 +27,11 @@
     ]
   },
   "exclude": [
-    "node_modules",
+    "./node_modules",
+    "./ts_out",
+    "../Framework/Signum.React/node_modules",
     "../Framework/Signum.React/ts_out",
+    "../Extensions/Signum.React.Extensions/node_modules",
     "../Extensions/Signum.React.Extensions/ts_out"
   ],
   "references": [
