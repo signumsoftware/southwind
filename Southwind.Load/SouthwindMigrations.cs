@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -118,12 +118,15 @@ namespace Southwind.Load
                         DefaultCulture = en,
                         UrlLeft = "http://localhost/Southwind"
                     },
-                    SmtpConfiguration = new SmtpConfigurationEntity
+                    EmailSender = new EmailSenderConfigurationEntity
                     {
                         Name = "localhost",
-                        Network = new SmtpNetworkDeliveryEmbedded
+                        SMTP = new SmtpEmbedded
                         {
-                            Host = "localhost"
+                            Network = new SmtpNetworkDeliveryEmbedded
+                            {
+                                Host = "localhost"
+                            }
                         }
                     }, //Email
                     Sms = new SMSConfigurationEmbedded

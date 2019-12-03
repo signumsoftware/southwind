@@ -11,7 +11,7 @@ export default function ApplicationConfiguration(p : { ctx: TypeContext<Applicat
       <Tabs id="appTabs">
         <Tab eventKey="tab" title={ctx.niceName(a => a.email)}>
           <RenderEntity ctx={ctx.subCtx(a => a.email)} />
-          <EntityLine ctx={ctx.subCtx(a => a.smtpConfiguration)} />
+          <EntityLine ctx={ctx.subCtx(a => a.emailSender)} />
         </Tab>
         <Tab eventKey="sms" title={ctx.niceName(a => a.sms)}>
           <RenderEntity ctx={ctx.subCtx(a => a.sms)} />

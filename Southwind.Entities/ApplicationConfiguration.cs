@@ -25,7 +25,7 @@ namespace Southwind.Entities
         /*Email*/
         public EmailConfigurationEmbedded Email { get; set; }
 
-        public SmtpConfigurationEntity SmtpConfiguration { get; set; }
+        public EmailSenderConfigurationEntity EmailSender { get; set; }
 
         /*Sms*/
         public SMSConfigurationEmbedded Sms { get; set; }

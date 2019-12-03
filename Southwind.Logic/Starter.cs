@@ -110,8 +110,7 @@ namespace Southwind.Logic
 
                 CultureInfoLogic.Start(sb);
                 FilePathEmbeddedLogic.Start(sb);
-                SmtpConfigurationLogic.Start(sb);
-                EmailLogic.Start(sb, () => Configuration.Value.Email, (et, target) => Configuration.Value.SmtpConfiguration);
+                EmailLogic.Start(sb, () => Configuration.Value.Email, (et, target) => Configuration.Value.EmailSender);
 
                 AuthLogic.Start(sb, "System", null);
 
@@ -296,8 +295,8 @@ namespace Southwind.Logic
             sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.From.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
-            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.DefaultFrom!.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
-            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.DefaultFrom!.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ScheduledTaskEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((DashboardEntity a) => a.Parts[0].Content).Replace(new ImplementedByAttribute(typeof(UserChartPartEntity), typeof(UserQueryPartEntity), typeof(ValueUserQueryListPartEntity), typeof(LinkListPartEntity)));
