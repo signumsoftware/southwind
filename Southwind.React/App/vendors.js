@@ -1,3 +1,9 @@
+//polyfills
+require('es6-promise/auto');
+require('whatwg-fetch');
+require('abortcontroller-polyfill');
+
+//third-pary libs
 require("react");
 require("react-dom");
 require("prop-types");

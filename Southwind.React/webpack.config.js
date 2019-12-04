@@ -13,7 +13,7 @@ module.exports = {
     warningsFilter: [w => w.indexOf("was not found in") >= 0], //Removes warnings because of transpileOnly
   },
   entry: {
-    main: ['./polyfills.js', "./App/Main.tsx"],
+    main: "./App/Main.tsx",
   },
   output: {
     path: path.join(__dirname, "wwwroot", "dist"),
