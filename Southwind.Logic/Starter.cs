@@ -62,6 +62,7 @@ using Signum.Entities.Files;
 using Signum.Engine.MachineLearning.CNTK;
 using Signum.Entities.Rest;
 using Signum.Engine.Rest;
+using Microsoft.Exchange.WebServices.Data;
 
 namespace Southwind.Logic
 {
@@ -238,7 +239,7 @@ namespace Southwind.Logic
                 if (type == typeof(ColumnOptionsMode) || type == typeof(FilterOperation) || type == typeof(PaginationMode) || type == typeof(OrderType))
                     type = typeof(UserQueryEntity);
 
-                if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod))
+                if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod) || type == typeof(ExchangeVersion))
                     type = typeof(EmailMessageEntity);
 
                 if (type == typeof(DayOfWeek))
