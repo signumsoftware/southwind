@@ -45,8 +45,6 @@ module.exports = {
           },
         ]
       },
-      //{ test: /\.json?$/, use: [{ loader: 'json-loader' }] },
-      //{ test: /\.jsx?$/, use: [{ loader: "babel-loader"  }] },
       {
         test: /\.css$/,
         use: [
@@ -55,11 +53,11 @@ module.exports = {
         ]
       },
       {
-        test: /\.less$/,
+        test: /\.sass/,
         use: [
           { loader: "style-loader" },
           { loader: "css-loader" },
-          { loader: "less-loader" }
+          { loader: "sass-loader" }
         ]
       },
       { test: /\.gif$/, use: [{ loader: "url-loader", options: { "mimetype": "image/gif" } }] },
@@ -73,18 +71,10 @@ module.exports = {
       context: path.join(__dirname, "App"),
       manifest: require("./wwwroot/dist/vendor-manifest.json")
     }),
-    //new webpack.OldWatchingPlugin(), //makes watch-mode reliable in Visual Studio!
-    //new webpack.optimize.UglifyJsPlugin(),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
     new AssetsPlugin({
       path: path.join(__dirname, "wwwroot", "dist")
     }),
     new WebpackNotifierPlugin({ title: 'Southwind', excludeWarnings: true, alwaysNotify: true }),
-    //new CopyWebpackPlugin([
-    //    { from: 'node_modules/es6-promise/dist/es6-promise.auto.min.js', to: path.join(__dirname, "wwwroot/dist/es6-promise.auto.min.js") },
-    //    { from: 'node_modules/es6-object-assign/dist/object-assign-auto.min.js', to: path.join(__dirname, "wwwroot/dist/object-assign-auto.min.js") },
-    //    { from: 'node_modules/whatwg-fetch/dist/fetch.umd.js', to: path.join(__dirname, "wwwroot/dist/fetch.js") },
-    //    { from: 'node_modules/abortcontroller-polyfill/dist/polyfill-patch-fetch.js', to: path.join(__dirname, 'wwwroot/dist/polyfill-patch-fetch.js') },
-    //])
   ],
 }
