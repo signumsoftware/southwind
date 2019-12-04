@@ -45,7 +45,7 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
   environment: string;
   databaseName: string;
   email: Mailing.EmailConfigurationEmbedded;
-  smtpConfiguration: Mailing.SmtpConfigurationEntity;
+  emailSender: Mailing.EmailSenderConfigurationEntity;
   sms: SMS.SMSConfigurationEmbedded;
   authTokens: Authorization.AuthTokenConfigurationEmbedded;
   workflow: Workflow.WorkflowConfigurationEmbedded;

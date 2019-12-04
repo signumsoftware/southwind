@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -242,12 +242,15 @@ namespace Southwind.Test.Environment
                 AuthTokens = new AuthTokenConfigurationEmbedded
                 {
                 }, //Auth
-                SmtpConfiguration = new SmtpConfigurationEntity
+                EmailSender = new EmailSenderConfigurationEntity
                 {
                     Name = "localhost",
-                    Network = new SmtpNetworkDeliveryEmbedded
+                    SMTP = new SmtpEmbedded
                     {
-                        Host = "localhost"
+                        Network = new SmtpNetworkDeliveryEmbedded
+                        {
+                            Host = "localhost"
+                        }
                     }
                 }, //Email
                 Sms = new SMSConfigurationEmbedded
