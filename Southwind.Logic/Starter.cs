@@ -212,7 +212,8 @@ namespace Southwind.Logic
 
             SchemaName GetSchemaName(Type type)
             {
-                return new SchemaName(this.GetDatabaseName(type), GetSchemaNameName(type) ?? "dbo");
+                var isPostgres = this.Schema.Settings.IsPostgres;
+                return new SchemaName(this.GetDatabaseName(type), GetSchemaNameName(type) ?? SchemaName.Default(isPostgres).Name, isPostgres);
             }
 
             public Type[] InLogDatabase = new Type[]
@@ -227,7 +228,7 @@ namespace Southwind.Logic
                     return null;
 
                 if (InLogDatabase.Contains(type))
-                    return new DatabaseName(null, this.LogDatabaseName);
+                    return new DatabaseName(null, this.LogDatabaseName, this.Schema.Settings.IsPostgres);
 
                 return null;
             }
