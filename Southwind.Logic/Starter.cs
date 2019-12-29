@@ -72,7 +72,7 @@ namespace Southwind.Logic
     {
         public static ResetLazy<ApplicationConfigurationEntity> Configuration = null!;
 
-        public static void Start(string connectionString)
+        public static void Start(string connectionString, bool includeDynamic = true)
         {
             using (HeavyProfiler.Log("Start"))
             using (var initial = HeavyProfiler.Log("Initial"))
@@ -97,10 +97,13 @@ namespace Southwind.Logic
                 CacheLogic.Start(sb);
 
                 DynamicLogicStarter.Start(sb);
-                DynamicLogic.CompileDynamicCode();
+                if (includeDynamic)
+                {
+                    DynamicLogic.CompileDynamicCode();
 
-                DynamicLogic.RegisterMixins();
-                DynamicLogic.BeforeSchema(sb);
+                    DynamicLogic.RegisterMixins();
+                    DynamicLogic.BeforeSchema(sb);
+                }
 
                 TypeLogic.Start(sb);
 
@@ -183,9 +186,11 @@ namespace Southwind.Logic
                     heavyProfiler: true,
                     overrideSessionTimeout: true);
 
-                DynamicLogic.StartDynamicModules(sb);
-                DynamicLogic.RegisterExceptionIfAny();
-
+                if (includeDynamic)
+                {
+                    DynamicLogic.StartDynamicModules(sb);
+                    DynamicLogic.RegisterExceptionIfAny();
+                }
                 SetupCache(sb);
 
                 Schema.Current.OnSchemaCompleted();

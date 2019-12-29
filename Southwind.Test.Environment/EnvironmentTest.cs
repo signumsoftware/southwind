@@ -19,7 +19,7 @@ namespace Southwind.Test.Environment
         {
             var authRules = XDocument.Load(@"..\..\..\..\Southwind.Load\AuthRules.xml");
 
-            SouthwindEnvironment.Start();
+            SouthwindEnvironment.Start(includeDynamic: false);
 
             Administrator.TotalGeneration();
 

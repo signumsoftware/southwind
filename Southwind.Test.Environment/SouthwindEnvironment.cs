@@ -198,7 +198,7 @@ namespace Southwind.Test.Environment
         }//LoadShippers
 
         static bool started = false;
-        public static void Start()
+        public static void Start(bool includeDynamic = true)
         {
             if (!started)
             {
@@ -213,7 +213,7 @@ namespace Southwind.Test.Environment
                 if (!connectionString.Contains("Test")) //Security mechanism to avoid passing test on production
                     throw new InvalidOperationException("ConnectionString does not contain the word 'Test'.");
 
-                Starter.Start(connectionString);
+                Starter.Start(connectionString, includeDynamic);
                 started = true;
             }
         }

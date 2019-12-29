@@ -43,7 +43,6 @@
       <Type Resource="CaseTag" Allowed="Write" />
       <Type Resource="CaseTagType" Allowed="Write" />
       <Type Resource="CultureInfo" Allowed="Read" />
-      <Type Resource="HolidayRequest" Allowed="Write" />
       <Type Resource="Operation" Allowed="Read" />
       <Type Resource="Type" Allowed="Read" />
       <Type Resource="Workflow" Allowed="Read" />
