@@ -91,8 +91,16 @@ namespace Southwind.Logic
 
                 OverrideAttributes(sb);
 
-                var detector = SqlServerVersionDetector.Detect(connectionString);
-                Connector.Default = new SqlConnector(connectionString, sb.Schema, detector!.Value);
+                if (connectionString.Contains("Data Source"))
+                {
+                    var sqlVersion = SqlServerVersionDetector.Detect(connectionString);
+                    Connector.Default = new SqlConnector(connectionString, sb.Schema, sqlVersion!.Value);
+                }
+                else
+                {
+                    var postgreeVersion = PostgresVersionDetector.Detect(connectionString);
+                    Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
+                }
 
                 CacheLogic.Start(sb);
 

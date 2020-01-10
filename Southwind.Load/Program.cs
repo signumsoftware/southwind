@@ -31,6 +31,7 @@ using Signum.Engine.MachineLearning;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Reflection;
+using Signum.Engine.Cache;
 
 namespace Southwind.Load
 {
@@ -56,7 +57,7 @@ namespace Southwind.Load
                     Starter.Start(connectionString);
 
                     Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
-                    Console.WriteLine("Database: {0}", Regex.Match(((SqlConnector)Connector.Current).ConnectionString, @"Initial Catalog\=(?<db>.*)\;").Groups["db"].Value);
+                    Console.WriteLine($"{Connector.Current.GetType().Name} (Database: {Connector.Current.DatabaseName()})");
                     Console.WriteLine();
 
                     if (args.Any())
