@@ -27,6 +27,7 @@ import { /*Southwind.Entities*/
   CustomerQuery, CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
   RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity, OrderState
 } from './Southwind.Entities'
+import { FilterGroupOption } from '@framework/FindOptions';
 
 
 export function start(options: { routes: JSX.Element[] }) {
@@ -95,7 +96,7 @@ export function start(options: { routes: JSX.Element[] }) {
         { token: ProductEntity.token(a => a.category!.entity!.categoryName), operation: "Contains" },
       ],
       pinned: { splitText: true, disableOnNull: true },
-    }]
+    } as FilterGroupOption]
   });
 
 
@@ -108,7 +109,7 @@ export function start(options: { routes: JSX.Element[] }) {
         { token: PersonEntity.token().entity().cast(PersonEntity).append(a => a.toStr), operation: "Contains" },
       ],
       pinned: { splitText: true, disableOnNull: true },
-    }]
+    } as FilterGroupOption]
   });
 
   Operations.addSettings(new ConstructorOperationSettings(OrderOperation.Create, {

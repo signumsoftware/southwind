@@ -113,10 +113,15 @@ namespace Southwind.Logic
                     DynamicLogic.BeforeSchema(sb);
                 }
 
+                // Framework modules
+
                 TypeLogic.Start(sb);
 
                 OperationLogic.Start(sb);
                 ExceptionLogic.Start(sb);
+                QueryLogic.Start(sb);
+
+                // Extensions modules
 
                 MigrationLogic.Start(sb);
 
@@ -136,15 +141,14 @@ namespace Southwind.Logic
 
                 SchedulerLogic.Start(sb);
 
-                QueryLogic.Start(sb);
                 UserQueryLogic.Start(sb);
                 UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+                
                 ChartLogic.Start(sb);
-
-
                 UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+                
                 DashboardLogic.Start(sb);
                 DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
@@ -174,6 +178,13 @@ namespace Southwind.Logic
 
                 WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);
 
+                ProfilerLogic.Start(sb,
+                    timeTracker: true,
+                    heavyProfiler: true,
+                    overrideSessionTimeout: true);
+
+                // Southwind modules
+
                 EmployeeLogic.Start(sb);
                 ProductLogic.Start(sb);
                 CustomerLogic.Start(sb);
@@ -188,11 +199,6 @@ namespace Southwind.Logic
                 TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
                 TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
                 TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
-
-                ProfilerLogic.Start(sb,
-                    timeTracker: true,
-                    heavyProfiler: true,
-                    overrideSessionTimeout: true);
 
                 if (includeDynamic)
                 {

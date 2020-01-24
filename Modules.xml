@@ -339,7 +339,7 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="LogDatabaseName = logDatabase, "/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="public string? LogDatabaseName;"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="public Type[] InLogDatabase = new Type[]" To="};"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (this.LogDatabaseName == null)" To="return new DatabaseName(null, this.LogDatabaseName);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (this.LogDatabaseName == null)" To="return new DatabaseName(null, this.LogDatabaseName, this.Schema.Settings.IsPostgres);"/>
     </Module>
 
     <Module Name="PublicCatalog" DependsOn="ExampleEntities,Translation,Cache,Files">
