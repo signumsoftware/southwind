@@ -91,8 +91,16 @@ namespace Southwind.Logic
 
                 OverrideAttributes(sb);
 
-                var detector = SqlServerVersionDetector.Detect(connectionString);
-                Connector.Default = new SqlConnector(connectionString, sb.Schema, detector!.Value);
+                if (connectionString.Contains("Data Source"))
+                {
+                    var sqlVersion = SqlServerVersionDetector.Detect(connectionString);
+                    Connector.Default = new SqlConnector(connectionString, sb.Schema, sqlVersion!.Value);
+                }
+                else
+                {
+                    var postgreeVersion = PostgresVersionDetector.Detect(connectionString);
+                    Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
+                }
 
                 CacheLogic.Start(sb);
 
@@ -217,7 +225,8 @@ namespace Southwind.Logic
 
             SchemaName GetSchemaName(Type type)
             {
-                return new SchemaName(this.GetDatabaseName(type), GetSchemaNameName(type) ?? "dbo");
+                var isPostgres = this.Schema.Settings.IsPostgres;
+                return new SchemaName(this.GetDatabaseName(type), GetSchemaNameName(type) ?? SchemaName.Default(isPostgres).Name, isPostgres);
             }
 
             public Type[] InLogDatabase = new Type[]
@@ -232,7 +241,7 @@ namespace Southwind.Logic
                     return null;
 
                 if (InLogDatabase.Contains(type))
-                    return new DatabaseName(null, this.LogDatabaseName);
+                    return new DatabaseName(null, this.LogDatabaseName, this.Schema.Settings.IsPostgres);
 
                 return null;
             }
