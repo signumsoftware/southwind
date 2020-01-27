@@ -94,7 +94,7 @@ namespace Southwind.Logic
                 if (connectionString.Contains("Data Source"))
                 {
                     var sqlVersion = SqlServerVersionDetector.Detect(connectionString);
-                    Connector.Default = new SqlConnector(connectionString, sb.Schema, sqlVersion!.Value);
+                    Connector.Default = new SqlServerConnector(connectionString, sb.Schema, sqlVersion!.Value);
                 }
                 else
                 {
@@ -102,7 +102,7 @@ namespace Southwind.Logic
                     Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
                 }
 
-                CacheLogic.Start(sb);
+                CacheLogic.Start(sb, cacheInvalidator: sb.Settings.IsPostgres ? new PostgresCacheInvalidation() : null);
 
                 DynamicLogicStarter.Start(sb);
                 if (includeDynamic)

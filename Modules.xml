@@ -328,7 +328,7 @@
     </Module>
 
     <Module Name="Cache">
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="CacheLogic.Start(sb);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="CacheLogic.Start(sb, cacheInvalidator: sb.Settings.IsPostgres ? new PostgresCacheInvalidation() : null);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetupCache(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="private static void SetupCache(SchemaBuilder sb)" To="}"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="CacheClient.start({ routes });"/>

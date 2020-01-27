@@ -21,7 +21,7 @@ namespace Southwind.Load.NorthwindSchema
                     return connector;
 
                 var northwindConnectionString = Program.ConfigRoot.GetConnectionString("NorthwindConnectionString");
-                return connector = new SqlConnector(northwindConnectionString, new SchemaBuilder(false).Schema, SqlServerVersion.SqlServer2012);
+                return connector = new SqlServerConnector(northwindConnectionString, new SchemaBuilder(false).Schema, SqlServerVersion.SqlServer2012);
             }
         }
     }
