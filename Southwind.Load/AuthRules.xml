@@ -7,9 +7,7 @@
   </Roles>
   <Operations>
     <Role Name="Super user" />
-    <Role Name="User">
-      <Operation Resource="CaseActivityOperation.CreateCaseActivityFromWorkflow/Workflow" Allowed="Allow" />
-    </Role>
+    <Role Name="User" />
     <Role Name="Advanced user" />
   </Operations>
   <Permissions>
@@ -18,6 +16,10 @@
       <Permission Resource="BasicPermission.AutomaticUpgradeOfOperations" Allowed="True" />
       <Permission Resource="BasicPermission.AutomaticUpgradeOfProperties" Allowed="True" />
       <Permission Resource="BasicPermission.AutomaticUpgradeOfQueries" Allowed="True" />
+      <Permission Resource="ChartPermission.ViewCharting" Allowed="True" />
+      <Permission Resource="DashboardPermission.ViewDashboard" Allowed="True" />
+      <Permission Resource="HelpPermissions.ViewHelp" Allowed="True" />
+      <Permission Resource="WordTemplatePermission.GenerateReport" Allowed="True" />
     </Role>
     <Role Name="Advanced user" />
   </Permissions>
@@ -40,26 +42,65 @@
       <Type Resource="CaseActivity" Allowed="Write" />
       <Type Resource="CaseActivityExecutedTimer" Allowed="Write" />
       <Type Resource="CaseNotification" Allowed="Write" />
-      <Type Resource="CaseTag" Allowed="Write" />
-      <Type Resource="CaseTagType" Allowed="Write" />
-      <Type Resource="CultureInfo" Allowed="Read" />
-      <Type Resource="Operation" Allowed="Read" />
-      <Type Resource="Type" Allowed="Read" />
-      <Type Resource="Workflow" Allowed="Read" />
-      <Type Resource="WorkflowAction" Allowed="Read" />
-      <Type Resource="WorkflowActivity" Allowed="Read" />
-      <Type Resource="WorkflowCondition" Allowed="Read" />
-      <Type Resource="WorkflowConnection" Allowed="Read" />
-      <Type Resource="WorkflowEvent" Allowed="Read" />
-      <Type Resource="WorkflowEventTask" Allowed="Read" />
-      <Type Resource="WorkflowEventTaskConditionResult" Allowed="Read" />
-      <Type Resource="WorkflowGateway" Allowed="Read" />
-      <Type Resource="WorkflowLane" Allowed="Read" />
-      <Type Resource="WorkflowPool" Allowed="Read" />
-      <Type Resource="WorkflowScript" Allowed="Read" />
-      <Type Resource="WorkflowScriptRetryStrategy" Allowed="Read" />
-      <Type Resource="WorkflowTimerCondition" Allowed="Read" />
+      <Type Resource="CaseTag" Allowed="Read" />
+      <Type Resource="CaseTagType" Allowed="Read" />
+      <Type Resource="Category" Allowed="Read" />
+      <Type Resource="ChartScript" Allowed="DBReadUINone" />
+      <Type Resource="Company" Allowed="Write" />
+      <Type Resource="Dashboard" Allowed="DBReadUINone" />
+      <Type Resource="Employee" Allowed="Read" />
+      <Type Resource="File" Allowed="Read" />
+      <Type Resource="FileType" Allowed="Read" />
+      <Type Resource="LinkListPart" Allowed="DBReadUINone" />
+      <Type Resource="Note" Allowed="Write" />
+      <Type Resource="NoteType" Allowed="Read" />
+      <Type Resource="Order" Allowed="Write" />
+      <Type Resource="Person" Allowed="Write" />
+      <Type Resource="Product" Allowed="Read" />
+      <Type Resource="Query" Allowed="DBReadUINone" />
+      <Type Resource="Region" Allowed="Read" />
+      <Type Resource="Shipper" Allowed="Read" />
+      <Type Resource="Supplier" Allowed="Read" />
+      <Type Resource="Territory" Allowed="Read" />
+      <Type Resource="Toolbar" Allowed="DBReadUINone" />
+      <Type Resource="ToolbarMenu" Allowed="DBReadUINone" />
+      <Type Resource="UserChart" Allowed="DBReadUINone" />
+      <Type Resource="UserChartPart" Allowed="DBReadUINone" />
+      <Type Resource="UserQuery" Allowed="DBReadUINone" />
+      <Type Resource="UserQueryPart" Allowed="DBReadUINone" />
+      <Type Resource="ValueUserQueryListPart" Allowed="DBReadUINone" />
+      <Type Resource="Workflow" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowAction" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowActivity" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowCondition" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowConnection" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowEvent" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowEventTask" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowEventTaskConditionResult" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowGateway" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowLane" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowPool" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowScript" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowScriptRetryStrategy" Allowed="DBReadUINone" />
+      <Type Resource="WorkflowTimerCondition" Allowed="DBReadUINone" />
     </Role>
-    <Role Name="Advanced user" />
+    <Role Name="Advanced user">
+      <Type Resource="AlertType" Allowed="Write" />
+      <Type Resource="Category" Allowed="Write" />
+      <Type Resource="Dashboard" Allowed="Write" />
+      <Type Resource="Employee" Allowed="Write" />
+      <Type Resource="LinkListPart" Allowed="Write" />
+      <Type Resource="NoteType" Allowed="Write" />
+      <Type Resource="Product" Allowed="Write" />
+      <Type Resource="Region" Allowed="Write" />
+      <Type Resource="Shipper" Allowed="Write" />
+      <Type Resource="Supplier" Allowed="Write" />
+      <Type Resource="Territory" Allowed="Write" />
+      <Type Resource="Toolbar" Allowed="Write" />
+      <Type Resource="ToolbarMenu" Allowed="Write" />
+      <Type Resource="UserChartPart" Allowed="Write" />
+      <Type Resource="UserQueryPart" Allowed="Write" />
+      <Type Resource="ValueUserQueryListPart" Allowed="Write" />
+    </Role>
   </Types>
 </Auth>
