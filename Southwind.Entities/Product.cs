@@ -65,6 +65,15 @@ namespace Southwind.Entities
         public override string ToString() => As.Expression(() => ProductName);
     }
 
+    [AllowUnathenticated]
+    public enum CatalogMessage
+    {
+        ProductName, 
+        UnitPrice,
+        QuantityPerUnit,
+        UnitsInStock,
+    }
+
     [Serializable]
     public class AdditionalInformationEmbedded : EmbeddedEntity
     {

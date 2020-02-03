@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ajaxGet } from "@framework/Services"
 import numbro from "numbro"
 
-import { CategoryEntity, ProductEntity } from './Southwind/Southwind.Entities'
+import { CategoryEntity, ProductEntity, CatalogMessage } from './Southwind/Southwind.Entities'
 import { useAPI } from '../../Framework/Signum.React/Scripts/Hooks'
 
 export interface CategoryWithProducts {
@@ -32,16 +32,16 @@ export default function PublicCatalog() {
           <table className="table table-hover">
             <thead>
               <tr>
-                <th>{ProductEntity.nicePropertyName(p => p.productName)}</th>
-                <th>{ProductEntity.nicePropertyName(p => p.unitPrice)}</th>
-                <th>{ProductEntity.nicePropertyName(p => p.quantityPerUnit)}</th>
-                <th>{ProductEntity.nicePropertyName(p => p.unitsInStock)}</th>
+                <th>{CatalogMessage.ProductName.niceToString()}</th>
+                <th>{CatalogMessage.UnitPrice.niceToString()}</th>
+                <th>{CatalogMessage.QuantityPerUnit.niceToString()}</th>
+                <th>{CatalogMessage.UnitsInStock.niceToString()}</th>
               </tr>
             </thead>
             <tbody>
               {c.products.orderBy(a => a.id).orderBy(a => a.reorderLevel).map(p => <tr key={p.id}>
                 <td>{p.productName}</td>
-                <td>{numbro(p.unitPrice).format("0.00")} {ProductEntity.memberInfo(p => p.unitPrice).unit}</td>
+                <td>{numbro(p.unitPrice).format("0.00")} $</td>
                 <td>{p.quantityPerUnit}</td>
                 <td>{p.unitsInStock}</td>
               </tr>)

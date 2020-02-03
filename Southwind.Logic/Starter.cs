@@ -63,6 +63,7 @@ using Signum.Engine.MachineLearning.CNTK;
 using Signum.Entities.Rest;
 using Signum.Engine.Rest;
 using Microsoft.Exchange.WebServices.Data;
+using Signum.Engine.Omnibox;
 
 namespace Southwind.Logic
 {
@@ -140,6 +141,7 @@ namespace Southwind.Logic
                 PackageLogic.Start(sb, packages: true, packageOperations: true);
 
                 SchedulerLogic.Start(sb);
+                OmniboxLogic.Start(sb);
 
                 UserQueryLogic.Start(sb);
                 UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);

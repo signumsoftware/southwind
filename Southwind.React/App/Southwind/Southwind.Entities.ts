@@ -56,6 +56,13 @@ export module ApplicationConfigurationOperation {
   export const Save : Entities.ExecuteSymbol<ApplicationConfigurationEntity> = registerSymbol("Operation", "ApplicationConfigurationOperation.Save");
 }
 
+export module CatalogMessage {
+  export const ProductName = new MessageKey("CatalogMessage", "ProductName");
+  export const UnitPrice = new MessageKey("CatalogMessage", "UnitPrice");
+  export const QuantityPerUnit = new MessageKey("CatalogMessage", "QuantityPerUnit");
+  export const UnitsInStock = new MessageKey("CatalogMessage", "UnitsInStock");
+}
+
 export const CategoryEntity = new Type<CategoryEntity>("Category");
 export interface CategoryEntity extends Entities.Entity {
   Type: "Category";
