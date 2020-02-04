@@ -15,7 +15,7 @@ namespace Southwind.Test.Environment
     public class EnvironmentTest
     {
         [Fact]
-        public void GenerateEnvironment()
+        public void GenerateTestEnvironment()
         {
             var authRules = XDocument.Load(@"..\..\..\..\Southwind.Load\AuthRules.xml");
 
