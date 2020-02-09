@@ -56,7 +56,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Signum.Analyzer" Version="2.5.0" />
-    <PackageReference Include="Signum.TSGenerator" Version="2.2.5" />
+    <PackageReference Include="Signum.TSGenerator" Version="2.3.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
 

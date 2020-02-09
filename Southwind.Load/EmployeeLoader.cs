@@ -57,13 +57,13 @@ namespace Southwind.Load
                 e.ReportsTo,
                 employee = new EmployeeEntity
                 {
-                    BirthDate = e.BirthDate,
+                    BirthDate = (Date?)e.BirthDate,
                     FirstName = e.FirstName,
                     LastName = e.LastName,
                     TitleOfCourtesy = e.TitleOfCourtesy,
                     HomePhone = e.HomePhone,
                     Extension = e.Extension,
-                    HireDate = e.HireDate,
+                    HireDate = (Date?)e.HireDate,
                     Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),
                     PhotoPath = e.PhotoPath,
                     Address = new AddressEmbedded

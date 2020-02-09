@@ -57,10 +57,10 @@ export function start(options: { routes: JSX.Element[] }) {
 
   {/*Files*/ }
   const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
-  Finder.registerPropertyFormatter(CategoryEntity.propertyRoute(ca => ca.picture),
+  Finder.registerPropertyFormatter(CategoryEntity.tryPropertyRoute(ca => ca.picture),
     new Finder.CellFormatter((cell: FileEmbedded) => <img style={maxDimensions} src={"data:image/jpeg;base64," + cell.binaryFile} />));
 
-  Finder.registerPropertyFormatter(EmployeeEntity.propertyRoute(ca => ca.photo),
+  Finder.registerPropertyFormatter(EmployeeEntity.tryPropertyRoute(ca => ca.photo),
     new Finder.CellFormatter((cell: Lite<FileEntity>) => <FetchInState lite={cell}>{file => file && <img style={maxDimensions} src={"data:image/jpeg;base64," + (file as FileEntity).binaryFile} />}</FetchInState>));
   {/*Files*/ }
 
