@@ -361,6 +361,7 @@
     </Module>
 
     <Module Name="Omnibox">
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="OmniboxLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.React\Startup.cs" From="OmniboxServer.Start(app," To=");//Omnibox"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;OmniboxAutocomplete inputAttrs={{ className: &quot;form-control&quot; }} />"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as OmniboxClient from &quot;@extensions/Omnibox/OmniboxClient&quot;"/>
