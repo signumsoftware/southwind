@@ -8,8 +8,8 @@
       <RemoveFiles Path="Southwind.Entities\Order.cs"/>
       <RemoveFiles Path="Southwind.Entities\Product.cs"/>
 
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;SO&quot;, ShowOrder},"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" From="static void ShowOrder()" To="}//ShowOrder"/>
+      <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;SO&quot;, ShowOrder},"/>
+      <RemoveLine Path="Southwind.Terminal\Program.cs" From="static void ShowOrder()" To="}//ShowOrder"/>
 
       <RemoveFiles Path="Southwind.Logic\CustomerLogic.cs"/>
       <RemoveFiles Path="Southwind.Logic\EmployeeLogic.cs"/>
@@ -51,21 +51,21 @@
 
     <Module Name="Migrations">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MigrationLogic.Start(sb);"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" From="if (args.Any())" To="} //if(args.Any())"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;SQL&quot;, SqlMigrationRunner.SqlMigrations},"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;CS&quot;, () => SouthwindMigrations.CSharpMigrations(false), &quot;C# Migrations&quot;},"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void CSharpMigrations(bool autoRun)" To="} //CSharpMigrations"/>
+      <RemoveLine Path="Southwind.Terminal\Program.cs" From="if (args.Any())" To="} //if(args.Any())"/>
+      <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;SQL&quot;, SqlMigrationRunner.SqlMigrations},"/>
+      <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;CS&quot;, () => SouthwindMigrations.CSharpMigrations(false), &quot;C# Migrations&quot;},"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void CSharpMigrations(bool autoRun)" To="} //CSharpMigrations"/>
     </Module>
 
     <Module Name="LoadNorthwind" DependsOn="ExampleEntities,Migrations">
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
-      <RemoveFiles Path="Southwind.Load\CustomerLoader.cs"/>
-      <RemoveFiles Path="Southwind.Load\EmployeeLoader.cs"/>
-      <RemoveFiles Path="Southwind.Load\NorthwindSchema.cs"/>
-      <RemoveFiles Path="Southwind.Load\OrderLoader.cs"/>
-      <RemoveFiles Path="Southwind.Load\ProductLoader.cs"/>
-      <RemoveFiles Path="Southwind.Load\SupplierFaxes.csv"/>
-      <RemoveLine Path="Southwind.Load\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True&quot;"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
+      <RemoveFiles Path="Southwind.Terminal\CustomerLoader.cs"/>
+      <RemoveFiles Path="Southwind.Terminal\EmployeeLoader.cs"/>
+      <RemoveFiles Path="Southwind.Terminal\NorthwindSchema.cs"/>
+      <RemoveFiles Path="Southwind.Terminal\OrderLoader.cs"/>
+      <RemoveFiles Path="Southwind.Terminal\ProductLoader.cs"/>
+      <RemoveFiles Path="Southwind.Terminal\SupplierFaxes.csv"/>
+      <RemoveLine Path="Southwind.Terminal\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True&quot;"/>
     </Module>
 
     <Module Name="UserQuery">
@@ -86,9 +86,9 @@
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as WordClient from &quot;@extensions/Word/WordClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="WordClient.start({ routes, contextual: true, queryButton: true, entityButton: false });"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="WordServer.Start(app);"/>
-      <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportWordReportTemplateForOrder,"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
-      <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Load\WordTemplates\Order.docx"/>
+      <RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportWordReportTemplateForOrder,"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
+      <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Terminal\WordTemplates\Order.docx"/>
     </Module>
 
     <Module Name="Chart" DependsOn="Files">
@@ -115,9 +115,9 @@
       <RemoveLine Path="Southwind.React\Startup.cs" Line="FilesServer.Start(app);"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Employee.cs" Line="public Lite&lt;FileEntity>? Photo { get; set; }"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Product.cs" Line="public FileEmbedded? Picture { get; set; }"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\EmployeeLoader.cs" Line="Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\EmployeeLoader.cs" From="public static byte[] RemoveOlePrefix(byte[] bytes)" To="} //RemoveOlePrefix"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\ProductLoader.cs" Line="Picture = new FileEmbedded { FileName = s.CategoryName + &quot;.jpg&quot;, BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\EmployeeLoader.cs" Line="Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\EmployeeLoader.cs" From="public static byte[] RemoveOlePrefix(byte[] bytes)" To="} //RemoveOlePrefix"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\ProductLoader.cs" Line="Picture = new FileEmbedded { FileName = s.CategoryName + &quot;.jpg&quot;, BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\ProductLogic.cs" Line="s.Picture"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //1"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //2"/>
@@ -148,8 +148,8 @@
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="import DashboardOmniboxProvider from &quot;@extensions/Dashboard/DashboardOmniboxProvider&quot;"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\Main.tsx" Line="new DashboardOmniboxProvider(),"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Startup.cs" Line="new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; Owner=&quot;User;2&quot; ChartScript=&quot;StackedLines&quot; GroupResults=&quot;true&quot;>"  To="&lt;/Dashboard>"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; Owner=&quot;User;2&quot; ChartScript=&quot;StackedLines&quot; GroupResults=&quot;true&quot;>"  To="&lt;/Dashboard>"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
     </Module>
 
     <Module Name="Toolbar">
@@ -172,15 +172,15 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{/* Layout"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="Layout */}"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;ToolbarRenderer location=&quot;Top&quot; />}"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-shopping-cart&quot; IconColor=&quot;orange&quot; Content=&quot;Order&quot; />" 
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-shopping-cart&quot; IconColor=&quot;orange&quot; Content=&quot;Order&quot; />" 
                   To="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-user&quot; IconColor=&quot;seagreen&quot; Content=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; />" />
-      <RemoveLine DependsOn="Dynamic" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Dynamic Panel&quot; IconName=&quot;fas fa-arrows-alt&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;DynamicPanelPermission.ViewDynamicPanel&quot; Url=&quot;~/dynamic/panel&quot; />" />
-      <RemoveLine DependsOn="Workflow" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Workflow Script Runner&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;WorkflowPermission.ViewWorkflowPanel&quot; Url=&quot;~/workflow/panel&quot; />" />
-      <RemoveLine DependsOn="Workflow" Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; Name=&quot;Workflow&quot;>" To="&lt;/ToolbarMenu>" />
-      <RemoveLine DependsOn="Workflow" Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;saddlebrown&quot; Content=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; />" />
-      <RemoveLine Path="Southwind.Load\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
+      <RemoveLine DependsOn="Dynamic" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Dynamic Panel&quot; IconName=&quot;fas fa-arrows-alt&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;DynamicPanelPermission.ViewDynamicPanel&quot; Url=&quot;~/dynamic/panel&quot; />" />
+      <RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Workflow Script Runner&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;WorkflowPermission.ViewWorkflowPanel&quot; Url=&quot;~/workflow/panel&quot; />" />
+      <RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; Name=&quot;Workflow&quot;>" To="&lt;/ToolbarMenu>" />
+      <RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;saddlebrown&quot; Content=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; />" />
+      <RemoveLine Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
 
     </Module>
 
@@ -228,14 +228,14 @@
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MailingClient.start({ routes, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Email*/" To="public EmailSenderConfigurationEntity EmailSender { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email)}>" To="&lt;/Tab>"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Email = new EmailConfigurationEmbedded" To="}, //Email"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Email = new EmailConfigurationEmbedded" To="}, //Email"/>
     </Module>
 
     <Module Name="SMS">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SMSLogic.Start(sb, null, () => Configuration.Value.Sms);" />
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Sms*/" To="public SMSConfigurationEmbedded Sms { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms)}>" To="&lt;/Tab>"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
     </Module>
 
@@ -247,14 +247,14 @@
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*AuthTokens*/" To="public AuthTokenConfigurationEmbedded AuthTokens { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;auth&quot; title={ctx.niceName(a => a.authTokens)}>" To="&lt;/Tab>"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="AuthTokens = new AuthTokenConfigurationEmbedded" To="}, //Auth"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="AuthTokens = new AuthTokenConfigurationEmbedded" To="}, //Auth"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="AuthServer.Start(app, () => Starter.Configuration.Value.AuthTokens, &quot;IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!&quot;);" />
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;AR&quot;, AuthLogic.ImportExportAuthRules},"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations,LoadNorthwind"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="CreateRoles," To="CreateSystemUser,"/>
-      <RemoveLine Path="Southwind.Load\EmployeeLoader.cs" From="internal static void CreateUsers()" To="} //CreateUsers"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="internal static void CreateRoles()" To="} //CreateSystemUser"/>
-      <RemoveLine Path="Southwind.Load\AuthRules.xml" From="&lt;Types>" To="&lt;/Types>"  DependsOn="ExampleEntities"/>
+      <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;AR&quot;, AuthLogic.ImportExportAuthRules},"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations,LoadNorthwind"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="CreateRoles," To="CreateSystemUser,"/>
+      <RemoveLine Path="Southwind.Terminal\EmployeeLoader.cs" From="internal static void CreateUsers()" To="} //CreateUsers"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="internal static void CreateRoles()" To="} //CreateSystemUser"/>
+      <RemoveLine Path="Southwind.Terminal\AuthRules.xml" From="&lt;Types>" To="&lt;/Types>"  DependsOn="ExampleEntities"/>
       <RemoveFiles Path="Southwind.Entities\UserEmployeeMixin.cs" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserEmployeeMixin&gt;();" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
@@ -274,7 +274,7 @@
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().Single(e => e.FirstName == userName).ToLite());" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
-      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\..\Southwind.Load\AuthRules.xml&quot;);"/>
+      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\..\Southwind.Terminal\AuthRules.xml&quot;);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();"/>
     </Module>
@@ -290,11 +290,11 @@
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line=".then(() => CultureClient.loadCurrentCulture())"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="CultureClient.onCultureLoaded.push(ci => {"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="}); //Culture"/>
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;CT&quot;, TranslationLogic.CopyTranslations},"/>
+      <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;CT&quot;, TranslationLogic.CopyTranslations},"/>
       <RemoveSpanInLines Path="Southwind.React\App\Main.tsx" Span="ci.name!; //"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportSpanishInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
-      <RemoveFiles Path="Southwind.Load\Category.es.View.xlsx" DependsOn="LoadNorthwind"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportSpanishInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
+      <RemoveFiles Path="Southwind.Terminal\Category.es.View.xlsx" DependsOn="LoadNorthwind"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;CultureDropdown />"/>
@@ -310,7 +310,7 @@
 
     <Module Name="SessionLog" DependsOn="Auth">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="SessionLogLogic.Start(sb);"/>
-      <RemoveLine Path="Southwind.Load\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Content=&quot;SessionLog&quot; />" />
+      <RemoveLine Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Content=&quot;SessionLog&quot; />" />
     </Module>
 
     <Module Name="Alerts">
@@ -381,7 +381,7 @@
     </Module>
 
     <Module Name="Help">
-      <RemoveLine Path="Southwind.Load\Program.cs" Line="{&quot;HL&quot;, HelpXml.ImportExportHelp},"/>
+      <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;HL&quot;, HelpXml.ImportExportHelp},"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="HelpLogic.Start(sb);"/>
     </Module>
 
@@ -404,13 +404,13 @@
 
     <Module Name="Predictor">
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Predictor*/" To="public string PredictorModelFolder { get; set; }"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" Line="ImportPredictor,"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" Line="PredictorModelFolder = @&quot;c:/Southwind/PredictorModels&quot;"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Load\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportPredictor,"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="PredictorModelFolder = @&quot;c:/Southwind/PredictorModels&quot;"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
-      <RemoveLine Path="Southwind.Load\Southwind.Load.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.7.0&quot; />"/>
+      <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.7.0&quot; />"/>
       <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.7.0&quot; />"/>
 "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot; />"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.CNTK;"/>
@@ -458,7 +458,7 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="import WorkflowDropdown from &quot;@extensions/Workflow/Workflow/WorkflowDropdown&quot;"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;WorkflowDropdown />"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="WorkflowServer.Start(app);"/>
-      <RemoveLine Path="Southwind.Load\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;5.0.4&quot;,"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;min-dash&quot;: &quot;3.5.1&quot;,"/>
@@ -495,7 +495,7 @@
 
   <Projects>
     <Project Path ="Southwind.Entities\Southwind.Entities.csproj"/>
-    <Project Path ="Southwind.Load\Southwind.Load.csproj"/>
+    <Project Path ="Southwind.Terminal\Southwind.Terminal.csproj"/>
     <Project Path ="Southwind.Logic\Southwind.Logic.csproj"/>
     <Project Path ="Southwind.React\Southwind.React.csproj"/>
     <Project Path ="Southwind.Test.Environment\Southwind.Test.Environment.csproj"/>

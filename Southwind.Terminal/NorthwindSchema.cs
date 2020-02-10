@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Southwind.Load.NorthwindSchema
+namespace Southwind.Terminal.NorthwindSchema
 {
     public static class Northwind
     {

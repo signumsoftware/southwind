@@ -10,9 +10,9 @@ using Signum.Services;
 using Signum.Entities.Authorization;
 using Signum.Engine.Operations;
 using Signum.Entities.Files;
-using Southwind.Load.NorthwindSchema;
+using Southwind.Terminal.NorthwindSchema;
 
-namespace Southwind.Load
+namespace Southwind.Terminal
 {
     internal static class EmployeeLoader
     {

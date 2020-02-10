@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +8,9 @@ using Signum.Utilities;
 using Signum.Entities;
 using Signum.Services;
 using System.Globalization;
-using Southwind.Load.NorthwindSchema;
+using Southwind.Terminal.NorthwindSchema;
 
-namespace Southwind.Load
+namespace Southwind.Terminal
 {
     internal static class CustomerLoader
     {

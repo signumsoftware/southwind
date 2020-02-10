@@ -33,7 +33,7 @@ using System.IO;
 using System.Reflection;
 using Signum.Engine.Cache;
 
-namespace Southwind.Load
+namespace Southwind.Terminal
 {
     class Program
     {

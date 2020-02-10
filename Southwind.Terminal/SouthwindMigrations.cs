@@ -30,7 +30,7 @@ using Signum.Engine.Authorization;
 using Signum.Engine.MachineLearning;
 using Signum.Engine.DynamicQuery;
 
-namespace Southwind.Load
+namespace Southwind.Terminal
 {
     public static class SouthwindMigrations
     {

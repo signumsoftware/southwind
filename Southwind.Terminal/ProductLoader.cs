@@ -9,9 +9,9 @@ using Signum.Entities;
 using Signum.Services;
 using System.Globalization;
 using Signum.Entities.Files;
-using Southwind.Load.NorthwindSchema;
+using Southwind.Terminal.NorthwindSchema;
 
-namespace Southwind.Load
+namespace Southwind.Terminal
 {
     internal static class ProductLoader
     {
