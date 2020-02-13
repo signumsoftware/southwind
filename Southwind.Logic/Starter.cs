@@ -73,7 +73,7 @@ namespace Southwind.Logic
     {
         public static ResetLazy<ApplicationConfigurationEntity> Configuration = null!;
 
-        public static void Start(string connectionString, bool includeDynamic = true)
+        public static void Start(string connectionString, bool isPostgres, bool includeDynamic = true)
         {
             using (HeavyProfiler.Log("Start"))
             using (var initial = HeavyProfiler.Log("Initial"))
@@ -92,7 +92,7 @@ namespace Southwind.Logic
 
                 OverrideAttributes(sb);
 
-                if (connectionString.Contains("Data Source"))
+                if (!isPostgres)
                 {
                     var sqlVersion = SqlServerVersionDetector.Detect(connectionString);
                     Connector.Default = new SqlServerConnector(connectionString, sb.Schema, sqlVersion!.Value);

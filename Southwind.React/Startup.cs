@@ -184,7 +184,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
                 DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
 
-                Starter.Start(Configuration.GetConnectionString("ConnectionString"));
+                Starter.Start(Configuration.GetConnectionString("ConnectionString"), Configuration.GetValue<bool>("IsPostgres"));
 
                 log.Switch("Initialize");
                 using (AuthLogic.Disable())

@@ -52,9 +52,8 @@ namespace Southwind.Terminal
                         .AddJsonFile("appsettings.json")
                         .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
                         .AddUserSecrets<Program>().Build();
-
-                    var connectionString = ConfigRoot.GetConnectionString("ConnectionString");
-                    Starter.Start(connectionString);
+                    
+                    Starter.Start(ConfigRoot.GetConnectionString("ConnectionString"), ConfigRoot.GetValue<bool>("IsPostgres"));
 
                     Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
                     Console.WriteLine($"{Connector.Current.GetType().Name} (Database: {Connector.Current.DatabaseName()})");

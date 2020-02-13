@@ -213,7 +213,7 @@ namespace Southwind.Test.Environment
                 if (!connectionString.Contains("Test")) //Security mechanism to avoid passing test on production
                     throw new InvalidOperationException("ConnectionString does not contain the word 'Test'.");
 
-                Starter.Start(connectionString, includeDynamic);
+                Starter.Start(connectionString, config.GetValue<bool>("IsPostgres"), includeDynamic);
                 started = true;
             }
         }
