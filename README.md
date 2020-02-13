@@ -14,8 +14,8 @@ It is regularly keept up to date with the latest changes in Signum Framework and
 # Online version in Azure
 You can check out Southwind running in Azure
 
-* [https://southwindsqlserver.azurewebsites.net/](Docker image in Azure running on Micosoft SQL Server)
-* [https://southwindpostgres.azurewebsites.net/](Docker image in Azure running on PostgreSQL)
+- Docker image in Azure running on Micosoft SQL Server -> https://southwindsqlserver.azurewebsites.net
+- Docker image in Azure running on PostgreSQL -> https://southwindpostgres.azurewebsites.net
 
 ```
 Username: Steven
