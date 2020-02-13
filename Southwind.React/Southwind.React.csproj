@@ -12,6 +12,7 @@
     <UserSecretsId>Southwind</UserSecretsId>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591;NU1605</NoWarn>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -55,6 +56,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
     <PackageReference Include="Signum.Analyzer" Version="2.5.0" />
     <PackageReference Include="Signum.TSGenerator" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
