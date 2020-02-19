@@ -9,3 +9,15 @@ It is regularly keept up to date with the latest changes in Signum Framework and
 
 - [Signum Framework website](https://www.signumsoftware.com/en/Framework)
 - [Signum Framework github repository](https://github.com/signumsoftware/framework)
+
+
+# Online version in Azure
+You can check out Southwind running in Azure
+
+- Docker image in Azure running on Micosoft SQL Server -> https://southwindsqlserver.azurewebsites.net
+- Docker image in Azure running on PostgreSQL -> https://southwindpostgres.azurewebsites.net
+
+```
+Username: Steven
+Password: Steven
+```
