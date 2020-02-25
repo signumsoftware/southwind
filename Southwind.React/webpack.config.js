@@ -9,9 +9,6 @@ var node_modules = path.join(__dirname, "node_modules");
 module.exports = {
   mode: "development",  //Now mandatory, alternatively “production”
   devtool: false, //To remove source maps in “development”, avoids problems with errors in Chrome
-  stats: {
-    warningsFilter: [w => w.indexOf("was not found in") >= 0], //Removes warnings because of transpileOnly
-  },
   entry: {
     main: "./App/Main.tsx",
   },
@@ -75,6 +72,6 @@ module.exports = {
     new AssetsPlugin({
       path: path.join(__dirname, "wwwroot", "dist")
     }),
-    new WebpackNotifierPlugin({ title: 'Southwind', excludeWarnings: true, alwaysNotify: true }),
+    new WebpackNotifierPlugin({ title: 'Southwind', alwaysNotify: true }),
   ],
 }
