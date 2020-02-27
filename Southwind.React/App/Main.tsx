@@ -211,9 +211,9 @@ AuthClient.Options.onLogin = (url?: string) => {
   reload().then(() => {
     var loc = Navigator.history.location;
 
-    var back: History.Location = loc && loc.state && loc.state.back;
+    var back: History.Location = loc && loc.state && (loc.state as any).back;
 
-    Navigator.history.push(back || url || "~/");
+    Navigator.history.push(back ?? url ?? "~/");
   }).done();
 };
 
