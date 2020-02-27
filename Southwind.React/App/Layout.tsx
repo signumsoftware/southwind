@@ -14,6 +14,7 @@ import VersionChangedAlert from '@framework/Frames/VersionChangedAlert';
 import { LinkContainer, ErrorBoundary } from '@framework/Components';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import * as RestClient from "@extensions/Rest/RestClient";
+import { OmniboxPermission } from '../../Extensions/Signum.React.Extensions/Omnibox/Signum.Entities.Omnibox'
 
 export default function Layout() {
   const [refreshId, setRefreshId] = React.useState(0);
@@ -46,8 +47,8 @@ export default function Layout() {
               {AuthClient.currentUser() &&
                 <Nav className="mr-auto">
                   <li>
-                    <div className="omnibox-container" style={{ width: "200px" }}>
-                      <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
+                  <div className="omnibox-container" style={{ width: "200px" }}>
+                    {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && < OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />}
                     </div>
                   </li>
                   <NavDropdown title="Menu" id="layoutMenu">
