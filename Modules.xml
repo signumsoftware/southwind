@@ -363,7 +363,7 @@
     <Module Name="Omnibox">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="OmniboxLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.React\Startup.cs" From="OmniboxServer.Start(app," To=");//Omnibox"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;OmniboxAutocomplete inputAttrs={{ className: &quot;form-control&quot; }} />"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) &amp;&amp; &lt;OmniboxAutocomplete inputAttrs={{ className: &quot;form-control&quot; }} />}"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as OmniboxClient from &quot;@extensions/Omnibox/OmniboxClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import DynamicQueryOmniboxProvider from &quot;@extensions/Omnibox/DynamicQueryOmniboxProvider&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import EntityOmniboxProvider from &quot;@extensions/Omnibox/EntityOmniboxProvider&quot;"/>
@@ -462,8 +462,8 @@
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;5.0.4&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;min-dash&quot;: &quot;3.5.1&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;diagram-js-minimap&quot;: &quot;2.0.1&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;min-dash&quot;: &quot;3.5.2&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;diagram-js-minimap&quot;: &quot;2.0.3&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">
