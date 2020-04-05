@@ -223,7 +223,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, () => Configuration.Value.Email, (et, target) => Configuration.Value.EmailSender);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="s.Email.SendEmails," To="s.Email.UrlLeft"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
-      <RemoveLine Path="Southwind.React\Startup.cs" Line="MailingServer.Start(app);" />
+      <RemoveLine Path="Southwind.React\Startup.cs" Line="MailingServer.Start(app, smtp: false, pop3: true);" />
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="import * as MailingClient from &quot;@extensions/Mailing/MailingClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\Main.tsx" Line="MailingClient.start({ routes, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Email*/" To="public EmailSenderConfigurationEntity EmailSender { get; set; }"/>

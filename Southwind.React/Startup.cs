@@ -256,7 +256,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             TranslationServer.Start(app, new AlreadyTranslatedTranslator(new AzureTranslator("Your API Key for Azure Translate")));
             SchedulerServer.Start(app, lifetime);
             ProcessServer.Start(app);
-            MailingServer.Start(app);
+            MailingServer.Start(app, smtp: false, pop3: true);
             ProfilerServer.Start(app);
             DiffLogServer.Start(app);
             RestServer.Start(app);

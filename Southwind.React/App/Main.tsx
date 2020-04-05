@@ -117,7 +117,7 @@ Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 
 AuthClient.registerUserTicketAuthenticator();
 
-window.onerror = (message: Event | string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showError(error);
+window.onerror = (message: Event | string, filename?: string, lineno?: number, colno?: number, error?: Error) => ErrorModal.showAppropriateError(error);
 
 
 function reload() {
