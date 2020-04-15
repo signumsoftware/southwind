@@ -10,7 +10,7 @@ import CultureDropdown from "@extensions/Translation/CultureDropdown"
 import WorkflowDropdown from "@extensions/Workflow/Workflow/WorkflowDropdown"
 import SidebarContainer from "@extensions/Toolbar/SidebarContainer"
 import ToolbarRenderer from "@extensions/Toolbar/Templates/ToolbarRenderer"
-import VersionChangedAlert from '@framework/Frames/VersionChangedAlert';
+import { VersionChangedAlert, VersionInfo } from '@framework/Frames/VersionChangedAlert';
 import { LinkContainer, ErrorBoundary } from '@framework/Components';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import * as RestClient from "@extensions/Rest/RestClient";
@@ -47,8 +47,8 @@ export default function Layout() {
               {AuthClient.currentUser() &&
                 <Nav className="mr-auto">
                   <li>
-                  <div className="omnibox-container" style={{ width: "200px" }}>
-                    {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />}
+                    <div className="omnibox-container" style={{ width: "200px" }}>
+                      {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />}
                     </div>
                   </li>
                   <NavDropdown title="Menu" id="layoutMenu">
@@ -62,6 +62,7 @@ export default function Layout() {
                 </Nav>}
               {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
               <Nav className="ml-auto">
+                <VersionInfo />
                 <Nav.Item> {/*Swagger*/}
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
                 </Nav.Item> {/*Swagger*/}
