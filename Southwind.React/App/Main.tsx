@@ -74,7 +74,7 @@ import NotFound from './NotFound'
 
 import * as ConfigureReactWidgets from "@framework/ConfigureReactWidgets"
 import { ImportRoute } from "@framework/AsyncImport";
-import VersionChangedAlert from "@framework/Frames/VersionChangedAlert";
+import { VersionChangedAlert } from "@framework/Frames/VersionChangedAlert";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'

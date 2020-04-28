@@ -180,8 +180,6 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             using (HeavyProfiler.Log("Startup"))
             using (var log = HeavyProfiler.Log("Initial"))
             {
-                VersionFilterAttribute.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-
                 DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
 
                 Starter.Start(Configuration.GetConnectionString("ConnectionString"), Configuration.GetValue<bool>("IsPostgres"));
@@ -256,7 +254,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             TranslationServer.Start(app, new AlreadyTranslatedTranslator(new AzureTranslator("Your API Key for Azure Translate")));
             SchedulerServer.Start(app, lifetime);
             ProcessServer.Start(app);
-            MailingServer.Start(app, smtp: false, pop3: true);
+            MailingServer.Start(app);
             ProfilerServer.Start(app);
             DiffLogServer.Start(app);
             RestServer.Start(app);
