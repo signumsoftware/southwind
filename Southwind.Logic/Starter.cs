@@ -130,8 +130,8 @@ namespace Southwind.Logic
                 FilePathEmbeddedLogic.Start(sb);
                 EmailLogic.Start(sb, () => Configuration.Value.Email, (template, target, message) => Configuration.Value.EmailSender);
 
-                AuthLogic.Start(sb, "System", null);
-
+                AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
+ 
                 AuthLogic.StartAllModules(sb);
                 ResetPasswordRequestLogic.Start(sb);
                 UserTicketLogic.Start(sb);

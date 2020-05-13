@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom'
 import LoginDropdown from '@extensions/Authorization/Login/LoginDropdown'
 import * as AuthClient from '@extensions/Authorization/AuthClient'
 import OmniboxAutocomplete from '@extensions/Omnibox/OmniboxAutocomplete'
-import * as Navigator from "@framework/Navigator"
+import * as AppContext from "@framework/AppContext"
 import { GlobalModalContainer } from "@framework/Modals"
 import Notify from "@framework/Frames/Notify"
 import CultureDropdown from "@extensions/Translation/CultureDropdown"
-import WorkflowDropdown from "@extensions/Workflow/Workflow/WorkflowDropdown"
 import SidebarContainer from "@extensions/Toolbar/SidebarContainer"
-import ToolbarRenderer from "@extensions/Toolbar/Templates/ToolbarRenderer"
 import { VersionChangedAlert, VersionInfo } from '@framework/Frames/VersionChangedAlert';
 import { LinkContainer, ErrorBoundary } from '@framework/Components';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import * as RestClient from "@extensions/Rest/RestClient";
 import { OmniboxPermission } from '../../Extensions/Signum.React.Extensions/Omnibox/Signum.Entities.Omnibox'
+
+const WorkflowDropdown = React.lazy(() => import('@extensions/Workflow/Workflow/WorkflowDropdown'));
+const ToolbarRenderer = React.lazy(() => import('@extensions/Toolbar/Templates/ToolbarRenderer'));
 
 export default function Layout() {
   const [refreshId, setRefreshId] = React.useState(0);
@@ -25,15 +25,16 @@ export default function Layout() {
   };
 
   React.useEffect(() => {
-    Navigator.setResetUI(resetUI);
-    return () => Navigator.setResetUI(() => { });
+    AppContext.setResetUI(resetUI);
+    return () => AppContext.setResetUI(() => { });
   }, []);
 
   function handleSwaggerClick(e: React.MouseEvent<any>) {
     e.preventDefault();
-    RestClient.API.getCurrentRestApiKey().then(key => {
-      window.location.assign(Navigator.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || "")));
-    }).done();
+    import("@extensions/Rest/RestClient")
+      .then(RestClient => RestClient.API.getCurrentRestApiKey())
+      .then(key => { window.location.assign(AppContext.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || ""))); })
+      .done();
   } //Swagger
 
   return (
@@ -58,7 +59,7 @@ export default function Layout() {
                     <LinkContainer to="~/find/order"><NavDropdown.Item>Orders</NavDropdown.Item></LinkContainer>
                     <LinkContainer to="~/find/exception"><NavDropdown.Item>Exceptions</NavDropdown.Item></LinkContainer>
                   </NavDropdown>
-                  <WorkflowDropdown />
+                  {AuthClient.currentUser() && <WorkflowDropdown />}
                 </Nav>}
               {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
               <Nav className="ml-auto">

@@ -1,8 +1,6 @@
 import * as React from 'react'
-import * as Navigator from "@framework/Navigator"
-import * as DashboardClient from "@extensions/Dashboard/DashboardClient"
+import * as AppContext from '@framework/AppContext';
 import * as AuthClient from '@extensions/Authorization/AuthClient'
-import { useAPI } from '../../Framework/Signum.React/Scripts/Hooks';
 
 export default function Home() {
 
@@ -10,14 +8,15 @@ export default function Home() {
   React.useEffect(() => {
 
     if (!AuthClient.currentUser()) {
-      Navigator.history.push("~/publicCatalog");
+      AppContext.history.push("~/publicCatalog");
     }//PublicCatalog
 
     if (AuthClient.currentUser()) {
-      DashboardClient.API.home()
+      import("@extensions/Dashboard/DashboardClient")
+        .then(DashboardClient => DashboardClient.API.home())
         .then(h => {
           if (h)
-            Navigator.history.push(`~/dashboard/${h.id}`);
+            AppContext.history.push(`~/dashboard/${h.id}`);
           else
             setLoaded(true);
         });
@@ -26,9 +25,6 @@ export default function Home() {
       setLoaded(true);
 
   }, []);
-
-
-
 
   if (!loaded)
     return null;

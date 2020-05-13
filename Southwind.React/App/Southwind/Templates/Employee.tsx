@@ -1,14 +1,9 @@
 import * as React from 'react'
 import { EmployeeEntity } from '../Southwind.Entities'
-import Person from './Person'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityCheckboxList } from '@framework/Lines'
-import * as Navigator from '@framework/Navigator'
 import { FileLine } from '@extensions/Files/FileLine'
-import * as FilesClient from '@extensions/Files/FilesClient'
-import { FileEntity } from '@extensions/Files/Signum.Entities.Files'
-import { is } from '@framework/Signum.Entities';
-import { Lite } from '@framework/Signum.Entities';
-import { useForceUpdate, useFetchInState } from '@framework/Hooks'
+import { useForceUpdate } from '@framework/Hooks'
+import { useFetchInState } from '@framework/Navigator'
 
 export default function Employee(p : { ctx: TypeContext<EmployeeEntity> }){
   const forceUpdate = useForceUpdate();

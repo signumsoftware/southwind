@@ -124,7 +124,7 @@ namespace Southwind.Entities
         public static ExecuteSymbol<SupplierEntity> Save;
     }
 
-    [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
+    [Serializable, EntityKind(EntityKind.String, EntityData.Master), AllowUnathenticated]
     public class CategoryEntity : Entity
     {
         [TranslateField] //Localize categoryName column

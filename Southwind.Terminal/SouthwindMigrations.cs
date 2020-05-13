@@ -77,6 +77,9 @@ namespace Southwind.Terminal
                     Roles = new MList<Lite<RoleEntity>> { u.ToLite() },
                     MergeStrategy = MergeStrategy.Union
                 }.Save();
+
+                RoleEntity an = new RoleEntity() { Name = "Anonymous", MergeStrategy = MergeStrategy.Union }.Save();
+                
                 tr.Commit();
             }
         }
@@ -93,6 +96,14 @@ namespace Southwind.Terminal
                     Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx().ToLite(),
                     State = UserState.Saved,
                 }.Save();
+
+                UserEntity anonymous = new UserEntity
+                {
+                    UserName = "Anonymous",
+                    PasswordHash = Security.EncodePassword("Anonymous"),
+                    Role = Database.Query<RoleEntity>().Where(r => r.Name == "Anonymous").SingleEx().ToLite(),
+                    State = UserState.Saved,
+                }.Save(); //Anonymous
 
                 tr.Commit();
             }
