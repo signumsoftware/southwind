@@ -3,8 +3,8 @@ var webpack = require("webpack");
 var AssetsPlugin = require('assets-webpack-plugin');
 
 module.exports = {
-    mode: "development",  //Now mandatory, alternatively ìproductionî
-    devtool: false, //To remove source maps in ìdevelopmentî, avoids problems with errors in Chrome
+    mode: "development",  //Now mandatory, alternatively ‚Äúproduction‚Äù
+    devtool: false, //To remove source maps in ‚Äúdevelopment‚Äù, avoids problems with errors in Chrome
     entry: {
         vendor: [path.join(__dirname, "App", "vendors.js")]
     },

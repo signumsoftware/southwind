@@ -171,7 +171,7 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;SidebarContainer" To="&lt;/SidebarContainer>"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{/* Layout"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="Layout */}"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;ToolbarRenderer location=&quot;Top&quot; />}"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;React.Suspense fallback={JavascriptMessage.loading.niceToString()}>&lt;ToolbarRenderer location=&quot;Top&quot; />&lt;/React.Suspense>}"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-shopping-cart&quot; IconColor=&quot;orange&quot; Content=&quot;Order&quot; />" 
@@ -264,14 +264,14 @@
       <RemoveSpanInLines Path="Southwind.Entities\Employee.cs" Span="get { return UserEntity.Current.Mixin&lt;UserEmployeeMixin>().Employee; } //" DependsOn="ExampleEntities" />>
       <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="AuthClient.currentUser() &amp;&amp;" />
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LoginDropdown />"/>
-      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as AuthClient from &quot;@extensions/Authorization/AuthClient&quot;"/>
+      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as AuthAdminClient from &quot;@extensions/Authorization/AuthAdminClient&quot;"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="AuthClient.autoLogin() //"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="Boolean(AuthClient.currentUser()) &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;; //"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span=" &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;" DependsOn="PublicCatalog"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogin = (url?: string) => {" To="};"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogout = () => {" To="};"/>
-      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="AuthClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
+      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().Single(e => e.FirstName == userName).ToLite());" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
@@ -457,8 +457,8 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as WorkflowClient from &quot;@extensions/Workflow/WorkflowClient&quot;" />
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="WorkflowClient.start({ routes });"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="import WorkflowDropdown from &quot;@extensions/Workflow/Workflow/WorkflowDropdown&quot;"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;WorkflowDropdown />"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="const WorkflowDropdown = React.lazy(() => import(&quot;@extensions/Workflow/Workflow/WorkflowDropdown&quot;));"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;React.Suspense fallback={JavascriptMessage.loading.niceToString()}>&lt;WorkflowDropdown />&lt;/React.Suspense>}"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="WorkflowServer.Start(app);"/>
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>

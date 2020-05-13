@@ -12,9 +12,10 @@ import { VersionChangedAlert, VersionInfo } from '@framework/Frames/VersionChang
 import { LinkContainer, ErrorBoundary } from '@framework/Components';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { OmniboxPermission } from '../../Extensions/Signum.React.Extensions/Omnibox/Signum.Entities.Omnibox'
+import { JavascriptMessage } from '@framework/Signum.Entities'
 
-const WorkflowDropdown = React.lazy(() => import('@extensions/Workflow/Workflow/WorkflowDropdown'));
-const ToolbarRenderer = React.lazy(() => import('@extensions/Toolbar/Templates/ToolbarRenderer'));
+const WorkflowDropdown = React.lazy(() => import("@extensions/Workflow/Workflow/WorkflowDropdown"));
+const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Templates/ToolbarRenderer"));
 
 export default function Layout() {
   const [refreshId, setRefreshId] = React.useState(0);
@@ -58,10 +59,10 @@ export default function Layout() {
                     <NavDropdown.Divider />
                     <LinkContainer to="~/find/order"><NavDropdown.Item>Orders</NavDropdown.Item></LinkContainer>
                     <LinkContainer to="~/find/exception"><NavDropdown.Item>Exceptions</NavDropdown.Item></LinkContainer>
-                  </NavDropdown>
-                  {AuthClient.currentUser() && <WorkflowDropdown />}
+                </NavDropdown>
+                {AuthClient.currentUser() && <React.Suspense fallback={JavascriptMessage.loading.niceToString()}><WorkflowDropdown /></React.Suspense>}
                 </Nav>}
-              {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
+              {AuthClient.currentUser() && <React.Suspense fallback={JavascriptMessage.loading.niceToString()}><ToolbarRenderer location="Top" /></React.Suspense>}
               <Nav className="ml-auto">
                 <VersionInfo />
                 <Nav.Item> {/*Swagger*/}
@@ -77,7 +78,7 @@ export default function Layout() {
         <div id="main-container">
           <SidebarContainer
             sidebarVisible={AuthClient.currentUser() && sideMenuVisible}
-            sidebarContent={<ToolbarRenderer location="Side" />}>
+            sidebarContent={<React.Suspense fallback={JavascriptMessage.loading.niceToString()}><ToolbarRenderer location="Side" /></React.Suspense>}>
             <VersionChangedAlert />
             {Layout.switch}
           </SidebarContainer>

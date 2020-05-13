@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf ./wwwroot/dist",
-    "build:dll": "webpack --config webpack.config.dll.js",
-    "build:webpack": "webpack --config webpack.config.js",
-    "build": "yarn run clean && yarn run build:dll && yarn run build:webpack",
-    "watch": "yarn run clean && yarn run build:dll && webpack --config webpack.config.js --watch"
+    "build-development": "yarn run clean && webpack --config webpack.config.dll.js && webpack --config webpack.config.js",
+    "build-production": "yarn run clean && webpack --config webpack.config.dll.js --mode='production' && webpack --config webpack.config.js --mode='production'",
+    "watch": "yarn run clean && webpack --config webpack.config.dll.js && webpack --config webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
