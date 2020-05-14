@@ -241,6 +241,11 @@
 
     <Module Name="Auth">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.Start(sb, &quot;System&quot;,  &quot;Anonymous&quot;); /* null); anonymous*/"/>
+      <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="&quot;Anonymous&quot;); /*" DependsOn="PublicCatalog"/>
+      <RemoveSpanInLines Path="Southwind.Entities\Product.cs" Span=", AllowUnathenticated" DependsOn="PublicCatalog"/>
+      <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="anonymous*/" DependsOn="PublicCatalog"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="RoleEntity an = new RoleEntity() { Name = &quot;Anonymous&quot;, MergeStrategy = MergeStrategy.Union }.Save();"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="UserEntity anonymous = new UserEntity" To="}.Save(); //Anonymous"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.StartAllModules(sb);"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity),"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
