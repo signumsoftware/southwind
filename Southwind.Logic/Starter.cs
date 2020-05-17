@@ -147,7 +147,7 @@ namespace Southwind.Logic
                 UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
                 
-                ChartLogic.Start(sb);
+                ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);
                 UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
                 

@@ -93,7 +93,7 @@
 
     <Module Name="Chart" DependsOn="Files">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((UserChartEntity uc) => uc.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ChartLogic.Start(sb);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as ChartClient from &quot;@extensions/Chart/ChartClient&quot;"/>
@@ -279,7 +279,7 @@
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogout = () => {" To="};"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
-      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().Single(e => e.FirstName == userName).ToLite());" DependsOn="ExampleEntities"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().SingleOrDefaultEx(e => e.FirstName == userName)?.ToLite());" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\..\Southwind.Terminal\AuthRules.xml&quot;);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
