@@ -49,7 +49,8 @@ RUN dotnet restore "Southwind.React/Southwind.React.csproj"
 COPY . .
 WORKDIR "/src/Southwind.React"
 RUN dotnet build "Southwind.React.csproj" -c Release # -o /app/build
-RUN yarn run build
+# RUN yarn run build-production
+RUN yarn run build-development
 
 FROM build AS publish
 RUN dotnet publish "Southwind.React.csproj" -c Release -o /app/publish

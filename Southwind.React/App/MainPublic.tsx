@@ -93,7 +93,7 @@ function reload() {
         import("./MainAdmin").then(main => main.startFull(routes)) :
         Promise.resolve(undefined);
 
-      promise.then(() => {
+      return promise.then(() => {
 
         routes.push(<Route component={NotFound} />);
 
@@ -128,6 +128,6 @@ AuthClient.Options.onLogout = () => {
   reload().done();
 };
 
-reload();
+reload().done();
 
 
