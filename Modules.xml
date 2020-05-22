@@ -462,7 +462,9 @@
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Workflow*/" To="public WorkflowConfigurationEmbedded Workflow { get; set; }"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as WorkflowClient from &quot;@extensions/Workflow/WorkflowClient&quot;" />
+      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as HtmlEditorSetup from &quot;@extensions/HtmlEditor/HtmlEditorSetup&quot;" />
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="WorkflowClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="HtmlEditorSetup.setupStaticToolbar();"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="const WorkflowDropdown = React.lazy(() => import(&quot;@extensions/Workflow/Workflow/WorkflowDropdown&quot;));"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;React.Suspense fallback={JavascriptMessage.loading.niceToString()}>&lt;WorkflowDropdown />&lt;/React.Suspense>}"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="WorkflowServer.Start(app);"/>
@@ -470,7 +472,14 @@
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;5.0.4&quot;,"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;min-dash&quot;: &quot;3.5.2&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;diagram-js-minimap&quot;: &quot;2.0.3&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.10.40&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js&quot;: &quot;0.11.5&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-plugins-editor&quot;: &quot;3.0.0&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-static-toolbar-plugin&quot;: &quot;3.0.1&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-buttons&quot;: &quot;2.0.2&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-import-html&quot;: &quot;1.4.1&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-export-html&quot;: &quot;1.4.1&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;immutable&quot;: &quot;3.8.2&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">

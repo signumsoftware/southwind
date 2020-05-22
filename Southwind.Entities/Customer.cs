@@ -69,11 +69,6 @@ namespace Southwind.Entities
             }
         }
 
-        protected override void PostRetrieving()
-        {
-            base.PostRetrieving();
-        }
-
         public override string ToString()
         {
             return "{0} {1}".FormatWith(FirstName, LastName);
