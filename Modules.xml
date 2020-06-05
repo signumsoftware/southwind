@@ -474,12 +474,8 @@
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;min-dash&quot;: &quot;3.5.2&quot;,"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.10.40&quot;,"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js&quot;: &quot;0.11.5&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-plugins-editor&quot;: &quot;3.0.0&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-static-toolbar-plugin&quot;: &quot;3.0.1&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-buttons&quot;: &quot;2.0.2&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-import-html&quot;: &quot;1.4.1&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js-export-html&quot;: &quot;1.4.1&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;immutable&quot;: &quot;3.8.2&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;html-to-draftjs&quot;: &quot;1.5.0&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;draftjs-to-html&quot;: &quot;0.9.1&quot;,"/>
     </Module>
 
     <Module Name="Test.Environment">
