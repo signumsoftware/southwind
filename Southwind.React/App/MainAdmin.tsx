@@ -24,7 +24,6 @@ import * as DiffLogClient from "@extensions/DiffLog/DiffLogClient"
 import * as WorkflowClient from "@extensions/Workflow/WorkflowClient"
 import * as PredictorClient from "@extensions/MachineLearning/PredictorClient"
 import * as RestClient from "@extensions/Rest/RestClient"
-import * as HtmlEditorSetup from "@extensions/HtmlEditor/HtmlEditorSetup"
 
 import * as ToolbarClient from "@extensions/Toolbar/ToolbarClient"
 import QueryToolbarConfig from "@extensions/Toolbar/QueryToolbarConfig"
@@ -75,7 +74,6 @@ export function startFull(routes: JSX.Element[]) {
   DashboardClient.start({ routes });
   MapClient.start({ routes, auth: true, cache: true, disconnected: false, isolation: false });
   WorkflowClient.start({ routes });
-  HtmlEditorSetup.setupStaticToolbar();
   PredictorClient.start({ routes });
   ToolbarClient.start({ routes },
     new QueryToolbarConfig(),

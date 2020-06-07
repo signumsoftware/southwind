@@ -462,9 +462,7 @@
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Workflow*/" To="public WorkflowConfigurationEmbedded Workflow { get; set; }"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as WorkflowClient from &quot;@extensions/Workflow/WorkflowClient&quot;" />
-      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as HtmlEditorSetup from &quot;@extensions/HtmlEditor/HtmlEditorSetup&quot;" />
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="WorkflowClient.start({ routes });"/>
-      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="HtmlEditorSetup.setupStaticToolbar();"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="const WorkflowDropdown = React.lazy(() => import(&quot;@extensions/Workflow/Workflow/WorkflowDropdown&quot;));"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;React.Suspense fallback={JavascriptMessage.loading.niceToString()}>&lt;WorkflowDropdown />&lt;/React.Suspense>}"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="WorkflowServer.Start(app);"/>
