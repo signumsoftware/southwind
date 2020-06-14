@@ -61,8 +61,14 @@ namespace Southwind.Terminal
                 ImportWordReportTemplateForOrder,
                 ImportUserAssets,
                 ImportPredictor,
+                InitialAuthRulesImport,
             }.Run(autoRun);
         } //CSharpMigrations
+
+        internal static void InitialAuthRulesImport()
+        {
+            AuthLogic.AutomaticImportAuthRules();
+        }
 
         internal static void CreateRoles()
         {
