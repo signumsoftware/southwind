@@ -4,9 +4,13 @@ import numbro from "numbro"
 
 import { CategoryEntity, ProductEntity, CatalogMessage } from './Southwind/Southwind.Entities'
 import { useAPI } from '../../Framework/Signum.React/Scripts/Hooks'
+import { Lite } from '@framework/Signum.Entities'
 
 export interface CategoryWithProducts {
-  category: CategoryEntity;
+  category: Lite<CategoryEntity>;
+  picture: string;
+  locCategoryName: string;
+  locDescription: string;
   products: ProductEntity[];
 }
 
@@ -22,10 +26,10 @@ export default function PublicCatalog() {
       {categories && categories.map(c =>
         <div key={c.category.id}>
           <div className="media">
-            {c.category.picture && <img className="d-flex mr-3" style={maxDimensions} src={"data:image/jpeg;base64," + c.category.picture.binaryFile} />}
+            {c.picture && <img className="d-flex mr-3" style={maxDimensions} src={"data:image/jpeg;base64," + c.picture} />}
             <div className="media-body">
-              <h4 className="mt-0">{c.category.categoryName}</h4>
-              {c.category.description}
+              <h4 className="mt-0">{c.locCategoryName}</h4>
+              {c.locDescription}
             </div>
           </div>
 
