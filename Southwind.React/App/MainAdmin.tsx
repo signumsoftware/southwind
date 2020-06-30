@@ -20,6 +20,7 @@ import * as WordClient from "@extensions/Word/WordClient"
 import * as ExcelClient from "@extensions/Excel/ExcelClient"
 import * as SchedulerClient from "@extensions/Scheduler/SchedulerClient"
 import * as TranslationClient from "@extensions/Translation/TranslationClient"
+import * as TranslatedInstanceClient from "@extensions/Translation/TranslatedInstanceClient"
 import * as DiffLogClient from "@extensions/DiffLog/DiffLogClient"
 import * as WorkflowClient from "@extensions/Workflow/WorkflowClient"
 import * as PredictorClient from "@extensions/MachineLearning/PredictorClient"
@@ -68,6 +69,7 @@ export function startFull(routes: JSX.Element[]) {
   ExcelClient.start({ routes, plainExcel: true, excelReport: true });
   SchedulerClient.start({ routes });
   TranslationClient.start({ routes });
+  TranslatedInstanceClient.start({ routes });
   DiffLogClient.start({ routes, timeMachine: true });
   ProfilerClient.start({ routes });
   ChartClient.start({ routes });
