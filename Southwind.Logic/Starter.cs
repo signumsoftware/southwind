@@ -62,6 +62,8 @@ using Signum.Entities.Files;
 using Signum.Engine.MachineLearning.CNTK;
 using Signum.Entities.Rest;
 using Signum.Engine.Rest;
+using Microsoft.Exchange.WebServices.Data;
+using Signum.Engine.Omnibox;
 
 namespace Southwind.Logic
 {
@@ -69,9 +71,9 @@ namespace Southwind.Logic
     //Starts-up the engine for Southwind Entities, used by Web and Load Application
     public static partial class Starter
     {
-        public static ResetLazy<ApplicationConfigurationEntity> Configuration;
+        public static ResetLazy<ApplicationConfigurationEntity> Configuration = null!;
 
-        public static void Start(string connectionString)
+        public static void Start(string connectionString, bool isPostgres, bool includeDynamic = true)
         {
             using (HeavyProfiler.Log("Start"))
             using (var initial = HeavyProfiler.Log("Initial"))
@@ -79,10 +81,10 @@ namespace Southwind.Logic
                 StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
                 StartParameters.IgnoredCodeErrors = new List<Exception>();
 
-                string logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
+                string? logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
                 SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial };
-                sb.Schema.Version = typeof(Starter).Assembly.GetName().Version;
+                sb.Schema.Version = typeof(Starter).Assembly.GetName().Version!;
                 sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
 
                 MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
@@ -90,31 +92,46 @@ namespace Southwind.Logic
 
                 OverrideAttributes(sb);
 
-                var detector = SqlServerVersionDetector.Detect(connectionString);
-                Connector.Default = new SqlConnector(connectionString, sb.Schema, detector.Value);
+                if (!isPostgres)
+                {
+                    var sqlVersion = SqlServerVersionDetector.Detect(connectionString);
+                    Connector.Default = new SqlServerConnector(connectionString, sb.Schema, sqlVersion!.Value);
+                }
+                else
+                {
+                    var postgreeVersion = PostgresVersionDetector.Detect(connectionString);
+                    Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
+                }
 
-                CacheLogic.Start(sb);
+                CacheLogic.Start(sb, cacheInvalidator: sb.Settings.IsPostgres ? new PostgresCacheInvalidation() : null);
 
                 DynamicLogicStarter.Start(sb);
-                DynamicLogic.CompileDynamicCode();
+                if (includeDynamic)
+                {
+                    DynamicLogic.CompileDynamicCode();
 
-                DynamicLogic.RegisterMixins();
-                DynamicLogic.BeforeSchema(sb);
+                    DynamicLogic.RegisterMixins();
+                    DynamicLogic.BeforeSchema(sb);
+                }
+
+                // Framework modules
 
                 TypeLogic.Start(sb);
 
                 OperationLogic.Start(sb);
                 ExceptionLogic.Start(sb);
+                QueryLogic.Start(sb);
+
+                // Extensions modules
 
                 MigrationLogic.Start(sb);
 
                 CultureInfoLogic.Start(sb);
                 FilePathEmbeddedLogic.Start(sb);
-                SmtpConfigurationLogic.Start(sb);
-                EmailLogic.Start(sb, () => Configuration.Value.Email, (et, target) => Configuration.Value.SmtpConfiguration);
+                EmailLogic.Start(sb, () => Configuration.Value.Email, (template, target, message) => Configuration.Value.EmailSender);
 
-                AuthLogic.Start(sb, "System", null);
-
+                AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
+ 
                 AuthLogic.StartAllModules(sb);
                 ResetPasswordRequestLogic.Start(sb);
                 UserTicketLogic.Start(sb);
@@ -124,16 +141,16 @@ namespace Southwind.Logic
                 PackageLogic.Start(sb, packages: true, packageOperations: true);
 
                 SchedulerLogic.Start(sb);
+                OmniboxLogic.Start(sb);
 
-                QueryLogic.Start(sb);
                 UserQueryLogic.Start(sb);
                 UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-                ChartLogic.Start(sb);
-
-
+                
+                ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);
                 UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+                
                 DashboardLogic.Start(sb);
                 DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
@@ -143,9 +160,6 @@ namespace Southwind.Logic
                 ToolbarLogic.Start(sb);
 
                 SMSLogic.Start(sb, null, () => Configuration.Value.Sms);
-                SMSLogic.RegisterPhoneNumberProvider<PersonEntity>(p => p.Phone, p => null);
-                SMSLogic.RegisterDataObjectProvider((PersonEntity p) => new { p.FirstName, p.LastName, p.Title, p.DateOfBirth });
-                SMSLogic.RegisterPhoneNumberProvider<CompanyEntity>(p => p.Phone, p => null);
 
                 NoteLogic.Start(sb, typeof(UserEntity), /*Note*/typeof(OrderEntity));
                 AlertLogic.Start(sb, typeof(UserEntity), /*Alert*/typeof(OrderEntity));
@@ -157,20 +171,21 @@ namespace Southwind.Logic
                 HelpLogic.Start(sb);
                 WordTemplateLogic.Start(sb);
                 MapLogic.Start(sb);
-                PredictorLogic.Start(sb, () => new FileTypeAlgorithm
-                {
-                    GetPrefixPair = f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)
-                });
+                PredictorLogic.Start(sb, () => new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)));
                 PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
-                PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings
-                {
-                    QueryName = typeof(OrderEntity)
-                }); //ProductPredictorPublication
+                PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));
 
                 RestLogLogic.Start(sb);
                 RestApiKeyLogic.Start(sb);
 
                 WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);
+
+                ProfilerLogic.Start(sb,
+                    timeTracker: true,
+                    heavyProfiler: true,
+                    overrideSessionTimeout: true);
+
+                // Southwind modules
 
                 EmployeeLogic.Start(sb);
                 ProductLogic.Start(sb);
@@ -187,14 +202,11 @@ namespace Southwind.Logic
                 TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
                 TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
 
-                ProfilerLogic.Start(sb,
-                    timeTracker: true,
-                    heavyProfiler: true,
-                    overrideSessionTimeout: true);
-
-                DynamicLogic.StartDynamicModules(sb);
-                DynamicLogic.RegisterExceptionIfAny();
-
+                if (includeDynamic)
+                {
+                    DynamicLogic.StartDynamicModules(sb);
+                    DynamicLogic.RegisterExceptionIfAny();
+                }
                 SetupCache(sb);
 
                 Schema.Current.OnSchemaCompleted();
@@ -207,21 +219,22 @@ namespace Southwind.Logic
             {
             }
 
-            public string LogDatabaseName;
+            public string? LogDatabaseName;
 
-            public override ObjectName GenerateTableName(Type type, TableNameAttribute tn)
+            public override ObjectName GenerateTableName(Type type, TableNameAttribute? tn)
             {
                 return base.GenerateTableName(type, tn).OnSchema(GetSchemaName(type));
             }
 
-            public override ObjectName GenerateTableNameCollection(Table table, NameSequence name, TableNameAttribute tn)
+            public override ObjectName GenerateTableNameCollection(Table table, NameSequence name, TableNameAttribute? tn)
             {
                 return base.GenerateTableNameCollection(table, name, tn).OnSchema(GetSchemaName(table.Type));
             }
 
             SchemaName GetSchemaName(Type type)
             {
-                return new SchemaName(this.GetDatabaseName(type), GetSchemaNameName(type) ?? "dbo");
+                var isPostgres = this.Schema.Settings.IsPostgres;
+                return new SchemaName(this.GetDatabaseName(type), GetSchemaNameName(type) ?? SchemaName.Default(isPostgres).Name, isPostgres);
             }
 
             public Type[] InLogDatabase = new Type[]
@@ -229,25 +242,26 @@ namespace Southwind.Logic
                 typeof(OperationLogEntity),
                 typeof(ExceptionEntity),
             };
-            DatabaseName GetDatabaseName(Type type)
+
+            DatabaseName? GetDatabaseName(Type type)
             {
                 if (this.LogDatabaseName == null)
                     return null;
 
                 if (InLogDatabase.Contains(type))
-                    return new DatabaseName(null, this.LogDatabaseName);
+                    return new DatabaseName(null, this.LogDatabaseName, this.Schema.Settings.IsPostgres);
 
                 return null;
             }
 
-            static string GetSchemaNameName(Type type)
+            static string? GetSchemaNameName(Type type)
             {
                 type = EnumEntity.Extract(type) ?? type;
 
                 if (type == typeof(ColumnOptionsMode) || type == typeof(FilterOperation) || type == typeof(PaginationMode) || type == typeof(OrderType))
                     type = typeof(UserQueryEntity);
 
-                if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod))
+                if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod) || type == typeof(ExchangeVersion))
                     type = typeof(EmailMessageEntity);
 
                 if (type == typeof(DayOfWeek))
@@ -261,7 +275,7 @@ namespace Southwind.Logic
 
                 if (type.Assembly == typeof(DashboardEntity).Assembly)
                 {
-                    var name = type.Namespace.Replace("Signum.Entities.", "");
+                    var name = type.Namespace!.Replace("Signum.Entities.", "");
 
                     name = (name.TryBefore('.') ?? name);
 
@@ -304,8 +318,8 @@ namespace Southwind.Logic
             sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.From.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
-            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.DefaultFrom.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
-            sb.Schema.Settings.FieldAttributes((SmtpConfigurationEntity sc) => sc.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.DefaultFrom!.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ScheduledTaskEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((DashboardEntity a) => a.Parts[0].Content).Replace(new ImplementedByAttribute(typeof(UserChartPartEntity), typeof(UserQueryPartEntity), typeof(ValueUserQueryListPartEntity), typeof(LinkListPartEntity)));

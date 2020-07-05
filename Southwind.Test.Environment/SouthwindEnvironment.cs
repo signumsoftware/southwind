@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -68,6 +68,7 @@ namespace Southwind.Test.Environment
             CreateUser("Super", roles.GetOrThrow("Super user"));
             CreateUser("Advanced", roles.GetOrThrow("Advanced user"));
             CreateUser("Normal", roles.GetOrThrow("User"));
+            CreateUser("Anonymous", roles.GetOrThrow("Anonymous"));
         }
 
         static void CreateUser(string userName, RoleEntity role)
@@ -80,7 +81,7 @@ namespace Southwind.Test.Environment
                 State = UserState.Saved,
             };
 
-            user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query<EmployeeEntity>().Single(e => e.FirstName == userName).ToLite());
+            user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query<EmployeeEntity>().SingleOrDefaultEx(e => e.FirstName == userName)?.ToLite());
 
             user.Save();
         }//LoadUsers
@@ -198,7 +199,7 @@ namespace Southwind.Test.Environment
         }//LoadShippers
 
         static bool started = false;
-        public static void Start()
+        public static void Start(bool includeDynamic = true)
         {
             if (!started)
             {
@@ -210,10 +211,7 @@ namespace Southwind.Test.Environment
                     .Build();
                 var connectionString = config.GetConnectionString("ConnectionString");
 
-                if (!connectionString.Contains("Test")) //Security mechanism to avoid passing test on production
-                    throw new InvalidOperationException("ConnectionString does not contain the word 'Test'.");
-
-                Starter.Start(connectionString);
+                Starter.Start(connectionString, config.GetValue<bool>("IsPostgres"), includeDynamic);
                 started = true;
             }
         }
@@ -232,7 +230,7 @@ namespace Southwind.Test.Environment
             new ApplicationConfigurationEntity
             {
                 Environment = "Test",
-                DatabaseName = "Southwind_Test",
+                DatabaseName = "Southwind",
                 Email = new EmailConfigurationEmbedded
                 {
                     SendEmails = false,
@@ -242,12 +240,15 @@ namespace Southwind.Test.Environment
                 AuthTokens = new AuthTokenConfigurationEmbedded
                 {
                 }, //Auth
-                SmtpConfiguration = new SmtpConfigurationEntity
+                EmailSender = new EmailSenderConfigurationEntity
                 {
                     Name = "localhost",
-                    Network = new SmtpNetworkDeliveryEmbedded
+                    SMTP = new SmtpEmbedded
                     {
-                        Host = "localhost"
+                        Network = new SmtpNetworkDeliveryEmbedded
+                        {
+                            Host = "localhost"
+                        }
                     }
                 }, //Email
                 Sms = new SMSConfigurationEmbedded

@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Auth>
+  <Roles>
+    <Role Name="Anonymous" Contains="" />
+    <Role Name="Super user" MergeStrategy="Intersection" Contains="" />
+    <Role Name="User" Contains="" />
+    <Role Name="Advanced user" Contains="User" />
+  </Roles>
+  <Operations>
+    <Role Name="Anonymous" />
+    <Role Name="Super user" />
+    <Role Name="User" />
+    <Role Name="Advanced user" />
+  </Operations>
+  <Permissions>
+    <Role Name="Anonymous" />
+    <Role Name="Super user" />
+    <Role Name="User">
+      <Permission Resource="BasicPermission.AutomaticUpgradeOfOperations" Allowed="True" />
+      <Permission Resource="BasicPermission.AutomaticUpgradeOfQueries" Allowed="True" />
+      <Permission Resource="ChartPermission.ViewCharting" Allowed="True" />
+      <Permission Resource="DashboardPermission.ViewDashboard" Allowed="True" />
+      <Permission Resource="HelpPermissions.ViewHelp" Allowed="True" />
+      <Permission Resource="WordTemplatePermission.GenerateReport" Allowed="True" />
+    </Role>
+    <Role Name="Advanced user" />
+  </Permissions>
+  <Properties>
+    <Role Name="Anonymous">
+      <Property Resource="Category|CategoryName" Allowed="Read" />
+      <Property Resource="Category|Description" Allowed="Read" />
+      <Property Resource="Category|Id" Allowed="Read" />
+      <Property Resource="Category|Picture" Allowed="Read" />
+      <Property Resource="Category|Picture.BinaryFile" Allowed="Read" />
+      <Property Resource="Category|Picture.FileName" Allowed="Read" />
+      <Property Resource="CultureInfo|EnglishName" Allowed="Read" />
+      <Property Resource="CultureInfo|Hidden" Allowed="Read" />
+      <Property Resource="CultureInfo|Id" Allowed="Read" />
+      <Property Resource="CultureInfo|Name" Allowed="Read" />
+      <Property Resource="CultureInfo|NativeName" Allowed="Read" />
+      <Property Resource="File|AllowChange" Allowed="Read" />
+      <Property Resource="File|BinaryFile" Allowed="Read" />
+      <Property Resource="File|FileName" Allowed="Read" />
+      <Property Resource="File|Hash" Allowed="Read" />
+      <Property Resource="File|Id" Allowed="Read" />
+      <Property Resource="Product|AdditionalInformation" Allowed="Read" />
+      <Property Resource="Product|AdditionalInformation/Key" Allowed="Read" />
+      <Property Resource="Product|AdditionalInformation/Value" Allowed="Read" />
+      <Property Resource="Product|Category" Allowed="Read" />
+      <Property Resource="Product|Discontinued" Allowed="Read" />
+      <Property Resource="Product|Id" Allowed="Read" />
+      <Property Resource="Product|ProductName" Allowed="Read" />
+      <Property Resource="Product|QuantityPerUnit" Allowed="Read" />
+      <Property Resource="Product|ReorderLevel" Allowed="Read" />
+      <Property Resource="Product|Supplier" Allowed="Read" />
+      <Property Resource="Product|UnitPrice" Allowed="Read" />
+      <Property Resource="Product|UnitsInStock" Allowed="Read" />
+      <Property Resource="Product|ValueInStock" Allowed="Read" />
+    </Role>
+    <Role Name="Super user" />
+    <Role Name="User" />
+    <Role Name="Advanced user" />
+  </Properties>
+  <Queries>
+    <Role Name="Anonymous" />
+    <Role Name="Super user" />
+    <Role Name="User" />
+    <Role Name="Advanced user" />
+  </Queries>
+  <Types>
+    <Role Name="Anonymous">
+      <Type Resource="Category" Allowed="Read" />
+      <Type Resource="CultureInfo" Allowed="Read" />
+      <Type Resource="File" Allowed="Read" />
+      <Type Resource="Product" Allowed="Read" />
+    </Role>
+    <Role Name="Super user" />
+    <Role Name="User">
+      <Type Resource="Alert" Allowed="Write" />
+      <Type Resource="AlertType" Allowed="Read" />
+      <Type Resource="Case" Allowed="Write" />
+      <Type Resource="CaseActivity" Allowed="Write" />
+      <Type Resource="CaseActivityExecutedTimer" Allowed="Write" />
+      <Type Resource="CaseNotification" Allowed="Write" />
+      <Type Resource="CaseTag" Allowed="Read" />
+      <Type Resource="CaseTagType" Allowed="Read" />
+      <Type Resource="Category" Allowed="Read" />
+      <Type Resource="ChartScript" Allowed="Read" />
+      <Type Resource="Company" Allowed="Write" />
+      <Type Resource="CultureInfo" Allowed="Read" />
+      <Type Resource="Dashboard" Allowed="Read" />
+      <Type Resource="Employee" Allowed="Read" />
+      <Type Resource="File" Allowed="Read" />
+      <Type Resource="FileType" Allowed="Read" />
+      <Type Resource="LinkListPart" Allowed="Read" />
+      <Type Resource="Note" Allowed="Write" />
+      <Type Resource="NoteType" Allowed="Read" />
+      <Type Resource="Order" Allowed="Write" />
+      <Type Resource="Person" Allowed="Write" />
+      <Type Resource="Product" Allowed="Read" />
+      <Type Resource="Query" Allowed="Read" />
+      <Type Resource="Region" Allowed="Read" />
+      <Type Resource="Shipper" Allowed="Read" />
+      <Type Resource="Supplier" Allowed="Read" />
+      <Type Resource="Territory" Allowed="Read" />
+      <Type Resource="Toolbar" Allowed="Read" />
+      <Type Resource="ToolbarMenu" Allowed="Read" />
+      <Type Resource="UserChart" Allowed="Read" />
+      <Type Resource="UserChartPart" Allowed="Read" />
+      <Type Resource="UserQuery" Allowed="Read" />
+      <Type Resource="UserQueryPart" Allowed="Read" />
+      <Type Resource="ValueUserQueryListPart" Allowed="Read" />
+      <Type Resource="Workflow" Allowed="Read" />
+      <Type Resource="WorkflowAction" Allowed="Read" />
+      <Type Resource="WorkflowActivity" Allowed="Read" />
+      <Type Resource="WorkflowCondition" Allowed="Read" />
+      <Type Resource="WorkflowConnection" Allowed="Read" />
+      <Type Resource="WorkflowEvent" Allowed="Read" />
+      <Type Resource="WorkflowEventTask" Allowed="Read" />
+      <Type Resource="WorkflowEventTaskConditionResult" Allowed="Read" />
+      <Type Resource="WorkflowGateway" Allowed="Read" />
+      <Type Resource="WorkflowLane" Allowed="Read" />
+      <Type Resource="WorkflowPool" Allowed="Read" />
+      <Type Resource="WorkflowScript" Allowed="Read" />
+      <Type Resource="WorkflowScriptRetryStrategy" Allowed="Read" />
+      <Type Resource="WorkflowTimerCondition" Allowed="Read" />
+    </Role>
+    <Role Name="Advanced user">
+      <Type Resource="AlertType" Allowed="Write" />
+      <Type Resource="Category" Allowed="Write" />
+      <Type Resource="Dashboard" Allowed="Write" />
+      <Type Resource="Employee" Allowed="Write" />
+      <Type Resource="LinkListPart" Allowed="Write" />
+      <Type Resource="NoteType" Allowed="Write" />
+      <Type Resource="Product" Allowed="Write" />
+      <Type Resource="Region" Allowed="Write" />
+      <Type Resource="Shipper" Allowed="Write" />
+      <Type Resource="Supplier" Allowed="Write" />
+      <Type Resource="Territory" Allowed="Write" />
+      <Type Resource="Toolbar" Allowed="Write" />
+      <Type Resource="ToolbarMenu" Allowed="Write" />
+      <Type Resource="UserChartPart" Allowed="Write" />
+      <Type Resource="UserQueryPart" Allowed="Write" />
+      <Type Resource="ValueUserQueryListPart" Allowed="Write" />
+    </Role>
+  </Types>
+</Auth>

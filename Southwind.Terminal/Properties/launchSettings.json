@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "Local": {
+      "commandName": "Project",
+    },
+    "TEST": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "test"
+      }
+    },
+    "LIVE": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "live"
+      }
+    }
+  }
+}

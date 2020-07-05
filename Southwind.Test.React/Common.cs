@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace Southwind.Test.React
 
         public static void Browse(string username, Action<SouthwindBrowser> action)
         {
-            var selenium = new ChromeDriver();
+            var selenium = new ChromeDriver("../../../");
 
             var browser = new SouthwindBrowser(selenium);
             try

@@ -1,11 +1,11 @@
-﻿import * as React from 'react'
-import * as Navigator from "@framework/Navigator"
+import * as React from 'react'
+import * as AppContext from '@framework/AppContext';
 
 export default class NotFound extends React.Component {
 
   componentWillMount() {
-    if (Navigator.currentUser == null) {
-      Navigator.history.replace("~/auth/login", { back: Navigator.history.location });
+    if (AppContext.currentUser == null) {
+      AppContext.history.replace("~/auth/login", { back: AppContext.history.location });
     }
   }
 

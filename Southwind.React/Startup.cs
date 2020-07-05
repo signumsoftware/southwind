@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -65,16 +64,21 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.Swagger;
 using Schema = Signum.Engine.Maps.Schema;
 using System.Net;
+using Signum.React.JsonModelValidators;
+using Microsoft.Extensions.Hosting;
+using Signum.React.Rest;
+using Signum.React.RestLog;
+using Microsoft.OpenApi.Models;
 
 namespace Southwind.React
 {
     public class ErrorResponsesOperationFilter : IOperationFilter
     {
-        public void Apply(Operation operation, OperationFilterContext context)
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            var authAttributes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
-                .Union(context.MethodInfo.GetCustomAttributes(true))
-                .OfType<AllowAnonymousAttribute>();
+            var authAttributes = context.MethodInfo.DeclaringType!.GetCustomAttributes(true)
+                 .Union(context.MethodInfo.GetCustomAttributes(true))
+                 .OfType<AllowAnonymousAttribute>();
 
             AddError(HttpStatusCode.BadRequest);
             if (!authAttributes.Any())
@@ -84,11 +88,17 @@ namespace Southwind.React
 
             void AddError(HttpStatusCode code)
             {
-                operation.Responses.Add(((int)code).ToString(), new Response
+                operation.Responses[((int)code).ToString()] = new OpenApiResponse
                 {
                     Description = code.ToString(),
-                    Schema = context.SchemaRegistry.GetOrRegister(typeof(Signum.React.Filters.HttpError))
-                });
+                    Content = new Dictionary<string, OpenApiMediaType>
+                    {
+                        ["application/json"] = new OpenApiMediaType
+                        {
+                            Schema = context.SchemaGenerator.GenerateSchema(typeof(Signum.React.Filters.HttpError), context.SchemaRepository)
+                        }
+                    }
+                };
             }
         }
     }
@@ -114,23 +124,18 @@ namespace Southwind.React
                 .AddMvc(options => options.AddSignumGlobalFilters())
                 .AddApplicationPart(typeof(SignumServer).Assembly)
                 .AddApplicationPart(typeof(AuthServer).Assembly)
-                .AddJsonOptions(options => options.AddSignumJsonConverters())
+                .AddNewtonsoftJson(options => options.AddSignumJsonConverters())
                 .ConfigureApplicationPartManager(apm =>
                 {
                     apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
                 });
-
-            services.AddSingleton<IObjectModelValidator>(s =>
-            {
-                var options = s.GetRequiredService<IOptions<MvcOptions>>().Value;
-                var modelMetadataProvider = s.GetRequiredService<IModelMetadataProvider>();
-                return new SignumObjectModelValidator(modelMetadataProvider, options.ModelValidatorProviders);
-            });
+            services.AddSignumValidation();
+            services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
 
             //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Southwind API",
                     Version = "v1",
@@ -151,61 +156,33 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 ```",
                 });
 
-                c.AddSecurityDefinition("Bearer", new Swashbuckle.AspNetCore.Swagger.ApiKeyScheme { In = "header", Description = "Use the API Key provided", Name = "X-ApiKey", Type = "apiKey" });
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
-                    { "Bearer", Enumerable.Empty<string>() },
-                });
+                var scheme = new OpenApiSecurityScheme { In = ParameterLocation.Header, Description = "Use the API Key provided", Name = "X-ApiKey", Type = SecuritySchemeType.ApiKey };
+                c.AddSecurityDefinition("Bearer", scheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement { { scheme, new List<string>() } });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
 
-                c.DocInclusionPredicate((docName, apiDesc) => apiDesc.TryGetMethodInfo(out var mi) && mi.DeclaringType.HasAttribute<IncludeInDocumentationAttribute>());
+                c.DocInclusionPredicate((docName, apiDesc) => apiDesc.TryGetMethodInfo(out var mi) && mi.DeclaringType!.HasAttribute<IncludeInDocumentationAttribute>());
                 c.OperationFilter<ErrorResponsesOperationFilter>();
             }); //Swagger Services
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
         {
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
 
-            //Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("../swagger/v1/swagger.json", "MobileCheck API");
-            });//Swagger Configure
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
-            {
-                builder.UseMvc(routes =>
-                {
-                    routes.MapSpaFallbackRoute(
-                        name: "spa-fallback",
-                        defaults: new { controller = "Home", action = "Index" });
-                });
-            });
-
+            //HeavyProfiler.Enabled = true;
             using (HeavyProfiler.Log("Startup"))
             using (var log = HeavyProfiler.Log("Initial"))
             {
-                HeavyProfiler.Enabled = true;
-
-                VersionFilterAttribute.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
                 DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
 
-                Starter.Start(Configuration.GetConnectionString("ConnectionString"));
+                Starter.Start(Configuration.GetConnectionString("ConnectionString"), Configuration.GetValue<bool>("IsPostgres"));
 
                 log.Switch("Initialize");
                 using (AuthLogic.Disable())
@@ -214,7 +191,37 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
 
                 log.Switch("WebStart");
-                WebStart(app, lifetime, env);
+                WebStart(app, env, lifetime);
+
+                log.Switch("UseEndpoints");
+
+                //Enable middleware to serve generated Swagger as a JSON endpoint.
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
+                });//Swagger Configure
+
+                app.UseRouting();
+                app.UseEndpoints(routes =>
+                {
+                    routes.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
+                });
+
+                app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
+                {
+                    builder.UseRouting();
+                    builder.UseEndpoints(routes =>
+                    {
+                        routes.MapControllerRoute(
+                            name: "spa-fallback",
+                            pattern: "{*url}",
+                            defaults: new { controller = "Home", action = "Index" });
+                    });
+                });
+
 
                 if (Configuration.GetValue<bool>("StartBackgroundProcesses"))
                 {
@@ -230,7 +237,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             }
         }
 
-        public static void WebStart(IApplicationBuilder app, IApplicationLifetime lifetime, IHostingEnvironment env)
+        public static void WebStart(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
         {
             SignumServer.Start(app, env, typeof(Startup).Assembly);
 
@@ -250,6 +257,8 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             MailingServer.Start(app);
             ProfilerServer.Start(app);
             DiffLogServer.Start(app);
+            RestServer.Start(app);
+            RestLogServer.Start(app);
             PredictorServer.Start(app);
             WorkflowServer.Start(app);
             DynamicServer.Start(app);
@@ -266,7 +275,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 //new HelpModuleOmniboxResultGenerator(),
                 );//Omnibox
 
-            SignumCultureSelectorFilter.GetCurrentCultures = (ctx) => GetCulture(ctx);
+            SignumCultureSelectorFilter.GetCurrentCulture = (ctx) => GetCulture(ctx);
         }
 
         static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
@@ -280,10 +289,10 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
             // 2 user preference
             if (UserEntity.Current?.CultureInfo != null)
-                return UserEntity.Current.CultureInfo.ToCultureInfo();
+                return UserEntity.Current.CultureInfo!.ToCultureInfo();
 
             //3 requestCulture or default
-            CultureInfo ciRequest = TranslationServer.GetCultureRequest(context);
+            CultureInfo? ciRequest = TranslationServer.GetCultureRequest(context);
             if (ciRequest != null)
                 return ciRequest;
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28531.58
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Framework", "1.Framework", "{8636251D-0291-4B49-BD87-644F49A928F4}"
 EndProject
@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Logic", "Southwin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Engine.MachineLearning.CNTK", "Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj", "{4B17650F-0340-4CA0-A983-A2ECB8AC2629}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Load", "Southwind.Load\Southwind.Load.csproj", "{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.React", "Southwind.React\Southwind.React.csproj", "{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Test.Environment", "Southwind.Test.Environment\Southwind.Test.Environment.csproj", "{A6014F4A-A27F-4B48-804C-F4664082EF01}"
@@ -42,6 +40,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Test.React", "Southwind.Test.React\Southwind.Test.React.csproj", "{8118420A-2FEB-47D7-8EE1-32B8E94B1FEF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.React.Extensions.Selenium", "Extensions\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj", "{B80F1384-E5B6-463C-8316-28E847DFB8C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Terminal", "Southwind.Terminal\Southwind.Terminal.csproj", "{8C2B377C-B80C-4C90-A425-A70AB63BADC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,10 +93,6 @@ Global
 		{4B17650F-0340-4CA0-A983-A2ECB8AC2629}.Debug|x64.Build.0 = Debug|x64
 		{4B17650F-0340-4CA0-A983-A2ECB8AC2629}.Release|x64.ActiveCfg = Release|x64
 		{4B17650F-0340-4CA0-A983-A2ECB8AC2629}.Release|x64.Build.0 = Release|x64
-		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Debug|x64.ActiveCfg = Debug|x64
-		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Debug|x64.Build.0 = Debug|x64
-		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Release|x64.ActiveCfg = Release|x64
-		{A30A9F84-DF83-4FA0-9DAD-DE793CA425D4}.Release|x64.Build.0 = Release|x64
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.Debug|x64.ActiveCfg = Debug|x64
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.Debug|x64.Build.0 = Debug|x64
 		{C3AA8D6F-5DBC-4307-96D0-90F0640B3071}.Release|x64.ActiveCfg = Release|x64
@@ -117,6 +113,10 @@ Global
 		{B80F1384-E5B6-463C-8316-28E847DFB8C8}.Debug|x64.Build.0 = Debug|x64
 		{B80F1384-E5B6-463C-8316-28E847DFB8C8}.Release|x64.ActiveCfg = Release|x64
 		{B80F1384-E5B6-463C-8316-28E847DFB8C8}.Release|x64.Build.0 = Release|x64
+		{8C2B377C-B80C-4C90-A425-A70AB63BADC4}.Debug|x64.ActiveCfg = Debug|x64
+		{8C2B377C-B80C-4C90-A425-A70AB63BADC4}.Debug|x64.Build.0 = Debug|x64
+		{8C2B377C-B80C-4C90-A425-A70AB63BADC4}.Release|x64.ActiveCfg = Release|x64
+		{8C2B377C-B80C-4C90-A425-A70AB63BADC4}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

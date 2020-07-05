@@ -37,30 +37,6 @@ body,
     background-color: #f8f8f8;
 }
 
-.footerContainer {
-    margin: 15px 0;
-    text-align: center;
-}
-
-.theme-selector {
-    width: auto;
-}
-
-navbar-header {
-    white-space: nowrap;
-}
-
-.theme-selector {
-    width: 130px;
-    margin-top: 8px;
-}
-
-@media (max-width: 350px) {
-    .omnibox-container {
-        margin-top: 5px;
-    }
-}
-
 .nav-link{
     white-space: nowrap;
 }

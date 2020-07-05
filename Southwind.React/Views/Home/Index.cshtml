@@ -1,18 +1,18 @@
 ﻿@using Signum.Utilities;
 @using System.IO;
 @using Newtonsoft.Json.Linq;
-@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @{
     //FileNotFoundException??? You need to run 'yarn watch'. Requires:
-    //- Node.js: https://nodejs.org/ 
-    //- Yarn: https://yarnpkg.com/en/ 
+    //- Node.js: https://nodejs.org/
+    //- Yarn: https://yarnpkg.com/en/
     //- NPM Task Runner: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner)
     string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
-    var main = (string)JObject.Parse(json).Property("main").Value["js"];
+    var main = (string)JObject.Parse(json).Property("main")!.Value["js"]!;
 
     string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
-    var vendor = (string)JObject.Parse(jsonDll).Property("vendor").Value["js"];
+    var vendor = (string)JObject.Parse(jsonDll).Property("vendor")!.Value["js"]!;
 }
 <!doctype html>
 <html>
@@ -21,6 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
 </head>
 <body>
     <div id="reactDiv"></div>
@@ -28,10 +29,6 @@
     <script>
         var __baseUrl = "@Url.Content("~/")";
     </script>
-    <script language="javascript" src="@Url.Content("~/dist/object-assign-auto.min.js")"></script>
-    <script language="javascript" src="@Url.Content("~/dist/es6-promise.auto.min.js")"></script>
-    <script language="javascript" src="@Url.Content("~/dist/fetch.js")"></script>
-    <script language="javascript" src="@Url.Content("~/dist/polyfill-patch-fetch.js")"></script>
     <script language="javascript" src="@Url.Content("~/dist/" + vendor)"></script>
     <script language="javascript" src="@Url.Content("~/dist/" + main)"></script>
 </body>

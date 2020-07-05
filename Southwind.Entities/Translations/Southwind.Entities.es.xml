@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Translations>
-  <Type Name="AddressEntity" Description="Dirección">
+  <Type Name="AdditionalInformationEmbedded" Description="Información adicional">
+    <Member Name="Key" Description="Clave" />
+    <Member Name="Value" Description="Valor" />
+  </Type>
+  <Type Name="AddressEmbedded" Description="Dirección">
     <Member Name="Address" Description="Dirección" />
     <Member Name="City" Description="Ciudad" />
     <Member Name="Country" Description="País" />
@@ -13,9 +17,14 @@
     <Member Name="WindowsOnly" Description="Sólo Windows" />
   </Type>
   <Type Name="ApplicationConfigurationEntity" Description="Configuración de la aplicación">
+    <Member Name="AuthTokens" Description="Tokens de autenticación" />
+    <Member Name="DatabaseName" Description="Nombre base de datos" />
     <Member Name="Email" Description="Correo electrónico" />
     <Member Name="Environment" Description="Entorno" />
+    <Member Name="Folders" Description="Carpetas" />
     <Member Name="Sms" Description="SMS" />
+    <Member Name="SmtpConfiguration" Description="Configuración Smtp" />
+    <Member Name="Workflow" Description="Workflow" />
   </Type>
   <Type Name="ApplicationConfigurationOperation">
     <Member Name="Save" Description="Guardar" />
@@ -41,6 +50,9 @@
   <Type Name="CustomerOperation">
     <Member Name="Save" Description="Guardar" />
   </Type>
+  <Type Name="CustomerQuery">
+    <Member Name="Customer" Description="Cliente" />
+  </Type>
   <Type Name="EmployeeEntity" Description="Empleado">
     <Member Name="Address" Description="Dirección" />
     <Member Name="BirthDate" Description="Fecha de nacimiento" />
@@ -63,11 +75,14 @@
   <Type Name="EmployeeQuery">
     <Member Name="EmployeesByTerritory" Description="Empleados por territorio" />
   </Type>
-  <Type Name="OrderDetailsEntity" Description="Detalle pedido">
+  <Type Name="FoldersConfigurationEmbedded" Description="Configuración de carpetas">
+    <Member Name="PredictorModelFolder" Description="Carpeta modelo Predictor" />
+  </Type>
+  <Type Name="OrderDetailEmbedded" Description="Detalle del pedido">
     <Member Name="Discount" Description="Descuento" />
     <Member Name="Product" Description="Producto" />
     <Member Name="Quantity" Description="Cantidad" />
-    <Member Name="SubTotalPrice" Description="Precio subtotal" />
+    <Member Name="SubTotalPrice" Description="Precio sub-total" />
     <Member Name="UnitPrice" Description="Precio unitario" />
   </Type>
   <Type Name="OrderEntity" Description="Pedido">
@@ -86,10 +101,17 @@
     <Member Name="State" Description="Estado" />
     <Member Name="TotalPrice" Description="Precio total" />
   </Type>
+  <Type Name="OrderFilterModel" Description="Filtro de pedidos">
+    <Member Name="Customer" Description="Cliente" />
+    <Member Name="Employee" Description="Empleado" />
+    <Member Name="MaxOrderDate" Description="Fecha máxima de pedido" />
+    <Member Name="MinOrderDate" Description="Fecha mínima de pedido" />
+  </Type>
   <Type Name="OrderMessage">
     <Member Name="CancelShippedOrder0" Description="Cancelar pedido enviado {0}." />
     <Member Name="DiscountShouldBeMultpleOf5" Description="Descuento debe ser múltiplo de 5%" />
     <Member Name="SelectAShipper" Description="Seleccione un cargador" />
+    <Member Name="SubTotalPrice" Description="Precio sub-total" />
   </Type>
   <Type Name="OrderOperation">
     <Member Name="Cancel" Description="Cancelar" />
@@ -99,7 +121,6 @@
     <Member Name="CreateOrderFromProducts" Description="Crear pedido desde productos" />
     <Member Name="Delete" Description="Borrar" />
     <Member Name="Save" Description="Guardar" />
-    <Member Name="SaveNew" Description="Guardar nuevo" />
     <Member Name="Ship" Description="Enviar" />
   </Type>
   <Type Name="OrderProcess">
@@ -114,9 +135,9 @@
     <Member Name="Ordered" Description="Pedido" />
     <Member Name="Shipped" Description="Enviado" />
   </Type>
-  <Type Name="OrderTasks">
-    <Member Name="CancelOldOrders" Description="Cancelar pedidos antiguas" />
-    <Member Name="CancelOldOrdersWithProcess" Description="Cancelar pedidos antiguas con proceso" />
+  <Type Name="OrderTask">
+    <Member Name="CancelOldOrders" Description="Cancelar pedidos antiguos" />
+    <Member Name="CancelOldOrdersWithProcess" Description="Cancelar pedidos antiguos con Proceso" />
   </Type>
   <Type Name="PersonEntity" Description="Persona">
     <Member Name="Corrupt" Description="Corrupto" />
@@ -126,6 +147,7 @@
     <Member Name="Title" Description="Título" />
   </Type>
   <Type Name="ProductEntity" Description="Producto">
+    <Member Name="AdditionalInformation" Description="Información adicional" />
     <Member Name="Category" Description="Categoría" />
     <Member Name="Discontinued" Description="Descatalogado" />
     <Member Name="ProductName" Description="Nombre de producto" />
@@ -139,8 +161,11 @@
   <Type Name="ProductOperation">
     <Member Name="Save" Description="Guardar" />
   </Type>
+  <Type Name="ProductPredictorPublication">
+    <Member Name="MonthlySales" Description="Ventas mensuales" />
+  </Type>
   <Type Name="ProductQuery">
-    <Member Name="Current" Description="Actual" />
+    <Member Name="CurrentProducts" Description="Productos actuales" />
   </Type>
   <Type Name="RegionEntity" Description="Región">
     <Member Name="Description" Description="Descripción" />

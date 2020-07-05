@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
@@ -15,11 +15,11 @@ namespace Southwind.Test.Environment
     public class EnvironmentTest
     {
         [Fact]
-        public void GenerateEnvironment()
+        public void GenerateTestEnvironment()
         {
-            var authRules = XDocument.Load(@"..\..\..\..\Southwind.Load\AuthRules.xml");
+            var authRules = XDocument.Load(@"..\..\..\..\Southwind.Terminal\AuthRules.xml");
 
-            SouthwindEnvironment.Start();
+            SouthwindEnvironment.Start(includeDynamic: false);
 
             Administrator.TotalGeneration();
 
@@ -38,7 +38,7 @@ namespace Southwind.Test.Environment
                 SouthwindEnvironment.LoadCustomers();
                 SouthwindEnvironment.LoadShippers();
 
-                AuthLogic.ImportRulesScript(authRules, interactive: false).PlainSqlCommand().ExecuteLeaves();
+                AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();
             }
 
             OperationLogic.AllowSaveGlobally = false;

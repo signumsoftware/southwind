@@ -24,10 +24,12 @@ namespace Southwind.React.Controllers
         }
     }
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized.
     public class CategoryDTO
     {
         public int Id { get; internal set; }
         public string Name { get; internal set; }
         public string Description { get; internal set; }
     }
+#pragma warning restore CS8618 // Non-nullable field is uninitialized.
 }

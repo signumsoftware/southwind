@@ -21,7 +21,15 @@
       "ancmHostingModel": "InProcess"
     },
     "IIS": {
-      "commandName": "IIS"
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "ancmHostingModel": "InProcess"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true
     }
   }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Entities;
@@ -23,7 +23,7 @@ namespace Southwind.Test.React
         {
             Browse("Normal", b =>
             {
-                Lite<OrderEntity> lite = null;
+                Lite<OrderEntity>? lite = null;
                 try
                 {
                     b.SearchPage(typeof(PersonEntity)).Using(persons =>
@@ -45,7 +45,7 @@ namespace Southwind.Test.React
 
                             Assert.Equal(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
 
-                            order.Execute(OrderOperation.SaveNew);
+                            order.Execute(OrderOperation.Save);
 
                             lite = order.GetLite();
 
@@ -56,7 +56,7 @@ namespace Southwind.Test.React
 
                     }).EndUsing(order =>
                     {
-                        Assert.Equal(lite.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
+                        Assert.Equal(lite!.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
                     });
                 }
                 finally

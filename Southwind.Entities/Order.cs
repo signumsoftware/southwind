@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +24,8 @@ namespace Southwind.Entities
         }
 
         [ImplementedBy(typeof(CompanyEntity), typeof(PersonEntity))]
-        [NotNullValidator]
         public CustomerEntity Customer { get; set; }
 
-        [NotNullValidator]
         public Lite<EmployeeEntity> Employee { get; set; }
 
         public DateTime OrderDate { get; set; }
@@ -38,36 +36,29 @@ namespace Southwind.Entities
 
         public DateTime? CancelationDate { get; set; }
 
-        public Lite<ShipperEntity> ShipVia { get; set; }
+        public Lite<ShipperEntity>? ShipVia { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 40)]
-        public string ShipName { get; set; }
+        [StringLengthValidator(Min = 3, Max = 40)]
+        public string? ShipName { get; set; }
 
-        [NotNullValidator]
         public AddressEmbedded ShipAddress { get; set; }
 
         [Unit("Kg")]
         public decimal Freight { get; set; }
 
         [NotifyChildProperty, NotifyCollectionChanged]
-        [NotNullValidator, NoRepeatValidator, PreserveOrder]
+        [NoRepeatValidator, PreserveOrder]
         public MList<OrderDetailEmbedded> Details { get; set; } = new MList<OrderDetailEmbedded>();
 
-        static Expression<Func<OrderEntity, decimal>> TotalPriceExpression =
-            o => o.Details.Sum(od => od.SubTotalPrice);
-        [ExpressionField, Unit("€")]
-        public decimal TotalPrice
-        {
-            get { return TotalPriceExpression.Evaluate(this); }
-        }
+        [AutoExpressionField, Unit("€")]
+        public decimal TotalPrice => As.Expression(() => Details.Sum(od => od.SubTotalPrice));
 
         public bool IsLegacy { get; set; }
 
         public OrderState State { get; set; }
 
-        protected override string ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi)
+        protected override string? ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi)
         {
-
             if (sender is OrderDetailEmbedded details && !IsLegacy && pi.Name == nameof(details.Discount))
             {
                 if ((details.Discount * 100.0m) % 5.0m != 0)
@@ -89,7 +80,7 @@ namespace Southwind.Entities
                 Notify(() => TotalPrice);
         }
 
-        protected override string PropertyValidation(PropertyInfo pi)
+        protected override string? PropertyValidation(PropertyInfo pi)
         {
             return stateValidator.Validate(this, pi);
         }
@@ -127,7 +118,6 @@ namespace Southwind.Entities
     public static class OrderOperation
     {
         public static ConstructSymbol<OrderEntity>.Simple Create;
-        public static ExecuteSymbol<OrderEntity> SaveNew;
         public static ExecuteSymbol<OrderEntity> Save;
         public static ExecuteSymbol<OrderEntity> Ship;
         public static ExecuteSymbol<OrderEntity> Cancel;
@@ -139,9 +129,8 @@ namespace Southwind.Entities
     }
 
     [Serializable]
-    public class OrderDetailEmbedded : EmbeddedEntity, IEditableObject
+    public class OrderDetailEmbedded : EmbeddedEntity
     {
-        [NotNullValidator]
         public Lite<ProductEntity> Product { get; set; }
 
         decimal unitPrice;
@@ -179,57 +168,22 @@ namespace Southwind.Entities
             }
         }
 
-        static Expression<Func<OrderDetailEmbedded, decimal>> SubTotalPriceExpression =
-            od => od.Quantity * od.UnitPrice * (decimal)(1 - od.Discount);
-        [ExpressionField, Unit("€")]
-        public decimal SubTotalPrice
-        {
-            get { return SubTotalPriceExpression.Evaluate(this); }
-        }
-
-        [Ignore]
-        OrderDetailEmbedded clone;
-
-        public void BeginEdit()
-        {
-            clone = new OrderDetailEmbedded
-            {
-                Product = Product,
-                Quantity = quantity,
-                UnitPrice = unitPrice,
-                Discount = discount
-            };
-        }
-
-        public void CancelEdit()
-        {
-            Product = clone.Product;
-            Quantity = clone.quantity;
-            Discount = clone.discount;
-        }
-
-        public void EndEdit()
-        {
-            clone = null;
-        }
+        [AutoExpressionField]
+        public decimal SubTotalPrice => As.Expression(() => Quantity * UnitPrice * (decimal)(1 - Discount));
     }
 
     [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
     public class ShipperEntity : Entity
     {
         [UniqueIndex]
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
+        [StringLengthValidator(Min = 3, Max = 100)]
         public string CompanyName { get; set; }
 
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
+        [StringLengthValidator(Min = 3, Max = 24), TelephoneValidator]
         public string Phone { get; set; }
 
-        static Expression<Func<ShipperEntity, string>> ToStringExpression = e => e.CompanyName;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => CompanyName);
     }
 
     [AutoInit]
@@ -260,14 +214,12 @@ namespace Southwind.Entities
     public class OrderFilterModel : ModelEntity
     {
         [ImplementedBy(typeof(PersonEntity), typeof(CompanyEntity))]
-        public Lite<CustomerEntity> Customer { get; set; }
+        public Lite<CustomerEntity>? Customer { get; set; }
 
-        public Lite<EmployeeEntity> Employee { get; set; }
+        public Lite<EmployeeEntity>? Employee { get; set; }
 
-        [DaysPrecisionValidator]
-        public DateTime? MinOrderDate { get; set; }
+        public Date? MinOrderDate { get; set; }
 
-        [DaysPrecisionValidator]
-        public DateTime? MaxOrderDate { get; set; }
+        public Date? MaxOrderDate { get; set; }
     }
 }

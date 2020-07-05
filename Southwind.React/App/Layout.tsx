@@ -1,126 +1,104 @@
-
 import * as React from 'react'
-import { RouteComponentProps } from 'react-router'
-import * as moment from 'moment'
-import * as numbro from 'numbro'
 import { Link } from 'react-router-dom'
 import LoginDropdown from '@extensions/Authorization/Login/LoginDropdown'
 import * as AuthClient from '@extensions/Authorization/AuthClient'
 import OmniboxAutocomplete from '@extensions/Omnibox/OmniboxAutocomplete'
-import * as Navigator from "@framework/Navigator"
+import * as AppContext from "@framework/AppContext"
 import { GlobalModalContainer } from "@framework/Modals"
 import Notify from "@framework/Frames/Notify"
-import ContainerToggle from "@framework/Frames/ContainerToggle"
 import CultureDropdown from "@extensions/Translation/CultureDropdown"
-import WorkflowDropdown from "@extensions/Workflow/Workflow/WorkflowDropdown"
-import * as CultureClient from "@extensions/Translation/CultureClient"
 import SidebarContainer from "@extensions/Toolbar/SidebarContainer"
-import ToolbarRenderer from "@extensions/Toolbar/Templates/ToolbarRenderer"
-import VersionChangedAlert from '@framework/Frames/VersionChangedAlert';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Collapse, LinkContainer, ErrorBoundary } from '@framework/Components';
-import * as RestClient from "@extensions/Rest/RestClient"
+import { VersionChangedAlert, VersionInfo } from '@framework/Frames/VersionChangedAlert';
+import { LinkContainer, ErrorBoundary } from '@framework/Components';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { OmniboxPermission } from '../../Extensions/Signum.React.Extensions/Omnibox/Signum.Entities.Omnibox'
+import { JavascriptMessage } from '@framework/Signum.Entities'
 
-export default class Layout extends React.Component<{}, { refreshId: number; sideMenuVisible: boolean, isOpen: boolean }> {
+const WorkflowDropdown = React.lazy(() => import("@extensions/Workflow/Workflow/WorkflowDropdown"));
+const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Templates/ToolbarRenderer"));
 
-    constructor(props: {}) {
-        super(props);
+export default function Layout() {
+  const [refreshId, setRefreshId] = React.useState(0);
+  const [sideMenuVisible] = React.useState(true);
 
-        this.state = { refreshId: 0, sideMenuVisible: true, isOpen: false };
-    }
+  function resetUI() {
+    setRefreshId(rID => rID + 1);
+  };
 
-    static switch: React.ReactElement<any>;
+  React.useEffect(() => {
+    AppContext.setResetUI(resetUI);
+    return () => AppContext.setResetUI(() => { });
+  }, []);
 
-    handleToggle = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
+  function handleSwaggerClick(e: React.MouseEvent<any>) {
+    e.preventDefault();
+    import("@extensions/Rest/RestClient")
+      .then(RestClient => RestClient.API.getCurrentRestApiKey())
+      .then(key => { window.location.assign(AppContext.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || ""))); })
+      .done();
+  } //Swagger
 
-    handleSwaggerClick = (e: React.MouseEvent<any>) => {
-        e.preventDefault();
-        RestClient.API.getCurrentRestApiKey().then(key => {
-            window.location.assign(Navigator.toAbsoluteUrl("~/swagger/ui/index?apiKey=" + (key || "")));
-        }).done();
-    }
-
-    render() {
-        return (
-            <ErrorBoundary >
-                <div id="main" key={this.state.refreshId}>
-                    <div>
-                        <nav className="navbar navbar-light navbar-expand">
-                            <button type="button" className="navbar-toggler" onClick={this.handleToggle}>
-                                <span className="navbar-toggler-icon" />
-                            </button>
-                            <Link to="~/" className="navbar-brand">Southwind</Link>
-                            <Collapse isOpen={this.state.isOpen} navbar>
-                                {AuthClient.currentUser() && <div className="navbar-nav mr-auto">
-                                    <li>
-                                        <div className="omnibox-container" style={{ width: "200px" }}>
-                                            <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
-                                        </div>
-                                    </li>
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle nav caret>
-                                            Menu
-                                    </DropdownToggle>
-                                        <DropdownMenu>
-                                            <LinkContainer to="~/" exact={true}><DropdownItem>Home</DropdownItem></LinkContainer>
-                                            <LinkContainer to="~/publicCatalog"><DropdownItem>Catalog</DropdownItem></LinkContainer>
-                                            <LinkContainer to="~/swagger"><DropdownItem>Swagger</DropdownItem></LinkContainer>
-                                            <DropdownItem divider />
-                                            <LinkContainer to="~/find/order"><DropdownItem>Orders</DropdownItem></LinkContainer>
-                                            <LinkContainer to="~/find/exception"><DropdownItem>Exceptions</DropdownItem></LinkContainer>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                    <WorkflowDropdown />
-                                </div>}
-                                {AuthClient.currentUser() && <ToolbarRenderer location="Top" />}
-                                <div className="navbar-nav ml-auto">
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#" onClick={this.handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
-                                    </li>
-                                    <CultureDropdown />
-                                    <LoginDropdown />
-                                </div>
-                            </Collapse>
-                        </nav>
+  return (
+    <ErrorBoundary >
+      <div id="main" key={refreshId}>
+        <div>
+          <Navbar bg="light" expand="lg">
+            <Link to="~/" className="navbar-brand">Southwind</Link>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              {AuthClient.currentUser() &&
+                <Nav className="mr-auto">
+                  <li>
+                    <div className="omnibox-container" style={{ width: "200px" }}>
+                      {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />}
                     </div>
-                    <Notify />
-                    <div id="main-container">
-                        <SidebarContainer
-                            sidebarVisible={AuthClient.currentUser() && this.state.sideMenuVisible}
-                            sidebarContent={<ToolbarRenderer location="Side" />}>
-                            <VersionChangedAlert />
-                            {Layout.switch}
-                        </SidebarContainer>
-                        {/* Layout
+                  </li>
+                  <NavDropdown title="Menu" id="layoutMenu">
+                    <LinkContainer to="~/" exact={true}><NavDropdown.Item>Home</NavDropdown.Item></LinkContainer>
+                    <LinkContainer to="~/publicCatalog"><NavDropdown.Item>Catalog</NavDropdown.Item></LinkContainer>
+                    <NavDropdown.Divider />
+                    <LinkContainer to="~/find/order"><NavDropdown.Item>Orders</NavDropdown.Item></LinkContainer>
+                    <LinkContainer to="~/find/exception"><NavDropdown.Item>Exceptions</NavDropdown.Item></LinkContainer>
+                </NavDropdown>
+                {AuthClient.currentUser() && <React.Suspense fallback={JavascriptMessage.loading.niceToString()}><WorkflowDropdown /></React.Suspense>}
+                </Nav>}
+              {AuthClient.currentUser() && <React.Suspense fallback={JavascriptMessage.loading.niceToString()}><ToolbarRenderer location="Top" /></React.Suspense>}
+              <Nav className="ml-auto">
+                <VersionInfo />
+                <Nav.Item> {/*Swagger*/}
+                  <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
+                </Nav.Item> {/*Swagger*/}
+                <CultureDropdown />
+                <LoginDropdown />
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </div>
+        <Notify />
+        <div id="main-container">
+          <SidebarContainer
+            sidebarVisible={AuthClient.currentUser() && sideMenuVisible}
+            sidebarContent={<React.Suspense fallback={JavascriptMessage.loading.niceToString()}><ToolbarRenderer location="Side" /></React.Suspense>}>
+            <VersionChangedAlert />
+            {Layout.switch}
+          </SidebarContainer>
+          {/* Layout
                     <ContainerToggle>
                         <VersionChangedAlert />
                         {Layout.switch}
                     </ContainerToggle>
                     Layout */}
-                    </div>
-                    <GlobalModalContainer />
-                    <div id="footer">
-                        <div className="container">
-                            <p className="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
-                        </div>
-                    </div>
-                </div>
-            </ErrorBoundary>
-        );
-    }
-
-    componentWillMount() {
-        Navigator.setResetUI(this.handleResetUI);
-    }
-
-    componentWillUnmount() {
-        Navigator.setResetUI(() => { });
-    }
-
-    handleResetUI = () => {
-        this.setState({ refreshId: this.state.refreshId + 1 });
-    };
+        </div>
+        <GlobalModalContainer />
+        <div id="footer">
+          <div className="container">
+            <p className="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
+          </div>
+        </div>
+      </div>
+    </ErrorBoundary>
+  );
 }
+
+Layout.switch = undefined as React.ReactElement<any> | undefined;
+

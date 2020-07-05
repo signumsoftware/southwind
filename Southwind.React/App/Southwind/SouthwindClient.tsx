@@ -7,7 +7,7 @@ import * as Navigator from '@framework/Navigator'
 import * as Finder from '@framework/Finder'
 import { EntityOperationSettings, ConstructorOperationSettings, ContextualOperationSettings } from '@framework/Operations'
 import * as Operations from '@framework/Operations'
-import { Retrieve } from '@framework/Retrieve'
+import { FetchInState } from '@framework/Lines/Retrieve'
 import { defaultContextualClick } from '@framework/Operations/ContextualOperations'
 import { defaultExecuteEntity } from '@framework/Operations/EntityOperations'
 
@@ -27,6 +27,7 @@ import { /*Southwind.Entities*/
   CustomerQuery, CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
   RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity, OrderState
 } from './Southwind.Entities'
+import { FilterGroupOption } from '@framework/FindOptions';
 
 
 export function start(options: { routes: JSX.Element[] }) {
@@ -35,7 +36,7 @@ export function start(options: { routes: JSX.Element[] }) {
   Navigator.addSettings(new EntitySettings(AddressEmbedded, a => import('./Templates/Address')));
   Navigator.addSettings(new EntitySettings(CategoryEntity, c => import('./Templates/Category')));
   Navigator.addSettings(new EntitySettings(CompanyEntity, c => import('./Templates/Company')));
-  //Navigator.addSettings(new EntitySettings(EmployeeEntity, e => import('./Templates/Employee')));
+  Navigator.addSettings(new EntitySettings(EmployeeEntity, e => import('./Templates/Employee')));
   Navigator.addSettings(new EntitySettings(OrderEntity, o => import('./Templates/Order')));
   Navigator.addSettings(new EntitySettings(PersonEntity, p => import('./Templates/Person')));
   Navigator.addSettings(new EntitySettings(ProductEntity, p => import('./Templates/Product')));
@@ -56,18 +57,17 @@ export function start(options: { routes: JSX.Element[] }) {
 
   {/*Files*/ }
   const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
-  Finder.registerPropertyFormatter(CategoryEntity.propertyRoute(ca => ca.picture),
+  Finder.registerPropertyFormatter(CategoryEntity.tryPropertyRoute(ca => ca.picture),
     new Finder.CellFormatter((cell: FileEmbedded) => <img style={maxDimensions} src={"data:image/jpeg;base64," + cell.binaryFile} />));
 
-  Finder.registerPropertyFormatter(EmployeeEntity.propertyRoute(ca => ca.photo),
-    new Finder.CellFormatter((cell: Lite<FileEntity>) => Retrieve.create(cell,
-      file => file && <img style={maxDimensions} src={"data:image/jpeg;base64," + (file as FileEntity).binaryFile} />)));
+  Finder.registerPropertyFormatter(EmployeeEntity.tryPropertyRoute(ca => ca.photo),
+    new Finder.CellFormatter((cell: Lite<FileEntity>) => <FetchInState lite={cell}>{file => file && <img style={maxDimensions} src={"data:image/jpeg;base64," + (file as FileEntity).binaryFile} />}</FetchInState>));
   {/*Files*/ }
 
   Finder.addSettings({
     queryName: OrderEntity,
-    simpleFilterBuilder: (qd, fop) => {
-      const model = OrderFilter.extract(fop);
+    simpleFilterBuilder: ctx => {
+      const model = OrderFilter.extract(ctx.initialFilterOptions);
 
       if (!model)
         return undefined;
@@ -96,7 +96,20 @@ export function start(options: { routes: JSX.Element[] }) {
         { token: ProductEntity.token(a => a.category!.entity!.categoryName), operation: "Contains" },
       ],
       pinned: { splitText: true, disableOnNull: true },
-    }]
+    } as FilterGroupOption]
+  });
+
+
+  Finder.addSettings({
+    queryName: CustomerQuery.Customer,
+    defaultFilters: [{
+      groupOperation: "Or",
+      filters: [
+        { token: CompanyEntity.token().entity().cast(CompanyEntity).append(a => a.toStr), operation: "Contains" },
+        { token: PersonEntity.token().entity().cast(PersonEntity).append(a => a.toStr), operation: "Contains" },
+      ],
+      pinned: { splitText: true, disableOnNull: true },
+    } as FilterGroupOption]
   });
 
   Operations.addSettings(new ConstructorOperationSettings(OrderOperation.Create, {

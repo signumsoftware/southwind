@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,16 +16,14 @@ namespace Southwind.Entities
     public class ProductEntity : Entity
     {
         [UniqueIndex]
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
+        [StringLengthValidator(Min = 3, Max = 40)]
         public string ProductName { get; set; }
 
-        [NotNullValidator]
         public Lite<SupplierEntity> Supplier { get; set; }
 
-        [NotNullValidator]
         public Lite<CategoryEntity> Category { get; set; }
 
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 20)]
+        [StringLengthValidator(Min = 3, Max = 20)]
         public string QuantityPerUnit { get; set; }
 
         decimal unitPrice;
@@ -56,33 +54,33 @@ namespace Southwind.Entities
 
         public bool Discontinued { get; set; }
 
-        static Expression<Func<ProductEntity, decimal>> ValueInStockExpression =
-            p => p.unitPrice * p.unitsInStock;
-        [ExpressionField, Unit("$")]
-        public decimal ValueInStock
-        {
-            get { return ValueInStockExpression.Evaluate(this); }
-        }
+        [AutoExpressionField, Unit("$")]
+        public decimal ValueInStock => As.Expression(() => unitPrice * unitsInStock);
 
         [PreserveOrder]
-        [NotNullValidator, NoRepeatValidator]
+        [NoRepeatValidator]
         public MList<AdditionalInformationEmbedded> AdditionalInformation { get; set; } = new MList<AdditionalInformationEmbedded>();
 
-        static Expression<Func<ProductEntity, string>> ToStringExpression = e => e.ProductName;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => ProductName);
+    }
+
+    [AllowUnathenticated]
+    public enum CatalogMessage
+    {
+        ProductName, 
+        UnitPrice,
+        QuantityPerUnit,
+        UnitsInStock,
     }
 
     [Serializable]
     public class AdditionalInformationEmbedded : EmbeddedEntity
     {
-        [StringLengthValidator(AllowNulls = false, Max = 100)]
+        [StringLengthValidator(Max = 100)]
         public string Key { get; set; }
 
-        [StringLengthValidator(AllowNulls = false, Max = 400)]
+        [StringLengthValidator(Max = 400)]
         public string Value { get; set; }
     }
 
@@ -96,33 +94,28 @@ namespace Southwind.Entities
     public class SupplierEntity : Entity
     {
         [UniqueIndex]
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 40)]
+        [StringLengthValidator(Min = 3, Max = 40)]
         public string CompanyName { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 30)]
-        public string ContactName { get; set; }
+        [StringLengthValidator(Min = 3, Max = 30)]
+        public string? ContactName { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, Max = 30)]
-        public string ContactTitle { get; set; }
+        [StringLengthValidator(Min = 3, Max = 30)]
+        public string? ContactTitle { get; set; }
 
-        [NotNullValidator]
         public AddressEmbedded Address { get; set; }
 
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
+        [StringLengthValidator(Min = 3, Max = 24), TelephoneValidator]
         public string Phone { get; set; }
 
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 24), TelephoneValidator]
+        [StringLengthValidator(Min = 3, Max = 24), TelephoneValidator]
         public string Fax { get; set; }
 
-        [StringLengthValidator(AllowNulls = true, Min = 3, MultiLine = true)]
-        public string HomePage { get; set; }
+        [StringLengthValidator(Min = 3, MultiLine = true)]
+        public string? HomePage { get; set; }
 
-        static Expression<Func<SupplierEntity, string>> ToStringExpression = e => e.CompanyName;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => CompanyName);
     }
 
     [AutoInit]
@@ -131,26 +124,22 @@ namespace Southwind.Entities
         public static ExecuteSymbol<SupplierEntity> Save;
     }
 
-    [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
+    [Serializable, EntityKind(EntityKind.String, EntityData.Master), AllowUnathenticated]
     public class CategoryEntity : Entity
     {
         [TranslateField] //Localize categoryName column
         [UniqueIndex]
-        [StringLengthValidator(AllowNulls = false, Min = 3, Max = 100)]
+        [StringLengthValidator(Min = 3, Max = 100)]
         public string CategoryName { get; set; }
 
         [TranslateField] //Localize description column
-        [StringLengthValidator(AllowNulls = false, Min = 3, MultiLine = true)]
+        [StringLengthValidator(Min = 3, MultiLine = true)]
         public string Description { get; set; }
 
-        public FileEmbedded Picture { get; set; }
+        public FileEmbedded? Picture { get; set; }
 
-        static Expression<Func<CategoryEntity, string>> ToStringExpression = e => e.CategoryName;
-        [ExpressionField]
-        public override string ToString()
-        {
-            return ToStringExpression.Evaluate(this);
-        }
+        [AutoExpressionField]
+        public override string ToString() => As.Expression(() => CategoryName);
     }
 
     [AutoInit]

@@ -38,3 +38,5 @@ Southwind.React/dist/*
 Southwind.React/Translations/*
 Southwind.React/CodeGen/*
 /Southwind.React/wwwroot/dist/*
+/Southwind.React/web.config
+/Southwind.React/ts_out/*

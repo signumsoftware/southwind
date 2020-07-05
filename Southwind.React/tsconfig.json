@@ -4,8 +4,12 @@
     "sourceMap": false,
     "module": "esnext",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "noEmit": true,
+    "incremental": true,
+    "composite": true,
+    "outDir": "./ts_out",
+    //"noEmit": true,
     "strict": true,
     "baseUrl": ".",
     "paths": {
@@ -23,5 +27,16 @@
       "dom"
     ]
   },
-  "exclude": [ "node_modules" ]
+  "exclude": [
+    "./node_modules",
+    "./ts_out",
+    "../Framework/Signum.React/node_modules",
+    "../Framework/Signum.React/ts_out",
+    "../Extensions/Signum.React.Extensions/node_modules",
+    "../Extensions/Signum.React.Extensions/ts_out"
+  ],
+  "references": [
+    { "path": "../Framework/Signum.React" },
+    { "path": "../Extensions/Signum.React.Extensions" }
+  ]
 }
