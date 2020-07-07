@@ -34,12 +34,6 @@ COPY ["Southwind.React/Southwind.React.csproj", "Southwind.React/"]
 COPY ["Southwind.React/package.json", "Southwind.React/"]
 COPY ["Southwind.React/yarn.lock", "Southwind.React/"]
 
-WORKDIR "/src/Framework/Signum.React"
-RUN yarn install
-
-WORKDIR "/src/Extensions/Signum.React.Extensions"
-RUN yarn install
-
 WORKDIR "/src/Southwind.React"
 RUN yarn install
 
