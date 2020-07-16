@@ -32,6 +32,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Reflection;
 using Signum.Engine.Cache;
+using Signum.Engine.SchemaInfoTables;
 
 namespace Southwind.Terminal
 {
@@ -135,10 +136,19 @@ namespace Southwind.Terminal
 
         public static void NewDatabase()
         {
-            Console.WriteLine("You will lose all your data. Sure? (Y/N)");
-            string val = Console.ReadLine();
-            if (!val.StartsWith("y") && !val.StartsWith("Y"))
-                return;
+            var databaseName = Connector.Current.DatabaseName();
+            if (Database.View<SysTables>().Any())
+            {
+                SafeConsole.WriteLineColor(ConsoleColor.Red, $"Are you sure you want to delete all the data in the database '{databaseName}'?");
+                Console.Write($"Confirm by writing the name of the database:");
+                string val = Console.ReadLine();
+                if (val.ToLower() != databaseName.ToLower())
+                {
+                    Console.WriteLine($"Wrong name. No changes where made");
+                    Console.WriteLine();
+                    return;
+                }
+            }
 
             Console.Write("Creating new database...");
             Administrator.TotalGeneration();
