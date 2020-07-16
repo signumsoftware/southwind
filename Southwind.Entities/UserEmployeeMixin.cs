@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Signum.Entities;
+using Signum.Utilities;
 
 namespace Southwind.Entities
 {
@@ -24,5 +25,17 @@ namespace Southwind.Entities
         WindowsAndWeb,
         WindowsOnly,
         WebOnly,
+    }
+
+
+    [Serializable]
+    public class OrderDetailMixin : MixinEntity
+    {
+        OrderDetailMixin(ModifiableEntity mainEntity, MixinEntity? next)
+            : base(mainEntity, next)
+        {
+        }
+
+        public string? DiscountCode { get; set; }
     }
 }

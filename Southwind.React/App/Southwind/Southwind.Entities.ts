@@ -139,6 +139,12 @@ export interface OrderDetailEmbedded extends Entities.EmbeddedEntity {
   discount: number;
 }
 
+export const OrderDetailMixin = new Type<OrderDetailMixin>("OrderDetailMixin");
+export interface OrderDetailMixin extends Entities.MixinEntity {
+  Type: "OrderDetailMixin";
+  discountCode: string | null;
+}
+
 export const OrderEntity = new Type<OrderEntity>("Order");
 export interface OrderEntity extends Entities.Entity {
   Type: "Order";
