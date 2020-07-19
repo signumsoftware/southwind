@@ -89,6 +89,7 @@ namespace Southwind.Logic
 
                 MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
                 MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
+                MixinDeclarations.Register<OrderDetailEmbedded, OrderDetailMixin>();
 
                 OverrideAttributes(sb);
 

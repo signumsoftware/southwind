@@ -3,9 +3,10 @@ import numbro from 'numbro'
 import * as moment from 'moment'
 import { Dic } from '@framework/Globals'
 import * as Navigator from '@framework/Navigator'
-import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState, AddressEmbedded, OrderMessage } from '../Southwind.Entities'
+import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState, AddressEmbedded, OrderMessage, OrderDetailMixin } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlReadonly, EntityTable, ChangeEvent } from '@framework/Lines'
 import { useForceUpdate } from '@framework/Hooks'
+import { getMixin } from '@framework/Signum.Entities'
 
 export default function Order(p : { ctx: TypeContext<OrderEntity> }){
   const forceUpdate = useForceUpdate();
@@ -55,6 +56,7 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
         { property: a => a.quantity, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => forceUpdate()} /> },
         { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
         { property: a => a.discount, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => forceUpdate()} /> },
+        { property: a => getMixin(a, OrderDetailMixin).discountCode, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => getMixin(a, OrderDetailMixin).discountCode)} onChange={() => forceUpdate()} /> },
         {
           header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "15%" } },
           template: dc => <FormGroup ctx={dc}>
