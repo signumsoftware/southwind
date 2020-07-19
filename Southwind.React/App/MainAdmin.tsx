@@ -64,7 +64,7 @@ export function startFull(routes: JSX.Element[]) {
   UserQueryClient.start({ routes });
   CacheClient.start({ routes });
   ProcessClient.start({ routes, packages: true, packageOperations: true });
-  MailingClient.start({ routes, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });
+  MailingClient.start({ routes, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });
   WordClient.start({ routes, contextual: true, queryButton: true, entityButton: false });
   ExcelClient.start({ routes, plainExcel: true, excelReport: true });
   SchedulerClient.start({ routes });

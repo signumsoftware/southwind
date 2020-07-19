@@ -222,4 +222,16 @@ namespace Southwind.Entities
 
         public Date? MaxOrderDate { get; set; }
     }
+
+
+    [Serializable]
+    public class OrderDetailMixin : MixinEntity
+    {
+        OrderDetailMixin(ModifiableEntity mainEntity, MixinEntity? next)
+            : base(mainEntity, next)
+        {
+        }
+
+        public string? DiscountCode { get; set; }
+    }
 }
