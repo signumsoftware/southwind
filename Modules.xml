@@ -225,7 +225,7 @@
       <RemoveLine Path="Southwind.React\Startup.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
       <RemoveLine Path="Southwind.React\Startup.cs" Line="MailingServer.Start(app);" />
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as MailingClient from &quot;@extensions/Mailing/MailingClient&quot;"/>
-      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="MailingClient.start({ routes, newsletter: false, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });"/>
+      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="MailingClient.start({ routes, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Email*/" To="public EmailSenderConfigurationEntity EmailSender { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email)}>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Email = new EmailConfigurationEmbedded" To="}, //Email"/>
