@@ -69,6 +69,8 @@ using Microsoft.Extensions.Hosting;
 using Signum.React.Rest;
 using Signum.React.RestLog;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Http;
 
 namespace Southwind.React
 {
@@ -120,6 +122,8 @@ namespace Southwind.React
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCompression();
+
             services
                 .AddMvc(options => options.AddSignumGlobalFilters())
                 .AddApplicationPart(typeof(SignumServer).Assembly)
@@ -202,7 +206,10 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                     c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
                 });//Swagger Configure
 
+                app.UseWhen(req => req.Request.Path.StartsWithSegments("/api/reflection/types"), builder =>
                 {
+                    builder.UseETagger();
+                    builder.UseResponseCompression();
                 });
 
                 app.UseRouting();

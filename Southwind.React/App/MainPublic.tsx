@@ -75,8 +75,8 @@ window.onerror = (message: Event | string, filename?: string, lineno?: number, c
 
 function reload() {
   return AuthClient.autoLogin() //Promise.resolve()
-    .then(() => reloadTypes())
     .then(() => CultureClient.loadCurrentCulture())
+    .then(() => reloadTypes())
     .then(() => {
 
       AppContext.clearAllSettings();
