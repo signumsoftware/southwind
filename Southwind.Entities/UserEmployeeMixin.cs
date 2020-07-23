@@ -26,16 +26,4 @@ namespace Southwind.Entities
         WindowsOnly,
         WebOnly,
     }
-
-
-    [Serializable]
-    public class OrderDetailMixin : MixinEntity
-    {
-        OrderDetailMixin(ModifiableEntity mainEntity, MixinEntity? next)
-            : base(mainEntity, next)
-        {
-        }
-
-        public string? DiscountCode { get; set; }
-    }
 }
