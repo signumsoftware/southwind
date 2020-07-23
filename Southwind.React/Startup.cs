@@ -202,26 +202,19 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                     c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
                 });//Swagger Configure
 
+                {
+                });
+
                 app.UseRouting();
                 app.UseEndpoints(routes =>
                 {
+                    routes.MapControllers();
                     routes.MapControllerRoute(
-                        name: "default",
-                        pattern: "{controller=Home}/{action=Index}/{id?}");
+                        name: "spa-fallback",
+                        pattern: "{*url}",
+                        constraints: new { url = new NoAPIContraint() },
+                        defaults: new { controller = "Home", action = "Index" });
                 });
-
-                app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
-                {
-                    builder.UseRouting();
-                    builder.UseEndpoints(routes =>
-                    {
-                        routes.MapControllerRoute(
-                            name: "spa-fallback",
-                            pattern: "{*url}",
-                            defaults: new { controller = "Home", action = "Index" });
-                    });
-                });
-
 
                 if (Configuration.GetValue<bool>("StartBackgroundProcesses"))
                 {
@@ -234,6 +227,19 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                     log.Switch("StartRunningEmailSenderAsync");
                     AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
                 }
+            }
+        }
+
+        class NoAPIContraint : IRouteConstraint
+        {
+            public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
+            {
+                var url = (string?)values[routeKey];
+
+                if (url != null && url.StartsWith("api/"))
+                    return false;
+
+                return true;
             }
         }
 
