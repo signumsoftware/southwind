@@ -60,9 +60,9 @@ export default function Layout() {
                     <LinkContainer to="~/find/order"><NavDropdown.Item>Orders</NavDropdown.Item></LinkContainer>
                     <LinkContainer to="~/find/exception"><NavDropdown.Item>Exceptions</NavDropdown.Item></LinkContainer>
                 </NavDropdown>
-                {AuthClient.currentUser() && <React.Suspense fallback={JavascriptMessage.loading.niceToString()}><WorkflowDropdown /></React.Suspense>}
+                {AuthClient.currentUser() && <React.Suspense fallback={null}><WorkflowDropdown /></React.Suspense>}
                 </Nav>}
-              {AuthClient.currentUser() && <React.Suspense fallback={JavascriptMessage.loading.niceToString()}><ToolbarRenderer location="Top" /></React.Suspense>}
+              {AuthClient.currentUser() && <React.Suspense fallback={null}><ToolbarRenderer location="Top" /></React.Suspense>}
               <Nav className="ml-auto">
                 <VersionInfo />
                 <Nav.Item> {/*Swagger*/}
@@ -78,7 +78,7 @@ export default function Layout() {
         <div id="main-container">
           <SidebarContainer
             sidebarVisible={AuthClient.currentUser() && sideMenuVisible}
-            sidebarContent={<React.Suspense fallback={JavascriptMessage.loading.niceToString()}><ToolbarRenderer location="Side" /></React.Suspense>}>
+            sidebarContent={<React.Suspense fallback={null}><ToolbarRenderer location="Side" /></React.Suspense>}>
             <VersionChangedAlert />
             {Layout.switch}
           </SidebarContainer>

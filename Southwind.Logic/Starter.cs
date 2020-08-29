@@ -113,7 +113,7 @@ namespace Southwind.Logic
 
                     DynamicLogic.RegisterMixins();
                     DynamicLogic.BeforeSchema(sb);
-                }
+                }//Dynamic
 
                 // Framework modules
 
