@@ -57,6 +57,17 @@ namespace Southwind.Entities
 
         public OrderState State { get; set; }
 
+        protected override bool IsPropertyReadonly(PropertyInfo pi)
+        {
+            if (pi.Name == nameof(State))
+                return true;
+
+            if (State == OrderState.Canceled || State == OrderState.Shipped)
+                return true;
+
+            return base.IsPropertyReadonly(pi);
+        }
+
         protected override string? ChildPropertyValidation(ModifiableEntity sender, PropertyInfo pi)
         {
             if (sender is OrderDetailEmbedded details && !IsLegacy && pi.Name == nameof(details.Discount))
