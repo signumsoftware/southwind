@@ -2,11 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <TypeScriptToolsVersion>3.9</TypeScriptToolsVersion>
     <TypeScriptBuildMode>true</TypeScriptBuildMode>
-    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
     <Platforms>x64</Platforms>
     <IsPackable>false</IsPackable>
     <AssemblyVersion>1.0.0.*</AssemblyVersion>
@@ -14,7 +12,6 @@
     <Deterministic>false</Deterministic>
     <UserSecretsId>Southwind</UserSecretsId>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591;NU1605</NoWarn>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 

@@ -5,12 +5,10 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject>Southwind.Terminal.Program</StartupObject>
-    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
     <UserSecretsId>Southwind</UserSecretsId>
     <Platforms>x64</Platforms>
-    <NoWarn>$(NoWarn);NU1605</NoWarn>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
