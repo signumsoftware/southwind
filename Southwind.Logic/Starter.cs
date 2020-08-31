@@ -90,7 +90,9 @@ namespace Southwind.Logic
                 MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
                 MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
                 MixinDeclarations.Register<OrderDetailEmbedded, OrderDetailMixin>();
+                MixinDeclarations.Register<BigStringEmbedded, BigStringMixin>();
 
+                ConfigureBigString(sb);
                 OverrideAttributes(sb);
 
                 if (!isPostgres)
@@ -129,6 +131,7 @@ namespace Southwind.Logic
 
                 CultureInfoLogic.Start(sb);
                 FilePathEmbeddedLogic.Start(sb);
+                BigStringLogic.Start(sb);
                 EmailLogic.Start(sb, () => Configuration.Value.Email, (template, target, message) => Configuration.Value.EmailSender);
 
                 AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
@@ -213,6 +216,23 @@ namespace Southwind.Logic
                 Schema.Current.OnSchemaCompleted();
             }
         }
+
+        public static void ConfigureBigString(SchemaBuilder sb)
+        {
+            BigStringMode mode = BigStringMode.FileSystem;
+
+            FileTypeLogic.Register(BigStringFileType.Exceptions, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.ExceptionsFolder)));
+            BigStringLogic.RegisterAll<ExceptionEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.Exceptions));
+
+            FileTypeLogic.Register(BigStringFileType.OperationLog, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.OperationLogFolder)));
+            BigStringLogic.RegisterAll<OperationLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.OperationLog));
+
+            FileTypeLogic.Register(BigStringFileType.ViewLog, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.ViewLogFolder)));
+            BigStringLogic.RegisterAll<ViewLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.ViewLog));
+
+            FileTypeLogic.Register(BigStringFileType.EmailMessage, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.EmailMessageFolder)));
+            BigStringLogic.RegisterAll<EmailMessageEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.EmailMessage));
+        }//ConfigureBigString
 
         public class CustomSchemaBuilder : SchemaBuilder
         {

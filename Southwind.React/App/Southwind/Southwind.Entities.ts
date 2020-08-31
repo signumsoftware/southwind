@@ -56,6 +56,13 @@ export module ApplicationConfigurationOperation {
   export const Save : Entities.ExecuteSymbol<ApplicationConfigurationEntity> = registerSymbol("Operation", "ApplicationConfigurationOperation.Save");
 }
 
+export module BigStringFileType {
+  export const Exceptions : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.Exceptions");
+  export const OperationLog : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.OperationLog");
+  export const ViewLog : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.ViewLog");
+  export const EmailMessage : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.EmailMessage");
+}
+
 export module CatalogMessage {
   export const ProductName = new MessageKey("CatalogMessage", "ProductName");
   export const UnitPrice = new MessageKey("CatalogMessage", "UnitPrice");
@@ -128,6 +135,10 @@ export const FoldersConfigurationEmbedded = new Type<FoldersConfigurationEmbedde
 export interface FoldersConfigurationEmbedded extends Entities.EmbeddedEntity {
   Type: "FoldersConfigurationEmbedded";
   predictorModelFolder: string;
+  exceptionsFolder: string;
+  operationLogFolder: string;
+  viewLogFolder: string;
+  emailMessageFolder: string;
 }
 
 export const OrderDetailEmbedded = new Type<OrderDetailEmbedded>("OrderDetailEmbedded");

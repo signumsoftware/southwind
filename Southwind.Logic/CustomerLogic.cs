@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -75,7 +75,7 @@ namespace Southwind.Logic
 
                     return (await persons).Concat(await companies)
                         .OrderBy(request.Orders)
-                        .TryPaginate(request.Pagination);
+                        .TryPaginate(request.Pagination, request.SystemTime);
 
                 })
                 .ColumnProperyRoutes(a => a.Id,
