@@ -55,7 +55,7 @@
 
   <ItemGroup>
     <PackageReference Include="CNTK.CPUOnly" Version="2.7.0" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.9.7">
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
