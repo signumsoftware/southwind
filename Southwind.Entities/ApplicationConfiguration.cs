@@ -10,6 +10,7 @@ using Signum.Utilities;
 using System.Linq.Expressions;
 using Signum.Entities.Authorization;
 using Signum.Entities.Workflow;
+using Signum.Entities.Files;
 
 namespace Southwind.Entities
 {
@@ -59,5 +60,30 @@ namespace Southwind.Entities
         /*Predictor*/
         [StringLengthValidator(Max = 300), FileNameValidator]
         public string PredictorModelFolder { get; set; }
+
+        /*Exceptions*/
+        [StringLengthValidator(Max = 300), FileNameValidator]
+        public string ExceptionsFolder { get; set; }
+
+        /*OperationLog*/
+        [StringLengthValidator(Max = 300), FileNameValidator]
+        public string OperationLogFolder { get; set; }
+
+        /*ViewLog*/
+        [StringLengthValidator(Max = 300), FileNameValidator]
+        public string ViewLogFolder { get; set; }
+
+        /*EmailMessage*/
+        [StringLengthValidator(Max = 300), FileNameValidator]
+        public string EmailMessageFolder { get; set; }
+    }
+
+    [AutoInit]
+    public static class BigStringFileType
+    {
+        public static FileTypeSymbol Exceptions;
+        public static FileTypeSymbol OperationLog;
+        public static FileTypeSymbol ViewLog;
+        public static FileTypeSymbol EmailMessage;
     }
 }

@@ -260,7 +260,11 @@ namespace Southwind.Test.Environment
                 }, //Workflow
                 Folders = new FoldersConfigurationEmbedded
                 {
-                    PredictorModelFolder = @"c:/Southwind/PredictorModels"
+                    PredictorModelFolder = @"c:/Southwind/PredictorModels",
+                    ExceptionsFolder = @"c:/Southwind/Exceptions",
+                    OperationLogFolder = @"c:/Southwind/OperationLog",
+                    ViewLogFolder = @"c:/Southwind/ViewLog",
+                    EmailMessageFolder = @"c:/Southwind/EmailMessage",
                 }
             }.Save();
         }

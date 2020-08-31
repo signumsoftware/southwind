@@ -108,8 +108,12 @@
     </Module>
 
     <Module Name="Files">
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;BigStringEmbedded, BigStringMixin>();"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="ConfigureBigString(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FilePathEmbeddedLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="FileLogic.Start(sb);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="BigStringLogic.Start(sb);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="public static void ConfigureBigString(SchemaBuilder sb)" To="}//ConfigureBigString"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as FilesClient from &quot;@extensions/Files/FilesClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="FilesClient.start({ routes });"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="FilesServer.Start(app);"/>
@@ -127,6 +131,31 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" Line="&lt;FileLine ctx={ctx.subCtx(c => c.picture)} onChange={() => forceUpdate()} />"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" From="&lt;div className=&quot;col-sm-3&quot;>{/*photo*/}" To="&lt;/div>{/*photo*/}"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Employee.tsx" From="{/*photo*/}" To="{/*photo*/}"/>
+
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Exceptions*/" To="public string ExceptionsFolder { get; set; }"/>
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol Exceptions;"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ExceptionsFolder = @&quot;c:/Southwind/Exceptions&quot;,"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="ExceptionsFolder = @&quot;c:/Southwind/Exceptions&quot;,"/>
+      
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*OperationLog*/" To="public string OperationLogFolder { get; set; }"/>
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol OperationLog;"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="OperationLogFolder = @&quot;c:/Southwind/OperationLog&quot;,"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="OperationLogFolder = @&quot;c:/Southwind/OperationLog&quot;,"/>
+      
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*ViewLog*/" To="public string ViewLogFolder { get; set; }"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol ViewLog;"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ViewLogFolder = @&quot;c:/Southwind/ViewLog&quot;,"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="ViewLogFolder = @&quot;c:/Southwind/ViewLog&quot;,"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.ViewLog, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.ViewLogFolder)));"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="BigStringLogic.RegisterAll&lt;ViewLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.ViewLog));"/>
+
+
+      <RemoveLine DependsOn="Mailing" Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*EmailMessage*/" To="public string EmailMessageFolder { get; set; }"/>
+      <RemoveLine DependsOn="Mailing" Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol EmailMessage;"/>
+      <RemoveLine DependsOn="Mailing" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="EmailMessageFolder = @&quot;c:/Southwind/EmailMessage&quot;,"/>
+      <RemoveLine DependsOn="Mailing" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="EmailMessageFolder = @&quot;c:/Southwind/EmailMessage&quot;,"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.EmailMessage, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.EmailMessageFolder)));"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="BigStringLogic.RegisterAll&lt;EmailMessageEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.EmailMessage));"/>
     </Module>
 
     <Module Name="Excel">
@@ -412,10 +441,11 @@
       <RemoveLine Path="Southwind.React\Startup.cs" Line="RestLogServer.Start(app);"/>
     </Module>
 
-    <Module Name="Predictor">
+    <Module Name="Predictor" DependsOn="Files">
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Predictor*/" To="public string PredictorModelFolder { get; set; }"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportPredictor,"/>
-      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="PredictorModelFolder = @&quot;c:/Southwind/PredictorModels&quot;"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="PredictorModelFolder = @&quot;c:/Southwind/PredictorModels&quot;,"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="PredictorModelFolder = @&quot;c:/Southwind/PredictorModels&quot;,"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
