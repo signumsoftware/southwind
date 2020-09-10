@@ -186,11 +186,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             {
                 DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
 
-                Starter.Start(Configuration.GetConnectionString("ConnectionString"), Configuration.GetValue<bool>("IsPostgres"));
-
-                log.Switch("Initialize");
-                using (AuthLogic.Disable())
-                    Schema.Current.Initialize();
+                Starter.Start(Configuration.GetConnectionString("ConnectionString"), Configuration.GetValue<bool>("IsPostgres"), detectSqlVersion: false);
 
                 Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
 
@@ -222,19 +218,33 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                         constraints: new { url = new NoAPIContraint() },
                         defaults: new { controller = "Home", action = "Index" });
                 });
-
-                if (Configuration.GetValue<bool>("StartBackgroundProcesses"))
-                {
-                    log.Switch("StartRunningProcesses");
-                    ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
-
-                    log.Switch("StartScheduledTasks");
-                    SchedulerLogic.StartScheduledTasks();
-
-                    log.Switch("StartRunningEmailSenderAsync");
-                    AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
-                }
             }
+
+            SignumInitializeFilterAttribute.InitializeDatabase = () =>
+            {
+                using (HeavyProfiler.Log("Startup"))
+                using (var log = HeavyProfiler.Log("Initial"))
+                {
+                    log.Switch("Initialize");
+                    using (AuthLogic.Disable())
+                        Schema.Current.Initialize();
+
+                    if (Configuration.GetValue<bool>("StartBackgroundProcesses"))
+                    {
+                        log.Switch("StartRunningProcesses");
+                        ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
+
+                        log.Switch("StartScheduledTasks");
+                        SchedulerLogic.StartScheduledTasks();
+
+                        log.Switch("StartRunningEmailSenderAsync");
+                        AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
+                    }
+
+                    SystemEventServer.LogStartStop(app, lifetime);
+                    
+                }
+            };
         }
 
         class NoAPIContraint : IRouteConstraint
