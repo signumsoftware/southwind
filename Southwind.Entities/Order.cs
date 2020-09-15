@@ -59,7 +59,11 @@ namespace Southwind.Entities
 
         protected override bool IsPropertyReadonly(PropertyInfo pi)
         {
-            if (pi.Name == nameof(State))
+            if (pi.Name == nameof(State) || 
+                pi.Name == nameof(IsLegacy) || 
+                pi.Name == nameof(OrderDate) || 
+                pi.Name == nameof(ShippedDate) ||
+                pi.Name == nameof(CancelationDate))
                 return true;
 
             if (State == OrderState.Canceled || State == OrderState.Shipped)
