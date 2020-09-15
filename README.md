@@ -25,5 +25,5 @@ Password: Steven
 # Starting localy
 
 1. Visit [Create Application Website](https://www.signumsoftware.com/es/DuplicateApplication)
-2. Check **Software Requirements**, you can vary OS / IDE / Git Client but expect more rough edges then.  
+2. Check **Software Requirements**, you can vary OS / IDE / Git Client if you want more adventure.  
 3. Follow **First Steps**
