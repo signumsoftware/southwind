@@ -21,3 +21,9 @@ You can check out Southwind running in Azure
 Username: Steven
 Password: Steven
 ```
+
+# Starting localy
+
+1. Visit [Create Application Website](https://www.signumsoftware.com/es/DuplicateApplication)
+2. Check **Software Requirements**, you can vary OS / IDE / Git Client but expect more rough edges then.  
+3. Follow **First Steps**
