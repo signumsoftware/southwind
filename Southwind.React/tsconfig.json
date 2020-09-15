@@ -13,13 +13,13 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
+      "@framework/*": [ "../Framework/Signum.React/Scripts/*" ],
+      "@extensions/*": [ "../Extensions/Signum.React.Extensions/*" ],
       "*": [
         "../Framework/Signum.React/node_modules/@types/*",
         "../Framework/Signum.React/node_modules/*",
         "*"
-      ],
-      "@framework/*": [ "../Framework/Signum.React/Scripts/*" ],
-      "@extensions/*": [ "../Extensions/Signum.React.Extensions/*" ]
+      ]
     },
     "lib": [
       "es2017",
