@@ -7,7 +7,7 @@ import { render, unmountComponentAtNode } from "react-dom"
 import { Router, Route, Redirect } from "react-router-dom"
 import { Switch } from "react-router"
 
-import * as moment from "moment"
+import * as luxon from "luxon"
 import numbro from "numbro"
 
 import { reloadTypes } from "@framework/Reflection"
@@ -38,9 +38,6 @@ library.add(fas, far);
 AppContext.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle + " - Southwind" : "Southwind");
 AppContext.setTitle();
 
-//require('moment/locale/en');
-require('moment/locale/es');
-
 numbro.registerLanguage(require<any>("numbro/dist/languages/en-GB.min"));
 numbro.registerLanguage(require<any>("numbro/dist/languages/es-ES.min"));
 
@@ -48,7 +45,6 @@ declare let __webpack_public_path__: string;
 
 __webpack_public_path__ = window.__baseUrl + "dist/";
 
-ConfigureReactWidgets.asumeGlobalUtcMode(moment, false);
 ConfigureReactWidgets.configure();
 
 Services.NotifyPendingFilter.notifyPendingRequests = pending => {
@@ -57,9 +53,12 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
 
 CultureClient.onCultureLoaded.push(ci => {
   const culture = ci.name!; //"en";
-  moment.locale((culture.tryBefore("-") || culture).toLowerCase());
-  numbro.setLanguage(culture == "en" ? "en-GB" :
-    culture == "es" ? "es-ES" : "Unkwnown");
+
+  var fullCulture = culture == "en" ? "en-GB" :
+    culture == "es" ? "es-ES" : "Unkwnown";
+
+  luxon.Settings.defaultLocale = fullCulture;
+  numbro.setLanguage(fullCulture);
 }); //Culture
 
 Services.VersionFilter.versionHasChanged = () => {

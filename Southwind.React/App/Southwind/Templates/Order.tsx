@@ -1,6 +1,6 @@
 import * as React from 'react'
 import numbro from 'numbro'
-import * as moment from 'moment'
+import { DateTime } from 'luxon'
 import { Dic } from '@framework/Globals'
 import * as Navigator from '@framework/Navigator'
 import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState, AddressEmbedded, OrderMessage, OrderDetailMixin } from '../Southwind.Entities'
@@ -101,7 +101,7 @@ function ago(date: string | null | undefined) {
   if (!date)
     return undefined;
 
-  return moment(date).fromNow(true);
+  return DateTime.fromISO(date).toRelative() ?? undefined;
 }
 
 function stateColor(s: OrderState | undefined) {

@@ -5,7 +5,7 @@ require("prop-types");
 require("react-router");
 require("react-widgets");
 require("react-bootstrap");
-require("moment");
+require("luxon");
 require("numbro");
 require("@fortawesome/fontawesome-svg-core");
 require("@fortawesome/free-regular-svg-icons");

@@ -68,7 +68,6 @@ module.exports = {
       context: path.join(__dirname, "App"),
       manifest: require("./wwwroot/dist/vendor-manifest.json")
     }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es)/),
     new AssetsPlugin({
       path: path.join(__dirname, "wwwroot", "dist")
     }),

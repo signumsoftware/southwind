@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Route } from 'react-router'
-import * as moment from 'moment'
+import { DateTime } from 'luxon'
 import { ajaxPost, ajaxGet } from '@framework/Services';
 import { EntitySettings, ViewPromise } from '@framework/Navigator'
 import * as Navigator from '@framework/Navigator'
@@ -137,7 +137,7 @@ export function start(options: { routes: JSX.Element[] }) {
 
   const selectShippedDate = () => ValueLineModal.show({
     type: { name: "datetime" },
-    initialValue: moment().format(),
+    initialValue: DateTime.local().toISO(),
     labelText: OrderEntity.nicePropertyName(a => a.shippedDate)
   });
 
