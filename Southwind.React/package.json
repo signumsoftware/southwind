@@ -37,6 +37,7 @@
     "@types/prop-types": "15.7.3",
     "@types/react": "16.9.49",
     "abortcontroller-polyfill": "1.4.0",
+    "core-js": "3.6.5",
     "bootstrap": "4.5.0",
     "bpmn-js": "5.0.4",
     "codemirror": "5.54.0",
@@ -46,8 +47,6 @@
     "dom-helpers": "3.4.0",
     "draft-js": "0.11.5",
     "draftjs-to-html": "0.9.1",
-    "es6-object-assign": "1.1.0",
-    "es6-promise": "4.2.8",
     "history": "4.10.1",
     "html-to-draftjs": "1.5.0",
     "jquery": "3.5.1",
@@ -63,7 +62,6 @@
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-widgets": "4.5.0",
-    "url-search-params-polyfill": "8.1.0",
     "whatwg-fetch": "3.0.0"
   },
   "devDependencies": {
