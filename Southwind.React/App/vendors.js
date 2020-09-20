@@ -6,7 +6,6 @@ require("react-router");
 require("react-widgets");
 require("react-bootstrap");
 require("luxon");
-require("numbro");
 require("@fortawesome/fontawesome-svg-core");
 require("@fortawesome/free-regular-svg-icons");
 require("@fortawesome/free-solid-svg-icons");

@@ -8,9 +8,8 @@ import { Router, Route, Redirect } from "react-router-dom"
 import { Switch } from "react-router"
 
 import * as luxon from "luxon"
-import numbro from "numbro"
 
-import { reloadTypes } from "@framework/Reflection"
+import { NumberFormatSettings, reloadTypes } from "@framework/Reflection"
 import * as AppContext from "@framework/AppContext"
 import * as Services from "@framework/Services"
 import Notify from "@framework/Frames/Notify"
@@ -38,8 +37,6 @@ library.add(fas, far);
 AppContext.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle + " - Southwind" : "Southwind");
 AppContext.setTitle();
 
-numbro.registerLanguage(require<any>("numbro/dist/languages/en-GB.min"));
-numbro.registerLanguage(require<any>("numbro/dist/languages/es-ES.min"));
 
 declare let __webpack_public_path__: string;
 
@@ -54,11 +51,13 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
 CultureClient.onCultureLoaded.push(ci => {
   const culture = ci.name!; //"en";
 
-  var fullCulture = culture == "en" ? "en-GB" :
-    culture == "es" ? "es-ES" : "Unkwnown";
+  var fullCulture =
+    culture == "en" ? "en-GB" :
+      culture == "es" ? "es-ES" :
+        "Unkwnown";
 
   luxon.Settings.defaultLocale = fullCulture;
-  numbro.setLanguage(fullCulture);
+  NumberFormatSettings.defaultNumberFormatLocale = fullCulture;
 }); //Culture
 
 Services.VersionFilter.versionHasChanged = () => {

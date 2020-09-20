@@ -1,5 +1,4 @@
 import * as React from 'react'
-import numbro from 'numbro'
 import { DateTime } from 'luxon'
 import { Dic } from '@framework/Globals'
 import * as Navigator from '@framework/Navigator'
@@ -7,6 +6,7 @@ import { OrderEntity, CustomerEntity, OrderDetailEmbedded, OrderState, AddressEm
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlReadonly, EntityTable, ChangeEvent } from '@framework/Lines'
 import { useForceUpdate } from '@framework/Hooks'
 import { getMixin } from '@framework/Signum.Entities'
+import { toNumberFormat } from '@framework/Reflection'
 
 export default function Order(p : { ctx: TypeContext<OrderEntity> }){
   const forceUpdate = useForceUpdate();
@@ -32,7 +32,9 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
 
   const ctx2 = p.ctx.subCtx({ labelColumns: { sm: 2 } });
   const ctx4 = p.ctx.subCtx({ labelColumns: { sm: 4 } });
-  var o = ctx4.value;
+  const o = ctx4.value;
+  const formatNumber = toNumberFormat("0.00");
+
   return (
     <div>
       <div className="row">
@@ -59,16 +61,17 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
         { property: a => getMixin(a, OrderDetailMixin).discountCode, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => getMixin(a, OrderDetailMixin).discountCode)} onChange={() => forceUpdate()} /> },
         {
           header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "15%" } },
-          template: dc => <FormGroup ctx={dc}>
-            <div className={dc.inputGroupClass}>
-              <FormControlReadonly ctx={dc}>
-                {numbro(subTotalPrice(dc.value)).format("0.00")}
-              </FormControlReadonly>
-              <div className="input-group-append">
-                <span className="input-group-text">€</span>
+          template: dc =>
+            <FormGroup ctx={dc}>
+              <div className={dc.inputGroupClass}>
+                <FormControlReadonly ctx={dc}>
+                  {formatNumber.format(subTotalPrice(dc.value))}
+                </FormControlReadonly>
+                <div className="input-group-append">
+                  <span className="input-group-text">€</span>
+                </div>
               </div>
-            </div>
-          </FormGroup>
+            </FormGroup>
         },
       ])} />
       <div className="row">
@@ -82,7 +85,7 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
           <FormGroup ctx={ctx4} labelText="TotalPrice">
             <div className={ctx4.inputGroupClass}>
               <FormControlReadonly ctx={ctx4}>
-                {numbro(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum()).format("0.00")}
+                {formatNumber.format(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum())}
               </FormControlReadonly>
               <div className="input-group-append">
                 <span className="input-group-text">€</span>
