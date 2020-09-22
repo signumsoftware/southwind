@@ -477,8 +477,9 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredDatabaseMismatches = new List&lt;Exception>();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredCodeErrors = new List&lt;Exception>();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="DynamicLogicStarter.Start(sb);" To="}//Dynamic"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="DynamicLogic.StartDynamicModules(sb);" To="DynamicLogic.RegisterExceptionIfAny();"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (type.Namespace == DynamicCode.CodeGenEntitiesNamespace)" To="return &quot;codegen&quot;;"/>
+	  <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (includeDynamic)//2" To="}//2"/>
+	  <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (includeDynamic)//3" To="}//3"/>
+	  <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (type.Namespace == DynamicCode.CodeGenEntitiesNamespace)" To="return &quot;codegen&quot;;"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx"
                   From="import * as DynamicClient from &quot;@extensions/Dynamic/DynamicClient&quot;"
                   To="import * as DynamicViewClient from &quot;@extensions/Dynamic/DynamicViewClient&quot;"/>

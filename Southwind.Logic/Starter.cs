@@ -109,7 +109,7 @@ namespace Southwind.Logic
                 CacheLogic.Start(sb, cacheInvalidator: sb.Settings.IsPostgres ? new PostgresCacheInvalidation() : null);
 
                 DynamicLogicStarter.Start(sb);
-                if (includeDynamic)
+                if (includeDynamic)//Dynamic
                 {
                     DynamicLogic.CompileDynamicCode();
 
@@ -206,14 +206,19 @@ namespace Southwind.Logic
                 TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
                 TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
 
-                if (includeDynamic)
+                if (includeDynamic)//2
                 {
                     DynamicLogic.StartDynamicModules(sb);
-                    DynamicLogic.RegisterExceptionIfAny();
-                }
+                }//2
+
                 SetupCache(sb);
 
                 Schema.Current.OnSchemaCompleted();
+
+                if (includeDynamic)//3
+                {
+                    DynamicLogic.RegisterExceptionIfAny();
+                }//3
             }
         }
 
