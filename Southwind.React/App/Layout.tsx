@@ -11,8 +11,10 @@ import SidebarContainer from "@extensions/Toolbar/SidebarContainer"
 import { VersionChangedAlert, VersionInfo } from '@framework/Frames/VersionChangedAlert';
 import { LinkContainer, ErrorBoundary } from '@framework/Components';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { OmniboxPermission } from '../../Extensions/Signum.React.Extensions/Omnibox/Signum.Entities.Omnibox'
+import { OmniboxPermission } from '@extensions/Omnibox/Signum.Entities.Omnibox'
+import * as WebAuthnClient from '@extensions/Authorization/WebAuthn/WebAuthnClient'
 import { JavascriptMessage } from '@framework/Signum.Entities'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const WorkflowDropdown = React.lazy(() => import("@extensions/Workflow/Workflow/WorkflowDropdown"));
 const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Templates/ToolbarRenderer"));
@@ -69,7 +71,9 @@ export default function Layout() {
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
                 </Nav.Item> {/*Swagger*/}
                 <CultureDropdown />
-                <LoginDropdown />
+                <LoginDropdown extraButons={user =>
+                  <NavDropdown.Item onClick={() => WebAuthnClient.register()}><FontAwesomeIcon icon="fingerprint" fixedWidth className="mr-2" /> Register Webauthn / FIDO2</NavDropdown.Item>
+                } />
               </Nav>
             </Navbar.Collapse>
           </Navbar>

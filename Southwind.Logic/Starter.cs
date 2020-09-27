@@ -140,6 +140,7 @@ namespace Southwind.Logic
                 ResetPasswordRequestLogic.Start(sb);
                 UserTicketLogic.Start(sb);
                 SessionLogLogic.Start(sb);
+                WebAuthnLogic.Start(sb);
 
                 ProcessLogic.Start(sb);
                 PackageLogic.Start(sb, packages: true, packageOperations: true);

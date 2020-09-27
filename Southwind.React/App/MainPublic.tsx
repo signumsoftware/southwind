@@ -16,6 +16,7 @@ import Notify from "@framework/Frames/Notify"
 import ErrorModal from "@framework/Modals/ErrorModal"
 
 import * as AuthClient from "@extensions/Authorization/AuthClient"
+import * as WebAuthnClient from "@extensions/Authorization/WebAuthn/WebAuthnClient"
 import * as CultureClient from "@extensions/Translation/CultureClient"
 
 import * as History from 'history'
@@ -84,6 +85,7 @@ function reload() {
       routes.push(<Route exact path="~/" component={Home} />);
       routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
       AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });
+      WebAuthnClient.start({ routes, applicationName: "Southwind" });
 
       const isFull = Boolean(AuthClient.currentUser()) && AuthClient.currentUser().userName != "Anonymous"; //true;
 
