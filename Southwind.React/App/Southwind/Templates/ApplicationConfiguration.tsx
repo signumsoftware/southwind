@@ -19,6 +19,9 @@ export default function ApplicationConfiguration(p : { ctx: TypeContext<Applicat
         <Tab eventKey="auth" title={ctx.niceName(a => a.authTokens)}>
           <RenderEntity ctx={ctx.subCtx(a => a.authTokens)} />
         </Tab>
+        <Tab eventKey="webauthn" title={ctx.niceName(a => a.webAuthn)}>
+          <RenderEntity ctx={ctx.subCtx(a => a.webAuthn)} />
+        </Tab>
       </Tabs>
     </div>
   );

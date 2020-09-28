@@ -128,6 +128,10 @@ namespace Southwind.Terminal
                     DatabaseName = "Southwind",
                     AuthTokens = new AuthTokenConfigurationEmbedded
                     {
+                    },
+                    WebAuthn = new WebAuthnConfigurationEmbedded
+                    {
+                        ServerName = "Southwind"
                     }, //Auth
                     Email = new EmailConfigurationEmbedded
                     {

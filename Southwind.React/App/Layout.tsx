@@ -71,9 +71,7 @@ export default function Layout() {
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
                 </Nav.Item> {/*Swagger*/}
                 <CultureDropdown />
-                <LoginDropdown extraButons={user =>
-                  <NavDropdown.Item onClick={() => WebAuthnClient.register()}><FontAwesomeIcon icon="fingerprint" fixedWidth className="mr-2" /> Register Webauthn / FIDO2</NavDropdown.Item>
-                } />
+                <LoginDropdown extraButons={user => <WebAuthnClient.WebAuthnRegisterMenuItem />} />
               </Nav>
             </Navbar.Collapse>
           </Navbar>
