@@ -31,8 +31,9 @@ namespace Southwind.Entities
         /*Sms*/
         public SMSConfigurationEmbedded Sms { get; set; }
 
-        /*AuthTokens*/
+        /*Auth*/
         public AuthTokenConfigurationEmbedded AuthTokens { get; set; }
+        public WebAuthnConfigurationEmbedded WebAuthn { get; set; }
 
         /*Workflow*/
         public WorkflowConfigurationEmbedded Workflow { get; set; }

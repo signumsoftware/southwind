@@ -239,6 +239,10 @@ namespace Southwind.Test.Environment
                 },
                 AuthTokens = new AuthTokenConfigurationEmbedded
                 {
+                },
+                WebAuthn = new WebAuthnConfigurationEmbedded
+                {
+                    ServerName = "Southwind"
                 }, //Auth
                 EmailSender = new EmailSenderConfigurationEntity
                 {
