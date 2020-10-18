@@ -141,7 +141,7 @@ namespace Southwind.Terminal
             {
                 SafeConsole.WriteLineColor(ConsoleColor.Red, $"Are you sure you want to delete all the data in the database '{databaseName}'?");
                 Console.Write($"Confirm by writing the name of the database:");
-                string val = Console.ReadLine();
+                string val = Console.ReadLine()!;
                 if (val.ToLower() != databaseName.ToLower())
                 {
                     Console.WriteLine($"Wrong name. No changes where made");

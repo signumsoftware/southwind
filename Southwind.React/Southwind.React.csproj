@@ -1,89 +1,89 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <TypeScriptBuildMode>true</TypeScriptBuildMode>
-    <Nullable>enable</Nullable>
-    <WarningsAsErrors>nullable</WarningsAsErrors>
-    <Platforms>x64</Platforms>
-    <IsPackable>false</IsPackable>
-    <AssemblyVersion>1.0.0.*</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Deterministic>false</Deterministic>
-    <UserSecretsId>Southwind</UserSecretsId>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <NoWarn>1591</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5</TargetFramework>
+		<TypeScriptBuildMode>true</TypeScriptBuildMode>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>nullable</WarningsAsErrors>
+		<Platforms>x64</Platforms>
+		<IsPackable>false</IsPackable>
+		<AssemblyVersion>1.0.0.*</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<Deterministic>false</Deterministic>
+		<UserSecretsId>Southwind</UserSecretsId>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<NoWarn>1591</NoWarn>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutputPath>bin\</OutputPath>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<OutputPath>bin\</OutputPath>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="CodeGen\**" />
-    <Compile Remove="dist\**" />
-    <Compile Remove="Translations\**" />
-    <Compile Remove="ts_out\**" />
-    <Content Remove="CodeGen\**" />
-    <Content Remove="dist\**" />
-    <Content Remove="Translations\**" />
-    <Content Remove="ts_out\**" />
-    <EmbeddedResource Remove="CodeGen\**" />
-    <EmbeddedResource Remove="dist\**" />
-    <EmbeddedResource Remove="Translations\**" />
-    <EmbeddedResource Remove="ts_out\**" />
-    <None Remove="CodeGen\**" />
-    <None Remove="dist\**" />
-    <None Remove="Translations\**" />
-    <None Remove="ts_out\**" />
-    <TypeScriptCompile Include="**\*.tsx" />
-    <TypeScriptCompile Include="**\*.ts" />
-  </ItemGroup>
+	<ItemGroup>
+		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <TypeScriptCompile Remove="node_modules\**" />
-    <TypeScriptCompile Remove="ts_out\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+		<Compile Remove="CodeGen\**" />
+		<Compile Remove="dist\**" />
+		<Compile Remove="Translations\**" />
+		<Compile Remove="ts_out\**" />
+		<Content Remove="CodeGen\**" />
+		<Content Remove="dist\**" />
+		<Content Remove="Translations\**" />
+		<Content Remove="ts_out\**" />
+		<EmbeddedResource Remove="CodeGen\**" />
+		<EmbeddedResource Remove="dist\**" />
+		<EmbeddedResource Remove="Translations\**" />
+		<EmbeddedResource Remove="ts_out\**" />
+		<None Remove="CodeGen\**" />
+		<None Remove="dist\**" />
+		<None Remove="Translations\**" />
+		<None Remove="ts_out\**" />
+		<TypeScriptCompile Include="**\*.tsx" />
+		<TypeScriptCompile Include="**\*.ts" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CNTK.CPUOnly" Version="2.7.0" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.0.2">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
-    <PackageReference Include="Signum.Analyzer" Version="2.7.0" />
-    <PackageReference Include="Signum.TSGenerator" Version="3.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<TypeScriptCompile Remove="node_modules\**" />
+		<TypeScriptCompile Remove="ts_out\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
-    <ProjectReference Include="..\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
-    <ProjectReference Include="..\Extensions\Signum.React.Extensions\Signum.React.Extensions.csproj" />
-    <ProjectReference Include="..\Framework\Signum.Engine\Signum.Engine.csproj" />
-    <ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />
-    <ProjectReference Include="..\Framework\Signum.React\Signum.React.csproj" />
-    <ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
-    <ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj" />
-    <ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CNTK.CPUOnly" Version="2.7.0" />
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.0.2">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
+		<PackageReference Include="Signum.Analyzer" Version="2.7.0" />
+		<PackageReference Include="Signum.TSGenerator" Version="3.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+	</ItemGroup>
 
-  <Target Name="PublishCollectDist" AfterTargets="ComputeFilesToPublish">
-    <!-- Include the newly-built files in the publish output -->
-    <ItemGroup>
-      <DistFiles Include="wwwroot\dist\**;" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-        <RelativePath>%(DistFiles.Identity)</RelativePath>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </ResolvedFileToPublish>
-    </ItemGroup>
-  </Target>
+	<ItemGroup>
+		<ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
+		<ProjectReference Include="..\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
+		<ProjectReference Include="..\Extensions\Signum.React.Extensions\Signum.React.Extensions.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Engine\Signum.Engine.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />
+		<ProjectReference Include="..\Framework\Signum.React\Signum.React.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
+		<ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj" />
+		<ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj" />
+	</ItemGroup>
+
+	<Target Name="PublishCollectDist" AfterTargets="ComputeFilesToPublish">
+		<!-- Include the newly-built files in the publish output -->
+		<ItemGroup>
+			<DistFiles Include="wwwroot\dist\**;" />
+			<ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+				<RelativePath>%(DistFiles.Identity)</RelativePath>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</ResolvedFileToPublish>
+		</ItemGroup>
+	</Target>
 
 </Project>

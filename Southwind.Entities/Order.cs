@@ -83,7 +83,7 @@ namespace Southwind.Entities
             return base.ChildPropertyValidation(sender, pi);
         }
 
-        protected override void ChildCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        protected override void ChildCollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
         {
             if (sender == Details)
                 Notify(() => TotalPrice);

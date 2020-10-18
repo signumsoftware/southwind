@@ -249,7 +249,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
         class NoAPIContraint : IRouteConstraint
         {
-            public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
+            public bool Match(HttpContext? httpContext, IRouter? route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
             {
                 var url = (string?)values[routeKey];
 

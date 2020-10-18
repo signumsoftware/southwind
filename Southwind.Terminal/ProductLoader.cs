@@ -29,7 +29,7 @@ namespace Southwind.Terminal
         {
             var suppliers = Connector.Override(Northwind.Connector).Using(_ => Database.View<Suppliers>().ToList());
 
-            List<SupplierFaxCSV> faxes = Csv.ReadFile<SupplierFaxCSV>("SupplierFaxes.csv", culture: CultureInfo.GetCultureInfo("es"));
+            List<SupplierFaxCSV> faxes = Csv.ReadFile<SupplierFaxCSV>("SupplierFaxes.csv", culture: CultureInfo.GetCultureInfo("es-ES"));
 
             var faxDic = faxes.ToDictionary(r => r.SupplierID, r => r.Fax);
 
