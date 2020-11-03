@@ -128,7 +128,7 @@ namespace Southwind.React
                 .AddMvc(options => options.AddSignumGlobalFilters())
                 .AddApplicationPart(typeof(SignumServer).Assembly)
                 .AddApplicationPart(typeof(AuthServer).Assembly)
-                .AddNewtonsoftJson(options => options.AddSignumJsonConverters())
+                .AddJsonOptions(options => options.AddSignumJsonConverters())
                 .ConfigureApplicationPartManager(apm =>
                 {
                     apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
