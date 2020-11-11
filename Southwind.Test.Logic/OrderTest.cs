@@ -20,6 +20,8 @@ namespace Southwind.Test.Logic
         [Fact]
         public void OrderTestExample()
         {
+            
+
             using (AuthLogic.UnsafeUserSession("Normal"))
             {
                 using (Transaction tr = Transaction.Test()) // Transaction.Test avoids nested ForceNew transactions to be independent

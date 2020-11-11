@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5</TargetFramework>
+		<TargetFramework>net5.0</TargetFramework>
 		<ApplicationIcon />
 		<OutputType>Exe</OutputType>
 		<StartupObject>Southwind.Terminal.Program</StartupObject>
@@ -21,12 +21,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="CNTK.CPUOnly" Version="2.7.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.8" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.8" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.8" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.8" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
 		<PackageReference Include="Signum.Analyzer" Version="2.7.0" />
-		<PackageReference Include="Signum.MSBuildTask" Version="5.0.0-preview2" />
+		<PackageReference Include="Signum.MSBuildTask" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
