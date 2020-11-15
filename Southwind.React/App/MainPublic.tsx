@@ -25,7 +25,7 @@ import Layout from './Layout'
 import PublicCatalog from './PublicCatalog'
 import Home from './Home'
 import NotFound from './NotFound'
-import Login from '@extensions/Authorization/Login/Login'
+import LoginPage from '@extensions/Authorization/Login/LoginPage'
 
 import * as ConfigureReactWidgets from "@framework/ConfigureReactWidgets"
 import { VersionChangedAlert } from "@framework/Frames/VersionChangedAlert"
@@ -66,7 +66,7 @@ Services.VersionFilter.versionHasChanged = () => {
   VersionChangedAlert.forceUpdateSingletone && VersionChangedAlert.forceUpdateSingletone();
 }
 
-Login.customLoginButtons = ctx => <WebAuthnClient.WebAuthnLoginButton ctx={ctx} />;
+LoginPage.customLoginButtons = ctx => <WebAuthnClient.WebAuthnLoginButton ctx={ctx} />;
 
 Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 
