@@ -71,6 +71,7 @@ using Signum.React.RestLog;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Http;
+using Signum.Engine.Rest;
 
 namespace Southwind.React
 {
@@ -160,9 +161,33 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 ```",
                 });
 
-                var scheme = new OpenApiSecurityScheme { In = ParameterLocation.Header, Description = "Use the API Key provided", Name = "X-ApiKey", Type = SecuritySchemeType.ApiKey };
-                c.AddSecurityDefinition("Bearer", scheme);
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement { { scheme, new List<string>() } });
+                string headerName = RestApiKeyLogic.ApiKeyHeader;
+
+                c.AddSecurityDefinition(headerName, new OpenApiSecurityScheme
+                {
+                    Description = $"Api key needed to access the endpoints. {headerName}: My_API_Key",
+                    In = ParameterLocation.Header,
+                    Name = headerName,
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Name = headerName,
+                            Type = SecuritySchemeType.ApiKey,
+                            In = ParameterLocation.Header,
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = headerName
+                            },
+                         },
+                         new string[] {}
+                     }
+                });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
