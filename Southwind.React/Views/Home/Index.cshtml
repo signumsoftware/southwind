@@ -13,6 +13,9 @@
 
     string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
     var vendor = (string)JObject.Parse(jsonDll).Property("vendor")!.Value["js"]!;
+
+    string jsonPolyfills = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.polyfills.json"));
+    var polyfills = (string)JObject.Parse(jsonPolyfills).Property("polyfills")!.Value["js"]!;
 }
 <!doctype html>
 <html>
@@ -44,7 +47,7 @@
             height: 100%
         }
 
-        
+
         @@keyframes momentum {
             0% {
                 transform: rotate(0deg);
@@ -118,8 +121,55 @@
     </div>
     <script>
         var __baseUrl = "@Url.Content("~/")";
+
+        var browser = (function (agent) {
+            switch (true) {
+                case agent.indexOf("edge") > -1: return "old edge";
+                case agent.indexOf("edg") > -1: return "chromium edge";
+                case agent.indexOf("opr") > -1 && !!window.opr: return "opera";
+                case agent.indexOf("chrome") > -1 && !!window.chrome: return "chrome";
+                case agent.indexOf("trident") > -1: return "ie";
+                case agent.indexOf("firefox") > -1: return "firefox";
+                case agent.indexOf("safari") > -1: return "safari";
+                default: return "other";
+            }
+        })(window.navigator.userAgent.toLowerCase());
+
+        var supportIE = true;
+        if (!supportIE && (browser == "old edge" || browser == "ie")) {
+            var spinner = document.querySelector("#reactDiv .loading-spinner");
+            spinner.parentElement.removeChild(spinner);
+            document.querySelector("#reactDiv h3").innerHTML =
+                "Southwind is not compatible with your browser (" + browser + "). <br/>"
+                + "Please try with <a href='https://www.google.com/chrome/'>Google Chrome</a>, "
+                + "<a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox</a> or "
+                + "the new <a href='https://www.microsoft.com/en-us/edge'>Microsoft Edge (chromium)</a>.";
+        } else {
+            const scriptToLoad = [
+                "@Url.Content("~/dist/" + polyfills)",
+                "@Url.Content("~/dist/" + vendor)",
+                "@Url.Content("~/dist/" + main)",
+            ];
+
+            if (!(browser == "old edge" || browser == "ie")) {
+                scriptToLoad.splice(0, 1);
+            }
+
+            function loadNextScript() {
+                // gets the first script in the list
+                var script = scriptToLoad.shift();
+                // all scripts were loaded
+                if (!script) return;
+                var js = document.createElement('script');
+                js.type = 'text/javascript';
+                js.src = script;
+                js.onload = function () { loadNextScript(); };
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(js, s);
+            }
+
+            loadNextScript();
+        }
     </script>
-    <script language="javascript" src="@Url.Content("~/dist/" + vendor)"></script>
-    <script language="javascript" src="@Url.Content("~/dist/" + main)"></script>
 </body>
 </html>

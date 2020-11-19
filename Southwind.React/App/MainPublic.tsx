@@ -88,7 +88,6 @@ function reload() {
       routes.push(<Route exact path="~/" component={Home} />);
       routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
       AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });
-      WebAuthnClient.start({ routes, applicationName: "Southwind" });
 
       const isFull = Boolean(AuthClient.currentUser()) && AuthClient.currentUser().userName != "Anonymous"; //true;
 
