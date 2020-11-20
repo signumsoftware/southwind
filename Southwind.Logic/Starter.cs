@@ -225,7 +225,7 @@ namespace Southwind.Logic
 
         public static void ConfigureBigString(SchemaBuilder sb)
         {
-            BigStringMode mode = BigStringMode.FileSystem;
+            BigStringMode mode = BigStringMode.File;
 
             FileTypeLogic.Register(BigStringFileType.Exceptions, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.ExceptionsFolder)));
             BigStringLogic.RegisterAll<ExceptionEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.Exceptions));
