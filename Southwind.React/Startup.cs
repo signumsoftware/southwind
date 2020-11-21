@@ -229,7 +229,6 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
                 app.UseWhen(req => req.Request.Path.StartsWithSegments("/api/reflection/types"), builder =>
                 {
-                    builder.UseETagger();
                     builder.UseResponseCompression();
                 });
 
