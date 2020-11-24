@@ -4,3 +4,4 @@ Upgrade_20200921_corejs
 Upgrade_20200929_WebAuthn
 Upgrade_20201110_DotNet5
 Upgrade_20201118_FixSwagger
+Upgrade_20201119_SplitPolyfills
