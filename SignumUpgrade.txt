@@ -6,3 +6,4 @@ Upgrade_20201110_DotNet5
 Upgrade_20201118_FixSwagger
 Upgrade_20201119_SplitPolyfills
 Upgrade_20201123_Typescript41
+Upgrade_20201124_CombinedUserChartPart
