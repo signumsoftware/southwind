@@ -193,7 +193,8 @@ namespace Southwind.Terminal
         {
             var bytes = File.ReadAllBytes("../../../UserAssets.xml");
             var preview = UserAssetsImporter.Preview(bytes);
-            UserAssetsImporter.Import(bytes, preview);
+            using (UserHolder.UserSession(AuthLogic.SystemUser!))
+                UserAssetsImporter.Import(bytes, preview);
         }
 
         public static void ImportPredictor()
