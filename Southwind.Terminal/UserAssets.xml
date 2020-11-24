@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Entities>
-  <UserChart Guid="d681b3f5-a3a9-4228-93e9-e856f45d911a" DisplayName="Evolution By Employee" Query="Order" Owner="User;2" ChartScript="StackedLines" GroupResults="true">
+  <UserChart Guid="d681b3f5-a3a9-4228-93e9-e856f45d911a" DisplayName="Evolution By Employee" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.StackedLines">
     <Columns>
-      <Column Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" />
+      <Column Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" />
       <Column Token="Employee" DisplayName="Employee" />
       <Column Token="Count" DisplayName="Count" />
       <Column />
@@ -10,21 +10,21 @@
       <Column />
       <Column />
     </Columns>
-    <Orders>
-      <Orden Token="OrderDate.MonthStart" OrderType="Ascending" />
-    </Orders>
     <Parameters>
+      <Parameter Name="CompleteValues" Value="Auto" />
       <Parameter Name="Horizontal Margin" Value="20" />
+      <Parameter Name="NumberOpacity" Value="0.8" />
+      <Parameter Name="NumberColor" Value="white" />
+      <Parameter Name="ColorCategory" Value="category10" />
+      <Parameter Name="ColorCategorySteps" Value="3" />
       <Parameter Name="Order" Value="none" />
       <Parameter Name="Stack" Value="zero" />
       <Parameter Name="Interpolate" Value="linear" />
-      <Parameter Name="NumberOpacity" Value="0.8" />
-      <Parameter Name="NumberColor" Value="white" />
     </Parameters>
   </UserChart>
-  <UserQuery Guid="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" DisplayName="Next Orders" Query="Order" Owner="User;2" WithoutFilters="true" ColumnsMode="Replace">
+  <UserQuery Guid="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" DisplayName="Next Orders" Query="Order" Owner="User;2" ColumnsMode="Replace">
     <Filters>
-      <Filter Token="State" Operation="EqualTo" Value="Ordered" />
+      <Filter Indentation="0" Token="State" Operation="EqualTo" Value="Ordered" />
     </Filters>
     <Columns>
       <Column Token="Id" />
@@ -39,18 +39,18 @@
       <Orden Token="RequiredDate" OrderType="Descending" />
     </Orders>
   </UserQuery>
-  <UserChart Guid="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" DisplayName="Calendar Orders Total Price" Query="Order" Owner="User;2" ChartScript="CalendarStream" GroupResults="true">
+  <UserChart Guid="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" DisplayName="Calendar Orders Total Price" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.CalendarStream">
     <Columns>
-      <Column Token="OrderDate.Date" DisplayName="Date of Order date" />
-      <Column Token="Entity.TotalPrice.Sum" DisplayName="Sum of Total price" />
+      <Column Token="OrderDate.Date" DisplayName="Date of Order date" Format="d" />
+      <Column Token="Entity.TotalPrice.Sum" DisplayName="Sum of Total price" Format="N2" />
     </Columns>
     <Parameters>
       <Parameter Name="StartDate" Value="Monday" />
-      <Parameter Name="ColorSet" Value="YlGn" />
       <Parameter Name="ColorScale" Value="Sqrt" />
+      <Parameter Name="ColorInterpolate" Value="YlGn" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" DisplayName="Customers" Query="Order" Owner="User;2" ChartScript="BubblePack" GroupResults="true">
+  <UserChart Guid="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" DisplayName="Customers" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.BubblePack">
     <Columns>
       <Column Token="Customer" DisplayName="Customer" />
       <Column Token="Count" DisplayName="Count" />
@@ -58,55 +58,123 @@
       <Column />
       <Column />
     </Columns>
-    <Orders>
-      <Orden Token="Customer.Address.Country" OrderType="Ascending" />
-    </Orders>
     <Parameters>
       <Parameter Name="Scale" Value="ZeroMax" />
       <Parameter Name="StrokeColor" Value="" />
       <Parameter Name="StrokeWidth" Value="2" />
-      <Parameter Name="FillOpacity" Value="0.4" />
-      <Parameter Name="ColorScale" Value="ZeroMax" />
-      <Parameter Name="ColorSet" Value="YlGn" />
-      <Parameter Name="ColorCategory" Value="category10" />
       <Parameter Name="NumberOpacity" Value="0.8" />
       <Parameter Name="NumberSizeLimit" Value="18" />
       <Parameter Name="NumberColor" Value="white" />
+      <Parameter Name="FillOpacity" Value="0.4" />
+      <Parameter Name="ColorScale" Value="ZeroMax" />
+      <Parameter Name="ColorInterpolate" Value="YlGn" />
+      <Parameter Name="ColorCategory" Value="category10" />
+      <Parameter Name="ColorCategorySteps" Value="3" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="b48718bb-f4ab-4a6a-950a-35a718d5fb23" DisplayName="Product Share" Query="Order" Owner="User;2" ChartScript="Bubbleplot" GroupResults="true">
+  <UserChart Guid="b48718bb-f4ab-4a6a-950a-35a718d5fb23" DisplayName="Product Share" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.Bubbleplot">
     <Columns>
       <Column Token="Entity.Details.Element.Product" DisplayName="Product" />
-      <Column Token="Entity.Details.Element.Quantity.Sum" DisplayName="Sum of Quantity" />
-      <Column Token="Entity.Details.Element.UnitPrice.Average" DisplayName="Average of Unit price" />
-      <Column Token="Entity.Details.Element.SubTotalPrice.Sum" DisplayName="Sum of Sub total price" />
+      <Column Token="Entity.Details.Element.Quantity.Sum" DisplayName="Sum of Quantity" Format="D" />
+      <Column Token="Entity.Details.Element.UnitPrice.Average" DisplayName="Average of Unit price" Format="N2" />
+      <Column Token="Entity.Details.Element.SubTotalPrice.Sum" DisplayName="Sum of Sub total price" Format="N2" />
     </Columns>
     <Parameters>
-      <Parameter Name="UnitMargin" Value="40" />
       <Parameter Name="HorizontalScale" Value="ZeroMax" />
       <Parameter Name="VerticalScale" Value="ZeroMax" />
       <Parameter Name="SizeScale" Value="ZeroMax" />
+      <Parameter Name="UnitMargin" Value="40" />
       <Parameter Name="ShowLabel" Value="Yes" />
-      <Parameter Name="FillOpacity" Value="0.4" />
       <Parameter Name="LabelColor" Value="" />
+      <Parameter Name="FillOpacity" Value="0.4" />
+      <Parameter Name="ColorScale" Value="Ordinal" />
+      <Parameter Name="ColorInterpolate" Value="YlGn" />
+      <Parameter Name="ColorCategory" Value="category10" />
+      <Parameter Name="ColorCategorySteps" Value="3" />
     </Parameters>
   </UserChart>
-  <Dashboard Guid="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" DisplayName="Example Dashboard" Owner="User;2">
+  <UserChart Guid="9d266fac-e35b-4845-a7aa-970e1590ea1e" DisplayName="Average Price Per Month" Query="Order" HideQuickLink="false" Owner="User;1" ChartScript="D3ChartScript.Columns">
+    <Filters>
+      <Filter Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
+    </Filters>
+    <Columns>
+      <Column Token="OrderDate.MonthStart" DisplayName="Month Start of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Token="Entity.TotalPrice.Average" DisplayName="Average of Total price" Format="N2" />
+    </Columns>
+    <Parameters>
+      <Parameter Name="CompleteValues" Value="Auto" />
+      <Parameter Name="Scale" Value="ZeroMax" />
+      <Parameter Name="UnitMargin" Value="30" />
+      <Parameter Name="Labels" Value="None" />
+      <Parameter Name="LabelsMargin" Value="100" />
+      <Parameter Name="NumberOpacity" Value="0" />
+      <Parameter Name="NumberColor" Value="#fff" />
+      <Parameter Name="ColorCategory" Value="category10" />
+      <Parameter Name="ColorCategorySteps" Value="3" />
+      <Parameter Name="ForceColor" Value="#1A5276" />
+    </Parameters>
+  </UserChart>
+  <UserChart Guid="6406d2f6-aa24-43e4-946e-8622f65eb010" DisplayName="Total Price Sum" Query="Order" HideQuickLink="false" Owner="User;1" ChartScript="D3ChartScript.Columns">
+    <Filters>
+      <Filter Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
+    </Filters>
+    <Columns>
+      <Column Token="OrderDate.MonthStart" DisplayName="Month Start of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Token="Entity.TotalPrice.Sum" DisplayName="Sum of Total price" Format="N2" />
+    </Columns>
+    <Parameters>
+      <Parameter Name="CompleteValues" Value="Auto" />
+      <Parameter Name="Scale" Value="ZeroMax" />
+      <Parameter Name="UnitMargin" Value="60" />
+      <Parameter Name="Labels" Value="None" />
+      <Parameter Name="LabelsMargin" Value="100" />
+      <Parameter Name="NumberOpacity" Value="0" />
+      <Parameter Name="NumberColor" Value="#fff" />
+      <Parameter Name="ColorCategory" Value="category10" />
+      <Parameter Name="ColorCategorySteps" Value="3" />
+      <Parameter Name="ForceColor" Value="#633974" />
+    </Parameters>
+  </UserChart>
+  <UserChart Guid="a3c7b86d-641e-4c1e-8032-72a099a00395" DisplayName="Order number by month" Query="Order" HideQuickLink="false" Owner="User;1" ChartScript="D3ChartScript.Line">
+    <Filters>
+      <Filter Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
+    </Filters>
+    <Columns>
+      <Column Token="OrderDate.MonthStart" DisplayName="Month Start of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Token="Count" DisplayName="Count" />
+    </Columns>
+    <Parameters>
+      <Parameter Name="CompleteValues" Value="Auto" />
+      <Parameter Name="Scale" Value="ZeroMax" />
+      <Parameter Name="UnitMargin" Value="20" />
+      <Parameter Name="NumberOpacity" Value="0.8" />
+      <Parameter Name="Color" Value="#B03A2E" />
+      <Parameter Name="Interpolate" Value="monotone" />
+    </Parameters>
+  </UserChart>
+  <Dashboard Guid="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" DisplayName="Example Dashboard" Owner="User;2" CombineSimilarRows="false">
     <Parts>
-      <Part Row="0" StartColumn="0" Columns="7">
+      <Part Row="0" StartColumn="0" Columns="7" Style="Light">
         <UserChartPart ShowData="false" AllowChangeShowData="false" UserChart="d681b3f5-a3a9-4228-93e9-e856f45d911a" />
       </Part>
-      <Part Row="2" StartColumn="0" Columns="12">
-        <UserQueryPart UserQuery="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" AllowSelection="False" />
+      <Part Row="2" StartColumn="0" Columns="12" Style="Light">
+        <UserQueryPart UserQuery="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" RenderMode="SearchControl" AllowSelection="False" ShowFooter="False" CreateNew="False" />
       </Part>
-      <Part Row="1" StartColumn="0" Columns="7">
+      <Part Row="1" StartColumn="0" Columns="7" Style="Light">
         <UserChartPart ShowData="false" AllowChangeShowData="false" UserChart="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" />
       </Part>
-      <Part Row="0" StartColumn="7" Columns="5">
+      <Part Row="0" StartColumn="7" Columns="5" Style="Light">
         <UserChartPart ShowData="false" AllowChangeShowData="false" UserChart="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" />
       </Part>
-      <Part Row="1" StartColumn="7" Columns="5">
+      <Part Row="1" StartColumn="7" Columns="5" Style="Light">
         <UserChartPart ShowData="false" AllowChangeShowData="false" UserChart="b48718bb-f4ab-4a6a-950a-35a718d5fb23" />
+      </Part>
+      <Part Row="3" StartColumn="0" Columns="12" Title="Order number and average" IconName="fas fa-chart-bar" IconColor="violet" Style="Light">
+        <CombinedUserChartPart>
+          <UserChart Guid="9d266fac-e35b-4845-a7aa-970e1590ea1e" />
+          <UserChart Guid="6406d2f6-aa24-43e4-946e-8622f65eb010" />
+          <UserChart Guid="a3c7b86d-641e-4c1e-8032-72a099a00395" />
+        </CombinedUserChartPart>
       </Part>
     </Parts>
   </Dashboard>
