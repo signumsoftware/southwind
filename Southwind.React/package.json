@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "southwind",
   "version": "1.0.0",
   "description": "Example LOB application using Signum Framework and React",
@@ -28,6 +28,9 @@
     "url": "https://github.com/signumsoftware/southwind/issues"
   },
   "homepage": "https://github.com/signumsoftware/southwind",
+  "resolutions": {
+    "@types/react": "file:../Framework/Signum.React/node_modules/@types/react"
+  },
   "resolutions": {
     "@types/react": "file:../Framework/Signum.React/node_modules/@types/react"
   },
