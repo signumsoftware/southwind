@@ -28,6 +28,9 @@
     "url": "https://github.com/signumsoftware/southwind/issues"
   },
   "homepage": "https://github.com/signumsoftware/southwind",
+  "resolutions": {
+    "@types/react": "file:../Framework/Signum.React/node_modules/@types/react"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.30",
     "@fortawesome/free-brands-svg-icons": "5.14.0",
@@ -57,9 +60,9 @@
     "luxon": "1.25.0",
     "popper.js": "1.16.1",
     "prop-types": "15.7.2",
-    "react": "16.13.1",
-    "react-bootstrap": "1.0.1",
-    "react-dom": "16.13.1",
+    "react": "16.14.0",
+    "react-bootstrap": "1.4.0",
+    "react-dom": "16.14.0",
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-widgets": "4.5.0",
