@@ -1,8 +1,10 @@
 import "../node_modules/bootstrap/dist/css/bootstrap.css"
+import "../node_modules/react-widgets/lib/scss/react-widgets.scss"
 import "./site.css"
 import "@framework/Frames/Frames.css"
 
 import * as React from "react"
+import { Localization } from "react-widgets"
 import { render, unmountComponentAtNode } from "react-dom"
 import { Router, Route, Redirect } from "react-router-dom"
 import { Switch } from "react-router"
@@ -44,7 +46,8 @@ declare let __webpack_public_path__: string;
 
 __webpack_public_path__ = window.__baseUrl + "dist/";
 
-ConfigureReactWidgets.configure();
+const dateLocalizer = ConfigureReactWidgets.getDateLocalizer();
+const numberLocalizer = ConfigureReactWidgets.getNumberLocalizer();
 
 Services.NotifyPendingFilter.notifyPendingRequests = pending => {
   Notify.singleton && Notify.singleton.notifyPendingRequest(pending);
@@ -53,7 +56,7 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
 CultureClient.onCultureLoaded.push(ci => {
   const culture = ci.name!; //"en";
 
-  var fullCulture =
+  const fullCulture =
     culture == "en" ? "en-GB" :
       culture == "es" ? "es-ES" :
         "Unkwnown";
@@ -91,9 +94,11 @@ function reload() {
 
       const isFull = Boolean(AuthClient.currentUser()) && AuthClient.currentUser().userName != "Anonymous"; //true;
 
-      var promise = isFull ?
+      const promise = isFull ?
         import("./MainAdmin").then(main => main.startFull(routes)) :
         Promise.resolve(undefined);
+
+      const messages = ConfigureReactWidgets.getMessages();
 
       return promise.then(() => {
 
@@ -103,12 +108,14 @@ function reload() {
         const reactDiv = document.getElementById("reactDiv")!;
         unmountComponentAtNode(reactDiv);
 
-        var h = AppContext.createAppRelativeHistory();
+        const h = AppContext.createAppRelativeHistory();
 
         render(
-          <Router history={h}>
-            <Layout />
-          </Router>, reactDiv);
+          <Localization date={dateLocalizer} number={numberLocalizer} messages={messages} >
+            <Router history={h}>
+              <Layout />
+            </Router>
+          </Localization>, reactDiv);
 
         return isFull;
       });
@@ -117,9 +124,9 @@ function reload() {
 
 AuthClient.Options.onLogin = (url?: string) => {
   reload().then(() => {
-    var loc = AppContext.history.location;
+    const loc = AppContext.history.location;
 
-    var back: History.Location = loc && loc.state && (loc.state as any).back;
+    const back: History.Location = loc && loc.state && (loc.state as any).back;
 
     AppContext.history.push(back ?? url ?? "~/");
   }).done();
