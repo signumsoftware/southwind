@@ -137,12 +137,12 @@
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol Exceptions;"/>
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ExceptionsFolder = @&quot;c:/Southwind/Exceptions&quot;,"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="ExceptionsFolder = @&quot;c:/Southwind/Exceptions&quot;,"/>
-      
+
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*OperationLog*/" To="public string OperationLogFolder { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol OperationLog;"/>
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="OperationLogFolder = @&quot;c:/Southwind/OperationLog&quot;,"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="OperationLogFolder = @&quot;c:/Southwind/OperationLog&quot;,"/>
-      
+
       <RemoveLine DependsOn="Dashboard" Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*ViewLog*/" To="public string ViewLogFolder { get; set; }"/>
       <RemoveLine DependsOn="Dashboard" Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol ViewLog;"/>
       <RemoveLine DependsOn="Dashboard" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ViewLogFolder = @&quot;c:/Southwind/ViewLog&quot;,"/>
@@ -178,7 +178,7 @@
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\MainAdmin.tsx" Line="import DashboardOmniboxProvider from &quot;@extensions/Dashboard/DashboardOmniboxProvider&quot;"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\App\MainAdmin.tsx" Line="new DashboardOmniboxProvider(),"/>
       <RemoveLine DependsOn="Omnibox" Path="Southwind.React\Startup.cs" Line="new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; Owner=&quot;User;2&quot; ChartScript=&quot;StackedLines&quot; GroupResults=&quot;true&quot;>"  To="&lt;/Dashboard>"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; HideQuickLink=&quot;false&quot; Owner=&quot;User;2&quot; ChartScript=&quot;D3ChartScript.StackedLines&quot;&gt;"  To="&lt;/Dashboard>"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
     </Module>
 
@@ -204,7 +204,7 @@
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;React.Suspense fallback={null}>&lt;ToolbarRenderer location=&quot;Top&quot; />&lt;/React.Suspense>}"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-shopping-cart&quot; IconColor=&quot;orange&quot; Content=&quot;Order&quot; />" 
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-shopping-cart&quot; IconColor=&quot;orange&quot; Content=&quot;Order&quot; />"
                   To="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-user&quot; IconColor=&quot;seagreen&quot; Content=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; />" />
       <RemoveLine DependsOn="Dynamic" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Dynamic Panel&quot; IconName=&quot;fas fa-arrows-alt&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;DynamicPanelPermission.ViewDynamicPanel&quot; Url=&quot;~/dynamic/panel&quot; />" />
       <RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Workflow Script Runner&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;WorkflowPermission.ViewWorkflowPanel&quot; Url=&quot;~/workflow/panel&quot; />" />
@@ -278,7 +278,7 @@
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="RoleEntity an = new RoleEntity() { Name = &quot;Anonymous&quot;, MergeStrategy = MergeStrategy.Union }.Save();"/>
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="UserEntity anonymous = new UserEntity" To="}.Save(); //Anonymous"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.StartAllModules(sb);"/>
-	  <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WebAuthnLogic.Start(sb, ()=> Configuration.Value.WebAuthn);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WebAuthnLogic.Start(sb, ()=> Configuration.Value.WebAuthn);"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity),"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
@@ -306,8 +306,8 @@
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="Boolean(AuthClient.currentUser()) &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;; //"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span=" &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;" DependsOn="PublicCatalog"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });"/>
-	  <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="Login.customLoginButtons = ctx => &lt;WebAuthnClient.WebAuthnLoginButton ctx={ctx} />;"/>
-	  <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogin = (url?: string) => {" To="};"/>
+      <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="LoginPage.customLoginButtons = ctx => &lt;WebAuthnClient.WebAuthnLoginButton ctx={ctx} />;"/>
+      <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogin = (url?: string) => {" To="};"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogout = () => {" To="};"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
@@ -455,11 +455,11 @@
 
       <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.7.0&quot; />"/>
       <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.7.0&quot; />"/>
-"     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot; />"/>
+      "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot; />"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.CNTK;"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(PredictorEntity)"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" 
-                  From="PredictorLogic.Start(sb, () => new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)));" 
+      <RemoveLine Path="Southwind.Logic\Starter.cs"
+                  From="PredictorLogic.Start(sb, () => new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)));"
                   To="PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="PredictorLogic.IgnorePinned(sb);" />
       <RemoveLine Path="Southwind.Logic\Starter.cs" DependsOn="ExampleEntities" Line="PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));"/>
@@ -470,7 +470,7 @@
       <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\SalesEstimationController.cs"/>
       <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\SalesEstimation.tsx"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
-      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="&lt;SalesEstimation ctx={ctx} />"/>
+      <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="{!ctx.value.isNew &amp;&amp; &lt;SalesEstimation ctx={ctx} />}"/>
       <RemoveProjectReference Path="Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="PredictorServer.Start(app);"/>
     </Module>
@@ -480,9 +480,9 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredDatabaseMismatches = new List&lt;Exception>();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="StartParameters.IgnoredCodeErrors = new List&lt;Exception>();"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="DynamicLogicStarter.Start(sb);" To="}//Dynamic"/>
-	  <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (includeDynamic)//2" To="}//2"/>
-	  <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (includeDynamic)//3" To="}//3"/>
-	  <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (type.Namespace == DynamicCode.CodeGenEntitiesNamespace)" To="return &quot;codegen&quot;;"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (includeDynamic)//2" To="}//2"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (includeDynamic)//3" To="}//3"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" From="if (type.Namespace == DynamicCode.CodeGenEntitiesNamespace)" To="return &quot;codegen&quot;;"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx"
                   From="import * as DynamicClient from &quot;@extensions/Dynamic/DynamicClient&quot;"
                   To="import * as DynamicViewClient from &quot;@extensions/Dynamic/DynamicViewClient&quot;"/>
