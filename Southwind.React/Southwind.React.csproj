@@ -5,7 +5,7 @@
 		<TypeScriptBuildMode>true</TypeScriptBuildMode>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
-		<Platforms>x64</Platforms>
+		<Platforms>x64;AnyCPU</Platforms>
 		<IsPackable>false</IsPackable>
 		<AssemblyVersion>1.0.0.*</AssemblyVersion>
 		<FileVersion>1.0.0.0</FileVersion>
@@ -16,8 +16,8 @@
 		<NoWarn>1591</NoWarn>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<OutputPath>bin\</OutputPath>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <OutputPath>bin\</OutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -52,7 +52,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CNTK.CPUOnly" Version="2.7.0" />
+		<!--<PackageReference Include="CNTK.CPUOnly" Version="2.7.0" />-->
 		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.1.2">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
@@ -61,6 +61,7 @@
 		<PackageReference Include="Signum.Analyzer" Version="2.7.0" />
 		<PackageReference Include="Signum.TSGenerator" Version="5.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    
 	</ItemGroup>
 
 	<ItemGroup>

@@ -4,7 +4,6 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
-		<Platforms>x64</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -15,7 +14,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
-		<ProjectReference Include="..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj" />
+		<!--<ProjectReference Include="..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj" />-->
 		<ProjectReference Include="..\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Engine\Signum.Engine.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />

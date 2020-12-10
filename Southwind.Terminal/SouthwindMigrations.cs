@@ -245,11 +245,11 @@ namespace Southwind.Terminal
                     AlgorithmSettings = new NeuralNetworkSettingsEntity
                     {
                         PredictionType = PredictionType.Regression,
-                        Learner = NeuralNetworkLearner.MomentumSGD,
-                        LossFunction = NeuralNetworkEvalFunction.SquaredError,
+                        Learner = TensorFlowOptimizer.MomentumSGD,
+                        LossFunction = NeuralNetworkEvalFunction.MeanSquaredError,
                         EvalErrorFunction = NeuralNetworkEvalFunction.MeanAbsoluteError,
                         LearningRate = 0.1,
-                        LearningMomentum = 0.01,
+                        LearningBeta1 = 0.01,
                         LearningUnitGain = false,
                         MinibatchSize = 100,
                         NumMinibatches = 1000,

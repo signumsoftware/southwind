@@ -59,7 +59,7 @@ using Signum.Engine.Toolbar;
 using Signum.Engine.MachineLearning;
 using Signum.Entities.MachineLearning;
 using Signum.Entities.Files;
-using Signum.Engine.MachineLearning.CNTK;
+//using Signum.Engine.MachineLearning.CNTK;
 using Signum.Entities.Rest;
 using Signum.Engine.Rest;
 using Microsoft.Exchange.WebServices.Data;
@@ -177,7 +177,7 @@ namespace Southwind.Logic
                 WordTemplateLogic.Start(sb);
                 MapLogic.Start(sb);
                 PredictorLogic.Start(sb, () => new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)));
-                PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());
+                //PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork,  new CNTKNeuralNetworkPredictorAlgorithm());
                 PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));
 
                 RestLogLogic.Start(sb);
