@@ -15,7 +15,7 @@ export default function Product(p : { ctx: TypeContext<ProductEntity> }){
       <ValueLine ctx={ctx.subCtx(p => p.quantityPerUnit)} />
       <ValueLine ctx={ctx.subCtx(p => p.unitPrice)} />
       <ValueLine ctx={ctx.subCtx(p => p.unitsInStock)} />
-      {!ctx.value.isNew && < SalesEstimation ctx={ctx} />}
+      {!ctx.value.isNew && <SalesEstimation ctx={ctx} />}
       <ValueLine ctx={ctx.subCtx(p => p.reorderLevel)} />
       <ValueLine ctx={ctx.subCtx(p => p.discontinued)} />
       <EntityTable ctx={ctx.subCtx(p => p.additionalInformation)} />
