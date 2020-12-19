@@ -204,7 +204,7 @@ namespace Southwind.Terminal
                 var predictor = new PredictorEntity
                 {
                     Name = "Product Estimation",
-                    Algorithm = CNTKPredictorAlgorithm.NeuralNetwork,
+                    Algorithm = PredictorAlgorithm.NeuralNetworkTFGraph,
                     ResultSaver = PredictorSimpleResultSaver.Full,
                     MainQuery = new PredictorMainQueryEmbedded
                     {
@@ -245,12 +245,10 @@ namespace Southwind.Terminal
                     AlgorithmSettings = new NeuralNetworkSettingsEntity
                     {
                         PredictionType = PredictionType.Regression,
-                        Learner = TensorFlowOptimizer.MomentumSGD,
+                        Optimizer = TensorFlowOptimizer.GradientDescentOptimizer,
                         LossFunction = NeuralNetworkEvalFunction.MeanSquaredError,
                         EvalErrorFunction = NeuralNetworkEvalFunction.MeanAbsoluteError,
-                        LearningRate = 0.1,
-                        LearningBeta1 = 0.01,
-                        LearningUnitGain = false,
+                        LearningRate = 0.0001,
                         MinibatchSize = 100,
                         NumMinibatches = 1000,
                     }
