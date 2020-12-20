@@ -20,8 +20,8 @@ module.exports = {
       context: path.resolve(__dirname, "App")
     }),
     new AssetsPlugin({
-      path: path.join(__dirname, "wwwroot", "dist"),
       fullPath: false,
+      path: path.join(__dirname, "wwwroot", "dist"),
       filename: "webpack-assets.dll.json"
     }),
     //new webpack.optimize.OccurenceOrderPlugin()//,

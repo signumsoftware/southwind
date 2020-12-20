@@ -15,8 +15,8 @@ module.exports = {
   },
   plugins: [
     new AssetsPlugin({
-      path: path.join(__dirname, "wwwroot", "dist"),
       fullPath: false,
+      path: path.join(__dirname, "wwwroot", "dist"),
       filename: "webpack-assets.polyfills.json"
     }),
   ],
