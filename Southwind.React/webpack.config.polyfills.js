@@ -10,12 +10,13 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, "wwwroot", "dist"),
-    filename: "[name].[hash].js",
-    library: "[name]_[hash]"
+    filename: "[name].[fullhash].js",
+    library: "[name]_[fullhash]"
   },
   plugins: [
     new AssetsPlugin({
       path: path.join(__dirname, "wwwroot", "dist"),
+      fullPath: false,
       filename: "webpack-assets.polyfills.json"
     }),
   ],
