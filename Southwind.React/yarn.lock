@@ -2311,7 +2311,7 @@ mime-types@^2.1.26:
   dependencies:
     mime-db "1.44.0"
 
-min-dash@3.5.2, min-dash@^3.0.0, min-dash@^3.5.0, min-dash@^3.5.2:
+min-dash@^3.0.0, min-dash@^3.5.0, min-dash@^3.5.2:
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/min-dash/-/min-dash-3.5.2.tgz#23786fa289116ba3656038e16511577413d27200"
   integrity sha512-YVbJZUtnzT5QsgJUp9H9uyJTW6NJgswFqI27RI/+MSox860uIjaGMbSQBftEzbMXiJVRG24hpoIh3SG666SHgA==

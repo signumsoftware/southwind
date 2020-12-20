@@ -56,7 +56,6 @@
     "jquery": "3.5.1",
     "lodash-compat": "3.10.2",
     "luxon": "1.25.0",
-    "min-dash": "3.5.2",
     "popper.js": "1.16.1",
     "prop-types": "15.7.2",
     "react": "17.0.1",
