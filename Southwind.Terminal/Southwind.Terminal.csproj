@@ -9,15 +9,7 @@
 		<WarningsAsErrors>nullable</WarningsAsErrors>
 		<UserSecretsId>Southwind</UserSecretsId>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <OutputPath>bin\Debug\</OutputPath>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <OutputPath>bin\Release\</OutputPath>
-	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<!--<PackageReference Include="CNTK.CPUOnly" Version="2.7.0" />-->
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
