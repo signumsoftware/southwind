@@ -40,3 +40,4 @@ Southwind.React/CodeGen/*
 /Southwind.React/wwwroot/dist/*
 /Southwind.React/web.config
 /Southwind.React/ts_out/*
+/Southwind.React/TensorFlowModels/**

@@ -69,7 +69,8 @@ module.exports = {
       manifest: require("./wwwroot/dist/vendor-manifest.json")
     }),
     new AssetsPlugin({
-      path: path.join(__dirname, "wwwroot", "dist")
+      fullPath: false,
+      path: path.join(__dirname, "wwwroot", "dist"),
     }),
     new WebpackNotifierPlugin({ title: 'Southwind', alwaysNotify: true }),
   ],

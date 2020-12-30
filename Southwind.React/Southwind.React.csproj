@@ -15,11 +15,7 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<NoWarn>1591</NoWarn>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <OutputPath>bin\</OutputPath>
-	</PropertyGroup>
-
+  
 	<ItemGroup>
 		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
 	</ItemGroup>
@@ -61,7 +57,7 @@
 		<PackageReference Include="Signum.Analyzer" Version="2.7.0" />
 		<PackageReference Include="Signum.TSGenerator" Version="5.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-    
+    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>

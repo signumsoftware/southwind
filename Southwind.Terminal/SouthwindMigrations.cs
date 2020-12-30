@@ -204,7 +204,7 @@ namespace Southwind.Terminal
                 var predictor = new PredictorEntity
                 {
                     Name = "Product Estimation",
-                    Algorithm = PredictorAlgorithm.NeuralNetworkTFGraph,
+                    Algorithm = TensorFlowPredictorAlgorithm.NeuralNetworkGraph,
                     ResultSaver = PredictorSimpleResultSaver.Full,
                     MainQuery = new PredictorMainQueryEmbedded
                     {
