@@ -453,14 +453,14 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
-      <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.7.0&quot; />"/>
-      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;CNTK.CPUOnly&quot; Version=&quot;2.7.0&quot; />"/>
-      "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj&quot; />"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.CNTK;"/>
+      <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.3.1&quot; />"/>
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.3.1&quot; />"/>
+      "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj&quot; />"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.TensorFlow;"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(PredictorEntity)"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs"
                   From="PredictorLogic.Start(sb, () => new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)));"
-                  To="PredictorLogic.RegisterAlgorithm(CNTKPredictorAlgorithm.NeuralNetwork, new CNTKNeuralNetworkPredictorAlgorithm());"/>
+                  To="PredictorLogic.RegisterAlgorithm(TensorFlowPredictorAlgorithm.NeuralNetworkGraph, new TensorFlowNeuralNetworkPredictor());"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="PredictorLogic.IgnorePinned(sb);" />
       <RemoveLine Path="Southwind.Logic\Starter.cs" DependsOn="ExampleEntities" Line="PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(AutoconfigureNeuralNetworkEntity)"/>
@@ -471,7 +471,7 @@
       <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\SalesEstimation.tsx"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="{!ctx.value.isNew &amp;&amp; &lt;SalesEstimation ctx={ctx} />}"/>
-      <RemoveProjectReference Path="Extensions\Signum.Engine.MachineLearning.CNTK\Signum.Engine.MachineLearning.CNTK.csproj"/>
+      <RemoveProjectReference Path="Extensions\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="PredictorServer.Start(app);"/>
     </Module>
 

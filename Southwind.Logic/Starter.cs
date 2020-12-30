@@ -177,7 +177,7 @@ namespace Southwind.Logic
                 WordTemplateLogic.Start(sb);
                 MapLogic.Start(sb);
                 PredictorLogic.Start(sb, () => new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)));
-                PredictorLogic.RegisterAlgorithm(TensorFlowPredictorAlgorithm.NeuralNetworkGraph,  new TensorFlowNeuralNetworkPredictor());
+                PredictorLogic.RegisterAlgorithm(TensorFlowPredictorAlgorithm.NeuralNetworkGraph, new TensorFlowNeuralNetworkPredictor());
                 PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));
 
                 RestLogLogic.Start(sb);
