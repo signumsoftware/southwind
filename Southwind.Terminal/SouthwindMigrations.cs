@@ -184,7 +184,7 @@ namespace Southwind.Terminal
                 Name = "Order template",
                 Query = QueryLogic.GetQueryEntity(typeof(OrderEntity)),
                 Culture = CultureInfo.GetCultureInfo("en").ToCultureInfoEntity(),
-                Template = new FileEntity("../../../WordTemplates/Order.docx").ToLiteFat(),
+                Template = new FileEntity("../../../../WordTemplates/Order.docx").ToLiteFat(),
                 FileName = "Order.docx"
             }.Save();
         }
