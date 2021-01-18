@@ -134,6 +134,39 @@
                 default: return "other";
             }
         })(window.navigator.userAgent.toLowerCase());
+        /**
+            * @@param {...(a: HTMLElement) => void } complete - Blabla
+            */
+        function newElement(tagName, complete) {
+            var result = document.createElement(tagName);
+            complete(result);
+            return result;
+        }
+
+        window.onerror = function (message, filename, lineno, colno, error) {
+            var spinner = document.querySelector("#reactDiv .loading-spinner");
+            spinner.parentElement.removeChild(spinner);
+
+            var title = document.querySelector("#reactDiv h3").replaceWith(
+                newElement("div", function (div) {
+                    div.style.fontFamily = "'Segoe UI', 'Source Sans Pro' , Calibri, Candara, Arial, sans-serif";
+                    div.style.fontSize = "1.3rem";
+                    div.appendChild(newElement("h3", function (h3) {
+                        h3.appendChild(newElement("span", function (span) {
+                            span.style.color = "red";
+                            span.innerText = error.name;
+                        }));
+                        h3.appendChild(newElement("span", function (span) {
+                            span.style.color = "darkread";
+                            span.style.marginLeft = "10px";
+                            span.innerText = error.message;
+                        }));
+                    }));
+                    div.appendChild(newElement("pre", function (pre) {
+                        pre.innerText = error.stack;
+                    }));
+                }));
+        };
 
         var supportIE = true;
         if (!supportIE && (browser == "old edge" || browser == "ie")) {
@@ -145,30 +178,32 @@
                 + "<a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox</a> or "
                 + "the new <a href='https://www.microsoft.com/en-us/edge'>Microsoft Edge (chromium)</a>.";
         } else {
-            const scriptToLoad = [
-                "@Url.Content("~/dist/" + polyfills)",
-                "@Url.Content("~/dist/" + vendor)",
-                "@Url.Content("~/dist/" + main)",
-            ];
+            (function () {
+                var scriptToLoad = [
+                    "@Url.Content("~/dist/" + polyfills)",
+                    "@Url.Content("~/dist/" + vendor)",
+                    "@Url.Content("~/dist/" + main)",
+                ];
 
-            if (!(browser == "old edge" || browser == "ie")) {
-                scriptToLoad.splice(0, 1);
-            }
+                if (!(browser == "old edge" || browser == "ie")) {
+                    scriptToLoad.splice(0, 1);
+                }
 
-            function loadNextScript() {
-                // gets the first script in the list
-                var script = scriptToLoad.shift();
-                // all scripts were loaded
-                if (!script) return;
-                var js = document.createElement('script');
-                js.type = 'text/javascript';
-                js.src = script;
-                js.onload = function () { loadNextScript(); };
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(js, s);
-            }
+                function loadNextScript() {
+                    // gets the first script in the list
+                    var script = scriptToLoad.shift();
+                    // all scripts were loaded
+                    if (!script) return;
+                    var js = document.createElement('script');
+                    js.type = 'text/javascript';
+                    js.src = script;
+                    js.onload = function () { loadNextScript(); };
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(js, s);
+                }
 
-            loadNextScript();
+                loadNextScript();
+            })();
         }
     </script>
 </body>
