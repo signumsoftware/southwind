@@ -2,6 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
@@ -23,7 +25,7 @@ COPY ["Framework/Signum.React/yarn.lock", "Framework/Signum.React/"]
 
 COPY ["Extensions/Signum.Entities.Extensions/Signum.Entities.Extensions.csproj", "Extensions/Signum.Entities.Extensions/"]
 COPY ["Extensions/Signum.Engine.Extensions/Signum.Engine.Extensions.csproj", "Extensions/Signum.Engine.Extensions/"]
-COPY ["Extensions/Signum.Engine.MachineLearning.CNTK/Signum.Engine.MachineLearning.CNTK.csproj", "Extensions/Signum.Engine.MachineLearning.CNTK/"]
+COPY ["Extensions/Signum.Engine.MachineLearning.TensorFlow/Signum.Engine.MachineLearning.TensorFlow.csproj", "Extensions/Signum.Engine.MachineLearning.TensorFlow/"]
 COPY ["Extensions/Signum.React.Extensions/Signum.React.Extensions.csproj", "Extensions/Signum.React.Extensions/"]
 COPY ["Extensions/Signum.React.Extensions/package.json", "Extensions/Signum.React.Extensions/"]
 COPY ["Extensions/Signum.React.Extensions/yarn.lock", "Extensions/Signum.React.Extensions/"]

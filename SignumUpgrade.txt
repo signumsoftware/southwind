@@ -16,3 +16,4 @@ Upgrade_20201223_IndexErrorHandling
 Upgrade_20201230_TensorFlow
 Upgrade_20201231_AnyCPU
 Upgrade_20210108_RemoveLangVersion
+Upgrade_20210113_TimezoneInDockerfile
