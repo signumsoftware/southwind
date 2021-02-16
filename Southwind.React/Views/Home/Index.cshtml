@@ -163,6 +163,7 @@
                         }));
                     }));
                     div.appendChild(newElement("pre", function (pre) {
+                        pre.style.whiteSpace = "pre-wrap";
                         pre.innerText = error.stack;
                     }));
                 }));
