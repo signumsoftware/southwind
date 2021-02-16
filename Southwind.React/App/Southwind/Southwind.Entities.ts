@@ -51,6 +51,7 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
   webAuthn: Authorization.WebAuthnConfigurationEmbedded;
   workflow: Workflow.WorkflowConfigurationEmbedded;
   folders: FoldersConfigurationEmbedded;
+  translation: TranslationConfigurationEmbedded;
 }
 
 export module ApplicationConfigurationOperation {
@@ -310,6 +311,14 @@ export interface TerritoryEntity extends Entities.Entity {
 
 export module TerritoryOperation {
   export const Save : Entities.ExecuteSymbol<TerritoryEntity> = registerSymbol("Operation", "TerritoryOperation.Save");
+}
+
+export const TranslationConfigurationEmbedded = new Type<TranslationConfigurationEmbedded>("TranslationConfigurationEmbedded");
+export interface TranslationConfigurationEmbedded extends Entities.EmbeddedEntity {
+  Type: "TranslationConfigurationEmbedded";
+  azureCognitiveServicesAPIKey: string | null;
+  azureCognitiveServicesRegion: string | null;
+  deepLAPIKey: string | null;
 }
 
 export const UserEmployeeMixin = new Type<UserEmployeeMixin>("UserEmployeeMixin");

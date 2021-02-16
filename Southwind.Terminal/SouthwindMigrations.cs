@@ -57,9 +57,9 @@ namespace Southwind.Terminal
                 OrderLoader.LoadOrders,
                 EmployeeLoader.CreateUsers,
                 OrderLoader.UpdateOrdersDate,
-                ImportSpanishInstanceTranslations,
                 ImportWordReportTemplateForOrder,
                 ImportUserAssets,
+                ImportSpanishInstanceTranslations,
                 ImportPredictor,
                 InitialAuthRulesImport,
             }.Run(autoRun);
@@ -159,8 +159,8 @@ namespace Southwind.Terminal
                     }, //Workflow
                     Translation = new TranslationConfigurationEmbedded
                     {
-                        AzureCognitiveServicesAPIKey = "123456787654321234",
-                        DeepLAPIKey = "987654345678765434",
+                        AzureCognitiveServicesAPIKey = null,
+                        DeepLAPIKey = null,
                     },
                     Folders = new FoldersConfigurationEmbedded
                     {
@@ -179,7 +179,12 @@ namespace Southwind.Terminal
 
         public static void ImportSpanishInstanceTranslations()
         {
-            TranslatedInstanceLogic.ImportExcelFile("Category.es.View.xlsx");
+            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/Category.es.View.xlsx");
+            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/Dashboard.es.View.xlsx");
+            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/Toolbar.es.View.xlsx");
+            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/ToolbarMenu.es.View.xlsx");
+            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/UserChart.es.View.xlsx");
+            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/UserQuery.es.View.xlsx");
         }
 
         public static void ImportWordReportTemplateForOrder()

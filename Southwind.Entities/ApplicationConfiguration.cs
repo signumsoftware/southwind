@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using Signum.Entities.Authorization;
 using Signum.Entities.Workflow;
 using Signum.Entities.Files;
+using System.ComponentModel;
 
 namespace Southwind.Entities
 {

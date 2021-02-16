@@ -304,7 +304,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                     () => Starter.Configuration.Value.Translation.AzureCognitiveServicesAPIKey,
                     () => Starter.Configuration.Value.Translation.AzureCognitiveServicesRegion),
                 new DeepLTranslator(() => Starter.Configuration.Value.Translation.DeepLAPIKey)
-            );
+            ); //TranslationServer
             SchedulerServer.Start(app, lifetime);
             ProcessServer.Start(app);
             MailingServer.Start(app);

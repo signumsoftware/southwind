@@ -264,8 +264,8 @@ namespace Southwind.Test.Environment
                 }, //Workflow
                 Translation = new TranslationConfigurationEmbedded
                 {
-                    AzureCognitiveServicesAPIKey = "123456787654321234",
-                    DeepLAPIKey = "987654345678765434",
+                    AzureCognitiveServicesAPIKey = null,
+                    DeepLAPIKey = null,
                 },
                 Folders = new FoldersConfigurationEmbedded
                 {

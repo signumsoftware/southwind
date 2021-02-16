@@ -151,18 +151,22 @@ namespace Southwind.Logic
                 UserQueryLogic.Start(sb);
                 UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+                UserQueryLogic.RegisterTranslatableRoutes();
                 
                 ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);
                 UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-                
+                UserChartLogic.RegisterTranslatableRoutes();
+
                 DashboardLogic.Start(sb);
                 DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+                DashboardLogic.RegisterTranslatableRoutes();
                 ViewLogLogic.Start(sb, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
                 DiffLogLogic.Start(sb, registerAll: true);
                 ExcelLogic.Start(sb, excelReport: true);
                 ToolbarLogic.Start(sb);
+                ToolbarLogic.RegisterTranslatableRoutes();
 
                 SMSLogic.Start(sb, null, () => Configuration.Value.Sms);
 
