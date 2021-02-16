@@ -39,7 +39,27 @@ namespace Southwind.Entities
         public WorkflowConfigurationEmbedded Workflow { get; set; }
 
         public FoldersConfigurationEmbedded Folders { get; set; }
+
+        public TranslationConfigurationEmbedded Translation { get; set; }
     }
+
+
+    [Serializable]
+    public class TranslationConfigurationEmbedded : EmbeddedEntity
+    {
+        [Description("Azure Cognitive Service API Key")]
+        [StringLengthValidator(Max = 300), FileNameValidator]
+        public string? AzureCognitiveServicesAPIKey { get; set; }
+
+        [Description("Azure Cognitive Service Region")]
+        [StringLengthValidator(Max = 300), FileNameValidator]
+        public string? AzureCognitiveServicesRegion { get; set; }
+
+        [Description("DeepL API Key")]
+        [StringLengthValidator(Max = 300), FileNameValidator]
+        public string? DeepLAPIKey { get; set; }
+    }
+
 
     [AutoInit]
     public static class ApplicationConfigurationOperation

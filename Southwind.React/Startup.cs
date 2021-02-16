@@ -298,7 +298,13 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             ChartServer.Start(app);
             MapServer.Start(app);
             ToolbarServer.Start(app);
-            TranslationServer.Start(app, new AlreadyTranslatedTranslator(new AzureTranslator("Your API Key for Azure Translate")));
+            TranslationServer.Start(app,
+                new AlreadyTranslatedTranslator(),
+                new AzureTranslator(
+                    () => Starter.Configuration.Value.Translation.AzureCognitiveServicesAPIKey,
+                    () => Starter.Configuration.Value.Translation.AzureCognitiveServicesRegion),
+                new DeepLTranslator(() => Starter.Configuration.Value.Translation.DeepLAPIKey)
+            );
             SchedulerServer.Start(app, lifetime);
             ProcessServer.Start(app);
             MailingServer.Start(app);

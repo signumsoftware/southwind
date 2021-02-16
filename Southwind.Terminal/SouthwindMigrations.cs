@@ -157,6 +157,11 @@ namespace Southwind.Terminal
                     Workflow = new WorkflowConfigurationEmbedded
                     {
                     }, //Workflow
+                    Translation = new TranslationConfigurationEmbedded
+                    {
+                        AzureCognitiveServicesAPIKey = "123456787654321234",
+                        DeepLAPIKey = "987654345678765434",
+                    },
                     Folders = new FoldersConfigurationEmbedded
                     {
                         PredictorModelFolder = @"c:/Southwind/PredictorModels",
