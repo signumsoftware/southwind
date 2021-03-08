@@ -21,3 +21,4 @@ Upgrade_20210119_DeepL
 Upgrade_20210205_ErrorHandling
 Upgrade_20210210_UpgradeNugets
 Upgrade_20210216_RegisterTranslatableRoutes
+Upgrade_20210302_TypeScript42
