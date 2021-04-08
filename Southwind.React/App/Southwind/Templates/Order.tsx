@@ -46,21 +46,21 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
           <ValueLine ctx={ctx4.subCtx(o => o.shipName)} />
           {ctx2.value.isLegacy && <ValueLine ctx={ctx4.subCtx(o => o.isLegacy)} />}
           <ValueLine ctx={ctx4.subCtx(o => o.state)} valueHtmlAttributes={{ style: { color: stateColor(o.state) } }} />
-          <ValueLine ctx={ctx4.subCtx(o => o.orderDate)} unitText={ago(o.orderDate)} />
-          <ValueLine ctx={ctx4.subCtx(o => o.requiredDate)} unitText={ago(o.requiredDate)} onChange={() => forceUpdate()} />
-          <ValueLine ctx={ctx4.subCtx(o => o.shippedDate)} unitText={ago(o.shippedDate)} hideIfNull={true} />
-          <ValueLine ctx={ctx4.subCtx(o => o.cancelationDate)} unitText={ago(o.cancelationDate)} hideIfNull={true} />
+          <ValueLine ctx={ctx4.subCtx(o => o.orderDate)} helpText={ago(o.orderDate)} />
+          <ValueLine ctx={ctx4.subCtx(o => o.requiredDate)} helpText={ago(o.requiredDate)} onChange={() => forceUpdate()} />
+          <ValueLine ctx={ctx4.subCtx(o => o.shippedDate)} helpText={ago(o.shippedDate)} hideIfNull={true} />
+          <ValueLine ctx={ctx4.subCtx(o => o.cancelationDate)} helpText={ago(o.cancelationDate)} hideIfNull={true} />
           <EntityCombo ctx={ctx4.subCtx(o => o.shipVia)} />
         </div>
       </div>
       <EntityTable ctx={ctx2.subCtx(o => o.details)} onChange={() => forceUpdate()} columns={EntityTable.typedColumns<OrderDetailEmbedded>([
-        { property: a => a.product, headerHtmlAttributes: { style: { width: "40%" } }, template: dc => <EntityLine ctx={dc.subCtx(a => a.product)} onChange={() => handleProductChange(dc.value)} /> },
-        { property: a => a.quantity, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => forceUpdate()} /> },
-        { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
-        { property: a => a.discount, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => forceUpdate()} /> },
+        { property: a => a.product, headerHtmlAttributes: { style: { width: "35%" } }, template: dc => <EntityLine ctx={dc.subCtx(a => a.product)} onChange={() => handleProductChange(dc.value)} /> },
+        { property: a => a.quantity, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => forceUpdate()} /> },
+        { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
+        { property: a => a.discount, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => forceUpdate()} /> },
         { property: a => getMixin(a, OrderDetailMixin).discountCode, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => getMixin(a, OrderDetailMixin).discountCode)} onChange={() => forceUpdate()} /> },
         {
-          header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "15%" } },
+          header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "10%" } },
           template: dc =>
             <FormGroup ctx={dc}>
               <div className={dc.inputGroupClass}>
