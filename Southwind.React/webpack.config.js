@@ -4,6 +4,7 @@ var path = require('path');
 var webpack = require('webpack');
 var AssetsPlugin = require('assets-webpack-plugin');
 var WebpackNotifierPlugin = require('webpack-notifier');
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var node_modules = path.join(__dirname, "node_modules");
 
 module.exports = {
@@ -64,6 +65,7 @@ module.exports = {
     ]
   },
   plugins: [
+    //new BundleAnalyzerPlugin(),
     new webpack.DllReferencePlugin({
       context: path.join(__dirname, "App"),
       manifest: require("./wwwroot/dist/vendor-manifest.json")

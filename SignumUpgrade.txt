@@ -22,3 +22,4 @@ Upgrade_20210205_ErrorHandling
 Upgrade_20210210_UpgradeNugets
 Upgrade_20210216_RegisterTranslatableRoutes
 Upgrade_20210302_TypeScript42
+Upgrade_20210325_FixDllPlugin
