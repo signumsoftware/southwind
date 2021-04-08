@@ -35,18 +35,3 @@
     white-space: nowrap;
 }
 
-div.order-detail input.form-control {
-    width: 100%;
-}
-
-div.order-detail {
-}
-
-    div.order-detail.repeater-inline .sf-repeater-element legend {
-        margin-left: -10px;
-        margin-right: -14px;
-    }
-
-    div.order-detail.repeater-inline .form-group.form-sm {
-        margin-bottom: 0px;
-    }
