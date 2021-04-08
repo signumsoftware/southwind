@@ -1,5 +1,5 @@
 import "../node_modules/bootstrap/dist/css/bootstrap.css"
-import "../node_modules/react-widgets/lib/scss/react-widgets.scss"
+import "../node_modules/react-widgets/scss/styles.scss"
 import "./site.css"
 import "@framework/Frames/Frames.css"
 
