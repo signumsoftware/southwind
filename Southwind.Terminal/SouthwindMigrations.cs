@@ -119,8 +119,12 @@ namespace Southwind.Terminal
         {
             using (Transaction tr = new Transaction())
             {
-                var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
-                var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
+                var enGB = new CultureInfoEntity(CultureInfo.GetCultureInfo("en-GB")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("es-ES")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("de")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("de-DE")).Save();
 
                 new ApplicationConfigurationEntity
                 {
@@ -136,7 +140,7 @@ namespace Southwind.Terminal
                     Email = new EmailConfigurationEmbedded
                     {
                         SendEmails = true,
-                        DefaultCulture = en,
+                        DefaultCulture = enGB,
                         UrlLeft = "http://localhost/Southwind"
                     },
                     EmailSender = new EmailSenderConfigurationEntity
@@ -152,7 +156,7 @@ namespace Southwind.Terminal
                     }, //Email
                     Sms = new SMSConfigurationEmbedded
                     {
-                        DefaultCulture = en,
+                        DefaultCulture = enGB,
                     }, //Sms
                     Workflow = new WorkflowConfigurationEmbedded
                     {
@@ -179,12 +183,17 @@ namespace Southwind.Terminal
 
         public static void ImportSpanishInstanceTranslations()
         {
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/Category.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/Dashboard.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/Toolbar.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/ToolbarMenu.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/UserChart.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/UserQuery.es.View.xlsx");
+            foreach (var lang in new[] { "de", "es"})
+            {
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/Category.{lang}.View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/Dashboard.{lang}.View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/Toolbar.{lang}.View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/ToolbarMenu.{lang}View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/UserChart.{lang}.View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/UserQuery.{lang}.View.xlsx");
+            }
+
+
         }
 
         public static void ImportWordReportTemplateForOrder()

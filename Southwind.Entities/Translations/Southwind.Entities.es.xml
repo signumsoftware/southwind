@@ -20,14 +20,28 @@
     <Member Name="AuthTokens" Description="Tokens de autenticación" />
     <Member Name="DatabaseName" Description="Nombre base de datos" />
     <Member Name="Email" Description="Correo electrónico" />
+    <Member Name="EmailSender" Description="Remitente" />
     <Member Name="Environment" Description="Entorno" />
     <Member Name="Folders" Description="Carpetas" />
     <Member Name="Sms" Description="SMS" />
-    <Member Name="SmtpConfiguration" Description="Configuración Smtp" />
+    <Member Name="Translation" Description="Traducción" />
+    <Member Name="WebAuthn" Description="WebAuthn" />
     <Member Name="Workflow" Description="Workflow" />
   </Type>
   <Type Name="ApplicationConfigurationOperation">
     <Member Name="Save" Description="Guardar" />
+  </Type>
+  <Type Name="BigStringFileType">
+    <Member Name="EmailMessage" Description="Mensaje de e-mail" />
+    <Member Name="Exceptions" Description="Excepciones" />
+    <Member Name="OperationLog" Description="Registro de operación" />
+    <Member Name="ViewLog" Description="Registro de visita" />
+  </Type>
+  <Type Name="CatalogMessage">
+    <Member Name="ProductName" Description="Nombre de producto" />
+    <Member Name="QuantityPerUnit" Description="Cantidad por unidad" />
+    <Member Name="UnitPrice" Description="Precio unitario" />
+    <Member Name="UnitsInStock" Description="Unidades en stock" />
   </Type>
   <Type Name="CategoryEntity" Description="Categoría">
     <Member Name="CategoryName" Description="Nombre de categoría" />
@@ -76,7 +90,11 @@
     <Member Name="EmployeesByTerritory" Description="Empleados por territorio" />
   </Type>
   <Type Name="FoldersConfigurationEmbedded" Description="Configuración de carpetas">
+    <Member Name="EmailMessageFolder" Description="Carpeta de mensajes de correo electrónico" />
+    <Member Name="ExceptionsFolder" Description="Carpeta de excepciones" />
+    <Member Name="OperationLogFolder" Description="Carpeta de registro de operaciones" />
     <Member Name="PredictorModelFolder" Description="Carpeta modelo Predictor" />
+    <Member Name="ViewLogFolder" Description="Carpeta de registro de visita" />
   </Type>
   <Type Name="OrderDetailEmbedded" Description="Detalle del pedido">
     <Member Name="Discount" Description="Descuento" />
@@ -84,6 +102,9 @@
     <Member Name="Quantity" Description="Cantidad" />
     <Member Name="SubTotalPrice" Description="Precio sub-total" />
     <Member Name="UnitPrice" Description="Precio unitario" />
+  </Type>
+  <Type Name="OrderDetailMixin">
+    <Member Name="DiscountCode" Description="Código de descuento" />
   </Type>
   <Type Name="OrderEntity" Description="Pedido">
     <Member Name="CancelationDate" Description="Fecha de cancelación" />
@@ -203,6 +224,11 @@
   </Type>
   <Type Name="TerritoryOperation">
     <Member Name="Save" Description="Salvar" />
+  </Type>
+  <Type Name="TranslationConfigurationEmbedded" Description="Configuración de traducción">
+    <Member Name="AzureCognitiveServicesAPIKey" Description="Azure Cognitive Service API Key" />
+    <Member Name="AzureCognitiveServicesRegion" Description="Azure Cognitive Service Region" />
+    <Member Name="DeepLAPIKey" Description="DeepL API Key" />
   </Type>
   <Type Name="UserEmployeeMixin">
     <Member Name="AllowLogin" Description="Permitir login" />
