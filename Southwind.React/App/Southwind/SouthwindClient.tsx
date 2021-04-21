@@ -105,8 +105,8 @@ export function start(options: { routes: JSX.Element[] }) {
     defaultFilters: [{
       groupOperation: "Or",
       filters: [
-        { token: CompanyEntity.token().entity().cast(CompanyEntity).append(a => a.toStr), operation: "Contains" },
-        { token: PersonEntity.token().entity().cast(PersonEntity).append(a => a.toStr), operation: "Contains" },
+        { token: CompanyEntity.token(a => a.entity).cast(CompanyEntity).append(a => a.toStr), operation: "Contains" },
+        { token: PersonEntity.token(a => a.entity).cast(PersonEntity).append(a => a.toStr), operation: "Contains" },
       ],
       pinned: { splitText: true, disableOnNull: true },
     } as FilterGroupOption]
