@@ -75,7 +75,7 @@ namespace Southwind.Logic
 
                     return (await persons).Concat(await companies)
                         .OrderBy(request.Orders)
-                        .TryPaginate(request.Pagination, request.SystemTime);
+                        .TryPaginate(request.Pagination);
 
                 })
                 .ColumnProperyRoutes(a => a.Id,
