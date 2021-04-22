@@ -54,7 +54,10 @@ namespace Southwind.Terminal
                         .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
                         .AddUserSecrets<Program>().Build();
                     
-                    Starter.Start(ConfigRoot.GetConnectionString("ConnectionString"), ConfigRoot.GetValue<bool>("IsPostgres"));
+                    Starter.Start(
+                        ConfigRoot.GetConnectionString("ConnectionString"),
+                        ConfigRoot.GetValue<bool>("IsPostgres"), 
+                        ConfigRoot.GetConnectionString("AzureStorageConnectionString"));
 
                     Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
                     Console.WriteLine($"{Connector.Current.GetType().Name} (Database: {Connector.Current.DatabaseName()})");
@@ -137,7 +140,7 @@ namespace Southwind.Terminal
         public static void NewDatabase()
         {
             var databaseName = Connector.Current.DatabaseName();
-            if (Database.View<SysTables>().Any())
+            if (Connector.Current.HasTables())
             {
                 SafeConsole.WriteLineColor(ConsoleColor.Red, $"Are you sure you want to delete all the data in the database '{databaseName}'?");
                 Console.Write($"Confirm by writing the name of the database:");

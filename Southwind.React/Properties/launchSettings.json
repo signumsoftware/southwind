@@ -23,7 +23,10 @@
     "IIS": {
       "commandName": "IIS",
       "launchBrowser": true,
-      "ancmHostingModel": "InProcess"
+      "ancmHostingModel": "InProcess",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "test"
+      }
     },
     "Docker": {
       "commandName": "Docker",

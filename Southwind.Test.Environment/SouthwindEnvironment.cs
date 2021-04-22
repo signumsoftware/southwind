@@ -209,9 +209,13 @@ namespace Southwind.Test.Environment
                     .AddJsonFile($"appsettings.{System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
                     .AddUserSecrets(typeof(SouthwindEnvironment).Assembly)
                     .Build();
-                var connectionString = config.GetConnectionString("ConnectionString");
 
-                Starter.Start(connectionString, config.GetValue<bool>("IsPostgres"), includeDynamic);
+                Starter.Start(
+                    config.GetConnectionString("ConnectionString"),
+                    config.GetValue<bool>("IsPostgres"),
+                    config.GetConnectionString("AzureStorageConnectionString"),
+                    includeDynamic);
+                
                 started = true;
             }
         }
