@@ -114,12 +114,12 @@
     <Member Name="Freight" Description="Fracht" />
     <Member Name="IsLegacy" Description="Ist Legacy" />
     <Member Name="OrderDate" Description="Bestelldatum" />
-    <Member Name="RequiredDate" Description="Erforderlichdatum" />
+    <Member Name="RequiredDate" Description="Erforderlich am" />
     <Member Name="ShipAddress" Description="Versandadresse" />
     <Member Name="ShipName" Description="Versandname" />
     <Member Name="ShippedDate" Description="Versanddatum" />
-    <Member Name="ShipVia" Description="Versand über" />
-    <Member Name="State" Description="Staat" />
+    <Member Name="ShipVia" Description="Versand per" />
+    <Member Name="State" Description="Status" />
     <Member Name="TotalPrice" Description="Gesamtpreis" />
   </Type>
   <Type Name="OrderFilterModel" Description="Bestellfilter">
@@ -133,6 +133,8 @@
     <Member Name="DiscountShouldBeMultpleOf5" Description="Der Rabatt muss ein Vielfaches von 5 % sein." />
     <Member Name="SelectAShipper" Description="Wählen Sie einen Versender aus" />
     <Member Name="SubTotalPrice" Description="Teilgesamtpreis" />
+    <Member Name="TotalPrice" Description="Gesamtpreis" />
+    <Member Name="SalesNextMonth" Description="Umsatz nächster Monat" />
   </Type>
   <Type Name="OrderOperation">
     <Member Name="Cancel" Description="Abbrechen" />

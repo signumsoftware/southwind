@@ -184,6 +184,8 @@ export module OrderMessage {
   export const CancelShippedOrder0 = new MessageKey("OrderMessage", "CancelShippedOrder0");
   export const SelectAShipper = new MessageKey("OrderMessage", "SelectAShipper");
   export const SubTotalPrice = new MessageKey("OrderMessage", "SubTotalPrice");
+  export const TotalPrice = new MessageKey("OrderMessage", "TotalPrice");
+  export const SalesNextMonth = new MessageKey("OrderMessage", "SalesNextMonth");
 }
 
 export module OrderOperation {

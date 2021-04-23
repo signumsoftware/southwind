@@ -82,7 +82,7 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
           <ValueLine ctx={ctx4.subCtx(o => o.freight)} />
         </div>
         <div className="col-sm-4">
-          <FormGroup ctx={ctx4} labelText="TotalPrice">
+          <FormGroup ctx={ctx4} labelText={OrderMessage.TotalPrice.niceToString()}>
             <div className={ctx4.inputGroupClass}>
               <FormControlReadonly ctx={ctx4}>
                 {formatNumber.format(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum())}
