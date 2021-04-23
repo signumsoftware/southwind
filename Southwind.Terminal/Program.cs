@@ -61,7 +61,7 @@ namespace Southwind.Terminal
                         ConfigRoot.GetConnectionString("AzureStorageConnectionString"));
 
                     Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
-                    SafeConsole.WriteLineColor(env == "live" ? ConsoleColor.Red : ConsoleColor.Gray, Connector.Current.ToString());
+                    SafeConsole.WriteLineColor(env == "live" ? ConsoleColor.Red : env == "test" ? ConsoleColor.Yellow : ConsoleColor.Gray, Connector.Current.ToString());
                     Console.WriteLine();
 
                     if (args.Any())

@@ -12,20 +12,70 @@
     }
   },
   "profiles": {
-    "IIS Express": {
+    "IIS Express Local": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": ""
       },
       "ancmHostingModel": "InProcess"
     },
-    "IIS": {
+    "IIS Express DEV": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "dev"
+      },
+      "ancmHostingModel": "InProcess"
+    },
+    "IIS Express TEST": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "test"
+      },
+      "ancmHostingModel": "InProcess"
+    },
+
+    "IIS Express LIVE": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "live"
+      },
+      "ancmHostingModel": "InProcess"
+    },
+
+    "IIS Local": {
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "ancmHostingModel": "InProcess",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": ""
+      }
+    },
+    "IIS DEV": {
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "ancmHostingModel": "InProcess",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "dev"
+      }
+    },
+    "IIS TEST": {
       "commandName": "IIS",
       "launchBrowser": true,
       "ancmHostingModel": "InProcess",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "test"
+      }
+    },
+    "IIS LIVE": {
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "ancmHostingModel": "InProcess",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "live"
       }
     },
     "Docker": {
