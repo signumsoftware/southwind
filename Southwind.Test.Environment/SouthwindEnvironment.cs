@@ -231,6 +231,9 @@ namespace Southwind.Test.Environment
             var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
             var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
 
+            var localPrefix = Starter.AzureStorageConnectionString.HasText() ? "" : @"c:/SouthwindFiles/";
+
+
             new ApplicationConfigurationEntity
             {
                 Environment = "Test",
@@ -273,11 +276,11 @@ namespace Southwind.Test.Environment
                 },
                 Folders = new FoldersConfigurationEmbedded
                 {
-                    PredictorModelFolder = @"c:/Southwind/PredictorModels",
-                    ExceptionsFolder = @"c:/Southwind/Exceptions",
-                    OperationLogFolder = @"c:/Southwind/OperationLog",
-                    ViewLogFolder = @"c:/Southwind/ViewLog",
-                    EmailMessageFolder = @"c:/Southwind/EmailMessage",
+                    PredictorModelFolder = localPrefix + @"predictor-models",
+                    ExceptionsFolder = localPrefix + @"exceptions",
+                    OperationLogFolder = localPrefix + @"operation-logs",
+                    ViewLogFolder = localPrefix + @"view-logs",
+                    EmailMessageFolder = localPrefix + @"email-messages",
                 }
             }.Save();
         }

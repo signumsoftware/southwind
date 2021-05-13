@@ -137,27 +137,27 @@
 
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Exceptions*/" To="public string ExceptionsFolder { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol Exceptions;"/>
-      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ExceptionsFolder = @&quot;c:/Southwind/Exceptions&quot;,"/>
-      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="ExceptionsFolder = @&quot;c:/Southwind/Exceptions&quot;,"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ExceptionsFolder = localPrefix + @&quot;exceptions&quot;,"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="ExceptionsFolder = localPrefix + @&quot;exceptions&quot;,"/>
 
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*OperationLog*/" To="public string OperationLogFolder { get; set; }"/>
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol OperationLog;"/>
-      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="OperationLogFolder = @&quot;c:/Southwind/OperationLog&quot;,"/>
-      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="OperationLogFolder = @&quot;c:/Southwind/OperationLog&quot;,"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="OperationLogFolder = localPrefix + @&quot;operation-logs&quot;,"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="OperationLogFolder = localPrefix + @&quot;operation-logs&quot;,"/>
 
       <RemoveLine DependsOn="Dashboard" Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*ViewLog*/" To="public string ViewLogFolder { get; set; }"/>
       <RemoveLine DependsOn="Dashboard" Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol ViewLog;"/>
-      <RemoveLine DependsOn="Dashboard" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ViewLogFolder = @&quot;c:/Southwind/ViewLog&quot;,"/>
-      <RemoveLine DependsOn="Dashboard" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="ViewLogFolder = @&quot;c:/Southwind/ViewLog&quot;,"/>
-      <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.ViewLog, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.ViewLogFolder)));"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ViewLogFolder = localPrefix + @&quot;view-logs&quot;,"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="ViewLogFolder = localPrefix + @&quot;view-logs&quot;,"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.ViewLog, GetFileTypeAlgorithm(c => c.ViewLogFolder));"/>
       <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="BigStringLogic.RegisterAll&lt;ViewLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.ViewLog));"/>
 
 
       <RemoveLine DependsOn="Mailing" Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*EmailMessage*/" To="public string EmailMessageFolder { get; set; }"/>
       <RemoveLine DependsOn="Mailing" Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol EmailMessage;"/>
-      <RemoveLine DependsOn="Mailing" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="EmailMessageFolder = @&quot;c:/Southwind/EmailMessage&quot;,"/>
-      <RemoveLine DependsOn="Mailing" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="EmailMessageFolder = @&quot;c:/Southwind/EmailMessage&quot;,"/>
-      <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.EmailMessage, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.EmailMessageFolder)));"/>
+      <RemoveLine DependsOn="Mailing" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="EmailMessageFolder = localPrefix + @&quot;email-messages&quot;,"/>
+      <RemoveLine DependsOn="Mailing" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="EmailMessageFolder = localPrefix + @&quot;email-messages&quot;,"/>
+      <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.EmailMessage, GetFileTypeAlgorithm(c => c.EmailMessageFolder));"/>
       <RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="BigStringLogic.RegisterAll&lt;EmailMessageEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.EmailMessage));"/>
     </Module>
 
@@ -337,8 +337,8 @@
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="}); //Culture"/>
       <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;CT&quot;, TranslationLogic.CopyTranslations},"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="ci.name!; //"/>
-      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportSpanishInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
-      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportSpanishInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
       <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\Category.es.View.xlsx" DependsOn="LoadNorthwind"/>
       <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\Dashboard.es.View.xlsx" DependsOn="LoadNorthwind,Dashboard"/>
       <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\UserQuery.es.View.xlsx" DependsOn="LoadNorthwind,UserQuery"/>
@@ -462,8 +462,8 @@
     <Module Name="Predictor" DependsOn="Files">
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Predictor*/" To="public string PredictorModelFolder { get; set; }"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportPredictor,"/>
-      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="PredictorModelFolder = @&quot;c:/Southwind/PredictorModels&quot;,"/>
-      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="PredictorModelFolder = @&quot;c:/Southwind/PredictorModels&quot;,"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="PredictorModelFolder = localPrefix + @&quot;predictor-models&quot;,"/>
+      <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="PredictorModelFolder = localPrefix + @&quot;predictor-models&quot;,"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportPredictor()" To="}//ImportPredictor"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
@@ -474,7 +474,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.TensorFlow;"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(PredictorEntity)"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs"
-                  From="PredictorLogic.Start(sb, () => new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)));"
+                  From="PredictorLogic.Start(sb, () => GetFileTypeAlgorithm(p => p.PredictorModelFolder));"
                   To="PredictorLogic.RegisterAlgorithm(TensorFlowPredictorAlgorithm.NeuralNetworkGraph, new TensorFlowNeuralNetworkPredictor());"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="PredictorLogic.IgnorePinned(sb);" />
       <RemoveLine Path="Southwind.Logic\Starter.cs" DependsOn="ExampleEntities" Line="PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));"/>
