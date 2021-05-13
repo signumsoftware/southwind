@@ -29,6 +29,7 @@ using Signum.Entities.UserAssets;
 using Signum.Engine.Authorization;
 using Signum.Engine.MachineLearning;
 using Signum.Engine.DynamicQuery;
+using Southwind.Logic;
 
 namespace Southwind.Terminal
 {
@@ -44,7 +45,7 @@ namespace Southwind.Terminal
             {
                 CreateRoles,
                 CreateSystemUser,
-                CreateCultureInfo,
+                CreateCulturesAndConfiguration,
                 EmployeeLoader.LoadRegions,
                 EmployeeLoader.LoadTerritories,
                 EmployeeLoader.LoadEmployees,
@@ -59,7 +60,7 @@ namespace Southwind.Terminal
                 OrderLoader.UpdateOrdersDate,
                 ImportWordReportTemplateForOrder,
                 ImportUserAssets,
-                ImportSpanishInstanceTranslations,
+                ImportInstanceTranslations,
                 ImportPredictor,
                 InitialAuthRulesImport,
             }.Run(autoRun);
@@ -115,12 +116,18 @@ namespace Southwind.Terminal
             }
         } //CreateSystemUser
 
-        public static void CreateCultureInfo()
+        public static void CreateCulturesAndConfiguration()
         {
             using (Transaction tr = new Transaction())
             {
-                var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
-                var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
+                var enGB = new CultureInfoEntity(CultureInfo.GetCultureInfo("en-GB")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("es-ES")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("de")).Save();
+                new CultureInfoEntity(CultureInfo.GetCultureInfo("de-DE")).Save();
+
+                var localPrefix = Starter.AzureStorageConnectionString.HasText() ? "" : @"c:/SouthwindFiles/";
 
                 new ApplicationConfigurationEntity
                 {
@@ -136,7 +143,7 @@ namespace Southwind.Terminal
                     Email = new EmailConfigurationEmbedded
                     {
                         SendEmails = true,
-                        DefaultCulture = en,
+                        DefaultCulture = enGB,
                         UrlLeft = "http://localhost/Southwind"
                     },
                     EmailSender = new EmailSenderConfigurationEntity
@@ -152,7 +159,7 @@ namespace Southwind.Terminal
                     }, //Email
                     Sms = new SMSConfigurationEmbedded
                     {
-                        DefaultCulture = en,
+                        DefaultCulture = enGB,
                     }, //Sms
                     Workflow = new WorkflowConfigurationEmbedded
                     {
@@ -164,11 +171,11 @@ namespace Southwind.Terminal
                     },
                     Folders = new FoldersConfigurationEmbedded
                     {
-                        PredictorModelFolder = @"c:/Southwind/PredictorModels",
-                        ExceptionsFolder = @"c:/Southwind/Exceptions",
-                        OperationLogFolder = @"c:/Southwind/OperationLog",
-                        ViewLogFolder = @"c:/Southwind/ViewLog",
-                        EmailMessageFolder = @"c:/Southwind/EmailMessage",
+                        PredictorModelFolder = localPrefix + @"predictor-models",
+                        ExceptionsFolder = localPrefix + @"exceptions",
+                        OperationLogFolder = localPrefix + @"operation-logs",
+                        ViewLogFolder = localPrefix + @"view-logs",
+                        EmailMessageFolder = localPrefix + @"email-messages",
                     }
                 }.Save();
 
@@ -177,14 +184,19 @@ namespace Southwind.Terminal
 
         }
 
-        public static void ImportSpanishInstanceTranslations()
+        public static void ImportInstanceTranslations()
         {
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/Category.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/Dashboard.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/Toolbar.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/ToolbarMenu.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/UserChart.es.View.xlsx");
-            TranslatedInstanceLogic.ImportExcelFile("../../../InstanceTranslations/UserQuery.es.View.xlsx");
+            foreach (var lang in new[] { "de", "es"})
+            {
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/Category.{lang}.View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/Dashboard.{lang}.View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/Toolbar.{lang}.View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/ToolbarMenu.{lang}.View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/UserChart.{lang}.View.xlsx");
+                TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/UserQuery.{lang}.View.xlsx");
+            }
+
+
         }
 
         public static void ImportWordReportTemplateForOrder()

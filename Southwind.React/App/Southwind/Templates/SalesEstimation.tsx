@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ProductEntity, ProductPredictorPublication } from '../Southwind.Entities'
+import { OrderMessage, ProductEntity, ProductPredictorPublication } from '../Southwind.Entities'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '@framework/Lines'
 import * as Finder from '@framework/Finder';
 import { is, liteKey } from '@framework/Signum.Entities';
@@ -14,10 +14,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 var gradient = new Gradient([
-  { value: 0, color: Color.parse("red") },
-  { value: 1, color: Color.parse("gold") },
-  { value: 2, color: Color.parse("green") },
-  { value: 3, color: Color.parse("blue") },
+  { value: 0, color: Color.parse("#7B241C") },
+  { value: 1, color: Color.parse("#B9770E") },
+  { value: 2, color: Color.parse("#1E8449") },
+  { value: 3, color: Color.parse("#1F618D") },
 ]);
 
 export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntity> }) {
@@ -32,7 +32,7 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
   const color = estimation != null ? gradient.getCachedColor(ctx.value.unitsInStock! / (Math.max(1, estimation))) : undefined;
 
   return (
-    <FormGroup ctx={ctx} labelText="Sales next month" helpText="Monthly estimation using Predicitor extension">
+    <FormGroup ctx={ctx} labelText={OrderMessage.SalesNextMonth.niceToString()} helpText = "Monthly estimation using Predicitor extension" >
       {
         estimation != null &&
         <div className={ctx.inputGroupClass}>

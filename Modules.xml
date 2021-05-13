@@ -345,6 +345,12 @@
       <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\UserChart.es.View.xlsx" DependsOn="LoadNorthwind,Chart"/>
       <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\Toolbar.es.View.xlsx" DependsOn="LoadNorthwind,Toolbar"/>
       <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\ToolbarMenu.es.View.xlsx" DependsOn="LoadNorthwind,Toolbar"/>
+      <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\Category.de.View.xlsx" DependsOn="LoadNorthwind"/>
+      <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\Dashboard.de.View.xlsx" DependsOn="LoadNorthwind,Dashboard"/>
+      <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\UserQuery.de.View.xlsx" DependsOn="LoadNorthwind,UserQuery"/>
+      <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\UserChart.de.View.xlsx" DependsOn="LoadNorthwind,Chart"/>
+      <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\Toolbar.de.View.xlsx" DependsOn="LoadNorthwind,Toolbar"/>
+      <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\ToolbarMenu.de.View.xlsx" DependsOn="LoadNorthwind,Toolbar"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize categoryName column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Entities\Product.cs" Line="[TranslateField] //Localize description column" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;CultureDropdown />"/>
@@ -506,6 +512,7 @@
 
     <Module Name="Workflow">
       <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Workflow*/" To="public WorkflowConfigurationEmbedded Workflow { get; set; }"/>
+      <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;workflow&quot; title={ctx.niceName(a => a.workflow)}>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as WorkflowClient from &quot;@extensions/Workflow/WorkflowClient&quot;" />
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="WorkflowClient.start({ routes });"/>

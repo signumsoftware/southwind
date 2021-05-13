@@ -2,8 +2,6 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
-ENV TZ=Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
@@ -43,6 +41,8 @@ WORKDIR /src
 RUN dotnet restore "Southwind.React/Southwind.React.csproj"
 
 COPY . .
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR "/src/Southwind.React"
 RUN dotnet build "Southwind.React.csproj" -c Release # -o /app/build
 # RUN yarn run build-production

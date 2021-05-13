@@ -64,6 +64,7 @@ using Signum.Engine.Rest;
 using Microsoft.Exchange.WebServices.Data;
 using Signum.Engine.Omnibox;
 using Signum.Engine.MachineLearning.TensorFlow;
+using Azure.Storage.Blobs;
 
 namespace Southwind.Logic
 {
@@ -73,11 +74,15 @@ namespace Southwind.Logic
     {
         public static ResetLazy<ApplicationConfigurationEntity> Configuration = null!;
 
-        public static void Start(string connectionString, bool isPostgres, bool includeDynamic = true, bool detectSqlVersion = true)
+        public static string? AzureStorageConnectionString { get; private set; }
+
+        public static void Start(string connectionString, bool isPostgres, string? azureStorageConnectionString, bool includeDynamic = true, bool detectSqlVersion = true)
         {
+            AzureStorageConnectionString = azureStorageConnectionString;
+
             using (HeavyProfiler.Log("Start"))
             using (var initial = HeavyProfiler.Log("Initial"))
-            {
+            {   
                 StartParameters.IgnoredDatabaseMismatches = new List<Exception>();
                 StartParameters.IgnoredCodeErrors = new List<Exception>();
 
@@ -163,6 +168,7 @@ namespace Southwind.Logic
                 DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
                 DashboardLogic.RegisterTranslatableRoutes();
                 ViewLogLogic.Start(sb, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
+                SystemEventLogLogic.Start(sb);
                 DiffLogLogic.Start(sb, registerAll: true);
                 ExcelLogic.Start(sb, excelReport: true);
                 ToolbarLogic.Start(sb);
@@ -180,7 +186,7 @@ namespace Southwind.Logic
                 HelpLogic.Start(sb);
                 WordTemplateLogic.Start(sb);
                 MapLogic.Start(sb);
-                PredictorLogic.Start(sb, () => new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.PredictorModelFolder)));
+                PredictorLogic.Start(sb, () => GetFileTypeAlgorithm(p => p.PredictorModelFolder));
                 PredictorLogic.RegisterAlgorithm(TensorFlowPredictorAlgorithm.NeuralNetworkGraph, new TensorFlowNeuralNetworkPredictor());
                 PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));
 
@@ -231,18 +237,35 @@ namespace Southwind.Logic
         {
             BigStringMode mode = BigStringMode.File;
 
-            FileTypeLogic.Register(BigStringFileType.Exceptions, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.ExceptionsFolder)));
+            FileTypeLogic.Register(BigStringFileType.Exceptions, GetFileTypeAlgorithm(c => c.ExceptionsFolder));
             BigStringLogic.RegisterAll<ExceptionEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.Exceptions));
 
-            FileTypeLogic.Register(BigStringFileType.OperationLog, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.OperationLogFolder)));
+            FileTypeLogic.Register(BigStringFileType.OperationLog, GetFileTypeAlgorithm(c => c.OperationLogFolder));
             BigStringLogic.RegisterAll<OperationLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.OperationLog));
 
-            FileTypeLogic.Register(BigStringFileType.ViewLog, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.ViewLogFolder)));
+            FileTypeLogic.Register(BigStringFileType.ViewLog, GetFileTypeAlgorithm(c => c.ViewLogFolder));
             BigStringLogic.RegisterAll<ViewLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.ViewLog));
 
-            FileTypeLogic.Register(BigStringFileType.EmailMessage, new FileTypeAlgorithm(f => new PrefixPair(Starter.Configuration.Value.Folders.EmailMessageFolder)));
+            FileTypeLogic.Register(BigStringFileType.EmailMessage, GetFileTypeAlgorithm(c => c.EmailMessageFolder));
             BigStringLogic.RegisterAll<EmailMessageEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.EmailMessage));
         }//ConfigureBigString
+
+        public static IFileTypeAlgorithm GetFileTypeAlgorithm(Func<FoldersConfigurationEmbedded, string> getFolder, bool weakFileReference = false)
+        {
+            if (string.IsNullOrEmpty(AzureStorageConnectionString))
+                return new FileTypeAlgorithm(fp => new PrefixPair(getFolder(Starter.Configuration.Value.Folders)))
+                {
+                    WeakFileReference = weakFileReference
+                };
+            else
+                return new AzureBlobStoragebFileTypeAlgorithm(fp => new BlobContainerClient(
+                    AzureStorageConnectionString,
+                    getFolder(Starter.Configuration.Value.Folders)))
+                {
+                    CreateBlobContainerIfNotExists = true,
+                    WeakFileReference = weakFileReference,
+                };
+        }
 
         public class CustomSchemaBuilder : SchemaBuilder
         {
@@ -335,6 +358,7 @@ namespace Southwind.Logic
             sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((ExceptionEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((OperationLogEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+            sb.Schema.Settings.FieldAttributes((SystemEventLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
             sb.Schema.Settings.FieldAttributes((UserQueryEntity uq) => uq.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
             sb.Schema.Settings.FieldAttributes((UserChartEntity uc) => uc.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
             sb.Schema.Settings.FieldAttributes((DashboardEntity cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));

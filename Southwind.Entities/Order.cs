@@ -118,6 +118,8 @@ namespace Southwind.Entities
         CancelShippedOrder0,
         SelectAShipper,
         SubTotalPrice,
+        TotalPrice,
+        SalesNextMonth,
     }
 
     public enum OrderState

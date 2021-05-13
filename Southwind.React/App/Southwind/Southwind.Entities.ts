@@ -33,12 +33,6 @@ export interface AddressEmbedded extends Entities.EmbeddedEntity {
   country: string;
 }
 
-export const AllowLogin = new EnumType<AllowLogin>("AllowLogin");
-export type AllowLogin =
-  "WindowsAndWeb" |
-  "WindowsOnly" |
-  "WebOnly";
-
 export const ApplicationConfigurationEntity = new Type<ApplicationConfigurationEntity>("ApplicationConfiguration");
 export interface ApplicationConfigurationEntity extends Entities.Entity {
   Type: "ApplicationConfiguration";
@@ -190,6 +184,8 @@ export module OrderMessage {
   export const CancelShippedOrder0 = new MessageKey("OrderMessage", "CancelShippedOrder0");
   export const SelectAShipper = new MessageKey("OrderMessage", "SelectAShipper");
   export const SubTotalPrice = new MessageKey("OrderMessage", "SubTotalPrice");
+  export const TotalPrice = new MessageKey("OrderMessage", "TotalPrice");
+  export const SalesNextMonth = new MessageKey("OrderMessage", "SalesNextMonth");
 }
 
 export module OrderOperation {
@@ -324,7 +320,6 @@ export interface TranslationConfigurationEmbedded extends Entities.EmbeddedEntit
 export const UserEmployeeMixin = new Type<UserEmployeeMixin>("UserEmployeeMixin");
 export interface UserEmployeeMixin extends Entities.MixinEntity {
   Type: "UserEmployeeMixin";
-  allowLogin: AllowLogin;
   employee: Entities.Lite<EmployeeEntity> | null;
 }
 

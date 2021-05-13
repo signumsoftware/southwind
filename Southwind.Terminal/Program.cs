@@ -48,16 +48,20 @@ namespace Southwind.Terminal
                 using (CultureInfoUtils.ChangeCulture("en"))
                 using (CultureInfoUtils.ChangeCultureUI("en"))
                 {
+                    var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
                     ConfigRoot = new ConfigurationBuilder()
                         .SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("appsettings.json")
-                        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
+                        .AddJsonFile($"appsettings.{env}.json", true)
                         .AddUserSecrets<Program>().Build();
                     
-                    Starter.Start(ConfigRoot.GetConnectionString("ConnectionString"), ConfigRoot.GetValue<bool>("IsPostgres"));
+                    Starter.Start(
+                        ConfigRoot.GetConnectionString("ConnectionString"),
+                        ConfigRoot.GetValue<bool>("IsPostgres"), 
+                        ConfigRoot.GetConnectionString("AzureStorageConnectionString"));
 
                     Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
-                    Console.WriteLine($"{Connector.Current.GetType().Name} (Database: {Connector.Current.DatabaseName()})");
+                    SafeConsole.WriteLineColor(env == "live" ? ConsoleColor.Red : env == "test" ? ConsoleColor.Yellow : ConsoleColor.Gray, Connector.Current.ToString());
                     Console.WriteLine();
 
                     if (args.Any())
@@ -137,7 +141,7 @@ namespace Southwind.Terminal
         public static void NewDatabase()
         {
             var databaseName = Connector.Current.DatabaseName();
-            if (Database.View<SysTables>().Any())
+            if (Connector.Current.HasTables())
             {
                 SafeConsole.WriteLineColor(ConsoleColor.Red, $"Are you sure you want to delete all the data in the database '{databaseName}'?");
                 Console.Write($"Confirm by writing the name of the database:");

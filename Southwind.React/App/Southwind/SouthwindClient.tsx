@@ -49,7 +49,6 @@ export function start(options: { routes: JSX.Element[] }) {
 
   Navigator.getSettings(UserEntity)!.overrideView((rep) => {
     rep.insertAfterLine(u => u.role, ctx => [
-      <ValueLine ctx={ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.allowLogin)} />,
       <EntityLine ctx={ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.employee)} />
     ])
   });
