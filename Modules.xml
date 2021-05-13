@@ -462,8 +462,8 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
-      <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.3.1&quot; />"/>
-      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.3.1&quot; />"/>
+      <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.4.1&quot; />"/>
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.4.1&quot; />"/>
       "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj&quot; />"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.TensorFlow;"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(PredictorEntity)"/>
@@ -515,7 +515,7 @@
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;7.5.0&quot;,"/>
-      <RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.10.44&quot;,"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.11.1&quot;,"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js&quot;: &quot;0.11.7&quot;,"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;html-to-draftjs&quot;: &quot;1.5.0&quot;,"/>
       <RemoveLine Path="Southwind.React\package.json" Line="&quot;draftjs-to-html&quot;: &quot;0.9.1&quot;,"/>
