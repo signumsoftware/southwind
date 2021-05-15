@@ -146,7 +146,8 @@ namespace Southwind.Logic
                 UserTicketLogic.Start(sb);
                 SessionLogLogic.Start(sb);
                 WebAuthnLogic.Start(sb, ()=> Configuration.Value.WebAuthn);
-
+                TypeConditionLogic.RegisterCompile<UserEntity>(SouthwindGroup.UserEntities, u => u.Is(UserEntity.Current));
+				
                 ProcessLogic.Start(sb);
                 PackageLogic.Start(sb, packages: true, packageOperations: true);
 
@@ -156,8 +157,8 @@ namespace Southwind.Logic
                 UserQueryLogic.Start(sb);
                 UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
-                UserQueryLogic.RegisterTranslatableRoutes();
-                
+                UserQueryLogic.RegisterTranslatableRoutes();                
+
                 ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);
                 UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
                 UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);

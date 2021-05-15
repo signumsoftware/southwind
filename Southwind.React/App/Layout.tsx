@@ -50,19 +50,17 @@ export default function Layout() {
             <Navbar.Collapse id="basic-navbar-nav">
               {AuthClient.currentUser() &&
                 <Nav className="mr-auto">
-                  <li>
-                    <div className="omnibox-container" style={{ width: "200px" }}>
-                      {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />}
-                    </div>
-                  </li>
+                  {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <div className="omnibox-container" style={{ width: "200px" }}>
+                    <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
+                  </div>}
                   <NavDropdown title="Menu" id="layoutMenu">
                     <LinkContainer to="~/" exact={true}><NavDropdown.Item>Home</NavDropdown.Item></LinkContainer>
                     <LinkContainer to="~/publicCatalog"><NavDropdown.Item>Catalog</NavDropdown.Item></LinkContainer>
                     <NavDropdown.Divider />
                     <LinkContainer to="~/find/order"><NavDropdown.Item>Orders</NavDropdown.Item></LinkContainer>
                     <LinkContainer to="~/find/exception"><NavDropdown.Item>Exceptions</NavDropdown.Item></LinkContainer>
-                </NavDropdown>
-                {AuthClient.currentUser() && <React.Suspense fallback={null}><WorkflowDropdown /></React.Suspense>}
+                  </NavDropdown>
+                  {AuthClient.currentUser() && <React.Suspense fallback={null}><WorkflowDropdown /></React.Suspense>}
                 </Nav>}
               {AuthClient.currentUser() && <React.Suspense fallback={null}><ToolbarRenderer location="Top" /></React.Suspense>}
               <Nav className="ml-auto">
