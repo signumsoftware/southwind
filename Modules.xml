@@ -304,13 +304,13 @@
                  DependsOn="ExampleEntities"/>
       <RemoveSpanInLines Path="Southwind.Entities\Employee.cs" Span="get { return UserEntity.Current.Mixin&lt;UserEmployeeMixin>().Employee; } //" DependsOn="ExampleEntities" />>
       <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="AuthClient.currentUser() &amp;&amp;" />
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LoginDropdown extraButons={user => &lt;WebAuthnClient.WebAuthnRegisterMenuItem />} />"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LoginDropdown /*extraButons={user => &lt;WebAuthnClient.WebAuthnRegisterMenuItem />}*/ />"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as AuthAdminClient from &quot;@extensions/Authorization/AuthAdminClient&quot;"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="AuthClient.autoLogin() //"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="Boolean(AuthClient.currentUser()) &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;; //"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span=" &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;" DependsOn="PublicCatalog"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });"/>
-      <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="LoginPage.customLoginButtons = ctx => &lt;WebAuthnClient.WebAuthnLoginButton ctx={ctx} />;"/>
+      <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="//LoginPage.customLoginButtons = ctx => &lt;WebAuthnClient.WebAuthnLoginButton ctx={ctx} />;"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogin = (url?: string) => {" To="};"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogout = () => {" To="};"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
@@ -419,7 +419,8 @@
     <Module Name="Omnibox">
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="OmniboxLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.React\Startup.cs" From="OmniboxServer.Start(app," To=");//Omnibox"/>
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) &amp;&amp; &lt;OmniboxAutocomplete inputAttrs={{ className: &quot;form-control&quot; }} />}"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="{AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) &amp;&amp; &lt;div className=&quot;omnibox-container&quot; style={{ width: &quot;200px&quot; }}>"
+                  To="&lt;/div>}"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as OmniboxClient from &quot;@extensions/Omnibox/OmniboxClient&quot;"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import DynamicQueryOmniboxProvider from &quot;@extensions/Omnibox/DynamicQueryOmniboxProvider&quot;"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import EntityOmniboxProvider from &quot;@extensions/Omnibox/EntityOmniboxProvider&quot;"/>
@@ -468,8 +469,8 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
-      <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.4.1&quot; />"/>
-      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.4.1&quot; />"/>
+      <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.5.0&quot; />"/>
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.5.0&quot; />"/>
       "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj&quot; />"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.TensorFlow;"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(PredictorEntity)"/>

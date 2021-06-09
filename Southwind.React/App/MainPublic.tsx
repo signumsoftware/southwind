@@ -18,7 +18,7 @@ import Notify from "@framework/Frames/Notify"
 import ErrorModal from "@framework/Modals/ErrorModal"
 
 import * as AuthClient from "@extensions/Authorization/AuthClient"
-import * as WebAuthnClient from "@extensions/Authorization/WebAuthn/WebAuthnClient"
+//import * as WebAuthnClient from "@extensions/Authorization/WebAuthn/WebAuthnClient"
 import * as CultureClient from "@extensions/Translation/CultureClient"
 
 import * as History from 'history'
@@ -69,7 +69,7 @@ Services.VersionFilter.versionHasChanged = () => {
   VersionChangedAlert.forceUpdateSingletone && VersionChangedAlert.forceUpdateSingletone();
 }
 
-LoginPage.customLoginButtons = ctx => <WebAuthnClient.WebAuthnLoginButton ctx={ctx} />;
+//LoginPage.customLoginButtons = ctx => <WebAuthnClient.WebAuthnLoginButton ctx={ctx} />;
 
 Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 

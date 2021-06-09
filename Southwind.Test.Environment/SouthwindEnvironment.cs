@@ -78,7 +78,7 @@ namespace Southwind.Test.Environment
                 UserName = userName,
                 PasswordHash = Security.EncodePassword(userName),
                 Role = role.ToLite(),
-                State = UserState.Saved,
+                State = UserState.Active,
             };
 
             user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query<EmployeeEntity>().SingleOrDefaultEx(e => e.FirstName == userName)?.ToLite());

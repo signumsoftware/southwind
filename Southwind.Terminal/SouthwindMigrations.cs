@@ -101,7 +101,7 @@ namespace Southwind.Terminal
                     UserName = "System",
                     PasswordHash = Security.EncodePassword("System"),
                     Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx().ToLite(),
-                    State = UserState.Saved,
+                    State = UserState.Active,
                 }.Save();
 
                 UserEntity anonymous = new UserEntity
@@ -109,7 +109,7 @@ namespace Southwind.Terminal
                     UserName = "Anonymous",
                     PasswordHash = Security.EncodePassword("Anonymous"),
                     Role = Database.Query<RoleEntity>().Where(r => r.Name == "Anonymous").SingleEx().ToLite(),
-                    State = UserState.Saved,
+                    State = UserState.Active,
                 }.Save(); //Anonymous
 
                 tr.Commit();
