@@ -140,8 +140,9 @@ namespace Southwind.Logic
                 EmailLogic.Start(sb, () => Configuration.Value.Email, (template, target, message) => Configuration.Value.EmailSender);
 
                 AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
- 
-                AuthLogic.StartAllModules(sb);
+                AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);
+                AuthLogic.StartAllModules(sb, activeDirectoryIntegration: true);
+                MicrosoftGraphLogic.Start(sb);
                 ResetPasswordRequestLogic.Start(sb);
                 UserTicketLogic.Start(sb);
                 SessionLogLogic.Start(sb);

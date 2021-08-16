@@ -173,7 +173,7 @@ namespace Southwind.Terminal
                         AutoCreateUsers = true,
                         AutoUpdateUsers = true,
                         DefaultRole = standadUser,
-                    },
+                    }, //ActiveDirectory
                 }.Save();
 
                 tr.Commit();

@@ -279,14 +279,13 @@
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="CreateUser(&quot;Anonymous&quot;, roles.GetOrThrow(&quot;Anonymous&quot;));" DependsOn="PublicCatalog"/>
       <RemoveSpanInLines Path="Southwind.Entities\Product.cs" Span=", AllowUnathenticated" DependsOn="PublicCatalog"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="anonymous*/" DependsOn="PublicCatalog"/>
-      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="RoleEntity an = new RoleEntity() { Name = &quot;Anonymous&quot;, MergeStrategy = MergeStrategy.Union }.Save();"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="AuthLogic.LoadRoles();"/>
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="UserEntity anonymous = new UserEntity" To="}.Save(); //Anonymous"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.StartAllModules(sb);"/>
-      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="WebAuthnLogic.Start(sb, ()=> Configuration.Value.WebAuthn);"/>
+      <RemoveLine Path="Southwind.Logic\Starter.cs" Line="AuthLogic.StartAllModules(sb, activeDirectoryIntegration: true);"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity),"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(UserEntity)"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span="typeof(RoleEntity)"/>
-      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Auth*/" To="public WebAuthnConfigurationEmbedded WebAuthn { get; set; }"/>
+      <RemoveLine Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*Auth*/" To="public AuthTokenConfigurationEmbedded AuthTokens { get; set; }"/>
       <RemoveLine Path="Southwind.React\App\Southwind\Templates\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;auth&quot; title={ctx.niceName(a => a.authTokens)}>" To="&lt;/Tab>"/>
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="AuthTokens = new AuthTokenConfigurationEmbedded" To="}, //Auth"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="AuthServer.Start(app, () => Starter.Configuration.Value.AuthTokens, &quot;IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!&quot;);" />
@@ -304,13 +303,12 @@
                  DependsOn="ExampleEntities"/>
       <RemoveSpanInLines Path="Southwind.Entities\Employee.cs" Span="get { return UserEntity.Current.Mixin&lt;UserEmployeeMixin>().Employee; } //" DependsOn="ExampleEntities" />>
       <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="AuthClient.currentUser() &amp;&amp;" />
-      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LoginDropdown /*extraButons={user => &lt;WebAuthnClient.WebAuthnRegisterMenuItem />}*/ />"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LoginDropdown changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}/>"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as AuthAdminClient from &quot;@extensions/Authorization/AuthAdminClient&quot;"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="AuthClient.autoLogin() //"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="Boolean(AuthClient.currentUser()) &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;; //"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span=" &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;" DependsOn="PublicCatalog"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });"/>
-      <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="//LoginPage.customLoginButtons = ctx => &lt;WebAuthnClient.WebAuthnLoginButton ctx={ctx} />;"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogin = (url?: string) => {" To="};"/>
       <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="AuthClient.Options.onLogout = () => {" To="};"/>
       <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
@@ -320,6 +318,27 @@
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\Southwind.Terminal\AuthRules.xml&quot;);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();"/>
+    </Module>
+
+    <Module Name="AzureAD" DependsOn="Auth">
+        <RemoveLine Path="Southwind.Logic/Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);"/>
+        <RemoveLine Path="Southwind.Logic/Starter.cs" Line="MicrosoftGraphLogic.Start(sb);"/>
+        <RemoveSpanInLines Path="Southwind.Logic/Starter.cs" Span=", activeDirectoryIntegration: true"/>
+        <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
+        <RemoveLine Path="Southwind.Entities/ApplicationConfiguration.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>
+        <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as ActiveDirectoryClient from &quot;@extensions/Authorization/ActiveDirectoryClient&quot;"/>
+        <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes });"/>
+        <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'"/>
+        <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="if (window.__azureApplicationId) {" To="}//__azureApplicationId"/>
+        <RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.14.1&quot;,"/>
+        <RemoveLine Path="Southwind.React\Views\Home\Index.cshtml" 
+                    From="var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);"
+                    To="var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);"/>
+        <RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs"
+                    Line="var standadUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard User&quot;).ToLite();"
+                    />
+        <RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
+        <RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
     </Module>
 
     <Module Name="Translation">

@@ -80,7 +80,7 @@ if (window.__azureApplicationId) {
     </>;
   LoginPage.showLoginForm = "initially_not";
   AuthClient.authenticators.push(AzureAD.loginWithAzureAD);
-}
+}//__azureApplicationId
 
 ErrorModal.register();
 

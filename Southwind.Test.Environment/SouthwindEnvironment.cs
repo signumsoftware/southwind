@@ -295,7 +295,7 @@ namespace Southwind.Test.Environment
                     AutoCreateUsers = true,
                     AutoUpdateUsers = true,
                     DefaultRole = standadUser,
-                },
+                }, //ActiveDirectory
             }.Save();
         }
     }
