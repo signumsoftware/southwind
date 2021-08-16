@@ -44,7 +44,6 @@ COPY . .
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR "/src/Southwind.React"
-RUN dotnet build "Southwind.React.csproj" -c Release # -o /app/build
 # RUN yarn run build-production
 RUN yarn run build-development
 
