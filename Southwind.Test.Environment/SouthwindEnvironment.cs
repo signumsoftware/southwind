@@ -228,11 +228,16 @@ namespace Southwind.Test.Environment
 
         internal static void LoadBasics()
         {
-            var en = new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
-            var es = new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
+            new CultureInfoEntity(CultureInfo.GetCultureInfo("en")).Save();
+            var enGB = new CultureInfoEntity(CultureInfo.GetCultureInfo("en-GB")).Save();
+            new CultureInfoEntity(CultureInfo.GetCultureInfo("es")).Save();
+            new CultureInfoEntity(CultureInfo.GetCultureInfo("es-ES")).Save();
+            new CultureInfoEntity(CultureInfo.GetCultureInfo("de")).Save();
+            new CultureInfoEntity(CultureInfo.GetCultureInfo("de-DE")).Save();
 
             var localPrefix = Starter.AzureStorageConnectionString.HasText() ? "" : @"c:/SouthwindFiles/";
 
+            var standadUser = Database.Query<RoleEntity>().Single(a => a.Name == "Standard User").ToLite();
 
             new ApplicationConfigurationEntity
             {
@@ -241,7 +246,7 @@ namespace Southwind.Test.Environment
                 Email = new EmailConfigurationEmbedded
                 {
                     SendEmails = false,
-                    DefaultCulture = en,
+                    DefaultCulture = enGB,
                     UrlLeft = "http://localhost/Southwind",
                 },
                 AuthTokens = new AuthTokenConfigurationEmbedded
@@ -260,16 +265,11 @@ namespace Southwind.Test.Environment
                 }, //Email
                 Sms = new SMSConfigurationEmbedded
                 {
-                    DefaultCulture = en,
+                    DefaultCulture = enGB,
                 }, //Sms
                 Workflow = new WorkflowConfigurationEmbedded
                 {
                 }, //Workflow
-                Translation = new TranslationConfigurationEmbedded
-                {
-                    AzureCognitiveServicesAPIKey = null,
-                    DeepLAPIKey = null,
-                },
                 Folders = new FoldersConfigurationEmbedded
                 {
                     PredictorModelFolder = localPrefix + @"predictor-models",
@@ -277,7 +277,25 @@ namespace Southwind.Test.Environment
                     OperationLogFolder = localPrefix + @"operation-logs",
                     ViewLogFolder = localPrefix + @"view-logs",
                     EmailMessageFolder = localPrefix + @"email-messages",
-                }
+                },
+                Translation = new TranslationConfigurationEmbedded
+                {
+                    AzureCognitiveServicesAPIKey = null,
+                    DeepLAPIKey = null,
+                },
+                ActiveDirectory = new ActiveDirectoryConfigurationEmbedded
+                {
+                    Azure_ApplicationID = null,
+                    Azure_DirectoryID = null,
+                    Azure_ClientSecret = null,
+                    LoginWithActiveDirectoryRegistry = false,
+                    LoginWithWindowsAuthenticator = false,
+                    LoginWithAzureAD = true,
+                    AllowMatchUsersBySimpleUserName = true,
+                    AutoCreateUsers = true,
+                    AutoUpdateUsers = true,
+                    DefaultRole = standadUser,
+                },
             }.Save();
         }
     }

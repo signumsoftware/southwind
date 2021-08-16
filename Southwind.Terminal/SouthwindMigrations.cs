@@ -73,22 +73,8 @@ namespace Southwind.Terminal
 
         internal static void CreateRoles()
         {
-            using (Transaction tr = new Transaction())
-            {
-                RoleEntity su = new RoleEntity() { Name = "Super user", MergeStrategy = MergeStrategy.Intersection }.Save();
-                RoleEntity u = new RoleEntity() { Name = "User", MergeStrategy = MergeStrategy.Union }.Save();
+            AuthLogic.LoadRoles();
 
-                RoleEntity au = new RoleEntity()
-                {
-                    Name = "Advanced user",
-                    Roles = new MList<Lite<RoleEntity>> { u.ToLite() },
-                    MergeStrategy = MergeStrategy.Union
-                }.Save();
-
-                RoleEntity an = new RoleEntity() { Name = "Anonymous", MergeStrategy = MergeStrategy.Union }.Save();
-                
-                tr.Commit();
-            }
         }
 
         internal static void CreateSystemUser()
@@ -129,6 +115,8 @@ namespace Southwind.Terminal
 
                 var localPrefix = Starter.AzureStorageConnectionString.HasText() ? "" : @"c:/SouthwindFiles/";
 
+                var standadUser = Database.Query<RoleEntity>().Single(a => a.Name == "Standard User").ToLite();
+
                 new ApplicationConfigurationEntity
                 {
                     Environment = "Development",
@@ -160,11 +148,6 @@ namespace Southwind.Terminal
                     Workflow = new WorkflowConfigurationEmbedded
                     {
                     }, //Workflow
-                    Translation = new TranslationConfigurationEmbedded
-                    {
-                        AzureCognitiveServicesAPIKey = null,
-                        DeepLAPIKey = null,
-                    },
                     Folders = new FoldersConfigurationEmbedded
                     {
                         PredictorModelFolder = localPrefix + @"predictor-models",
@@ -172,7 +155,25 @@ namespace Southwind.Terminal
                         OperationLogFolder = localPrefix + @"operation-logs",
                         ViewLogFolder = localPrefix + @"view-logs",
                         EmailMessageFolder = localPrefix + @"email-messages",
-                    }
+                    },
+                    Translation = new TranslationConfigurationEmbedded
+                    {
+                        AzureCognitiveServicesAPIKey = null,
+                        DeepLAPIKey = null,
+                    },
+                    ActiveDirectory = new ActiveDirectoryConfigurationEmbedded
+                    {
+                        Azure_ApplicationID = null,
+                        Azure_DirectoryID = null,
+                        Azure_ClientSecret = null,
+                        LoginWithActiveDirectoryRegistry = false,
+                        LoginWithWindowsAuthenticator = false,
+                        LoginWithAzureAD = true,
+                        AllowMatchUsersBySimpleUserName = true,
+                        AutoCreateUsers = true,
+                        AutoUpdateUsers = true,
+                        DefaultRole = standadUser,
+                    },
                 }.Save();
 
                 tr.Commit();
@@ -191,8 +192,6 @@ namespace Southwind.Terminal
                 TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/UserChart.{lang}.View.xlsx");
                 TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/UserQuery.{lang}.View.xlsx");
             }
-
-
         }
 
         public static void ImportWordReportTemplateForOrder()

@@ -27,6 +27,8 @@ import PublicCatalog from './PublicCatalog'
 import Home from './Home'
 import NotFound from './NotFound'
 import LoginPage from '@extensions/Authorization/Login/LoginPage'
+import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'
+
 
 import * as ConfigureReactWidgets from "@framework/ConfigureReactWidgets"
 import { VersionChangedAlert } from "@framework/Frames/VersionChangedAlert"
@@ -71,6 +73,14 @@ Services.VersionFilter.versionHasChanged = () => {
 Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 
 AuthClient.registerUserTicketAuthenticator();
+if (window.__azureApplicationId) {
+  LoginPage.customLoginButtons = ctx =>
+    <>
+      <AzureAD.MicrosoftSignIn ctx={ctx} />
+    </>;
+  LoginPage.showLoginForm = "initially_not";
+  AuthClient.authenticators.push(AzureAD.loginWithAzureAD);
+}
 
 ErrorModal.register();
 

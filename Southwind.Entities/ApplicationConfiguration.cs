@@ -41,6 +41,8 @@ namespace Southwind.Entities
         public FoldersConfigurationEmbedded Folders { get; set; }
 
         public TranslationConfigurationEmbedded Translation { get; set; }
+
+        public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }
     }
 
 

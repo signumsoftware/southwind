@@ -6,6 +6,7 @@ import * as QuickLinks from "@framework/QuickLinks"
 
 import * as ExceptionClient from "@framework/Exceptions/ExceptionClient"
 import * as AuthAdminClient from "@extensions/Authorization/AuthAdminClient"
+import * as ActiveDirectoryClient from "@extensions/Authorization/ActiveDirectoryClient"
 import * as UserQueryClient from "@extensions/UserQueries/UserQueryClient"
 import * as OmniboxClient from "@extensions/Omnibox/OmniboxClient"
 import * as ChartClient from "@extensions/Chart/ChartClient"
@@ -57,6 +58,7 @@ export function startFull(routes: JSX.Element[]) {
   QuickLinks.start();
 
   AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
+  ActiveDirectoryClient.start({ routes });
 
   ExceptionClient.start({ routes });
 

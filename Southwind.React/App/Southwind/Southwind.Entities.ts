@@ -45,6 +45,7 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
   workflow: Workflow.WorkflowConfigurationEmbedded;
   folders: FoldersConfigurationEmbedded;
   translation: TranslationConfigurationEmbedded;
+  activeDirectory: Authorization.ActiveDirectoryConfigurationEmbedded;
 }
 
 export module ApplicationConfigurationOperation {

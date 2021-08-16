@@ -1,6 +1,7 @@
 ﻿@using Signum.Utilities;
 @using System.IO;
 @using Newtonsoft.Json.Linq;
+@using Southwind.Logic;
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @{
@@ -206,6 +207,9 @@
                 loadNextScript();
             })();
         }
+
+        var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);
+        var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);
     </script>
 </body>
 </html>
