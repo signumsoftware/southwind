@@ -12,7 +12,6 @@ import { VersionChangedAlert, VersionInfo } from '@framework/Frames/VersionChang
 import { LinkContainer, ErrorBoundary } from '@framework/Components';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { OmniboxPermission } from '@extensions/Omnibox/Signum.Entities.Omnibox'
-//import * as WebAuthnClient from '@extensions/Authorization/WebAuthn/WebAuthnClient'
 import { JavascriptMessage } from '@framework/Signum.Entities'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -69,7 +68,7 @@ export default function Layout() {
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
                 </Nav.Item> {/*Swagger*/}
                 <CultureDropdown />
-                <LoginDropdown /*extraButons={user => <WebAuthnClient.WebAuthnRegisterMenuItem />}*/ />
+                <LoginDropdown changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"}/>
               </Nav>
             </Navbar.Collapse>
           </Navbar>

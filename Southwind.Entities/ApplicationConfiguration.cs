@@ -34,7 +34,6 @@ namespace Southwind.Entities
 
         /*Auth*/
         public AuthTokenConfigurationEmbedded AuthTokens { get; set; }
-        public WebAuthnConfigurationEmbedded WebAuthn { get; set; }
 
         /*Workflow*/
         public WorkflowConfigurationEmbedded Workflow { get; set; }

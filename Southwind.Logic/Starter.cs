@@ -145,7 +145,6 @@ namespace Southwind.Logic
                 ResetPasswordRequestLogic.Start(sb);
                 UserTicketLogic.Start(sb);
                 SessionLogLogic.Start(sb);
-                WebAuthnLogic.Start(sb, ()=> Configuration.Value.WebAuthn);
                 TypeConditionLogic.RegisterCompile<UserEntity>(SouthwindGroup.UserEntities, u => u.Is(UserEntity.Current));
 				
                 ProcessLogic.Start(sb);
