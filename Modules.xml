@@ -321,24 +321,25 @@
     </Module>
 
     <Module Name="AzureAD" DependsOn="Auth">
-        <RemoveLine Path="Southwind.Logic/Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);"/>
-        <RemoveLine Path="Southwind.Logic/Starter.cs" Line="MicrosoftGraphLogic.Start(sb);"/>
-        <RemoveSpanInLines Path="Southwind.Logic/Starter.cs" Span=", activeDirectoryIntegration: true"/>
-        <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
-        <RemoveLine Path="Southwind.Entities/ApplicationConfiguration.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>
-        <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as ActiveDirectoryClient from &quot;@extensions/Authorization/ActiveDirectoryClient&quot;"/>
-        <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes });"/>
-        <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'"/>
-        <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="if (window.__azureApplicationId) {" To="}//__azureApplicationId"/>
-        <RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.14.1&quot;,"/>
-        <RemoveLine Path="Southwind.React\Views\Home\Index.cshtml" 
-                    From="var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);"
-                    To="var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);"/>
-        <RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs"
-                    Line="var standadUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard User&quot;).ToLite();"
+      <RemoveFiles Path="Southwind.Logic\SouthwindAuthorizer.cs" />
+      <RemoveLine Path="Southwind.Logic/Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);"/>
+      <RemoveLine Path="Southwind.Logic/Starter.cs" Line="MicrosoftGraphLogic.Start(sb);"/>
+      <RemoveSpanInLines Path="Southwind.Logic/Starter.cs" Span=", activeDirectoryIntegration: true"/>
+      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
+      <RemoveLine Path="Southwind.Entities/ApplicationConfiguration.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>
+      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as ActiveDirectoryClient from &quot;@extensions/Authorization/ActiveDirectoryClient&quot;"/>
+      <RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes });"/>
+      <RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'"/>
+      <RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="if (window.__azureApplicationId) {" To="}//__azureApplicationId"/>
+      <RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.14.1&quot;,"/>
+      <RemoveLine Path="Southwind.React\Views\Home\Index.cshtml"
+                  From="var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);"
+                  To="var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);"/>
+      <RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs"
+                  Line="var standadUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard User&quot;).ToLite();"
                     />
-        <RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
-        <RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
+      <RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
+      <RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
     </Module>
 
     <Module Name="Translation">
