@@ -192,7 +192,7 @@ namespace Southwind.Terminal
                 TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/UserChart.{lang}.View.xlsx");
                 TranslatedInstanceLogic.ImportExcelFile($"../../../InstanceTranslations/UserQuery.{lang}.View.xlsx");
             }
-        }
+        }//ImportInstanceTranslations
 
         public static void ImportWordReportTemplateForOrder()
         {

@@ -358,7 +358,7 @@
       <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;CT&quot;, TranslationLogic.CopyTranslations},"/>
       <RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="ci.name!; //"/>
       <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportInstanceTranslations," DependsOn="LoadNorthwind,Migrations"/>
-      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportInstanceTranslations()" To="}" DependsOn="LoadNorthwind"/>
+      <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportInstanceTranslations()" To="}//ImportInstanceTranslations" DependsOn="LoadNorthwind"/>
       <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\Category.es.View.xlsx" DependsOn="LoadNorthwind"/>
       <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\Dashboard.es.View.xlsx" DependsOn="LoadNorthwind,Dashboard"/>
       <RemoveFiles Path="Southwind.Terminal\InstanceTranslations\UserQuery.es.View.xlsx" DependsOn="LoadNorthwind,UserQuery"/>
