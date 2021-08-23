@@ -115,7 +115,7 @@ namespace Southwind.Terminal
 
                 var localPrefix = Starter.AzureStorageConnectionString.HasText() ? "" : @"c:/SouthwindFiles/";
 
-                var standadUser = Database.Query<RoleEntity>().Single(a => a.Name == "Standard User").ToLite();
+                var standadUser = Database.Query<RoleEntity>().Single(a => a.Name == "Standard user").ToLite();
 
                 new ApplicationConfigurationEntity
                 {
@@ -168,7 +168,7 @@ namespace Southwind.Terminal
                         Azure_ClientSecret = null,
                         LoginWithActiveDirectoryRegistry = false,
                         LoginWithWindowsAuthenticator = false,
-                        LoginWithAzureAD = true,
+                        LoginWithAzureAD = false,
                         AllowMatchUsersBySimpleUserName = true,
                         AutoCreateUsers = true,
                         AutoUpdateUsers = true,
