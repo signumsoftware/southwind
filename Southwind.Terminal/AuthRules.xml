@@ -3,19 +3,19 @@
   <Roles>
     <Role Name="Anonymous" Contains="" />
     <Role Name="Super user" MergeStrategy="Intersection" Contains="" />
-    <Role Name="User" Contains="" />
-    <Role Name="Advanced user" Contains="User" />
+    <Role Name="Standard user" Contains="" />
+    <Role Name="Advanced user" Contains="Standard user" />
   </Roles>
   <Operations>
     <Role Name="Anonymous" />
     <Role Name="Super user" />
-    <Role Name="User" />
+    <Role Name="Standard user" />
     <Role Name="Advanced user" />
   </Operations>
   <Permissions>
     <Role Name="Anonymous" />
     <Role Name="Super user" />
-    <Role Name="User">
+    <Role Name="Standard user">
       <Permission Resource="BasicPermission.AutomaticUpgradeOfOperations" Allowed="True" />
       <Permission Resource="BasicPermission.AutomaticUpgradeOfQueries" Allowed="True" />
       <Permission Resource="ChartPermission.ViewCharting" Allowed="True" />
@@ -58,13 +58,13 @@
       <Property Resource="Product|ValueInStock" Allowed="Read" />
     </Role>
     <Role Name="Super user" />
-    <Role Name="User" />
+    <Role Name="Standard user" />
     <Role Name="Advanced user" />
   </Properties>
   <Queries>
     <Role Name="Anonymous" />
     <Role Name="Super user" />
-    <Role Name="User" />
+    <Role Name="Standard user" />
     <Role Name="Advanced user" />
   </Queries>
   <Types>
@@ -75,7 +75,7 @@
       <Type Resource="Product" Allowed="Read" />
     </Role>
     <Role Name="Super user" />
-    <Role Name="User">
+    <Role Name="Standard user">
       <Type Resource="Alert" Allowed="Write" />
       <Type Resource="AlertType" Allowed="Read" />
       <Type Resource="Case" Allowed="Write" />

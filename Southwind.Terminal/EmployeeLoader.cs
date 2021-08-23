@@ -114,7 +114,7 @@ namespace Southwind.Terminal
                 {
                     UserName = employee.FirstName,
                     PasswordHash = Security.EncodePassword(employee.FirstName),
-                    Role = roles.GetOrThrow(i < 2 ? "Super user" : i < 5 ? "Advanced user" : "User").ToLite(),
+                    Role = roles.GetOrThrow(i < 2 ? "Super user" : i < 5 ? "Advanced user" : "Standard user").ToLite(),
                     State = UserState.Active,
                 }.SetMixin((UserEmployeeMixin e) => e.Employee, employee.ToLite())).SaveList();
 
