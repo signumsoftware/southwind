@@ -17,11 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.React", "Framework\S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Extensions", "2.Extensions", "{8BE6A286-E197-4F84-AE56-58E37CBEEEB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Entities.Extensions", "Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj", "{7D851227-5294-4BEB-990E-56B4FBB7A148}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Entities.Extensions", "Framework\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj", "{7D851227-5294-4BEB-990E-56B4FBB7A148}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Engine.Extensions", "Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj", "{BA7FA363-61A1-41B1-945B-9B9C7BBCD357}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Engine.Extensions", "Framework\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj", "{BA7FA363-61A1-41B1-945B-9B9C7BBCD357}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.React.Extensions", "Extensions\Signum.React.Extensions\Signum.React.Extensions.csproj", "{FB8C0EB0-F025-43EE-96C2-965B41A4A488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.React.Extensions", "Framework\Signum.React.Extensions\Signum.React.Extensions.csproj", "{FB8C0EB0-F025-43EE-96C2-965B41A4A488}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Entities", "Southwind.Entities\Southwind.Entities.csproj", "{2FE283CC-8F34-451E-9805-C7858F7D705D}"
 EndProject
@@ -37,13 +37,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Test.Logic", "Sou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Test.React", "Southwind.Test.React\Southwind.Test.React.csproj", "{8118420A-2FEB-47D7-8EE1-32B8E94B1FEF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.React.Extensions.Selenium", "Extensions\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj", "{B80F1384-E5B6-463C-8316-28E847DFB8C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.React.Extensions.Selenium", "Framework\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj", "{B80F1384-E5B6-463C-8316-28E847DFB8C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Terminal", "Southwind.Terminal\Southwind.Terminal.csproj", "{8C2B377C-B80C-4C90-A425-A70AB63BADC4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Upgrade", "Framework\Signum.Upgrade\Signum.Upgrade.csproj", "{0BE88441-92D1-4DBD-AE2E-08558F625297}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Engine.MachineLearning.TensorFlow", "Extensions\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj", "{7B360C78-B4B4-4B6D-8C4B-E71EDA296720}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Engine.MachineLearning.TensorFlow", "Framework\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj", "{7B360C78-B4B4-4B6D-8C4B-E71EDA296720}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

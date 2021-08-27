@@ -14,7 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
 	</ItemGroup>

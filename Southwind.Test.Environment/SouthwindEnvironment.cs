@@ -51,7 +51,7 @@ namespace Southwind.Test.Environment
 
             new EmployeeEntity
             {
-                FirstName = "Normal",
+                FirstName = "Standard",
                 LastName = "User",
                 Address = RandomAddress(3),
                 HomePhone = RandomPhone(4),
@@ -67,7 +67,7 @@ namespace Southwind.Test.Environment
 
             CreateUser("Super", roles.GetOrThrow("Super user"));
             CreateUser("Advanced", roles.GetOrThrow("Advanced user"));
-            CreateUser("Normal", roles.GetOrThrow("User"));
+            CreateUser("Standard", roles.GetOrThrow("Standard user"));
             CreateUser("Anonymous", roles.GetOrThrow("Anonymous"));
         }
 
@@ -237,7 +237,7 @@ namespace Southwind.Test.Environment
 
             var localPrefix = Starter.AzureStorageConnectionString.HasText() ? "" : @"c:/SouthwindFiles/";
 
-            var standadUser = Database.Query<RoleEntity>().Single(a => a.Name == "Standard User").ToLite();
+            var standadUser = Database.Query<RoleEntity>().Single(a => a.Name == "Standard user").ToLite();
 
             new ApplicationConfigurationEntity
             {
@@ -290,7 +290,7 @@ namespace Southwind.Test.Environment
                     Azure_ClientSecret = null,
                     LoginWithActiveDirectoryRegistry = false,
                     LoginWithWindowsAuthenticator = false,
-                    LoginWithAzureAD = true,
+                    LoginWithAzureAD = false,
                     AllowMatchUsersBySimpleUserName = true,
                     AutoCreateUsers = true,
                     AutoUpdateUsers = true,

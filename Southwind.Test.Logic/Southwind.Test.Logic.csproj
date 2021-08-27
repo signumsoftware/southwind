@@ -20,8 +20,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
-		<ProjectReference Include="..\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Engine\Signum.Engine.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />

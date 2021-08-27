@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "preinstall:framework": "yarn --cwd ./../Framework/Signum.React --ignore-scripts install",
-    "preinstall:extensions": "yarn --cwd ./../Extensions/Signum.React.Extensions --ignore-scripts install",
+    "preinstall:extensions": "yarn --cwd ./../Framework/Signum.React.Extensions --ignore-scripts install",
     "preinstall": "yarn run preinstall:framework && yarn run preinstall:extensions",
     "clean": "rimraf ./wwwroot/dist",
     "build-development": "yarn run clean && webpack --config webpack.config.polyfills.js && webpack --config webpack.config.dll.js && webpack --config webpack.config.js",
