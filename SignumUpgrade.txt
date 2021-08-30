@@ -31,3 +31,4 @@ Upgrade_20210513_UpdateNugets
 Upgrade_20210726_SimplifyDockerBuild
 Upgrade_20210816_RemoveWebAuth
 Upgrade_20210824_UpdateNugets
+Upgrade_20210828_ExtensionsLoveFramework
