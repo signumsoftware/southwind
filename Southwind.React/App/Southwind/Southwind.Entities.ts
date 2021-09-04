@@ -107,8 +107,8 @@ export interface EmployeeEntity extends Entities.Entity {
   firstName: string;
   title: string | null;
   titleOfCourtesy: string | null;
-  birthDate: string | null;
-  hireDate: string | null;
+  birthDate: string /*DateOnly*/ | null;
+  hireDate: string /*DateOnly*/ | null;
   address: AddressEmbedded;
   homePhone: string | null;
   extension: string | null;
@@ -157,10 +157,10 @@ export interface OrderEntity extends Entities.Entity {
   Type: "Order";
   customer: CustomerEntity;
   employee: Entities.Lite<EmployeeEntity>;
-  orderDate: string;
-  requiredDate: string;
-  shippedDate: string | null;
-  cancelationDate: string | null;
+  orderDate: string /*DateTime*/;
+  requiredDate: string /*DateTime*/;
+  shippedDate: string /*DateTime*/ | null;
+  cancelationDate: string /*DateTime*/ | null;
   shipVia: Entities.Lite<ShipperEntity> | null;
   shipName: string | null;
   shipAddress: AddressEmbedded;
@@ -175,8 +175,8 @@ export interface OrderFilterModel extends Entities.ModelEntity {
   Type: "OrderFilterModel";
   customer: Entities.Lite<CustomerEntity> | null;
   employee: Entities.Lite<EmployeeEntity> | null;
-  minOrderDate: string | null;
-  maxOrderDate: string | null;
+  minOrderDate: string /*DateOnly*/ | null;
+  maxOrderDate: string /*DateOnly*/ | null;
 }
 
 export module OrderMessage {
@@ -225,7 +225,7 @@ export interface PersonEntity extends CustomerEntity {
   firstName: string;
   lastName: string;
   title: string | null;
-  dateOfBirth: string | null;
+  dateOfBirth: string /*DateTime*/ | null;
   corrupt: boolean;
 }
 
