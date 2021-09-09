@@ -56,13 +56,13 @@ namespace Southwind.Terminal
                 e.ReportsTo,
                 employee = new EmployeeEntity
                 {
-                    BirthDate = e.BirthDate == null ? null : e.BirthDate.Value.ToDate(),
+                    BirthDate = e.BirthDate.ToDateOnly(),
                     FirstName = e.FirstName,
                     LastName = e.LastName,
                     TitleOfCourtesy = e.TitleOfCourtesy,
                     HomePhone = e.HomePhone,
                     Extension = e.Extension,
-                    HireDate = e.HireDate == null ? null : e.HireDate!.Value.ToDate(),
+                    HireDate = e.HireDate.ToDateOnly(),
                     Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),
                     PhotoPath = e.PhotoPath,
                     Address = new AddressEmbedded
