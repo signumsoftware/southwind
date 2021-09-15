@@ -4,6 +4,8 @@ import { CategoryEntity, ProductEntity, CatalogMessage } from './Southwind/South
 import { useAPI } from '../../Framework/Signum.React/Scripts/Hooks'
 import { Lite } from '@framework/Signum.Entities'
 import { toNumberFormat } from '@framework/Reflection'
+import * as AppContext from '@framework/AppContext'
+import { RegisterUserMessage } from './Public/Southwind.Entities.Public'
 
 export interface CategoryWithProducts {
   category: Lite<CategoryEntity>;
@@ -25,6 +27,7 @@ export default function PublicCatalog() {
     <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background.jpg") + ")", backgroundRepeat: "no-repeat", backgroundAttachment: "fixed" }}>
       <div className="d-flex flex-column align-items-center position-relative">
           <h1 className="white mt-4">Southwind Product Catalog</h1>
+          <a href={AppContext.toAbsoluteUrl("~/registerUser")} className="btn btn-primary">{RegisterUserMessage.Register.niceToString()}</a>
         {categories && categories.map(c =>
           <div key={c.category.id} className="card shadow container m-4">
             <div className="card-body">

@@ -72,6 +72,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Http;
 using Signum.Engine.Rest;
+using Southwind.Entities.Public;
 
 namespace Southwind.React
 {
@@ -331,6 +332,8 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 new ReactSpecialOmniboxGenerator()
                 //new HelpModuleOmniboxResultGenerator(),
                 );//Omnibox
+
+            ReflectionServer.RegisterLike(typeof(RegisterUserModel), () => true);
 
             SignumCultureSelectorFilter.GetCurrentCulture = (ctx) => GetCulture(ctx);
         }
