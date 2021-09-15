@@ -74,7 +74,7 @@ namespace Southwind.Entities
     {
         public static TypeConditionSymbol UserEntities;
         public static TypeConditionSymbol RoleEntities;
-        public static TypeConditionSymbol CurrentCustomer;
+        public static TypeConditionSymbol CurrentEmployee;
     }
 
     [Serializable]

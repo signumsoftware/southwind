@@ -19,13 +19,6 @@ namespace Southwind.Entities
 
         [StringLengthValidator(Min = 3, Max = 24), TelephoneValidator]
         public string? Fax { get; set; }
-
-        public static readonly SessionVariable<CustomerEntity> CurrentCustomerVariable = Statics.SessionVariable<CustomerEntity>("Customer");
-        public static CustomerEntity Current
-        {
-            get { return CurrentCustomerVariable.Value; }
-            set { CurrentCustomerVariable.Value = value; }
-        }
     }
 
 
