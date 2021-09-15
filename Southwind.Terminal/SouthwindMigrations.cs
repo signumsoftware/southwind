@@ -168,7 +168,7 @@ namespace Southwind.Terminal
                         Azure_ClientSecret = null,
                         LoginWithActiveDirectoryRegistry = false,
                         LoginWithWindowsAuthenticator = false,
-                        LoginWithAzureAD = true,
+                        LoginWithAzureAD = false,
                         AllowMatchUsersBySimpleUserName = true,
                         AutoCreateUsers = true,
                         AutoUpdateUsers = true,

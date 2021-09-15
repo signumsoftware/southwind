@@ -22,7 +22,7 @@ namespace Southwind.Test.Logic
         {
             
 
-            using (AuthLogic.UnsafeUserSession("Normal"))
+            using (AuthLogic.UnsafeUserSession("Standard"))
             {
                 using (Transaction tr = Transaction.Test()) // Transaction.Test avoids nested ForceNew transactions to be independent
                 {

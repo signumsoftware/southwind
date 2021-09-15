@@ -47,21 +47,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.2.4">
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.4.2">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
-		<PackageReference Include="Signum.Analyzer" Version="2.7.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+		<PackageReference Include="Signum.Analyzer" Version="3.1.0" />
 		<PackageReference Include="Signum.TSGenerator" Version="5.0.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
-    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.6.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Extensions\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
-		<ProjectReference Include="..\Extensions\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
-		<ProjectReference Include="..\Extensions\Signum.React.Extensions\Signum.React.Extensions.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
+		<ProjectReference Include="..\Framework\Signum.React.Extensions\Signum.React.Extensions.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Engine\Signum.Engine.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />
 		<ProjectReference Include="..\Framework\Signum.React\Signum.React.csproj" />

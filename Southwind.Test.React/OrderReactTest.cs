@@ -21,7 +21,7 @@ namespace Southwind.Test.React
         [Fact]
         public void OrderWebTestExample()
         {
-            Browse("Normal", b =>
+            Browse("Standard", b =>
             {
                 Lite<OrderEntity>? lite = null;
                 try
