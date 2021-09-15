@@ -18,10 +18,9 @@ import { FileEmbedded, FileEntity } from '@extensions/Files/Signum.Entities.File
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
 import ValueLineModal from '@framework/ValueLineModal'
 
-import * as QuickLinks from '../../../Framework/Signum.React/Scripts/QuickLinks';
-import * as AppContext from '../../../Framework/Signum.React/Scripts/AppContext';
+import * as QuickLinks from '@framework/QuickLinks';
+import * as AppContext from '@framework/AppContext';
 import { RegisterUserModel } from '../Public/Southwind.Entities.Public';
-
 import OrderFilter from './Templates/OrderFilter'
 
 import { ApplicationConfigurationEntity } from './Southwind.Entities'
@@ -50,7 +49,7 @@ export function start(options: { routes: JSX.Element[] }) {
     new QuickLinks.QuickLinkLink(RegisterUserModel.typeName, () => EmployeeEntity.niceName(), AppContext.toAbsoluteUrl("~/registerUser/" + ctx.lite.id), {
       icon: "user-plus",
       iconColor: "#93c54b"
-    }));
+    }));//QuickLink
 
   /* If no view is detected DynamicComponent creates one automatically*/
   //Navigator.addSettings(new EntitySettings(RegionEntity, r => import('./Templates/Region')));

@@ -33,7 +33,7 @@ export default function Layout() {
   React.useEffect(() => {
     AppContext.Expander.onGetExpanded = () => !sideMenuOpenRef.current;
     AppContext.Expander.onSetExpanded = (isExpanded: boolean) => setSideMenuOpen(!isExpanded);
-  }, []);
+  }, []); //Sidebar
 
   function resetUI() {
     setRefreshId(rID => rID + 1);
@@ -57,7 +57,14 @@ export default function Layout() {
       <div id="main" key={refreshId}>
         <div>
           <Navbar bg="light" expand="lg">
-            <Link to="~/" className="navbar-brand">Southwind</Link>
+            <Link to="~/" className="navbar-brand">
+              {/*SidebarButton*/
+                AuthClient.currentUser() != null &&
+                <button className="btn btn-link" onClick={handleToggle} style={{ marginTop: "-6px", marginLeft: "-12px" }}>
+                  <span className="navbar-toggler-icon" />
+                </button>
+              /*SidebarButton*/}
+              Southwind</Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               {AuthClient.currentUser() &&

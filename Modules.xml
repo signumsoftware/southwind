@@ -20,8 +20,7 @@
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.TypeAttributes&lt;OrderEntity>().Add(new SystemVersionedAttribute());"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" From="EmployeeLogic.Start(sb);" To="ShipperLogic.Start(sb);"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs"
-                  From="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);"
-                  To="TypeConditionLogic.Register&lt;CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);"/>
+                  Line="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindGroup.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="CacheLogic.CacheTable&lt;ShipperEntity>(sb);"/>
 
 
@@ -201,7 +200,10 @@
       <RemoveLine DependsOn="UserQuery" Path="Southwind.React\App\MainAdmin.tsx" Line="new UserQueryToolbarConfig(),"/>
       <RemoveLine DependsOn="Chart" Path="Southwind.React\App\MainAdmin.tsx" Line="new UserChartToolbarConfig(),"/>
       <RemoveLine DependsOn="Dashboard" Path="Southwind.React\App\MainAdmin.tsx" Line="new DashboardToolbarConfig(),"/>
-      <RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="const [sideMenuVisible] = React.useState(true);"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="const [sideMenuOpen, setSideMenuOpen] = React.useState(() => AuthClient.currentUser() != null &amp;&amp; window.outerWidth > 768 /*iPad*/);"
+                  To="}, []); //Sidebar"/>
+      <RemoveLine Path="Southwind.React\App\Layout.tsx" From="{/*SidebarButton*/"
+               To="/*SidebarButton*/}"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;SidebarContainer" To="&lt;/SidebarContainer>"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{/* Layout"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="Layout */}"/>
@@ -315,7 +317,7 @@
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="internal static void LoadUsers()" To="}//LoadUsers"/>
       <RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="user.SetMixin((UserEmployeeMixin e) => e.Employee, Database.Query&lt;EmployeeEntity>().SingleOrDefaultEx(e => e.FirstName == userName)?.ToLite());" DependsOn="ExampleEntities"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
-      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\Southwind.Terminal\AuthRules.xml&quot;);"/>
+      <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\..\Southwind.Terminal\AuthRules.xml&quot;);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
       <RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();"/>
     </Module>
@@ -418,7 +420,35 @@
     </Module>
 
     <Module Name="PublicCatalog" DependsOn="ExampleEntities,Translation,Cache,Files">
-      <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
+      <RemoveFiles Path="Southwind.Entities\Public\RegisterUser.cs"/>
+      <RemoveFiles Path="Southwind.React\App\Public\PublicClient.tsx"/>
+      <RemoveFiles Path="Southwind.React\App\Public\PublicController.cs"/>
+      <RemoveFiles Path="Southwind.React\App\Public\Southwind.Entities.Public.t4s"/>
+      <RemoveFiles Path="Southwind.React\App\Public\Southwind.Entities.Public.ts"/>
+      <RemoveFiles Path="Southwind.React\App\Public\Templates\RegisterUser.tsx"/>
+	  <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
+                  From="import * as QuickLinks from '@framework/QuickLinks';"
+				            To="import { RegisterUserModel } from '../Public/Southwind.Entities.Public';"/>
+				  
+	  <RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
+                  From="QuickLinks.registerQuickLink(EmployeeEntity, ctx =>"
+				  To="}));//QuickLink"/>
+
+	  <RemoveLine Path="Southwind.React\App\MainPublic.tsx"
+                  Line="import * as PublicClient from './Public/PublicClient'"
+				  />
+				  
+	  <RemoveLine Path="Southwind.React\App\MainPublic.tsx"
+                  Line="PublicClient.start({ routes });"
+				  />
+	  <RemoveLine Path="Southwind.React/Startup.cs"
+                  Line="using Southwind.Entities.Public;"
+				  />
+				  
+	  <RemoveLine Path="Southwind.React/Startup.cs" Line="ReflectionServer.RegisterLike(typeof(RegisterUserModel), () => true);" />
+	  
+	  
+	  <RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
       <RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
       <RemoveFiles Path="Southwind.React\App\PublicCatalog.tsx"/>
       <RemoveLine Path="Southwind.React\App\Layout.tsx" Line="&lt;LinkContainer to=&quot;~/publicCatalog&quot;>&lt;NavDropdown.Item>Catalog&lt;/NavDropdown.Item>&lt;/LinkContainer>"/>
@@ -488,9 +518,9 @@
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
-      <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.5.0&quot; />"/>
-      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.5.0&quot; />"/>
-      "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Extensions\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj&quot; />"/>
+      <RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.6.0&quot; />"/>
+      <RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.6.0&quot; />"/>
+      "     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj&quot; />"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.TensorFlow;"/>
       <RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(PredictorEntity)"/>
       <RemoveLine Path="Southwind.Logic\Starter.cs"
@@ -506,7 +536,7 @@
       <RemoveFiles DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\SalesEstimation.tsx"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Product.tsx" Line="{!ctx.value.isNew &amp;&amp; &lt;SalesEstimation ctx={ctx} />}"/>
-      <RemoveProjectReference Path="Extensions\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj"/>
+      <RemoveProjectReference Path="Framework\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj"/>
       <RemoveLine Path="Southwind.React\Startup.cs" Line="PredictorServer.Start(app);"/>
     </Module>
 
@@ -572,7 +602,7 @@
     <Module Name="Test.React" DependsOn="Test.Environment">
       <RemoveFiles Path="Southwind.Test.React"/>
       <RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.React\OrderReactTest.cs" From="[Fact]" To="}//OrderReactTestExample"/>
-      <RemoveProjectReference Path="Extensions\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj"/>
+      <RemoveProjectReference Path="Framework\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj"/>
     </Module>
   </Modules>
 
