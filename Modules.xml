@@ -335,9 +335,8 @@
       <RemoveLine Path="Southwind.React\Views\Home\Index.cshtml"
                   From="var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);"
                   To="var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);"/>
-      <RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs"
-                  Line="var standadUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard User&quot;).ToLite();"
-                    />
+      <RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard User&quot;).ToLite();" />
+      <RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard User&quot;).ToLite();" />
       <RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
       <RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
     </Module>
