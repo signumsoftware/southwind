@@ -14,13 +14,26 @@ import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { OmniboxPermission } from '@extensions/Omnibox/Signum.Entities.Omnibox'
 import { JavascriptMessage } from '@framework/Signum.Entities'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useUpdatedRef } from '../../Framework/Signum.React/Scripts/Hooks'
 
 const WorkflowDropdown = React.lazy(() => import("@extensions/Workflow/Workflow/WorkflowDropdown"));
 const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Templates/ToolbarRenderer"));
 
 export default function Layout() {
   const [refreshId, setRefreshId] = React.useState(0);
-  const [sideMenuVisible] = React.useState(true);
+  const [sideMenuOpen, setSideMenuOpen] = React.useState(() => AuthClient.currentUser() != null && window.outerWidth > 768 /*iPad*/);
+  const sideMenuOpenRef = useUpdatedRef(sideMenuOpen);
+
+  function handleToggle(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    setSideMenuOpen(!sideMenuOpen);
+  }
+
+  React.useEffect(() => {
+    AppContext.Expander.onGetExpanded = () => !sideMenuOpenRef.current;
+    AppContext.Expander.onSetExpanded = (isExpanded: boolean) => setSideMenuOpen(!isExpanded);
+  }, []);
 
   function resetUI() {
     setRefreshId(rID => rID + 1);
@@ -52,6 +65,7 @@ export default function Layout() {
                   {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <div className="omnibox-container" style={{ width: "200px" }}>
                     <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
                   </div>}
+                {/*
                   <NavDropdown title="Menu" id="layoutMenu">
                     <LinkContainer to="~/" exact={true}><NavDropdown.Item>Home</NavDropdown.Item></LinkContainer>
                     <LinkContainer to="~/publicCatalog"><NavDropdown.Item>Catalog</NavDropdown.Item></LinkContainer>
@@ -59,6 +73,7 @@ export default function Layout() {
                     <LinkContainer to="~/find/order"><NavDropdown.Item>Orders</NavDropdown.Item></LinkContainer>
                     <LinkContainer to="~/find/exception"><NavDropdown.Item>Exceptions</NavDropdown.Item></LinkContainer>
                   </NavDropdown>
+                */}
                   {AuthClient.currentUser() && <React.Suspense fallback={null}><WorkflowDropdown /></React.Suspense>}
                 </Nav>}
               {AuthClient.currentUser() && <React.Suspense fallback={null}><ToolbarRenderer location="Top" /></React.Suspense>}
@@ -76,7 +91,7 @@ export default function Layout() {
         <Notify />
         <div id="main-container">
           <SidebarContainer
-            sidebarVisible={AuthClient.currentUser() && sideMenuVisible}
+            sidebarVisible={AuthClient.currentUser() && sideMenuOpen}
             sidebarContent={<React.Suspense fallback={null}><ToolbarRenderer location="Side" /></React.Suspense>}>
             <VersionChangedAlert />
             {Layout.switch}

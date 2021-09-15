@@ -1,4 +1,4 @@
-import "../node_modules/bootstrap/dist/css/bootstrap.css"
+import "./SCSS/custom.scss";
 import "../node_modules/react-widgets/scss/styles.scss"
 import "./site.css"
 import "@framework/Frames/Frames.css"
