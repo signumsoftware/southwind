@@ -26,8 +26,7 @@ export default function Person(p : { ctx: TypeContext<PersonEntity> }){
       <h2>{OrderEntity.nicePluralName()}</h2>
       <SearchControl findOptions={{
         queryName: OrderEntity,
-        parentToken: "Customer",
-        parentValue: ctx.value
+        filterOptions: [{ token: "Customer", value: ctx.value}] 
       }} showSimpleFilterBuilder={false} />
     </div>
   );
