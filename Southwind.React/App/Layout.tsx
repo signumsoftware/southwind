@@ -85,7 +85,7 @@ export default function Layout() {
                 </Nav>}
               {AuthClient.currentUser() && <React.Suspense fallback={null}><ToolbarRenderer location="Top" /></React.Suspense>}
               <Nav className="ml-auto">
-                <VersionInfo />
+                <VersionInfo extraInformation={(window as any).__serverName} />
                 <Nav.Item> {/*Swagger*/}
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
                 </Nav.Item> {/*Swagger*/}

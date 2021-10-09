@@ -2,6 +2,8 @@
 @using System.IO;
 @using Newtonsoft.Json.Linq;
 @using Southwind.Logic;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @{
@@ -225,6 +227,7 @@
             })();
         }
 
+        var __serverName = @Json.Serialize(Configuration.GetValue<string>("ServerName", "none"));
         var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);
         var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);
     </script>
