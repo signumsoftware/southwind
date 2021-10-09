@@ -34,3 +34,4 @@ Upgrade_20210824_UpdateNugets
 Upgrade_20210828_ExtensionsLoveFramework
 Upgrade_20210829_TypeScript44
 Upgrade_20210908_BlueGreenDeployments
+Upgrade_20210916_UpdateNugets
