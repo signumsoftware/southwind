@@ -211,12 +211,7 @@ namespace Southwind.Logic
 
                 StartSouthwindConfiguration(sb);
 
-                TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.UserEntities, o => o.Employee == EmployeeEntity.Current);
-                TypeConditionLogic.Register<EmployeeEntity>(SouthwindGroup.UserEntities, e => EmployeeEntity.Current.Is(e));
-
-                TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentCustomer, o => o.Customer == CustomerEntity.Current);
-                TypeConditionLogic.Register<PersonEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
-                TypeConditionLogic.Register<CompanyEntity>(SouthwindGroup.CurrentCustomer, o => o == CustomerEntity.Current);
+                TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));
 
                 if (includeDynamic)//2
                 {

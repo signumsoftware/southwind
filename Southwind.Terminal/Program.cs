@@ -87,11 +87,11 @@ namespace Southwind.Terminal
                     {
                         Action? action = new ConsoleSwitch<string, Action>
                         {
-                            {"N", NewDatabase},
+                            {"N", Administrator.NewDatabase},
                             {"G", CodeGenerator.GenerateCodeConsole },
                             {"SQL", SqlMigrationRunner.SqlMigrations},
                             {"CS", () => SouthwindMigrations.CSharpMigrations(false), "C# Migrations"},
-                            {"S", Synchronize},
+                            {"S", Administrator.Synchronize},
                             {"L", () => Load(null), "Load"},
                         }.Choose();
 
@@ -138,42 +138,9 @@ namespace Southwind.Terminal
             }
         }
 
-        public static void NewDatabase()
-        {
-            var databaseName = Connector.Current.DatabaseName();
-            if (Connector.Current.HasTables())
-            {
-                SafeConsole.WriteLineColor(ConsoleColor.Red, $"Are you sure you want to delete all the data in the database '{databaseName}'?");
-                Console.Write($"Confirm by writing the name of the database:");
-                string val = Console.ReadLine()!;
-                if (val.ToLower() != databaseName.ToLower())
-                {
-                    Console.WriteLine($"Wrong name. No changes where made");
-                    Console.WriteLine();
-                    return;
-                }
-            }
 
-            Console.Write("Creating new database...");
-            Administrator.TotalGeneration();
-            Console.WriteLine("Done.");
-        }
 
-        static void Synchronize()
-        {
-            Console.WriteLine("Check and Modify the synchronization script before");
-            Console.WriteLine("executing it in SQL Server Management Studio: ");
-            Console.WriteLine();
 
-            SqlPreCommand? command = Administrator.TotalSynchronizeScript();
-            if (command == null)
-            {
-                SafeConsole.WriteLineColor(ConsoleColor.Green, "Already synchronized!");
-                return;
-            }
-
-            command.OpenSqlFileRetry();
-        }
 
         static void ShowOrder()
         {

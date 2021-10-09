@@ -24,7 +24,7 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
 
   function handleViewClick(e: React.MouseEvent<any>) {
     e.preventDefault();
-    Finder.exploreWindowsOpen({ queryName: PredictorEntity, parentToken: "Entity.Publication", parentValue: ProductPredictorPublication.MonthlySales }, e);
+    Finder.exploreWindowsOpen({ queryName: PredictorEntity, filterOptions: [{ token: "Entity.Publication", value: ProductPredictorPublication.MonthlySales }] }, e);
   }
 
   const estimation = useAPI(signal => ajaxPost<number>({ url: "~/api/salesEstimation", signal }, toLite(ctx.value)), [ctx.value.id]);

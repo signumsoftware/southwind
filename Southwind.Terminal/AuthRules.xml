@@ -2,27 +2,28 @@
 <Auth>
   <Roles>
     <Role Name="Anonymous" Contains="" />
-    <Role Name="Super user" MergeStrategy="Intersection" Contains="" />
     <Role Name="Standard user" Contains="" />
+    <Role Name="Super user" MergeStrategy="Intersection" Contains="" />
     <Role Name="Advanced user" Contains="Standard user" />
   </Roles>
   <Operations>
     <Role Name="Anonymous" />
-    <Role Name="Super user" />
     <Role Name="Standard user" />
+    <Role Name="Super user" />
     <Role Name="Advanced user" />
   </Operations>
   <Permissions>
     <Role Name="Anonymous" />
-    <Role Name="Super user" />
     <Role Name="Standard user">
       <Permission Resource="BasicPermission.AutomaticUpgradeOfOperations" Allowed="True" />
+      <Permission Resource="BasicPermission.AutomaticUpgradeOfProperties" Allowed="True" />
       <Permission Resource="BasicPermission.AutomaticUpgradeOfQueries" Allowed="True" />
       <Permission Resource="ChartPermission.ViewCharting" Allowed="True" />
       <Permission Resource="DashboardPermission.ViewDashboard" Allowed="True" />
       <Permission Resource="HelpPermissions.ViewHelp" Allowed="True" />
       <Permission Resource="WordTemplatePermission.GenerateReport" Allowed="True" />
     </Role>
+    <Role Name="Super user" />
     <Role Name="Advanced user" />
   </Permissions>
   <Properties>
@@ -34,7 +35,6 @@
       <Property Resource="Category|Picture.BinaryFile" Allowed="Read" />
       <Property Resource="Category|Picture.FileName" Allowed="Read" />
       <Property Resource="CultureInfo|EnglishName" Allowed="Read" />
-      <Property Resource="CultureInfo|Hidden" Allowed="Read" />
       <Property Resource="CultureInfo|Id" Allowed="Read" />
       <Property Resource="CultureInfo|Name" Allowed="Read" />
       <Property Resource="CultureInfo|NativeName" Allowed="Read" />
@@ -57,14 +57,14 @@
       <Property Resource="Product|UnitsInStock" Allowed="Read" />
       <Property Resource="Product|ValueInStock" Allowed="Read" />
     </Role>
-    <Role Name="Super user" />
     <Role Name="Standard user" />
+    <Role Name="Super user" />
     <Role Name="Advanced user" />
   </Properties>
   <Queries>
     <Role Name="Anonymous" />
-    <Role Name="Super user" />
     <Role Name="Standard user" />
+    <Role Name="Super user" />
     <Role Name="Advanced user" />
   </Queries>
   <Types>
@@ -74,7 +74,6 @@
       <Type Resource="File" Allowed="Read" />
       <Type Resource="Product" Allowed="Read" />
     </Role>
-    <Role Name="Super user" />
     <Role Name="Standard user">
       <Type Resource="Alert" Allowed="Write" />
       <Type Resource="AlertType" Allowed="Read" />
@@ -86,6 +85,7 @@
       <Type Resource="CaseTagType" Allowed="Read" />
       <Type Resource="Category" Allowed="Read" />
       <Type Resource="ChartScript" Allowed="Read" />
+      <Type Resource="CombinedUserChartPart" Allowed="Read" />
       <Type Resource="Company" Allowed="Write" />
       <Type Resource="CultureInfo" Allowed="Read" />
       <Type Resource="Dashboard" Allowed="Read" />
@@ -125,6 +125,7 @@
       <Type Resource="WorkflowScriptRetryStrategy" Allowed="Read" />
       <Type Resource="WorkflowTimerCondition" Allowed="Read" />
     </Role>
+    <Role Name="Super user" />
     <Role Name="Advanced user">
       <Type Resource="AlertType" Allowed="Write" />
       <Type Resource="Category" Allowed="Write" />

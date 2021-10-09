@@ -1,0 +1,16 @@
+@import "./_variables";
+/*
+$primary: #155195;
+$secondary: #6b7a83;
+$success: #008a4f;
+$info: #87d7e0;
+$warning: #f5960e;
+$danger: #db6254;
+$light: #f1f2f3;
+$dark: #4b4d3b;
+$font-family-sans-serif: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$headings-font-weight: 600;
+*/
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "./_bootswatch";

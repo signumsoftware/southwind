@@ -30,22 +30,29 @@ export default function Home() {
     return null;
 
   return (
-    <div>
-      <br />
-      <div className="jumbotron">
-        <h1 className="display-4">Welcome to Signum React</h1>
-        <br />
-        <p className="lead">Southwind is a demo application from <a href="http://www.signumsoftware.com" title="Signum Software">Signum Software</a> based on Northwind database from Microsoft:</p>
-        <p>
-          To learn more about Signum Framework visit <a href="http://www.signumframework.com" title="Signum Framework">http://www.signumframework.com</a>.
-          </p>
-        <p> To be effective in Signum React you will also need to know:</p>
-        <ul>
-          <li><a href="http://www.typescriptlang.org/" title="Typescript">Typescript</a></li>
-          <li><a href="https://facebook.github.io/react">React</a></li>
-          <li><a href="http://getbootstrap.com/" title="Bootstrap">Bootstrap</a></li>
-          <li><a href="http://webpack.com/" title="Webpack">Webpack</a></li>
-        </ul>
+    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background.jpg") + ")", backgroundSize: "cover" }}>
+      <div className="hero-container">
+        <div style={{ background: "white", padding: "10px", boxShadow: "0px 4px 8px 0px rgb(0 0 0 / 75%)" }}>
+          <img src={AppContext.toAbsoluteUrl("~/logo.png")} />
+        </div>
+        <h1 className="white">Southwind</h1>
+        <h2 className="white">Demo application from <a href="http://www.signumsoftware.com" style={{ color: "#cae4ff" }} title="Signum Software">Signum Software</a> based on Northwind database from Microsoft</h2>
+        <div className="card shadow mt-3">
+          <div className="card-body">
+            <h5 className="card-title">New to Signum Framework?</h5>
+            <p className="card-text">Visit <a href="https://github.com/signumsoftware/docs" className="card-link">Signum Framework Docs</a> to learn more about Signum Framework itselfs and all the underlying technologies</p>
+            <div className="text-left">
+              <p>And don't forget to:</p>
+              <ul>
+                <li>Choose a different theme in <a href="https://bootswatch.com">Bootwatch.com</a> and replace <code>_bootswatch.scss</code> and <code>_variables.scss</code></li>
+                <li>Change favicon add it to <code>Index.cshtml</code> (consider <a href="https://www.favicon-generator.org/">favicon-generator</a>)</li>
+                <li>Change <code>wwwroot/background.jpg</code> and <code>wwwroot/logo.png</code></li>
+                <li>Remove/Change the footer in <code>Layout.tsx</code> and <code>site.css</code></li>
+                <li>Change the secret in <code>Startup.cs</code> (search for <code>AuthServer.Start</code>)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

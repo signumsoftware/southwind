@@ -1,4 +1,4 @@
-import "../node_modules/bootstrap/dist/css/bootstrap.css"
+import "./SCSS/custom.scss";
 import "../node_modules/react-widgets/scss/styles.scss"
 import "./site.css"
 import "@framework/Frames/Frames.css"
@@ -29,6 +29,7 @@ import NotFound from './NotFound'
 import LoginPage from '@extensions/Authorization/Login/LoginPage'
 import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'
 
+import * as PublicClient from './Public/PublicClient'
 
 import * as ConfigureReactWidgets from "@framework/ConfigureReactWidgets"
 import { VersionChangedAlert } from "@framework/Frames/VersionChangedAlert"
@@ -98,6 +99,7 @@ function reload() {
       routes.push(<Route exact path="~/" component={Home} />);
       routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
       AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });
+      PublicClient.start({ routes });
 
       const isFull = Boolean(AuthClient.currentUser()) && AuthClient.currentUser().userName != "Anonymous"; //true;
 
