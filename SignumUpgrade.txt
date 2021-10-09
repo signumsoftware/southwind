@@ -38,3 +38,4 @@ Upgrade_20210916_UpdateNugets
 Upgrade_20211009_MicrosoftDataSqlClient
 Upgrade_20211010_UpdateNugets
 Upgrade_20210924_RemoveParentTokenParentValue
+Upgrade_20210927_ReplaceRefreshKey
