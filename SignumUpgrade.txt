@@ -36,3 +36,4 @@ Upgrade_20210829_TypeScript44
 Upgrade_20210908_BlueGreenDeployments
 Upgrade_20210916_UpdateNugets
 Upgrade_20211009_MicrosoftDataSqlClient
+Upgrade_20211010_UpdateNugets
