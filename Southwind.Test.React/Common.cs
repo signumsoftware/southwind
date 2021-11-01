@@ -60,7 +60,7 @@ namespace Southwind.Test.React
             return SouthwindTestClass.BaseUrl + url;
         }
 
-        public SouthwindBrowser(RemoteWebDriver driver)
+        public SouthwindBrowser(WebDriver driver)
             : base(driver)
         {
         }

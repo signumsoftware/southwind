@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { AddressEmbedded } from '../Southwind.Entities'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
-import { useForceUpdate } from '../../../../Framework/Signum.React/Scripts/Hooks';
+import { ValueLine } from '@framework/Lines/ValueLine'
+import { TypeContext } from '@framework/TypeContext'
+import { useForceUpdate } from '@framework/Hooks';
 
 export default function Address(p : { ctx: TypeContext<AddressEmbedded> }){
   const ctx = p.ctx.subCtx({ formGroupStyle: "SrOnly", placeholderLabels: true });

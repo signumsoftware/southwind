@@ -24,7 +24,7 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
     forceUpdate();
 
     if (detail.product)
-      Navigator.API.fetchAndForget(detail.product)
+      Navigator.API.fetch(detail.product)
         .then(p => detail.unitPrice = p.unitPrice)
         .then(() => forceUpdate())
         .done();
