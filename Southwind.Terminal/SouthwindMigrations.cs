@@ -196,6 +196,11 @@ namespace Southwind.Terminal
 
         public static void ImportWordReportTemplateForOrder()
         {
+            var bytes = File.ReadAllBytes("../../../WordAssets.xml");
+            var preview = UserAssetsImporter.Preview(bytes);
+            using (UserHolder.UserSession(AuthLogic.SystemUser!))
+                UserAssetsImporter.Import(bytes, preview);
+
             new WordTemplateEntity
             {
                 Name = "Order template",

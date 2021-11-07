@@ -89,8 +89,8 @@
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="WordServer.Start(app);"/>
 			<RemoveLine DependsOn="ExampleEntities,Migrations" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportWordReportTemplateForOrder,"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void ImportWordReportTemplateForOrder()" To="}"/>
+			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Terminal\WordAssets.xml"/>
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Terminal\WordTemplates\Order.docx"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;UserChart Guid=&quot;23e47609-06b5-47f3-b086-59657f01adff&quot; DisplayName=&quot;Purchases by Category (WordTeplate)&quot; Query=&quot;Order&quot; EntityType=&quot;Order&quot; HideQuickLink=&quot;false&quot; Owner=&quot;User;1&quot; ChartScript=&quot;D3ChartScript.StackedLines&quot; MaxRows=&quot;1000&quot;>"  To="&lt;/UserChart>"/>
 		</Module>
 
 		<Module Name="Chart" DependsOn="Files">
