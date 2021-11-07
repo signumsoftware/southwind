@@ -87,7 +87,10 @@ export function startFull(routes: JSX.Element[]) {
   );
   RestClient.start({ routes });
 
-  DynamicClient.start({ routes });
+  /* LightDynamic
+  DynamicClient.start({ routes, withCodeGen: false });
+  LightDynamic */
+  DynamicClient.start({ routes, withCodeGen: true });
   DynamicExpressionClient.start({ routes });
   DynamicTypeClient.start({ routes });
   DynamicTypeConditionClient.start({ routes });

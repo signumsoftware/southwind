@@ -1,4 +1,4 @@
-﻿using Signum.Engine;
+using Signum.Engine;
 using Signum.Engine.Authorization;
 using Signum.Engine.Dynamic;
 using Signum.Engine.DynamicQuery;
@@ -21,7 +21,7 @@ namespace Southwind.Logic
     {
         public static void Start(SchemaBuilder sb)
         {
-            DynamicLogic.Start(sb);
+            DynamicLogic.Start(sb, withCodeGen: true);
             DynamicSqlMigrationLogic.Start(sb);
             DynamicValidationLogic.Start(sb);
             DynamicViewLogic.Start(sb);

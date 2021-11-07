@@ -113,6 +113,9 @@ namespace Southwind.Logic
 
                 CacheLogic.Start(sb, cacheInvalidator: sb.Settings.IsPostgres ? new PostgresCacheInvalidation() : null);
 
+                /* LightDynamic
+                   DynamicLogic.Start(sb, withCodeGen: false);
+                LightDynamic */
                 DynamicLogicStarter.Start(sb);
                 if (includeDynamic)//Dynamic
                 {
