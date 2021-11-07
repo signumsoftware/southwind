@@ -1,5 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Entities>
+	<UserChart Guid="23e47609-06b5-47f3-b086-59657f01adff" DisplayName="Purchases by Category (WordTeplate)" Query="Order" EntityType="Order" HideQuickLink="false" Owner="User;1" ChartScript="D3ChartScript.StackedLines" MaxRows="1000">
+		<Filters>
+			<Filter Indentation="0" Token="Customer" Operation="EqualTo" Value="[CurrentEntity].Customer" />
+			<Filter Indentation="0" Token="OrderDate" Operation="LessThanOrEqual" Value="[CurrentEntity].OrderDate" />
+		</Filters>
+		<Columns>
+			<Column Token="OrderDate.Year" OrderByIndex="1" OrderByType="Ascending" />
+			<Column Token="Entity.Details.Element.Product.Category.CategoryName" />
+			<Column Token="Entity.Details.Element.SubTotalPrice.Sum" />
+			<Column />
+			<Column />
+			<Column />
+			<Column />
+		</Columns>
+		<Parameters>
+			<Parameter Name="CompleteValues" Value="Auto" />
+			<Parameter Name="Horizontal Margin" Value="20" />
+			<Parameter Name="NumberOpacity" Value="0.8" />
+			<Parameter Name="NumberColor" Value="#fff" />
+			<Parameter Name="ColorCategory" Value="category10" />
+			<Parameter Name="ColorCategorySteps" Value="3" />
+			<Parameter Name="Order" Value="none" />
+			<Parameter Name="Stack" Value="zero" />
+			<Parameter Name="Interpolate" Value="linear" />
+		</Parameters>
+	</UserChart>
   <UserChart Guid="d681b3f5-a3a9-4228-93e9-e856f45d911a" DisplayName="Evolution By Employee" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.StackedLines">
     <Columns>
       <Column Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" />
