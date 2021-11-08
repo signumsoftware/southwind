@@ -20,7 +20,7 @@ namespace Southwind.Logic
     {
         [AutoExpressionField]
         public static IQueryable<TerritoryEntity> Territories(this RegionEntity r) =>
-            As.Expression(() => Database.Query<TerritoryEntity>().Where(a => a.Region == r));
+            As.Expression(() => Database.Query<TerritoryEntity>().Where(a => a.Region.Is(r)));
 
         public static void Start(SchemaBuilder sb)
         {
@@ -85,7 +85,7 @@ namespace Southwind.Logic
         public static List<Lite<EmployeeEntity>> TopEmployees(int num)
         {
             return (from e in Database.Query<EmployeeEntity>()
-                    orderby Database.Query<OrderEntity>().Count(a => a.Employee == e.ToLite())
+                    orderby Database.Query<OrderEntity>().Count(a => a.Employee.Is(e.ToLite()))
                     select e.ToLite()).Take(num).ToList();
         }
     }

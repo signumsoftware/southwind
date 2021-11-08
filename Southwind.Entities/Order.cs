@@ -235,9 +235,9 @@ namespace Southwind.Entities
 
         public Lite<EmployeeEntity>? Employee { get; set; }
 
-        public Date? MinOrderDate { get; set; }
+        public DateOnly? MinOrderDate { get; set; }
 
-        public Date? MaxOrderDate { get; set; }
+        public DateOnly? MaxOrderDate { get; set; }
     }
 
 

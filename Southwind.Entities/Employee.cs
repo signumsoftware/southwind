@@ -28,9 +28,9 @@ namespace Southwind.Entities
         [StringLengthValidator(Min = 3, Max = 25)]
         public string? TitleOfCourtesy { get; set; }
 
-        public Date? BirthDate { get; set; }
+        public DateOnly? BirthDate { get; set; }
 
-        public Date? HireDate { get; set; }
+        public DateOnly? HireDate { get; set; }
 
         public AddressEmbedded Address { get; set; }
 

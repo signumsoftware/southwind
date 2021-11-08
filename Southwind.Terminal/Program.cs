@@ -53,7 +53,8 @@ namespace Southwind.Terminal
                         .SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("appsettings.json")
                         .AddJsonFile($"appsettings.{env}.json", true)
-                        .AddUserSecrets<Program>().Build();
+                        .AddUserSecrets<Program>(optional: true)
+                        .Build();
                     
                     Starter.Start(
                         ConfigRoot.GetConnectionString("ConnectionString"),

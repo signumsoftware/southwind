@@ -47,7 +47,6 @@ namespace Southwind.Terminal
 
         public static void LoadEmployees()
         {
-
             var territoriesDic = Database.RetrieveAll<TerritoryEntity>().ToDictionary(a => a.Id);
 
 
@@ -57,13 +56,13 @@ namespace Southwind.Terminal
                 e.ReportsTo,
                 employee = new EmployeeEntity
                 {
-                    BirthDate = (Date?)e.BirthDate,
+                    BirthDate = e.BirthDate.ToDateOnly(),
                     FirstName = e.FirstName,
                     LastName = e.LastName,
                     TitleOfCourtesy = e.TitleOfCourtesy,
                     HomePhone = e.HomePhone,
                     Extension = e.Extension,
-                    HireDate = (Date?)e.HireDate,
+                    HireDate = e.HireDate.ToDateOnly(),
                     Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),
                     PhotoPath = e.PhotoPath,
                     Address = new AddressEmbedded
