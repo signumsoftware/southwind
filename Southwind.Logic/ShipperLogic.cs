@@ -1,23 +1,22 @@
 ﻿using Southwind.Entities;
 
-namespace Southwind.Logic
+namespace Southwind.Logic;
+
+public static class ShipperLogic
 {
-    public static class ShipperLogic
+    public static void Start(SchemaBuilder sb)
     {
-        public static void Start(SchemaBuilder sb)
+        if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
         {
-            if (sb.NotDefined(MethodInfo.GetCurrentMethod()))
-            {
-                sb.Include<ShipperEntity>()
-                    .WithSave(ShipperOperation.Save)
-                    .WithQuery(() => a => new
-                    {
-                        Entity = a,
-                        a.Id,
-                        a.CompanyName,
-                        a.Phone
-                    });
-            }
+            sb.Include<ShipperEntity>()
+                .WithSave(ShipperOperation.Save)
+                .WithQuery(() => a => new
+                {
+                    Entity = a,
+                    a.Id,
+                    a.CompanyName,
+                    a.Phone
+                });
         }
     }
 }

@@ -8,66 +8,65 @@ using OpenQA.Selenium.Remote;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace Southwind.Test.React
+namespace Southwind.Test.React;
+
+public class SouthwindTestClass
 {
-    public class SouthwindTestClass
+    public static string BaseUrl { get; private set; }
+
+    static SouthwindTestClass()
     {
-        public static string BaseUrl { get; private set; }
+        var config = new ConfigurationBuilder()
+             .SetBasePath(Directory.GetCurrentDirectory())
+             .AddJsonFile("appsettings.json")
+             .AddJsonFile($"appsettings.{System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
+             .AddUserSecrets(typeof(SouthwindTestClass).Assembly)
+             .Build();
 
-        static SouthwindTestClass()
-        {
-            var config = new ConfigurationBuilder()
-                 .SetBasePath(Directory.GetCurrentDirectory())
-                 .AddJsonFile("appsettings.json")
-                 .AddJsonFile($"appsettings.{System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
-                 .AddUserSecrets(typeof(SouthwindTestClass).Assembly)
-                 .Build();
-
-            BaseUrl = config["Url"];
-        }
-
-        public static void Browse(string username, Action<SouthwindBrowser> action)
-        {
-            var selenium = new ChromeDriver("../../../");
-
-            var browser = new SouthwindBrowser(selenium);
-            try
-            {
-                browser.Login(username, username);
-                action(browser);
-            }
-            catch (UnhandledAlertException)
-            {
-                selenium.SwitchTo().Alert();
-
-            }
-            finally
-            {
-                selenium.Close();
-            }
-        }
+        BaseUrl = config["Url"];
     }
 
-    public class SouthwindBrowser : BrowserProxy
+    public static void Browse(string username, Action<SouthwindBrowser> action)
     {
-        public override string Url(string url)
+        var selenium = new ChromeDriver("../../../");
+
+        var browser = new SouthwindBrowser(selenium);
+        try
         {
-            return SouthwindTestClass.BaseUrl + url;
+            browser.Login(username, username);
+            action(browser);
         }
-
-        public SouthwindBrowser(WebDriver driver)
-            : base(driver)
+        catch (UnhandledAlertException)
         {
-        }
+            selenium.SwitchTo().Alert();
 
-        public override void Login(string username, string password)
+        }
+        finally
         {
-            base.Login(username, password);
-
-            string culture = Selenium.FindElement(By.Id("languageSelector")).SelectElement().SelectedOption.GetAttribute("value");
-
-            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+            selenium.Close();
         }
-
     }
+}
+
+public class SouthwindBrowser : BrowserProxy
+{
+    public override string Url(string url)
+    {
+        return SouthwindTestClass.BaseUrl + url;
+    }
+
+    public SouthwindBrowser(WebDriver driver)
+        : base(driver)
+    {
+    }
+
+    public override void Login(string username, string password)
+    {
+        base.Login(username, password);
+
+        string culture = Selenium.FindElement(By.Id("languageSelector")).SelectElement().SelectedOption.GetAttribute("value");
+
+        Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+    }
+
 }

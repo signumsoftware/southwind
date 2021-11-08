@@ -63,78 +63,78 @@ using Microsoft.AspNetCore.Http;
 using Signum.Engine.Rest;
 using Southwind.Entities.Public;
 
-namespace Southwind.React
+namespace Southwind.React;
+
+public class ErrorResponsesOperationFilter : IOperationFilter
 {
-    public class ErrorResponsesOperationFilter : IOperationFilter
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
-        public void Apply(OpenApiOperation operation, OperationFilterContext context)
+        var authAttributes = context.MethodInfo.DeclaringType!.GetCustomAttributes(true)
+             .Union(context.MethodInfo.GetCustomAttributes(true))
+             .OfType<AllowAnonymousAttribute>();
+
+        AddError(HttpStatusCode.BadRequest);
+        if (!authAttributes.Any())
+            AddError(HttpStatusCode.Unauthorized);
+        AddError(HttpStatusCode.Forbidden);
+        AddError(HttpStatusCode.InternalServerError);
+
+        void AddError(HttpStatusCode code)
         {
-            var authAttributes = context.MethodInfo.DeclaringType!.GetCustomAttributes(true)
-                 .Union(context.MethodInfo.GetCustomAttributes(true))
-                 .OfType<AllowAnonymousAttribute>();
-
-            AddError(HttpStatusCode.BadRequest);
-            if (!authAttributes.Any())
-                AddError(HttpStatusCode.Unauthorized);
-            AddError(HttpStatusCode.Forbidden);
-            AddError(HttpStatusCode.InternalServerError);
-
-            void AddError(HttpStatusCode code)
+            operation.Responses[((int)code).ToString()] = new OpenApiResponse
             {
-                operation.Responses[((int)code).ToString()] = new OpenApiResponse
+                Description = code.ToString(),
+                Content = new Dictionary<string, OpenApiMediaType>
                 {
-                    Description = code.ToString(),
-                    Content = new Dictionary<string, OpenApiMediaType>
+                    ["application/json"] = new OpenApiMediaType
                     {
-                        ["application/json"] = new OpenApiMediaType
-                        {
-                            Schema = context.SchemaGenerator.GenerateSchema(typeof(Signum.React.Filters.HttpError), context.SchemaRepository)
-                        }
+                        Schema = context.SchemaGenerator.GenerateSchema(typeof(Signum.React.Filters.HttpError), context.SchemaRepository)
                     }
-                };
-            }
+                }
+            };
         }
     }
+}
 
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-    public class IncludeInDocumentationAttribute : Attribute
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
+public class IncludeInDocumentationAttribute : Attribute
+{
+} //Swagger Attributes
+
+public class Startup
+{
+    public Startup(IConfiguration configuration)
     {
-    } //Swagger Attributes
+        Configuration = configuration;
+    }
 
-    public class Startup
+    public IConfiguration Configuration { get; }
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        services.AddResponseCompression();
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddResponseCompression();
-
-            services
-                .AddMvc(options => options.AddSignumGlobalFilters())
-                .AddApplicationPart(typeof(SignumServer).Assembly)
-                .AddApplicationPart(typeof(AuthServer).Assembly)
-                .AddJsonOptions(options => options.AddSignumJsonConverters())
-                .ConfigureApplicationPartManager(apm =>
-                {
-                    apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
-                });
-            services.AddSignumValidation();
-            services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
-
-            //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
-            services.AddSwaggerGen(c =>
+        services
+            .AddMvc(options => options.AddSignumGlobalFilters())
+            .AddApplicationPart(typeof(SignumServer).Assembly)
+            .AddApplicationPart(typeof(AuthServer).Assembly)
+            .AddJsonOptions(options => options.AddSignumJsonConverters())
+            .ConfigureApplicationPartManager(apm =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Southwind API",
-                    Version = "v1",
-                    Description = @"Welcome to the Southwind API, which allows you to seamlessly integrate Southwind with your application.
+                apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
+            });
+        services.AddSignumValidation();
+        services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
+
+        //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "Southwind API",
+                Version = "v1",
+                Description = @"Welcome to the Southwind API, which allows you to seamlessly integrate Southwind with your application.
 
 ### <a name=""authentication""></a> Authentication
 This API is secured by an API Key.The API Key has either to be sent in the `X-ApiKey` HTTP Header:
@@ -149,203 +149,202 @@ or as the `apiKey` query parameter:
 ```
 GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 ```",
-                });
+            });
 
-                string headerName = RestApiKeyLogic.ApiKeyHeader;
+            string headerName = RestApiKeyLogic.ApiKeyHeader;
 
-                c.AddSecurityDefinition(headerName, new OpenApiSecurityScheme
+            c.AddSecurityDefinition(headerName, new OpenApiSecurityScheme
+            {
+                Description = $"Api key needed to access the endpoints. {headerName}: My_API_Key",
+                In = ParameterLocation.Header,
+                Name = headerName,
+                Type = SecuritySchemeType.ApiKey
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
                 {
-                    Description = $"Api key needed to access the endpoints. {headerName}: My_API_Key",
-                    In = ParameterLocation.Header,
-                    Name = headerName,
-                    Type = SecuritySchemeType.ApiKey
-                });
-
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
+                    new OpenApiSecurityScheme
                     {
-                        new OpenApiSecurityScheme
+                        Name = headerName,
+                        Type = SecuritySchemeType.ApiKey,
+                        In = ParameterLocation.Header,
+                        Reference = new OpenApiReference
                         {
-                            Name = headerName,
-                            Type = SecuritySchemeType.ApiKey,
-                            In = ParameterLocation.Header,
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = headerName
-                            },
-                         },
-                         new string[] {}
-                     }
-                });
+                            Type = ReferenceType.SecurityScheme,
+                            Id = headerName
+                        },
+                     },
+                     new string[] {}
+                 }
+            });
 
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath);
 
-                c.DocInclusionPredicate((docName, apiDesc) => apiDesc.TryGetMethodInfo(out var mi) && mi.DeclaringType!.HasAttribute<IncludeInDocumentationAttribute>());
-                c.OperationFilter<ErrorResponsesOperationFilter>();
-            }); //Swagger Services
+            c.DocInclusionPredicate((docName, apiDesc) => apiDesc.TryGetMethodInfo(out var mi) && mi.DeclaringType!.HasAttribute<IncludeInDocumentationAttribute>());
+            c.OperationFilter<ErrorResponsesOperationFilter>();
+        }); //Swagger Services
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
+    {
+        app.UseDeveloperExceptionPage();
+
+        app.UseStaticFiles();
+
+        //HeavyProfiler.Enabled = true;
+        using (HeavyProfiler.Log("Startup"))
+        using (var log = HeavyProfiler.Log("Initial"))
+        {
+            DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
+
+            Starter.Start(
+                Configuration.GetConnectionString("ConnectionString"),
+                Configuration.GetValue<bool>("IsPostgres"),
+                Configuration.GetConnectionString("AzureStorageConnectionString"), 
+                detectSqlVersion: false);
+
+            Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
+
+            log.Switch("WebStart");
+            WebStart(app, env, lifetime);
+
+            log.Switch("UseEndpoints");
+
+            //Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
+            });//Swagger Configure
+
+            app.UseWhen(req => req.Request.Path.StartsWithSegments("/api/reflection/types"), builder =>
+            {
+                builder.UseResponseCompression();
+            });
+
+            app.UseRouting();
+            app.UseEndpoints(routes =>
+            {
+                routes.MapControllers();
+                routes.MapControllerRoute(
+                    name: "spa-fallback",
+                    pattern: "{*url}",
+                    constraints: new { url = new NoAPIContraint() },
+                    defaults: new { controller = "Home", action = "Index" });
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
+        SignumInitializeFilterAttribute.InitializeDatabase = () =>
         {
-            app.UseDeveloperExceptionPage();
-
-            app.UseStaticFiles();
-
-            //HeavyProfiler.Enabled = true;
             using (HeavyProfiler.Log("Startup"))
             using (var log = HeavyProfiler.Log("Initial"))
             {
-                DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
+                log.Switch("Initialize");
+                using (AuthLogic.Disable())
+                    Schema.Current.Initialize();
 
-                Starter.Start(
-                    Configuration.GetConnectionString("ConnectionString"),
-                    Configuration.GetValue<bool>("IsPostgres"),
-                    Configuration.GetConnectionString("AzureStorageConnectionString"), 
-                    detectSqlVersion: false);
-
-                Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
-
-                log.Switch("WebStart");
-                WebStart(app, env, lifetime);
-
-                log.Switch("UseEndpoints");
-
-                //Enable middleware to serve generated Swagger as a JSON endpoint.
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
+                if (Configuration.GetValue<bool>("StartBackgroundProcesses"))
                 {
-                    c.SwaggerEndpoint("../swagger/v1/swagger.json", "Southwind API");
-                });//Swagger Configure
+                    log.Switch("StartRunningProcesses");
+                    ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
 
-                app.UseWhen(req => req.Request.Path.StartsWithSegments("/api/reflection/types"), builder =>
-                {
-                    builder.UseResponseCompression();
-                });
+                    log.Switch("StartScheduledTasks");
+                    SchedulerLogic.StartScheduledTasks();
 
-                app.UseRouting();
-                app.UseEndpoints(routes =>
-                {
-                    routes.MapControllers();
-                    routes.MapControllerRoute(
-                        name: "spa-fallback",
-                        pattern: "{*url}",
-                        constraints: new { url = new NoAPIContraint() },
-                        defaults: new { controller = "Home", action = "Index" });
-                });
-            }
-
-            SignumInitializeFilterAttribute.InitializeDatabase = () =>
-            {
-                using (HeavyProfiler.Log("Startup"))
-                using (var log = HeavyProfiler.Log("Initial"))
-                {
-                    log.Switch("Initialize");
-                    using (AuthLogic.Disable())
-                        Schema.Current.Initialize();
-
-                    if (Configuration.GetValue<bool>("StartBackgroundProcesses"))
-                    {
-                        log.Switch("StartRunningProcesses");
-                        ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
-
-                        log.Switch("StartScheduledTasks");
-                        SchedulerLogic.StartScheduledTasks();
-
-                        log.Switch("StartRunningEmailSenderAsync");
-                        AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
-                    }
-
-                    SystemEventServer.LogStartStop(app, lifetime);
-                    
+                    log.Switch("StartRunningEmailSenderAsync");
+                    AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
                 }
-            };
-        }
 
-        class NoAPIContraint : IRouteConstraint
-        {
-            public bool Match(HttpContext? httpContext, IRouter? route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
-            {
-                var url = (string?)values[routeKey];
-
-                if (url != null && url.StartsWith("api/"))
-                    return false;
-
-                return true;
+                SystemEventServer.LogStartStop(app, lifetime);
+                
             }
-        }
+        };
+    }
 
-        public static void WebStart(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
+    class NoAPIContraint : IRouteConstraint
+    {
+        public bool Match(HttpContext? httpContext, IRouter? route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
         {
-            SignumServer.Start(app, env, typeof(Startup).Assembly);
+            var url = (string?)values[routeKey];
 
-            AuthServer.Start(app, () => Starter.Configuration.Value.AuthTokens, "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!");
-            CacheServer.Start(app);
-            FilesServer.Start(app);
-            UserQueryServer.Start(app);
-            DashboardServer.Start(app);
-            WordServer.Start(app);
-            ExcelServer.Start(app);
-            ChartServer.Start(app);
-            MapServer.Start(app);
-            ToolbarServer.Start(app);
-            TranslationServer.Start(app,
-                new AlreadyTranslatedTranslator(),
-                new AzureTranslator(
-                    () => Starter.Configuration.Value.Translation.AzureCognitiveServicesAPIKey,
-                    () => Starter.Configuration.Value.Translation.AzureCognitiveServicesRegion),
-                new DeepLTranslator(() => Starter.Configuration.Value.Translation.DeepLAPIKey)
-            ); //TranslationServer
-            SchedulerServer.Start(app, lifetime);
-            ProcessServer.Start(app);
-            MailingServer.Start(app);
-            ProfilerServer.Start(app);
-            DiffLogServer.Start(app);
-            RestServer.Start(app);
-            RestLogServer.Start(app);
-            PredictorServer.Start(app);
-            WorkflowServer.Start(app);
-            DynamicServer.Start(app);
+            if (url != null && url.StartsWith("api/"))
+                return false;
 
-            OmniboxServer.Start(app,
-                new EntityOmniboxResultGenenerator(),
-                new DynamicQueryOmniboxResultGenerator(),
-                new ChartOmniboxResultGenerator(),
-                new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
-                new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
-                new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),
-                new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
-                new ReactSpecialOmniboxGenerator()
-                //new HelpModuleOmniboxResultGenerator(),
-                );//Omnibox
-
-            ReflectionServer.RegisterLike(typeof(RegisterUserModel), () => true);
-
-            SignumCultureSelectorFilter.GetCurrentCulture = (ctx) => GetCulture(ctx);
+            return true;
         }
+    }
 
-        static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
+    public static void WebStart(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
+    {
+        SignumServer.Start(app, env, typeof(Startup).Assembly);
 
-        private static CultureInfo GetCulture(ActionContext context)
-        {
-            // 1 cookie (temporary)
-            var lang = TranslationServer.ReadLanguageCookie(context);
-            if (lang != null)
-                return CultureInfo.GetCultureInfo(lang);
+        AuthServer.Start(app, () => Starter.Configuration.Value.AuthTokens, "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!");
+        CacheServer.Start(app);
+        FilesServer.Start(app);
+        UserQueryServer.Start(app);
+        DashboardServer.Start(app);
+        WordServer.Start(app);
+        ExcelServer.Start(app);
+        ChartServer.Start(app);
+        MapServer.Start(app);
+        ToolbarServer.Start(app);
+        TranslationServer.Start(app,
+            new AlreadyTranslatedTranslator(),
+            new AzureTranslator(
+                () => Starter.Configuration.Value.Translation.AzureCognitiveServicesAPIKey,
+                () => Starter.Configuration.Value.Translation.AzureCognitiveServicesRegion),
+            new DeepLTranslator(() => Starter.Configuration.Value.Translation.DeepLAPIKey)
+        ); //TranslationServer
+        SchedulerServer.Start(app, lifetime);
+        ProcessServer.Start(app);
+        MailingServer.Start(app);
+        ProfilerServer.Start(app);
+        DiffLogServer.Start(app);
+        RestServer.Start(app);
+        RestLogServer.Start(app);
+        PredictorServer.Start(app);
+        WorkflowServer.Start(app);
+        DynamicServer.Start(app);
 
-            // 2 user preference
-            if (UserEntity.Current?.CultureInfo != null)
-                return UserEntity.Current.CultureInfo!.ToCultureInfo();
+        OmniboxServer.Start(app,
+            new EntityOmniboxResultGenenerator(),
+            new DynamicQueryOmniboxResultGenerator(),
+            new ChartOmniboxResultGenerator(),
+            new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
+            new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
+            new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),
+            new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
+            new ReactSpecialOmniboxGenerator()
+            //new HelpModuleOmniboxResultGenerator(),
+            );//Omnibox
 
-            //3 requestCulture or default
-            CultureInfo? ciRequest = TranslationServer.GetCultureRequest(context);
-            if (ciRequest != null)
-                return ciRequest;
+        ReflectionServer.RegisterLike(typeof(RegisterUserModel), () => true);
 
-            return DefaultCulture; //Translation
-        }
+        SignumCultureSelectorFilter.GetCurrentCulture = (ctx) => GetCulture(ctx);
+    }
+
+    static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
+
+    private static CultureInfo GetCulture(ActionContext context)
+    {
+        // 1 cookie (temporary)
+        var lang = TranslationServer.ReadLanguageCookie(context);
+        if (lang != null)
+            return CultureInfo.GetCultureInfo(lang);
+
+        // 2 user preference
+        if (UserEntity.Current?.CultureInfo != null)
+            return UserEntity.Current.CultureInfo!.ToCultureInfo();
+
+        //3 requestCulture or default
+        CultureInfo? ciRequest = TranslationServer.GetCultureRequest(context);
+        if (ciRequest != null)
+            return ciRequest;
+
+        return DefaultCulture; //Translation
     }
 }

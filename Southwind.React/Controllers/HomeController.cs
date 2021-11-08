@@ -1,13 +1,12 @@
 
-namespace Southwind.React.Controllers
+namespace Southwind.React.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    // GET: Default
+    [SignumAllowAnonymous]
+    public ActionResult Index()
     {
-        // GET: Default
-        [SignumAllowAnonymous]
-        public ActionResult Index()
-        {
-            return View();
-        }
+        return View();
     }
 }
