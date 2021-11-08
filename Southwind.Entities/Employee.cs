@@ -5,7 +5,7 @@ using Signum.Entities.Files;
 
 namespace Southwind.Entities
 {
-    [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
+    [EntityKind(EntityKind.Main, EntityData.Master)]
     public class EmployeeEntity : Entity
     {
         [StringLengthValidator(Min = 3, Max = 20)]
@@ -62,7 +62,7 @@ namespace Southwind.Entities
         public static ExecuteSymbol<EmployeeEntity> Save;
     }
 
-    [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
+    [EntityKind(EntityKind.String, EntityData.Master)]
     public class TerritoryEntity : Entity
     {
         public RegionEntity Region { get; set; }
@@ -81,7 +81,7 @@ namespace Southwind.Entities
         public static ExecuteSymbol<TerritoryEntity> Save;
     }
 
-    [Serializable, EntityKind(EntityKind.String, EntityData.Master)]
+    [EntityKind(EntityKind.String, EntityData.Master)]
     public class RegionEntity : Entity
     {
         [UniqueIndex]

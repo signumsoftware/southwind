@@ -1,7 +1,7 @@
 
 namespace Southwind.Entities
 {
-    [Serializable, PrimaryKey(typeof(Guid))]
+    [PrimaryKey(typeof(Guid))]
     public abstract class CustomerEntity : Entity
     {
         public AddressEmbedded Address { get; set; }
@@ -20,7 +20,7 @@ namespace Southwind.Entities
     }
 
 
-    [Serializable, EntityKind(EntityKind.Shared, EntityData.Transactional)]
+    [EntityKind(EntityKind.Shared, EntityData.Transactional)]
     public class PersonEntity : CustomerEntity
     {
         [StringLengthValidator(Min = 3, Max = 40)]
@@ -66,7 +66,7 @@ namespace Southwind.Entities
         }
     }
 
-    [Serializable, EntityKind(EntityKind.Shared, EntityData.Transactional)]
+    [EntityKind(EntityKind.Shared, EntityData.Transactional)]
     public class CompanyEntity : CustomerEntity
     {
         [StringLengthValidator(Min = 3, Max = 40)]

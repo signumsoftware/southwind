@@ -1,7 +1,6 @@
 
 namespace Southwind.Entities
 {
-    [Serializable]
     public class AddressEmbedded : EmbeddedEntity
     {
         [StringLengthValidator(Min = 3, Max = 60, MultiLine = true)]

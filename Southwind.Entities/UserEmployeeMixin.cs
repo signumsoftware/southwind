@@ -1,7 +1,6 @@
 
 namespace Southwind.Entities
 {
-    [Serializable]
     public class UserEmployeeMixin : MixinEntity
     {
         protected UserEmployeeMixin(ModifiableEntity mainEntity, MixinEntity next)

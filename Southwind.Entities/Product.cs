@@ -4,7 +4,7 @@ using Signum.Entities.MachineLearning;
 
 namespace Southwind.Entities
 {
-    [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
+    [EntityKind(EntityKind.Main, EntityData.Master)]
     public class ProductEntity : Entity
     {
         [UniqueIndex]
@@ -66,7 +66,6 @@ namespace Southwind.Entities
         UnitsInStock,
     }
 
-    [Serializable]
     public class AdditionalInformationEmbedded : EmbeddedEntity
     {
         [StringLengthValidator(Max = 100)]
@@ -82,7 +81,7 @@ namespace Southwind.Entities
         public static ExecuteSymbol<ProductEntity> Save;
     }
 
-    [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
+    [EntityKind(EntityKind.Main, EntityData.Master)]
     public class SupplierEntity : Entity
     {
         [UniqueIndex]
@@ -116,7 +115,7 @@ namespace Southwind.Entities
         public static ExecuteSymbol<SupplierEntity> Save;
     }
 
-    [Serializable, EntityKind(EntityKind.String, EntityData.Master), AllowUnathenticated]
+    [EntityKind(EntityKind.String, EntityData.Master), AllowUnathenticated]
     public class CategoryEntity : Entity
     {
         [TranslateField] //Localize categoryName column

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Southwind.Entities.Public
 {
-    [Serializable, AllowUnathenticated]
+    [AllowUnathenticated]
     public class RegisterUserModel : ModelEntity
     {
         public Lite<EmployeeEntity>? ReportsTo { get; set; }

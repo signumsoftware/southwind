@@ -7,7 +7,7 @@ using Signum.Entities.Files;
 
 namespace Southwind.Entities
 {
-    [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
+    [EntityKind(EntityKind.Main, EntityData.Master)]
     public class ApplicationConfigurationEntity : Entity
     {
         [StringLengthValidator(Min = 3, Max = 100)]
@@ -38,7 +38,6 @@ namespace Southwind.Entities
     }
 
 
-    [Serializable]
     public class TranslationConfigurationEmbedded : EmbeddedEntity
     {
         [Description("Azure Cognitive Service API Key")]
@@ -69,7 +68,6 @@ namespace Southwind.Entities
         public static TypeConditionSymbol CurrentEmployee;
     }
 
-    [Serializable]
     public class FoldersConfigurationEmbedded : EmbeddedEntity
     {
         /*Predictor*/

@@ -5,7 +5,7 @@ using Signum.Entities.Processes;
 
 namespace Southwind.Entities
 {
-    [Serializable, EntityKind(EntityKind.Main, EntityData.Transactional)]
+    [EntityKind(EntityKind.Main, EntityData.Transactional)]
     public class OrderEntity : Entity
     {
         public OrderEntity()
@@ -135,7 +135,6 @@ namespace Southwind.Entities
         public static ConstructSymbol<ProcessEntity>.FromMany<OrderEntity> CancelWithProcess;
     }
 
-    [Serializable]
     public class OrderDetailEmbedded : EmbeddedEntity
     {
         public Lite<ProductEntity> Product { get; set; }
@@ -179,7 +178,7 @@ namespace Southwind.Entities
         public decimal SubTotalPrice => As.Expression(() => Quantity * UnitPrice * (decimal)(1 - Discount));
     }
 
-    [Serializable, EntityKind(EntityKind.Main, EntityData.Master)]
+    [EntityKind(EntityKind.Main, EntityData.Master)]
     public class ShipperEntity : Entity
     {
         [UniqueIndex]
@@ -217,7 +216,6 @@ namespace Southwind.Entities
         public static ProcessAlgorithmSymbol CancelOrders;
     }
 
-    [Serializable]
     public class OrderFilterModel : ModelEntity
     {
         [ImplementedBy(typeof(PersonEntity), typeof(CompanyEntity))]
@@ -231,7 +229,6 @@ namespace Southwind.Entities
     }
 
 
-    [Serializable]
     public class OrderDetailMixin : MixinEntity
     {
         OrderDetailMixin(ModifiableEntity mainEntity, MixinEntity? next)
