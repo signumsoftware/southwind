@@ -502,7 +502,7 @@
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as RestClient from &quot;@extensions/Rest/RestClient&quot;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="RestClient.start({ routes });"/>
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind.React\PublicAPI\CatalogController.cs" />
-			<RemoveLine Path="Southwind.React\Startup.cs" From="using Swashbuckle.AspNetCore.SwaggerGen;" To="using System.Net;"/>
+			<RemoveLine Path="Southwind.React\Startup.cs" From="using Swashbuckle.AspNetCore.SwaggerGen;" To="using Swashbuckle.AspNetCore.Swagger;"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" From="public class ErrorResponsesOperationFilter : IOperationFilter" To="} //Swagger Attributes"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" From="//https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&amp;tabs=visual-studio%2Cvisual-studio-xml" To="}); //Swagger Services"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" From="//Enable middleware to serve generated Swagger as a JSON endpoint." To="});//Swagger Configure"/>
