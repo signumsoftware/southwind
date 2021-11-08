@@ -1,12 +1,5 @@
-using System;
-using Signum.Engine;
 using Signum.Engine.Authorization;
-using Signum.Entities;
-using Signum.Utilities;
-using Signum.React.Selenium;
 using Southwind.Entities;
-using Southwind.Test.Environment;
-using Xunit;
 
 namespace Southwind.Test.React
 {

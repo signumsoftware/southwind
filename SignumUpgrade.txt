@@ -43,3 +43,4 @@ Upgrade_20211006_CleanProgram
 Upgrade_20211027_UpdateNugetsSignumAnalyzer
 Upgrade_20211028_ForgetRetrieveAndForget
 Upgrade_20211108_Net6
+Upgrade_20211109_GlobalUsings

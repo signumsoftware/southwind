@@ -1,6 +1,5 @@
 using Signum.Engine.Authorization;
 using Signum.Entities.Authorization;
-using System;
 
 namespace Southwind.Logic
 {

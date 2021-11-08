@@ -1,12 +1,5 @@
-using System;
-using System.Linq;
-using Signum.Engine;
 using Signum.Engine.Authorization;
-using Signum.Engine.Operations;
-using Signum.Utilities;
 using Southwind.Entities;
-using Southwind.Test.Environment;
-using Xunit;
 
 namespace Southwind.Test.Logic
 {

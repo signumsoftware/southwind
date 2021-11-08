@@ -1,18 +1,10 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Signum.Engine;
 using Signum.Engine.Maps;
-using Signum.Utilities;
 using Southwind.Logic;
 using Southwind.Entities;
 using Signum.Services;
-using Signum.Entities;
 using Signum.Engine.Authorization;
-using Signum.Entities.Reflection;
 using Signum.Engine.Chart;
-using Signum.Engine.Operations;
 using Signum.Entities.Translation;
 using System.Globalization;
 using Signum.Entities.Mailing;
@@ -30,7 +22,6 @@ using Signum.Entities.MachineLearning;
 using Signum.Engine.MachineLearning;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using System.Reflection;
 using Signum.Engine.Cache;
 using Signum.Engine.SchemaInfoTables;
 

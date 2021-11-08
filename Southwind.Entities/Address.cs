@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Signum.Entities;
-using System.Reflection;
-using Signum.Utilities;
 
 namespace Southwind.Entities
 {

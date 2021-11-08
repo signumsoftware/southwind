@@ -1,13 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Signum.Entities;
-using System.Linq.Expressions;
-using Signum.Utilities;
 using Signum.Entities.Translation;
 using Signum.Entities.Files;
-using Signum.Utilities.ExpressionTrees;
 using Signum.Entities.MachineLearning;
 
 namespace Southwind.Entities

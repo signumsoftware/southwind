@@ -1,11 +1,5 @@
 using Microsoft.Extensions.Configuration;
-using Signum.Engine;
 using Signum.Engine.Maps;
-using Signum.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Southwind.Terminal.NorthwindSchema

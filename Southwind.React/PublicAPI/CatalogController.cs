@@ -1,11 +1,5 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Signum.Engine;
 using Signum.React.RestLog;
 using Southwind.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Southwind.React.Controllers
 {

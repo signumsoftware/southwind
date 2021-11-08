@@ -1,16 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Signum.Engine.Maps;
-using Signum.Engine.DynamicQuery;
-using System.Reflection;
 using Southwind.Entities;
-using Signum.Engine;
-using Signum.Entities;
-using Signum.Entities.DynamicQuery;
-using Signum.Engine.Operations;
-using Signum.Engine.Basics;
 
 namespace Southwind.Logic
 {

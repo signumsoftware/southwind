@@ -1,17 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Signum.Entities;
 using Signum.Entities.Basics;
 using Signum.Entities.Mailing;
 using Signum.Entities.SMS;
-using Signum.Utilities;
-using System.Linq.Expressions;
 using Signum.Entities.Authorization;
 using Signum.Entities.Workflow;
 using Signum.Entities.Files;
-using System.ComponentModel;
 
 namespace Southwind.Entities
 {

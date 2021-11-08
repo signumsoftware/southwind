@@ -1,20 +1,6 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Signum.Engine;
 using Signum.Engine.Translation;
-using Signum.Entities;
-using Signum.Entities.Reflection;
-using Signum.React.ApiControllers;
-using Signum.React.Filters;
 using Southwind.Entities;
 using Southwind.Logic;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
 
 namespace Southwind.React.ApiControllers
 {

@@ -1,10 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using Signum.Engine.MachineLearning;
-using Signum.Entities;
-using Signum.React.ApiControllers;
-using Signum.Utilities;
 using Southwind.Entities;
-using System;
 
 namespace Southwind.React.ApiControllers
 {
