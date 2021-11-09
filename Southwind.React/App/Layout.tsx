@@ -68,7 +68,7 @@ export default function Layout() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               {AuthClient.currentUser() &&
-                <Nav className="mr-auto">
+                <Nav className="me-auto">
                   {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <div className="omnibox-container" style={{ width: "200px" }}>
                     <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
                   </div>}
@@ -84,7 +84,7 @@ export default function Layout() {
                   {AuthClient.currentUser() && <React.Suspense fallback={null}><WorkflowDropdown /></React.Suspense>}
                 </Nav>}
               {AuthClient.currentUser() && <React.Suspense fallback={null}><ToolbarRenderer location="Top" /></React.Suspense>}
-              <Nav className="ml-auto">
+              <Nav className="ms-auto">
                 <VersionInfo extraInformation={(window as any).__serverName} />
                 <Nav.Item> {/*Swagger*/}
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>

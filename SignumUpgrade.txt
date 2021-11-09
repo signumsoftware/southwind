@@ -46,3 +46,4 @@ Upgrade_20211108_Net6
 Upgrade_20211109_GlobalUsings
 Upgrade_20211109_RemoveSerializable
 Upgrade_20211109_SimplifyNamespaces
+Upgrade_20211110_Bootstrap5

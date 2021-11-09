@@ -99,7 +99,7 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
         <DoublePassword ctx={ctx.subCtx(r => r.password)} isNew mandatory />
         <ValidationErrors entity={ctx.value} prefix="" />
         <div className="mt-4 d-flex">
-          <button className="ml-auto btn btn-primary px-4" onClick={handleRegisterClick}>
+          <button className="ms-auto btn btn-primary px-4" onClick={handleRegisterClick}>
             {RegisterUserMessage.Register.niceToString()}
           </button >
         </div>

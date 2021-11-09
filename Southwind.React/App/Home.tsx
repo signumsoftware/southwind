@@ -41,7 +41,7 @@ export default function Home() {
           <div className="card-body">
             <h5 className="card-title">New to Signum Framework?</h5>
             <p className="card-text">Visit <a href="https://github.com/signumsoftware/docs" className="card-link">Signum Framework Docs</a> to learn more about Signum Framework itselfs and all the underlying technologies</p>
-            <div className="text-left">
+            <div className="text-start">
               <p>And don't forget to:</p>
               <ul>
                 <li>Choose a different theme in <a href="https://bootswatch.com">Bootwatch.com</a> and replace <code>_bootswatch.scss</code> and <code>_variables.scss</code></li>
