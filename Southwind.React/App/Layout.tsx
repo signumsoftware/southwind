@@ -55,8 +55,7 @@ export default function Layout() {
   return (
     <ErrorBoundary >
       <div id="main" key={refreshId}>
-        <div>
-          <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg">
             <Link to="~/" className="navbar-brand">
               {/*SidebarButton*/
                 AuthClient.currentUser() != null &&
@@ -94,7 +93,6 @@ export default function Layout() {
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-        </div>
         <Notify />
         <div id="main-container">
           <SidebarContainer

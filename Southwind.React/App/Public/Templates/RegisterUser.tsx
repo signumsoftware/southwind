@@ -67,10 +67,10 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
           forceUpdate();
         }
       }))
-        .done();
+      .done();
   }
 
-  var ctx = TypeContext.root(registerUser, { formGroupStyle: "Basic", frame: { revalidate: forceUpdate} as EntityFrame });
+  var ctx = TypeContext.root(registerUser, { formGroupStyle: "FloatingLabel", frame: { revalidate: forceUpdate } as EntityFrame });
   return (
     <div className="card-body">
       <h2 className="card-title">{RegisterUserModel.niceName()}</h2>
@@ -93,7 +93,7 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
             <ValueLine ctx={ctx.subCtx(r => r.lastName)} />
           </div>
         </div>
-        <Address ctx={ctx.subCtx(a=>a.address)}/>
+        <Address ctx={ctx.subCtx(a => a.address)} inheritStyle />
         <ValueLine ctx={ctx.subCtx(r => r.eMail)} />
         <ValueLine ctx={ctx.subCtx(r => r.username)} />
         <DoublePassword ctx={ctx.subCtx(r => r.password)} isNew mandatory />
