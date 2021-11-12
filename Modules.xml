@@ -334,7 +334,7 @@
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes });"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="if (window.__azureApplicationId) {" To="}//__azureApplicationId"/>
-			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.14.1&quot;,"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.19.0&quot;,"/>
 			<RemoveLine Path="Southwind.React\Views\Home\Index.cshtml"
 						From="var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);"
 						To="var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);"/>
@@ -577,7 +577,7 @@
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;7.5.0&quot;,"/>
-			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.11.1&quot;,"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.11.6&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js&quot;: &quot;0.11.7&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;html-to-draftjs&quot;: &quot;1.5.0&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;draftjs-to-html&quot;: &quot;0.9.1&quot;,"/>
