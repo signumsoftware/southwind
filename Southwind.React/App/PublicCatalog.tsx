@@ -33,7 +33,7 @@ export default function PublicCatalog() {
           <div key={c.category.id} className="card shadow container m-4">
             <div className="card-body">
               <div className="media">
-                {c.picture && <img className="d-flex mr-3" style={maxDimensions} src={"data:image/jpeg;base64," + c.picture} />}
+                {c.picture && <img className="d-flex me-3" style={maxDimensions} src={"data:image/jpeg;base64," + c.picture} />}
                 <div className="media-body">
                   <h4 className="mt-0">{c.locCategoryName}</h4>
                   {c.locDescription}

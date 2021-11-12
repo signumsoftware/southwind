@@ -4,8 +4,8 @@ import { ValueLine } from '@framework/Lines/ValueLine'
 import { TypeContext } from '@framework/TypeContext'
 import { useForceUpdate } from '@framework/Hooks';
 
-export default function Address(p : { ctx: TypeContext<AddressEmbedded> }){
-  const ctx = p.ctx.subCtx({ formGroupStyle: "SrOnly", placeholderLabels: true });
+export default function Address(p: { ctx: TypeContext<AddressEmbedded>, inheritStyle?: boolean }) {
+  const ctx = p.inheritStyle ? p.ctx : p.ctx.subCtx({ formGroupStyle: "SrOnly", placeholderLabels: true });
   const forceUpdate = useForceUpdate();
   return (
     <div>
