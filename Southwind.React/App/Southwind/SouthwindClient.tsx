@@ -132,15 +132,8 @@ export function start(options: { routes: JSX.Element[] }) {
   }));
 
   Operations.addSettings(new ContextualOperationSettings(OrderOperation.CreateOrderFromProducts, {
-    onClick: coc => {
-      return Finder.find({ queryName: CustomerQuery.Customer })
-        .then(c => {
-          if (!c)
-            return;
-
-          return coc.defaultContextualClick(c);
-        }).done();
-    }
+    onClick: coc => Finder.find({ queryName: CustomerQuery.Customer })
+      .then(c => c && coc.defaultContextualClick(c))
   }));
 
   const selectShippedDate = () => ValueLineModal.show({
@@ -151,17 +144,9 @@ export function start(options: { routes: JSX.Element[] }) {
 
 
   Operations.addSettings(new EntityOperationSettings(OrderOperation.Ship, {
-    onClick: (eoc) => {
-      selectShippedDate()
-        .then(date => eoc.defaultClick(date))
-        .done();
-    },
+    onClick: (eoc) => selectShippedDate().then(date => eoc.defaultClick(date)),
     contextual: {
-      onClick: coc => {
-        selectShippedDate()
-          .then(date => coc.defaultContextualClick(date))
-          .done();
-      }
+      onClick: coc => selectShippedDate().then(date => coc.defaultContextualClick(date))
     }
   }));//Ship
 }
