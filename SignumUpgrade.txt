@@ -47,3 +47,4 @@ Upgrade_20211109_GlobalUsings
 Upgrade_20211109_RemoveSerializable
 Upgrade_20211109_SimplifyNamespaces
 Upgrade_20211110_Bootstrap5
+Upgrade_20211111_ReplaceDefaultExecute
