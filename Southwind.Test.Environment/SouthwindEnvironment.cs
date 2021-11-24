@@ -235,7 +235,7 @@ public static class SouthwindEnvironment
         new ApplicationConfigurationEntity
         {
             Environment = "Test",
-            DatabaseName = "Southwind",
+            DatabaseName = Connector.Current.DatabaseName(),
             Email = new EmailConfigurationEmbedded
             {
                 SendEmails = false,
