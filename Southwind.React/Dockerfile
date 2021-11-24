@@ -21,12 +21,12 @@ COPY ["Framework/Signum.React/package.json", "Framework/Signum.React/"]
 COPY ["Framework/Signum.React/yarn.lock", "Framework/Signum.React/"]
 
 
-COPY ["Extensions/Signum.Entities.Extensions/Signum.Entities.Extensions.csproj", "Extensions/Signum.Entities.Extensions/"]
-COPY ["Extensions/Signum.Engine.Extensions/Signum.Engine.Extensions.csproj", "Extensions/Signum.Engine.Extensions/"]
-COPY ["Extensions/Signum.Engine.MachineLearning.TensorFlow/Signum.Engine.MachineLearning.TensorFlow.csproj", "Extensions/Signum.Engine.MachineLearning.TensorFlow/"]
-COPY ["Extensions/Signum.React.Extensions/Signum.React.Extensions.csproj", "Extensions/Signum.React.Extensions/"]
-COPY ["Extensions/Signum.React.Extensions/package.json", "Extensions/Signum.React.Extensions/"]
-COPY ["Extensions/Signum.React.Extensions/yarn.lock", "Extensions/Signum.React.Extensions/"]
+COPY ["Framework/Signum.Entities.Extensions/Signum.Entities.Extensions.csproj", "Extensions/Signum.Entities.Extensions/"]
+COPY ["Framework/Signum.Engine.Extensions/Signum.Engine.Extensions.csproj", "Extensions/Signum.Engine.Extensions/"]
+COPY ["Framework/Signum.Engine.MachineLearning.TensorFlow/Signum.Engine.MachineLearning.TensorFlow.csproj", "Extensions/Signum.Engine.MachineLearning.TensorFlow/"]
+COPY ["Framework/Signum.React.Extensions/Signum.React.Extensions.csproj", "Extensions/Signum.React.Extensions/"]
+COPY ["Framework/Signum.React.Extensions/package.json", "Extensions/Signum.React.Extensions/"]
+COPY ["Framework/Signum.React.Extensions/yarn.lock", "Extensions/Signum.React.Extensions/"]
 
 COPY ["Southwind.Entities/Southwind.Entities.csproj", "Southwind.Entities/"]
 COPY ["Southwind.Logic/Southwind.Logic.csproj", "Southwind.Logic/"]
