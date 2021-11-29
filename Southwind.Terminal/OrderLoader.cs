@@ -61,7 +61,7 @@ internal static class OrderLoader
     {
         DateTime time = Database.Query<OrderEntity>().Max(a => a.OrderDate);
 
-        var now = TimeZoneManager.Now;
+        var now = Clock.Now;
         var ts = (int)(now - time).TotalDays;
 
         ts = (ts / 7) * 7;
@@ -74,7 +74,7 @@ internal static class OrderLoader
             .Execute();
 
 
-        var limit = TimeZoneManager.Now.AddDays(-10);
+        var limit = Clock.Now.AddDays(-10);
 
         var list = Database.Query<OrderEntity>().Where(a => a.State == OrderState.Shipped && a.OrderDate < limit).Select(a => a.ToLite()).ToList();
 
