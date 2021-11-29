@@ -169,11 +169,13 @@
 
 		<Module Name="Dashboard" DependsOn="Chart,UserQuery">
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((DashboardEntity cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));"/>
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.Start(sb);"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.Start(sb, GetFileTypeAlgorithm(p => p.CachedQueryFolder));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterTranslatableRoutes();"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="CachedQueryFolder = localPrefix + @&quot;cached-query&quot;,"/>
+			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="CachedQueryFolder = localPrefix + @&quot;cached-query&quot;,"/>
 			<RemoveLine Path="Southwind.React\App\Home.tsx" From="if (AuthClient.currentUser()) {" To="else //Dashboard"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as DashboardClient from &quot;@extensions/Dashboard/DashboardClient&quot;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="DashboardClient.start({ routes });"/>
@@ -502,7 +504,7 @@
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as RestClient from &quot;@extensions/Rest/RestClient&quot;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="RestClient.start({ routes });"/>
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind.React\PublicAPI\CatalogController.cs" />
-			<RemoveLine Path="Southwind.React\Startup.cs" From="using Swashbuckle.AspNetCore.SwaggerGen;" To="using Swashbuckle.AspNetCore.Swagger;"/>
+			<RemoveLine Path="Southwind.React\Startup.cs" Line="using Swashbuckle.AspNetCore.SwaggerGen;" />
 			<RemoveLine Path="Southwind.React\Startup.cs" From="public class ErrorResponsesOperationFilter : IOperationFilter" To="} //Swagger Attributes"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" From="//https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&amp;tabs=visual-studio%2Cvisual-studio-xml" To="}); //Swagger Services"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" From="//Enable middleware to serve generated Swagger as a JSON endpoint." To="});//Swagger Configure"/>
@@ -525,7 +527,7 @@
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.TensorFlow;"/>
 			<RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(PredictorEntity)"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs"
-						From="PredictorLogic.Start(sb, () => GetFileTypeAlgorithm(p => p.PredictorModelFolder));"
+						From="PredictorLogic.Start(sb, GetFileTypeAlgorithm(p => p.PredictorModelFolder));"
 						To="PredictorLogic.RegisterAlgorithm(TensorFlowPredictorAlgorithm.NeuralNetworkGraph, new TensorFlowNeuralNetworkPredictor());"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="PredictorLogic.IgnorePinned(sb);" />
 			<RemoveLine Path="Southwind.Logic\Starter.cs" DependsOn="ExampleEntities" Line="PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));"/>
