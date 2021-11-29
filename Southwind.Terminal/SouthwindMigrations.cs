@@ -112,7 +112,7 @@ public static class SouthwindMigrations
             new ApplicationConfigurationEntity
             {
                 Environment = "Development",
-                DatabaseName = "Southwind",
+                DatabaseName = Connector.Current.DatabaseName(),
                 AuthTokens = new AuthTokenConfigurationEmbedded
                 {
                 }, //Auth

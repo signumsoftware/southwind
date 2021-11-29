@@ -554,7 +554,7 @@
 			<RemoveLine Path="Southwind.Logic\Starter.cs" From="if (includeDynamic)//3" To="}//3"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" From="if (type.Namespace == DynamicCode.CodeGenEntitiesNamespace)" To="return &quot;codegen&quot;;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx"
-						From="import * as DynamicClient from &quot;@extensions/Dynamic/DynamicClient&quot;"
+						From="import * as DynamicExpressionClient from &quot;@extensions/Dynamic/DynamicExpressionClient&quot;"
 						To="import * as DynamicViewClient from &quot;@extensions/Dynamic/DynamicViewClient&quot;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx"
 						From="DynamicClient.start({ routes, withCodeGen: true });"
