@@ -74,6 +74,10 @@ public class FoldersConfigurationEmbedded : EmbeddedEntity
     [StringLengthValidator(Max = 300), FileNameValidator]
     public string PredictorModelFolder { get; set; }
 
+    /*Dashboard*/
+    [StringLengthValidator(Max = 300), FileNameValidator]
+    public string CachedQueryFolder { get; set; }
+
     /*Exceptions*/
     [StringLengthValidator(Max = 300), FileNameValidator]
     public string ExceptionsFolder { get; set; }

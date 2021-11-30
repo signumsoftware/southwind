@@ -131,6 +131,7 @@ export const FoldersConfigurationEmbedded = new Type<FoldersConfigurationEmbedde
 export interface FoldersConfigurationEmbedded extends Entities.EmbeddedEntity {
   Type: "FoldersConfigurationEmbedded";
   predictorModelFolder: string;
+  cachedQueryFolder: string;
   exceptionsFolder: string;
   operationLogFolder: string;
   viewLogFolder: string;

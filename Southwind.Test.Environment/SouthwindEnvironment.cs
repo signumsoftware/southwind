@@ -235,7 +235,7 @@ public static class SouthwindEnvironment
         new ApplicationConfigurationEntity
         {
             Environment = "Test",
-            DatabaseName = "Southwind",
+            DatabaseName = Connector.Current.DatabaseName(),
             Email = new EmailConfigurationEmbedded
             {
                 SendEmails = false,
@@ -266,6 +266,7 @@ public static class SouthwindEnvironment
             Folders = new FoldersConfigurationEmbedded
             {
                 PredictorModelFolder = localPrefix + @"predictor-models",
+                CachedQueryFolder = localPrefix + @"cached-query",
                 ExceptionsFolder = localPrefix + @"exceptions",
                 OperationLogFolder = localPrefix + @"operation-logs",
                 ViewLogFolder = localPrefix + @"view-logs",

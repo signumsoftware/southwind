@@ -154,7 +154,7 @@ public static partial class Starter
             UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             UserChartLogic.RegisterTranslatableRoutes();
 
-            DashboardLogic.Start(sb);
+            DashboardLogic.Start(sb, GetFileTypeAlgorithm(p => p.CachedQueryFolder));
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
             DashboardLogic.RegisterTranslatableRoutes();
@@ -177,7 +177,7 @@ public static partial class Starter
             HelpLogic.Start(sb);
             WordTemplateLogic.Start(sb);
             MapLogic.Start(sb);
-            PredictorLogic.Start(sb, () => GetFileTypeAlgorithm(p => p.PredictorModelFolder));
+            PredictorLogic.Start(sb, GetFileTypeAlgorithm(p => p.PredictorModelFolder));
             PredictorLogic.RegisterAlgorithm(TensorFlowPredictorAlgorithm.NeuralNetworkGraph, new TensorFlowNeuralNetworkPredictor());
             PredictorLogic.RegisterPublication(ProductPredictorPublication.MonthlySales, new PublicationSettings(typeof(OrderEntity)));
 

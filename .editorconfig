@@ -14,7 +14,8 @@ charset = utf-8
 [*.cs]
 indent_style = space
 indent_size = 4
-csharp_style_namespace_declarations=file_scoped:suggestion
+csharp_style_namespace_declarations = file_scoped:error
+dotnet_diagnostic.IDE0161.severity = error
 
 # Indentation override for all js, ts and json files
 [*.{js,jsx,ts,tsx,t4s,json}]

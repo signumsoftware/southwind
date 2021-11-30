@@ -112,7 +112,7 @@ public static class SouthwindMigrations
             new ApplicationConfigurationEntity
             {
                 Environment = "Development",
-                DatabaseName = "Southwind",
+                DatabaseName = Connector.Current.DatabaseName(),
                 AuthTokens = new AuthTokenConfigurationEmbedded
                 {
                 }, //Auth
@@ -143,6 +143,7 @@ public static class SouthwindMigrations
                 Folders = new FoldersConfigurationEmbedded
                 {
                     PredictorModelFolder = localPrefix + @"predictor-models",
+                    CachedQueryFolder = localPrefix + @"cached-query",
                     ExceptionsFolder = localPrefix + @"exceptions",
                     OperationLogFolder = localPrefix + @"operation-logs",
                     ViewLogFolder = localPrefix + @"view-logs",

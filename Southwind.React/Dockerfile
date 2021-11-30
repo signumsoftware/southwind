@@ -1,10 +1,10 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0.9-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0.0-bullseye-slim AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0.400-buster-slim AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0.100-bullseye-slim AS build
 WORKDIR /src
 
 ## RUN apt-get update
@@ -21,12 +21,12 @@ COPY ["Framework/Signum.React/package.json", "Framework/Signum.React/"]
 COPY ["Framework/Signum.React/yarn.lock", "Framework/Signum.React/"]
 
 
-COPY ["Extensions/Signum.Entities.Extensions/Signum.Entities.Extensions.csproj", "Extensions/Signum.Entities.Extensions/"]
-COPY ["Extensions/Signum.Engine.Extensions/Signum.Engine.Extensions.csproj", "Extensions/Signum.Engine.Extensions/"]
-COPY ["Extensions/Signum.Engine.MachineLearning.TensorFlow/Signum.Engine.MachineLearning.TensorFlow.csproj", "Extensions/Signum.Engine.MachineLearning.TensorFlow/"]
-COPY ["Extensions/Signum.React.Extensions/Signum.React.Extensions.csproj", "Extensions/Signum.React.Extensions/"]
-COPY ["Extensions/Signum.React.Extensions/package.json", "Extensions/Signum.React.Extensions/"]
-COPY ["Extensions/Signum.React.Extensions/yarn.lock", "Extensions/Signum.React.Extensions/"]
+COPY ["Framework/Signum.Entities.Extensions/Signum.Entities.Extensions.csproj", "Framework/Signum.Entities.Extensions/"]
+COPY ["Framework/Signum.Engine.Extensions/Signum.Engine.Extensions.csproj", "Framework/Signum.Engine.Extensions/"]
+COPY ["Framework/Signum.Engine.MachineLearning.TensorFlow/Signum.Engine.MachineLearning.TensorFlow.csproj", "Framework/Signum.Engine.MachineLearning.TensorFlow/"]
+COPY ["Framework/Signum.React.Extensions/Signum.React.Extensions.csproj", "Framework/Signum.React.Extensions/"]
+COPY ["Framework/Signum.React.Extensions/package.json", "Framework/Signum.React.Extensions/"]
+COPY ["Framework/Signum.React.Extensions/yarn.lock", "Framework/Signum.React.Extensions/"]
 
 COPY ["Southwind.Entities/Southwind.Entities.csproj", "Southwind.Entities/"]
 COPY ["Southwind.Logic/Southwind.Logic.csproj", "Southwind.Logic/"]
