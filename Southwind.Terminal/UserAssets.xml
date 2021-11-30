@@ -160,27 +160,28 @@
     </Parameters>
   </UserChart>
   <Dashboard Guid="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" DisplayName="Example Dashboard" Owner="User;2" CombineSimilarRows="false">
+    <CacheQueryConfiguration TimeoutForQueries="300" MaxRows="1000000" AutoRegenerateWhenOlderThan="10" />
     <Parts>
       <Part Row="0" StartColumn="0" Columns="7" InteractionGroup="Group1" Style="Light">
-        <UserChartPart ShowData="false" AllowChangeShowData="false" UserChart="d681b3f5-a3a9-4228-93e9-e856f45d911a" />
+        <UserChartPart UserChart="d681b3f5-a3a9-4228-93e9-e856f45d911a" IsQueryCached="true" />
       </Part>
       <Part Row="2" StartColumn="0" Columns="12" InteractionGroup="Group1" Style="Light">
-        <UserQueryPart UserQuery="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" RenderMode="SearchControl" AllowSelection="False" ShowFooter="True" CreateNew="False" />
+        <UserQueryPart UserQuery="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" RenderMode="SearchControl" AllowSelection="false" ShowFooter="true" IsQueryCached="true" />
       </Part>
       <Part Row="1" StartColumn="0" Columns="7" InteractionGroup="Group1" Style="Light">
-        <UserChartPart ShowData="false" AllowChangeShowData="false" UserChart="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" />
+        <UserChartPart UserChart="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" IsQueryCached="true" />
       </Part>
       <Part Row="0" StartColumn="7" Columns="5" InteractionGroup="Group1" Style="Light">
-        <UserChartPart ShowData="false" AllowChangeShowData="false" UserChart="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" />
+        <UserChartPart UserChart="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" IsQueryCached="true" />
       </Part>
       <Part Row="1" StartColumn="7" Columns="5" InteractionGroup="Group1" Style="Light">
-        <UserChartPart ShowData="false" AllowChangeShowData="false" UserChart="b48718bb-f4ab-4a6a-950a-35a718d5fb23" />
+        <UserChartPart UserChart="b48718bb-f4ab-4a6a-950a-35a718d5fb23" IsQueryCached="true" />
       </Part>
       <Part Row="3" StartColumn="0" Columns="12" Title="Order number and average" IconName="fas fa-chart-bar" IconColor="violet" InteractionGroup="Group1" Style="Light">
-        <CombinedUserChartPart ShowData="false" AllowChangeShowData="false" CombinePinnedFiltersWithSameLabel="false" UseSameScale="false">
-          <UserChart Guid="9d266fac-e35b-4845-a7aa-970e1590ea1e" />
-          <UserChart Guid="6406d2f6-aa24-43e4-946e-8622f65eb010" />
-          <UserChart Guid="a3c7b86d-641e-4c1e-8032-72a099a00395" />
+        <CombinedUserChartPart>
+          <UserChart Guid="9d266fac-e35b-4845-a7aa-970e1590ea1e" IsQueryCached="true" />
+          <UserChart Guid="6406d2f6-aa24-43e4-946e-8622f65eb010" IsQueryCached="true" />
+          <UserChart Guid="a3c7b86d-641e-4c1e-8032-72a099a00395" IsQueryCached="true" />
         </CombinedUserChartPart>
       </Part>
     </Parts>
