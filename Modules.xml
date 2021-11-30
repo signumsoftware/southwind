@@ -297,7 +297,6 @@
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="CreateRoles," To="CreateSystemUser,"/>
 			<RemoveLine Path="Southwind.Terminal\EmployeeLoader.cs" From="internal static void CreateUsers()" To="} //CreateUsers"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="internal static void CreateRoles()" To="} //CreateSystemUser"/>
-			<RemoveLine Path="Southwind.Terminal\AuthRules.xml" From="&lt;Types>" To="&lt;/Types>"  DependsOn="ExampleEntities"/>
 			<RemoveFiles Path="Southwind.Entities\UserEmployeeMixin.cs" DependsOn="ExampleEntities"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserEmployeeMixin&gt;();" DependsOn="ExampleEntities"/>
 			<RemoveLine Path="Southwind.React\App\Southwind\SouthwindClient.tsx"
