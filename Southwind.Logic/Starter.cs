@@ -63,7 +63,7 @@ public static partial class Starter
 
     public static string? AzureStorageConnectionString { get; private set; }
 
-    public static void Start(string connectionString, bool isPostgres, string? azureStorageConnectionString, bool includeDynamic = true, bool detectSqlVersion = true)
+    public static void Start(string connectionString, bool isPostgres, string? azureStorageConnectionString, string? broadcastSecret, string? broadcastUrls, bool includeDynamic = true, bool detectSqlVersion = true)
     {
         AzureStorageConnectionString = azureStorageConnectionString;
 
@@ -98,7 +98,9 @@ public static partial class Starter
                 Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
             }
 
-            CacheLogic.Start(sb, cacheInvalidator: sb.Settings.IsPostgres ? new PostgresCacheInvalidation() : null);
+            CacheLogic.Start(sb, serverBroadcast: sb.Settings.IsPostgres ? new PostgresBroadcast() :
+                broadcastSecret != null && broadcastUrls != null ? new SimpleHttpBroadcast(broadcastSecret, broadcastUrls) :
+                null);
 
             /* LightDynamic
                DynamicLogic.Start(sb, withCodeGen: false);
@@ -132,11 +134,11 @@ public static partial class Starter
             AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
             AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);
             AuthLogic.StartAllModules(sb, activeDirectoryIntegration: true);
-            MicrosoftGraphLogic.Start(sb);
+            AzureADLogic.Start(sb, adGroups: false, deactivateUsersTask: false);
             ResetPasswordRequestLogic.Start(sb);
             UserTicketLogic.Start(sb);
             SessionLogLogic.Start(sb);
-            TypeConditionLogic.RegisterCompile<UserEntity>(SouthwindGroup.UserEntities, u => u.Is(UserEntity.Current));
+            TypeConditionLogic.RegisterCompile<UserEntity>(SouthwindTypeCondition.UserEntities, u => u.Is(UserEntity.Current));
 			
             ProcessLogic.Start(sb);
             PackageLogic.Start(sb, packages: true, packageOperations: true);

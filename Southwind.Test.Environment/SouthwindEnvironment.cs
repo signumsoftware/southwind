@@ -207,6 +207,8 @@ public static class SouthwindEnvironment
                 config.GetConnectionString("ConnectionString"),
                 config.GetValue<bool>("IsPostgres"),
                 config.GetConnectionString("AzureStorageConnectionString"),
+                config.GetValue<string>("BroadcastSecret"),
+                config.GetValue<string>("BroadcastUrls"),
                 includeDynamic);
             
             started = true;

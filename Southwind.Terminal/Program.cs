@@ -29,7 +29,7 @@ namespace Southwind.Terminal;
 
 class Program
 {
-    public static IConfigurationRoot ConfigRoot = null!;
+    public static IConfigurationRoot Configuration = null!;
 
     static int Main(string[] args)
     {
@@ -40,7 +40,7 @@ class Program
             using (CultureInfoUtils.ChangeCultureUI("en"))
             {
                 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                ConfigRoot = new ConfigurationBuilder()
+                Configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json")
                     .AddJsonFile($"appsettings.{env}.json", true)
@@ -48,9 +48,11 @@ class Program
                     .Build();
                 
                 Starter.Start(
-                    ConfigRoot.GetConnectionString("ConnectionString"),
-                    ConfigRoot.GetValue<bool>("IsPostgres"), 
-                    ConfigRoot.GetConnectionString("AzureStorageConnectionString"));
+                    Configuration.GetConnectionString("ConnectionString"),
+                    Configuration.GetValue<bool>("IsPostgres"), 
+                    Configuration.GetConnectionString("AzureStorageConnectionString"),
+                    Configuration.GetValue<string>("BroadcastSecret"),
+                    Configuration.GetValue<string>("BroadcastUrls"));
 
                 Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
                 SafeConsole.WriteLineColor(env == "live" ? ConsoleColor.Red : env == "test" ? ConsoleColor.Yellow : ConsoleColor.Gray, Connector.Current.ToString());
