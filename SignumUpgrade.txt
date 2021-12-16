@@ -54,3 +54,4 @@ Upgrade_20211119_ClockToClock
 Upgrade_20211128_ES2017
 Upgrade_20211129_CachedQueries
 Upgrade_20211130_ChunksAndMinBy
+Upgrade_20211216_UpdateNugets
