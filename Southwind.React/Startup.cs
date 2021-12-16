@@ -53,6 +53,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Http;
 using Signum.Engine.Rest;
 using Southwind.Entities.Public;
+using Signum.React.Alerts;
 
 namespace Southwind.React;
 
@@ -115,6 +116,7 @@ public class Startup
             {
                 apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
             });
+        services.AddSignalR();
         services.AddSignumValidation();
         services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
 
@@ -196,6 +198,8 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 Configuration.GetConnectionString("ConnectionString"),
                 Configuration.GetValue<bool>("IsPostgres"),
                 Configuration.GetConnectionString("AzureStorageConnectionString"), 
+                Configuration.GetValue<string>("BroadcastSecret"), 
+                Configuration.GetValue<string>("BroadcastUrls"), 
                 detectSqlVersion: false);
 
             Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
@@ -218,10 +222,11 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             });
 
             app.UseRouting();
-            app.UseEndpoints(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapControllers();
-                routes.MapControllerRoute(
+                AlertsServer.MapAlertsHub(endpoints);
+                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
                     name: "spa-fallback",
                     pattern: "{*url}",
                     constraints: new { url = new NoAPIContraint() },
@@ -299,6 +304,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
         RestLogServer.Start(app);
         PredictorServer.Start(app);
         WorkflowServer.Start(app);
+        AlertsServer.Start(app);
         DynamicServer.Start(app);
 
         OmniboxServer.Start(app,

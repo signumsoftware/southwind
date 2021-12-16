@@ -26,6 +26,7 @@ import * as DiffLogClient from "@extensions/DiffLog/DiffLogClient"
 import * as WorkflowClient from "@extensions/Workflow/WorkflowClient"
 import * as PredictorClient from "@extensions/MachineLearning/PredictorClient"
 import * as RestClient from "@extensions/Rest/RestClient"
+import * as AlertsClient from "@extensions/Alerts/AlertsClient"
 
 import * as ToolbarClient from "@extensions/Toolbar/ToolbarClient"
 import QueryToolbarConfig from "@extensions/Toolbar/QueryToolbarConfig"
@@ -86,6 +87,7 @@ export function startFull(routes: JSX.Element[]) {
     new DashboardToolbarConfig(),
   );
   RestClient.start({ routes });
+  AlertsClient.start({ routes });
 
   /* LightDynamic
   DynamicClient.start({ routes, withCodeGen: false });

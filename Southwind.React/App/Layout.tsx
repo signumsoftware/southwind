@@ -18,6 +18,7 @@ import { useUpdatedRef } from '../../Framework/Signum.React/Scripts/Hooks'
 
 const WorkflowDropdown = React.lazy(() => import("@extensions/Workflow/Workflow/WorkflowDropdown"));
 const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Templates/ToolbarRenderer"));
+const AlertDropdown = React.lazy(() => import("@extensions/Alerts/AlertDropdown"));
 
 export default function Layout() {
   const [refreshId, setRefreshId] = React.useState(0);
@@ -83,8 +84,9 @@ export default function Layout() {
                   {AuthClient.currentUser() && <React.Suspense fallback={null}><WorkflowDropdown /></React.Suspense>}
                 </Nav>}
               {AuthClient.currentUser() && <React.Suspense fallback={null}><ToolbarRenderer location="Top" /></React.Suspense>}
-              <Nav className="ms-auto">
-                <VersionInfo extraInformation={(window as any).__serverName} />
+            <Nav className="ms-auto">
+              {AuthClient.currentUser() && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
+              <VersionInfo extraInformation={(window as any).__serverName} />
                 <Nav.Item> {/*Swagger*/}
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
                 </Nav.Item> {/*Swagger*/}

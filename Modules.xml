@@ -396,7 +396,16 @@
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="AlertLogic.Start(sb, typeof(UserEntity), /*Alert*/typeof(OrderEntity));"/>
 			<RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", /*Alert*/typeof(OrderEntity)" DependsOn="ExampleEntities" />
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.Recipient).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.AttendedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
+			<RemoveLine Path="Southwind.React\App\Layout.tsx" Line="const AlertDropdown = React.lazy(() => import(&quot;@extensions/Alerts/AlertDropdown&quot;));"/>
+			<RemoveLine Path="Southwind.React\App\Layout.tsx" Line="{AuthClient.currentUser() &amp;&amp; &lt;React.Suspense fallback={null}>&lt;AlertDropdown />&lt;/React.Suspense>}"/>
+			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as AlertsClient from &quot;@extensions/Alerts/AlertsClient&quot;"/>
+			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="AlertsClient.start({ routes });"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@microsoft/signalr&quot;: &quot;6.0.1&quot;,"/>
+			<RemoveLine Path="Southwind.React\Startup.cs" Line="services.AddSignalR();"/>
+			<RemoveLine Path="Southwind.React\Startup.cs" Line="AlertsServer.MapAlertsHub(endpoints);"/>
+			<RemoveLine Path="Southwind.React\Startup.cs" Line="AlertsServer.Start(app);"/>
 		</Module>
 
 		<Module Name="Notes">
