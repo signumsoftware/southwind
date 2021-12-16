@@ -20,7 +20,7 @@
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.TypeAttributes&lt;OrderEntity>().Add(new SystemVersionedAttribute());"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" From="EmployeeLogic.Start(sb);" To="ShipperLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs"
-						Line="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindGroup.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));"/>
+						Line="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindTypeCondition.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="CacheLogic.CacheTable&lt;ShipperEntity>(sb);"/>
 
 
@@ -71,8 +71,8 @@
 		<Module Name="UserQuery">
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((UserQueryEntity uq) => uq.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.Start(sb);"/>
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserQueryLogic.RegisterTranslatableRoutes();"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="UserQueryServer.Start(app);"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as UserQueryClient from &quot;@extensions/UserQueries/UserQueryClient&quot;"/>
@@ -96,8 +96,8 @@
 		<Module Name="Chart" DependsOn="Files">
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((UserChartEntity uc) => uc.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);"/>
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="UserChartLogic.RegisterTranslatableRoutes();"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as ChartClient from &quot;@extensions/Chart/ChartClient&quot;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ChartClient.start({ routes });"/>
@@ -171,8 +171,8 @@
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((DashboardEntity cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.Start(sb, GetFileTypeAlgorithm(p => p.CachedQueryFolder));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });"/>
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);"/>
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterTranslatableRoutes();"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="CachedQueryFolder = localPrefix + @&quot;cached-query&quot;,"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="CachedQueryFolder = localPrefix + @&quot;cached-query&quot;,"/>
@@ -327,7 +327,7 @@
 		<Module Name="AzureAD" DependsOn="Auth">
 			<RemoveFiles Path="Southwind.Logic\SouthwindAuthorizer.cs" />
 			<RemoveLine Path="Southwind.Logic/Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);"/>
-			<RemoveLine Path="Southwind.Logic/Starter.cs" Line="MicrosoftGraphLogic.Start(sb);"/>
+			<RemoveLine Path="Southwind.Logic/Starter.cs" Line="AzureADLogic.Start(sb, adGroups: true, deactivateUsersTask: true);"/>
 			<RemoveSpanInLines Path="Southwind.Logic/Starter.cs" Span=", activeDirectoryIntegration: true"/>
 			<RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
 			<RemoveLine Path="Southwind.Entities/ApplicationConfiguration.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>
@@ -416,7 +416,7 @@
 		</Module>
 
 		<Module Name="Cache">
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="CacheLogic.Start(sb, cacheInvalidator: sb.Settings.IsPostgres ? new PostgresCacheInvalidation() : null);"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" From="CacheLogic.Start(sb, serverBroadcast:" To="null);/*Cache*/"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="SetupCache(sb);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" From="private static void SetupCache(SchemaBuilder sb)" To="}"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="CacheClient.start({ routes });"/>
@@ -529,8 +529,8 @@
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
-			<RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.6.0&quot; />"/>
-			<RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.6.0&quot; />"/>
+			<RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.7.0&quot; />"/>
+			<RemoveLine Path="Southwind.React\Southwind.React.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.7.0&quot; />"/>
 			"     <RemoveLine Path="Southwind.Logic\Southwind.Logic.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Signum.Engine.MachineLearning.TensorFlow\Signum.Engine.MachineLearning.TensorFlow.csproj&quot; />"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="using Signum.Engine.MachineLearning.TensorFlow;"/>
 			<RemoveSpanInLines Path="Southwind.Logic\Starter.cs" Span=", typeof(PredictorEntity)"/>

@@ -98,9 +98,10 @@ public static partial class Starter
                 Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
             }
 
-            CacheLogic.Start(sb, serverBroadcast: sb.Settings.IsPostgres ? new PostgresBroadcast() :
+            CacheLogic.Start(sb, serverBroadcast: 
+                sb.Settings.IsPostgres ? new PostgresBroadcast() : 
                 broadcastSecret != null && broadcastUrls != null ? new SimpleHttpBroadcast(broadcastSecret, broadcastUrls) :
-                null);
+                null);/*Cache*/
 
             /* LightDynamic
                DynamicLogic.Start(sb, withCodeGen: false);
@@ -134,7 +135,7 @@ public static partial class Starter
             AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
             AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);
             AuthLogic.StartAllModules(sb, activeDirectoryIntegration: true);
-            AzureADLogic.Start(sb, adGroups: false, deactivateUsersTask: false);
+            AzureADLogic.Start(sb, adGroups: true, deactivateUsersTask: true);
             ResetPasswordRequestLogic.Start(sb);
             UserTicketLogic.Start(sb);
             SessionLogLogic.Start(sb);
