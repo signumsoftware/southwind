@@ -61,7 +61,7 @@ public static class ApplicationConfigurationOperation
 }
 
 [AutoInit]
-public static class SouthwindGroup
+public static class SouthwindTypeCondition
 {
     public static TypeConditionSymbol UserEntities;
     public static TypeConditionSymbol RoleEntities;

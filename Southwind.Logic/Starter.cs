@@ -145,18 +145,18 @@ public static partial class Starter
             OmniboxLogic.Start(sb);
 
             UserQueryLogic.Start(sb);
-            UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-            UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+            UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);
+            UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);
             UserQueryLogic.RegisterTranslatableRoutes();                
 
             ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);
-            UserChartLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-            UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+            UserChartLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);
+            UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);
             UserChartLogic.RegisterTranslatableRoutes();
 
             DashboardLogic.Start(sb, GetFileTypeAlgorithm(p => p.CachedQueryFolder));
-            DashboardLogic.RegisterUserTypeCondition(sb, SouthwindGroup.UserEntities);
-            DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindGroup.RoleEntities);
+            DashboardLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);
+            DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);
             DashboardLogic.RegisterTranslatableRoutes();
             ViewLogLogic.Start(sb, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
             SystemEventLogLogic.Start(sb);
@@ -201,7 +201,7 @@ public static partial class Starter
 
             StartSouthwindConfiguration(sb);
 
-            TypeConditionLogic.Register<OrderEntity>(SouthwindGroup.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));
+            TypeConditionLogic.Register<OrderEntity>(SouthwindTypeCondition.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));
 
             if (includeDynamic)//2
             {

@@ -277,10 +277,10 @@ export module ShipperOperation {
   export const Save : Entities.ExecuteSymbol<ShipperEntity> = registerSymbol("Operation", "ShipperOperation.Save");
 }
 
-export module SouthwindGroup {
-  export const UserEntities : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindGroup.UserEntities");
-  export const RoleEntities : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindGroup.RoleEntities");
-  export const CurrentEmployee : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindGroup.CurrentEmployee");
+export module SouthwindTypeCondition {
+  export const UserEntities : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.UserEntities");
+  export const RoleEntities : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.RoleEntities");
+  export const CurrentEmployee : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.CurrentEmployee");
 }
 
 export const SupplierEntity = new Type<SupplierEntity>("Supplier");
