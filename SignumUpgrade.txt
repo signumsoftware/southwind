@@ -55,3 +55,4 @@ Upgrade_20211128_ES2017
 Upgrade_20211129_CachedQueries
 Upgrade_20211130_ChunksAndMinBy
 Upgrade_20211216_UpdateNugets
+Upgrade_20211219_MicrosoftDataSqlClient
