@@ -58,13 +58,8 @@ Services.NotifyPendingFilter.notifyPendingRequests = pending => {
 CultureClient.onCultureLoaded.push(ci => {
   const culture = ci.name!; //"en";
 
-  const fullCulture =
-    culture == "en" ? "en-GB" :
-      culture == "es" ? "es-ES" :
-        "Unkwnown";
-
-  luxon.Settings.defaultLocale = fullCulture;
-  NumberFormatSettings.defaultNumberFormatLocale = fullCulture;
+  luxon.Settings.defaultLocale = culture;
+  NumberFormatSettings.defaultNumberFormatLocale = culture;
 }); //Culture
 
 Services.VersionFilter.versionHasChanged = () => {
