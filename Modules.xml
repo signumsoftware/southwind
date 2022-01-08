@@ -65,7 +65,7 @@
 			<RemoveFiles Path="Southwind.Terminal\OrderLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\ProductLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\SupplierFaxes.csv"/>
-			<RemoveLine Path="Southwind.Terminal\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True&quot;"/>
+			<RemoveLine Path="Southwind.Terminal\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True;TrustServerCertificate=true&quot;"/>
 		</Module>
 
 		<Module Name="UserQuery">
