@@ -6,34 +6,42 @@ import OmniboxAutocomplete from '@extensions/Omnibox/OmniboxAutocomplete'
 import * as AppContext from "@framework/AppContext"
 import { GlobalModalContainer } from "@framework/Modals"
 import Notify from "@framework/Frames/Notify"
-import CultureDropdown from "@extensions/Translation/CultureDropdown"
-import SidebarContainer from "@extensions/Toolbar/SidebarContainer"
+import CultureDropdown, { CultureDropdownMenuItem } from "@extensions/Translation/CultureDropdown"
+import { SidebarContainer, SidebarMode, SidebarToggleItem } from "@extensions/Toolbar/SidebarContainer"
 import { VersionChangedAlert, VersionInfo } from '@framework/Frames/VersionChangedAlert';
 import { LinkContainer, ErrorBoundary } from '@framework/Components';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { OmniboxPermission } from '@extensions/Omnibox/Signum.Entities.Omnibox'
-import { JavascriptMessage } from '@framework/Signum.Entities'
+import { isModifiableEntity, JavascriptMessage } from '@framework/Signum.Entities'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useUpdatedRef } from '../../Framework/Signum.React/Scripts/Hooks'
+import { Breakpoints, useBreakpoint, useUpdatedRef, useWindowEvent } from '../../Framework/Signum.React/Scripts/Hooks'
+import { ModelConverterSymbol } from '../../Framework/Signum.React.Extensions/Templating/Signum.Entities.Templating'
 
 const WorkflowDropdown = React.lazy(() => import("@extensions/Workflow/Workflow/WorkflowDropdown"));
 const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Templates/ToolbarRenderer"));
 const AlertDropdown = React.lazy(() => import("@extensions/Alerts/AlertDropdown"));
 
 export default function Layout() {
-  const [refreshId, setRefreshId] = React.useState(0);
-  const [sideMenuOpen, setSideMenuOpen] = React.useState(() => AuthClient.currentUser() != null && window.outerWidth > 768 /*iPad*/);
-  const sideMenuOpenRef = useUpdatedRef(sideMenuOpen);
 
-  function handleToggle(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-    setSideMenuOpen(!sideMenuOpen);
-  }
+
+  const itemStorageKey = "SIDEBAR_MODE";
+  const [refreshId, setRefreshId] = React.useState(0);
+
+  const isMobile = useBreakpoint() <= Breakpoints.sm;
 
   React.useEffect(() => {
-    AppContext.Expander.onGetExpanded = () => !sideMenuOpenRef.current;
-    AppContext.Expander.onSetExpanded = (isExpanded: boolean) => setSideMenuOpen(!isExpanded);
+    if (isMobile)
+      setSidebarMode("Hidden");
+    else
+      setSidebarMode(window.localStorage.getItem(itemStorageKey) as SidebarMode | null ?? "Wide");
+  }, [isMobile])
+
+  const [sidebarMode, setSidebarMode] = React.useState<SidebarMode>(isMobile ? "Hidden" : window.localStorage.getItem(itemStorageKey) as SidebarMode | null ?? "Wide");
+  const sidebarModeRef = useUpdatedRef(sidebarMode);
+
+  React.useEffect(() => {
+    AppContext.Expander.onGetExpanded = () => sidebarModeRef.current != "Wide";
+    AppContext.Expander.onSetExpanded = (isExpanded: boolean) => setSidebarMode(isExpanded ? (isMobile ? "Hidden" : "Narrow") : "Wide");
   }, []); //Sidebar
 
   function resetUI() {
@@ -45,70 +53,64 @@ export default function Layout() {
     return () => AppContext.setResetUI(() => { });
   }, []);
 
-  function handleSwaggerClick(e: React.MouseEvent<any>) {
-    e.preventDefault();
-    import("@extensions/Rest/RestClient")
-      .then(RestClient => RestClient.API.getCurrentRestApiKey())
-      .then(key => { window.location.assign(AppContext.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || ""))); })
-      .done();
-  } //Swagger
+  const hasUser = Boolean(AuthClient.currentUser());
+
+  function renderTitle() {
+    return (
+      <div className="navbar-light" style={{
+        transition: "all 200ms",
+        padding: !hasUser ? "0 0 0 10px" : sidebarMode == "Wide" ? "5px 25px 16px" : "0px 13px 10px"
+      }}>
+        <Link to="~/" className="navbar-brand">
+          {hasUser && sidebarMode == "Narrow" ? "SW" : "Southwind"}
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <ErrorBoundary >
       <div id="main" key={refreshId}>
-        <Navbar bg="light" expand="lg">
-            <Link to="~/" className="navbar-brand">
-              {/*SidebarButton*/
-                AuthClient.currentUser() != null &&
-                <button className="btn btn-link" onClick={handleToggle} style={{ marginTop: "-6px", marginLeft: "-12px" }}>
-                  <span className="navbar-toggler-icon" />
-                </button>
-              /*SidebarButton*/}
-              Southwind</Link>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              {AuthClient.currentUser() &&
-                <Nav className="me-auto">
-                  {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <div className="omnibox-container" style={{ width: "200px" }}>
-                    <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />
-                  </div>}
-                {/*
-                  <NavDropdown title="Menu" id="layoutMenu">
-                    <LinkContainer to="~/" exact={true}><NavDropdown.Item>Home</NavDropdown.Item></LinkContainer>
-                    <LinkContainer to="~/publicCatalog"><NavDropdown.Item>Catalog</NavDropdown.Item></LinkContainer>
-                    <NavDropdown.Divider />
-                    <LinkContainer to="~/find/order"><NavDropdown.Item>Orders</NavDropdown.Item></LinkContainer>
-                    <LinkContainer to="~/find/exception"><NavDropdown.Item>Exceptions</NavDropdown.Item></LinkContainer>
-                  </NavDropdown>
-                */}
-                  {AuthClient.currentUser() && <React.Suspense fallback={null}><WorkflowDropdown /></React.Suspense>}
-                </Nav>}
-              {AuthClient.currentUser() && <React.Suspense fallback={null}><ToolbarRenderer location="Top" /></React.Suspense>}
-            <Nav className="ms-auto">
-              {AuthClient.currentUser() && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
-              <VersionInfo extraInformation={(window as any).__serverName} />
-                <Nav.Item> {/*Swagger*/}
-                  <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
-                </Nav.Item> {/*Swagger*/}
-                <CultureDropdown />
-                <LoginDropdown changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"}/>
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
         <Notify />
         <div id="main-container">
           <SidebarContainer
-            sidebarVisible={AuthClient.currentUser() && sideMenuOpen}
-            sidebarContent={<React.Suspense fallback={null}><ToolbarRenderer location="Side" /></React.Suspense>}>
+            isMobile={isMobile}
+            mode={sidebarMode}
+            sidebarContent={hasUser ? <React.Suspense fallback={JavascriptMessage.loading.niceToString()}>
+              <ToolbarRenderer
+                sidebarMode={sidebarMode}
+                onAutoClose={isMobile ? () => setSidebarMode("Hidden") : undefined}
+                appTitle={renderTitle()} />
+            </React.Suspense> : undefined}>
+
             <VersionChangedAlert />
-            {Layout.switch}
+
+            <div className={"main-toopbar"} style={{ flexGrow: 0 }}>
+              {hasUser && <SidebarToggleItem isMobile={isMobile} mode={sidebarMode} setMode={mode => {
+                setSidebarMode(mode);
+                if (!isMobile)
+                  window.localStorage.setItem(itemStorageKey, mode);
+              }} />}
+
+              {hasUser && <div style={{ width: "100%", marginRight: "15px" }}>
+                {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />}
+              </div>}
+
+              {hasUser && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
+
+              {!hasUser && <>
+                {renderTitle()}
+                <div style={{ flexGrow: 1 }}></div>
+                <CultureDropdown />
+              </>}
+
+              <LoginDropdown changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"} extraMenuItems={u => hasUser && <CultureDropdownMenuItem />} />
+            </div>
+
+            <div id="page-inner-content" style={{ padding: 10, position: 'relative' }}>
+              {Layout.switch}
+            </div>
           </SidebarContainer>
-          {/* Layout
-                    <ContainerToggle>
-                        <VersionChangedAlert />
-                        {Layout.switch}
-                    </ContainerToggle>
-                    Layout */}
         </div>
         <GlobalModalContainer />
         <div id="footer">
