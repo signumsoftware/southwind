@@ -200,7 +200,7 @@ public static class SouthwindEnvironment
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
-                .AddUserSecrets<SouthwindEnvironment>(optional: true)
+                .AddUserSecrets(typeof(SouthwindEnvironment).Assembly, optional: true)
                 .Build();
 
             Starter.Start(
