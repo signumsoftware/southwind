@@ -165,7 +165,7 @@
 
         window.onerror = function (message, filename, lineno, colno, error) {
             var spinner = document.querySelector("#reactDiv .loading-spinner");
-            spinner.parentElement.removeChild(spinner);
+            spinner && spinner.parentElement.removeChild(spinner);
 
             var title = document.querySelector("#reactDiv h3").replaceWith(
                 newElement("div", function (div) {
@@ -192,7 +192,7 @@
         var supportIE = true;
         if (!supportIE && (browser == "old edge" || browser == "ie")) {
             var spinner = document.querySelector("#reactDiv .loading-spinner");
-            spinner.parentElement.removeChild(spinner);
+            spinner && spinner.parentElement.removeChild(spinner);
             document.querySelector("#reactDiv h3").innerHTML =
                 "Southwind is not compatible with your browser (" + browser + "). <br/>"
                 + "Please try with <a href='https://www.google.com/chrome/'>Google Chrome</a>, "
