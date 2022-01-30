@@ -113,11 +113,6 @@ export default function Layout() {
           </SidebarContainer>
         </div>
         <GlobalModalContainer />
-        <div id="footer">
-          <div className="container">
-            <p className="text-muted">Made by <a href="http://signumsoftware.com/">Signum Software</a>  using <a href="http://signumframework.com/">Signum Framework</a>.</p>
-          </div>
-        </div>
       </div>
     </ErrorBoundary>
   );

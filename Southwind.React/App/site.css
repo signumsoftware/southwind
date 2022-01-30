@@ -11,15 +11,6 @@
     display: flex;
 }
 
-#footer {
-    height: 60px;
-    background-color: #f8f8f8;
-}
-
-    #footer .container {
-        text-align: center;
-    }
-
 .container .text-muted {
     margin: 20px 0;
 }
