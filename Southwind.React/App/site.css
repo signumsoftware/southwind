@@ -15,13 +15,6 @@
     margin: 20px 0;
 }
 
-.navbar {
-    padding: 5px;
-    margin: 0px;
-    border-radius: 0px;
-    background-color: #f8f8f8;
-}
-
 .nav-link {
     white-space: nowrap;
 }
@@ -56,6 +49,12 @@
         text-align: center;
     }
 
+@media (max-width: 575.98px) {
+    #hero .hero-container {
+        top: 300px;
+    }
+}
+
 h1.white {
     margin: 30px 0 10px 0;
     font-size: 48px;
@@ -71,4 +70,9 @@ h2.white {
     margin-bottom: 50px;
     font-size: 24px;
     text-shadow: 1px 1px 6px rgb(43 43 43);
+}
+
+
+.omnibox::placeholder {
+/*    color: rgba(255, 255, 255, 0.8);  Match nav-link color*/
 }

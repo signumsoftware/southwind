@@ -27,7 +27,7 @@ export default function Layout() {
   const itemStorageKey = "SIDEBAR_MODE";
   const [refreshId, setRefreshId] = React.useState(0);
 
-  const isMobile = useBreakpoint() <= Breakpoints.sm;
+  const isMobile = useBreakpoint() <= Breakpoints.md;
 
   React.useEffect(() => {
     if (isMobile)
@@ -59,9 +59,9 @@ export default function Layout() {
     return (
       <div className="navbar-light" style={{
         transition: "all 200ms",
-        padding: !hasUser ? "0 0 0 10px" : sidebarMode == "Wide" ? "5px 25px 16px" : "0px 13px 10px"
+        padding: !hasUser ? "0 0 0 10px" : sidebarMode == "Wide" ? "10px 25px" : "10px 10px 10px 14px",
       }}>
-        <Link to="~/" className="navbar-brand">
+        <Link to="~/" className="navbar-brand m-0">
           {hasUser && sidebarMode == "Narrow" ? "SW" : "Southwind"}
         </Link>
       </div>
@@ -85,31 +85,28 @@ export default function Layout() {
 
             <VersionChangedAlert />
 
-            <div className={"main-toopbar"} style={{ flexGrow: 0 }}>
-              {hasUser && <SidebarToggleItem isMobile={isMobile} mode={sidebarMode} setMode={mode => {
+            <nav className={"main-toolbar navbar navbar-light navbar-expand"}>
+              
+              {hasUser && <div className="navbar-nav"><SidebarToggleItem isMobile={isMobile} mode={sidebarMode} setMode={mode => {
                 setSidebarMode(mode);
                 if (!isMobile)
                   window.localStorage.setItem(itemStorageKey, mode);
-              }} />}
+              }} /></div>}
 
-              {hasUser && <div style={{ width: "100%", marginRight: "15px" }}>
-                {AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control" }} />}
-              </div>}
+              {!hasUser && renderTitle()}
 
-              {hasUser && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
+              <div style={{ flex: "1", marginRight: "15px" }}>
+                {hasUser && AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control omnibox" }} />}
+              </div>
 
-              {!hasUser && <>
-                {renderTitle()}
-                <div style={{ flexGrow: 1 }}></div>
-                <CultureDropdown />
-              </>}
+              <div className="navbar-nav ml-auto">
+                {hasUser && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
+                {!hasUser && <CultureDropdown />}
+                <LoginDropdown changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"} extraMenuItems={u => hasUser && <CultureDropdownMenuItem />} />
+              </div>
+            </nav>
 
-              <LoginDropdown changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"} extraMenuItems={u => hasUser && <CultureDropdownMenuItem />} />
-            </div>
-
-            <div id="page-inner-content" style={{ padding: 10, position: 'relative' }}>
-              {Layout.switch}
-            </div>
+            {Layout.switch}
           </SidebarContainer>
         </div>
         <GlobalModalContainer />
