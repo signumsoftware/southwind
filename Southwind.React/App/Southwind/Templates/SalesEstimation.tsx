@@ -32,25 +32,21 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
   const color = estimation != null ? gradient.getCachedColor(ctx.value.unitsInStock! / (Math.max(1, estimation))) : undefined;
 
   return (
-    <FormGroup ctx={ctx} labelText={OrderMessage.SalesNextMonth.niceToString()} helpText = "Monthly estimation using Predicitor extension" >
+    <FormGroup ctx={ctx} labelText={OrderMessage.SalesNextMonth.niceToString()} helpText="Monthly estimation using Predicitor extension" >
       {
         estimation != null &&
         <div className={ctx.inputGroupClass}>
-          <div className="input-group-prepend">
-            <span className="input-group-text">
-              <FontAwesomeIcon icon={["far", "lightbulb"]} />
-            </span>
-          </div>
-          <p className={classes(ctx.formControlClass, "readonly numeric")} style={{ color: color && color.toString() }}>
+          <span className="input-group-text">
+            <FontAwesomeIcon icon={["far", "lightbulb"]} />
+          </span>
+          <div className={classes(ctx.formControlClass, "readonly numeric")} style={{ color: color && color.toString() }}>
             {estimation}
-          </p>
-          <div className="input-group-append">
-            <a href="#" className={classes("sf-line-button", "sf-view", "btn input-group-text")}
-              onClick={handleViewClick}
-              title={EntityControlMessage.View.niceToString()}>
-              <FontAwesomeIcon icon={"arrow-right"} />
-            </a>
           </div>
+          <a href="#" className={classes("sf-line-button", "sf-view", "btn input-group-text")}
+            onClick={handleViewClick}
+            title={EntityControlMessage.View.niceToString()}>
+            <FontAwesomeIcon icon={"arrow-right"} />
+          </a>
         </div>
       }
     </FormGroup>
