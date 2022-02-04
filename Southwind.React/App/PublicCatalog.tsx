@@ -25,7 +25,7 @@ export default function PublicCatalog() {
   const numberFormat = toNumberFormat("0.00");
 
   const result = (
-    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background.jpg") + ")", backgroundSize: "cover", backgroundAttachment: "fixed" }}>
+    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background_dark.jpg") + ")", backgroundSize: "cover", backgroundAttachment: "fixed" }}>
       <div className="d-flex flex-column align-items-center position-relative">
           <h1 className="white mt-4">Southwind Product Catalog</h1>
           <Link to={AppContext.toAbsoluteUrl("~/registerUser")} className="btn btn-primary">{RegisterUserMessage.Register.niceToString()}</Link>

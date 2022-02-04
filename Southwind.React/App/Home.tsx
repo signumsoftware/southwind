@@ -30,10 +30,10 @@ export default function Home() {
     return null;
 
   return (
-    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background.jpg") + ")", backgroundSize: "cover" }}>
+    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background_dark.jpg") + ")", backgroundSize: "cover" }}>
       <div className="hero-container">
         <div style={{ background: "white", padding: "10px", boxShadow: "0px 4px 8px 0px rgb(0 0 0 / 75%)" }}>
-          <img src={AppContext.toAbsoluteUrl("~/logo.png")} />
+          <img src={AppContext.toAbsoluteUrl("~/logo.png")} style={{ maxWidth: "90vw" }} />
         </div>
         <h1 className="white">Southwind</h1>
         <h2 className="white">Demo application from <a href="http://www.signumsoftware.com" style={{ color: "#cae4ff" }} title="Signum Software">Signum Software</a> based on Northwind database from Microsoft</h2>

@@ -83,8 +83,6 @@ export default function Layout() {
                 appTitle={renderTitle()} />
             </React.Suspense> : undefined}>
 
-            <VersionChangedAlert />
-
             <nav className={"main-toolbar navbar navbar-light navbar-expand"}>
               
               {hasUser && <div className="navbar-nav"><SidebarToggleItem isMobile={isMobile} mode={sidebarMode} setMode={mode => {
@@ -105,6 +103,8 @@ export default function Layout() {
                 <LoginDropdown changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"} extraMenuItems={u => hasUser && <CultureDropdownMenuItem />} />
               </div>
             </nav>
+
+            <VersionChangedAlert />
 
             {Layout.switch}
           </SidebarContainer>

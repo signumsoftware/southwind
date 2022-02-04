@@ -23,7 +23,7 @@ export default function RegisterUser(p: RouteComponentProps<{ reportsToEmployeeI
   AppContext.useTitle(RegisterUserModel.niceName());
 
   return (
-    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background.jpg") + ")", backgroundSize: "cover" }}>
+    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background_dark.jpg") + ")", backgroundSize: "cover" }}>
       <div style={{ margin: "0 auto", maxWidth: "680px", marginTop: "100px" }}>
         <div className="card shadow">
           <RegisterUserCard reportsToEmployeeId={p.match.params.reportsToEmployeeId} />

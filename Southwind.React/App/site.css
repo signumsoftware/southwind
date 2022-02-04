@@ -26,16 +26,6 @@
     margin-left: -15px;
 }
 
-    #hero:before {
-        content: "";
-        background: rgba(0, 0, 0, 0.3);
-        position: absolute;
-        bottom: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-    }
-
     #hero .hero-container {
         position: absolute;
         bottom: 0;
@@ -51,7 +41,15 @@
 
 @media (max-width: 575.98px) {
     #hero .hero-container {
-        top: 300px;
+        position: static;
+        margin-top: 20px;
+    }
+}
+
+@media (max-height: 800.0px) {
+    #hero .hero-container {
+        position: static;
+        margin-top: 20px;
     }
 }
 
