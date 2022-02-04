@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Breakpoints, useBreakpoint, useUpdatedRef, useWindowEvent } from '../../Framework/Signum.React/Scripts/Hooks'
 import { ModelConverterSymbol } from '../../Framework/Signum.React.Extensions/Templating/Signum.Entities.Templating'
 
-const WorkflowDropdown = React.lazy(() => import("@extensions/Workflow/Workflow/WorkflowDropdown"));
 const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Templates/ToolbarRenderer"));
 const AlertDropdown = React.lazy(() => import("@extensions/Alerts/AlertDropdown"));
 
@@ -53,6 +52,14 @@ export default function Layout() {
     return () => AppContext.setResetUI(() => { });
   }, []);
 
+  function handleSwaggerClick(e: React.MouseEvent<any>) {
+    e.preventDefault();
+    import("@extensions/Rest/RestClient")
+      .then(RestClient => RestClient.API.getCurrentRestApiKey())
+      .then(key => { window.location.assign(AppContext.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || ""))); })
+      .done();
+  } //Swagger
+
   const hasUser = Boolean(AuthClient.currentUser());
 
   function renderTitle() {
@@ -76,12 +83,14 @@ export default function Layout() {
           <SidebarContainer
             isMobile={isMobile}
             mode={sidebarMode}
-            sidebarContent={hasUser ? <React.Suspense fallback={JavascriptMessage.loading.niceToString()}>
+            sidebarContent={
+              hasUser ? <React.Suspense fallback={JavascriptMessage.loading.niceToString()}>
               <ToolbarRenderer
                 sidebarMode={sidebarMode}
                 onAutoClose={isMobile ? () => setSidebarMode("Hidden") : undefined}
                 appTitle={renderTitle()} />
-            </React.Suspense> : undefined}>
+              </React.Suspense> :
+                undefined}>
 
             <nav className={"main-toolbar navbar navbar-light navbar-expand"}>
               
@@ -99,8 +108,15 @@ export default function Layout() {
 
               <div className="navbar-nav ml-auto">
                 {hasUser && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
+                <VersionInfo extraInformation={(window as any).__serverName} />
+                <Nav.Item> {/*Swagger*/}
+                  <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
+                </Nav.Item> {/*Swagger*/}
                 {!hasUser && <CultureDropdown />}
-                <LoginDropdown changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"} extraMenuItems={u => hasUser && <CultureDropdownMenuItem />} />
+                <LoginDropdown
+                  changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"}
+                  extraMenuItems={u => hasUser && <CultureDropdownMenuItem />}
+                />{/*LoginDropdown*/}
               </div>
             </nav>
 
