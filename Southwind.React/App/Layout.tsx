@@ -86,7 +86,6 @@ export default function Layout() {
             sidebarContent={
               hasUser ? <React.Suspense fallback={JavascriptMessage.loading.niceToString()}>
               <ToolbarRenderer
-                sidebarMode={sidebarMode}
                 onAutoClose={isMobile ? () => setSidebarMode("Hidden") : undefined}
                 appTitle={renderTitle()} />
               </React.Suspense> :
