@@ -33,6 +33,8 @@ import QueryToolbarConfig from "@extensions/Toolbar/QueryToolbarConfig"
 import UserQueryToolbarConfig from "@extensions/UserQueries/UserQueryToolbarConfig"
 import UserChartToolbarConfig from "@extensions/Chart/UserChartToolbarConfig"
 import DashboardToolbarConfig from "@extensions/Dashboard/DashboardToolbarConfig"
+import WorkflowToolbarConfig from "@extensions/Workflow/WorkflowToolbarConfig"
+import WorkflowToolbarMenuConfig from "@extensions/Workflow/WorkflowToolbarMenuConfig"
 
 import * as DynamicClient from "@extensions/Dynamic/DynamicClient"
 import * as DynamicExpressionClient from "@extensions/Dynamic/DynamicExpressionClient"
@@ -85,6 +87,8 @@ export function startFull(routes: JSX.Element[]) {
     new UserQueryToolbarConfig(),
     new UserChartToolbarConfig(),
     new DashboardToolbarConfig(),
+    new WorkflowToolbarConfig(),
+    new WorkflowToolbarMenuConfig(),
   );
   RestClient.start({ routes });
   AlertsClient.start({ routes });

@@ -209,6 +209,7 @@
 						To="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-user&quot; IconColor=&quot;seagreen&quot; Content=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; />" />
 			<RemoveLine DependsOn="Dynamic" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Dynamic Panel&quot; IconName=&quot;fas fa-arrows-alt&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;DynamicPanelPermission.ViewDynamicPanel&quot; Url=&quot;~/dynamic/panel&quot; />" />
 			<RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Label=&quot;Workflow Script Runner&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;#9b6bcc&quot; Content=&quot;WorkflowPermission.ViewWorkflowPanel&quot; Url=&quot;~/workflow/panel&quot; />" />
+			<RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Content=&quot;WorkflowPermission.WorkflowToolbarMenu&quot; />" />
 			<RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; Name=&quot;Workflow&quot;>" To="&lt;/ToolbarMenu>" />
 			<RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;saddlebrown&quot; Content=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; />" />
 			<RemoveLine Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
@@ -573,6 +574,10 @@
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as WorkflowClient from &quot;@extensions/Workflow/WorkflowClient&quot;" />
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="WorkflowClient.start({ routes });"/>
+			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import WorkflowToolbarConfig from &quot;@extensions/Workflow/WorkflowToolbarConfig&quot;"/>
+			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import WorkflowToolbarMenuConfig from &quot;@extensions/Workflow/WorkflowToolbarMenuConfig&quot;"/>
+			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="new WorkflowToolbarConfig(),"/>
+			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="new WorkflowToolbarMenuConfig(),"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="WorkflowServer.Start(app);"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
@@ -580,7 +585,8 @@
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.11.6&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js&quot;: &quot;0.11.7&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;html-to-draftjs&quot;: &quot;1.5.0&quot;,"/>
-			<RemoveLine Path="Southwind.React\package.json" Line="&quot;draftjs-to-html&quot;: &quot;0.9.1&quot;,"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;draftjs-to-html&quot;: &quot;0.9.1&quot;,"/>>
+
 		</Module>
 
 		<Module Name="Test.Environment">
