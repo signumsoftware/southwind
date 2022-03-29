@@ -62,3 +62,4 @@ Upgrade_20220204_UpdateNugets
 Upgrade_20220210_FirstCRLF
 Upgrade_20220211_FixBrakpoint
 Upgrade_20220223_fetchEntities
+Upgrade_20220311_fixWebpackAssets

@@ -58,10 +58,10 @@ module.exports = {
           { loader: "sass-loader" }
         ]
       },
-      { test: /\.gif$/, use: [{ loader: "url-loader", options: { "mimetype": "image/gif" } }] },
-      { test: /\.png$/, use: [{ loader: "url-loader", options: { "mimetype": "image/png" } }] },
-      { test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/, use: [{ loader: "url-loader", options: { "mimetype": "application/font-woff" } }] },
-      { test: /\.(ttf|eot|svg)(\?.*)?$/, use: [{ loader: "file-loader", options: { "name": "[name].[ext]" } }] }
+      { test: /\.gif$/, type: "asset" },
+      { test: /\.png$/, type: "asset" },
+      { test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/, type: "asset" },
+      { test: /\.(ttf|eot|svg)(\?.*)?$/, type: "asset" }
     ]
   },
   plugins: [
