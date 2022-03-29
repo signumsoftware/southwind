@@ -26,7 +26,7 @@ export default function Layout() {
   const itemStorageKey = "SIDEBAR_MODE";
   const [refreshId, setRefreshId] = React.useState(0);
 
-  const isMobile = useBreakpoint() <= Breakpoints.md;
+  const isMobile = useBreakpoint() <= Breakpoints.sm;
 
   React.useEffect(() => {
     if (isMobile)
