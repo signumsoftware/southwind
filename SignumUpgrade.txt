@@ -57,3 +57,4 @@ Upgrade_20211130_ChunksAndMinBy
 Upgrade_20211216_UpdateNugets
 Upgrade_20211219_MicrosoftDataSqlClient
 Upgrade_20220127_UpdateNugets
+Upgrade_20220131_SimplifyExpressionRegister
