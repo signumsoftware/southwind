@@ -54,6 +54,7 @@ using Microsoft.AspNetCore.Http;
 using Signum.Engine.Rest;
 using Southwind.Entities.Public;
 using Signum.React.Alerts;
+using Signum.React.ConcurrentUser;
 
 namespace Southwind.React;
 
@@ -225,6 +226,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             app.UseEndpoints(endpoints =>
             {
                 AlertsServer.MapAlertsHub(endpoints);
+                ConcurrentUserServer.MapConcurrentUserHub(endpoints);
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "spa-fallback",
@@ -304,6 +306,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
         RestLogServer.Start(app);
         PredictorServer.Start(app);
         WorkflowServer.Start(app);
+        ConcurrentUserServer.Start(app);
         AlertsServer.Start(app);
         DynamicServer.Start(app);
 

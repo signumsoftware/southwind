@@ -52,6 +52,7 @@ using Microsoft.Exchange.WebServices.Data;
 using Signum.Engine.Omnibox;
 using Signum.Engine.MachineLearning.TensorFlow;
 using Azure.Storage.Blobs;
+using Signum.Engine.ConcurrentUser;
 
 namespace Southwind.Logic;
 
@@ -193,6 +194,8 @@ public static partial class Starter
                 timeTracker: true,
                 heavyProfiler: true,
                 overrideSessionTimeout: true);
+
+            ConcurrentUserLogic.Start(sb);
 
             // Southwind modules
 
