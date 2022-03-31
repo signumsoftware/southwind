@@ -206,7 +206,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
 
             log.Switch("WebStart");
-            WebStart(app, env, lifetime);
+            WebStart(app, env, lifetime, Configuration.GetValue<string?>("ServerName"));
 
             log.Switch("UseEndpoints");
 
@@ -276,10 +276,12 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
         }
     }
 
-    public static void WebStart(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
+    public static void WebStart(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime, string? machineName)
     {
         SignumServer.Start(app, env, typeof(Startup).Assembly);
-
+        if (machineName != null)
+            Schema.Current.MachineName = machineName;
+        
         AuthServer.Start(app, () => Starter.Configuration.Value.AuthTokens, "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!");
         CacheServer.Start(app);
         FilesServer.Start(app);
