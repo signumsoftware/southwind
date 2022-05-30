@@ -54,6 +54,7 @@ using Microsoft.AspNetCore.Http;
 using Signum.Engine.Rest;
 using Southwind.Entities.Public;
 using Signum.React.Alerts;
+using Signum.React.ConcurrentUser;
 
 namespace Southwind.React;
 
@@ -205,7 +206,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
 
             log.Switch("WebStart");
-            WebStart(app, env, lifetime);
+            WebStart(app, env, lifetime, Configuration.GetValue<string?>("ServerName"));
 
             log.Switch("UseEndpoints");
 
@@ -225,6 +226,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             app.UseEndpoints(endpoints =>
             {
                 AlertsServer.MapAlertsHub(endpoints);
+                ConcurrentUserServer.MapConcurrentUserHub(endpoints);
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "spa-fallback",
@@ -274,10 +276,12 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
         }
     }
 
-    public static void WebStart(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
+    public static void WebStart(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime, string? machineName)
     {
         SignumServer.Start(app, env, typeof(Startup).Assembly);
-
+        if (machineName != null)
+            Schema.Current.MachineName = machineName;
+        
         AuthServer.Start(app, () => Starter.Configuration.Value.AuthTokens, "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!");
         CacheServer.Start(app);
         FilesServer.Start(app);
@@ -304,6 +308,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
         RestLogServer.Start(app);
         PredictorServer.Start(app);
         WorkflowServer.Start(app);
+        ConcurrentUserServer.Start(app);
         AlertsServer.Start(app);
         DynamicServer.Start(app);
 
