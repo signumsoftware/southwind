@@ -19,5 +19,62 @@
     "**/obj": true,
     "**/node_modules": true,
     "**/ts_out": true,
-  }
+  },
+  "workbench.iconTheme": "vscode-icons",
+  "vsicons.associations.folders": [
+    {
+      "icon": "asset",
+      "extensions": [
+        "Framework",
+      ],
+      "format": "svg",
+    },
+    {
+      "icon": "bloc",
+      "extensions": [
+        "Signum.Entities",
+        "Signum.Entities.Extensions",
+        "Southwind.Entities",
+      ],
+      "format": "svg",
+    },
+    {
+      "icon": "services",
+      "extensions": [
+        "Signum.Engine",
+        "Signum.Engine.Extensions",
+        "Southwind.Logic",
+      ],
+      "format": "svg",
+    },
+    {
+      "icon": "cli",
+      "extensions": [
+        "Signum.Upgrade",
+        "Southwind.Terminal"
+      ],
+      "format": "svg",
+    },
+    {
+      "icon": "www",
+      "extensions": [
+        "Signum.React",
+        "Signum.React.Extensions",
+        "Southwind.React",
+      ],
+      "format": "svg",
+    },
+    {
+      "icon": "test",
+      "extensions": [
+        "Signum.Test",
+        "Signum.React.Extensions.Selenium",
+        "Southwind.Test",
+        "Southwind.Test.Environment",
+        "Southwind.Test.Logic",
+        "Southwind.Test.React",
+      ],
+      "format": "svg",
+    }
+  ],
 }

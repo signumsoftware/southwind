@@ -5,22 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Signum.Upgrade",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build_signum_upgrade",
-      "program": "${workspaceFolder}/Framework/Signum.Upgrade/bin/Debug/net6.0/Signum.Upgrade.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/Framework/Signum.Upgrade/bin/Debug/net6.0/",
-      "console": "integratedTerminal",
-      "stopAtEntry": false,
-      "internalConsoleOptions": "openOnSessionStart",
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "dev"
-      },
-    },
-    {
-      "name": "Load (dev)",
+      "name": "Southwind.Terminal (local)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
@@ -31,15 +16,30 @@
       "stopAtEntry": false,
       "internalConsoleOptions": "openOnSessionStart",
       "env": {
-        "ASPNETCORE_ENVIRONMENT": "dev"
+        "ASPNETCORE_ENVIRONMENT": ""
       },
     },
     {
-      "name": ".NET Core Launch (React)",
+      "name": "Southwind.Terminal (LIVE)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.React/bin/netcoreapp6.0/Southwind.React.dll",
+      "program": "${workspaceFolder}/Southwind.Load/bin/Debug/net6.0/Southwind.Load.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Southwind.Load/bin/Debug/net6.0/",
+      "console": "integratedTerminal",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "live"
+      },
+    },
+    {
+      "name": "Southwind.React (local)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/Southwind.React/bin/Debug/net6.0/Southwind.React.dll",
       "args": [],
       "cwd": "${workspaceFolder}/Southwind.React/",
       "stopAtEntry": false,
@@ -59,11 +59,56 @@
         }
       },
       "env": {
-        "ASPNETCORE_ENVIRONMENT": "dev"
+        "ASPNETCORE_ENVIRONMENT": ""
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
       }
+    },  {
+      "name": "Southwind.React (LIVE)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/Southwind.React/bin/Debug/net6.0/Southwind.React.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Southwind.React/",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart",
+      "launchBrowser": {
+        "enabled": true,
+        "args": "${auto-detect-url}",
+        "windows": {
+          "command": "cmd.exe",
+          "args": "/C start ${auto-detect-url}"
+        },
+        "osx": {
+          "command": "open"
+        },
+        "linux": {
+          "command": "xdg-open"
+        }
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "live"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "Signum.Upgrade",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build_signum_upgrade",
+      "program": "${workspaceFolder}/Framework/Signum.Upgrade/bin/Debug/net6.0/Signum.Upgrade.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Framework/Signum.Upgrade/bin/Debug/net6.0/",
+      "console": "integratedTerminal",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "dev"
+      },
     },
     {
       "name": ".NET Core Attach",
