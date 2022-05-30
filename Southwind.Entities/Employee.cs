@@ -2,6 +2,7 @@ using Signum.Entities.Basics;
 using System.Data;
 using Signum.Entities.Authorization;
 using Signum.Entities.Files;
+using System.Security.Authentication;
 
 namespace Southwind.Entities;
 
@@ -52,7 +53,14 @@ public class EmployeeEntity : Entity
 
     public static Lite<EmployeeEntity>? Current
     {
-        get { return UserEntity.Current.Mixin<UserEmployeeMixin>().Employee; } //get { return null; }
+        get
+        {
+            var userHolder = UserHolder.Current;
+            if (userHolder == null)
+                throw new AuthenticationException(LoginAuthMessage.NotUserLogged.NiceToString());
+
+            return (Lite<EmployeeEntity>)userHolder.GetClaim("Employee")!;
+        }
     } //Current
 }
 

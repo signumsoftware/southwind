@@ -1,3 +1,5 @@
+using Signum.Entities.Authorization;
+using Signum.Entities.Basics;
 using Southwind.Entities;
 
 namespace Southwind.Logic;
@@ -23,6 +25,11 @@ public static class EmployeeLogic
                     e.BirthDate,
                     e.Photo, //1
                 });
+
+            UserWithClaims.FillClaims += (userWithClaims, user)=>
+            {
+                userWithClaims.Claims["Employee"] = ((UserEntity)user).Mixin<UserEmployeeMixin>().Employee;
+            };
 
             QueryLogic.Queries.Register(EmployeeQuery.EmployeesByTerritory, () =>
                 from e in Database.Query<EmployeeEntity>()
