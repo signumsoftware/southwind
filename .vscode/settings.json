@@ -13,4 +13,11 @@
     "typescriptreact",
   ],
   "editor.detectIndentation": false,
+  "files.exclude": {
+    "**/.git": true,
+    "**/bin": true,
+    "**/obj": true,
+    "**/node_modules": true,
+    "**/ts_out": true,
+  }
 }
