@@ -65,3 +65,4 @@ Upgrade_20220223_fetchEntities
 Upgrade_20220311_fixWebpackAssets
 Upgrade_20220318_UpdateNPMPagages
 Upgrade_20220329_SearchValue
+Upgrade_20220426_React18

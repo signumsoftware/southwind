@@ -5,7 +5,7 @@ import "@framework/Frames/Frames.css"
 
 import * as React from "react"
 import { Localization } from "react-widgets"
-import { render, unmountComponentAtNode } from "react-dom"
+import { createRoot, Root } from "react-dom/client"
 import { Router, Route, Redirect } from "react-router-dom"
 import { Switch } from "react-router"
 
@@ -81,6 +81,7 @@ if (window.__azureApplicationId) {
 ErrorModal.register();
 
 
+let root: Root | undefined = undefined;
 function reload() {
   return AuthClient.autoLogin() //Promise.resolve()
     .then(() => CultureClient.loadCurrentCulture())
@@ -110,16 +111,19 @@ function reload() {
 
         Layout.switch = React.createElement(Switch, undefined, ...routes);
         const reactDiv = document.getElementById("reactDiv")!;
-        unmountComponentAtNode(reactDiv);
+        if (root)
+          root.unmount();
+
+        root = createRoot(reactDiv);
 
         const h = AppContext.createAppRelativeHistory();
 
-        render(
+        root.render(
           <Localization date={dateLocalizer} number={numberLocalizer} messages={messages} >
             <Router history={h}>
               <Layout />
             </Router>
-          </Localization>, reactDiv);
+          </Localization>);
 
         return isFull;
       });
