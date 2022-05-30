@@ -16,6 +16,8 @@
 			<RemoveFiles Path="Southwind.Logic\OrderLogic.cs"/>
 			<RemoveFiles Path="Southwind.Logic\ProductLogic.cs"/>
 			<RemoveFiles Path="Southwind.Logic\ShipperLogic.cs"/>
+			
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;OrderDetailEmbedded, OrderDetailMixin>();"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.TypeAttributes&lt;OrderEntity>().Add(new SystemVersionedAttribute());"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" From="EmployeeLogic.Start(sb);" To="ShipperLogic.Start(sb);"/>
