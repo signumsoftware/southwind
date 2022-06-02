@@ -9,30 +9,45 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.Load/bin/Debug/net6.0/Southwind.Load.dll",
+      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/Southwind.Terminal.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Southwind.Load/bin/Debug/net6.0/",
+      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/",
       "console": "integratedTerminal",
       "stopAtEntry": false,
-      "internalConsoleOptions": "openOnSessionStart",
+      // "internalConsoleOptions": "openOnSessionStart",
       "env": {
         "ASPNETCORE_ENVIRONMENT": ""
-      },
+      }
     },
     {
       "name": "Southwind.Terminal (LIVE)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.Load/bin/Debug/net6.0/Southwind.Load.dll",
+      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/Southwind.Terminal.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Southwind.Load/bin/Debug/net6.0/",
+      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/",
       "console": "integratedTerminal",
       "stopAtEntry": false,
       "internalConsoleOptions": "openOnSessionStart",
       "env": {
         "ASPNETCORE_ENVIRONMENT": "live"
-      },
+      }
+    },
+    {
+      "name": "Southwind.Terminal (test)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/Southwind.Terminal.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/",
+      "console": "integratedTerminal",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "test"
+      }
     },
     {
       "name": "Southwind.React (local)",
@@ -64,7 +79,8 @@
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
       }
-    },  {
+    },
+    {
       "name": "Southwind.React (LIVE)",
       "type": "coreclr",
       "request": "launch",
@@ -96,6 +112,37 @@
       }
     },
     {
+      "name": "Southwind.React (LIVE)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/Southwind.React/bin/Debug/net6.0/Southwind.React.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Southwind.React/",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart",
+      "launchBrowser": {
+        "enabled": true,
+        "args": "${auto-detect-url}",
+        "windows": {
+          "command": "cmd.exe",
+          "args": "/C start ${auto-detect-url}"
+        },
+        "osx": {
+          "command": "open"
+        },
+        "linux": {
+          "command": "xdg-open"
+        }
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "test"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
       "name": "Signum.Upgrade",
       "type": "coreclr",
       "request": "launch",
@@ -108,7 +155,7 @@
       "internalConsoleOptions": "openOnSessionStart",
       "env": {
         "ASPNETCORE_ENVIRONMENT": "dev"
-      },
+      }
     },
     {
       "name": ".NET Core Attach",

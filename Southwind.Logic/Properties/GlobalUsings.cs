@@ -8,7 +8,6 @@ global using Signum.Utilities;
 global using Signum.Utilities.ExpressionTrees;
 global using Signum.Entities;
 global using Signum.Entities.Reflection;
-global using Signum.Entities;
 global using Signum.Entities.DynamicQuery;
 global using Signum.Engine.Maps;
 global using Signum.Engine.DynamicQuery;
