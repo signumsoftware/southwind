@@ -1,17 +1,25 @@
-docker build -f ".\Southwind.React\Dockerfile" . -t southwind
-docker tag southwind southwind.azurecr.io/signum/southwind
+## az account set -s "<<your southwind subscription Id>>"
+az account set -s "ca749d04-8c4e-49bc-a831-a27051939d94"
 az acr login --name southwind
-docker push southwind.azurecr.io/signum/southwind
 
-$appName = 'southwind-webapp'
-$resourceGroup = 'southwind-resourceGroup'
-$slotName = 'prod2'
-$urlSlot = 'https://southwind-prod2.azurewebsites.net/'
-$url = 'https://www.southwind.com'
+docker build -f ".\Southwind.React\Dockerfile" . -t southwind-live
+docker tag southwind-live southwind.azurecr.io/signum/southwind-live
+docker push southwind.azurecr.io/signum/southwind-live
+
+$appName = 'southwind-app-live'
+$resourceGroup = 'southwind-live'
+$slotName = 'behind'
+$urlSlot = 'https://southwind-live-behind.azurewebsites.net/'
+$url = 'https://southwind-live.azurewebsites.net/'
 
 Write-Host '# STOP slot' $slotName -ForegroundColor DarkRed
 az webapp stop --resource-group $resourceGroup --name $appName --slot $slotName
 .\Framework\Utils\CheckUrl.exe dead $urlSlot
+Write-Host
+
+Write-Host '# SQL Migrations' -ForegroundColor Cyan
+$env:ASPNETCORE_ENVIRONMENT='production'
+Start-Process ".\Southwind.Terminal\bin\Debug\net6.0\Southwind.Terminal.exe" -ArgumentList "sql" -WorkingDirectory ".\Southwind.Terminal\bin\Debug\net6.0\" -NoNewWindow -Wait
 Write-Host
 
 Write-Host '# START slot' $slotName -ForegroundColor DarkGreen
