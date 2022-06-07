@@ -40,7 +40,7 @@ resource sqlserver 'Microsoft.Sql/servers@2021-11-01-preview' = if(usePostgressD
     version: '12.0'
   }
 
-  resource azureFirewallRule 'firewallRules@2021-11-01-preview' = {
+  resource azureFirewallRule 'firewallRules' = {
     name: 'AllowAllWindowsAzureIps'
     properties: {
     startIpAddress: '0.0.0.0'
@@ -48,7 +48,7 @@ resource sqlserver 'Microsoft.Sql/servers@2021-11-01-preview' = if(usePostgressD
     }
   }
 
-  resource myFirewallRule 'firewallRules@2021-11-01-preview' = if(!empty(dbFirewallMyIp)) {
+  resource myFirewallRule 'firewallRules' = if(!empty(dbFirewallMyIp)) {
     name: 'my-allowed-ip'
     properties: {
       startIpAddress: dbFirewallMyIp
@@ -56,7 +56,7 @@ resource sqlserver 'Microsoft.Sql/servers@2021-11-01-preview' = if(usePostgressD
     }
   }
 
-  resource database 'databases@2021-11-01-preview' = {
+  resource database 'databases' = {
     name: 'southwind-database-${suffix}'
     location: location
     sku: {
@@ -105,6 +105,14 @@ resource postgesqlServer 'Microsoft.DBforPostgreSQL/servers@2017-12-01'  = if(us
     }
   }
 
+  resource azureFirewallRule 'firewallRules' = {
+    name: 'AllowAllWindowsAzureIps'
+    properties: {
+    startIpAddress: '0.0.0.0'
+    endIpAddress: '0.0.0.0'
+    }
+  }
+
   resource database 'databases' = {
     name: 'southwind-database-${suffix}'
     properties: {
@@ -116,7 +124,7 @@ resource postgesqlServer 'Microsoft.DBforPostgreSQL/servers@2017-12-01'  = if(us
 
 var storageAccountConnection  = 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccount.id, storageAccount.apiVersion).keys[0].value}'
 var sqlConnectionString = 'Server=tcp:${sqlserver.name}${environment().suffixes.sqlServerHostname},1433;Initial Catalog=${sqlserver::database.name};Persist Security Info=False;User ID=${dbAdminUser};Password=${dbAdminPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
-var postgresConnectionString = 'Server=${postgesqlServer.name}.postgres.database.azure.com;Database=${postgesqlServer::database.name};Port=5432;User Id=${dbAdminUser}@${postgesqlServer.name};Password=${dbAdminPassword};Ssl Mode=Require;'
+var postgresConnectionString = 'Server=${postgesqlServer.name}.postgres.database.azure.com;Database=${postgesqlServer::database.name};Port=5432;User Id=${dbAdminUser}@${postgesqlServer.name};Password=${dbAdminPassword};Ssl Mode=Require;Trust Server Certificate=true'
 
 var brodcastUrls = 'https://southwind-app-${suffix}.azurewebsites.net;https://southwind-app-${suffix}-behind.azurewebsites.net'
 
@@ -192,7 +200,7 @@ resource app 'Microsoft.Web/sites@2021-03-01' = {
         {
           name: 'ConnectionString'
           connectionString: usePostgressDatabase ? postgresConnectionString : sqlConnectionString
-          type: usePostgressDatabase ? 'PostgreSQL' : 'SQLServer'
+          type: usePostgressDatabase ? 'SQLServer'/*'PostgreSQL'*/ : 'SQLServer'
         }
         {
           name: 'AzureStorageConnectionString'
@@ -254,6 +262,7 @@ resource app 'Microsoft.Web/sites@2021-03-01' = {
           {
             name: 'ConnectionString'
             connectionString: usePostgressDatabase ? postgresConnectionString : sqlConnectionString
+            type: usePostgressDatabase ? 'SQLServer'/*'PostgreSQL'*/ : 'SQLServer'
           }
           {
             name: 'AzureStorageConnectionString'
