@@ -145,12 +145,12 @@
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="OperationLogFolder = localPrefix + @&quot;operation-logs&quot;,"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="OperationLogFolder = localPrefix + @&quot;operation-logs&quot;,"/>
 
-			<RemoveLine DependsOn="Dashboard" Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*ViewLog*/" To="public string ViewLogFolder { get; set; }"/>
-			<RemoveLine DependsOn="Dashboard" Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol ViewLog;"/>
-			<RemoveLine DependsOn="Dashboard" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ViewLogFolder = localPrefix + @&quot;view-logs&quot;,"/>
-			<RemoveLine DependsOn="Dashboard" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="ViewLogFolder = localPrefix + @&quot;view-logs&quot;,"/>
-			<RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.ViewLog, GetFileTypeAlgorithm(c => c.ViewLogFolder));"/>
-			<RemoveLine DependsOn="Dashboard" Path="Southwind.Logic\Starter.cs" Line="BigStringLogic.RegisterAll&lt;ViewLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.ViewLog));"/>
+			<RemoveLine DependsOn="ViewLog" Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*ViewLog*/" To="public string ViewLogFolder { get; set; }"/>
+			<RemoveLine DependsOn="ViewLog" Path="Southwind.Entities\ApplicationConfiguration.cs" Line="public static FileTypeSymbol ViewLog;"/>
+			<RemoveLine DependsOn="ViewLog" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ViewLogFolder = localPrefix + @&quot;view-logs&quot;,"/>
+			<RemoveLine DependsOn="ViewLog" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="ViewLogFolder = localPrefix + @&quot;view-logs&quot;,"/>
+			<RemoveLine DependsOn="ViewLog" Path="Southwind.Logic\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.ViewLog, GetFileTypeAlgorithm(c => c.ViewLogFolder));"/>
+			<RemoveLine DependsOn="ViewLog" Path="Southwind.Logic\Starter.cs" Line="BigStringLogic.RegisterAll&lt;ViewLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.ViewLog));"/>
 
 
 			<RemoveLine DependsOn="Mailing" Path="Southwind.Entities\ApplicationConfiguration.cs" From="/*EmailMessage*/" To="public string EmailMessageFolder { get; set; }"/>
@@ -170,7 +170,6 @@
 		<Module Name="Dashboard" DependsOn="Chart,UserQuery">
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((DashboardEntity cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.Start(sb, GetFileTypeAlgorithm(p => p.CachedQueryFolder));"/>
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="DashboardLogic.RegisterTranslatableRoutes();"/>
@@ -185,6 +184,10 @@
 			<RemoveLine DependsOn="Omnibox" Path="Southwind.React\Startup.cs" Line="new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; HideQuickLink=&quot;false&quot; Owner=&quot;User;2&quot; ChartScript=&quot;D3ChartScript.StackedLines&quot;&gt;"  To="&lt;/Dashboard>"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
+		</Module>
+
+		<Module Name="ViewLog">
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });"/>
 		</Module>
 
 		<Module Name="Toolbar">
