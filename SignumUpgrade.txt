@@ -69,3 +69,4 @@ Upgrade_20220426_React18
 Upgrade_20220502_FontAwesome6Rollback
 Upgrade_20220513_UserHolder
 Upgrade_20220518_UpdateNugets
+Upgrade_20220601_Dockerfile
