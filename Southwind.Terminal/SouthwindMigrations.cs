@@ -107,7 +107,7 @@ public static class SouthwindMigrations
 
             var localPrefix = Starter.AzureStorageConnectionString.HasText() ? "" : @"c:/SouthwindFiles/";
 
-            var standardUser = Database.Query<RoleEntity>().Single(a => a.Name == "Standard User").ToLite();
+            var standardUser = Database.Query<RoleEntity>().Single(a => a.Name == "Standard user").ToLite();
 
             new ApplicationConfigurationEntity
             {
