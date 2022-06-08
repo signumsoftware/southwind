@@ -53,14 +53,7 @@ public class EmployeeEntity : Entity
 
     public static Lite<EmployeeEntity>? Current
     {
-        get
-        {
-            var userHolder = UserHolder.Current;
-            if (userHolder == null)
-                throw new AuthenticationException(LoginAuthMessage.NotUserLogged.NiceToString());
-
-            return (Lite<EmployeeEntity>)userHolder.GetClaim("Employee")!;
-        }
+        get { return (Lite<EmployeeEntity>?)UserHolder.Current?.GetClaim("Employee"); } //get { return null; }
     } //Current
 }
 

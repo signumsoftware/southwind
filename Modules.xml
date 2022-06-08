@@ -300,7 +300,7 @@
 					   From="Navigator.getSettings(UserEntity)!.overrideView((rep) => {"
 					   To="});"
 					   DependsOn="ExampleEntities"/>
-			<RemoveSpanInLines Path="Southwind.Entities\Employee.cs" Span="get { return UserEntity.Current.Mixin&lt;UserEmployeeMixin>().Employee; } //" DependsOn="ExampleEntities" />>
+			<RemoveSpanInLines Path="Southwind.Entities\Employee.cs" Span="get { return (Lite&lt;EmployeeEntity>?)UserHolder.Current?.GetClaim(&quot;Employee&quot;); } //" DependsOn="ExampleEntities" />>
 			<RemoveLine Path="Southwind.React\App\Layout.tsx" Line="const hasUser = Boolean(AuthClient.currentUser());" />
 			<RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="hasUser &amp;&amp;" />
 			<RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;LoginDropdown" To="/>{/*LoginDropdown*/}"/>
@@ -331,12 +331,12 @@
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes });"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="if (window.__azureApplicationId) {" To="}//__azureApplicationId"/>
-			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.19.0&quot;,"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.23.0&quot;,"/>
 			<RemoveLine Path="Southwind.React\Views\Home\Index.cshtml"
 						From="var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);"
 						To="var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);"/>
-			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard User&quot;).ToLite();" />
-			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard User&quot;).ToLite();" />
+			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
+			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
 		</Module>
@@ -404,7 +404,7 @@
 		</Module>
 		
 		<Module Name="SignalR" DependsOn="Auth">
-			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@microsoft/signalr&quot;: &quot;6.0.1&quot;,"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@microsoft/signalr&quot;: &quot;6.0.4&quot;,"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="services.AddSignalR();"/>
 			<RemoveLine Path="Southwind.React\Views\Home\Index.cshtml" Line="var __disableSignalR = @Json.Serialize(Signum.React.ConcurrentUser.ConcurrentUserServer.DisableSignalR);"/>
 		</Module>
@@ -596,7 +596,7 @@
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;7.5.0&quot;,"/>
-			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.11.6&quot;,"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.11.9&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js&quot;: &quot;0.11.7&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;html-to-draftjs&quot;: &quot;1.5.0&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;draftjs-to-html&quot;: &quot;0.9.1&quot;,"/>>
@@ -628,6 +628,24 @@
 			<RemoveFiles Path="Southwind.Test.React"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.React\OrderReactTest.cs" From="[Fact]" To="}//OrderReactTestExample"/>
 			<RemoveProjectReference Path="Framework\Signum.React.Extensions.Selenium\Signum.React.Extensions.Selenium.csproj"/>
+		</Module>
+
+		<Module Name="Docker">
+			<RemoveFiles Path="Southwind.React\Dockerfile"/>
+			<RemoveFiles Path=".dockerignore"/>"D:\Signum\southwind\"
+			<RemoveFiles Path="deployToAzureLIVE.ps1"/>
+			<RemoveFiles Path="deployToAzureTEST.ps1"/>
+		</Module>
+
+		<Module Name="Bicep">
+			<RemoveFiles Path="azure-container-registry.bicep"/>
+			<RemoveFiles Path="azure-main-sqls-postgres.bicep" />
+			<RemoveFiles Path="azure-environment.bicep" />
+			<RemoveFiles Path="azure-main-live-test.bicep" />
+		</Module>
+
+		<Module Name="GitlabCICD">
+			<RemoveFiles Path=".gitlab-ci.yml" />
 		</Module>
 	</Modules>
 
