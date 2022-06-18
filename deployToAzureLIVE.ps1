@@ -8,7 +8,7 @@ docker push southwind.azurecr.io/signum/southwind-live
 $appName = 'southwind-app-live'
 $resourceGroup = 'southwind-live'
 $slotName = 'behind'
-$urlSlot = 'https://southwind-live-behind.azurewebsites.net/'
+$urlSlot = 'https://southwind-app-live-behind.azurewebsites.net/'
 $url = 'https://southwind-app-live.azurewebsites.net/'
 
 Write-Host '# STOP slot' $slotName -ForegroundColor DarkRed
