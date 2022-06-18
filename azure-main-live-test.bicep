@@ -36,7 +36,8 @@ module liveEnvironment 'azure-environment.bicep' = {
     location: location
     containerRegistryName: containerReg.outputs.containerRegistryName
     containerRegistryId: containerReg.outputs.containerRegistryId
-    isTestEnvironment: false
+    imageName: 'southwind-live'
+    withSlot: true
     brodcastSecret: brodcastSecret
   }
   scope: liveRG
@@ -58,7 +59,8 @@ module testEnvironment 'azure-environment.bicep' = {
     location: location
     containerRegistryName: containerReg.outputs.containerRegistryName
     containerRegistryId: containerReg.outputs.containerRegistryId
-    isTestEnvironment: true
+    imageName: 'southwind-test'
+    withSlot: false
     brodcastSecret: brodcastSecret
   }
   scope: testRG

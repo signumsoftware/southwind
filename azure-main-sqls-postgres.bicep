@@ -31,7 +31,8 @@ module sqlserverEnvironment 'azure-environment.bicep' = {
     location: location
     containerRegistryName: containerReg.outputs.containerRegistryName
     containerRegistryId: containerReg.outputs.containerRegistryId
-    isTestEnvironment: false
+    imageName: 'southwind-live'
+    withSlot: true
     brodcastSecret: brodcastSecret
   }
   scope: sqlserverRG
@@ -53,7 +54,8 @@ module postgresEnvironment 'azure-environment.bicep' = {
     location: location
     containerRegistryName: containerReg.outputs.containerRegistryName
     containerRegistryId: containerReg.outputs.containerRegistryId 
-    isTestEnvironment: false
+    imageName: 'southwind-live'
+    withSlot: true
     brodcastSecret: brodcastSecret
   }
   scope: postgreRG

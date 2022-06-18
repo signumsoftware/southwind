@@ -1,5 +1,4 @@
-## az account set -s "<<your southwind subscription Id>>"
-az account set -s "ca749d04-8c4e-49bc-a831-a27051939d94"
+az account set -s "<<your southwind subscription Id>>"
 az acr login --name southwind
 
 docker build -f ".\Southwind.React\Dockerfile" . -t southwind-live
@@ -10,7 +9,7 @@ $appName = 'southwind-app-live'
 $resourceGroup = 'southwind-live'
 $slotName = 'behind'
 $urlSlot = 'https://southwind-live-behind.azurewebsites.net/'
-$url = 'https://southwind-live.azurewebsites.net/'
+$url = 'https://southwind-app-live.azurewebsites.net/'
 
 Write-Host '# STOP slot' $slotName -ForegroundColor DarkRed
 az webapp stop --resource-group $resourceGroup --name $appName --slot $slotName
@@ -18,7 +17,7 @@ az webapp stop --resource-group $resourceGroup --name $appName --slot $slotName
 Write-Host
 
 Write-Host '# SQL Migrations' -ForegroundColor Cyan
-$env:ASPNETCORE_ENVIRONMENT='production'
+$env:ASPNETCORE_ENVIRONMENT='live'
 Start-Process ".\Southwind.Terminal\bin\Debug\net6.0\Southwind.Terminal.exe" -ArgumentList "sql" -WorkingDirectory ".\Southwind.Terminal\bin\Debug\net6.0\" -NoNewWindow -Wait
 Write-Host
 

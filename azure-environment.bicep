@@ -8,7 +8,8 @@ param brodcastSecret string
 param dbAdminUser string 
 param dbAdminPassword string
 param dbFirewallMyIp string
-param isTestEnvironment bool
+param withSlot bool
+param imageName string
 targetScope = 'resourceGroup'
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-09-01'={
@@ -135,7 +136,7 @@ resource servicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   properties: {
     reserved: true
   }
-  sku: !isTestEnvironment ? {
+  sku: withSlot ? {
     name: 'S1'
     tier: 'Standard'
     size: 'S1'
@@ -157,7 +158,7 @@ resource app 'Microsoft.Web/sites@2021-03-01' = {
   properties: {
     serverFarmId: servicePlan.id
     siteConfig: {
-      linuxFxVersion: 'DOCKER|${containerRegistryName}.azurecr.io/signum/southwind-${isTestEnvironment? 'test' : 'live'}:latest'
+      linuxFxVersion: 'DOCKER|${containerRegistryName}.azurecr.io/signum/${imageName}:latest'
       appSettings: [
         { 
           name: 'ServerName'
@@ -213,13 +214,13 @@ resource app 'Microsoft.Web/sites@2021-03-01' = {
 
 
 
-  resource slot 'slots' = {
+  resource slot 'slots' = if(withSlot){
     name: 'behind'
     location: location
     kind: 'app,linux,container'
     properties: {
       siteConfig: {
-        linuxFxVersion: 'DOCKER|${containerRegistryName}.azurecr.io/signum/southwind-${isTestEnvironment? 'test' : 'live'}:latest'
+        linuxFxVersion: 'DOCKER|${containerRegistryName}.azurecr.io/signum/${imageName}:latest'
         appSettings: [
           { 
             name: 'ServerName'
