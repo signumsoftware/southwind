@@ -17,7 +17,7 @@
 			<RemoveFiles Path="Southwind.Logic\ProductLogic.cs"/>
 			<RemoveFiles Path="Southwind.Logic\ShipperLogic.cs"/>
 			
-			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid));"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because Customer" />
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="MixinDeclarations.Register&lt;OrderDetailEmbedded, OrderDetailMixin>();"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.TypeAttributes&lt;OrderEntity>().Add(new SystemVersionedAttribute());"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" From="EmployeeLogic.Start(sb);" To="ShipperLogic.Start(sb);"/>
@@ -188,6 +188,7 @@
 
 		<Module Name="ViewLog">
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="ViewLogLogic.Start(sb, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });"/>
+			<RemoveLine Path="Southwind.Terminal\UserAssets.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Content=&quot;ViewLog&quot; />" />
 		</Module>
 
 		<Module Name="Toolbar">
@@ -206,6 +207,7 @@
 			<RemoveLine DependsOn="UserQuery" Path="Southwind.React\App\MainAdmin.tsx" Line="new UserQueryToolbarConfig(),"/>
 			<RemoveLine DependsOn="Chart" Path="Southwind.React\App\MainAdmin.tsx" Line="new UserChartToolbarConfig(),"/>
 			<RemoveLine DependsOn="Dashboard" Path="Southwind.React\App\MainAdmin.tsx" Line="new DashboardToolbarConfig(),"/>
+			<RemoveLine Path="Southwind.React\App\Layout.tsx" Line="const ToolbarRenderer = React.lazy(() => import(&quot;@extensions/Toolbar/Renderers/ToolbarRenderer&quot;));"/>
 			<RemoveLine Path="Southwind.React\App\Layout.tsx" From="hasUser ? &lt;React.Suspense fallback={JavascriptMessage.loading.niceToString()}>"
 						To="&lt;/React.Suspense> :"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\UserAssets.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
@@ -327,6 +329,7 @@
 			<RemoveFiles Path="Southwind.Logic\SouthwindAuthorizer.cs" />
 			<RemoveLine Path="Southwind.Logic/Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);"/>
 			<RemoveLine Path="Southwind.Logic/Starter.cs" Line="AzureADLogic.Start(sb, adGroups: true, deactivateUsersTask: true);"/>
+			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because AzureAD" />
 			<RemoveSpanInLines Path="Southwind.Logic/Starter.cs" Span=", activeDirectoryIntegration: true"/>
 			<RemoveLine Path="Southwind.React\App\Layout.tsx" Line="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
 			<RemoveLine Path="Southwind.Entities/ApplicationConfiguration.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>

@@ -46,10 +46,8 @@ public class EmployeeEntity : Entity
     [NoRepeatValidator, NoRepeatValidator]
     public MList<TerritoryEntity> Territories { get; set; } = new MList<TerritoryEntity>();
 
-    public override string ToString()
-    {
-        return "{0} {1}".FormatWith(FirstName, LastName);
-    }
+    [AutoExpressionField]
+    public override string ToString() => As.Expression(() => $"{FirstName} {LastName}");
 
     public static Lite<EmployeeEntity>? Current
     {
@@ -102,4 +100,20 @@ public static class RegionOperation
 public enum EmployeeQuery
 {
     EmployeesByTerritory
+}
+
+
+public class EmployeeLiteModel : ModelEntity
+{
+    [StringLengthValidator(Min = 3, Max = 20)]
+    public string LastName { get; set; }
+
+    [StringLengthValidator(Min = 3, Max = 10)]
+    public string FirstName { get; set; }
+
+    [StringLengthValidator(Min = 3, Max = 255), URLValidator]
+    public string? PhotoPath { get; set; }
+
+    [AutoExpressionField]
+    public override string ToString() => As.Expression(() => $"{FirstName} {LastName}");
 }

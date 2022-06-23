@@ -26,6 +26,13 @@ public static class EmployeeLogic
                     e.Photo, //1
                 });
 
+            Lite.RegisterLiteModelConstructor((EmployeeEntity e) => new EmployeeLiteModel
+            {
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                PhotoPath = e.PhotoPath,
+            });
+
             UserWithClaims.FillClaims += (userWithClaims, user)=>
             {
                 userWithClaims.Claims["Employee"] = ((UserEntity)user).Mixin<UserEmployeeMixin>().Employee;

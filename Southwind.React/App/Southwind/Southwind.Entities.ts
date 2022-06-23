@@ -119,6 +119,14 @@ export interface EmployeeEntity extends Entities.Entity {
   territories: Entities.MList<TerritoryEntity>;
 }
 
+export const EmployeeLiteModel = new Type<EmployeeLiteModel>("EmployeeLiteModel");
+export interface EmployeeLiteModel extends Entities.ModelEntity {
+  Type: "EmployeeLiteModel";
+  lastName: string;
+  firstName: string;
+  photoPath: string | null;
+}
+
 export module EmployeeOperation {
   export const Save : Entities.ExecuteSymbol<EmployeeEntity> = registerSymbol("Operation", "EmployeeOperation.Save");
 }
