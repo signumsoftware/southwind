@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Breakpoints, useBreakpoint, useUpdatedRef, useWindowEvent } from '../../Framework/Signum.React/Scripts/Hooks'
 import { ModelConverterSymbol } from '../../Framework/Signum.React.Extensions/Templating/Signum.Entities.Templating'
 
-const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Templates/ToolbarRenderer"));
+const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Renderers/ToolbarRenderer"));
 const AlertDropdown = React.lazy(() => import("@extensions/Alerts/AlertDropdown"));
 
 export default function Layout() {
