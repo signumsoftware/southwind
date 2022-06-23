@@ -79,7 +79,8 @@ public static partial class Starter
             SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial };
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version!;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
-            sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid));
+            sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because AzureAD
+            sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because Customer
 
             MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
             MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
