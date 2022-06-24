@@ -14,16 +14,18 @@ export default function Person(p : { ctx: TypeContext<PersonEntity> }){
         <div className="col-sm-2">
           <ValueLine ctx={ctxBasic.subCtx(p => p.title)} />
         </div>
-        <div className="col-sm-5">
+        <div className="col-sm-4">
           <ValueLine ctx={ctxBasic.subCtx(p => p.firstName)} />
         </div>
-        <div className="col-sm-5">
+        <div className="col-sm-4">
           <ValueLine ctx={ctxBasic.subCtx(p => p.lastName)} />
         </div>
+        <div className="col-sm-2">
+          <ValueLine ctx={ctxBasic.subCtx(p => p.dateOfBirth)} />
+        </div>
       </div>
-      <ValueLine ctx={ctx.subCtx(p => p.dateOfBirth)} />
 
-      <h2>{OrderEntity.nicePluralName()}</h2>
+      <h2 className="mt-4">{OrderEntity.nicePluralName()}</h2>
       <SearchControl findOptions={{
         queryName: OrderEntity,
         filterOptions: [{ token: "Customer", value: ctx.value}] 
