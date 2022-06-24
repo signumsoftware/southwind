@@ -30,7 +30,7 @@ public static class EmployeeLogic
             {
                 FirstName = e.FirstName,
                 LastName = e.LastName,
-                PhotoPath = e.PhotoPath,
+                Photo = e.Photo,
             });
 
             UserWithClaims.FillClaims += (userWithClaims, user)=>

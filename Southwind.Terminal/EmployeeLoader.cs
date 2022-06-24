@@ -56,7 +56,6 @@ internal static class EmployeeLoader
                 Extension = e.Extension,
                 HireDate = e.HireDate.ToDateOnly(),
                 Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),
-                PhotoPath = e.PhotoPath,
                 Address = new AddressEmbedded
                 {
                     Address = e.Address,

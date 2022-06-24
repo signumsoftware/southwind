@@ -23,7 +23,7 @@ import * as AppContext from '@framework/AppContext';
 import { RegisterUserModel } from '../Public/Southwind.Entities.Public';
 import OrderFilter from './Templates/OrderFilter'
 
-import { ApplicationConfigurationEntity } from './Southwind.Entities'
+import { ApplicationConfigurationEntity, EmployeeLiteModel } from './Southwind.Entities'
 
 import { /*Southwind.Entities*/
   AddressEmbedded, OrderDetailEmbedded, OrderFilterModel, CategoryEntity,
@@ -31,6 +31,8 @@ import { /*Southwind.Entities*/
   RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity, OrderState
 } from './Southwind.Entities'
 import { FilterGroupOption } from '@framework/FindOptions';
+import { FileImage } from '../../../Framework/Signum.React.Extensions/Files/FileImage';
+import { TypeaheadOptions } from '../../../Framework/Signum.React/Scripts/Components/Typeahead';
 
 
 export function start(options: { routes: JSX.Element[] }) {
@@ -39,7 +41,24 @@ export function start(options: { routes: JSX.Element[] }) {
   Navigator.addSettings(new EntitySettings(AddressEmbedded, a => import('./Templates/Address')));
   Navigator.addSettings(new EntitySettings(CategoryEntity, c => import('./Templates/Category')));
   Navigator.addSettings(new EntitySettings(CompanyEntity, c => import('./Templates/Company')));
-  Navigator.addSettings(new EntitySettings(EmployeeEntity, e => import('./Templates/Employee')));
+  Navigator.addSettings(new EntitySettings(EmployeeEntity, e => import('./Templates/Employee'), {
+    renderLite: (lite, subStr) => {
+      if (EmployeeLiteModel.isInstance(lite.model))
+        return (
+          <span>
+            <FileImage style={{ width: "20px", height: "20px", borderRadius: "100%", marginRight: "4px", marginTop: "-3px" }} file={lite.model.photo} />
+            {TypeaheadOptions.highlightedText(lite.model.firstName + " " + lite.model.lastName, subStr)}
+          </span>
+        );
+
+
+      if (typeof lite.model == "string")
+        return TypeaheadOptions.highlightedText(lite.model, subStr);
+
+      return lite.EntityType;
+    }
+  }));
+
   Navigator.addSettings(new EntitySettings(OrderEntity, o => import('./Templates/Order')));
   Navigator.addSettings(new EntitySettings(PersonEntity, p => import('./Templates/Person')));
   Navigator.addSettings(new EntitySettings(ProductEntity, p => import('./Templates/Product')));

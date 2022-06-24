@@ -111,8 +111,7 @@ public class EmployeeLiteModel : ModelEntity
     [StringLengthValidator(Min = 3, Max = 10)]
     public string FirstName { get; set; }
 
-    [StringLengthValidator(Min = 3, Max = 255), URLValidator]
-    public string? PhotoPath { get; set; }
+    public Lite<FileEntity>? Photo { get; set; }
 
     [AutoExpressionField]
     public override string ToString() => As.Expression(() => $"{FirstName} {LastName}");
