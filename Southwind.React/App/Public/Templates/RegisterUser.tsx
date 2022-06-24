@@ -8,7 +8,7 @@ import { FormGroup } from '@framework/Lines/FormGroup'
 import { FormControlReadonly } from '@framework/Lines/FormControlReadonly'
 import { useAPI, useForceUpdate } from '@framework/Hooks'
 import * as AppContext from '@framework/AppContext'
-import { JavascriptMessage } from '@framework/Signum.Entities'
+import { getToString, JavascriptMessage } from '@framework/Signum.Entities'
 import { DoublePassword } from '@extensions/Authorization/Templates/DoublePassword'
 import { useState } from 'react'
 import { EntityFrame, TypeContext } from '@framework/TypeContext'
@@ -79,7 +79,7 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
       </p>
       <form onSubmit={e => { e.preventDefault(); /*handleRegisterClick(); */ }}>
         {ctx.value.reportsTo && < FormGroup ctx={ctx.subCtx(r => r.reportsTo)}>
-          <FormControlReadonly ctx={ctx.subCtx(r => r.reportsTo)}>{ctx.value.reportsTo?.toStr}</FormControlReadonly>
+          <FormControlReadonly ctx={ctx.subCtx(r => r.reportsTo)}>{getToString(ctx.value.reportsTo)}</FormControlReadonly>
         </FormGroup>
         }
         <div className="row">

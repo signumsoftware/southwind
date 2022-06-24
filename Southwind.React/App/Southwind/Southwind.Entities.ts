@@ -124,7 +124,7 @@ export interface EmployeeLiteModel extends Entities.ModelEntity {
   Type: "EmployeeLiteModel";
   lastName: string;
   firstName: string;
-  photoPath: string | null;
+  photo: Entities.Lite<Files.FileEntity> | null;
 }
 
 export module EmployeeOperation {

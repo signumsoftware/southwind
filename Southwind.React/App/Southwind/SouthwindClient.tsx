@@ -11,7 +11,7 @@ import { FetchInState } from '@framework/Lines/Retrieve'
 import { defaultContextualClick } from '@framework/Operations/ContextualOperations'
 import { defaultExecuteEntity } from '@framework/Operations/EntityOperations'
 
-import { getMixin, Entity, Lite } from '@framework/Signum.Entities'
+import { getMixin, Entity, Lite, getToString } from '@framework/Signum.Entities'
 import { UserEntity } from '@extensions/Authorization/Signum.Entities.Authorization'
 import { FileEmbedded, FileEntity } from '@extensions/Files/Signum.Entities.Files'
 
@@ -113,8 +113,8 @@ export function start(options: { routes: JSX.Element[] }) {
     defaultFilters: [{
       groupOperation: "Or",
       filters: [
-        { token: CompanyEntity.token(a => a.entity).cast(CompanyEntity).append(a => a.toStr), operation: "Contains" },
-        { token: PersonEntity.token(a => a.entity).cast(PersonEntity).append(a => a.toStr), operation: "Contains" },
+        { token: CompanyEntity.token(a => a.entity).cast(CompanyEntity).append(a => getToString(a)), operation: "Contains" },
+        { token: PersonEntity.token(a => a.entity).cast(PersonEntity).append(a => getToString(a)), operation: "Contains" },
       ],
       pinned: { splitText: true, disableOnNull: true },
     } as FilterGroupOption]
