@@ -33,7 +33,7 @@ public class EmployeeEntity : Entity
     [StringLengthValidator(Min = 3, Max = 4), TelephoneValidator]
     public string? Extension { get; set; }
 
-    public Lite<FileEntity>? Photo { get; set; }
+    public Lite<FileEntity>? Photo { get; set; } //1
 
     [StringLengthValidator(Min = 3, MultiLine = true)]
     public string? Notes { get; set; }
@@ -111,7 +111,7 @@ public class EmployeeLiteModel : ModelEntity
     [StringLengthValidator(Min = 3, Max = 10)]
     public string FirstName { get; set; }
 
-    public Lite<FileEntity>? Photo { get; set; }
+    public Lite<FileEntity>? Photo { get; set; } //2
 
     [AutoExpressionField]
     public override string ToString() => As.Expression(() => $"{FirstName} {LastName}");

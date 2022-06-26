@@ -120,14 +120,17 @@
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as FilesClient from &quot;@extensions/Files/FilesClient&quot;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="FilesClient.start({ routes });"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="FilesServer.Start(app);"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Employee.cs" Line="public Lite&lt;FileEntity>? Photo { get; set; }"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Employee.cs" Line="public Lite&lt;FileEntity>? Photo { get; set; } //1"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Employee.cs" Line="public Lite&lt;FileEntity>? Photo { get; set; } //2"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Entities\Product.cs" Line="public FileEmbedded? Picture { get; set; }"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\EmployeeLoader.cs" Line="Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\EmployeeLoader.cs" From="public static byte[] RemoveOlePrefix(byte[] bytes)" To="} //RemoveOlePrefix"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\ProductLoader.cs" Line="Picture = new FileEmbedded { FileName = s.CategoryName + &quot;.jpg&quot;, BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\ProductLogic.cs" Line="s.Picture"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="Photo = e.Photo,"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //1"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Logic\EmployeeLogic.cs" Line="e.Photo, //2"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\SouthwindClient.tsx" From="&lt;FileImage" To="file={lite.model.photo} />"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\SouthwindClient.tsx" From="{/*Files*/ }" To="{/*Files*/ }"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" Line="const forceUpdate = useForceUpdate();"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.React\App\Southwind\Templates\Category.tsx" Line="const maxDimensions: React.CSSProperties = { maxWidth: &quot;96px&quot;, maxHeight: &quot;96px&quot; };"/>

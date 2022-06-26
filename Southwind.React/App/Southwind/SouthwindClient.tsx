@@ -46,7 +46,9 @@ export function start(options: { routes: JSX.Element[] }) {
       if (EmployeeLiteModel.isInstance(lite.model))
         return (
           <span>
-            <FileImage style={{ width: "20px", height: "20px", borderRadius: "100%", marginRight: "4px", marginTop: "-3px" }} file={lite.model.photo} />
+            <FileImage
+              style={{ width: "20px", height: "20px", borderRadius: "100%", marginRight: "4px", marginTop: "-3px" }}
+              file={lite.model.photo} />
             {TypeaheadOptions.highlightedText(lite.model.firstName + " " + lite.model.lastName, subStr)}
           </span>
         );
