@@ -73,3 +73,4 @@ Upgrade_20220601_Dockerfile
 Upgrade_20220601_UpdateNugets
 Upgrade_20220618_UpdateNugets
 Upgrade_20220623_ToStrGetToString
+Upgrade_20220610_ToolbarRendererMoved
