@@ -103,6 +103,7 @@ public enum EmployeeQuery
 }
 
 
+[AllowUnathenticated]
 public class EmployeeLiteModel : ModelEntity
 {
     [StringLengthValidator(Min = 3, Max = 20)]
