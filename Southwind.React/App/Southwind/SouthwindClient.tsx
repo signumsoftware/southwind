@@ -152,20 +152,14 @@ export function start(options: { routes: JSX.Element[] }) {
 
   Operations.addSettings(new ContextualOperationSettings(OrderOperation.CreateOrderFromProducts, {
     onClick: coc => Finder.find({ queryName: CustomerQuery.Customer })
-      .then(c => c && coc.defaultContextualClick(c))
+      .then(c => c && coc.defaultClick(c))
   }));
 
-  const selectShippedDate = () => ValueLineModal.show({
-    type: { name: "datetime" },
-    initialValue: DateTime.local().toISO(),
-    labelText: OrderEntity.nicePropertyName(a => a.shippedDate)
-  });
-
-
   Operations.addSettings(new EntityOperationSettings(OrderOperation.Ship, {
-    onClick: (eoc) => selectShippedDate().then(date => eoc.defaultClick(date)),
-    contextual: {
-      onClick: coc => selectShippedDate().then(date => coc.defaultContextualClick(date))
-    }
+    commonOnClick: (eoc) => ValueLineModal.show({
+      type: { name: "datetime" },
+      initialValue: DateTime.local().toISO(),
+      labelText: OrderEntity.nicePropertyName(a => a.shippedDate)
+    }).then(date => eoc.defaultClick(date)),
   }));//Ship
 }
