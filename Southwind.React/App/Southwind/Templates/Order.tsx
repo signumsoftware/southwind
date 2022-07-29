@@ -58,7 +58,11 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
         { property: a => a.quantity, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => forceUpdate()} /> },
         { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
         { property: a => a.discount, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => forceUpdate()} /> },
-        { property: a => getMixin(a, OrderDetailMixin).discountCode, headerHtmlAttributes: { style: { width: "15%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => getMixin(a, OrderDetailMixin).discountCode)} onChange={() => forceUpdate()} /> },
+        {
+          header: ctx2.subCtx(a => a.details[0].element).subCtx(OrderDetailMixin).niceName(a => a.discountCode),
+          headerHtmlAttributes: { style: { width: "15%" } },
+          template: dc => <ValueLine ctx={dc.subCtx(OrderDetailMixin).subCtx(a=>a.discountCode)} onChange={() => forceUpdate()} />
+        },
         {
           header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "10%" } },
           template: dc =>
