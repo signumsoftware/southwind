@@ -4,6 +4,7 @@ using Signum.Entities.Authorization;
 using Signum.Engine.Processes;
 using Signum.Engine.Scheduler;
 using Signum.Entities.Processes;
+using Signum.Utilities.Reflection;
 
 namespace Southwind.Logic;
 
@@ -171,7 +172,7 @@ public static class OrderLogic
 
             new Execute(OrderOperation.Ship)
             {
-                CanExecute = o => o.Details.IsEmpty() ? "No order lines" : null,
+                CanExecuteExpression = o => o.Details.IsEmpty() ? ValidationMessage._0IsEmpty.NiceToString(Entity.NicePropertyName(() => o.Details)) : null,
                 FromStates = { OrderState.Ordered },
                 ToStates = { OrderState.Shipped },
                 CanBeModified = true,

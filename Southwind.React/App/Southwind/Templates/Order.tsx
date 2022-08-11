@@ -59,7 +59,7 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
         { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
         { property: a => a.discount, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => forceUpdate()} /> },
         {
-          header: ctx2.subCtx(a => a.details[0].element).subCtx(OrderDetailMixin).niceName(a => a.discountCode),
+          header: ctx2.propertyRoute?.addLambda((o: OrderEntity) => o.details[0].element).addMixin(OrderDetailMixin, a => a.discountCode).member!.niceName,
           headerHtmlAttributes: { style: { width: "15%" } },
           template: dc => <ValueLine ctx={dc.subCtx(OrderDetailMixin).subCtx(a=>a.discountCode)} onChange={() => forceUpdate()} />
         },

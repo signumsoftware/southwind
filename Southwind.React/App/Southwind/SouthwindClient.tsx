@@ -155,11 +155,18 @@ export function start(options: { routes: JSX.Element[] }) {
       .then(c => c && coc.defaultClick(c))
   }));
 
+  const selectShippedDate = (e?: OrderEntity) => ValueLineModal.show({
+    type: { name: "datetime" },
+    initialValue: e?.requiredDate ?? DateTime.local().toISO(),
+    labelText: OrderEntity.nicePropertyName(a => a.shippedDate)
+  });
+
   Operations.addSettings(new EntityOperationSettings(OrderOperation.Ship, {
-    commonOnClick: (eoc) => ValueLineModal.show({
-      type: { name: "datetime" },
-      initialValue: DateTime.local().toISO(),
-      labelText: OrderEntity.nicePropertyName(a => a.shippedDate)
-    }).then(date => eoc.defaultClick(date)),
+    color: "info",
+    icon: "truck",
+    commonOnClick: oc => oc.getEntity().then(e => selectShippedDate(e)).then(date => oc.defaultClick(date)),
+    contextualFromMany: {
+      onClick: coc => selectShippedDate().then(date => coc.defaultClick(date))
+    }
   }));//Ship
 }
