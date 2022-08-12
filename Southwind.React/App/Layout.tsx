@@ -56,8 +56,7 @@ export default function Layout() {
     e.preventDefault();
     import("@extensions/Rest/RestClient")
       .then(RestClient => RestClient.API.getCurrentRestApiKey())
-      .then(key => { window.location.assign(AppContext.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || ""))); })
-      .done();
+      .then(key => { window.location.assign(AppContext.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || ""))); });
   } //Swagger
 
   const hasUser = Boolean(AuthClient.currentUser());

@@ -26,8 +26,7 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
     if (detail.product)
       Navigator.API.fetch(detail.product)
         .then(p => detail.unitPrice = p.unitPrice)
-        .then(() => forceUpdate())
-        .done();
+        .then(() => forceUpdate());
   }
 
   const ctx2 = p.ctx.subCtx({ labelColumns: { sm: 2 } });

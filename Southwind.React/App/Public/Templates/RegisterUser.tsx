@@ -66,8 +66,7 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
           GraphExplorer.setModelState(registerUser!, ve.modelState, "");
           forceUpdate();
         }
-      }))
-      .done();
+      }));
   }
 
   var ctx = TypeContext.root(registerUser, { formGroupStyle: "FloatingLabel", frame: { revalidate: forceUpdate } as EntityFrame });

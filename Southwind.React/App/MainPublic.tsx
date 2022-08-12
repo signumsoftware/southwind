@@ -137,14 +137,14 @@ AuthClient.Options.onLogin = (url?: string) => {
     const back: History.Location = loc && loc.state && (loc.state as any).back;
 
     AppContext.history.push(back ?? url ?? "~/");
-  }).done();
+  });
 };
 
 AuthClient.Options.onLogout = () => {
   AppContext.history.push("~/");
-  reload().done();
+  reload();
 };
 
-reload().done();
+reload();
 
 

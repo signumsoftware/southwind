@@ -117,3 +117,4 @@ public class EmployeeLiteModel : ModelEntity
     [AutoExpressionField]
     public override string ToString() => As.Expression(() => $"{FirstName} {LastName}");
 }
+

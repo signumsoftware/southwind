@@ -51,7 +51,7 @@ public static class SouthwindMigrations
             EmployeeLoader.CreateUsers,
             OrderLoader.UpdateOrdersDate,
             ImportWordReportTemplateForOrder,
-            ImportUserAssets,
+            ImportToolbar,
             ImportInstanceTranslations,
             ImportPredictor,
             InitialAuthRulesImport,
@@ -204,9 +204,9 @@ public static class SouthwindMigrations
         }.Save();
     }
 
-    public static void ImportUserAssets()
+    public static void ImportToolbar()
     {
-        var bytes = File.ReadAllBytes("../../../UserAssets.xml");
+        var bytes = File.ReadAllBytes("../../../Toolbar.xml");
         var preview = UserAssetsImporter.Preview(bytes);
         using (UserHolder.UserSession(AuthLogic.SystemUser!))
             UserAssetsImporter.Import(bytes, preview);
