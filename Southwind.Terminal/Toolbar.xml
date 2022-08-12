@@ -27,7 +27,7 @@
       <Parameter Name="ValueAsPercent" Value="No" />
     </Parameters>
   </UserChart>
-  <UserQuery Guid="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" DisplayName="Next Orders" Query="Order" Owner="User;2;Anonymous" ColumnsMode="Replace">
+  <UserQuery Guid="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" DisplayName="Next Orders" Query="Order" Owner="User;2;Anonymous" ColumnsMode="ReplaceAll">
     <Filters>
       <Filter Indentation="0" Token="State" Operation="EqualTo" Value="Ordered" />
       <Filter Indentation="0" Token="Entity.Details.Element.Product" Operation="EqualTo" DashboardBehaviour="PromoteToDasboardPinnedFilter">
@@ -286,7 +286,7 @@
       <ToolbarElement Type="Item" Content="Shipper" />
     </Elements>
   </ToolbarMenu>
-  <UserQuery Guid="37ae5c35-8d2b-41f7-acbf-5ef93c91c8ca" DisplayName="Employees" Query="Employee" ColumnsMode="Replace">
+  <UserQuery Guid="37ae5c35-8d2b-41f7-acbf-5ef93c91c8ca" DisplayName="Employees" Query="Employee" ColumnsMode="ReplaceAll">
     <Columns>
       <Column Token="Id" />
       <Column Token="FirstName" />
