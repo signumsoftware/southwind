@@ -76,3 +76,4 @@ Upgrade_20220623_ToStrGetToString
 Upgrade_20220610_ToolbarRendererMoved
 Upgrade_20220805_DoneIsDone
 Upgrade_20220812_ReplaceToReplaceAll
+Upgrade_20220819_SignInWithMicrosoftSVG
