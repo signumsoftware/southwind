@@ -248,13 +248,13 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 if (Configuration.GetValue<bool>("StartBackgroundProcesses"))
                 {
                     log.Switch("StartRunningProcesses");
-                    ProcessRunnerLogic.StartRunningProcesses(5 * 1000);
+                    ProcessRunner.StartRunningProcessesAfter(5 * 1000);
 
                     log.Switch("StartScheduledTasks");
-                    SchedulerLogic.StartScheduledTasks();
+                    ScheduleTaskRunner.StartScheduledTaskAfter(5 * 1000);
 
                     log.Switch("StartRunningEmailSenderAsync");
-                    AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);
+                    AsyncEmailSender.StartAsyncEmailSenderAfter(5 * 1000);
                 }
 
                 SystemEventServer.LogStartStop(app, lifetime);
