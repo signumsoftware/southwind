@@ -62,7 +62,7 @@ export function startFull(routes: JSX.Element[]) {
   QuickLinks.start();
 
   AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
-  ActiveDirectoryClient.start({ routes });
+  ActiveDirectoryClient.start({ routes, adGroups: false });
 
   ExceptionClient.start({ routes });
 

@@ -337,7 +337,7 @@
 			<RemoveLine Path="Southwind.React\App\Layout.tsx" Line="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
 			<RemoveLine Path="Southwind.Entities/ApplicationConfiguration.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as ActiveDirectoryClient from &quot;@extensions/Authorization/ActiveDirectoryClient&quot;"/>
-			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes });"/>
+			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes, adGroups: false });"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="if (window.__azureApplicationId) {" To="}//__azureApplicationId"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.23.0&quot;,"/>
