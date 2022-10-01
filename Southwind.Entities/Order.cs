@@ -10,7 +10,7 @@ public class OrderEntity : Entity
 {
     public OrderEntity()
     {
-        this.RebindEvents();
+        this.BindParent();
     }
 
     [ImplementedBy(typeof(CompanyEntity), typeof(PersonEntity))]
@@ -36,7 +36,7 @@ public class OrderEntity : Entity
     [Unit("Kg")]
     public decimal Freight { get; set; }
 
-    [NotifyChildProperty, NotifyCollectionChanged]
+    [BindParent]
     [NoRepeatValidator, PreserveOrder]
     public MList<OrderDetailEmbedded> Details { get; set; } = new MList<OrderDetailEmbedded>();
 
