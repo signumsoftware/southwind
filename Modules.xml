@@ -239,7 +239,7 @@
 						To="PackageLogic.Start(sb, packages: true, packageOperations: true);"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as ProcessClient from &quot;@extensions/Processes/ProcessClient&quot;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ProcessClient.start({ routes, packages: true, packageOperations: true });"/>
-			<RemoveLine Path="Southwind.React\Startup.cs" Line="ProcessRunnerLogic.StartRunningProcesses(5 * 1000);"/>
+			<RemoveLine Path="Southwind.React\Startup.cs" Line="ProcessRunner.StartRunningProcessesAfter(5 * 1000);"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="ProcessServer.Start(app);"/>
 		</Module>
 
@@ -252,7 +252,7 @@
 						To="sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="SchedulerLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="SchedulerServer.Start(app, lifetime);"/>
-			<RemoveLine Path="Southwind.React\Startup.cs" Line="SchedulerLogic.StartScheduledTasks();"/>
+			<RemoveLine Path="Southwind.React\Startup.cs" Line="ScheduleTaskRunner.StartScheduledTaskAfter(5 * 1000);"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as SchedulerClient from &quot;@extensions/Scheduler/SchedulerClient&quot;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="SchedulerClient.start({ routes });"/>
 		</Module>
@@ -264,7 +264,7 @@
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" Line="EmailLogic.Start(sb, () => Configuration.Value.Email, (template, target, message) => Configuration.Value.EmailSender);"/>
 			<RemoveLine Path="Southwind.Logic\Starter.cs" From="s.Email.SendEmails," To="s.Email.UrlLeft"/>
-			<RemoveLine Path="Southwind.React\Startup.cs" Line="AsyncEmailSenderLogic.StartRunningEmailSenderAsync(5 * 1000);" />
+			<RemoveLine Path="Southwind.React\Startup.cs" Line="AsyncEmailSender.StartAsyncEmailSenderAfter(5 * 1000);" />
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="MailingServer.Start(app);" />
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as MailingClient from &quot;@extensions/Mailing/MailingClient&quot;"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="MailingClient.start({ routes, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });"/>

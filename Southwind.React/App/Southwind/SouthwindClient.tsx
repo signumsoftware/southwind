@@ -21,10 +21,10 @@ import * as AppContext from '@framework/AppContext';
 import { RegisterUserModel } from '../Public/Southwind.Entities.Public';
 import OrderFilter from './Templates/OrderFilter'
 
-import { ApplicationConfigurationEntity, EmployeeLiteModel } from './Southwind.Entities'
+import { ApplicationConfigurationEntity } from './Southwind.Entities'
 
 import { /*Southwind.Entities*/
-  AddressEmbedded, OrderDetailEmbedded, OrderFilterModel, CategoryEntity,
+  AddressEmbedded, OrderDetailEmbedded, OrderFilterModel, CategoryEntity, EmployeeLiteModel,
   CustomerQuery, CompanyEntity, EmployeeEntity, OrderEntity, PersonEntity, ProductEntity,
   RegionEntity, ShipperEntity, SupplierEntity, TerritoryEntity, UserEmployeeMixin, OrderOperation, CustomerEntity, OrderState
 } from './Southwind.Entities'
