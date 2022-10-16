@@ -1,9 +1,15 @@
 az account set -s "<<your southwind subscription Id>>"
 az acr login --name southwind
+if(-Not $?){ Write-Host '"az acr login" failed' -ForegroundColor DarkRed; exit; }
+
 
 docker build -f ".\Southwind.React\Dockerfile" . -t southwind-live
+if(-Not $?){ Write-Host '"docker build" failed' -ForegroundColor DarkRed; exit; }
+
 docker tag southwind-live southwind.azurecr.io/signum/southwind-live
 docker push southwind.azurecr.io/signum/southwind-live
+if(-Not $?){ Write-Host '"docker push" failed' -ForegroundColor DarkRed; exit; }
+
 
 $appName = 'southwind-app-live'
 $resourceGroup = 'southwind-live'
@@ -19,6 +25,8 @@ Write-Host
 Write-Host '# SQL Migrations' -ForegroundColor Cyan
 $env:ASPNETCORE_ENVIRONMENT='live'
 Start-Process ".\Southwind.Terminal\bin\Debug\net6.0\Southwind.Terminal.exe" -ArgumentList "sql" -WorkingDirectory ".\Southwind.Terminal\bin\Debug\net6.0\" -NoNewWindow -Wait
+if(-Not $?){ Write-Host '"SQL Migrations" failed' -ForegroundColor DarkRed; exit; }
+
 Write-Host
 
 Write-Host '# START slot' $slotName -ForegroundColor DarkGreen

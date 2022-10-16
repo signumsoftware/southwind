@@ -80,3 +80,4 @@ Upgrade_20220819_SignInWithMicrosoftSVG
 Upgrade_20220822_StartAfter
 Upgrade_20220912_BindParent
 Upgrade_20220920_FormatText
+Upgrade_20221004_DeployToAzure
