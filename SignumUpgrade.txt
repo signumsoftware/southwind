@@ -87,3 +87,4 @@ Upgrade_20221006_DraftJS
 Upgrade_20221006_UpdaeNugetsAndNPM
 Upgrade_20221012_ReplaceButtonClass
 Upgrade_20221012_UpdateNugets2
+Upgrade_20221101_DotNet7
