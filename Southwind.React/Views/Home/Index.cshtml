@@ -17,8 +17,6 @@
     string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
     var vendor = (string)JObject.Parse(jsonDll).Property("vendor")!.Value["js"]!;
 
-    string jsonPolyfills = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.polyfills.json"));
-    var polyfills = (string)JObject.Parse(jsonPolyfills).Property("polyfills")!.Value["js"]!;
 }
 <!doctype html>
 <html>
@@ -201,14 +199,10 @@
         } else {
             (function () {
                 var scriptToLoad = [
-                    "@Url.Content("~/dist/" + polyfills)",
                     "@Url.Content("~/dist/" + vendor)",
                     "@Url.Content("~/dist/" + main)",
                 ];
 
-                if (!(browser == "old edge" || browser == "ie")) {
-                    scriptToLoad.splice(0, 1);
-                }
 
                 function loadNextScript() {
                     // gets the first script in the list
