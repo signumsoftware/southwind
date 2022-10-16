@@ -23,6 +23,10 @@ using Signum.Engine.MachineLearning;
 using Signum.Engine.DynamicQuery;
 using Southwind.Logic;
 
+using Signum.Engine.Toolbar;
+using Signum.Engine.Dashboard;
+
+
 namespace Southwind.Terminal;
 
 public static class SouthwindMigrations
@@ -55,6 +59,10 @@ public static class SouthwindMigrations
             ImportInstanceTranslations,
             ImportPredictor,
             InitialAuthRulesImport,
+
+            ToolbarLogic.UpdateToolbarIconNameInDB,
+            DashboardLogic.UpdateDashboardIconNameInDB,
+
         }.Run(autoRun);
     } //CSharpMigrations
 

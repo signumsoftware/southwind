@@ -82,3 +82,4 @@ Upgrade_20220912_BindParent
 Upgrade_20220920_FormatText
 Upgrade_20221004_DeployToAzure
 Upgrade_20221004_LabelText
+Upgrade_20221005_FontAwesome6
