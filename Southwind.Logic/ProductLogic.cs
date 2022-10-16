@@ -5,6 +5,7 @@ namespace Southwind.Logic;
 public static class ProductLogic
 {
     public static ResetLazy<Dictionary<CategoryEntity, List<ProductEntity>>> ActiveProducts = null!;
+    public static ResetLazy<HashSet<string>> AdditionalInformationKeys = null!;
 
     public static void Start(SchemaBuilder sb)
     {
@@ -26,13 +27,16 @@ public static class ProductLogic
                 });
 
             sb.AddUniqueIndexMList((ProductEntity pe) => pe.AdditionalInformation, mle => new { mle.Parent, mle.Element.Key });
-            QueryLogic.Expressions.RegisterDictionary((ProductEntity p) => p.AdditionalInformation, ai => ai.Key, ai => ai.Value);
+                QueryLogic.Expressions.RegisterWithParameter((ProductEntity p, string key) => p.AdditionalInformation.SingleOrDefaultEx(ai => ai.Key == key)!.Value, getKeys: t => AdditionalInformationKeys.Value);
 
             ActiveProducts = sb.GlobalLazy(() =>
                 Database.Query<ProductEntity>()
                 .Where(a => !a.Discontinued)
                 .Select(p => new { Category = p.Category.Entity, Product = p })
                 .GroupToDictionary(a => a.Category!, a => a.Product!), /*CSBUG*/
+                new InvalidateWith(typeof(ProductEntity)));
+
+            AdditionalInformationKeys = sb.GlobalLazy(() => ActiveProducts.Value.SelectMany(a => a.Value).SelectMany(p => p.AdditionalInformation).Select(ai => ai.Key).ToHashSet(),
                 new InvalidateWith(typeof(ProductEntity)));
 
             QueryLogic.Queries.Register(ProductQuery.CurrentProducts, () =>
