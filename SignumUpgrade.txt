@@ -85,3 +85,4 @@ Upgrade_20221004_LabelText
 Upgrade_20221005_FontAwesome6
 Upgrade_20221006_DraftJS
 Upgrade_20221006_UpdaeNugetsAndNPM
+Upgrade_20221012_ReplaceButtonClass
