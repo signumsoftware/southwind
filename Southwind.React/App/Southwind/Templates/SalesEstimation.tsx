@@ -32,7 +32,7 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
   const color = estimation != null ? gradient.getCachedColor(ctx.value.unitsInStock! / (Math.max(1, estimation))) : undefined;
 
   return (
-    <FormGroup ctx={ctx} labelText={OrderMessage.SalesNextMonth.niceToString()} helpText="Monthly estimation using Predicitor extension" >
+    <FormGroup ctx={ctx} label={OrderMessage.SalesNextMonth.niceToString()} helpText="Monthly estimation using Predicitor extension" >
       {
         estimation != null &&
         <div className={ctx.inputGroupClass}>

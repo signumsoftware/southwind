@@ -158,7 +158,7 @@ export function start(options: { routes: JSX.Element[] }) {
   const selectShippedDate = (e?: OrderEntity) => ValueLineModal.show({
     type: { name: "datetime" },
     initialValue: e?.requiredDate ?? DateTime.local().toISO(),
-    labelText: OrderEntity.nicePropertyName(a => a.shippedDate)
+    label: OrderEntity.nicePropertyName(a => a.shippedDate)
   });
 
   Operations.addSettings(new EntityOperationSettings(OrderOperation.Ship, {
