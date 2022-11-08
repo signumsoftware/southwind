@@ -8,7 +8,7 @@ import { useForceUpdate } from '@framework/Hooks'
 import { getMixin } from '@framework/Signum.Entities'
 import { toNumberFormat } from '@framework/Reflection'
 
-export default function Order(p : { ctx: TypeContext<OrderEntity> }){
+export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
   const forceUpdate = useForceUpdate();
   function handleCustomerChange(c: ChangeEvent) {
     var order = p.ctx.value;
@@ -60,7 +60,7 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
         {
           header: ctx2.propertyRoute?.addLambda((o: OrderEntity) => o.details[0].element).addMixin(OrderDetailMixin, a => a.discountCode).member!.niceName,
           headerHtmlAttributes: { style: { width: "15%" } },
-          template: dc => <ValueLine ctx={dc.subCtx(OrderDetailMixin).subCtx(a=>a.discountCode)} onChange={() => forceUpdate()} />
+          template: dc => <ValueLine ctx={dc.subCtx(OrderDetailMixin).subCtx(a => a.discountCode)} onChange={() => forceUpdate()} />
         },
         {
           header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "10%" } },
@@ -70,9 +70,7 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
                 <FormControlReadonly ctx={dc}>
                   {formatNumber.format(subTotalPrice(dc.value))}
                 </FormControlReadonly>
-                <div className="input-group-append">
-                  <span className="input-group-text">€</span>
-                </div>
+                <span className="input-group-text">€</span>
               </div>
             </FormGroup>
         },
@@ -90,14 +88,11 @@ export default function Order(p : { ctx: TypeContext<OrderEntity> }){
               <FormControlReadonly ctx={ctx4}>
                 {formatNumber.format(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum())}
               </FormControlReadonly>
-              <div className="input-group-append">
-                <span className="input-group-text">€</span>
-              </div>
+              <span className="input-group-text">€</span>
             </div>
           </FormGroup>
         </div>
       </div>
-
     </div>
   );
 }

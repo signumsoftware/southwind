@@ -250,7 +250,7 @@ public static class SouthwindEnvironment
             EmailSender = new EmailSenderConfigurationEntity
             {
                 Name = "localhost",
-                SMTP = new SmtpEmbedded
+                Service = new SmtpEmailServiceEntity
                 {
                     Network = new SmtpNetworkDeliveryEmbedded
                     {

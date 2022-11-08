@@ -196,7 +196,7 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             DynamicCode.CodeGenDirectory = env.ContentRootPath + "/CodeGen";
 
             Starter.Start(
-                Configuration.GetConnectionString("ConnectionString"),
+                Configuration.GetConnectionString("ConnectionString")!,
                 Configuration.GetValue<bool>("IsPostgres"),
                 Configuration.GetConnectionString("AzureStorageConnectionString"), 
                 Configuration.GetValue<string>("BroadcastSecret"), 
