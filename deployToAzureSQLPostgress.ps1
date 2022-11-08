@@ -28,7 +28,7 @@ Write-Host
 
 Write-Host '# SQL Migrations' -ForegroundColor Cyan
 $env:ASPNETCORE_ENVIRONMENT='test'
-Start-Process ".\Southwind.Terminal\bin\Debug\net6.0\Southwind.Terminal.exe" -ArgumentList "sql" -WorkingDirectory ".\Southwind.Terminal\bin\Debug\net6.0\" -NoNewWindow -Wait
+Start-Process ".\Southwind.Terminal\bin\Debug\net7.0\Southwind.Terminal.exe" -ArgumentList "sql" -WorkingDirectory ".\Southwind.Terminal\bin\Debug\net7.0\" -NoNewWindow -Wait
 if(-Not $?){ Write-Host '"SQL Migrations" failed' -ForegroundColor DarkRed; exit; }
 
 Write-Host
