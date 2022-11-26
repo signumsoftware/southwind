@@ -90,3 +90,4 @@ Upgrade_20221012_UpdateNugets2
 Upgrade_20221108_DotNet7
 Upgrade_20221109_UpdateNugets
 Upgrade_20221110_UpdateNugets2
+Upgrade_20221118_ExtraSmallToXs
