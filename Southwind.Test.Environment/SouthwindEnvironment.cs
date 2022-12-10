@@ -204,7 +204,7 @@ public static class SouthwindEnvironment
                 .Build();
 
             Starter.Start(
-                config.GetConnectionString("ConnectionString"),
+                config.GetConnectionString("ConnectionString")!,
                 config.GetValue<bool>("IsPostgres"),
                 config.GetConnectionString("AzureStorageConnectionString"),
                 config.GetValue<string>("BroadcastSecret"),

@@ -23,7 +23,7 @@ public class SouthwindTestClass
              .AddUserSecrets(typeof(SouthwindTestClass).Assembly)
              .Build();
 
-        BaseUrl = config["Url"];
+        BaseUrl = config["Url"]!;
     }
 
     public static void Browse(string username, Action<SouthwindBrowser> action)

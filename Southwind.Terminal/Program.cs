@@ -48,7 +48,7 @@ class Program
                     .Build();
                 
                 Starter.Start(
-                    Configuration.GetConnectionString("ConnectionString"),
+                    Configuration.GetConnectionString("ConnectionString")!,
                     Configuration.GetValue<bool>("IsPostgres"), 
                     Configuration.GetConnectionString("AzureStorageConnectionString"),
                     Configuration.GetValue<string>("BroadcastSecret"),
