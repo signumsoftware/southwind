@@ -3,6 +3,8 @@
 
 Southwind is an example of a Line-of-Business Solution using Signum Framework..
 
+Ich mache alles besser. 
+
 It has a similar schema to the famous Northwind example database (Order, OrderLines, Customer, Employees, Suppliers...) and the same data.
 
 It is regularly keept up to date with the latest changes in Signum Framework and Signum Extensions. It also serves as the base tempalte for the [Create Application](https://www.signumsoftware.com/es/DuplicateApplication) functionality. 
