@@ -7,6 +7,7 @@ namespace Southwind.Terminal;
 
 internal static class CustomerLoader
 {
+    //For loading companies
     public static void LoadCompanies()
     {
         var companies = Connector.Override(Northwind.Connector).Using(_ =>

@@ -8,6 +8,7 @@ namespace Southwind.Terminal;
 
 internal static class EmployeeLoader
 {
+    //For loading employees
     public static void LoadRegions()
     {
         var regions = Connector.Override(Northwind.Connector).Using(_ => Database.View<Region>().ToList());
