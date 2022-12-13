@@ -1,7 +1,7 @@
 [Southwind (Signum Framework)](http://www.signumframework.com/)
 ===================================================
 
-Southwind is an example of a Line-of-business solution using Signum Framework. 
+Southwind is an example of a Line-of-Business Solution using Signum Framework. 
 
 It has a similar schema to the famous Northwind example database (Order, OrderLines, Customer, Employees, Suppliers...) and the same data.
 
