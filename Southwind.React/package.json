@@ -45,6 +45,8 @@
     "bootstrap": "5.2.2", 
     "bpmn-js": "7.5.0",
     "codemirror": "5.65.9", 
+    "@types/diff" : "5.0.2",
+    "diff": "5.1.0",
     "d3": "7.4.4", 
     "d3-scale-chromatic": "3.0.0", 
     "diagram-js-minimap": "2.0.4",
