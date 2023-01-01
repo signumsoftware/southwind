@@ -95,3 +95,4 @@ Upgrade_20229110_UpdateNugets
 Upgrade_20221129_UpdateNugets
 Upgrade_20221213_Diff
 Upgrade_20221219_JsonNodes
+Upgrade_20221220_FixDeployToAzure
