@@ -94,3 +94,4 @@ Upgrade_20221118_ExtraSmallToXs
 Upgrade_20229110_UpdateNugets
 Upgrade_20221129_UpdateNugets
 Upgrade_20221213_Diff
+Upgrade_20221219_JsonNodes

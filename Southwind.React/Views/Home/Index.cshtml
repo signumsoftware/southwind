@@ -1,21 +1,29 @@
 ﻿@using Signum.Utilities;
 @using System.IO;
-@using Newtonsoft.Json.Linq;
+@using System.Text.Json.Nodes;
 @using Southwind.Logic;
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @{
+   string GetWebpackPath(string jsonContent, string moduleName)
+   {
+       var jsonObj = (JsonObject)JsonNode.Parse(jsonContent)!;
+       var mainObj = (JsonObject)jsonObj[moduleName]!;
+       ((JsonValue)mainObj["js"]!).TryGetValue<string>(out var result);
+       return result!;
+   }
+
     //FileNotFoundException??? You need to run 'yarn watch'. Requires:
     //- Node.js: https://nodejs.org/
     //- Yarn: https://yarnpkg.com/en/
     //- NPM Task Runner: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner)
     string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
-    var main = (string)JObject.Parse(json).Property("main")!.Value["js"]!;
+    string main = GetWebpackPath(json, "main");
 
     string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
-    var vendor = (string)JObject.Parse(jsonDll).Property("vendor")!.Value["js"]!;
+    string vendor = GetWebpackPath(jsonDll, "vendor");;
 
 }
 <!doctype html>
