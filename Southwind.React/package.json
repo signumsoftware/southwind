@@ -57,7 +57,7 @@
     "html-to-draftjs": "1.5.0", 
     "lodash-compat": "3.10.2",
     "@azure/msal-browser": "2.29.0", 
-    "luxon": "3.0.4", 
+    "luxon": "3.2.1", 
     "@popperjs/core": "2.11.6", 
     "prop-types": "15.8.1", 
     "react": "18.2.0", 
