@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import LoginDropdown from '@extensions/Authorization/Login/LoginDropdown'
 import * as AuthClient from '@extensions/Authorization/AuthClient'
 import OmniboxAutocomplete from '@extensions/Omnibox/OmniboxAutocomplete'
@@ -56,7 +56,7 @@ export default function Layout() {
     e.preventDefault();
     import("@extensions/Rest/RestClient")
       .then(RestClient => RestClient.API.getCurrentRestApiKey())
-      .then(key => { window.location.assign(AppContext.toAbsoluteUrl("~/swagger/index.html?apiKey=" + (key || ""))); });
+      .then(key => { window.location.assign(AppContext.toAbsoluteUrl("/swagger/index.html?apiKey=" + (key || ""))); });
   } //Swagger
 
   const hasUser = Boolean(AuthClient.currentUser());
@@ -67,7 +67,7 @@ export default function Layout() {
         transition: "all 200ms",
         padding: !hasUser ? "0 0 0 10px" : sidebarMode == "Wide" ? "10px 25px" : "10px 10px 10px 14px",
       }}>
-        <Link to="~/" className="navbar-brand m-0">
+        <Link to="/" className="navbar-brand m-0">
           {hasUser && sidebarMode == "Narrow" ? "SW" : "Southwind"}
         </Link>
       </div>
@@ -120,7 +120,7 @@ export default function Layout() {
 
             <VersionChangedAlert />
 
-            {Layout.switch}
+            <Outlet />
           </SidebarContainer>
         </div>
         <GlobalModalContainer />
@@ -129,4 +129,3 @@ export default function Layout() {
   );
 }
 
-Layout.switch = undefined as React.ReactElement<any> | undefined;

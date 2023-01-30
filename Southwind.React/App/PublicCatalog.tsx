@@ -18,17 +18,17 @@ export interface CategoryWithProducts {
 
 export default function PublicCatalog() {
 
-  const categories = useAPI(() => ajaxGet<CategoryWithProducts[]>({ url: "~/api/catalog" }), []);
+  const categories = useAPI(() => ajaxGet<CategoryWithProducts[]>({ url: "/api/catalog" }), []);
 
   const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
 
   const numberFormat = toNumberFormat("0.00");
 
   const result = (
-    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background_dark.jpg") + ")", backgroundSize: "cover", backgroundAttachment: "fixed" }}>
+    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("/background_dark.jpg") + ")", backgroundSize: "cover", backgroundAttachment: "fixed" }}>
       <div className="d-flex flex-column align-items-center position-relative">
           <h1 className="white mt-4">Southwind Product Catalog</h1>
-          <Link to={AppContext.toAbsoluteUrl("~/registerUser")} className="btn btn-primary">{RegisterUserMessage.Register.niceToString()}</Link>
+          <Link to={AppContext.toAbsoluteUrl("/registerUser")} className="btn btn-primary">{RegisterUserMessage.Register.niceToString()}</Link>
         {categories && categories.map(c =>
           <div key={c.category.id} className="card shadow container m-4">
             <div className="card-body">

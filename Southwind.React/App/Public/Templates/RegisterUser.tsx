@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { RouteComponentProps } from 'react-router'
+import { useLocation, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import { RegisterUserModel, RegisterUserMessage } from '../Southwind.Entities.Public'
 import * as PublicClient from '../PublicClient'
@@ -18,15 +18,16 @@ import { GraphExplorer } from '@framework/Reflection'
 import { ValidationErrors } from '@framework/Frames/ValidationErrors'
 import Address from '../../Southwind/Templates/Address'
 
-export default function RegisterUser(p: RouteComponentProps<{ reportsToEmployeeId: string }>) {
+export default function RegisterUser() {
+  const params = useParams() as { reportsToEmployeeId: string };
 
   AppContext.useTitle(RegisterUserModel.niceName());
 
   return (
-    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background_dark.jpg") + ")", backgroundSize: "cover" }}>
+    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("/background_dark.jpg") + ")", backgroundSize: "cover" }}>
       <div style={{ margin: "0 auto", maxWidth: "680px", marginTop: "100px" }}>
         <div className="card shadow">
-          <RegisterUserCard reportsToEmployeeId={p.match.params.reportsToEmployeeId} />
+          <RegisterUserCard reportsToEmployeeId={params.reportsToEmployeeId} />
         </div>
       </div>
     </div>
@@ -53,7 +54,7 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
       <div className="card-body">
         <h2 className="card-title">{RegisterUserMessage.UserRegistered.niceToString()}</h2>
         <p className="card-text">{RegisterUserMessage.User0HasBeenRegisteredSuccessfully.niceToString().formatHtml(<strong>{registerUser.eMail}</strong>)}</p>
-        <p className="card-text"><Link to={AppContext.toAbsoluteUrl("~/auth/login")}>{RegisterUserMessage.GoToLoginPage.niceToString()}</Link></p>
+        <p className="card-text"><Link to={AppContext.toAbsoluteUrl("/auth/login")}>{RegisterUserMessage.GoToLoginPage.niceToString()}</Link></p>
       </div>
     );
   }

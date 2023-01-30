@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { RouteObject } from 'react-router'
 import { Route } from 'react-router'
 import { DateTime } from 'luxon'
 import { ajaxPost, ajaxGet } from '@framework/Services';
@@ -33,7 +34,7 @@ import { FileImage } from '../../../Framework/Signum.React.Extensions/Files/File
 import { TypeaheadOptions } from '../../../Framework/Signum.React/Scripts/Components/Typeahead';
 
 
-export function start(options: { routes: JSX.Element[] }) {
+export function start(options: { routes: RouteObject[] }) {
 
   Navigator.addSettings(new EntitySettings(ApplicationConfigurationEntity, a => import('./Templates/ApplicationConfiguration')));
   Navigator.addSettings(new EntitySettings(AddressEmbedded, a => import('./Templates/Address')));
@@ -65,7 +66,7 @@ export function start(options: { routes: JSX.Element[] }) {
   Navigator.addSettings(new EntitySettings(SupplierEntity, s => import('./Templates/Supplier')));
 
   QuickLinks.registerQuickLink(EmployeeEntity, ctx =>
-    new QuickLinks.QuickLinkLink(RegisterUserModel.typeName, () => EmployeeEntity.niceName(), AppContext.toAbsoluteUrl("~/registerUser/" + ctx.lite.id), {
+    new QuickLinks.QuickLinkLink(RegisterUserModel.typeName, () => EmployeeEntity.niceName(), AppContext.toAbsoluteUrl("/registerUser/" + ctx.lite.id), {
       icon: "user-plus",
       iconColor: "#93c54b"
     }));//QuickLink

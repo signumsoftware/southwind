@@ -8,7 +8,7 @@ export default function Home() {
   React.useEffect(() => {
 
     if (!AuthClient.currentUser()) {
-      AppContext.history.push("~/publicCatalog");
+      AppContext.navigate("/publicCatalog");
     }//PublicCatalog
 
     if (AuthClient.currentUser()) {
@@ -16,7 +16,7 @@ export default function Home() {
         .then(DashboardClient => DashboardClient.API.home())
         .then(h => {
           if (h)
-            AppContext.history.push(`~/dashboard/${h.id}`);
+            AppContext.navigate(`/dashboard/${h.id}`);
           else
             setLoaded(true);
         });
@@ -30,10 +30,10 @@ export default function Home() {
     return null;
 
   return (
-    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("~/background_dark.jpg") + ")", backgroundSize: "cover" }}>
+    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("/background_dark.jpg") + ")", backgroundSize: "cover" }}>
       <div className="hero-container">
         <div style={{ background: "white", padding: "10px", boxShadow: "0px 4px 8px 0px rgb(0 0 0 / 75%)" }}>
-          <img src={AppContext.toAbsoluteUrl("~/logo.png")} style={{ maxWidth: "90vw" }} />
+          <img src={AppContext.toAbsoluteUrl("/logo.png")} style={{ maxWidth: "90vw" }} />
         </div>
         <h1 className="white">Southwind</h1>
         <h2 className="white">Demo application from <a href="http://www.signumsoftware.com" style={{ color: "#cae4ff" }} title="Signum Software">Signum Software</a> based on Northwind database from Microsoft</h2>

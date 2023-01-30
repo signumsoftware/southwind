@@ -1,3 +1,4 @@
+import { RouteObject } from "react-router"
 import * as Operations from "@framework/Operations"
 import * as Navigator from "@framework/Navigator"
 import * as Finder from "@framework/Finder"
@@ -55,7 +56,7 @@ import MapOmniboxProvider from "@extensions/Map/MapOmniboxProvider"
 
 import * as SouthwindClient from "./Southwind/SouthwindClient"
 
-export function startFull(routes: JSX.Element[]) {
+export function startFull(routes: RouteObject[]) {
   Operations.start();
   Navigator.start({ routes });
   Finder.start({ routes });

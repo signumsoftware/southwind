@@ -4,10 +4,10 @@ import "./site.css"
 import "@framework/Frames/Frames.css"
 
 import * as React from "react"
+import { RouteObject } from 'react-router'
 import { Localization } from "react-widgets"
 import { createRoot, Root } from "react-dom/client"
-import { Router, Route, Redirect } from "react-router-dom"
-import { Switch } from "react-router"
+import { createBrowserRouter, RouterProvider, Location } from "react-router-dom"
 
 import * as luxon from "luxon"
 
@@ -20,7 +20,6 @@ import ErrorModal from "@framework/Modals/ErrorModal"
 import * as AuthClient from "@extensions/Authorization/AuthClient"
 import * as CultureClient from "@extensions/Translation/CultureClient"
 
-import * as History from 'history'
 
 import Layout from './Layout'
 import PublicCatalog from './PublicCatalog'
@@ -46,7 +45,7 @@ AppContext.setTitle();
 
 declare let __webpack_public_path__: string;
 
-__webpack_public_path__ = window.__baseUrl + "dist/";
+__webpack_public_path__ = window.__baseName + "/dist/";
 
 const dateLocalizer = ConfigureReactWidgets.getDateLocalizer();
 const numberLocalizer = ConfigureReactWidgets.getNumberLocalizer();
@@ -82,66 +81,71 @@ ErrorModal.register();
 
 
 let root: Root | undefined = undefined;
-function reload() {
-  return AuthClient.autoLogin() //Promise.resolve()
-    .then(() => CultureClient.loadCurrentCulture())
-    .then(() => reloadTypes())
-    .then(() => {
+async function reload() {
+    await AuthClient.autoLogin()
+    await reloadTypes()
+    await CultureClient.loadCurrentCulture()
 
       AppContext.clearAllSettings();
 
-      const routes: JSX.Element[] = [];
+      const routes: RouteObject[] = [];
 
-      routes.push(<Route exact path="~/" component={Home} />);
-      routes.push(<Route path="~/publicCatalog" component={PublicCatalog} />);
+      routes.push(<Route path="/publicCatalog" component={PublicCatalog} />);
       AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });
       PublicClient.start({ routes });
 
       const isFull = Boolean(AuthClient.currentUser()) && AuthClient.currentUser().userName != "Anonymous"; //true;
 
-      const promise = isFull ?
-        import("./MainAdmin").then(main => main.startFull(routes)) :
-        Promise.resolve(undefined);
+      if (isFull)
+         (await import("./MainAdmin")).startFull(routes);
 
-      const messages = ConfigureReactWidgets.getMessages();
 
-      return promise.then(() => {
-
-        routes.push(<Route component={NotFound} />);
-
-        Layout.switch = React.createElement(Switch, undefined, ...routes);
         const reactDiv = document.getElementById("reactDiv")!;
         if (root)
           root.unmount();
 
         root = createRoot(reactDiv);
 
-        const h = AppContext.createAppRelativeHistory();
+        const mainRoute: RouteObject = {
+          path: "/",
+          element: <Layout />,
+          children: [
+            {
+              index: true,
+              element: <Home />
+            },
+            ...routes,
+            {
+              path: "*",
+              element: <NotFound />
+            },
+          ]
+        };
+
+        const router = createBrowserRouter([mainRoute], { basename: window.__baseName });
+
+        AppContext.setRouter(router);
+
+        const messages = ConfigureReactWidgets.getMessages();
 
         root.render(
           <Localization date={dateLocalizer} number={numberLocalizer} messages={messages} >
-            <Router history={h}>
-              <Layout />
-            </Router>
+            <RouterProvider router={router}/>
           </Localization>);
 
-        return isFull;
-      });
-    });
+        return true;
 }
 
 AuthClient.Options.onLogin = (url?: string) => {
   reload().then(() => {
-    const loc = AppContext.history.location;
+    const back: Location = AppContext.location().state?.back; 
 
-    const back: History.Location = loc && loc.state && (loc.state as any).back;
-
-    AppContext.history.push(back ?? url ?? "~/");
+    AppContext.navigate(back ?? url ?? "/");
   });
 };
 
 AuthClient.Options.onLogout = () => {
-  AppContext.history.push("~/");
+  AppContext.navigate("/");
   reload();
 };
 

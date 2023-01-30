@@ -27,7 +27,7 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
     Finder.exploreWindowsOpen({ queryName: PredictorEntity, filterOptions: [{ token: "Entity.Publication", value: ProductPredictorPublication.MonthlySales }] }, e);
   }
 
-  const estimation = useAPI(signal => ajaxPost<number>({ url: "~/api/salesEstimation", signal }, toLite(ctx.value)), [ctx.value.id]);
+  const estimation = useAPI(signal => ajaxPost<number>({ url: "/api/salesEstimation", signal }, toLite(ctx.value)), [ctx.value.id]);
 
   const color = estimation != null ? gradient.getCachedColor(ctx.value.unitsInStock! / (Math.max(1, estimation))) : undefined;
 
