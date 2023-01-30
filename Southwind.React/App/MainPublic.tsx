@@ -82,63 +82,63 @@ ErrorModal.register();
 
 let root: Root | undefined = undefined;
 async function reload() {
-    await AuthClient.autoLogin()
-    await reloadTypes()
-    await CultureClient.loadCurrentCulture()
+  await AuthClient.autoLogin();
+  await reloadTypes();
+  await CultureClient.loadCurrentCulture();
 
-      AppContext.clearAllSettings();
+  AppContext.clearAllSettings();
 
-      const routes: RouteObject[] = [];
+  const routes: RouteObject[] = [];
 
-      routes.push(<Route path="/publicCatalog" component={PublicCatalog} />);
-      AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });
-      PublicClient.start({ routes });
+  routes.push({ path: "/publicCatalog", element: <PublicCatalog /> });
+  AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });
+  PublicClient.start({ routes });
 
-      const isFull = Boolean(AuthClient.currentUser()) && AuthClient.currentUser().userName != "Anonymous"; //true;
+  const isFull = Boolean(AuthClient.currentUser()) && AuthClient.currentUser().userName != "Anonymous"; //true;
 
-      if (isFull)
-         (await import("./MainAdmin")).startFull(routes);
+  if (isFull)
+    (await import("./MainAdmin")).startFull(routes);
 
 
-        const reactDiv = document.getElementById("reactDiv")!;
-        if (root)
-          root.unmount();
+  const reactDiv = document.getElementById("reactDiv")!;
+  if (root)
+    root.unmount();
 
-        root = createRoot(reactDiv);
+  root = createRoot(reactDiv);
 
-        const mainRoute: RouteObject = {
-          path: "/",
-          element: <Layout />,
-          children: [
-            {
-              index: true,
-              element: <Home />
-            },
-            ...routes,
-            {
-              path: "*",
-              element: <NotFound />
-            },
-          ]
-        };
+  const mainRoute: RouteObject = {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />
+      },
+      ...routes,
+      {
+        path: "*",
+        element: <NotFound />
+      },
+    ]
+  };
 
-        const router = createBrowserRouter([mainRoute], { basename: window.__baseName });
+  const router = createBrowserRouter([mainRoute], { basename: window.__baseName });
 
-        AppContext.setRouter(router);
+  AppContext.setRouter(router);
 
-        const messages = ConfigureReactWidgets.getMessages();
+  const messages = ConfigureReactWidgets.getMessages();
 
-        root.render(
-          <Localization date={dateLocalizer} number={numberLocalizer} messages={messages} >
-            <RouterProvider router={router}/>
-          </Localization>);
+  root.render(
+    <Localization date={dateLocalizer} number={numberLocalizer} messages={messages} >
+      <RouterProvider router={router} />
+    </Localization>);
 
-        return true;
+  return true;
 }
 
 AuthClient.Options.onLogin = (url?: string) => {
   reload().then(() => {
-    const back: Location = AppContext.location().state?.back; 
+    const back: Location = AppContext.location().state?.back;
 
     AppContext.navigate(back ?? url ?? "/");
   });

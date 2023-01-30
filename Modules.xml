@@ -166,7 +166,7 @@
 
 		<Module Name="Excel">
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as ExcelClient from &quot;@extensions/Excel/ExcelClient&quot;"/>
-			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ExcelClient.start({ routes, plainExcel: true, excelReport: true });"/>
+			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ExcelClient.start({ routes, plainExcel: true, importFromExcel: true, excelReport: true });"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="ExcelServer.Start(app);"/>
 		</Module>
 
@@ -313,7 +313,7 @@
 			<RemoveSpanInLines Path="Southwind.React\App\Layout.tsx" Span="hasUser &amp;&amp;" />
 			<RemoveLine Path="Southwind.React\App\Layout.tsx" From="&lt;LoginDropdown" To="/>{/*LoginDropdown*/}"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="import * as AuthAdminClient from &quot;@extensions/Authorization/AuthAdminClient&quot;"/>
-			<RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="AuthClient.autoLogin() //"/>
+			<RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="await AuthClient.autoLogin();"/>
 			<RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span="Boolean(AuthClient.currentUser()) &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;; //"/>
 			<RemoveSpanInLines Path="Southwind.React\App\MainPublic.tsx" Span=" &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;" DependsOn="PublicCatalog"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });"/>
@@ -340,7 +340,7 @@
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes, adGroups: false });"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" From="if (window.__azureApplicationId) {" To="}//__azureApplicationId"/>
-			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.29.0&quot;,"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@azure/msal-browser&quot;: &quot;2.32.2&quot;,"/>
 			<RemoveLine Path="Southwind.React\Views\Home\Index.cshtml"
 						From="var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);"
 						To="var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);"/>
@@ -360,7 +360,7 @@
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="TranslationClient.start({ routes });"/>
 			<RemoveLine Path="Southwind.React\App\MainAdmin.tsx" Line="TranslatedInstanceClient.start({ routes });"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="import * as CultureClient from &quot;@extensions/Translation/CultureClient&quot;"/>
-			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line=".then(() => CultureClient.loadCurrentCulture())"/>
+			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="await CultureClient.loadCurrentCulture();"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="CultureClient.onCultureLoaded.push(ci => {"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="}); //Culture"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;CT&quot;, TranslationLogic.CopyTranslations},"/>
@@ -413,7 +413,7 @@
 		</Module>
 		
 		<Module Name="SignalR" DependsOn="Auth">
-			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@microsoft/signalr&quot;: &quot;6.0.4&quot;,"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@microsoft/signalr&quot;: &quot;7.0.2&quot;,"/>
 			<RemoveLine Path="Southwind.React\Startup.cs" Line="services.AddSignalR();"/>
 			<RemoveLine Path="Southwind.React\Views\Home\Index.cshtml" Line="var __disableSignalR = @Json.Serialize(Signum.React.ConcurrentUser.ConcurrentUserServer.DisableSignalR);"/>
 		</Module>
@@ -480,7 +480,7 @@
 			<RemoveLine Path="Southwind.Logic\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
 			<RemoveLine Path="Southwind.Logic\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
 			<RemoveFiles Path="Southwind.React\App\PublicCatalog.tsx"/>
-			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="routes.push(&lt;Route path=&quot;~/publicCatalog&quot; component={PublicCatalog} />);"/>
+			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="routes.push({ path: &quot;/publicCatalog&quot;, element: &lt;PublicCatalog /> });"/>
 			<RemoveLine Path="Southwind.React\App\MainPublic.tsx" Line="import PublicCatalog from './PublicCatalog'"/>
 			<RemoveLine Path="Southwind.React\App\Home.tsx" From="if (!AuthClient.currentUser()) {" To="}//PublicCatalog"/>
 			<RemoveFiles Path="Southwind.React\App\Southwind\CatalogController.cs"/>
@@ -605,7 +605,7 @@
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;bpmn-js&quot;: &quot;7.5.0&quot;,"/>
-			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.11.9&quot;,"/>
+			<RemoveLine Path="Southwind.React\package.json" Line="&quot;@types/draft-js&quot;: &quot;0.11.10&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;draft-js&quot;: &quot;0.11.7&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;html-to-draftjs&quot;: &quot;1.5.0&quot;,"/>
 			<RemoveLine Path="Southwind.React\package.json" Line="&quot;draftjs-to-html&quot;: &quot;0.9.1&quot;,"/>>
