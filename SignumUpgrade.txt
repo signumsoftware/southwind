@@ -97,3 +97,4 @@ Upgrade_20221213_Diff
 Upgrade_20221219_JsonNodes
 Upgrade_20221220_FixDeployToAzure
 Upgrade_20230109_UpdateBootstrap
+Upgrade_20230120_UpdatePackages
