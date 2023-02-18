@@ -86,6 +86,8 @@
       <Column Token="Entity.Details.Element.Quantity.Sum" DisplayName="Sum of Quantity" Format="D" />
       <Column Token="Entity.Details.Element.UnitPrice.Average" DisplayName="Average of Unit price" Format="N2" />
       <Column Token="Entity.Details.Element.SubTotalPrice.Sum" DisplayName="Sum of Sub total price" Format="N2" />
+      <Column />
+      <Column />
     </Columns>
     <Parameters>
       <Parameter Name="HorizontalScale" Value="ZeroMax" />
