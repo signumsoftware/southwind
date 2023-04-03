@@ -1,6 +1,7 @@
 {
   "private": true,
   "workspaces": [
-	  "Framework/Signum.React"
+    "Framework/Signum.React",
+    "Framework/Extensions/*"
   ]
 }
