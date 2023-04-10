@@ -112,8 +112,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Codemirror", "Framew
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Authorization.ActiveDirectory", "Framework\Extensions\Signum.Authorization.ActiveDirectory\Signum.Authorization.ActiveDirectory.csproj", "{7241B5B6-0F55-4AD3-8435-C829AD02EE19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Authorization.AzureAD", "Framework\Extensions\Signum.Authorization.AzureAD\Signum.Authorization.AzureAD.csproj", "{BD795E28-8056-4E22-A9BD-1499B0C470EE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Authorization.ResetPassword", "Framework\Extensions\Signum.Authorization.ResetPassword\Signum.Authorization.ResetPassword.csproj", "{10E5C29E-AAD4-49A0-BB4D-4355A224C50E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Authorization", "Framework\Extensions\Signum.Authorization\Signum.Authorization.csproj", "{778280B3-2D0A-4E3A-8726-88B1A9EF7AC0}"
@@ -129,6 +127,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Mailing.Package", "Framework\Extensions\Signum.Mailing.Package\Signum.Mailing.Package.csproj", "{5938F89E-4350-43A4-931B-261D6C05D192}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Mailing.Reception", "Framework\Extensions\Signum.Mailing.Reception\Signum.Mailing.Reception.csproj", "{DDF11045-5635-4B64-84CF-622C6C8BAC86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Mailing.MicrosoftGraph", "Framework\Extensions\Signum.Mailing.MicrosoftGraph\Signum.Mailing.MicrosoftGraph.csproj", "{2DD9EE4F-86C0-4554-9FFC-EE4CCD3BDC1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -332,10 +332,6 @@ Global
 		{7241B5B6-0F55-4AD3-8435-C829AD02EE19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7241B5B6-0F55-4AD3-8435-C829AD02EE19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7241B5B6-0F55-4AD3-8435-C829AD02EE19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD795E28-8056-4E22-A9BD-1499B0C470EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD795E28-8056-4E22-A9BD-1499B0C470EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD795E28-8056-4E22-A9BD-1499B0C470EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD795E28-8056-4E22-A9BD-1499B0C470EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10E5C29E-AAD4-49A0-BB4D-4355A224C50E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10E5C29E-AAD4-49A0-BB4D-4355A224C50E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10E5C29E-AAD4-49A0-BB4D-4355A224C50E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -368,6 +364,10 @@ Global
 		{DDF11045-5635-4B64-84CF-622C6C8BAC86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDF11045-5635-4B64-84CF-622C6C8BAC86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDF11045-5635-4B64-84CF-622C6C8BAC86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DD9EE4F-86C0-4554-9FFC-EE4CCD3BDC1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DD9EE4F-86C0-4554-9FFC-EE4CCD3BDC1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DD9EE4F-86C0-4554-9FFC-EE4CCD3BDC1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DD9EE4F-86C0-4554-9FFC-EE4CCD3BDC1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -418,7 +418,6 @@ Global
 		{D9FA2A05-AB1E-448C-B3DB-B4DA8B1D48FC} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{4117C9CD-7814-4B42-A92A-D1A6BFE54BA7} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{7241B5B6-0F55-4AD3-8435-C829AD02EE19} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
-		{BD795E28-8056-4E22-A9BD-1499B0C470EE} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{10E5C29E-AAD4-49A0-BB4D-4355A224C50E} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{778280B3-2D0A-4E3A-8726-88B1A9EF7AC0} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{A07D6139-6D15-4C4F-A8F0-53EBE97E120F} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
@@ -427,6 +426,7 @@ Global
 		{BA0E9CD2-036B-4F1A-B60B-122961DACF65} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{5938F89E-4350-43A4-931B-261D6C05D192} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{DDF11045-5635-4B64-84CF-622C6C8BAC86} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
+		{2DD9EE4F-86C0-4554-9FFC-EE4CCD3BDC1C} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E18ACE2B-9B04-4506-B0EF-5723DE24799B}
