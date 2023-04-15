@@ -1,0 +1,3 @@
+﻿
+[assembly: DefaultAssemblyCulture("en")]
+

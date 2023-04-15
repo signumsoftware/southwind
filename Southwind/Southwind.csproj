@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>nullable</WarningsAsErrors>
+		<OutputType>Library</OutputType>
+		<NoWarn>8618</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.0.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>-->
+		<PackageReference Include="Signum.Analyzer" Version="3.2.0" />
+		<PackageReference Include="Signum.MSBuildTask" Version="7.5.0-beta" />
+		<!--<PackageReference Include="Signum.TSGenerator" Version="7.5.0-beta8" />-->
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization.ActiveDirectory\Signum.Authorization.ActiveDirectory.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization.ResetPassword\Signum.Authorization.ResetPassword.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization\Signum.Authorization.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Caching\Signum.Caching.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Chart\Signum.Chart.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.CodeMirror\Signum.Codemirror.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.ConcurrentUser\Signum.ConcurrentUser.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Dashboard\Signum.Dashboard.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.DiffLog\Signum.DiffLog.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Eval\Signum.Eval.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Excel\Signum.Excel.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Files\Signum.Files.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Help\Signum.Help.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.HtmlEditor\Signum.HtmlEditor.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.MachineLearning\Signum.MachineLearning.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Mailing.MicrosoftGraph\Signum.Mailing.MicrosoftGraph.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Mailing.Package\Signum.Mailing.Package.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Mailing\Signum.Mailing.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Map\Signum.Map.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Migrations\Signum.Migrations.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Notes\Signum.Notes.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Omnibox\Signum.Omnibox.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Processes\Signum.Processes.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Profiler\Signum.Profiler.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Rest\Signum.Rest.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Scheduler\Signum.Scheduler.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.SMS\Signum.SMS.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Templating\Signum.Templating.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.TimeMachine\Signum.TimeMachine.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Toolbar\Signum.Toolbar.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Translation\Signum.Translation.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.UserAssets\Signum.UserAssets.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.UserQueries\Signum.UserQueries.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.ViewLog\Signum.ViewLog.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Word\Signum.Word.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Workflow\Signum.Workflow.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
+		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Translations\*.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>

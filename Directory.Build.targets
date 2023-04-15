@@ -1,6 +1,7 @@
 <Project>
 	<PropertyGroup>
  		<TypeScriptCompileBlocked>false</TypeScriptCompileBlocked>
+		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="ts_out\**" />

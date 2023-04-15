@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Southwind": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:59011;http://localhost:59012"
+    }
+  }
+}
