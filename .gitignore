@@ -36,3 +36,4 @@ Southwind.Web/Scripts/**/*.js
 /**/ts_out/**
 /Southwind/wwwroot/dist/**
 /Southwind/CodeGen/**
+/Southwind/node_modules/**

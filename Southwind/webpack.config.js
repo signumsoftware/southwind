@@ -5,7 +5,7 @@ var webpack = require('webpack');
 var AssetsPlugin = require('assets-webpack-plugin');
 var WebpackNotifierPlugin = require('webpack-notifier');
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-var node_modules = path.join(__dirname, "node_modules");
+var node_modules = path.join(__dirname, "..", "node_modules");
 
 module.exports = {
   mode: "development",  //Now mandatory, alternatively “production”

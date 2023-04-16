@@ -15,6 +15,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <TypeScriptCompile Remove="node_modules\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.0.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

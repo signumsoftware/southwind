@@ -1,6 +1,6 @@
 import "./SCSS/custom.scss";
 import "../node_modules/react-widgets/scss/styles.scss"
-import "./site.css"
+import "./SCSS/site.css"
 import "@framework/Frames/Frames.css"
 
 import * as React from "react"
