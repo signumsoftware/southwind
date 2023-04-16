@@ -11,7 +11,7 @@ module.exports = {
   mode: "development",  //Now mandatory, alternatively “production”
   devtool: false, //To remove source maps in “development”, avoids problems with errors in Chrome
   entry: {
-    main: ["./App/MainPublic.tsx"],
+    main: ["./MainPublic.tsx"],
   },
   output: {
     path: path.join(__dirname, "wwwroot", "dist"),
@@ -22,8 +22,8 @@ module.exports = {
     modules: [node_modules],
     extensions: ['.Webpack.js', '.web.js', '.ts', '.js', '.tsx'],
     alias: {
-      '@framework': path.resolve(__dirname, '../Framework/Signum.React/Scripts'),
-      '@extensions': path.resolve(__dirname, '../Framework/Signum.React.Extensions')
+      '@framework': path.resolve(__dirname, '../Framework/Signum/React'),
+      '@extensions': path.resolve(__dirname, '../Framework/Extensions')
     }
   },
   resolveLoader: { modules: [node_modules] },
