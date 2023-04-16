@@ -1,0 +1,52 @@
+﻿{
+  "compilerOptions": {
+    "target": "ES2017",
+    "sourceMap": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "incremental": true,
+    "composite": true,
+    "outDir": "./ts_out",
+    //"noEmit": true,
+    "strict": true,
+    "paths": {
+      "@framework/*": [ "../Framework/Signum/React/*" ],
+      "@extensions/*": [ "../Framework/Extensions/*" ]
+    },
+    "lib": [
+      "es2017",
+      //"esnext",
+      "dom"
+    ]
+  },
+  "references": [
+    { "path": "../Framework/Signum" },
+    { "path": "../Framework/Extensions/Signum.Authorization" },
+    { "path": "../Framework/Extensions/Signum.Authorization.ActiveDirectory" },
+    { "path": "../Framework/Extensions/Signum.Workflow" },
+    { "path": "../Framework/Extensions/Signum.UserQueries" },
+    { "path": "../Framework/Extensions/Signum.Omnibox" },
+    { "path": "../Framework/Extensions/Signum.Chart" },
+    { "path": "../Framework/Extensions/Signum.Dashboard" },
+    { "path": "../Framework/Extensions/Signum.Map" },
+    { "path": "../Framework/Extensions/Signum.Caching" },
+    { "path": "../Framework/Extensions/Signum.Processes" },
+    { "path": "../Framework/Extensions/Signum.Mailing" },
+    { "path": "../Framework/Extensions/Signum.Profiler" },
+    { "path": "../Framework/Extensions/Signum.Files" },
+    { "path": "../Framework/Extensions/Signum.Word" },
+    { "path": "../Framework/Extensions/Signum.Excel" },
+    { "path": "../Framework/Extensions/Signum.Scheduler" },
+    { "path": "../Framework/Extensions/Signum.Translation" },
+    { "path": "../Framework/Extensions/Signum.DiffLog" },
+    { "path": "../Framework/Extensions/Signum.MachineLearning" },
+    { "path": "../Framework/Extensions/Signum.Rest" },
+    { "path": "../Framework/Extensions/Signum.ConcurrentUser" },
+    { "path": "../Framework/Extensions/Signum.Toolbar" },
+    { "path": "../Framework/Extensions/Signum.UserQueries" },
+    { "path": "../Framework/Extensions/Signum.Dynamic" },
+    { "path": "../Framework/Extensions/Signum.Translation" }
+  ]
+}

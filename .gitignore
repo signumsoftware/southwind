@@ -42,3 +42,4 @@ Southwind.React/CodeGen/*
 /Southwind.React/ts_out/*
 /Southwind.React/TensorFlowModels/**
 /node_modules/**
+/**/ts_out/**

@@ -4,18 +4,26 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
-		<OutputType>Library</OutputType>
-		<NoWarn>8618</NoWarn>
+		<IsPackable>false</IsPackable>
+		<AssemblyVersion>1.0.0.*</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<Deterministic>false</Deterministic>
+		<UserSecretsId>Southwind</UserSecretsId>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<NoWarn>8618,1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!--<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.0.4">
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.0.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>-->
+		</PackageReference>
 		<PackageReference Include="Signum.Analyzer" Version="3.2.0" />
 		<PackageReference Include="Signum.MSBuildTask" Version="7.5.0-beta" />
-		<!--<PackageReference Include="Signum.TSGenerator" Version="7.5.0-beta8" />-->
+		<PackageReference Include="Signum.TSGenerator" Version="7.5.0-beta8" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.11.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -61,8 +69,38 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <TypeScriptCompile Include="Employees\Employee.tsx" />
+	  <TypeScriptCompile Include="Globals\Address.tsx" />
+	  <TypeScriptCompile Include="Globals\ApplicationConfiguration.tsx" />
+	  <TypeScriptCompile Include="Home.tsx" />
+	  <TypeScriptCompile Include="Layout.tsx" />
+	  <TypeScriptCompile Include="MainAdmin.tsx" />
+	  <TypeScriptCompile Include="MainPublic.tsx" />
+	  <TypeScriptCompile Include="NotFound.tsx" />
+	  <TypeScriptCompile Include="Orders\Order.tsx" />
+	  <TypeScriptCompile Include="Orders\OrderFilter.tsx" />
+	  <TypeScriptCompile Include="Products\Category.tsx" />
+	  <TypeScriptCompile Include="Products\Product.tsx" />
+	  <TypeScriptCompile Include="Products\SalesEstimation.tsx" />
+	  <TypeScriptCompile Include="Public\PublicCatalog.tsx" />
+	  <TypeScriptCompile Include="Public\PublicClient.tsx" />
+	  <TypeScriptCompile Include="Public\Templates\RegisterUser.tsx" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Update="Translations\*.xml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
+
+	<Target Name="PublishCollectDist" AfterTargets="ComputeFilesToPublish">
+		<!-- Include the newly-built files in the publish output -->
+		<ItemGroup>
+			<DistFiles Include="wwwroot\dist\**;" />
+			<ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+				<RelativePath>%(DistFiles.Identity)</RelativePath>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</ResolvedFileToPublish>
+		</ItemGroup>
+	</Target>
 </Project>

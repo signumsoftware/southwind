@@ -16,7 +16,6 @@ using Signum.ConcurrentUser;
 using Signum.Dashboard;
 using Signum.DiffLog;
 using Signum.Dynamic;
-using Signum.Eval;
 using Signum.Excel;
 using Signum.Files;
 using Signum.Files.FileTypeAlgorithms;
