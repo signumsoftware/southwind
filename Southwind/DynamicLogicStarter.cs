@@ -27,8 +27,7 @@ public class DynamicLogicStarter
 
         EvalLogic.Namespaces.AddRange(new HashSet<string>
         {
-            "Southwind.Entities",
-            "Southwind.Logic",
+            "Southwind",
         });
 
         EvalLogic.AssemblyTypes.AddRange(new HashSet<Type>
