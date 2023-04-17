@@ -262,29 +262,7 @@ public static partial class Starter
 
         public string? LogDatabaseName;
 
-        public override ObjectName GenerateTableName(Type type, TableNameAttribute? tn)
-        {
-            return base.GenerateTableName(type, tn).OnSchema(GetSchemaName(type));
-        }
-
-        public override ObjectName GenerateTableNameCollection(Table table, NameSequence name, TableNameAttribute? tn)
-        {
-            return base.GenerateTableNameCollection(table, name, tn).OnSchema(GetSchemaName(table.Type));
-        }
-
-        SchemaName GetSchemaName(Type type)
-        {
-            var isPostgres = this.Schema.Settings.IsPostgres;
-            return new SchemaName(this.GetDatabaseName(type), GetSchemaNameName(type) ?? SchemaName.Default(isPostgres).Name, isPostgres);
-        }
-
-        public Type[] InLogDatabase = new Type[]
-        {
-            typeof(OperationLogEntity),
-            typeof(ExceptionEntity),
-        };
-
-        DatabaseName? GetDatabaseName(Type type)
+        public override DatabaseName? GetDatabase(Type type)
         {
             if (this.LogDatabaseName == null)
                 return null;
@@ -295,45 +273,67 @@ public static partial class Starter
             return null;
         }
 
-        static string? GetSchemaNameName(Type type)
+        public Type[] InLogDatabase = new Type[]
         {
-            type = EnumEntity.Extract(type) ?? type;
+            typeof(OperationLogEntity),
+            typeof(ExceptionEntity),
+        };
 
-            if (type == typeof(ColumnOptionsMode) || type == typeof(FilterOperation) || type == typeof(PaginationMode) || type == typeof(OrderType))
-                type = typeof(UserQueryEntity);
+        
 
-            if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod))
-                type = typeof(EmailMessageEntity);
+        //public override ObjectName GenerateTableName(Type type, TableNameAttribute? tn)
+        //{
+        //    return base.GenerateTableName(type, tn).OnSchema(GetSchemaName(type));
+        //}
 
-            if (type == typeof(DayOfWeek))
-                type = typeof(ScheduledTaskEntity);
+        //public override ObjectName GenerateTableNameCollection(Table table, NameSequence name, TableNameAttribute? tn)
+        //{
+        //    return base.GenerateTableNameCollection(table, name, tn).OnSchema(GetSchemaName(table.Type));
+        //}
 
-            if (type.Assembly == typeof(ApplicationConfigurationEntity).Assembly)
-                return null;
+    
 
-            if (type.Namespace == DynamicLogic.CodeGenNamespace)
-                return "codegen";
+      
 
-            if (type.Assembly == typeof(DashboardEntity).Assembly)
-            {
-                var name = type.Namespace!.Replace("Signum.Entities.", "");
+        //static string? GetSchemaNameName(Type type)
+        //{
+        //    type = EnumEntity.Extract(type) ?? type;
 
-                name = (name.TryBefore('.') ?? name);
+        //    if (type == typeof(ColumnOptionsMode) || type == typeof(FilterOperation) || type == typeof(PaginationMode) || type == typeof(OrderType))
+        //        type = typeof(UserQueryEntity);
 
-                if (name == "SMS")
-                    return "sms";
+        //    if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod))
+        //        type = typeof(EmailMessageEntity);
 
-                if (name == "Authorization")
-                    return "auth";
+        //    if (type == typeof(DayOfWeek))
+        //        type = typeof(ScheduledTaskEntity);
 
-                return name.FirstLower();
-            }
+        //    if (type.Assembly == typeof(ApplicationConfigurationEntity).Assembly)
+        //        return null;
 
-            if (type.Assembly == typeof(Entity).Assembly)
-                return "framework";
+        //    if (type.Namespace == DynamicLogic.CodeGenNamespace)
+        //        return "codegen";
 
-            throw new InvalidOperationException("Impossible to determine SchemaName for {0}".FormatWith(type.FullName));
-        }
+        //    if (type.Assembly == typeof(DashboardEntity).Assembly)
+        //    {
+        //        var name = type.Namespace!.Replace("Signum.Entities.", "");
+
+        //        name = (name.TryBefore('.') ?? name);
+
+        //        if (name == "SMS")
+        //            return "sms";
+
+        //        if (name == "Authorization")
+        //            return "auth";
+
+        //        return name.FirstLower();
+        //    }
+
+        //    if (type.Assembly == typeof(Entity).Assembly)
+        //        return "framework";
+
+        //    throw new InvalidOperationException("Impossible to determine SchemaName for {0}".FormatWith(type.FullName));
+        //}
     }
 
     private static void OverrideAttributes(SchemaBuilder sb)
