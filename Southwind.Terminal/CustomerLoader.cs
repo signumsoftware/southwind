@@ -1,6 +1,5 @@
-using Southwind.Entities;
-using Signum.Services;
-using System.Globalization;
+using Southwind.Customer;
+using Southwind.Globals;
 using Southwind.Terminal.NorthwindSchema;
 
 namespace Southwind.Terminal;

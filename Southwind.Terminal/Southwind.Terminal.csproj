@@ -17,18 +17,13 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
 		<PackageReference Include="Signum.Analyzer" Version="3.2.0" />
-		<PackageReference Include="Signum.MSBuildTask" Version="7.0.0" />
+		<PackageReference Include="Signum.MSBuildTask" Version="7.5.0-beta" />
 		<PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.11.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Framework\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
-		<ProjectReference Include="..\Framework\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
-		<ProjectReference Include="..\Framework\Signum.Engine\Signum.Engine.csproj" />
-		<ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />
-		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
-		<ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj" />
-		<ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj" />
+		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
+		<ProjectReference Include="..\Southwind\Southwind.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

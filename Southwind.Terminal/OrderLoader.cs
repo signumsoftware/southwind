@@ -1,6 +1,9 @@
-using Southwind.Entities;
-using Signum.Services;
-using System.Globalization;
+using Southwind.Customer;
+using Southwind.Employees;
+using Southwind.Globals;
+using Southwind.Orders;
+using Southwind.Products;
+using Southwind.Shippers;
 using Southwind.Terminal.NorthwindSchema;
 
 namespace Southwind.Terminal;
@@ -9,7 +12,7 @@ internal static class OrderLoader
 {
     public static void LoadShippers()
     {
-        var shippers = Connector.Override(Northwind.Connector).Using(_ => Database.View<Shippers>().ToList());
+        var shippers = Connector.Override(Northwind.Connector).Using(_ => Database.View<Southwind.Terminal.NorthwindSchema.Shippers>().ToList());
 
         shippers.Select(s => new ShipperEntity
         {
@@ -25,7 +28,7 @@ internal static class OrderLoader
         customers.AddRange(Database.Query<CompanyEntity>().Select(c => KeyValuePair.Create(c.ContactName, (CustomerEntity)c)));
         customers.AddRange(Database.Query<PersonEntity>().Select(p => KeyValuePair.Create(p.FirstName + " " + p.LastName, (CustomerEntity)p)));
 
-        var orders = Connector.Override(Northwind.Connector).Using(_ => Database.View<Orders>().Select(o => new OrderEntity
+        var orders = Connector.Override(Northwind.Connector).Using(_ => Database.View<Southwind.Terminal.NorthwindSchema.Orders>().Select(o => new OrderEntity
         {
             Employee = Lite.Create<EmployeeEntity>(o.EmployeeID!.Value),
             OrderDate = o.OrderDate!.Value,

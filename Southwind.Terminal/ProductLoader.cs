@@ -1,7 +1,7 @@
-using Southwind.Entities;
-using Signum.Services;
 using System.Globalization;
-using Signum.Entities.Files;
+using Signum.Files;
+using Southwind.Globals;
+using Southwind.Products;
 using Southwind.Terminal.NorthwindSchema;
 
 namespace Southwind.Terminal;
@@ -60,7 +60,7 @@ internal static class ProductLoader
 
     public static void LoadProducts()
     {
-        var products = Connector.Override(Northwind.Connector).Using(_ => Database.View<Products>().ToList());
+        var products = Connector.Override(Northwind.Connector).Using(_ => Database.View<Southwind.Terminal.NorthwindSchema.Products>().ToList());
 
         products.Select(s =>
         {

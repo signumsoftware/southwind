@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Configuration;
 using Signum.Engine.Maps;
-using System.Threading.Tasks;
 
 namespace Southwind.Terminal.NorthwindSchema;
 

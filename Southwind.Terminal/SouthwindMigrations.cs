@@ -1,31 +1,28 @@
 using System.Globalization;
-using System.Threading.Tasks;
-using Signum.Engine.Basics;
-using Signum.Engine.Chart;
 using Signum.Engine.Maps;
-using Signum.Engine.Migrations;
-using Signum.Engine.Translation;
-using Signum.Entities.Authorization;
-using Signum.Entities.Basics;
-using Signum.Entities.Files;
-using Signum.Entities.Mailing;
-using Signum.Entities.SMS;
-using Signum.Entities.Word;
-using Signum.Services;
-using Southwind.Entities;
-using Signum.Entities.Workflow;
-using Signum.Engine.UserAssets;
 using System.IO;
-using Signum.Entities.MachineLearning;
-using Signum.Entities.UserAssets;
-using Signum.Engine.Authorization;
-using Signum.Engine.MachineLearning;
-using Signum.Engine.DynamicQuery;
 using Southwind.Logic;
-
-using Signum.Engine.Toolbar;
-using Signum.Engine.Dashboard;
-
+using Signum.Operations;
+using Signum.Migrations;
+using Signum.Toolbar;
+using Signum.Dashboard;
+using Signum.Authorization;
+using Signum.Security;
+using Signum.Basics;
+using Southwind.Globals;
+using Signum.Authorization.AuthToken;
+using Signum.Mailing;
+using Signum.SMS;
+using Signum.Workflow;
+using Signum.ActiveDirectory;
+using Signum.Translation.Instances;
+using Signum.UserAssets;
+using Signum.Word;
+using Southwind.Orders;
+using Signum.Files;
+using Signum.MachineLearning;
+using Signum.UserAssets.Queries;
+using Southwind.Products;
 
 namespace Southwind.Terminal;
 
@@ -85,7 +82,7 @@ public static class SouthwindMigrations
             UserEntity system = new UserEntity
             {
                 UserName = "System",
-                PasswordHash = Security.EncodePassword("System"),
+                PasswordHash = PasswordEncoding.EncodePassword("System"),
                 Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx().ToLite(),
                 State = UserState.Active,
             }.Save();
@@ -93,7 +90,7 @@ public static class SouthwindMigrations
             UserEntity anonymous = new UserEntity
             {
                 UserName = "Anonymous",
-                PasswordHash = Security.EncodePassword("Anonymous"),
+                PasswordHash = PasswordEncoding.EncodePassword("Anonymous"),
                 Role = Database.Query<RoleEntity>().Where(r => r.Name == "Anonymous").SingleEx().ToLite(),
                 State = UserState.Active,
             }.Save(); //Anonymous
