@@ -3,14 +3,20 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Signum.Engine.Maps;
-using Signum.Entities.Authorization;
-using Signum.Entities.Basics;
-using Signum.Entities.Mailing;
-using Signum.Entities.SMS;
-using Signum.Entities.Workflow;
-using Signum.Services;
-using Southwind.Entities;
+using Signum.Authorization;
+using Signum.Basics;
+using Signum.Mailing;
+using Signum.SMS;
+using Signum.Workflow;
 using Southwind.Logic;
+using Southwind.Employees;
+using Signum.Security;
+using Southwind.Globals;
+using Southwind.Products;
+using Southwind.Customer;
+using Southwind.Shippers;
+using Signum.Authorization.AuthToken;
+using Signum.ActiveDirectory;
 
 namespace Southwind.Test.Environment;
 
@@ -69,7 +75,7 @@ public static class SouthwindEnvironment
         var user = new UserEntity
         {
             UserName = userName,
-            PasswordHash = Security.EncodePassword(userName),
+            PasswordHash = PasswordEncoding.EncodePassword(userName),
             Role = role.ToLite(),
             State = UserState.Active,
         };

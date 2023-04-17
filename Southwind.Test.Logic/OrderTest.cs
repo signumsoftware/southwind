@@ -1,5 +1,7 @@
-using Signum.Engine.Authorization;
-using Southwind.Entities;
+using Signum.Authorization;
+using Southwind.Customer;
+using Southwind.Orders;
+using Southwind.Products;
 
 namespace Southwind.Test.Logic;
 

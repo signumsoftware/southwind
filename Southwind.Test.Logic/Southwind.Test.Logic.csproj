@@ -20,13 +20,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Framework\Signum.Engine.Extensions\Signum.Engine.Extensions.csproj" />
-		<ProjectReference Include="..\Framework\Signum.Entities.Extensions\Signum.Entities.Extensions.csproj" />
-		<ProjectReference Include="..\Framework\Signum.Entities\Signum.Entities.csproj" />
-		<ProjectReference Include="..\Framework\Signum.Engine\Signum.Engine.csproj" />
+		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
 		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
-		<ProjectReference Include="..\Southwind.Entities\Southwind.Entities.csproj" />
-		<ProjectReference Include="..\Southwind.Logic\Southwind.Logic.csproj" />
+		<ProjectReference Include="..\Southwind\Southwind.csproj" />
 		<ProjectReference Include="..\Southwind.Test.Environment\Southwind.Test.Environment.csproj" />
 	</ItemGroup>
 
