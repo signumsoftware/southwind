@@ -15,6 +15,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="CodeGen\**" />
+	  <Content Remove="CodeGen\**" />
+	  <EmbeddedResource Remove="CodeGen\**" />
+	  <None Remove="CodeGen\**" />
+	  <TypeScriptCompile Remove="CodeGen\**" />
 	  <TypeScriptCompile Remove="node_modules\**" />
 	</ItemGroup>
 
@@ -73,25 +78,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <TypeScriptCompile Include="Employees\Employee.tsx" />
-	  <TypeScriptCompile Include="Globals\Address.tsx" />
-	  <TypeScriptCompile Include="Globals\ApplicationConfiguration.tsx" />
-	  <TypeScriptCompile Include="Home.tsx" />
-	  <TypeScriptCompile Include="Layout.tsx" />
-	  <TypeScriptCompile Include="MainAdmin.tsx" />
-	  <TypeScriptCompile Include="MainPublic.tsx" />
-	  <TypeScriptCompile Include="NotFound.tsx" />
-	  <TypeScriptCompile Include="Orders\Order.tsx" />
-	  <TypeScriptCompile Include="Orders\OrderFilter.tsx" />
-	  <TypeScriptCompile Include="Products\Category.tsx" />
-	  <TypeScriptCompile Include="Products\Product.tsx" />
-	  <TypeScriptCompile Include="Products\SalesEstimation.tsx" />
-	  <TypeScriptCompile Include="Public\PublicCatalog.tsx" />
-	  <TypeScriptCompile Include="Public\PublicClient.tsx" />
-	  <TypeScriptCompile Include="Public\Templates\RegisterUser.tsx" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Update="Translations\*.xml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -106,5 +92,11 @@
 				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			</ResolvedFileToPublish>
 		</ItemGroup>
+	</Target>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="yarn run tsc --build" ConsoleToMSBuild="true">
+			<Output TaskParameter="ConsoleOutput" ItemName="OutputOfExec" />
+		</Exec>
 	</Target>
 </Project>

@@ -10,6 +10,6 @@ public class HomeController : Controller
     [SignumAllowAnonymous]
     public ActionResult Index()
     {
-        return View();
+        return View("~/Index.cshtml");
     }
 }
