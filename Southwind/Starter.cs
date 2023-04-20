@@ -3,6 +3,7 @@ using System.Net.Mail;
 using Azure.Storage.Blobs;
 using Signum.ActiveDirectory;
 using Signum.Alerts;
+using Signum.API;
 using Signum.Authorization;
 using Signum.Authorization.ResetPassword;
 using Signum.Authorization.Rules;
@@ -56,7 +57,7 @@ public static partial class Starter
 
     public static string? AzureStorageConnectionString { get; private set; }
 
-    public static void Start(string connectionString, bool isPostgres, string? azureStorageConnectionString, string? broadcastSecret, string? broadcastUrls, bool includeDynamic = true, bool detectSqlVersion = true)
+    public static void Start(string connectionString, bool isPostgres, string? azureStorageConnectionString, string? broadcastSecret, string? broadcastUrls, WebServerBuilder? wsb, bool includeDynamic = true )
     {
         AzureStorageConnectionString = azureStorageConnectionString;
 
@@ -85,14 +86,17 @@ public static partial class Starter
 
             if (!isPostgres)
             {
-                var sqlVersion = detectSqlVersion ? SqlServerVersionDetector.Detect(connectionString) : SqlServerVersion.AzureSQL;
+                var sqlVersion = wsb == null ? SqlServerVersionDetector.Detect(connectionString) : SqlServerVersion.AzureSQL;
                 Connector.Default = new SqlServerConnector(connectionString, sb.Schema, sqlVersion!.Value);
             }
             else
             {
-                var postgreeVersion = detectSqlVersion ? PostgresVersionDetector.Detect(connectionString) : null;
+                var postgreeVersion = wsb == null ? PostgresVersionDetector.Detect(connectionString) : null;
                 Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
             }
+
+            if (wsb != null)
+                SignumServer.Start(wsb);
 
             CacheLogic.Start(sb, serverBroadcast: 
                 sb.Settings.IsPostgres ? new PostgresBroadcast() : 
@@ -119,6 +123,7 @@ public static partial class Starter
             ExceptionLogic.Start(sb);
             QueryLogic.Start(sb);
 
+            PermissionLogic.Start(sb);
             // Extensions modules
 
             MigrationLogic.Start(sb);
@@ -278,62 +283,6 @@ public static partial class Starter
             typeof(OperationLogEntity),
             typeof(ExceptionEntity),
         };
-
-        
-
-        //public override ObjectName GenerateTableName(Type type, TableNameAttribute? tn)
-        //{
-        //    return base.GenerateTableName(type, tn).OnSchema(GetSchemaName(type));
-        //}
-
-        //public override ObjectName GenerateTableNameCollection(Table table, NameSequence name, TableNameAttribute? tn)
-        //{
-        //    return base.GenerateTableNameCollection(table, name, tn).OnSchema(GetSchemaName(table.Type));
-        //}
-
-    
-
-      
-
-        //static string? GetSchemaNameName(Type type)
-        //{
-        //    type = EnumEntity.Extract(type) ?? type;
-
-        //    if (type == typeof(ColumnOptionsMode) || type == typeof(FilterOperation) || type == typeof(PaginationMode) || type == typeof(OrderType))
-        //        type = typeof(UserQueryEntity);
-
-        //    if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod))
-        //        type = typeof(EmailMessageEntity);
-
-        //    if (type == typeof(DayOfWeek))
-        //        type = typeof(ScheduledTaskEntity);
-
-        //    if (type.Assembly == typeof(ApplicationConfigurationEntity).Assembly)
-        //        return null;
-
-        //    if (type.Namespace == DynamicLogic.CodeGenNamespace)
-        //        return "codegen";
-
-        //    if (type.Assembly == typeof(DashboardEntity).Assembly)
-        //    {
-        //        var name = type.Namespace!.Replace("Signum.Entities.", "");
-
-        //        name = (name.TryBefore('.') ?? name);
-
-        //        if (name == "SMS")
-        //            return "sms";
-
-        //        if (name == "Authorization")
-        //            return "auth";
-
-        //        return name.FirstLower();
-        //    }
-
-        //    if (type.Assembly == typeof(Entity).Assembly)
-        //        return "framework";
-
-        //    throw new InvalidOperationException("Impossible to determine SchemaName for {0}".FormatWith(type.FullName));
-        //}
     }
 
     private static void OverrideAttributes(SchemaBuilder sb)

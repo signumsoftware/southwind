@@ -35,10 +35,11 @@ class Program
 
                 Starter.Start(
                     Configuration.GetConnectionString("ConnectionString")!,
-                    Configuration.GetValue<bool>("IsPostgres"), 
+                    Configuration.GetValue<bool>("IsPostgres"),
                     Configuration.GetConnectionString("AzureStorageConnectionString"),
                     Configuration.GetValue<string>("BroadcastSecret"),
-                    Configuration.GetValue<string>("BroadcastUrls"));
+                    Configuration.GetValue<string>("BroadcastUrls"),
+                    wsb: null);
 
                 Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
                 SafeConsole.WriteLineColor(env == "live" ? ConsoleColor.Red : env == "test" ? ConsoleColor.Yellow : ConsoleColor.Gray, Connector.Current.ToString());

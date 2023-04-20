@@ -17,6 +17,7 @@ using Southwind.Customer;
 using Southwind.Shippers;
 using Signum.Authorization.AuthToken;
 using Signum.ActiveDirectory;
+using Microsoft.Graph.DeviceManagement.ManagedDevices.Item.WindowsDefenderScan;
 
 namespace Southwind.Test.Environment;
 
@@ -215,6 +216,7 @@ public static class SouthwindEnvironment
                 config.GetConnectionString("AzureStorageConnectionString"),
                 config.GetValue<string>("BroadcastSecret"),
                 config.GetValue<string>("BroadcastUrls"),
+                wsb: null,
                 includeDynamic);
             
             started = true;

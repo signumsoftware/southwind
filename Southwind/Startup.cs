@@ -99,11 +99,7 @@ public class Startup
             .AddMvc(options => options.AddSignumGlobalFilters())
             .AddApplicationPart(typeof(SignumServer).Assembly)
             .AddApplicationPart(typeof(AuthServer).Assembly)
-            .AddJsonOptions(options => options.AddSignumJsonConverters())
-            .ConfigureApplicationPartManager(apm =>
-            {
-                apm.FeatureProviders.Add(new SignumControllerFactory(typeof(Startup).Assembly));
-            });
+            .AddJsonOptions(options => options.AddSignumJsonConverters());
         services.AddSignalR();
         services.AddSignumValidation();
         services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
@@ -185,15 +181,18 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
             Starter.Start(
                 Configuration.GetConnectionString("ConnectionString")!,
                 Configuration.GetValue<bool>("IsPostgres"),
-                Configuration.GetConnectionString("AzureStorageConnectionString"), 
-                Configuration.GetValue<string>("BroadcastSecret"), 
-                Configuration.GetValue<string>("BroadcastUrls"), 
-                detectSqlVersion: false);
+                Configuration.GetConnectionString("AzureStorageConnectionString"),
+                Configuration.GetValue<string>("BroadcastSecret"),
+                Configuration.GetValue<string>("BroadcastUrls"),
+                wsb: new WebServerBuilder
+                {
+                    ApplicationBuilder = app,
+                    ApplicationLifetime = lifetime,
+                    AuthTokenEncryptionKey = "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!",
+                    MachineName = Configuration.GetValue<string?>("ServerName"),
+                });
 
             Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
-
-            log.Switch("WebStart");
-            WebStart(app, env, lifetime, Configuration.GetValue<string?>("ServerName"));
 
             log.Switch("UseEndpoints");
 
@@ -263,43 +262,38 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
         }
     }
 
-    public static void WebStart(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime, string? machineName)
+    public static void WebStart(WebServerBuilder wsb)
     {
-        SignumServer.Start(app, env, typeof(Startup).Assembly);
-        if (machineName != null)
-            Schema.Current.MachineName = machineName;
-        
-        AuthServer.Start(app, () => Starter.Configuration.Value.AuthTokens, "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!");
-        CacheServer.Start(app);
-        FilesServer.Start(app);
-        UserQueryServer.Start(app);
-        DashboardServer.Start(app);
-        WordServer.Start(app);
-        ExcelServer.Start(app);
-        ChartServer.Start(app);
-        MapServer.Start(app);
-        ToolbarServer.Start(app);
-        TranslationServer.Start(app,
+        SignumServer.Start(wsb.ApplicationBuilder, wsb.WebHostEnvironment, typeof(Startup).Assembly);
+        if (wsb.MachineName != null)
+            Schema.Current.MachineName = wsb.MachineName;
+
+        AuthServer.Start(wsb.ApplicationBuilder, () => Starter.Configuration.Value.AuthTokens, wsb.AuthTokenEncryptionKey);
+        CacheServer.Start(wsb.ApplicationBuilder);
+        FilesServer.Start(wsb.ApplicationBuilder);
+        UserQueryServer.Start(wsb.ApplicationBuilder);
+        DashboardServer.Start(wsb.ApplicationBuilder);
+        WordServer.Start(wsb.ApplicationBuilder);
+        ExcelServer.Start(wsb.ApplicationBuilder);
+        ChartServer.Start(wsb.ApplicationBuilder);
+        MapServer.Start(wsb.ApplicationBuilder);
+        TranslationServer.Start(wsb.ApplicationBuilder,
             new AlreadyTranslatedTranslator(),
             new AzureTranslator(
                 () => Starter.Configuration.Value.Translation.AzureCognitiveServicesAPIKey,
                 () => Starter.Configuration.Value.Translation.AzureCognitiveServicesRegion),
             new DeepLTranslator(() => Starter.Configuration.Value.Translation.DeepLAPIKey)
         ); //TranslationServer
-        SchedulerServer.Start(app, lifetime);
-        ProcessServer.Start(app);
-        MailingServer.Start(app);
-        ProfilerServer.Start(app);
-        DiffLogServer.Start(app);
-        RestServer.Start(app);
-        RestLogServer.Start(app);
-        PredictorServer.Start(app);
-        WorkflowServer.Start(app);
-        ConcurrentUserServer.Start(app);
-        AlertsServer.Start(app);
-        DynamicServer.Start(app);
+        SchedulerServer.Start(wsb.ApplicationBuilder, wsb.ApplicationLifetime);
+        MailingServer.Start(wsb.ApplicationBuilder);
+        ProfilerServer.Start(wsb.ApplicationBuilder);
+        DiffLogServer.Start(wsb.ApplicationBuilder);
+        RestServer.Start(wsb.ApplicationBuilder);
+        PredictorServer.Start(wsb.ApplicationBuilder);
+        ConcurrentUserServer.Start(wsb.ApplicationBuilder);
+        DynamicServer.Start(wsb.ApplicationBuilder);
 
-        OmniboxServer.Start(app,
+        OmniboxServer.Start(wsb.ApplicationBuilder,
             new EntityOmniboxResultGenenerator(),
             new DynamicQueryOmniboxResultGenerator(),
             new ChartOmniboxResultGenerator(),
