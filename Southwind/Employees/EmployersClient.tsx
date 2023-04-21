@@ -16,20 +16,20 @@ import { RegisterUserModel } from '../Public/Southwind.Public'
 export function start(options: { routes: RouteObject[] }) {
 
   Navigator.addSettings(new EntitySettings(EmployeeEntity, e => import('./Employee'), {
-    renderLite: (lite, subStr) => {
+    renderLite: (lite, hl) => {
       if (EmployeeLiteModel.isInstance(lite.model))
         return (
           <span>
             <FileImage
               style={{ width: "20px", height: "20px", borderRadius: "100%", marginRight: "4px", marginTop: "-3px" }}
               file={lite.model.photo} />
-            {TypeaheadOptions.highlightedText(lite.model.firstName + " " + lite.model.lastName, subStr)}
+            {hl.highlight(lite.model.firstName + " " + lite.model.lastName)}
           </span>
         );
 
 
       if (typeof lite.model == "string")
-        return TypeaheadOptions.highlightedText(lite.model, subStr);
+        return hl.highlight(lite.model);
 
       return lite.EntityType;
     }

@@ -188,8 +188,10 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
                 {
                     ApplicationBuilder = app,
                     ApplicationLifetime = lifetime,
+                    WebHostEnvironment = env,
                     AuthTokenEncryptionKey = "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!",
                     MachineName = Configuration.GetValue<string?>("ServerName"),
+                    DefaultCulture = CultureInfo.GetCultureInfo("en")
                 });
 
             Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
@@ -260,74 +262,5 @@ GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
 
             return true;
         }
-    }
-
-    public static void WebStart(WebServerBuilder wsb)
-    {
-        SignumServer.Start(wsb.ApplicationBuilder, wsb.WebHostEnvironment, typeof(Startup).Assembly);
-        if (wsb.MachineName != null)
-            Schema.Current.MachineName = wsb.MachineName;
-
-        AuthServer.Start(wsb.ApplicationBuilder, () => Starter.Configuration.Value.AuthTokens, wsb.AuthTokenEncryptionKey);
-        CacheServer.Start(wsb.ApplicationBuilder);
-        FilesServer.Start(wsb.ApplicationBuilder);
-        UserQueryServer.Start(wsb.ApplicationBuilder);
-        DashboardServer.Start(wsb.ApplicationBuilder);
-        WordServer.Start(wsb.ApplicationBuilder);
-        ExcelServer.Start(wsb.ApplicationBuilder);
-        ChartServer.Start(wsb.ApplicationBuilder);
-        MapServer.Start(wsb.ApplicationBuilder);
-        TranslationServer.Start(wsb.ApplicationBuilder,
-            new AlreadyTranslatedTranslator(),
-            new AzureTranslator(
-                () => Starter.Configuration.Value.Translation.AzureCognitiveServicesAPIKey,
-                () => Starter.Configuration.Value.Translation.AzureCognitiveServicesRegion),
-            new DeepLTranslator(() => Starter.Configuration.Value.Translation.DeepLAPIKey)
-        ); //TranslationServer
-        SchedulerServer.Start(wsb.ApplicationBuilder, wsb.ApplicationLifetime);
-        MailingServer.Start(wsb.ApplicationBuilder);
-        ProfilerServer.Start(wsb.ApplicationBuilder);
-        DiffLogServer.Start(wsb.ApplicationBuilder);
-        RestServer.Start(wsb.ApplicationBuilder);
-        PredictorServer.Start(wsb.ApplicationBuilder);
-        ConcurrentUserServer.Start(wsb.ApplicationBuilder);
-        DynamicServer.Start(wsb.ApplicationBuilder);
-
-        OmniboxServer.Start(wsb.ApplicationBuilder,
-            new EntityOmniboxResultGenenerator(),
-            new DynamicQueryOmniboxResultGenerator(),
-            new ChartOmniboxResultGenerator(),
-            new DashboardOmniboxResultGenerator(DashboardLogic.Autocomplete),
-            new UserQueryOmniboxResultGenerator(UserQueryLogic.Autocomplete),
-            new UserChartOmniboxResultGenerator(UserChartLogic.Autocomplete),
-            new MapOmniboxResultGenerator(type => OperationLogic.TypeOperations(type).Any()),
-            new ReactSpecialOmniboxGenerator()
-            //new HelpModuleOmniboxResultGenerator(),
-            );//Omnibox
-
-        ReflectionServer.RegisterLike(typeof(RegisterUserModel), () => true);
-
-        SignumCultureSelectorFilter.GetCurrentCulture = (ctx) => GetCulture(ctx);
-    }
-
-    static CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("en");
-
-    private static CultureInfo GetCulture(ActionContext context)
-    {
-        // 1 cookie (temporary)
-        var lang = TranslationServer.ReadLanguageCookie(context);
-        if (lang != null)
-            return CultureInfo.GetCultureInfo(lang);
-
-        // 2 user preference
-        if (UserEntity.CurrentUserCulture is { } ci)
-            return ci;
-
-        //3 requestCulture or default
-        CultureInfo? ciRequest = TranslationServer.GetCultureRequest(context);
-        if (ciRequest != null)
-            return ciRequest;
-
-        return DefaultCulture; //Translation
     }
 }

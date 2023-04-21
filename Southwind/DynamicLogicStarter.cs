@@ -1,3 +1,4 @@
+using Signum.API;
 using Signum.Authorization;
 using Signum.Dynamic;
 using Signum.Dynamic.Expression;
@@ -13,10 +14,10 @@ namespace Southwind.Logic;
 
 public class DynamicLogicStarter
 {
-    public static void Start(SchemaBuilder sb)
+    public static void Start(SchemaBuilder sb, WebServerBuilder? webServerBuilder)
     {
         EvalLogic.Start(sb);
-        DynamicLogic.Start(sb);
+        DynamicLogic.Start(sb, webServerBuilder);
         DynamicSqlMigrationLogic.Start(sb);
         DynamicValidationLogic.Start(sb);
         DynamicViewLogic.Start(sb);
