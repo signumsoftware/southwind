@@ -123,7 +123,7 @@ export function start(options: { routes: RouteObject[] }) {
         { token: ProductEntity.token(a => a.supplier!.entity!.companyName), operation: "Contains" },
         { token: ProductEntity.token(a => a.category!.entity!.categoryName), operation: "Contains" },
       ],
-      pinned: { splitText: true, disableOnNull: true },
+      pinned: { splitValue: true, disableOnNull: true },
     } as FilterGroupOption]
   });
 
@@ -136,7 +136,7 @@ export function start(options: { routes: RouteObject[] }) {
         { token: CompanyEntity.token(a => a.entity).cast(CompanyEntity).getToString(), operation: "Contains" },
         { token: PersonEntity.token(a => a.entity).cast(PersonEntity).getToString(), operation: "Contains" },
       ],
-      pinned: { splitText: true, disableOnNull: true },
+      pinned: { splitValue: true, disableOnNull: true },
     } as FilterGroupOption]
   });
 
