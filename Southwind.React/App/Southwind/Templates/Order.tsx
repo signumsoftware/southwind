@@ -66,12 +66,13 @@ export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
           header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "10%" } },
           template: dc =>
             <FormGroup ctx={dc}>
-              <div className={dc.inputGroupClass}>
-                <FormControlReadonly ctx={dc}>
+              {id => <div className={dc.inputGroupClass}>
+                <FormControlReadonly ctx={dc} id={id}>
                   {formatNumber.format(subTotalPrice(dc.value))}
                 </FormControlReadonly>
                 <span className="input-group-text">€</span>
               </div>
+              }
             </FormGroup>
         },
       ])} />
@@ -84,12 +85,13 @@ export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
         </div>
         <div className="col-sm-4">
           <FormGroup ctx={ctx4} label={OrderMessage.TotalPrice.niceToString()}>
-            <div className={ctx4.inputGroupClass}>
-              <FormControlReadonly ctx={ctx4}>
+            {id => <div className={ctx4.inputGroupClass}>
+              <FormControlReadonly ctx={ctx4} id={id}>
                 {formatNumber.format(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum())}
               </FormControlReadonly>
               <span className="input-group-text">€</span>
             </div>
+            }
           </FormGroup>
         </div>
       </div>

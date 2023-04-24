@@ -78,8 +78,8 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
         {RegisterUserMessage.PleaseFillTheFollowingFormToRegisterANewSouthwindEmployee.niceToString()}
       </p>
       <form onSubmit={e => { e.preventDefault(); /*handleRegisterClick(); */ }}>
-        {ctx.value.reportsTo && < FormGroup ctx={ctx.subCtx(r => r.reportsTo)}>
-          <FormControlReadonly ctx={ctx.subCtx(r => r.reportsTo)}>{getToString(ctx.value.reportsTo)}</FormControlReadonly>
+        {ctx.value.reportsTo && <FormGroup ctx={ctx.subCtx(r => r.reportsTo)}>
+          {id => <FormControlReadonly id={id} ctx={ctx.subCtx(r => r.reportsTo)}>{getToString(ctx.value.reportsTo)}</FormControlReadonly>}
         </FormGroup>
         }
         <div className="row">
@@ -96,7 +96,7 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
         <Address ctx={ctx.subCtx(a => a.address)} inheritStyle />
         <ValueLine ctx={ctx.subCtx(r => r.eMail)} />
         <ValueLine ctx={ctx.subCtx(r => r.username)} />
-        <DoublePassword ctx={ctx.subCtx(r => r.password)} isNew mandatory />
+        <DoublePassword ctx={ctx.subCtx(r => r.password)} initialOpen mandatory />
         <ValidationErrors entity={ctx.value} prefix="" />
         <div className="mt-4 d-flex">
           <button className="ms-auto btn btn-primary px-4" onClick={handleRegisterClick}>

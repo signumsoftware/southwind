@@ -33,9 +33,9 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
 
   return (
     <FormGroup ctx={ctx} label={OrderMessage.SalesNextMonth.niceToString()} helpText="Monthly estimation using Predicitor extension" >
-      {
+      {id =>
         estimation != null &&
-        <div className={ctx.inputGroupClass}>
+        <div className={ctx.inputGroupClass} id={id}>
           <span className="input-group-text">
             <FontAwesomeIcon icon={["far", "lightbulb"]} />
           </span>
