@@ -16,7 +16,7 @@ import { ValidationError } from '@framework/Services'
 import { ifError } from '@framework/Globals'
 import { GraphExplorer } from '@framework/Reflection'
 import { ValidationErrors } from '@framework/Frames/ValidationErrors'
-import Address from '../../Southwind/Templates/Address'
+import Address from '../../Customers/Address'
 
 export default function RegisterUser() {
   const params = useParams() as { reportsToEmployeeId: string };

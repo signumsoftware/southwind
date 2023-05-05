@@ -2,6 +2,7 @@ using Southwind.Entities;
 using Signum.Services;
 using System.Globalization;
 using Southwind.Terminal.NorthwindSchema;
+using Southwind.Entities.Customers;
 
 namespace Southwind.Terminal;
 

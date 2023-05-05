@@ -3,6 +3,8 @@ using Signum.Services;
 using System.Globalization;
 using Signum.Entities.Files;
 using Southwind.Terminal.NorthwindSchema;
+using Southwind.Entities.Products;
+using Southwind.Entities.Customers;
 
 namespace Southwind.Terminal;
 

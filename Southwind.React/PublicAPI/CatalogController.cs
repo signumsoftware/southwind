@@ -1,5 +1,5 @@
 using Signum.React.RestLog;
-using Southwind.Entities;
+using Southwind.Entities.Products;
 
 namespace Southwind.React.Controllers;
 

@@ -9,7 +9,11 @@ using Signum.Entities.Mailing;
 using Signum.Entities.SMS;
 using Signum.Entities.Workflow;
 using Signum.Services;
-using Southwind.Entities;
+using Southwind.Entities.Customers;
+using Southwind.Entities.Employees;
+using Southwind.Entities.Globals;
+using Southwind.Entities.Products;
+using Southwind.Entities.Shippers;
 using Southwind.Logic;
 
 namespace Southwind.Test.Environment;

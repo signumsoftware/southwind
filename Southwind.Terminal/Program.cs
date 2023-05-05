@@ -24,6 +24,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using Signum.Engine.Cache;
 using Signum.Engine.SchemaInfoTables;
+using Southwind.Entities.Orders;
 
 namespace Southwind.Terminal;
 

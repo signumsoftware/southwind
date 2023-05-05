@@ -2,7 +2,7 @@ using Signum.Engine.Authorization;
 using Signum.Engine.Dynamic;
 using Signum.Entities.Authorization;
 using Signum.Entities.Dynamic;
-using Southwind.Entities;
+using Southwind.Entities.Globals;
 using System.IO;
 using System.Threading.Tasks;
 

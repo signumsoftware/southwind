@@ -54,7 +54,12 @@ import UserQueryOmniboxProvider from "@extensions/UserQueries/UserQueryOmniboxPr
 import DashboardOmniboxProvider from "@extensions/Dashboard/DashboardOmniboxProvider"
 import MapOmniboxProvider from "@extensions/Map/MapOmniboxProvider"
 
-import * as SouthwindClient from "./Southwind/SouthwindClient"
+import * as CustomersClient from "./Customers/CustomersClient"
+import * as EmployeesClient from "./Employees/EmployeesClient"
+import * as GlobalsClient from "./Globals/GlobalsClient"
+import * as OrdersClient from "./Orders/OrdersClient"
+import * as ProductsClient from "./Products/ProductsClient"
+import * as PublicClient from "./Public/PublicClient"
 
 export function startFull(routes: RouteObject[]) {
   Operations.start();
@@ -106,8 +111,6 @@ export function startFull(routes: RouteObject[]) {
   DynamicValidationClient.start({ routes });
   DynamicViewClient.start({ routes });
 
-  SouthwindClient.start({ routes });
-
   OmniboxClient.start(
     new DynamicQueryOmniboxProvider(),
     new EntityOmniboxProvider(),
@@ -119,4 +122,10 @@ export function startFull(routes: RouteObject[]) {
     new SpecialOmniboxProvider()
   );//Omnibox
 
+  CustomersClient.start({ routes });
+  EmployeesClient.start({ routes });
+  GlobalsClient.start({ routes });
+  OrdersClient.start({ routes });
+  ProductsClient.start({ routes });
+  PublicClient.start({ routes });
 }

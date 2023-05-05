@@ -3,8 +3,10 @@ using Signum.Engine.Authorization;
 using Signum.Entities.Authorization;
 using Signum.Services;
 using Signum.Entities.Basics;
-using Southwind.Entities;
 using Southwind.Entities.Public;
+using Southwind.Entities.Employees;
+using Southwind.Entities.Globals;
+using Southwind.Entities.Customers;
 
 namespace HPE.React.Public;
 

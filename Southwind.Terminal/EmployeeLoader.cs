@@ -3,6 +3,9 @@ using Signum.Services;
 using Signum.Entities.Authorization;
 using Signum.Entities.Files;
 using Southwind.Terminal.NorthwindSchema;
+using Southwind.Entities.Employees;
+using Southwind.Entities.Globals;
+using Southwind.Entities.Customers;
 
 namespace Southwind.Terminal;
 

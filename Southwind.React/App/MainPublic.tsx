@@ -22,7 +22,7 @@ import * as CultureClient from "@extensions/Translation/CultureClient"
 
 
 import Layout from './Layout'
-import PublicCatalog from './PublicCatalog'
+import PublicCatalog from './Public/PublicCatalog'
 import Home from './Home'
 import NotFound from './NotFound'
 import LoginPage from '@extensions/Authorization/Login/LoginPage'

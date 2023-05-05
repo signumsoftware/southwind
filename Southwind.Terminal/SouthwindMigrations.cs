@@ -25,7 +25,9 @@ using Southwind.Logic;
 
 using Signum.Engine.Toolbar;
 using Signum.Engine.Dashboard;
-
+using Southwind.Entities.Globals;
+using Southwind.Entities.Products;
+using Southwind.Entities.Orders;
 
 namespace Southwind.Terminal;
 

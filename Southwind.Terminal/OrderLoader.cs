@@ -2,6 +2,11 @@ using Southwind.Entities;
 using Signum.Services;
 using System.Globalization;
 using Southwind.Terminal.NorthwindSchema;
+using Southwind.Entities.Orders;
+using Southwind.Entities.Customers;
+using Southwind.Entities.Shippers;
+using Southwind.Entities.Employees;
+using Southwind.Entities.Products;
 
 namespace Southwind.Terminal;
 

@@ -1,4 +1,6 @@
 using Signum.Entities.Authorization;
+using Southwind.Entities.Customers;
+using Southwind.Entities.Employees;
 using System.Threading.Tasks;
 
 namespace Southwind.Entities.Public;

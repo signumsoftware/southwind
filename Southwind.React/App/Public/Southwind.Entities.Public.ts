@@ -4,7 +4,8 @@
 
 import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../../Framework/Signum.React/Scripts/Reflection'
 import * as Entities from '../../../Framework/Signum.React/Scripts/Signum.Entities'
-import * as Southwind from '../Southwind/Southwind.Entities'
+import * as Employees from '../Employees/Southwind.Entities.Employees'
+import * as Customers from '../Customers/Southwind.Entities.Customers'
 
 
 export module RegisterUserMessage {
@@ -19,11 +20,11 @@ export module RegisterUserMessage {
 export const RegisterUserModel = new Type<RegisterUserModel>("RegisterUserModel");
 export interface RegisterUserModel extends Entities.ModelEntity {
   Type: "RegisterUserModel";
-  reportsTo: Entities.Lite<Southwind.EmployeeEntity> | null;
+  reportsTo: Entities.Lite<Employees.EmployeeEntity> | null;
   titleOfCourtesy: string;
   firstName: string;
   lastName: string;
-  address: Southwind.AddressEmbedded;
+  address: Customers.AddressEmbedded;
   username: string;
   eMail: string;
   password: string;

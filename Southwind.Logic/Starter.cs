@@ -12,7 +12,6 @@ using Signum.Entities.Dashboard;
 using Signum.Entities.Disconnected;
 using Signum.Entities.Mailing;
 using Signum.Entities.UserQueries;
-using Southwind.Entities;
 using Signum.Engine.Processes;
 using Signum.Entities.Processes;
 using Signum.Engine.Alerts;
@@ -53,6 +52,16 @@ using Signum.Engine.Omnibox;
 using Signum.Engine.MachineLearning.TensorFlow;
 using Azure.Storage.Blobs;
 using Signum.Engine.ConcurrentUser;
+using Southwind.Entities.Globals;
+using Southwind.Entities.Orders;
+using Southwind.Entities.Employees;
+using Southwind.Entities.Products;
+using Southwind.Logic.Employees;
+using Southwind.Logic.Orders;
+using Southwind.Logic.Products;
+using Southwind.Logic.Shippers;
+using Southwind.Entities.Shippers;
+using Southwind.Logic.Customers;
 
 namespace Southwind.Logic;
 
