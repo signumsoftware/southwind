@@ -1,0 +1,58 @@
+{
+  "name": "southwind",
+  "version": "1.0.0",
+  "description": "Example LOB application using Signum Framework and React",
+  "main": "index.js",
+  "scripts": {
+    "preinstall:framework": "yarn --cwd ./../Framework/Signum.React --ignore-scripts install",
+    "preinstall:extensions": "yarn --cwd ./../Framework/Signum.React.Extensions --ignore-scripts install",
+    "preinstall": "yarn run preinstall:framework && yarn run preinstall:extensions",
+    "clean": "rimraf ./wwwroot/dist",
+    "build-development": "yarn run clean && webpack --config webpack.config.dll.js && webpack --config webpack.config.js",
+    "build-production": "yarn run clean && webpack --config webpack.config.dll.js --mode=production && webpack --config webpack.config.js --mode=production",
+    "watch": "yarn run clean && webpack --config webpack.config.dll.js && webpack --config webpack.config.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/signumsoftware/southwind"
+  },
+  "keywords": [
+    "Southwind",
+    "Signum Framework",
+    "LINQ",
+    "React"
+  ],
+  "author": "Signum Software",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/signumsoftware/southwind/issues"
+  },
+  "homepage": "https://github.com/signumsoftware/southwind",
+  "resolutions": {
+    "@types/react": "file:../Framework/Signum.React/node_modules/@types/react"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "assets-webpack-plugin": "7.1.1", 
+    "css-loader": "6.7.2",
+    "file-loader": "6.2.0", 
+    "raw-loader": "4.0.2", 
+    "rimraf": "3.0.2", 
+    "sass": "1.56.1",
+    "sass-loader": "13.2.0",
+    "style-loader": "3.3.1", 
+    "ts-loader": "9.4.1", 
+    "typescript": "5.0.2",
+    "url-loader": "4.1.1", 
+    "webpack": "5.75.0",
+    "webpack-bundle-analyzer": "4.7.0",
+    "webpack-cli": "5.0.0",
+    "webpack-notifier": "1.15.0"
+  },
+  "-vs-binding": {
+    "ProjectOpened": [
+      "watch"
+    ]
+  }
+}

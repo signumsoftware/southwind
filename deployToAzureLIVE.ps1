@@ -3,6 +3,7 @@ az acr login --name southwind
 if(-Not $?){ Write-Host '"az acr login" failed' -ForegroundColor DarkRed; exit; }
 
 
+Get-ChildItem -Path "Framework" -Recurse -Include "package.json","*.csproj" | Resolve-Path -Relative | tar -cf Framework.tar -T -
 docker build -f ".\Southwind.React\Dockerfile" . -t southwind-live
 if(-Not $?){ Write-Host '"docker build" failed' -ForegroundColor DarkRed; exit; }
 
