@@ -1,6 +1,6 @@
-using Southwind.Entities.Employees;
+using Southwind.Employees;
 
-namespace Southwind.Entities.Globals;
+namespace Southwind.Globals;
 
 public class UserEmployeeMixin : MixinEntity
 {

@@ -1,6 +1,6 @@
-using Southwind.Entities.Products;
+using Southwind.Products;
 
-namespace Southwind.Logic.Products;
+namespace Southwind.Products;
 
 public static class ProductLogic
 {

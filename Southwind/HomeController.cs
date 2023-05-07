@@ -1,5 +1,5 @@
 
-namespace Southwind.React.Controllers;
+namespace Southwind;
 
 public class HomeController : Controller
 {
@@ -7,6 +7,6 @@ public class HomeController : Controller
     [SignumAllowAnonymous]
     public ActionResult Index()
     {
-        return View();
+        return View("~/Index.cshtml");
     }
 }

@@ -1,9 +1,9 @@
-using Signum.Entities.Translation;
-using Signum.Entities.Files;
-using Signum.Entities.MachineLearning;
-using Southwind.Entities.Customers;
+using Signum.Translation;
+using Signum.Files;
+using Signum.MachineLearning;
+using Southwind.Customers;
 
-namespace Southwind.Entities.Products;
+namespace Southwind.Products;
 
 [EntityKind(EntityKind.Main, EntityData.Master)]
 public class ProductEntity : Entity

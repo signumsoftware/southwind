@@ -3,18 +3,18 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Signum.Engine.Maps;
-using Signum.Entities.Authorization;
-using Signum.Entities.Basics;
-using Signum.Entities.Mailing;
-using Signum.Entities.SMS;
-using Signum.Entities.Workflow;
+using Signum.Authorization;
+using Signum.Basics;
+using Signum.Mailing;
+using Signum.SMS;
+using Signum.Workflow;
 using Signum.Services;
-using Southwind.Entities.Customers;
-using Southwind.Entities.Employees;
-using Southwind.Entities.Globals;
-using Southwind.Entities.Products;
-using Southwind.Entities.Shippers;
-using Southwind.Logic;
+using Southwind.Customers;
+using Southwind.Employees;
+using Southwind.Globals;
+using Southwind.Products;
+using Southwind.Shippers;
+using Southwind;
 
 namespace Southwind.Test.Environment;
 
@@ -73,7 +73,7 @@ public static class SouthwindEnvironment
         var user = new UserEntity
         {
             UserName = userName,
-            PasswordHash = Security.EncodePassword(userName),
+            PasswordHash = PasswordEncoding.EncodePassword(userName),
             Role = role.ToLite(),
             State = UserState.Active,
         };
@@ -202,8 +202,8 @@ public static class SouthwindEnvironment
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
+                .AddJsonFile("settings.json")
+                .AddJsonFile($"settings.{System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
                 .AddUserSecrets(typeof(SouthwindEnvironment).Assembly, optional: true)
                 .Build();
 
@@ -212,7 +212,7 @@ public static class SouthwindEnvironment
                 config.GetValue<bool>("IsPostgres"),
                 config.GetConnectionString("AzureStorageConnectionString"),
                 config.GetValue<string>("BroadcastSecret"),
-                config.GetValue<string>("BroadcastUrls"),
+                config.GetValue<string>("BroadcastUrls"), wsb: null,
                 includeDynamic);
             
             started = true;

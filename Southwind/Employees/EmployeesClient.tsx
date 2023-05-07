@@ -6,15 +6,15 @@ import * as Finder from '@framework/Finder'
 import { FetchInState } from '@framework/Lines/Retrieve'
 
 import { Lite } from '@framework/Signum.Entities'
-import { FileEntity } from '@extensions/Files/Signum.Entities.Files'
+import { FileEntity } from '@extensions/Signum.Files/Signum.Files'
 
 
 import * as QuickLinks from '@framework/QuickLinks';
 import * as AppContext from '@framework/AppContext';
-import { RegisterUserModel } from '../Public/Southwind.Entities.Public';
+import { RegisterUserModel } from '../Public/Southwind.Public';
 
-import { FileImage } from '../../../Framework/Signum.React.Extensions/Files/FileImage';
-import { EmployeeEntity, EmployeeLiteModel } from './Southwind.Entities.Employees'
+import { FileImage } from '@extensions/Signum.Files/Files';
+import { EmployeeEntity, EmployeeLiteModel } from './Southwind.Employees'
 
 
 export function start(options: { routes: RouteObject[] }) {

@@ -334,7 +334,7 @@
       <ToolbarElement Type="Item" Label="Profiler (Heavy)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewHeavyProfiler" Url="~/profiler/heavy" />
       <ToolbarElement Type="Item" Label="Profiler (Times)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewTimeTracker" Url="~/profiler/times" />
       <ToolbarElement Type="Item" Label="Processes Panel" IconName="fas fa-cogs" IconColor="#9b6bcc" Content="ProcessPermission.ViewProcessPanel" Url="~/processes/view" />
-      <ToolbarElement Type="Item" Label="Dynamic Panel" IconName="fas fa-arrows-alt" IconColor="#9b6bcc" Content="DynamicPanelPermission.ViewDynamicPanel" Url="~/dynamic/panel" />
+      <ToolbarElement Type="Item" Label="Dynamic Panel" IconName="fas fa-arrows-alt" IconColor="#9b6bcc" Content="EvalPanelPermission.ViewDynamicPanel" Url="~/dynamic/panel" />
       <ToolbarElement Type="Item" Label="Workflow Script Runner" IconName="fas fa-random" IconColor="#9b6bcc" Content="WorkflowPermission.ViewWorkflowPanel" Url="~/workflow/panel" />
       <ToolbarElement Type="Item" Label="Async Email Sender" IconName="fas fa-send" IconColor="#3498db" Content="AsyncEmailSenderPermission.ViewAsyncEmailSenderPanel" Url="~/asyncEmailSender/view" />
       <ToolbarElement Type="Item" Label="Code Translation" IconName="fas fa-language" IconColor="#1abc9c" Content="TranslationPermission.TranslateCode" Url="~/translation/status" />

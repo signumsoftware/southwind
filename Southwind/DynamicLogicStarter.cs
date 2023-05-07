@@ -1,18 +1,19 @@
-using Signum.Engine.Authorization;
-using Signum.Engine.Dynamic;
-using Signum.Entities.Authorization;
-using Signum.Entities.Dynamic;
-using Southwind.Entities.Globals;
+using Signum.Authorization;
+using Signum.Dynamic;
+using Signum.Authorization;
+using Signum.Dynamic;
+using Southwind.Globals;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Southwind.Logic;
+namespace Southwind;
 
 public class DynamicLogicStarter
 {
     public static void Start(SchemaBuilder sb)
     {
-        DynamicLogic.Start(sb, withCodeGen: true);
+        EvalLogic.Start(sb);
+DynamicLogic.Start(sb);
         DynamicSqlMigrationLogic.Start(sb);
         DynamicValidationLogic.Start(sb);
         DynamicViewLogic.Start(sb);
@@ -21,23 +22,23 @@ public class DynamicLogicStarter
         DynamicExpressionLogic.Start(sb);
         DynamicMixinConnectionLogic.Start(sb);
 
-        DynamicCode.Namespaces.AddRange(new HashSet<string>
+        EvalLogic.Namespaces.AddRange(new HashSet<string>
         {
-            "Southwind.Entities",
-            "Southwind.Logic",
+            "Southwind",
+            "Southwind",
         });
 
-        DynamicCode.AssemblyTypes.AddRange(new HashSet<Type>
+        EvalLogic.AssemblyTypes.AddRange(new HashSet<Type>
         {
             typeof(Database),
         });
 
-        DynamicCode.AddFullAssembly(typeof(Entity));
-        DynamicCode.AddFullAssembly(typeof(Database));
-        DynamicCode.AddFullAssembly(typeof(AuthLogic));
-        DynamicCode.AddFullAssembly(typeof(UserEntity));
-        DynamicCode.AddFullAssembly(typeof(ApplicationConfigurationEntity));
-        DynamicCode.AddFullAssembly(typeof(Starter));
+        EvalLogic.AddFullAssembly(typeof(Entity));
+        EvalLogic.AddFullAssembly(typeof(Database));
+        EvalLogic.AddFullAssembly(typeof(AuthLogic));
+        EvalLogic.AddFullAssembly(typeof(UserEntity));
+        EvalLogic.AddFullAssembly(typeof(ApplicationConfigurationEntity));
+        EvalLogic.AddFullAssembly(typeof(Starter));
 
     }
 

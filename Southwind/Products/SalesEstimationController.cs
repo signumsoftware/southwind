@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using Signum.Engine.MachineLearning;
-using Southwind.Entities.Orders;
-using Southwind.Entities.Products;
+using Signum.MachineLearning;
+using Southwind.Orders;
+using Southwind.Products;
 
-namespace Southwind.React.App.Products;
+namespace Southwind.Products;
 
 public class SalesEstimationController : ControllerBase
 {

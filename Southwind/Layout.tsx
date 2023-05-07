@@ -1,24 +1,24 @@
 import * as React from 'react'
 import { Link, Outlet } from 'react-router-dom'
-import LoginDropdown from '@extensions/Authorization/Login/LoginDropdown'
-import * as AuthClient from '@extensions/Authorization/AuthClient'
-import OmniboxAutocomplete from '@extensions/Omnibox/OmniboxAutocomplete'
+import LoginDropdown from '@extensions/Signum.Authorization/Login/LoginDropdown'
+import * as AuthClient from '@extensions/Signum.Authorization/AuthClient'
+import OmniboxAutocomplete from '@extensions/Signum.Omnibox/OmniboxAutocomplete'
 import * as AppContext from "@framework/AppContext"
 import { GlobalModalContainer } from "@framework/Modals"
 import Notify from "@framework/Frames/Notify"
-import CultureDropdown, { CultureDropdownMenuItem } from "@extensions/Translation/CultureDropdown"
-import { SidebarContainer, SidebarMode, SidebarToggleItem } from "@extensions/Toolbar/SidebarContainer"
+import CultureDropdown, { CultureDropdownMenuItem } from "@extensions/Signum.Translation/CultureDropdown"
+import { SidebarContainer, SidebarMode, SidebarToggleItem } from "@extensions/Signum.Toolbar/SidebarContainer"
 import { VersionChangedAlert, VersionInfo } from '@framework/Frames/VersionChangedAlert';
 import { LinkContainer, ErrorBoundary } from '@framework/Components';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { OmniboxPermission } from '@extensions/Omnibox/Signum.Entities.Omnibox'
+import { OmniboxPermission } from '@extensions/Signum.Omnibox/Signum.Omnibox'
 import { isModifiableEntity, JavascriptMessage } from '@framework/Signum.Entities'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Breakpoints, useBreakpoint, useUpdatedRef, useWindowEvent } from '../../Framework/Signum.React/Scripts/Hooks'
-import { ModelConverterSymbol } from '../../Framework/Signum.React.Extensions/Templating/Signum.Entities.Templating'
+import { Breakpoints, useBreakpoint, useUpdatedRef, useWindowEvent } from '@framework/Hooks'
+import { ModelConverterSymbol } from '@extensions/Signum.Templating/Signum.Templating'
 
-const ToolbarRenderer = React.lazy(() => import("@extensions/Toolbar/Renderers/ToolbarRenderer"));
-const AlertDropdown = React.lazy(() => import("@extensions/Alerts/AlertDropdown"));
+const ToolbarRenderer = React.lazy(() => import("@extensions/Signum.Toolbar/Renderers/ToolbarRenderer"));
+const AlertDropdown = React.lazy(() => import("@extensions/Signum.Alerts/AlertDropdown"));
 
 export default function Layout() {
 
@@ -54,7 +54,7 @@ export default function Layout() {
 
   function handleSwaggerClick(e: React.MouseEvent<any>) {
     e.preventDefault();
-    import("@extensions/Rest/RestClient")
+    import("@extensions/Signum.Rest/RestClient")
       .then(RestClient => RestClient.API.getCurrentRestApiKey())
       .then(key => { window.location.assign(AppContext.toAbsoluteUrl("/swagger/index.html?apiKey=" + (key || ""))); });
   } //Swagger

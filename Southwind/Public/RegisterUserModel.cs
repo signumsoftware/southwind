@@ -1,9 +1,9 @@
-using Signum.Entities.Authorization;
-using Southwind.Entities.Customers;
-using Southwind.Entities.Employees;
+using Signum.Authorization;
+using Southwind.Customers;
+using Southwind.Employees;
 using System.Threading.Tasks;
 
-namespace Southwind.Entities.Public;
+namespace Southwind.Public;
 
 [AllowUnathenticated]
 public class RegisterUserModel : ModelEntity

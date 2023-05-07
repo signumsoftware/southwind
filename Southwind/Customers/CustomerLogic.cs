@@ -1,7 +1,7 @@
-using Southwind.Entities.Customers;
-using Southwind.Entities.Orders;
+using Southwind.Customers;
+using Southwind.Orders;
 
-namespace Southwind.Logic.Customers;
+namespace Southwind.Customers;
 
 public static class CustomerLogic
 {

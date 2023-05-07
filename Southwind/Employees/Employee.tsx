@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityCheckboxList } from '@framework/Lines'
-import { FileLine } from '@extensions/Files/FileLine'
+import { FileLine } from '@extensions/Signum.Files/Files'
 import { useForceUpdate } from '@framework/Hooks'
 import { useFetchInState } from '@framework/Navigator'
-import { EmployeeEntity } from './Southwind.Entities.Employees'
+import { EmployeeEntity } from './Southwind.Employees'
 
 export default function Employee(p : { ctx: TypeContext<EmployeeEntity> }){
   const forceUpdate = useForceUpdate();

@@ -1,7 +1,7 @@
-using Signum.Engine.Authorization;
-using Signum.Entities.Authorization;
+using Signum.Authorization;
+using Signum.Authorization;
 
-namespace Southwind.Logic;
+namespace Southwind;
 
 internal class SouthwindAuthorizer : ActiveDirectoryAuthorizer
 {

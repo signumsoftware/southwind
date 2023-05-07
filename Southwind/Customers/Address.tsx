@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ValueLine } from '@framework/Lines/ValueLine'
 import { TypeContext } from '@framework/TypeContext'
 import { useForceUpdate } from '@framework/Hooks';
-import { AddressEmbedded } from './Southwind.Entities.Customers';
+import { AddressEmbedded } from './Southwind.Customers';
 
 export default function Address(p: { ctx: TypeContext<AddressEmbedded>, inheritStyle?: boolean }) {
   const ctx = p.inheritStyle ? p.ctx : p.ctx.subCtx({ formGroupStyle: "SrOnly", placeholderLabels: true });

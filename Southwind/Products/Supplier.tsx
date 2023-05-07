@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
-import { SupplierEntity } from './Southwind.Entities.Products';
+import { SupplierEntity } from './Southwind.Products';
 
 export default function Supplier(p : { ctx: TypeContext<SupplierEntity> }){
   const ctx = p.ctx;

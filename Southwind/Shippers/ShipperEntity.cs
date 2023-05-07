@@ -1,4 +1,4 @@
-namespace Southwind.Entities.Shippers;
+namespace Southwind.Shippers;
 
 [EntityKind(EntityKind.Main, EntityData.Master)]
 public class ShipperEntity : Entity

@@ -1,13 +1,13 @@
 using System.Collections.Specialized;
-using Signum.Entities.Disconnected;
-using Signum.Entities.Scheduler;
-using Signum.Entities.Processes;
-using Southwind.Entities.Employees;
-using Southwind.Entities.Products;
-using Southwind.Entities.Shippers;
-using Southwind.Entities.Customers;
+using Signum.Disconnected;
+using Signum.Scheduler;
+using Signum.Processes;
+using Southwind.Employees;
+using Southwind.Products;
+using Southwind.Shippers;
+using Southwind.Customers;
 
-namespace Southwind.Entities.Orders;
+namespace Southwind.Orders;
 
 [EntityKind(EntityKind.Main, EntityData.Transactional)]
 public class OrderEntity : Entity

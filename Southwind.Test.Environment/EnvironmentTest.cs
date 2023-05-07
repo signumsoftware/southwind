@@ -1,8 +1,8 @@
 using System.IO;
 using System.Xml.Linq;
-using Signum.Engine.Authorization;
+using Signum.Authorization;
 using Signum.Engine.Maps;
-using Southwind.Logic;
+using Southwind;
 
 namespace Southwind.Test.Environment;
 

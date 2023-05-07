@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "ConnectionString": "Data Source=localhost;Initial Catalog=Southwind_Dev;Integrated Security=true;TrustServerCertificate=true"
+  }
+}

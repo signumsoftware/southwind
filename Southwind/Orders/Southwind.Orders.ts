@@ -2,14 +2,14 @@
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
 
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../../Framework/Signum.React/Scripts/Reflection'
-import * as Entities from '../../../Framework/Signum.React/Scripts/Signum.Entities'
-import * as Customers from '../Customers/Southwind.Entities.Customers'
-import * as Employees from '../Employees/Southwind.Entities.Employees'
-import * as Shippers from '../Shippers/Southwind.Entities.Shippers'
-import * as Products from '../Products/Southwind.Entities.Products'
-import * as Processes from '../../../Framework/Signum.React.Extensions/Processes/Signum.Entities.Processes'
-import * as Scheduler from '../../../Framework/Signum.React.Extensions/Scheduler/Signum.Entities.Scheduler'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '@framework/Reflection'
+import * as Entities from '@framework/Signum.Entities'
+import * as Customers from '../Customers/Southwind.Customers'
+import * as Employees from '../Employees/Southwind.Employees'
+import * as Shippers from '../Shippers/Southwind.Shippers'
+import * as Products from '../Products/Southwind.Products'
+import * as Processes from '@extensions/Signum.Processes/Signum.Processes'
+import * as Scheduler from '@extensions/Signum.Scheduler/Signum.Scheduler'
 
 
 

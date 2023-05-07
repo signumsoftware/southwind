@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Southwind.Entities.Orders;
-using Southwind.Entities.Products;
+using Southwind.Orders;
+using Southwind.Products;
 
 namespace Southwind.Test.Environment;
 

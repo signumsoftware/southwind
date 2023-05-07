@@ -3,10 +3,10 @@ import { RouteObject } from 'react-router'
 import { EntitySettings } from '@framework/Navigator'
 import * as Navigator from '@framework/Navigator'
 
-import { UserEntity } from '@extensions/Authorization/Signum.Entities.Authorization'
+import { UserEntity } from '@extensions/Signum.Authorization/Signum.Authorization'
 
 import { EntityLine } from '@framework/Lines'
-import { ApplicationConfigurationEntity, UserEmployeeMixin } from './Southwind.Entities.Globals'
+import { ApplicationConfigurationEntity, UserEmployeeMixin } from './Southwind.Globals'
 
 export function start(options: { routes: RouteObject[] }) {
 

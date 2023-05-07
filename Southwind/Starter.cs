@@ -1,69 +1,69 @@
 using System.Globalization;
-using Signum.Engine.Authorization;
-using Signum.Engine.Chart;
-using Signum.Engine.Dashboard;
-using Signum.Engine.Disconnected;
-using Signum.Engine.Mailing;
-using Signum.Engine.UserQueries;
-using Signum.Entities.Authorization;
-using Signum.Entities.Basics;
-using Signum.Entities.Chart;
-using Signum.Entities.Dashboard;
-using Signum.Entities.Disconnected;
-using Signum.Entities.Mailing;
-using Signum.Entities.UserQueries;
-using Signum.Engine.Processes;
-using Signum.Entities.Processes;
-using Signum.Engine.Alerts;
-using Signum.Engine.Notes;
-using Signum.Engine.Cache;
-using Signum.Engine.Profiler;
-using Signum.Engine.Translation;
-using Signum.Engine.Files;
-using Signum.Entities.Alerts;
-using Signum.Entities.Notes;
-using Signum.Entities.UserAssets;
-using Signum.Engine.UserAssets;
-using Signum.Engine.Scheduler;
-using Signum.Entities.Scheduler;
-using Signum.Engine.SMS;
-using Signum.Engine.ViewLog;
-using Signum.Entities.ViewLog;
-using Signum.Engine.Help;
-using Signum.Engine.Word;
-using Signum.Entities.Word;
-using Signum.Engine.Migrations;
+using Signum.Authorization;
+using Signum.Chart;
+using Signum.Dashboard;
+using Signum.Disconnected;
+using Signum.Mailing;
+using Signum.UserQueries;
+using Signum.Authorization;
+using Signum.Basics;
+using Signum.Chart;
+using Signum.Dashboard;
+using Signum.Disconnected;
+using Signum.Mailing;
+using Signum.UserQueries;
+using Signum.Processes;
+using Signum.Processes;
+using Signum.Alerts;
+using Signum.Notes;
+using Signum.Cache;
+using Signum.Profiler;
+using Signum.Translation;
+using Signum.Files;
+using Signum.Alerts;
+using Signum.Notes;
+using Signum.UserAssets;
+using Signum.UserAssets;
+using Signum.Scheduler;
+using Signum.Scheduler;
+using Signum.SMS;
+using Signum.ViewLog;
+using Signum.ViewLog;
+using Signum.Help;
+using Signum.Word;
+using Signum.Word;
+using Signum.Migrations;
 using System.Net.Mail;
-using Signum.Engine.DiffLog;
-using Signum.Entities.DiffLog;
-using Signum.Engine.Map;
-using Signum.Engine.Excel;
-using Signum.Engine.Dynamic;
-using Signum.Entities.Dynamic;
-using Signum.Engine.Workflow;
-using Signum.Engine.Toolbar;
-using Signum.Engine.MachineLearning;
-using Signum.Entities.MachineLearning;
-using Signum.Entities.Files;
-using Signum.Entities.Rest;
-using Signum.Engine.Rest;
+using Signum.DiffLog;
+using Signum.DiffLog;
+using Signum.Map;
+using Signum.Excel;
+using Signum.Dynamic;
+using Signum.Dynamic;
+using Signum.Workflow;
+using Signum.Toolbar;
+using Signum.MachineLearning;
+using Signum.MachineLearning;
+using Signum.Files;
+using Signum.Rest;
+using Signum.Rest;
 using Microsoft.Exchange.WebServices.Data;
-using Signum.Engine.Omnibox;
-using Signum.Engine.MachineLearning.TensorFlow;
+using Signum.Omnibox;
+using Signum.MachineLearning.TensorFlow;
 using Azure.Storage.Blobs;
-using Signum.Engine.ConcurrentUser;
-using Southwind.Entities.Globals;
-using Southwind.Entities.Orders;
-using Southwind.Entities.Employees;
-using Southwind.Entities.Products;
-using Southwind.Logic.Employees;
-using Southwind.Logic.Orders;
-using Southwind.Logic.Products;
-using Southwind.Logic.Shippers;
-using Southwind.Entities.Shippers;
-using Southwind.Logic.Customers;
+using Signum.ConcurrentUser;
+using Southwind.Globals;
+using Southwind.Orders;
+using Southwind.Employees;
+using Southwind.Products;
+using Southwind.Employees;
+using Southwind.Orders;
+using Southwind.Products;
+using Southwind.Shippers;
+using Southwind.Shippers;
+using Southwind.Customers;
 
-namespace Southwind.Logic;
+namespace Southwind;
 
 
 //Starts-up the engine for Southwind Entities, used by Web and Load Application
@@ -116,7 +116,7 @@ public static partial class Starter
                 null);/*Cache*/
 
             /* LightDynamic
-               DynamicLogic.Start(sb, withCodeGen: false);
+               EvalLogic.Start(sb);
             LightDynamic */
             DynamicLogicStarter.Start(sb);
             if (includeDynamic)//Dynamic
@@ -332,7 +332,7 @@ public static partial class Starter
 
             if (type.Assembly == typeof(DashboardEntity).Assembly)
             {
-                var name = type.Namespace!.Replace("Signum.Entities.", "");
+                var name = type.Namespace!.Replace("Signum.", "");
 
                 name = (name.TryBefore('.') ?? name);
 

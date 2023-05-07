@@ -17,16 +17,16 @@ import * as Services from "@framework/Services"
 import Notify from "@framework/Frames/Notify"
 import ErrorModal from "@framework/Modals/ErrorModal"
 
-import * as AuthClient from "@extensions/Authorization/AuthClient"
-import * as CultureClient from "@extensions/Translation/CultureClient"
+import * as AuthClient from "@extensions/Signum.Authorization/AuthClient"
+import * as CultureClient from "@extensions/Signum.Translation/CultureClient"
 
 
 import Layout from './Layout'
 import PublicCatalog from './Public/PublicCatalog'
 import Home from './Home'
 import NotFound from './NotFound'
-import LoginPage from '@extensions/Authorization/Login/LoginPage'
-import * as AzureAD from '@extensions/Authorization/AzureAD/AzureAD'
+import LoginPage from '@extensions/Signum.Authorization/Login/LoginPage'
+import * as AzureAD from '@extensions/Signum.Authorization.ActiveDirectory/AzureAD/AzureAD'
 
 import * as PublicClient from './Public/PublicClient'
 

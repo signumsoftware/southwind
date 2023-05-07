@@ -1,4 +1,4 @@
-namespace Southwind.Entities.Customers;
+namespace Southwind.Customers;
 
 [EntityKind(EntityKind.Shared, EntityData.Transactional)]
 public class CompanyEntity : CustomerEntity

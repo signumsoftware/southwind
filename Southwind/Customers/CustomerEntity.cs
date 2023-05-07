@@ -1,4 +1,4 @@
-namespace Southwind.Entities.Customers;
+namespace Southwind.Customers;
 
 [PrimaryKey(typeof(Guid))]
 public abstract class CustomerEntity : Entity

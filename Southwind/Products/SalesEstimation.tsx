@@ -3,15 +3,15 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 import * as Finder from '@framework/Finder';
 import { is, liteKey } from '@framework/Signum.Entities';
 import { ajaxPost } from '@framework/Services';
-import { Gradient, Color } from '@extensions/Basics/Color';
+import { Gradient, Color } from '@framework/Basics/Color';
 import { toLite } from '@framework/Signum.Entities';
 import { useAPI } from '@framework/Hooks';
 import { classes } from '@framework/Globals';
 import { EntityControlMessage } from '@framework/Signum.Entities';
-import { PredictorEntity } from '@extensions/MachineLearning/Signum.Entities.MachineLearning';
+import { PredictorEntity } from '@extensions/Signum.MachineLearning/Signum.MachineLearning';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ProductEntity, ProductPredictorPublication } from './Southwind.Entities.Products';
-import { OrderMessage } from '../Orders/Southwind.Entities.Orders';
+import { ProductEntity, ProductPredictorPublication } from './Southwind.Products';
+import { OrderMessage } from '../Orders/Southwind.Orders';
 
 
 var gradient = new Gradient([

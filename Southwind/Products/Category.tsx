@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { ValueLine, TypeContext } from '@framework/Lines'
-import { FileLine } from '@extensions/Files/FileLine'
+import { FileLine } from '@extensions/Signum.Files/Files'
 import { useForceUpdate } from '@framework/Hooks'
-import { CategoryEntity } from './Southwind.Entities.Products';
+import { CategoryEntity } from './Southwind.Products';
 
 export default function Category(p : { ctx: TypeContext<CategoryEntity> }){
   const forceUpdate = useForceUpdate();

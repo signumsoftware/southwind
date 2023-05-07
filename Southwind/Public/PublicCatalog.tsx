@@ -5,8 +5,8 @@ import { Lite } from '@framework/Signum.Entities'
 import { toNumberFormat } from '@framework/Reflection'
 import * as AppContext from '@framework/AppContext'
 import { useAPI } from '@framework/Hooks'
-import { CatalogMessage, CategoryEntity, ProductEntity } from '../Products/Southwind.Entities.Products'
-import { RegisterUserMessage } from './Southwind.Entities.Public'
+import { CatalogMessage, CategoryEntity, ProductEntity } from '../Products/Southwind.Products'
+import { RegisterUserMessage } from './Southwind.Public'
 
 export interface CategoryWithProducts {
   category: Lite<CategoryEntity>;

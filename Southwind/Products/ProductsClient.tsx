@@ -4,10 +4,10 @@ import { EntitySettings } from '@framework/Navigator'
 import * as Navigator from '@framework/Navigator'
 import * as Finder from '@framework/Finder'
 
-import { FileEmbedded } from '@extensions/Files/Signum.Entities.Files'
+import { FileEmbedded } from '@extensions/Signum.Files/Signum.Files'
 
 import { FilterGroupOption } from '@framework/FindOptions';
-import { CategoryEntity, ProductEntity, SupplierEntity } from './Southwind.Entities.Products'
+import { CategoryEntity, ProductEntity, SupplierEntity } from './Southwind.Products'
 
 
 export function start(options: { routes: RouteObject[] }) {

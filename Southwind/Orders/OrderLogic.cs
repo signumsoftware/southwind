@@ -1,15 +1,15 @@
-using Signum.Entities.Basics;
-using Signum.Entities.Authorization;
-using Signum.Engine.Processes;
-using Signum.Engine.Scheduler;
-using Signum.Entities.Processes;
+using Signum.Basics;
+using Signum.Authorization;
+using Signum.Processes;
+using Signum.Scheduler;
+using Signum.Processes;
 using Signum.Utilities.Reflection;
-using Southwind.Entities.Customers;
-using Southwind.Entities.Orders;
-using Southwind.Entities.Employees;
-using Southwind.Entities.Products;
+using Southwind.Customers;
+using Southwind.Orders;
+using Southwind.Employees;
+using Southwind.Products;
 
-namespace Southwind.Logic.Orders;
+namespace Southwind.Orders;
 
 public static class OrderLogic
 {

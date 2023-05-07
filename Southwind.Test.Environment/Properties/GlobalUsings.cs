@@ -9,5 +9,5 @@ global using Signum.Utilities.ExpressionTrees;
 global using Signum.Entities;
 global using Signum.Entities.Reflection;
 global using Signum.Engine;
-global using Signum.Engine.Operations;
+global using Signum.Operations;
 global using Xunit;

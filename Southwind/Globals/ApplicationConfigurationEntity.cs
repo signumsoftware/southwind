@@ -1,11 +1,11 @@
-using Signum.Entities.Basics;
-using Signum.Entities.Mailing;
-using Signum.Entities.SMS;
-using Signum.Entities.Authorization;
-using Signum.Entities.Workflow;
-using Signum.Entities.Files;
+using Signum.Basics;
+using Signum.Mailing;
+using Signum.SMS;
+using Signum.Authorization;
+using Signum.Workflow;
+using Signum.Files;
 
-namespace Southwind.Entities.Globals;
+namespace Southwind.Globals;
 
 [EntityKind(EntityKind.Main, EntityData.Master)]
 public class ApplicationConfigurationEntity : Entity

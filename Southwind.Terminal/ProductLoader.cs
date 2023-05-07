@@ -1,10 +1,10 @@
-using Southwind.Entities;
+using Southwind;
 using Signum.Services;
 using System.Globalization;
-using Signum.Entities.Files;
+using Signum.Files;
 using Southwind.Terminal.NorthwindSchema;
-using Southwind.Entities.Products;
-using Southwind.Entities.Customers;
+using Southwind.Products;
+using Southwind.Customers;
 
 namespace Southwind.Terminal;
 

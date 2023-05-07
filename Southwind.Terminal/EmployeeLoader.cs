@@ -1,11 +1,11 @@
-using Southwind.Entities;
+using Southwind;
 using Signum.Services;
-using Signum.Entities.Authorization;
-using Signum.Entities.Files;
+using Signum.Authorization;
+using Signum.Files;
 using Southwind.Terminal.NorthwindSchema;
-using Southwind.Entities.Employees;
-using Southwind.Entities.Globals;
-using Southwind.Entities.Customers;
+using Southwind.Employees;
+using Southwind.Globals;
+using Southwind.Customers;
 
 namespace Southwind.Terminal;
 
@@ -106,7 +106,7 @@ internal static class EmployeeLoader
             employees.Select((employee, i) => new UserEntity
             {
                 UserName = employee.FirstName,
-                PasswordHash = Security.EncodePassword(employee.FirstName),
+                PasswordHash = PasswordEncoding.EncodePassword(employee.FirstName),
                 Role = roles.GetOrThrow(i < 2 ? "Super user" : i < 5 ? "Advanced user" : "Standard user").ToLite(),
                 State = UserState.Active,
             }.SetMixin((UserEmployeeMixin e) => e.Employee, employee.ToLite())).SaveList();

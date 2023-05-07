@@ -11,8 +11,8 @@ import { TypeContext } from '@framework/Lines'
 import ValueLineModal from '@framework/ValueLineModal'
 
 import OrderFilter from './OrderFilter'
-import { OrderEntity, OrderOperation, OrderState } from './Southwind.Entities.Orders'
-import { CustomerQuery } from '../Customers/Southwind.Entities.Customers'
+import { OrderEntity, OrderOperation, OrderState } from './Southwind.Orders'
+import { CustomerQuery } from '../Customers/Southwind.Customers'
 
 
 export function start(options: { routes: RouteObject[] }) {

@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Signum.React;
-using Signum.Engine.Authorization;
-using Signum.Entities.Authorization;
+using Signum.Authorization;
+using Signum.Authorization;
 using Signum.Services;
-using Signum.Entities.Basics;
-using Southwind.Entities.Public;
-using Southwind.Entities.Employees;
-using Southwind.Entities.Globals;
-using Southwind.Entities.Customers;
+using Signum.Basics;
+using Southwind.Public;
+using Southwind.Employees;
+using Southwind.Globals;
+using Southwind.Customers;
 
-namespace HPE.React.Public;
+namespace Southwind.Public;
 
 public class PublicController : ControllerBase
 {
@@ -50,7 +50,7 @@ public class PublicController : ControllerBase
             new UserEntity
             {
                 UserName = model.EMail,
-                PasswordHash = Security.EncodePassword(model.Password),
+                PasswordHash = PasswordEncoding.EncodePassword(model.Password),
                 Email = model.EMail,
                 Role = role,
             }.InitiMixin((UserEmployeeMixin um) =>

@@ -1,30 +1,30 @@
 using System.Text.RegularExpressions;
 using Signum.Engine.Maps;
-using Southwind.Logic;
-using Southwind.Entities;
+using Southwind;
+using Southwind;
 using Signum.Services;
-using Signum.Engine.Authorization;
-using Signum.Engine.Chart;
-using Signum.Entities.Translation;
+using Signum.Authorization;
+using Signum.Chart;
+using Signum.Translation;
 using System.Globalization;
-using Signum.Entities.Mailing;
-using Signum.Entities.Files;
-using Signum.Entities.SMS;
-using Signum.Entities.Basics;
-using Signum.Engine.Translation;
-using Signum.Engine.Help;
-using Signum.Entities.Word;
-using Signum.Engine.Basics;
-using Signum.Engine.Migrations;
-using Signum.Entities.Authorization;
-using Signum.Engine.CodeGeneration;
-using Signum.Entities.MachineLearning;
-using Signum.Engine.MachineLearning;
+using Signum.Mailing;
+using Signum.Files;
+using Signum.SMS;
+using Signum.Basics;
+using Signum.Translation;
+using Signum.Help;
+using Signum.Word;
+using Signum.Basics;
+using Signum.Migrations;
+using Signum.Authorization;
+using Signum.CodeGeneration;
+using Signum.MachineLearning;
+using Signum.MachineLearning;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using Signum.Engine.Cache;
-using Signum.Engine.SchemaInfoTables;
-using Southwind.Entities.Orders;
+using Signum.Cache;
+using Signum.SchemaInfoTables;
+using Southwind.Orders;
 
 namespace Southwind.Terminal;
 
@@ -43,8 +43,8 @@ class Program
                 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
                 Configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
-                    .AddJsonFile($"appsettings.{env}.json", true)
+                    .AddJsonFile("settings.json")
+                    .AddJsonFile($"settings.{env}.json", true)
                     .AddUserSecrets<Program>(optional: true)
                     .Build();
                 
@@ -53,7 +53,7 @@ class Program
                     Configuration.GetValue<bool>("IsPostgres"), 
                     Configuration.GetConnectionString("AzureStorageConnectionString"),
                     Configuration.GetValue<string>("BroadcastSecret"),
-                    Configuration.GetValue<string>("BroadcastUrls"));
+                    Configuration.GetValue<string>("BroadcastUrls"), wsb: null);
 
                 Console.WriteLine("..:: Welcome to Southwind Loading Application ::..");
                 SafeConsole.WriteLineColor(env == "live" ? ConsoleColor.Red : env == "test" ? ConsoleColor.Yellow : ConsoleColor.Gray, Connector.Current.ToString());
@@ -88,6 +88,7 @@ class Program
                         {"CS", () => SouthwindMigrations.CSharpMigrations(false), "C# Migrations"},
                         {"S", Administrator.Synchronize},
                         {"L", () => Load(null), "Load"},
+                        {"CT", TranslationLogic.CopyTranslations},
                     }.Choose();
 
                     if (action == null)
@@ -118,7 +119,6 @@ class Program
             {
                 {"AR", AuthLogic.ImportExportAuthRules},
                 {"HL", HelpXml.ImportExportHelp},
-                {"CT", TranslationLogic.CopyTranslations},
                 {"TP", TrainPredictor},
                 {"SO", ShowOrder},
             }.ChooseMultipleWithDescription(args);

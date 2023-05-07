@@ -2,11 +2,11 @@
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
 
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../../Framework/Signum.React/Scripts/Reflection'
-import * as Entities from '../../../Framework/Signum.React/Scripts/Signum.Entities'
-import * as Customers from '../Customers/Southwind.Entities.Customers'
-import * as Files from '../../../Framework/Signum.React.Extensions/Files/Signum.Entities.Files'
-import * as MachineLearning from '../../../Framework/Signum.React.Extensions/MachineLearning/Signum.Entities.MachineLearning'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '@framework/Reflection'
+import * as Entities from '@framework/Signum.Entities'
+import * as Customers from '../Customers/Southwind.Customers'
+import * as Files from '@extensions/Signum.Files/Signum.Files'
+import * as MachineLearning from '@extensions/Signum.MachineLearning/Signum.MachineLearning'
 
 
 

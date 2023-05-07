@@ -1,4 +1,4 @@
-namespace Southwind.Entities.Customers;
+namespace Southwind.Customers;
 
 public class AddressEmbedded : EmbeddedEntity
 {
@@ -22,7 +22,7 @@ public class AddressEmbedded : EmbeddedEntity
         if (pi.Name == nameof(PostalCode))
         {
             if (string.IsNullOrEmpty(PostalCode) && Country != "Ireland")
-                return Signum.Entities.ValidationMessage._0IsNotSet.NiceToString().FormatWith(pi.NiceName());
+                return Signum.ValidationMessage._0IsNotSet.NiceToString().FormatWith(pi.NiceName());
         }
 
         return null;

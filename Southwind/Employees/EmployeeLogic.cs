@@ -1,11 +1,11 @@
-using Signum.Entities.Authorization;
-using Signum.Entities.Basics;
-using Southwind.Entities.Employees;
-using Southwind.Entities.Globals;
-using Southwind.Entities.Orders;
-using Southwind.Logic.Employees;
+using Signum.Authorization;
+using Signum.Basics;
+using Southwind.Employees;
+using Southwind.Globals;
+using Southwind.Orders;
+using Southwind.Employees;
 
-namespace Southwind.Logic.Employees;
+namespace Southwind.Employees;
 
 public static class EmployeeLogic
 {

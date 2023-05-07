@@ -1,11 +1,11 @@
-using Signum.Entities.Basics;
+using Signum.Basics;
 using System.Data;
-using Signum.Entities.Authorization;
-using Signum.Entities.Files;
+using Signum.Authorization;
+using Signum.Files;
 using System.Security.Authentication;
-using Southwind.Entities.Customers;
+using Southwind.Customers;
 
-namespace Southwind.Entities.Employees;
+namespace Southwind.Employees;
 
 [EntityKind(EntityKind.Main, EntityData.Master)]
 public class EmployeeEntity : Entity

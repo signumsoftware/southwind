@@ -4,59 +4,59 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Signum.Engine.Authorization;
-using Signum.Engine.Basics;
-using Signum.Engine.Chart;
-using Signum.Engine.Dashboard;
-using Signum.Engine.Mailing;
-using Signum.Engine.Processes;
-using Signum.Engine.Scheduler;
-using Signum.Engine.Translation;
-using Signum.Engine.UserQueries;
-using Signum.Entities.Authorization;
-using Signum.Entities.Chart;
-using Signum.Entities.Dashboard;
-using Signum.Entities.Dynamic;
-using Signum.Entities.Map;
-using Signum.Entities.Omnibox;
-using Signum.Entities.UserQueries;
+using Signum.Authorization;
+using Signum.Basics;
+using Signum.Chart;
+using Signum.Dashboard;
+using Signum.Mailing;
+using Signum.Processes;
+using Signum.Scheduler;
+using Signum.Translation;
+using Signum.UserQueries;
+using Signum.Authorization;
+using Signum.Chart;
+using Signum.Dashboard;
+using Signum.Dynamic;
+using Signum.Map;
+using Signum.Omnibox;
+using Signum.UserQueries;
 using Signum.React;
-using Signum.React.Authorization;
-using Signum.React.Cache;
-using Signum.React.Chart;
-using Signum.React.Dashboard;
-using Signum.React.DiffLog;
-using Signum.React.Dynamic;
-using Signum.React.Excel;
-using Signum.React.Facades;
-using Signum.React.Files;
-using Signum.React.MachineLearning;
-using Signum.React.Mailing;
-using Signum.React.Map;
-using Signum.React.Omnibox;
-using Signum.React.Processes;
-using Signum.React.Profiler;
-using Signum.React.Scheduler;
-using Signum.React.Toolbar;
-using Signum.React.Translation;
-using Signum.React.UserQueries;
-using Signum.React.Word;
-using Signum.React.Workflow;
-using Southwind.Logic;
+using Signum.Authorization;
+using Signum.Cache;
+using Signum.Chart;
+using Signum.Dashboard;
+using Signum.DiffLog;
+using Signum.Dynamic;
+using Signum.Excel;
+using Signum.Facades;
+using Signum.Files;
+using Signum.MachineLearning;
+using Signum.Mailing;
+using Signum.Map;
+using Signum.Omnibox;
+using Signum.Processes;
+using Signum.Profiler;
+using Signum.Scheduler;
+using Signum.Toolbar;
+using Signum.Translation;
+using Signum.UserQueries;
+using Signum.Word;
+using Signum.Workflow;
+using Southwind;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Schema = Signum.Engine.Maps.Schema;
+using Schema = Signum.Maps.Schema;
 using Microsoft.Extensions.Hosting;
-using Signum.React.Rest;
-using Signum.React.RestLog;
+using Signum.Rest;
+using Signum.RestLog;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Http;
-using Signum.Engine.Rest;
-using Southwind.Entities.Public;
-using Signum.React.Alerts;
-using Signum.React.ConcurrentUser;
+using Signum.Rest;
+using Southwind.Public;
+using Signum.Alerts;
+using Signum.ConcurrentUser;
 
-namespace Southwind.React;
+namespace Southwind;
 
 public class ErrorResponsesOperationFilter : IOperationFilter
 {
@@ -81,7 +81,7 @@ public class ErrorResponsesOperationFilter : IOperationFilter
                 {
                     ["application/json"] = new OpenApiMediaType
                     {
-                        Schema = context.SchemaGenerator.GenerateSchema(typeof(Signum.React.Filters.HttpError), context.SchemaRepository)
+                        Schema = context.SchemaGenerator.GenerateSchema(typeof(Signum.Filters.HttpError), context.SchemaRepository)
                     }
                 }
             };
@@ -134,14 +134,14 @@ public class Startup
 This API is secured by an API Key.The API Key has either to be sent in the `X-ApiKey` HTTP Header:
 
 ```
-GET http://localhost/Southwind.React/api/resource
+GET http://localhost/Southwind/api/resource
 X-ApiKey: YOUR_API_KEY
 ```
 
 or as the `apiKey` query parameter:
 
 ```
-GET http://localhost/Southwind.React/api/resource?apiKey=YOUR_API_KEY
+GET http://localhost/Southwind/api/resource?apiKey=YOUR_API_KEY
 ```",
             });
 

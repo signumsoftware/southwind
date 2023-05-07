@@ -3,7 +3,7 @@ import { EntitySettings } from '@framework/Navigator'
 import * as Navigator from '@framework/Navigator'
 import * as Finder from '@framework/Finder'
 import { FilterGroupOption } from '@framework/FindOptions';
-import { AddressEmbedded, CompanyEntity, CustomerQuery, PersonEntity } from './Southwind.Entities.Customers';
+import { AddressEmbedded, CompanyEntity, CustomerQuery, PersonEntity } from './Southwind.Customers';
 
 
 export function start(options: { routes: RouteObject[] }) {

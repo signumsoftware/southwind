@@ -2,15 +2,15 @@
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
 
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../../Framework/Signum.React/Scripts/Reflection'
-import * as Entities from '../../../Framework/Signum.React/Scripts/Signum.Entities'
-import * as Mailing from '../../../Framework/Signum.React.Extensions/Mailing/Signum.Entities.Mailing'
-import * as SMS from '../../../Framework/Signum.React.Extensions/SMS/Signum.Entities.SMS'
-import * as Authorization from '../../../Framework/Signum.React.Extensions/Authorization/Signum.Entities.Authorization'
-import * as Workflow from '../../../Framework/Signum.React.Extensions/Workflow/Signum.Entities.Workflow'
-import * as Basics from '../../../Framework/Signum.React.Extensions/Basics/Signum.Entities.Basics'
-import * as Files from '../../../Framework/Signum.React.Extensions/Files/Signum.Entities.Files'
-import * as Employees from '../Employees/Southwind.Entities.Employees'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '@framework/Reflection'
+import * as Entities from '@framework/Signum.Entities'
+import * as Mailing from '@extensions/Signum.Mailing/Signum.Mailing'
+import * as SMS from '@extensions/Signum.SMS/Signum.SMS'
+import * as Authorization from '@extensions/Signum.Authorization/Signum.Authorization'
+import * as Workflow from '@extensions/Signum.Workflow/Signum.Workflow'
+import * as Basics from '@extensions/Signum.Basics/Signum.Basics'
+import * as Files from '@extensions/Signum.Files/Signum.Files'
+import * as Employees from '../Employees/Southwind.Employees'
 
 
 

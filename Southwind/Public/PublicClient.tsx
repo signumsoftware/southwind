@@ -6,9 +6,9 @@ import { EntitySettings, ViewPromise } from '@framework/Navigator'
 import * as Navigator from '@framework/Navigator'
 import { EntityOperationSettings } from '@framework/Operations'
 import * as Operations from '@framework/Operations'
-import { RegisterUserModel } from './Southwind.Entities.Public'
+import { RegisterUserModel } from './Southwind.Public'
 import { ImportComponent } from '@framework/ImportComponent'
-import { QueryString } from '../../../Framework/Signum.React/Scripts/QueryString';
+import { QueryString } from '@framework/QueryString';
 
 export function start(options: { routes: RouteObject[] }) {
 

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using Signum.Engine.Translation;
-using Southwind.Entities.Products;
-using Southwind.Logic.Products;
+using Signum.Translation;
+using Southwind.Products;
+using Southwind.Products;
 
-namespace Southwind.React.App.Public;
+namespace Southwind.Public;
 
 public class CatalogController : ControllerBase
 {
@@ -17,8 +17,8 @@ public class CatalogController : ControllerBase
         {
             Category = a.Key.ToLite(),
             Picture = a.Key.Picture?.BinaryFile,
-            LocCategoryName = TranslatedInstanceLogic.TranslatedField(a.Key.ToLite(), prCategoryName, null, a.Key.CategoryName),
-            LocDescription = TranslatedInstanceLogic.TranslatedField(a.Key.ToLite(), prDescription, null, a.Key.Description),
+            LocCategoryName = PropertyRouteTranslationLogic.TranslatedField(a.Key.ToLite(), prCategoryName, null, a.Key.CategoryName),
+            LocDescription = PropertyRouteTranslationLogic.TranslatedField(a.Key.ToLite(), prDescription, null, a.Key.Description),
             Products = a.Value
         }).ToList();
     }

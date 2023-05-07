@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ISimpleFilterBuilder, FilterOption, FindOptions, FindOptionsParsed, FilterOperation, FilterOptionParsed, extractFilterValue } from '@framework/Search'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
-import { OrderFilterModel } from './Southwind.Entities.Orders';
+import { OrderFilterModel } from './Southwind.Orders';
 
 export default class OrderFilter extends React.Component<{ ctx: TypeContext<OrderFilterModel> }> implements ISimpleFilterBuilder {
 

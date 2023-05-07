@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Signum.React.RestLog;
-using Southwind.Entities.Products;
+using Signum.RestLog;
+using Southwind.Products;
 
-namespace Southwind.React.Controllers;
+namespace Southwind.PublicAPI;
 
 [IncludeInDocumentation, RestLogFilter(allowReplay: true)]
 public class CatalogController : Controller

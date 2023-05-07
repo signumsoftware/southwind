@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as AppContext from '@framework/AppContext';
-import * as AuthClient from '@extensions/Authorization/AuthClient'
+import * as AuthClient from '@extensions/Signum.Authorization/AuthClient'
 
 export default function Home() {
 
@@ -12,7 +12,7 @@ export default function Home() {
     }//PublicCatalog
 
     if (AuthClient.currentUser()) {
-      import("@extensions/Dashboard/DashboardClient")
+      import("@extensions/Signum.Dashboard/DashboardClient")
         .then(DashboardClient => DashboardClient.API.home())
         .then(h => {
           if (h)

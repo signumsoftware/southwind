@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, RenderEntity } from '@framework/Lines'
 import { Tabs, Tab } from 'react-bootstrap';
-import { ApplicationConfigurationEntity } from './Southwind.Entities.Globals';
+import { ApplicationConfigurationEntity } from './Southwind.Globals';
 
 export default function ApplicationConfiguration(p : { ctx: TypeContext<ApplicationConfigurationEntity> }){
   const ctx = p.ctx;

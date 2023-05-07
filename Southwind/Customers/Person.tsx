@@ -2,8 +2,8 @@ import * as React from 'react'
 import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
 import SearchControl from '@framework/SearchControl/SearchControl';
 import * as Reflection from '@framework/Reflection';
-import { OrderEntity } from '../Orders/Southwind.Entities.Orders';
-import { PersonEntity } from './Southwind.Entities.Customers';
+import { OrderEntity } from '../Orders/Southwind.Orders';
+import { PersonEntity } from './Southwind.Customers';
 
 export default function Person(p : { ctx: TypeContext<PersonEntity> }){
   const ctx = p.ctx;

@@ -6,8 +6,8 @@ import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStr
 import { useForceUpdate } from '@framework/Hooks'
 import { getMixin } from '@framework/Signum.Entities'
 import { toNumberFormat } from '@framework/Reflection'
-import { AddressEmbedded, CustomerEntity } from '../Customers/Southwind.Entities.Customers'
-import { OrderDetailEmbedded, OrderDetailMixin, OrderEntity, OrderMessage, OrderState } from './Southwind.Entities.Orders'
+import { AddressEmbedded, CustomerEntity } from '../Customers/Southwind.Customers'
+import { OrderDetailEmbedded, OrderDetailMixin, OrderEntity, OrderMessage, OrderState } from './Southwind.Orders'
 
 export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
   const forceUpdate = useForceUpdate();
