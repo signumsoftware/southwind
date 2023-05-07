@@ -2,11 +2,10 @@ import * as React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import LoginDropdown from '@extensions/Signum.Authorization/Login/LoginDropdown'
 import * as AuthClient from '@extensions/Signum.Authorization/AuthClient'
-import OmniboxAutocomplete from '@extensions/Signum.Omnibox/OmniboxAutocomplete'
 import * as AppContext from "@framework/AppContext"
 import { GlobalModalContainer } from "@framework/Modals"
 import Notify from "@framework/Frames/Notify"
-import CultureDropdown, { CultureDropdownMenuItem } from "@extensions/Signum.Translation/CultureDropdown"
+import CultureDropdown, { CultureDropdownMenuItem } from "@framework/Basics/CultureDropdown"
 import { SidebarContainer, SidebarMode, SidebarToggleItem } from "@extensions/Signum.Toolbar/SidebarContainer"
 import { VersionChangedAlert, VersionInfo } from '@framework/Frames/VersionChangedAlert';
 import { LinkContainer, ErrorBoundary } from '@framework/Components';
@@ -18,6 +17,7 @@ import { Breakpoints, useBreakpoint, useUpdatedRef, useWindowEvent } from '@fram
 import { ModelConverterSymbol } from '@extensions/Signum.Templating/Signum.Templating'
 
 const ToolbarRenderer = React.lazy(() => import("@extensions/Signum.Toolbar/Renderers/ToolbarRenderer"));
+const OmniboxAutocomplete = React.lazy(() => import('@extensions/Signum.Omnibox/OmniboxAutocomplete'));
 const AlertDropdown = React.lazy(() => import("@extensions/Signum.Alerts/AlertDropdown"));
 
 export default function Layout() {

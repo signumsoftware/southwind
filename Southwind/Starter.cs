@@ -73,7 +73,7 @@ public static partial class Starter
 
     public static string? AzureStorageConnectionString { get; private set; }
 
-    public static void Start(string connectionString, bool isPostgres, string? azureStorageConnectionString, string? broadcastSecret, string? broadcastUrls, bool includeDynamic = true, bool detectSqlVersion = true)
+    public static void Start(string connectionString, bool isPostgres, string? azureStorageConnectionString, string? broadcastSecret, string? broadcastUrls, WebServerBuilder? wsb, bool includeDynamic = true)
     {
         AzureStorageConnectionString = azureStorageConnectionString;
 
@@ -85,13 +85,14 @@ public static partial class Starter
 
             string? logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
-            SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial };
+            SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial, WebServerBuilder = wsb };
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version!;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
             sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because AzureAD
             sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because Customer
 
             MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
+            MixinDeclarations.Register<EmailMessageEntity, EmailMessagePackageMixin>();
             MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
             MixinDeclarations.Register<OrderDetailEmbedded, OrderDetailMixin>();
             MixinDeclarations.Register<BigStringEmbedded, BigStringMixin>();
@@ -101,13 +102,19 @@ public static partial class Starter
 
             if (!isPostgres)
             {
-                var sqlVersion = detectSqlVersion ? SqlServerVersionDetector.Detect(connectionString) : SqlServerVersion.AzureSQL;
+                var sqlVersion = wsb == null ? SqlServerVersionDetector.Detect(connectionString) : SqlServerVersion.AzureSQL;
                 Connector.Default = new SqlServerConnector(connectionString, sb.Schema, sqlVersion!.Value);
             }
             else
             {
-                var postgreeVersion = detectSqlVersion ? PostgresVersionDetector.Detect(connectionString) : null;
+                var postgreeVersion = wsb == null ? PostgresVersionDetector.Detect(connectionString) : null;
                 Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
+            }
+
+
+            if (wsb != null)
+            {
+                SignumServer.Start(wsb);
             }
 
             CacheLogic.Start(sb, serverBroadcast: 
@@ -135,6 +142,7 @@ public static partial class Starter
             ExceptionLogic.Start(sb);
             QueryLogic.Start(sb);
 
+            PermissionLogic.Start(sb);
             // Extensions modules
 
             MigrationLogic.Start(sb);
@@ -146,7 +154,7 @@ public static partial class Starter
 
             AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
             AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);
-            AuthLogic.StartAllModules(sb, activeDirectoryIntegration: true);
+            AuthLogic.StartAllModules(sb, () => Starter.Configuration.Value.AuthTokens);
             AzureADLogic.Start(sb, adGroups: true, deactivateUsersTask: true);
             ResetPasswordRequestLogic.Start(sb);
             UserTicketLogic.Start(sb);
@@ -186,7 +194,14 @@ public static partial class Starter
             AlertLogic.Start(sb, typeof(UserEntity), /*Alert*/typeof(OrderEntity));
             FileLogic.Start(sb);
 
-            TranslationLogic.Start(sb, countLocalizationHits: false);
+            TranslationLogic.Start(sb, countLocalizationHits: false,
+                        new AlreadyTranslatedTranslator(),
+                        new AzureTranslator(
+                            () => Configuration.Value.Translation.AzureCognitiveServicesAPIKey,
+                            () => Configuration.Value.Translation.AzureCognitiveServicesRegion),
+                        new DeepLTranslator(() => Configuration.Value.Translation.DeepLAPIKey)
+                    ); //TranslationServer
+
             TranslatedInstanceLogic.Start(sb, () => CultureInfo.GetCultureInfo("en"));
 
             HelpLogic.Start(sb);
@@ -199,7 +214,7 @@ public static partial class Starter
             RestLogLogic.Start(sb);
             RestApiKeyLogic.Start(sb);
 
-            WorkflowLogicStarter.Start(sb, () => Starter.Configuration.Value.Workflow);
+            WorkflowLogicStarter.Start(sb, () => Configuration.Value.Workflow);
 
             ProfilerLogic.Start(sb,
                 timeTracker: true,
@@ -233,6 +248,9 @@ public static partial class Starter
             {
                 DynamicLogic.RegisterExceptionIfAny();
             }//3
+
+            if (wsb != null)
+                ReflectionServer.RegisterLike(typeof(RegisterUserModel), () => true);
         }
     }
 
@@ -278,29 +296,13 @@ public static partial class Starter
 
         public string? LogDatabaseName;
 
-        public override ObjectName GenerateTableName(Type type, TableNameAttribute? tn)
-        {
-            return base.GenerateTableName(type, tn).OnSchema(GetSchemaName(type));
-        }
-
-        public override ObjectName GenerateTableNameCollection(Table table, NameSequence name, TableNameAttribute? tn)
-        {
-            return base.GenerateTableNameCollection(table, name, tn).OnSchema(GetSchemaName(table.Type));
-        }
-
-        SchemaName GetSchemaName(Type type)
-        {
-            var isPostgres = this.Schema.Settings.IsPostgres;
-            return new SchemaName(this.GetDatabaseName(type), GetSchemaNameName(type) ?? SchemaName.Default(isPostgres).Name, isPostgres);
-        }
-
         public Type[] InLogDatabase = new Type[]
         {
             typeof(OperationLogEntity),
             typeof(ExceptionEntity),
         };
 
-        DatabaseName? GetDatabaseName(Type type)
+        public override DatabaseName? GetDatabase(Type type)
         {
             if (this.LogDatabaseName == null)
                 return null;
@@ -311,45 +313,6 @@ public static partial class Starter
             return null;
         }
 
-        static string? GetSchemaNameName(Type type)
-        {
-            type = EnumEntity.Extract(type) ?? type;
-
-            if (type == typeof(ColumnOptionsMode) || type == typeof(FilterOperation) || type == typeof(PaginationMode) || type == typeof(OrderType))
-                type = typeof(UserQueryEntity);
-
-            if (type == typeof(SmtpDeliveryFormat) || type == typeof(SmtpDeliveryMethod) || type == typeof(ExchangeVersion))
-                type = typeof(EmailMessageEntity);
-
-            if (type == typeof(DayOfWeek))
-                type = typeof(ScheduledTaskEntity);
-
-            if (type.Assembly == typeof(ApplicationConfigurationEntity).Assembly)
-                return null;
-
-            if (type.Namespace == DynamicCode.CodeGenEntitiesNamespace)
-                return "codegen";
-
-            if (type.Assembly == typeof(DashboardEntity).Assembly)
-            {
-                var name = type.Namespace!.Replace("Signum.", "");
-
-                name = (name.TryBefore('.') ?? name);
-
-                if (name == "SMS")
-                    return "sms";
-
-                if (name == "Authorization")
-                    return "auth";
-
-                return name.FirstLower();
-            }
-
-            if (type.Assembly == typeof(Entity).Assembly)
-                return "framework";
-
-            throw new InvalidOperationException("Impossible to determine SchemaName for {0}".FormatWith(type.FullName));
-        }
     }
 
     private static void OverrideAttributes(SchemaBuilder sb)
@@ -365,6 +328,10 @@ public static partial class Starter
         sb.Schema.Settings.FieldAttributes((UserQueryEntity uq) => uq.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
         sb.Schema.Settings.FieldAttributes((UserChartEntity uc) => uc.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
         sb.Schema.Settings.FieldAttributes((DashboardEntity cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
+
+        sb.Schema.Settings.FieldAttributes((DashboardEntity a) => a.Parts.First().Content).Replace(new ImplementedByAttribute(typeof(UserChartPartEntity), typeof(CombinedUserChartPartEntity), typeof(UserQueryPartEntity), typeof(ValueUserQueryListPartEntity), typeof(LinkListPartEntity)));
+        sb.Schema.Settings.FieldAttributes((CachedQueryEntity a) => a.UserAssets.First()).Replace(new ImplementedByAttribute(typeof(UserQueryEntity), typeof(UserChartEntity)));
+
         sb.Schema.Settings.FieldAttributes((ViewLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((NoteEntity n) => n.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((AlertEntity a) => a.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));
@@ -380,7 +347,11 @@ public static partial class Starter
         sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((ScheduledTaskEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((ScheduledTaskLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
-        sb.Schema.Settings.FieldAttributes((DashboardEntity a) => a.Parts[0].Content).Replace(new ImplementedByAttribute(typeof(UserChartPartEntity), typeof(CombinedUserChartPartEntity), typeof(UserQueryPartEntity), typeof(ValueUserQueryListPartEntity), typeof(LinkListPartEntity)));
+
+
+        sb.Schema.Settings.FieldAttributes((ToolbarEntity tb) => tb.Elements.First().Content).Replace(new ImplementedByAttribute(typeof(ToolbarMenuEntity), typeof(ToolbarEntity), typeof(QueryEntity), typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity), typeof(PermissionSymbol)));
+        sb.Schema.Settings.FieldAttributes((ToolbarMenuEntity tbm) => tbm.Elements.First().Content).Replace(new ImplementedByAttribute(typeof(ToolbarMenuEntity), typeof(ToolbarEntity), typeof(QueryEntity), typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity), typeof(PermissionSymbol)));
+
     }
 
     private static void StartSouthwindConfiguration(SchemaBuilder sb)

@@ -7,13 +7,13 @@ import * as QuickLinks from "@framework/QuickLinks"
 
 import * as ExceptionClient from "@framework/Exceptions/ExceptionClient"
 import * as AuthAdminClient from "@extensions/Signum.Authorization/AuthAdminClient"
-import * as ActiveDirectoryClient from "@extensions/Signum.Authorization/ActiveDirectoryClient"
+import * as ActiveDirectoryClient from "@extensions/Signum.Authorization.ActiveDirectory/ActiveDirectoryClient"
 import * as UserQueryClient from "@extensions/Signum.UserQueries/UserQueryClient"
 import * as OmniboxClient from "@extensions/Signum.Omnibox/OmniboxClient"
 import * as ChartClient from "@extensions/Signum.Chart/ChartClient"
 import * as DashboardClient from "@extensions/Signum.Dashboard/DashboardClient"
 import * as MapClient from "@extensions/Signum.Map/MapClient"
-import * as CacheClient from "@extensions/Signum.Cache/CacheClient"
+import * as CacheClient from "@extensions/Signum.Caching/CacheClient"
 import * as ProcessClient from "@extensions/Signum.Processes/ProcessClient"
 import * as MailingClient from "@extensions/Signum.Mailing/MailingClient"
 import * as ProfilerClient from "@extensions/Signum.Profiler/ProfilerClient"
@@ -31,28 +31,15 @@ import * as AlertsClient from "@extensions/Signum.Alerts/AlertsClient"
 import * as ConcurrentUserClient from "@extensions/Signum.ConcurrentUser/ConcurrentUserClient"
 
 import * as ToolbarClient from "@extensions/Signum.Toolbar/ToolbarClient"
-import QueryToolbarConfig from "@extensions/Signum.Toolbar/QueryToolbarConfig"
-import UserQueryToolbarConfig from "@extensions/Signum.UserQueries/UserQueryToolbarConfig"
-import UserChartToolbarConfig from "@extensions/Signum.Chart/UserChartToolbarConfig"
-import DashboardToolbarConfig from "@extensions/Signum.Dashboard/DashboardToolbarConfig"
-import WorkflowToolbarConfig from "@extensions/Signum.Workflow/WorkflowToolbarConfig"
 import WorkflowToolbarMenuConfig from "@extensions/Signum.Workflow/WorkflowToolbarMenuConfig"
 
-import * as DynamicClient from "@extensions/Signum.Dynamic/DynamicClient"
+import * as EvalClient from "@extensions/Signum.Eval/EvalClient"
 import * as DynamicExpressionClient from "@extensions/Signum.Dynamic/DynamicExpressionClient"
 import * as DynamicTypeClient from "@extensions/Signum.Dynamic/DynamicTypeClient"
 import * as DynamicTypeConditionClient from "@extensions/Signum.Dynamic/DynamicTypeConditionClient"
 import * as DynamicValidationClient from "@extensions/Signum.Dynamic/DynamicValidationClient"
 import * as DynamicViewClient from "@extensions/Signum.Dynamic/DynamicViewClient"
 
-import DynamicQueryOmniboxProvider from "@extensions/Signum.Omnibox/DynamicQueryOmniboxProvider"
-import EntityOmniboxProvider from "@extensions/Signum.Omnibox/EntityOmniboxProvider"
-import SpecialOmniboxProvider from "@extensions/Signum.Omnibox/SpecialOmniboxProvider"
-import ChartOmniboxProvider from "@extensions/Signum.Chart/ChartOmniboxProvider"
-import UserChartOmniboxProvider from "@extensions/Signum.Chart/UserChartOmniboxProvider"
-import UserQueryOmniboxProvider from "@extensions/Signum.UserQueries/UserQueryOmniboxProvider"
-import DashboardOmniboxProvider from "@extensions/Signum.Dashboard/DashboardOmniboxProvider"
-import MapOmniboxProvider from "@extensions/Signum.Map/MapOmniboxProvider"
 
 import * as CustomersClient from "./Customers/CustomersClient"
 import * as EmployeesClient from "./Employees/EmployeesClient"
@@ -89,20 +76,13 @@ export function startFull(routes: RouteObject[]) {
   MapClient.start({ routes, auth: true, cache: true, disconnected: false, isolation: false });
   WorkflowClient.start({ routes });
   PredictorClient.start({ routes });
-  ToolbarClient.start({ routes },
-    new QueryToolbarConfig(),
-    new UserQueryToolbarConfig(),
-    new UserChartToolbarConfig(),
-    new DashboardToolbarConfig(),
-    new WorkflowToolbarConfig(),
-    new WorkflowToolbarMenuConfig(),
-  );
+  ToolbarClient.start({ routes });
   RestClient.start({ routes });
   AlertsClient.start({ routes });
   ConcurrentUserClient.start({ routes });
 
   /* LightDynamic
-  DynamicClient.start({ routes, withCodeGen: false });
+  EvalClient.start({ routes });
   LightDynamic */
   DynamicClient.start({ routes, withCodeGen: true });
   DynamicExpressionClient.start({ routes });
@@ -111,16 +91,7 @@ export function startFull(routes: RouteObject[]) {
   DynamicValidationClient.start({ routes });
   DynamicViewClient.start({ routes });
 
-  OmniboxClient.start(
-    new DynamicQueryOmniboxProvider(),
-    new EntityOmniboxProvider(),
-    new ChartOmniboxProvider(),
-    new UserChartOmniboxProvider(),
-    new UserQueryOmniboxProvider(),
-    new DashboardOmniboxProvider(),
-    new MapOmniboxProvider(),
-    new SpecialOmniboxProvider()
-  );//Omnibox
+  OmniboxClient.start();
 
   CustomersClient.start({ routes });
   EmployeesClient.start({ routes });

@@ -18,7 +18,7 @@ import Notify from "@framework/Frames/Notify"
 import ErrorModal from "@framework/Modals/ErrorModal"
 
 import * as AuthClient from "@extensions/Signum.Authorization/AuthClient"
-import * as CultureClient from "@extensions/Signum.Translation/CultureClient"
+import * as CultureClient from "@framework/Basics/CultureClient"
 
 
 import Layout from './Layout'
