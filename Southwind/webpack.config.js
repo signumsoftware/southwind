@@ -5,13 +5,13 @@ var webpack = require('webpack');
 var AssetsPlugin = require('assets-webpack-plugin');
 var WebpackNotifierPlugin = require('webpack-notifier');
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-var node_modules = path.join(__dirname, "node_modules");
+var node_modules = path.join(__dirname, "..", "node_modules");
 
 module.exports = {
   mode: "development",  //Now mandatory, alternatively “production”
   devtool: false, //To remove source maps in “development”, avoids problems with errors in Chrome
   entry: {
-    main: ["./App/MainPublic.tsx"],
+    main: ["./MainPublic.tsx"],
   },
   output: {
     path: path.join(__dirname, "wwwroot", "dist"),
@@ -22,8 +22,8 @@ module.exports = {
     modules: [node_modules],
     extensions: ['.Webpack.js', '.web.js', '.ts', '.js', '.tsx'],
     alias: {
-      '@framework': path.resolve(__dirname, '../Framework/Signum.React/Scripts'),
-      '@extensions': path.resolve(__dirname, '../Framework/Signum.React.Extensions')
+      '@framework': path.resolve(__dirname, '../Framework/Signum/React'),
+      '@extensions': path.resolve(__dirname, '../Framework/Extensions')
     }
   },
   resolveLoader: { modules: [node_modules] },

@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",  //Now mandatory, alternatively “production”
   devtool: false, //To remove source maps in “development”, avoids problems with errors in Chrome
   entry: {
-    vendor: [path.join(__dirname, "App", "vendors.js")]
+    vendor: [path.join(__dirname, "vendors.js")]
   },
   output: {
     path: path.join(__dirname, "wwwroot", "dist"),
