@@ -1,4 +1,3 @@
-using Southwind.Customers;
 using Southwind.Orders;
 
 namespace Southwind.Customers;

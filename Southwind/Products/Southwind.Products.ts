@@ -2,11 +2,12 @@
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
 
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '@framework/Reflection'
-import * as Entities from '@framework/Signum.Entities'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../Framework/Signum/React/Reflection'
+import * as Entities from '../../Framework/Signum/React/Signum.Entities'
+import * as Operations from '../../Framework/Signum/React/Signum.Operations'
 import * as Customers from '../Customers/Southwind.Customers'
-import * as Files from '@extensions/Signum.Files/Signum.Files'
-import * as MachineLearning from '@extensions/Signum.MachineLearning/Signum.MachineLearning'
+import * as Files from '../../Framework/Extensions/Signum.Files/Signum.Files'
+import * as MachineLearning from '../../Framework/Extensions/Signum.MachineLearning/Signum.MachineLearning'
 
 
 
@@ -33,7 +34,7 @@ export interface CategoryEntity extends Entities.Entity {
 }
 
 export module CategoryOperation {
-  export const Save : Entities.ExecuteSymbol<CategoryEntity> = registerSymbol("Operation", "CategoryOperation.Save");
+  export const Save : Operations.ExecuteSymbol<CategoryEntity> = registerSymbol("Operation", "CategoryOperation.Save");
 }
 
 export const ProductEntity = new Type<ProductEntity>("Product");
@@ -51,7 +52,7 @@ export interface ProductEntity extends Entities.Entity {
 }
 
 export module ProductOperation {
-  export const Save : Entities.ExecuteSymbol<ProductEntity> = registerSymbol("Operation", "ProductOperation.Save");
+  export const Save : Operations.ExecuteSymbol<ProductEntity> = registerSymbol("Operation", "ProductOperation.Save");
 }
 
 export module ProductPredictorPublication {
@@ -75,7 +76,6 @@ export interface SupplierEntity extends Entities.Entity {
 }
 
 export module SupplierOperation {
-  export const Save : Entities.ExecuteSymbol<SupplierEntity> = registerSymbol("Operation", "SupplierOperation.Save");
+  export const Save : Operations.ExecuteSymbol<SupplierEntity> = registerSymbol("Operation", "SupplierOperation.Save");
 }
-
 

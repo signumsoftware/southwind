@@ -2,14 +2,15 @@
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
 
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '@framework/Reflection'
-import * as Entities from '@framework/Signum.Entities'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../Framework/Signum/React/Reflection'
+import * as Entities from '../../Framework/Signum/React/Signum.Entities'
+import * as Operations from '../../Framework/Signum/React/Signum.Operations'
 import * as Customers from '../Customers/Southwind.Customers'
 import * as Employees from '../Employees/Southwind.Employees'
 import * as Shippers from '../Shippers/Southwind.Shippers'
 import * as Products from '../Products/Southwind.Products'
-import * as Processes from '@extensions/Signum.Processes/Signum.Processes'
-import * as Scheduler from '@extensions/Signum.Scheduler/Signum.Scheduler'
+import * as Processes from '../../Framework/Extensions/Signum.Processes/Signum.Processes'
+import * as Scheduler from '../../Framework/Extensions/Signum.Scheduler/Signum.Scheduler'
 
 
 
@@ -65,14 +66,14 @@ export module OrderMessage {
 }
 
 export module OrderOperation {
-  export const Create : Entities.ConstructSymbol_Simple<OrderEntity> = registerSymbol("Operation", "OrderOperation.Create");
-  export const Save : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Save");
-  export const Ship : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Ship");
-  export const Cancel : Entities.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Cancel");
-  export const CreateOrderFromCustomer : Entities.ConstructSymbol_From<OrderEntity, Customers.CustomerEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromCustomer");
-  export const CreateOrderFromProducts : Entities.ConstructSymbol_FromMany<OrderEntity, Products.ProductEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromProducts");
-  export const Delete : Entities.DeleteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Delete");
-  export const CancelWithProcess : Entities.ConstructSymbol_FromMany<Processes.ProcessEntity, OrderEntity> = registerSymbol("Operation", "OrderOperation.CancelWithProcess");
+  export const Create : Operations.ConstructSymbol_Simple<OrderEntity> = registerSymbol("Operation", "OrderOperation.Create");
+  export const Save : Operations.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Save");
+  export const Ship : Operations.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Ship");
+  export const Cancel : Operations.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Cancel");
+  export const CreateOrderFromCustomer : Operations.ConstructSymbol_From<OrderEntity, Customers.CustomerEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromCustomer");
+  export const CreateOrderFromProducts : Operations.ConstructSymbol_FromMany<OrderEntity, Products.ProductEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromProducts");
+  export const Delete : Operations.DeleteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Delete");
+  export const CancelWithProcess : Operations.ConstructSymbol_FromMany<Processes.ProcessEntity, OrderEntity> = registerSymbol("Operation", "OrderOperation.CancelWithProcess");
 }
 
 export module OrderProcess {
@@ -94,5 +95,4 @@ export module OrderTask {
   export const CancelOldOrdersWithProcess : Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrdersWithProcess");
   export const CancelOldOrders : Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrders");
 }
-
 

@@ -1,9 +1,16 @@
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+using System.Globalization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Signum.API;
+using Signum.API.Filters;
+using Signum.Authorization;
+using Signum.Dynamic;
+using Signum.Mailing;
+using Signum.Processes;
+using Signum.Scheduler;
 
 namespace Southwind;
 
@@ -11,13 +18,14 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);        builder.Services.AddResponseCompression();
+        var builder = WebApplication.CreateBuilder(args);     
+        builder.Services.AddResponseCompression();
 
         builder.Services
             .AddMvc(options => options.AddSignumGlobalFilters())
-            .AddApplicationPart(typeof(SignumServer).Assembly)
-            .AddApplicationPart(typeof(AuthServer).Assembly)
-            .AddJsonOptions(options => options.AddSignumJsonConverters())
+            //.AddApplicationPart(typeof(SignumServer).Assembly)
+            //.AddApplicationPart(typeof(AuthServer).Assembly)
+            .AddJsonOptions(options => options.AddSignumJsonConverters());
         builder.Services.AddSignalR();
         builder.Services.AddSignumValidation();
         builder.Services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
@@ -70,8 +78,7 @@ public class Program
             });
 
             app.UseRouting();
-                        AlertsServer.MapAlertsHub(app);
-                        ConcurrentUserServer.MapConcurrentUserHub(app);
+
                         app.MapControllers();
                         app.MapControllerRoute(
                             name: "spa-fallback",

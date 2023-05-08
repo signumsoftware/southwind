@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Signum.RestLog;
+using Signum.Rest;
 using Southwind.Products;
 
 namespace Southwind.PublicAPI;

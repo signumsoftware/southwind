@@ -2,10 +2,11 @@
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
 
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '@framework/Reflection'
-import * as Entities from '@framework/Signum.Entities'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../Framework/Signum/React/Reflection'
+import * as Entities from '../../Framework/Signum/React/Signum.Entities'
+import * as Operations from '../../Framework/Signum/React/Signum.Operations'
 import * as Customers from '../Customers/Southwind.Customers'
-import * as Files from '@extensions/Signum.Files/Signum.Files'
+import * as Files from '../../Framework/Extensions/Signum.Files/Signum.Files'
 
 
 
@@ -37,7 +38,7 @@ export interface EmployeeLiteModel extends Entities.ModelEntity {
 }
 
 export module EmployeeOperation {
-  export const Save : Entities.ExecuteSymbol<EmployeeEntity> = registerSymbol("Operation", "EmployeeOperation.Save");
+  export const Save : Operations.ExecuteSymbol<EmployeeEntity> = registerSymbol("Operation", "EmployeeOperation.Save");
 }
 
 export module EmployeeQuery {
@@ -51,7 +52,7 @@ export interface RegionEntity extends Entities.Entity {
 }
 
 export module RegionOperation {
-  export const Save : Entities.ExecuteSymbol<RegionEntity> = registerSymbol("Operation", "RegionOperation.Save");
+  export const Save : Operations.ExecuteSymbol<RegionEntity> = registerSymbol("Operation", "RegionOperation.Save");
 }
 
 export const TerritoryEntity = new Type<TerritoryEntity>("Territory");
@@ -62,7 +63,6 @@ export interface TerritoryEntity extends Entities.Entity {
 }
 
 export module TerritoryOperation {
-  export const Save : Entities.ExecuteSymbol<TerritoryEntity> = registerSymbol("Operation", "TerritoryOperation.Save");
+  export const Save : Operations.ExecuteSymbol<TerritoryEntity> = registerSymbol("Operation", "TerritoryOperation.Save");
 }
-
 

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Signum.MachineLearning;
 using Southwind.Orders;
-using Southwind.Products;
 
 namespace Southwind.Products;
 

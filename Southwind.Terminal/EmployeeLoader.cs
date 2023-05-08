@@ -1,11 +1,10 @@
-using Southwind;
-using Signum.Services;
 using Signum.Authorization;
 using Signum.Files;
-using Southwind.Terminal.NorthwindSchema;
+using NW = Southwind.Terminal.NorthwindSchema;
 using Southwind.Employees;
 using Southwind.Globals;
 using Southwind.Customers;
+using Signum.Security;
 
 namespace Southwind.Terminal;
 
@@ -13,7 +12,7 @@ internal static class EmployeeLoader
 {
     public static void LoadRegions()
     {
-        var regions = Connector.Override(Northwind.Connector).Using(_ => Database.View<Region>().ToList());
+        var regions = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Region>().ToList());
 
         regions.Select(r => new RegionEntity
         {
@@ -26,7 +25,7 @@ internal static class EmployeeLoader
     {
         var regionDic = Database.RetrieveAll<RegionEntity>().ToDictionary(a => a.Id);
 
-        var territories = Connector.Override(Northwind.Connector).Using(_ => Database.View<Territories>().ToList());
+        var territories = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Territories>().ToList());
 
         var entities = territories.Select(t => new TerritoryEntity
         {
@@ -45,7 +44,7 @@ internal static class EmployeeLoader
         var territoriesDic = Database.RetrieveAll<TerritoryEntity>().ToDictionary(a => a.Id);
 
 
-        var employees = Connector.Override(Northwind.Connector).Using(_ => Database.View<Employees>()
+        var employees = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Employees>()
         .Select(e => new
         {
             e.ReportsTo,
@@ -68,7 +67,7 @@ internal static class EmployeeLoader
                     PostalCode = e.PostalCode,
                 },
                 Notes = e.Notes,
-                Territories = Database.View<EmployeeTerritories>()
+                Territories = Database.View<NW.EmployeeTerritories>()
                 .Where(et => et.EmployeeID == e.EmployeeID)
                 .Select(a => territoriesDic.GetOrThrow(int.Parse(a.TerritoryID)))
                 .ToMList(),

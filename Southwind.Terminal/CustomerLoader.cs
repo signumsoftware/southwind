@@ -1,7 +1,4 @@
-using Southwind;
-using Signum.Services;
-using System.Globalization;
-using Southwind.Terminal.NorthwindSchema;
+using NW = Southwind.Terminal.NorthwindSchema;
 using Southwind.Customers;
 
 namespace Southwind.Terminal;
@@ -10,8 +7,8 @@ internal static class CustomerLoader
 {
     public static void LoadCompanies()
     {
-        var companies = Connector.Override(Northwind.Connector).Using(_ =>
-            Database.View<Customers>()
+        var companies = Connector.Override(NW.Northwind.Connector).Using(_ =>
+            Database.View<NW.Customers>()
             .Where(c => !c.ContactTitle.Contains("Owner"))
             .ToList());
 
@@ -36,8 +33,8 @@ internal static class CustomerLoader
 
     public static void LoadPersons()
     {
-        var persons = Connector.Override(Northwind.Connector).Using(_ =>
-            Database.View<Customers>()
+        var persons = Connector.Override(NW.Northwind.Connector).Using(_ =>
+            Database.View<NW.Customers>()
             .Where(c => c.ContactTitle.Contains("Owner"))
             .ToList());
 

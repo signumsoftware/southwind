@@ -2,8 +2,8 @@
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
 
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '@framework/Reflection'
-import * as Entities from '@framework/Signum.Entities'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../Framework/Signum/React/Reflection'
+import * as Entities from '../../Framework/Signum/React/Signum.Entities'
 import * as Employees from '../Employees/Southwind.Employees'
 import * as Customers from '../Customers/Southwind.Customers'
 
@@ -29,5 +29,4 @@ export interface RegisterUserModel extends Entities.ModelEntity {
   eMail: string;
   password: string;
 }
-
 

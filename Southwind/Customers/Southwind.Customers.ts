@@ -2,8 +2,9 @@
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
 
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '@framework/Reflection'
-import * as Entities from '@framework/Signum.Entities'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../Framework/Signum/React/Reflection'
+import * as Entities from '../../Framework/Signum/React/Signum.Entities'
+import * as Operations from '../../Framework/Signum/React/Signum.Operations'
 
 
 
@@ -32,7 +33,7 @@ export interface CustomerEntity extends Entities.Entity {
 }
 
 export module CustomerOperation {
-  export const Save : Entities.ExecuteSymbol<CustomerEntity> = registerSymbol("Operation", "CustomerOperation.Save");
+  export const Save : Operations.ExecuteSymbol<CustomerEntity> = registerSymbol("Operation", "CustomerOperation.Save");
 }
 
 export module CustomerQuery {
@@ -48,5 +49,4 @@ export interface PersonEntity extends CustomerEntity {
   dateOfBirth: string /*DateTime*/ | null;
   corrupt: boolean;
 }
-
 

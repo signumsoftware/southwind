@@ -1,4 +1,3 @@
-using Signum.Translation;
 using Signum.Files;
 using Signum.MachineLearning;
 using Southwind.Customers;

@@ -23,6 +23,7 @@ import * as ExcelClient from "@extensions/Signum.Excel/ExcelClient"
 import * as SchedulerClient from "@extensions/Signum.Scheduler/SchedulerClient"
 import * as TranslationClient from "@extensions/Signum.Translation/TranslationClient"
 import * as TranslatedInstanceClient from "@extensions/Signum.Translation/TranslatedInstanceClient"
+import * as HelpClient from "@extensions/Signum.Help/HelpClient"
 import * as DiffLogClient from "@extensions/Signum.DiffLog/DiffLogClient"
 import * as WorkflowClient from "@extensions/Signum.Workflow/WorkflowClient"
 import * as PredictorClient from "@extensions/Signum.MachineLearning/PredictorClient"
@@ -31,9 +32,9 @@ import * as AlertsClient from "@extensions/Signum.Alerts/AlertsClient"
 import * as ConcurrentUserClient from "@extensions/Signum.ConcurrentUser/ConcurrentUserClient"
 
 import * as ToolbarClient from "@extensions/Signum.Toolbar/ToolbarClient"
-import WorkflowToolbarMenuConfig from "@extensions/Signum.Workflow/WorkflowToolbarMenuConfig"
 
 import * as EvalClient from "@extensions/Signum.Eval/EvalClient"
+import * as DynamicClient from "@extensions/Signum.Dynamic/DynamicClient"
 import * as DynamicExpressionClient from "@extensions/Signum.Dynamic/DynamicExpressionClient"
 import * as DynamicTypeClient from "@extensions/Signum.Dynamic/DynamicTypeClient"
 import * as DynamicTypeConditionClient from "@extensions/Signum.Dynamic/DynamicTypeConditionClient"
@@ -69,6 +70,7 @@ export function startFull(routes: RouteObject[]) {
   SchedulerClient.start({ routes });
   TranslationClient.start({ routes });
   TranslatedInstanceClient.start({ routes });
+  HelpClient.start({ routes, markdownToHtml: str => str });
   DiffLogClient.start({ routes, timeMachine: true });
   ProfilerClient.start({ routes });
   ChartClient.start({ routes });
@@ -81,9 +83,7 @@ export function startFull(routes: RouteObject[]) {
   AlertsClient.start({ routes });
   ConcurrentUserClient.start({ routes });
 
-  /* LightDynamic
   EvalClient.start({ routes });
-  LightDynamic */
   DynamicClient.start({ routes, withCodeGen: true });
   DynamicExpressionClient.start({ routes });
   DynamicTypeClient.start({ routes });

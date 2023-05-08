@@ -1,10 +1,13 @@
 using Signum.Authorization;
 using Signum.Dynamic;
-using Signum.Authorization;
-using Signum.Dynamic;
+using Signum.Dynamic.Expression;
+using Signum.Dynamic.Mixins;
+using Signum.Dynamic.SqlMigrations;
+using Signum.Dynamic.Types;
+using Signum.Dynamic.Validations;
+using Signum.Dynamic.Views;
+using Signum.Eval;
 using Southwind.Globals;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace Southwind;
 
@@ -12,8 +15,7 @@ public class DynamicLogicStarter
 {
     public static void Start(SchemaBuilder sb)
     {
-        EvalLogic.Start(sb);
-DynamicLogic.Start(sb);
+        DynamicLogic.Start(sb);
         DynamicSqlMigrationLogic.Start(sb);
         DynamicValidationLogic.Start(sb);
         DynamicViewLogic.Start(sb);

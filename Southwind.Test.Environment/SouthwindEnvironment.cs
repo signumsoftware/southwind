@@ -8,13 +8,14 @@ using Signum.Basics;
 using Signum.Mailing;
 using Signum.SMS;
 using Signum.Workflow;
-using Signum.Services;
 using Southwind.Customers;
 using Southwind.Employees;
 using Southwind.Globals;
 using Southwind.Products;
 using Southwind.Shippers;
 using Southwind;
+using Signum.Security;
+using Signum.Authorization.AuthToken;
 
 namespace Southwind.Test.Environment;
 

@@ -1,6 +1,4 @@
-﻿using Southwind.Shippers;
-
-namespace Southwind.Shippers;
+﻿namespace Southwind.Shippers;
 
 public static class ShipperLogic
 {

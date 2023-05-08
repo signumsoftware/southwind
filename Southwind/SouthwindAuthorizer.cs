@@ -1,5 +1,5 @@
 using Signum.Authorization;
-using Signum.Authorization;
+using Signum.Authorization.ActiveDirectory;
 
 namespace Southwind;
 

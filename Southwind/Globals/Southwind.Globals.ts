@@ -2,15 +2,17 @@
 //Auto-generated. Do NOT modify!//
 //////////////////////////////////
 
-import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '@framework/Reflection'
-import * as Entities from '@framework/Signum.Entities'
-import * as Mailing from '@extensions/Signum.Mailing/Signum.Mailing'
-import * as SMS from '@extensions/Signum.SMS/Signum.SMS'
-import * as Authorization from '@extensions/Signum.Authorization/Signum.Authorization'
-import * as Workflow from '@extensions/Signum.Workflow/Signum.Workflow'
-import * as Basics from '@extensions/Signum.Basics/Signum.Basics'
-import * as Files from '@extensions/Signum.Files/Signum.Files'
+import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../Framework/Signum/React/Reflection'
+import * as Entities from '../../Framework/Signum/React/Signum.Entities'
+import * as Operations from '../../Framework/Signum/React/Signum.Operations'
+import * as Mailing from '../../Framework/Extensions/Signum.Mailing/Signum.Mailing'
+import * as SMS from '../../Framework/Extensions/Signum.SMS/Signum.SMS'
+import * as AuthToken from '../../Framework/Extensions/Signum.Authorization/AuthToken/Signum.Authorization.AuthToken'
+import * as Rules from '../../Framework/Extensions/Signum.Authorization/Rules/Signum.Authorization.Rules'
+import * as Workflow from '../../Framework/Extensions/Signum.Workflow/Signum.Workflow'
+import * as ActiveDirectory from '../../Framework/Extensions/Signum.Authorization.ActiveDirectory/Signum.Authorization.ActiveDirectory'
 import * as Employees from '../Employees/Southwind.Employees'
+import * as Files from '../../Framework/Extensions/Signum.Files/Signum.Files'
 
 
 
@@ -22,15 +24,15 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
   email: Mailing.EmailConfigurationEmbedded;
   emailSender: Mailing.EmailSenderConfigurationEntity;
   sms: SMS.SMSConfigurationEmbedded;
-  authTokens: Authorization.AuthTokenConfigurationEmbedded;
+  authTokens: AuthToken.AuthTokenConfigurationEmbedded;
   workflow: Workflow.WorkflowConfigurationEmbedded;
   folders: FoldersConfigurationEmbedded;
   translation: TranslationConfigurationEmbedded;
-  activeDirectory: Authorization.ActiveDirectoryConfigurationEmbedded;
+  activeDirectory: ActiveDirectory.ActiveDirectoryConfigurationEmbedded;
 }
 
 export module ApplicationConfigurationOperation {
-  export const Save : Entities.ExecuteSymbol<ApplicationConfigurationEntity> = registerSymbol("Operation", "ApplicationConfigurationOperation.Save");
+  export const Save : Operations.ExecuteSymbol<ApplicationConfigurationEntity> = registerSymbol("Operation", "ApplicationConfigurationOperation.Save");
 }
 
 export module BigStringFileType {
@@ -52,9 +54,9 @@ export interface FoldersConfigurationEmbedded extends Entities.EmbeddedEntity {
 }
 
 export module SouthwindTypeCondition {
-  export const UserEntities : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.UserEntities");
-  export const RoleEntities : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.RoleEntities");
-  export const CurrentEmployee : Basics.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.CurrentEmployee");
+  export const UserEntities : Rules.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.UserEntities");
+  export const RoleEntities : Rules.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.RoleEntities");
+  export const CurrentEmployee : Rules.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.CurrentEmployee");
 }
 
 export const TranslationConfigurationEmbedded = new Type<TranslationConfigurationEmbedded>("TranslationConfigurationEmbedded");
@@ -70,5 +72,4 @@ export interface UserEmployeeMixin extends Entities.MixinEntity {
   Type: "UserEmployeeMixin";
   employee: Entities.Lite<Employees.EmployeeEntity> | null;
 }
-
 

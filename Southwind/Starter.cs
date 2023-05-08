@@ -2,52 +2,28 @@ using System.Globalization;
 using Signum.Authorization;
 using Signum.Chart;
 using Signum.Dashboard;
-using Signum.Disconnected;
 using Signum.Mailing;
 using Signum.UserQueries;
-using Signum.Authorization;
-using Signum.Basics;
-using Signum.Chart;
-using Signum.Dashboard;
-using Signum.Disconnected;
-using Signum.Mailing;
-using Signum.UserQueries;
-using Signum.Processes;
 using Signum.Processes;
 using Signum.Alerts;
-using Signum.Notes;
 using Signum.Cache;
 using Signum.Profiler;
 using Signum.Translation;
 using Signum.Files;
-using Signum.Alerts;
-using Signum.Notes;
-using Signum.UserAssets;
-using Signum.UserAssets;
-using Signum.Scheduler;
 using Signum.Scheduler;
 using Signum.SMS;
 using Signum.ViewLog;
-using Signum.ViewLog;
 using Signum.Help;
 using Signum.Word;
-using Signum.Word;
 using Signum.Migrations;
-using System.Net.Mail;
-using Signum.DiffLog;
 using Signum.DiffLog;
 using Signum.Map;
 using Signum.Excel;
 using Signum.Dynamic;
-using Signum.Dynamic;
 using Signum.Workflow;
 using Signum.Toolbar;
 using Signum.MachineLearning;
-using Signum.MachineLearning;
-using Signum.Files;
 using Signum.Rest;
-using Signum.Rest;
-using Microsoft.Exchange.WebServices.Data;
 using Signum.Omnibox;
 using Signum.MachineLearning.TensorFlow;
 using Azure.Storage.Blobs;
@@ -56,12 +32,23 @@ using Southwind.Globals;
 using Southwind.Orders;
 using Southwind.Employees;
 using Southwind.Products;
-using Southwind.Employees;
-using Southwind.Orders;
-using Southwind.Products;
-using Southwind.Shippers;
 using Southwind.Shippers;
 using Southwind.Customers;
+using Signum.API;
+using Signum.Mailing.Package;
+using Signum.Authorization.ResetPassword;
+using Signum.Authorization.ActiveDirectory;
+using Signum.Authorization.UserTicket;
+using Signum.Authorization.SessionLog;
+using Signum.Authorization.Rules;
+using Signum.Cache.Broadcast;
+using Signum.Chart.UserChart;
+using Signum.Notes;
+using Signum.Translation.Translators;
+using Signum.Translation.Instances;
+using Southwind.Public;
+using Signum.Files.FileTypeAlgorithms;
+using Signum.Eval;
 
 namespace Southwind;
 
@@ -122,9 +109,7 @@ public static partial class Starter
                 broadcastSecret != null && broadcastUrls != null ? new SimpleHttpBroadcast(broadcastSecret, broadcastUrls) :
                 null);/*Cache*/
 
-            /* LightDynamic
-               EvalLogic.Start(sb);
-            LightDynamic */
+            EvalLogic.Start(sb);
             DynamicLogicStarter.Start(sb);
             if (includeDynamic)//Dynamic
             {

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Signum.Translation;
-using Southwind.Products;
+using Signum.API.Filters;
 using Southwind.Products;
 
 namespace Southwind.Public;

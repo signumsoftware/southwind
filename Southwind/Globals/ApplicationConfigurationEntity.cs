@@ -1,9 +1,10 @@
-using Signum.Basics;
 using Signum.Mailing;
 using Signum.SMS;
-using Signum.Authorization;
 using Signum.Workflow;
 using Signum.Files;
+using Signum.Authorization.Rules;
+using Signum.Authorization.AuthToken;
+using Signum.Authorization.ActiveDirectory;
 
 namespace Southwind.Globals;
 

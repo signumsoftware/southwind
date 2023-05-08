@@ -1,7 +1,4 @@
-using Southwind;
-using Signum.Services;
-using System.Globalization;
-using Southwind.Terminal.NorthwindSchema;
+using NW = Southwind.Terminal.NorthwindSchema;
 using Southwind.Orders;
 using Southwind.Customers;
 using Southwind.Shippers;
@@ -14,7 +11,7 @@ internal static class OrderLoader
 {
     public static void LoadShippers()
     {
-        var shippers = Connector.Override(Northwind.Connector).Using(_ => Database.View<Shippers>().ToList());
+        var shippers = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Shippers>().ToList());
 
         shippers.Select(s => new ShipperEntity
         {
@@ -30,7 +27,7 @@ internal static class OrderLoader
         customers.AddRange(Database.Query<CompanyEntity>().Select(c => KeyValuePair.Create(c.ContactName, (CustomerEntity)c)));
         customers.AddRange(Database.Query<PersonEntity>().Select(p => KeyValuePair.Create(p.FirstName + " " + p.LastName, (CustomerEntity)p)));
 
-        var orders = Connector.Override(Northwind.Connector).Using(_ => Database.View<Orders>().Select(o => new OrderEntity
+        var orders = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Orders>().Select(o => new OrderEntity
         {
             Employee = Lite.Create<EmployeeEntity>(o.EmployeeID!.Value),
             OrderDate = o.OrderDate!.Value,
@@ -48,14 +45,14 @@ internal static class OrderLoader
                 Country = o.ShipCountry,
             },
             Freight = o.Freight!.Value,
-            Details = Database.View<OrderDetails>().Where(od => od.OrderID == o.OrderID).Select(od => new OrderDetailEmbedded
+            Details = Database.View<NW.OrderDetails>().Where(od => od.OrderID == o.OrderID).Select(od => new OrderDetailEmbedded
             {
                 Discount = (decimal)od.Discount,
                 Product = Lite.Create<ProductEntity>(od.ProductID),
                 Quantity = od.Quantity,
                 UnitPrice = od.UnitPrice,
             }).ToMList(),
-            Customer = customers.GetOrThrow(Database.View<Customers>().Where(c => c.CustomerID == o.CustomerID).Select(a => a.ContactName).SingleOrDefaultEx()!),
+            Customer = customers.GetOrThrow(Database.View<NW.Customers>().Where(c => c.CustomerID == o.CustomerID).Select(a => a.ContactName).SingleOrDefaultEx()!),
             IsLegacy = true,
         }.SetId(o.OrderID)).ToList());
 

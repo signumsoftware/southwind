@@ -22,7 +22,7 @@ public class AddressEmbedded : EmbeddedEntity
         if (pi.Name == nameof(PostalCode))
         {
             if (string.IsNullOrEmpty(PostalCode) && Country != "Ireland")
-                return Signum.ValidationMessage._0IsNotSet.NiceToString().FormatWith(pi.NiceName());
+                return ValidationMessage._0IsNotSet.NiceToString().FormatWith(pi.NiceName());
         }
 
         return null;

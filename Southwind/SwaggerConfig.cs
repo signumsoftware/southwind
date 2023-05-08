@@ -1,60 +1,12 @@
-﻿using System.Globalization;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Signum.Authorization;
-using Signum.Basics;
-using Signum.Chart;
-using Signum.Dashboard;
-using Signum.Mailing;
-using Signum.Processes;
-using Signum.Scheduler;
-using Signum.Translation;
-using Signum.UserQueries;
-using Signum.Authorization;
-using Signum.Chart;
-using Signum.Dashboard;
-using Signum.Dynamic;
-using Signum.Map;
-using Signum.Omnibox;
-using Signum.UserQueries;
-using Signum.React;
-using Signum.Authorization;
-using Signum.Cache;
-using Signum.Chart;
-using Signum.Dashboard;
-using Signum.DiffLog;
-using Signum.Dynamic;
-using Signum.Excel;
-using Signum.Facades;
-using Signum.Files;
-using Signum.MachineLearning;
-using Signum.Mailing;
-using Signum.Map;
-using Signum.Omnibox;
-using Signum.Processes;
-using Signum.Profiler;
-using Signum.Scheduler;
-using Signum.Toolbar;
-using Signum.Translation;
-using Signum.UserQueries;
-using Signum.Word;
-using Signum.Workflow;
-using Southwind;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Schema = Signum.Maps.Schema;
-using Microsoft.Extensions.Hosting;
 using Signum.Rest;
-using Signum.RestLog;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Http;
-using Signum.Rest;
-using Southwind.Public;
-using Signum.Alerts;
-using Signum.ConcurrentUser;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Signum.API.Filters;
 
 namespace Southwind;
 
@@ -81,7 +33,7 @@ public class ErrorResponsesOperationFilter : IOperationFilter
                 {
                     ["application/json"] = new OpenApiMediaType
                     {
-                        Schema = context.SchemaGenerator.GenerateSchema(typeof(Signum.Filters.HttpError), context.SchemaRepository)
+                        Schema = context.SchemaGenerator.GenerateSchema(typeof(HttpError), context.SchemaRepository)
                     }
                 }
             };

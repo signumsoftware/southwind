@@ -1,8 +1,6 @@
-using Southwind;
-using Signum.Services;
 using System.Globalization;
 using Signum.Files;
-using Southwind.Terminal.NorthwindSchema;
+using NW = Southwind.Terminal.NorthwindSchema;
 using Southwind.Products;
 using Southwind.Customers;
 
@@ -22,7 +20,7 @@ internal static class ProductLoader
 
     public static void LoadSuppliers()
     {
-        var suppliers = Connector.Override(Northwind.Connector).Using(_ => Database.View<Suppliers>().ToList());
+        var suppliers = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Suppliers>().ToList());
 
         List<SupplierFaxCSV> faxes = Csv.ReadFile<SupplierFaxCSV>("SupplierFaxes.csv", culture: CultureInfo.GetCultureInfo("es-ES"));
 
@@ -49,7 +47,7 @@ internal static class ProductLoader
 
     public static void LoadCategories()
     {
-        var category = Connector.Override(Northwind.Connector).Using(_ => Database.View<Categories>().ToList());
+        var category = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Categories>().ToList());
 
         category.Select(s => new CategoryEntity
         {
@@ -62,7 +60,7 @@ internal static class ProductLoader
 
     public static void LoadProducts()
     {
-        var products = Connector.Override(Northwind.Connector).Using(_ => Database.View<Products>().ToList());
+        var products = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Products>().ToList());
 
         products.Select(s =>
         {
