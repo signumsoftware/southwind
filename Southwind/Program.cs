@@ -31,7 +31,7 @@ public class Program
         builder.Services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
 
         //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
-                SwaggerConfig.ConfigureSwaggerService(builder); 
+        SwaggerConfig.ConfigureSwaggerService(builder); 
 
 
         var app = builder.Build(); 

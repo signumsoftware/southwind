@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Signum.Rest;
 using Southwind.Products;
 
-namespace Southwind.PublicAPI;
+namespace Southwind.Public;
 
 [IncludeInDocumentation, RestLogFilter(allowReplay: true)]
-public class CatalogController : Controller
+public class CatalogAPIController : Controller
 {
     [HttpGet("api/categories")]
     public List<CategoryDTO> GetCategories()

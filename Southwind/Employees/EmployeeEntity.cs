@@ -58,41 +58,6 @@ public static class EmployeeOperation
     public static ExecuteSymbol<EmployeeEntity> Save;
 }
 
-[EntityKind(EntityKind.String, EntityData.Master)]
-public class TerritoryEntity : Entity
-{
-    public RegionEntity Region { get; set; }
-
-    [UniqueIndex]
-    [StringLengthValidator(Min = 3, Max = 100)]
-    public string Description { get; set; }
-
-    [AutoExpressionField]
-    public override string ToString() => As.Expression(() => Description);
-}
-
-[AutoInit]
-public static class TerritoryOperation
-{
-    public static ExecuteSymbol<TerritoryEntity> Save;
-}
-
-[EntityKind(EntityKind.String, EntityData.Master)]
-public class RegionEntity : Entity
-{
-    [UniqueIndex]
-    [StringLengthValidator(Min = 3, Max = 50)]
-    public string Description { get; set; }
-
-    [AutoExpressionField]
-    public override string ToString() => As.Expression(() => Description);
-}
-
-[AutoInit]
-public static class RegionOperation
-{
-    public static ExecuteSymbol<RegionEntity> Save;
-}
 
 public enum EmployeeQuery
 {

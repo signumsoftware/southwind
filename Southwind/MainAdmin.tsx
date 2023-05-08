@@ -42,11 +42,12 @@ import * as DynamicValidationClient from "@extensions/Signum.Dynamic/DynamicVali
 import * as DynamicViewClient from "@extensions/Signum.Dynamic/DynamicViewClient"
 
 
-import * as CustomersClient from "./Customers/CustomersClient"
-import * as EmployeesClient from "./Employees/EmployeesClient"
+import * as CustomerClient from "./Customers/CustomerClient"
+import * as EmployeeClient from "./Employees/EmployeeClient"
 import * as GlobalsClient from "./Globals/GlobalsClient"
-import * as OrdersClient from "./Orders/OrdersClient"
-import * as ProductsClient from "./Products/ProductsClient"
+import * as OrderClient from "./Orders/OrderClient"
+import * as ProductClient from "./Products/ProductClient"
+import * as ShipperClient from "./Products/ShipperClient"
 import * as PublicClient from "./Public/PublicClient"
 
 export function startFull(routes: RouteObject[]) {
@@ -93,10 +94,11 @@ export function startFull(routes: RouteObject[]) {
 
   OmniboxClient.start();
 
-  CustomersClient.start({ routes });
-  EmployeesClient.start({ routes });
+  CustomerClient.start({ routes });
+  EmployeeClient.start({ routes });
   GlobalsClient.start({ routes });
-  OrdersClient.start({ routes });
-  ProductsClient.start({ routes });
+  OrderClient.start({ routes });
+  ProductClient.start({ routes });
+  ShipperClient.start({ routes });
   PublicClient.start({ routes });
 }

@@ -216,6 +216,7 @@ public static partial class Starter
             CustomerLogic.Start(sb);
             OrderLogic.Start(sb);
             ShipperLogic.Start(sb);
+            PublicLogic.Start(sb);
 
             StartSouthwindConfiguration(sb);
 
@@ -235,8 +236,7 @@ public static partial class Starter
                 DynamicLogic.RegisterExceptionIfAny();
             }//3
 
-            if (wsb != null)
-                ReflectionServer.RegisterLike(typeof(RegisterUserModel), () => true);
+
         }
     }
 

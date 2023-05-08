@@ -12,15 +12,7 @@ import { QueryString } from '@framework/QueryString';
 
 export function start(options: { routes: RouteObject[] }) {
 
-  options.routes.push({ path: "/registerUser/:reportsToEmployeeId?", element: <ImportComponent onImport={() => import("./RegisterUser")} /> });
+  /* If no view is detected DynamicComponent creates one automatically*/
+  //Navigator.addSettings(new EntitySettings(ShipperEntity, r => import('./Templates/Shipper')));
 }
 
-export namespace API {
-  export function getRegisterUser(reportsToEmployeeId: string): Promise<RegisterUserModel> {
-    return ajaxPost({ url: `/api/getRegisterUser` + QueryString.stringify({ reportsToEmployeeId })}, null);
-  }
-
-  export function registerUser(model: RegisterUserModel): Promise<boolean> {
-    return ajaxPost({ url: "/api/registerUser" }, model);
-  }
-}

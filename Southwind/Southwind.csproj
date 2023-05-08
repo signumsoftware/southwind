@@ -17,11 +17,16 @@
 
 	<ItemGroup>
 	  <Compile Remove="CodeGen\**" />
+	  <Compile Remove="wwwroot\dist\**" />
 	  <Content Remove="CodeGen\**" />
+	  <Content Remove="wwwroot\dist\**" />
 	  <EmbeddedResource Remove="CodeGen\**" />
+	  <EmbeddedResource Remove="wwwroot\dist\**" />
 	  <None Remove="CodeGen\**" />
+	  <None Remove="wwwroot\dist\**" />
 	  <TypeScriptCompile Remove="CodeGen\**" />
 	  <TypeScriptCompile Remove="node_modules\**" />
+	  <TypeScriptCompile Remove="wwwroot\dist\**" />
 	</ItemGroup>
 
 	<ItemGroup>

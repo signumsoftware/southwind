@@ -1,6 +1,4 @@
-using Signum.Files;
 using Signum.MachineLearning;
-using Southwind.Customers;
 
 namespace Southwind.Products;
 
@@ -81,63 +79,6 @@ public static class ProductOperation
     public static ExecuteSymbol<ProductEntity> Save;
 }
 
-[EntityKind(EntityKind.Main, EntityData.Master)]
-public class SupplierEntity : Entity
-{
-    [UniqueIndex]
-    [StringLengthValidator(Min = 3, Max = 40)]
-    public string CompanyName { get; set; }
-
-    [StringLengthValidator(Min = 3, Max = 30)]
-    public string? ContactName { get; set; }
-
-    [StringLengthValidator(Min = 3, Max = 30)]
-    public string? ContactTitle { get; set; }
-
-    public AddressEmbedded Address { get; set; }
-
-    [StringLengthValidator(Min = 3, Max = 24), TelephoneValidator]
-    public string Phone { get; set; }
-
-    [StringLengthValidator(Min = 3, Max = 24), TelephoneValidator]
-    public string Fax { get; set; }
-
-    [StringLengthValidator(Min = 3, MultiLine = true)]
-    public string? HomePage { get; set; }
-
-    [AutoExpressionField]
-    public override string ToString() => As.Expression(() => CompanyName);
-}
-
-[AutoInit]
-public static class SupplierOperation
-{
-    public static ExecuteSymbol<SupplierEntity> Save;
-}
-
-[EntityKind(EntityKind.String, EntityData.Master), AllowUnathenticated]
-public class CategoryEntity : Entity
-{
-    [TranslateField] //Localize categoryName column
-    [UniqueIndex]
-    [StringLengthValidator(Min = 3, Max = 100)]
-    public string CategoryName { get; set; }
-
-    [TranslateField] //Localize description column
-    [StringLengthValidator(Min = 3, MultiLine = true)]
-    public string Description { get; set; }
-
-    public FileEmbedded? Picture { get; set; }
-
-    [AutoExpressionField]
-    public override string ToString() => As.Expression(() => CategoryName);
-}
-
-[AutoInit]
-public static class CategoryOperation
-{
-    public static ExecuteSymbol<CategoryEntity> Save;
-}
 
 public enum ProductQuery
 {
