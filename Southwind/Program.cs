@@ -53,12 +53,12 @@ public class Program
                 app.Configuration.GetValue<string>("BroadcastSecret"), 
                 app.Configuration.GetValue<string>("BroadcastUrls"), 
                 new WebServerBuilder
-{
-    WebApplication = app,
-    AuthTokenEncryptionKey = "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!",
-    MachineName = app.Configuration.GetValue<string?>("ServerName"),
-    DefaultCulture = CultureInfo.GetCultureInfo("en")
-});
+                {
+                    WebApplication = app,
+                    AuthTokenEncryptionKey = "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!",
+                    MachineName = app.Configuration.GetValue<string?>("ServerName"),
+                    DefaultCulture = CultureInfo.GetCultureInfo("en")
+                });
 
             Statics.SessionFactory = new ScopeSessionFactory(new VoidSessionFactory());
 
@@ -79,12 +79,12 @@ public class Program
 
             app.UseRouting();
 
-                        app.MapControllers();
-                        app.MapControllerRoute(
-                            name: "spa-fallback",
-                            pattern: "{*url}",
-                            constraints: new { url = new NoAPIContraint() },
-                            defaults: new { controller = "Home", action = "Index" });
+            app.MapControllers();
+            app.MapControllerRoute(
+                name: "spa-fallback",
+                pattern: "{*url}",
+                constraints: new { url = new NoAPIContraint() },
+                defaults: new { controller = "Home", action = "Index" });
         }
 
         SignumInitializeFilterAttribute.InitializeDatabase = () =>

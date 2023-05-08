@@ -7,6 +7,7 @@ using Signum.Dynamic.Types;
 using Signum.Dynamic.Validations;
 using Signum.Dynamic.Views;
 using Signum.Eval;
+using Signum.Workflow;
 using Southwind.Globals;
 
 namespace Southwind;
@@ -26,8 +27,6 @@ public class DynamicLogicStarter
 
         EvalLogic.Namespaces.AddRange(new HashSet<string>
         {
-            "Southwind",
-            "Southwind",
         });
 
         EvalLogic.AssemblyTypes.AddRange(new HashSet<Type>
@@ -36,10 +35,8 @@ public class DynamicLogicStarter
         });
 
         EvalLogic.AddFullAssembly(typeof(Entity));
-        EvalLogic.AddFullAssembly(typeof(Database));
-        EvalLogic.AddFullAssembly(typeof(AuthLogic));
         EvalLogic.AddFullAssembly(typeof(UserEntity));
-        EvalLogic.AddFullAssembly(typeof(ApplicationConfigurationEntity));
+        EvalLogic.AddFullAssembly(typeof(WorkflowLogic));
         EvalLogic.AddFullAssembly(typeof(Starter));
 
     }

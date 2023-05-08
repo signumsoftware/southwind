@@ -8,6 +8,7 @@ using Signum.MachineLearning;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Southwind.Orders;
+using Signum.Dynamic;
 
 namespace Southwind.Terminal;
 
@@ -17,6 +18,7 @@ class Program
 
     static int Main(string[] args)
     {
+
         try
         {
             using (AuthLogic.Disable())
@@ -30,6 +32,8 @@ class Program
                     .AddJsonFile($"settings.{env}.json", true)
                     .AddUserSecrets<Program>(optional: true)
                     .Build();
+
+                DynamicLogic.CodeGenDirectory = "../../../../Southwind/CodeGen";
                 
                 Starter.Start(
                     Configuration.GetConnectionString("ConnectionString")!,
