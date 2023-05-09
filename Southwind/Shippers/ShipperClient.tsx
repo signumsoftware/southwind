@@ -6,7 +6,6 @@ import { EntitySettings, ViewPromise } from '@framework/Navigator'
 import * as Navigator from '@framework/Navigator'
 import { EntityOperationSettings } from '@framework/Operations'
 import * as Operations from '@framework/Operations'
-import { RegisterUserModel } from './Southwind.Public'
 import { ImportComponent } from '@framework/ImportComponent'
 import { QueryString } from '@framework/QueryString';
 

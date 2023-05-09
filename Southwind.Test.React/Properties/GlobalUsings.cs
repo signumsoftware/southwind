@@ -1,4 +1,4 @@
-﻿global using System;
+global using System;
 global using System.Collections.Generic;
 global using System.Linq;
 global using System.Linq.Expressions;
@@ -10,6 +10,6 @@ global using Signum.Entities;
 global using Signum.Entities.Reflection;
 global using Signum.Engine;
 global using Signum.Operations;
-global using Signum.React.Selenium;
+global using Signum.Selenium;
 global using Xunit;
 global using Southwind.Test.Environment;

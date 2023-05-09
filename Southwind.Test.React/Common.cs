@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Signum.Selenium;
 
 namespace Southwind.Test.React;
 

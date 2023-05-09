@@ -2,6 +2,7 @@ using System.IO;
 using System.Xml.Linq;
 using Signum.Authorization;
 using Signum.Engine.Maps;
+using Signum.Engine.Sync;
 using Southwind;
 
 namespace Southwind.Test.Environment;
@@ -30,7 +31,7 @@ public class EnvironmentTest
             SouthwindEnvironment.LoadProducts();
             SouthwindEnvironment.LoadCustomers();
             SouthwindEnvironment.LoadShippers();
-
+            
             AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();
         }
 

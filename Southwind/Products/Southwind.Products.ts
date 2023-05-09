@@ -5,8 +5,8 @@
 import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../Framework/Signum/React/Reflection'
 import * as Entities from '../../Framework/Signum/React/Signum.Entities'
 import * as Operations from '../../Framework/Signum/React/Signum.Operations'
-import * as Customers from '../Customers/Southwind.Customers'
 import * as Files from '../../Framework/Extensions/Signum.Files/Signum.Files'
+import * as Customers from '../Customers/Southwind.Customers'
 import * as MachineLearning from '../../Framework/Extensions/Signum.MachineLearning/Signum.MachineLearning'
 
 

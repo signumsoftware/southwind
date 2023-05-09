@@ -16,6 +16,7 @@ using Southwind.Shippers;
 using Southwind;
 using Signum.Security;
 using Signum.Authorization.AuthToken;
+using Signum.Authorization.ActiveDirectory;
 
 namespace Southwind.Test.Environment;
 

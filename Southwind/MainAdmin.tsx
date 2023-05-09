@@ -47,7 +47,7 @@ import * as EmployeeClient from "./Employees/EmployeeClient"
 import * as GlobalsClient from "./Globals/GlobalsClient"
 import * as OrderClient from "./Orders/OrderClient"
 import * as ProductClient from "./Products/ProductClient"
-import * as ShipperClient from "./Products/ShipperClient"
+import * as ShipperClient from "./Shippers/ShipperClient"
 import * as PublicClient from "./Public/PublicClient"
 
 export function startFull(routes: RouteObject[]) {

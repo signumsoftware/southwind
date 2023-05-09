@@ -54,6 +54,17 @@
 			<RemoveLine Path="Southwind\Starter.cs"
 						Line="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindTypeCondition.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="CacheLogic.CacheTable&lt;ShipperEntity>(sb);"/>
+
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as CustomerClient from &quot;./Customers/CustomerClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="CustomerClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as EmployeeClient from &quot;./Employees/EmployeeClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="EmployeeClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as OrderClient from &quot;./Orders/OrderClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="OrderClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as ProductClient from &quot;./Products/ProductClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ProductClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as ShipperClient from &quot;./Shippers/ShipperClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ShipperClient.start({ routes });"/>
 		</Module>
 
 		<Module Name="Migrations">

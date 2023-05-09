@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useLocation, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import { RegisterUserModel, RegisterUserMessage } from '../Southwind.Public'
-import * as PublicClient from '../PublicClient'
+import { RegisterUserModel, RegisterUserMessage } from './Southwind.Public'
+import * as PublicClient from './PublicClient'
 import { ValueLine } from '@framework/Lines/ValueLine'
 import { FormGroup } from '@framework/Lines/FormGroup'
 import { FormControlReadonly } from '@framework/Lines/FormControlReadonly'
@@ -16,7 +16,7 @@ import { ValidationError } from '@framework/Services'
 import { ifError } from '@framework/Globals'
 import { GraphExplorer } from '@framework/Reflection'
 import { ValidationErrors } from '@framework/Frames/ValidationErrors'
-import Address from '../../Customers/Address'
+import Address from '../Customers/Address'
 
 export default function RegisterUser() {
   const params = useParams() as { reportsToEmployeeId: string };
