@@ -6,7 +6,7 @@ using Southwind.Products;
 
 namespace Southwind.Orders;
 
-public static class OrderLogic
+public static class OrdersLogic
 {
     public static void Start(SchemaBuilder sb)
     {

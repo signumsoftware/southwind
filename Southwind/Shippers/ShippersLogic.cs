@@ -1,6 +1,6 @@
-﻿namespace Southwind.Shippers;
+namespace Southwind.Shippers;
 
-public static class ShipperLogic
+public static class ShippersLogic
 {
     public static void Start(SchemaBuilder sb)
     {

@@ -4,7 +4,7 @@ using Southwind.Orders;
 
 namespace Southwind.Employees;
 
-public static class EmployeeLogic
+public static class EmployeesLogic
 {
     [AutoExpressionField]
     public static IQueryable<TerritoryEntity> Territories(this RegionEntity r) =>

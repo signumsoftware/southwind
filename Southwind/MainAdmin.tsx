@@ -25,6 +25,7 @@ import * as TranslationClient from "@extensions/Signum.Translation/TranslationCl
 import * as TranslatedInstanceClient from "@extensions/Signum.Translation/TranslatedInstanceClient"
 import * as HelpClient from "@extensions/Signum.Help/HelpClient"
 import * as DiffLogClient from "@extensions/Signum.DiffLog/DiffLogClient"
+import * as TimeMachineClient from "@extensions/Signum.TimeMachine/TimeMachineClient"
 import * as WorkflowClient from "@extensions/Signum.Workflow/WorkflowClient"
 import * as PredictorClient from "@extensions/Signum.MachineLearning/PredictorClient"
 import * as RestClient from "@extensions/Signum.Rest/RestClient"
@@ -42,12 +43,12 @@ import * as DynamicValidationClient from "@extensions/Signum.Dynamic/DynamicVali
 import * as DynamicViewClient from "@extensions/Signum.Dynamic/DynamicViewClient"
 
 
-import * as CustomerClient from "./Customers/CustomerClient"
-import * as EmployeeClient from "./Employees/EmployeeClient"
+import * as CustomersClient from "./Customers/CustomersClient"
+import * as EmployeesClient from "./Employees/EmployeesClient"
 import * as GlobalsClient from "./Globals/GlobalsClient"
-import * as OrderClient from "./Orders/OrderClient"
-import * as ProductClient from "./Products/ProductClient"
-import * as ShipperClient from "./Shippers/ShipperClient"
+import * as OrdersClient from "./Orders/OrdersClient"
+import * as ProductsClient from "./Products/ProductsClient"
+import * as ShippersClient from "./Shippers/ShippersClient"
 import * as PublicClient from "./Public/PublicClient"
 
 export function startFull(routes: RouteObject[]) {
@@ -72,7 +73,8 @@ export function startFull(routes: RouteObject[]) {
   TranslationClient.start({ routes });
   TranslatedInstanceClient.start({ routes });
   HelpClient.start({ routes, markdownToHtml: str => str });
-  DiffLogClient.start({ routes, timeMachine: true });
+  DiffLogClient.start({ routes });
+  TimeMachineClient.start({ routes });
   ProfilerClient.start({ routes });
   ChartClient.start({ routes });
   DashboardClient.start({ routes });
@@ -94,11 +96,11 @@ export function startFull(routes: RouteObject[]) {
 
   OmniboxClient.start();
 
-  CustomerClient.start({ routes });
-  EmployeeClient.start({ routes });
+  CustomersClient.start({ routes });
+  EmployeesClient.start({ routes });
   GlobalsClient.start({ routes });
-  OrderClient.start({ routes });
-  ProductClient.start({ routes });
-  ShipperClient.start({ routes });
+  OrdersClient.start({ routes });
+  ProductsClient.start({ routes });
+  ShippersClient.start({ routes });
   PublicClient.start({ routes });
 }

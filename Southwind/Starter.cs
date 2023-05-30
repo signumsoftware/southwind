@@ -212,11 +212,11 @@ public static partial class Starter
 
             // Southwind modules
 
-            EmployeeLogic.Start(sb);
-            ProductLogic.Start(sb);
-            CustomerLogic.Start(sb);
-            OrderLogic.Start(sb);
-            ShipperLogic.Start(sb);
+            EmployeesLogic.Start(sb);
+            ProductsLogic.Start(sb);
+            CustomersLogic.Start(sb);
+            OrdersLogic.Start(sb);
+            ShippersLogic.Start(sb);
             PublicLogic.Start(sb);
 
             StartSouthwindConfiguration(sb);

@@ -2,7 +2,7 @@ using Southwind.Orders;
 
 namespace Southwind.Customers;
 
-public static class CustomerLogic
+public static class CustomersLogic
 {
     public static void Start(SchemaBuilder sb)
     {

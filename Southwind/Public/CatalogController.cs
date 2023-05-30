@@ -12,7 +12,7 @@ public class CatalogController : ControllerBase
     [HttpGet("api/catalog"), SignumAllowAnonymous]
     public List<CategoryWithProducts> Catalog()
     {
-        return ProductLogic.ActiveProducts.Value.Select(a => new CategoryWithProducts
+        return ProductsLogic.ActiveProducts.Value.Select(a => new CategoryWithProducts
         {
             Category = a.Key.ToLite(),
             Picture = a.Key.Picture?.BinaryFile,

@@ -5,8 +5,8 @@
 			<RemoveFiles Path="Southwind\Customers\Company.tsx"/>
 			<RemoveFiles Path="Southwind\Customers\CompanyEntity.cs"/>
 			<RemoveFiles Path="Southwind\Customers\CustomerEntity.cs"/>
-			<RemoveFiles Path="Southwind\Customers\CustomerLogic.cs"/>
-			<RemoveFiles Path="Southwind\Customers\CustomerClient.tsx"/>
+			<RemoveFiles Path="Southwind\Customers\CustomersLogic.cs"/>
+			<RemoveFiles Path="Southwind\Customers\CustomersClient.tsx"/>
 			<RemoveFiles Path="Southwind\Customers\Person.tsx"/>
 			<RemoveFiles Path="Southwind\Customers\PersonEntity.cs"/>
 			<RemoveFiles Path="Southwind\Customers\Southwind.Customers.t4s"/>
@@ -15,8 +15,8 @@
 			<RemoveFiles Path="Southwind\Customers\Address.tsx"/>
 			<RemoveFiles Path="Southwind\Employees\Employee.tsx"/>
 			<RemoveFiles Path="Southwind\Employees\EmployeeEntity.cs"/>
-			<RemoveFiles Path="Southwind\Employees\EmployeeLogic.cs"/>
-			<RemoveFiles Path="Southwind\Employees\EmployeeClient.tsx"/>
+			<RemoveFiles Path="Southwind\Employees\EmployeesLogic.cs"/>
+			<RemoveFiles Path="Southwind\Employees\EmployeesClient.tsx"/>
 			<RemoveFiles Path="Southwind\Employees\RegionEntity.cs"/>
 			<RemoveFiles Path="Southwind\Employees\Southwind.Employees.t4s"/>
 			<RemoveFiles Path="Southwind\Employees\Southwind.Employees.ts"/>
@@ -24,23 +24,23 @@
 			<RemoveFiles Path="Southwind\Orders\OrderEntity.cs"/>
 			<RemoveFiles Path="Southwind\Orders\Order.tsx"/>
 			<RemoveFiles Path="Southwind\Orders\OrderFilter.tsx"/>
-			<RemoveFiles Path="Southwind\Orders\OrderLogic.cs"/>
-			<RemoveFiles Path="Southwind\Orders\OrderClient.tsx"/>
+			<RemoveFiles Path="Southwind\Orders\OrdersLogic.cs"/>
+			<RemoveFiles Path="Southwind\Orders\OrdersClient.tsx"/>
 			<RemoveFiles Path="Southwind\Orders\Southwind.Orders.t4s"/>
 			<RemoveFiles Path="Southwind\Orders\Southwind.Orders.ts"/>
 			<RemoveFiles Path="Southwind\Products\Category.tsx"/>
 			<RemoveFiles Path="Southwind\Products\CategoryEntity.cs"/>
 			<RemoveFiles Path="Southwind\Products\Product.tsx"/>
 			<RemoveFiles Path="Southwind\Products\ProductEntity.cs"/>
-			<RemoveFiles Path="Southwind\Products\ProductLogic.cs"/>
-			<RemoveFiles Path="Southwind\Products\ProductClient.tsx"/>
+			<RemoveFiles Path="Southwind\Products\ProductsLogic.cs"/>
+			<RemoveFiles Path="Southwind\Products\ProductsClient.tsx"/>
 			<RemoveFiles Path="Southwind\Products\Southwind.Products.t4s"/>
 			<RemoveFiles Path="Southwind\Products\Southwind.Products.ts"/>
 			<RemoveFiles Path="Southwind\Products\Supplier.tsx"/>
 			<RemoveFiles Path="Southwind\Products\SupplierEntity.cs"/>
-			<RemoveFiles Path="Southwind\Shippers\ShipperClient.tsx"/>
+			<RemoveFiles Path="Southwind\Shippers\ShippersClient.tsx"/>
 			<RemoveFiles Path="Southwind\Shippers\ShipperEntity.cs"/>
-			<RemoveFiles Path="Southwind\Shippers\ShipperLogic.cs"/>
+			<RemoveFiles Path="Southwind\Shippers\ShippersLogic.cs"/>
 			<RemoveFiles Path="Southwind\Shippers\Southwind.Shippers.t4s"/>
 			<RemoveFiles Path="Southwind\Shippers\Southwind.Shippers.ts"/>
 
@@ -50,21 +50,21 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because Customer" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="MixinDeclarations.Register&lt;OrderDetailEmbedded, OrderDetailMixin>();"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.TypeAttributes&lt;OrderEntity>().Add(new SystemVersionedAttribute());"/>
-			<RemoveLine Path="Southwind\Starter.cs" From="EmployeeLogic.Start(sb);" To="ShipperLogic.Start(sb);"/>
+			<RemoveLine Path="Southwind\Starter.cs" From="EmployeesLogic.Start(sb);" To="ShippersLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\Starter.cs"
 						Line="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindTypeCondition.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="CacheLogic.CacheTable&lt;ShipperEntity>(sb);"/>
 
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as CustomerClient from &quot;./Customers/CustomerClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="CustomerClient.start({ routes });"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as EmployeeClient from &quot;./Employees/EmployeeClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="EmployeeClient.start({ routes });"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as OrderClient from &quot;./Orders/OrderClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="OrderClient.start({ routes });"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as ProductClient from &quot;./Products/ProductClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ProductClient.start({ routes });"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as ShipperClient from &quot;./Shippers/ShipperClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ShipperClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as CustomersClient from &quot;./Customers/CustomersClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="CustomersClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as EmployeesClient from &quot;./Employees/EmployeesClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="EmployeesClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as OrdersClient from &quot;./Orders/OrdersClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="OrdersClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as ProductsClient from &quot;./Products/ProductsClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ProductsClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as ShippersClient from &quot;./Shippers/ShippersClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ShippersClient.start({ routes });"/>
 		</Module>
 
 		<Module Name="Migrations">
@@ -147,12 +147,12 @@
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\EmployeeLoader.cs" Line="Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\EmployeeLoader.cs" From="public static byte[] RemoveOlePrefix(byte[] bytes)" To="} //RemoveOlePrefix"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\ProductLoader.cs" Line="Picture = new FileEmbedded { FileName = s.CategoryName + &quot;.jpg&quot;, BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Products\ProductLogic.cs" Line="s.Picture"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeeLogic.cs" Line="Photo = e.Photo,"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeeLogic.cs" Line="e.Photo, //1"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeeLogic.cs" Line="e.Photo, //2"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeeClient.tsx" From="&lt;FileImage" To="file={lite.model.photo} />"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeeClient.tsx" From="{/*Files*/ }" To="{/*Files*/ }"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Products\ProductsLogic.cs" Line="s.Picture"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" Line="Photo = e.Photo,"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" Line="e.Photo, //1"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" Line="e.Photo, //2"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesClient.tsx" From="&lt;FileImage" To="file={lite.model.photo} />"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesClient.tsx" From="{/*Files*/ }" To="{/*Files*/ }"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Products\Category.tsx" Line="const forceUpdate = useForceUpdate();"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Products\Category.tsx" Line="const maxDimensions: React.CSSProperties = { maxWidth: &quot;96px&quot;, maxHeight: &quot;96px&quot; };"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Products\Category.tsx" Line="&lt;FileLine ctx={ctx.subCtx(c => c.picture)} onChange={() => forceUpdate()} />"/>
@@ -250,9 +250,9 @@
 			<RemoveLine Path="Southwind\Program.cs" Line="using Signum.Processes;"/>
 			<RemoveLine Path="Southwind\Orders\OrderEntity.cs" Line="public static ConstructSymbol&lt;ProcessEntity&gt;.FromMany&lt;OrderEntity&gt; CancelWithProcess;"/>
 			<RemoveLine Path="Southwind\Orders\OrderEntity.cs" From="[AutoInit]//OrderProcess" To="}"/>
-			<RemoveLine Path="Southwind\Orders\OrderLogic.cs" Line="ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());"/>
-			<RemoveLine Path="Southwind\Orders\OrderLogic.cs" From="public class CancelOrderAlgorithm : PackageExecuteAlgorithm&lt;OrderEntity&gt;" To="} //CancelOrderAlgorithm"/>
-			<RemoveLine Path="Southwind\Orders\OrderLogic.cs" From="new Graph&lt;ProcessEntity&gt;.ConstructFromMany&lt;OrderEntity&gt;(OrderOperation.CancelWithProcess)" To="}.Register();"/>
+			<RemoveLine Path="Southwind\Orders\OrdersLogic.cs" Line="ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());"/>
+			<RemoveLine Path="Southwind\Orders\OrdersLogic.cs" From="public class CancelOrderAlgorithm : PackageExecuteAlgorithm&lt;OrderEntity&gt;" To="} //CancelOrderAlgorithm"/>
+			<RemoveLine Path="Southwind\Orders\OrdersLogic.cs" From="new Graph&lt;ProcessEntity&gt;.ConstructFromMany&lt;OrderEntity&gt;(OrderOperation.CancelWithProcess)" To="}.Register();"/>
 			<RemoveLine Path="Southwind\Starter.cs"
 						From="sb.Schema.Settings.FieldAttributes((PackageLineEntity cp) => cp.Package).Replace(new ImplementedByAttribute(typeof(PackageEntity), typeof(PackageOperationEntity)));"
 						To="sb.Schema.Settings.FieldAttributes((ProcessEntity s) => s.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
@@ -269,7 +269,7 @@
 			<RemoveLine Path="Southwind\Program.cs" Line="using Signum.Scheduler;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Scheduler;"/>
 			<RemoveLine Path="Southwind\Orders\OrderEntity.cs" From="[AutoInit]//OrderTask" To="}"/>
-			<RemoveLine Path="Southwind\Orders\OrderLogic.cs" From="SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, ctx =>" To="});//CancelOldOrdersProcess"/>
+			<RemoveLine Path="Southwind\Orders\OrdersLogic.cs" From="SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, ctx =>" To="});//CancelOldOrdersProcess"/>
 
 			<RemoveLine Path="Southwind\Starter.cs"
 						From="sb.Schema.Settings.FieldAttributes((ScheduledTaskEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"
@@ -531,8 +531,8 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="PublicLogic.Start(sb);" />
 
 
-			<RemoveLine Path="Southwind\Products\ProductLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
-			<RemoveLine Path="Southwind\Products\ProductLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
+			<RemoveLine Path="Southwind\Products\ProductsLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
+			<RemoveLine Path="Southwind\Products\ProductsLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="routes.push({ path: &quot;/publicCatalog&quot;, element: &lt;PublicCatalog /> });"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import PublicCatalog from './Public/PublicCatalog'"/>
 			<RemoveLine Path="Southwind\Home.tsx" From="if (!AuthClient.currentUser()) {" To="}//PublicCatalog"/>
