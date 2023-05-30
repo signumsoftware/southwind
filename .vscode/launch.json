@@ -9,24 +9,24 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/Southwind.Terminal.dll",
+      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/Southwind.Terminal.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/",
+      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/",
       "console": "integratedTerminal",
       "stopAtEntry": false,
       // "internalConsoleOptions": "openOnSessionStart",
       "env": {
         "ASPNETCORE_ENVIRONMENT": ""
-      }
+      },
     },
     {
       "name": "Southwind.Terminal (LIVE)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/Southwind.Terminal.dll",
+      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/Southwind.Terminal.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/",
+      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/",
       "console": "integratedTerminal",
       "stopAtEntry": false,
       "internalConsoleOptions": "openOnSessionStart",
@@ -39,9 +39,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/Southwind.Terminal.dll",
+      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/Southwind.Terminal.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net6.0/",
+      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/",
       "console": "integratedTerminal",
       "stopAtEntry": false,
       "internalConsoleOptions": "openOnSessionStart",
@@ -50,13 +50,13 @@
       }
     },
     {
-      "name": "Southwind.React (local)",
+      "name": "Southwind (local)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.React/bin/Debug/net6.0/Southwind.React.dll",
+      "program": "${workspaceFolder}/Southwind/bin/Debug/net7.0/Southwind.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Southwind.React/",
+      "cwd": "${workspaceFolder}/Southwind/",
       "stopAtEntry": false,
       "internalConsoleOptions": "openOnSessionStart",
       "launchBrowser": {
@@ -81,13 +81,13 @@
       }
     },
     {
-      "name": "Southwind.React (LIVE)",
+      "name": "Southwind (LIVE)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.React/bin/Debug/net6.0/Southwind.React.dll",
+      "program": "${workspaceFolder}/Southwind/bin/Debug/net7.0/Southwind.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Southwind.React/",
+      "cwd": "${workspaceFolder}/Southwind/",
       "stopAtEntry": false,
       "internalConsoleOptions": "openOnSessionStart",
       "launchBrowser": {
@@ -112,13 +112,13 @@
       }
     },
     {
-      "name": "Southwind.React (LIVE)",
+      "name": "Southwind (LIVE)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.React/bin/Debug/net6.0/Southwind.React.dll",
+      "program": "${workspaceFolder}/Southwind/bin/Debug/net6.0/Southwind.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Southwind.React/",
+      "cwd": "${workspaceFolder}/Southwind/",
       "stopAtEntry": false,
       "internalConsoleOptions": "openOnSessionStart",
       "launchBrowser": {
