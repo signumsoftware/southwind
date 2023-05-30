@@ -293,7 +293,9 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.Recipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.DefaultFrom!.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.AdditionalRecipients.First().EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.Service).Replace(new ImplementedByAttribute(typeof(SmtpEmailServiceEntity), typeof(MicrosoftGraphEmailServiceEntity)));" DependsOn="AzureAD" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="EmailLogic.Start(sb, () => Configuration.Value.Email, (template, target, message) => Configuration.Value.EmailSender);"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="MailingMicrosoftGraphLogic.Start(sb);" DependsOn="AzureAD"  />
 			<RemoveLine Path="Southwind\Starter.cs" From="s.Email.SendEmails," To="s.Email.UrlLeft"/>
 			<RemoveLine Path="Southwind\Program.cs" Line="AsyncEmailSender.StartAsyncEmailSenderAfter(5 * 1000);" />
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as MailingClient from &quot;@extensions/Signum.Mailing/MailingClient&quot;"/>

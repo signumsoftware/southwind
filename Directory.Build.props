@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
- 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+ 		<TypeScriptCompileBlocked>false</TypeScriptCompileBlocked>
+		<AccelerateBuildsInVisualStudio>false</AccelerateBuildsInVisualStudio>
 	</PropertyGroup>
 </Project>

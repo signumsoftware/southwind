@@ -137,6 +137,7 @@ public static partial class Starter
             FilePathEmbeddedLogic.Start(sb);
             BigStringLogic.Start(sb);
             EmailLogic.Start(sb, () => Configuration.Value.Email, (template, target, message) => Configuration.Value.EmailSender);
+            MailingMicrosoftGraphLogic.Start(sb);
 
             AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
             AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);

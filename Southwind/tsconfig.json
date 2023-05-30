@@ -43,7 +43,6 @@
     { "path": "../Framework/Extensions/Signum.Isolation" },
     { "path": "../Framework/Extensions/Signum.MachineLearning" },
     { "path": "../Framework/Extensions/Signum.Mailing.MicrosoftGraph" },
-    { "path": "../Framework/Extensions/Signum.Mailing.Package" },
     { "path": "../Framework/Extensions/Signum.Mailing" },
     { "path": "../Framework/Extensions/Signum.Map" },
     { "path": "../Framework/Extensions/Signum.Migrations" },

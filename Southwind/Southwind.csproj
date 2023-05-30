@@ -63,7 +63,6 @@
 		<ProjectReference Include="..\Framework\Extensions\Signum.Isolation\Signum.Isolation.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.MachineLearning\Signum.MachineLearning.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Mailing.MicrosoftGraph\Signum.Mailing.MicrosoftGraph.csproj" />
-		<ProjectReference Include="..\Framework\Extensions\Signum.Mailing.Package\Signum.Mailing.Package.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Mailing\Signum.Mailing.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Map\Signum.Map.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Migrations\Signum.Migrations.csproj" />
