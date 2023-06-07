@@ -78,7 +78,7 @@ export function startFull(routes: RouteObject[]) {
   ProfilerClient.start({ routes });
   ChartClient.start({ routes });
   DashboardClient.start({ routes });
-  MapClient.start({ routes, auth: true, cache: true, disconnected: false, isolation: false });
+  MapClient.start({ routes });
   WorkflowClient.start({ routes });
   PredictorClient.start({ routes });
   ToolbarClient.start({ routes });
