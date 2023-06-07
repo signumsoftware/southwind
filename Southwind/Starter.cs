@@ -219,7 +219,7 @@ public static partial class Starter
             ShippersLogic.Start(sb);
             PublicLogic.Start(sb);
 
-            StartSouthwindConfiguration(sb);
+            GlobalsLogic.Start(sb);
 
             TypeConditionLogic.Register<OrderEntity>(SouthwindTypeCondition.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));
 
@@ -342,25 +342,6 @@ public static partial class Starter
 
     }
 
-    private static void StartSouthwindConfiguration(SchemaBuilder sb)
-    {
-        sb.Include<ApplicationConfigurationEntity>()
-            .WithSave(ApplicationConfigurationOperation.Save)
-            .WithQuery(() => s => new
-            {
-                Entity = s,
-                s.Id,
-                s.Environment,
-                s.Email.SendEmails,
-                s.Email.OverrideEmailAddress,
-                s.Email.DefaultCulture,
-                s.Email.UrlLeft
-            });
-
-        Configuration = sb.GlobalLazy<ApplicationConfigurationEntity>(
-            () => Database.Query<ApplicationConfigurationEntity>().Single(a => a.DatabaseName == Connector.Current.DatabaseName()),
-            new InvalidateWith(typeof(ApplicationConfigurationEntity)));
-    }
 
     private static void SetupCache(SchemaBuilder sb)
     {

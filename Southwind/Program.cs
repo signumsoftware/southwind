@@ -55,7 +55,7 @@ public class Program
                 new WebServerBuilder
                 {
                     WebApplication = app,
-                    AuthTokenEncryptionKey = "IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!",
+                    AuthTokenEncryptionKey = app.Configuration.GetValue<string>("AuthTokenEncryptionKey")!,
                     MachineName = app.Configuration.GetValue<string?>("ServerName"),
                     DefaultCulture = CultureInfo.GetCultureInfo("en")
                 });
