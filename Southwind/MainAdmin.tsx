@@ -49,7 +49,6 @@ import * as GlobalsClient from "./Globals/GlobalsClient"
 import * as OrdersClient from "./Orders/OrdersClient"
 import * as ProductsClient from "./Products/ProductsClient"
 import * as ShippersClient from "./Shippers/ShippersClient"
-import * as PublicClient from "./Public/PublicClient"
 
 export function startFull(routes: RouteObject[]) {
   Operations.start();
@@ -102,5 +101,4 @@ export function startFull(routes: RouteObject[]) {
   OrdersClient.start({ routes });
   ProductsClient.start({ routes });
   ShippersClient.start({ routes });
-  PublicClient.start({ routes });
 }

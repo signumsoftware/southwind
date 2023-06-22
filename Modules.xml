@@ -70,6 +70,7 @@
 		<Module Name="Migrations">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Migrations;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="MigrationLogic.Start(sb);"/>
+			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.Migrations;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" From="if (args.Any())" To="} //if(args.Any())"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;SQL&quot;, SqlMigrationRunner.SqlMigrations},"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;CS&quot;, () => SouthwindMigrations.CSharpMigrations(false), &quot;C# Migrations&quot;},"/>
@@ -219,7 +220,6 @@
 			<RemoveLine Path="Southwind.Terminal\Toolbar.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Content=&quot;ViewLog&quot; />" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.ViewLog;"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.ViewLog\Signum.ViewLog.csproj&quot; />"/>
-			<RemoveProjectReference Path="Framework\Extensions\Signum.ViewLog\Signum.ViewLog.csproj"/>
 		</Module>
 
 		<Module Name="Toolbar">
@@ -521,14 +521,16 @@
 			<RemoveFiles Path="Southwind\Public\Southwind.Public.t4s"/>
 			<RemoveFiles Path="Southwind\Public\Southwind.Public.ts"/>
 			<RemoveFiles Path="Southwind\Public\RegisterUser.tsx"/>
-			
+			<RemoveFiles Path="Southwind\Public\PublicLogic.cs" />
 			<RemoveLine Path="Southwind\MainPublic.tsx"
 						Line="import * as PublicClient from './Public/PublicClient'" />
 
 			<RemoveLine Path="Southwind\MainPublic.tsx"
 						Line="PublicClient.start({ routes });" />
 
+			<RemoveLine Path="Southwind\Starter.cs" Line="using NGPlanning.Public;" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="PublicLogic.Start(sb);" />
+		
 
 
 			<RemoveLine Path="Southwind\Products\ProductsLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
@@ -536,6 +538,7 @@
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="routes.push({ path: &quot;/publicCatalog&quot;, element: &lt;PublicCatalog /> });"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import PublicCatalog from './Public/PublicCatalog'"/>
 			<RemoveLine Path="Southwind\Home.tsx" From="if (!AuthClient.currentUser()) {" To="}//PublicCatalog"/>
+
 
 
 		</Module>
@@ -570,10 +573,13 @@
 
 		<Module Name="Help">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Help;"/>
+			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.Help;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;HL&quot;, HelpXml.ImportExportHelp},"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="HelpLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Help\Signum.Help.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Help\Signum.Help.csproj"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as HelpClient from &quot;@extensions/Signum.Help/HelpClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="HelpClient.start({ routes, markdownToHtml: str => str });"/>
 		</Module>
 
 		<Module Name="PublicAPI">
@@ -585,7 +591,7 @@
 			<RemoveLine Path="Southwind\Layout.tsx" From="function handleSwaggerClick(e: React.MouseEvent&lt;any>) {" To="} //Swagger"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as RestClient from &quot;@extensions/Signum.Rest/RestClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="RestClient.start({ routes });"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Public\CatalogAPIController.cs" Line="[IncludeInDocumentation, RestLogFilter(allowReplay: true)]"/>
+			<RemoveFiles Path="Southwind\Public\CatalogAPIController.cs"/>
 			<RemoveLine Path="Southwind\Program.cs" Line="//https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&amp;tabs=visual-studio%2Cvisual-studio-xml" />
 			<RemoveLine Path="Southwind\Program.cs" Line="SwaggerConfig.ConfigureSwaggerService(builder);" />
 			<RemoveLine Path="Southwind\Program.cs" From="//Enable middleware to serve generated Swagger as a JSON endpoint." To="});//Swagger Configure"/>
@@ -597,6 +603,7 @@
 
 		<Module Name="Predictor" DependsOn="Files">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.MachineLearning;"/>
+			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.MachineLearning;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.MachineLearning.TensorFlow;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Predictor*/" To="public string PredictorModelFolder { get; set; }"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="ImportPredictor,"/>
@@ -637,7 +644,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" From="if (includeDynamic)//2" To="}//2"/>
 			<RemoveLine Path="Southwind\Starter.cs" From="if (includeDynamic)//3" To="}//3"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx"
-						From="import * as DynamicExpressionClient from &quot;@extensions/Signum.Dynamic/DynamicExpressionClient&quot;"
+						From="import * as DynamicClient from &quot;@extensions/Signum.Dynamic/DynamicClient&quot;"
 						To="import * as DynamicViewClient from &quot;@extensions/Signum.Dynamic/DynamicViewClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx"
 						From="DynamicClient.start({ routes, withCodeGen: true });"
@@ -649,6 +656,7 @@
 
 		<Module Name="Workflow">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Workflow;"/>
+			<RemoveSpanInLines Path="Southwind\Starter.cs" Span=", typeof(WorkflowEntity)"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Workflow;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Workflow*/" To="public WorkflowConfigurationEmbedded Workflow { get; set; }"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;workflow&quot; title={ctx.niceName(a => a.workflow)}>" To="&lt;/Tab>"/>

@@ -91,8 +91,8 @@ async function reload() {
   const routes: RouteObject[] = [];
 
   routes.push({ path: "/publicCatalog", element: <PublicCatalog /> });
-  AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });
-  PublicClient.start({ routes });
+  AuthClient.startPublic({ routes, userTicket: true, notifyLogout: true });
+  PublicClient.startPublic({ routes });
 
   const isFull = Boolean(AuthClient.currentUser()) && AuthClient.currentUser().userName != "Anonymous"; //true;
 

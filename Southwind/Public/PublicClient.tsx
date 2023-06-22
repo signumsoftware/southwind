@@ -10,7 +10,7 @@ import { RegisterUserModel } from './Southwind.Public'
 import { ImportComponent } from '@framework/ImportComponent'
 import { QueryString } from '@framework/QueryString';
 
-export function start(options: { routes: RouteObject[] }) {
+export function startPublic(options: { routes: RouteObject[] }) {
 
   options.routes.push({ path: "/registerUser/:reportsToEmployeeId?", element: <ImportComponent onImport={() => import("./RegisterUser")} /> });
 }
