@@ -43,7 +43,9 @@
 			<RemoveFiles Path="Southwind\Shippers\ShippersLogic.cs"/>
 			<RemoveFiles Path="Southwind\Shippers\Southwind.Shippers.t4s"/>
 			<RemoveFiles Path="Southwind\Shippers\Southwind.Shippers.ts"/>
-
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Southwind.Products;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Southwind.Orders;"/>
+			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Southwind.Orders;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;SO&quot;, ShowOrder},"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" From="static void ShowOrder()" To="}//ShowOrder"/>
 			
@@ -112,6 +114,7 @@
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Terminal\WordAssets.xml"/>
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Terminal\WordTemplates\Order.docx"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Word;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Word;"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Word\Signum.Word.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Word\Signum.Word.csproj"/>
 		</Module>
@@ -132,6 +135,7 @@
 
 		<Module Name="Files">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Files;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Files;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Files.FileTypeAlgorithms;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Files;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="MixinDeclarations.Register&lt;BigStringEmbedded, BigStringMixin>();"/>
@@ -210,6 +214,7 @@
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; HideQuickLink=&quot;false&quot; Owner=&quot;User;2&quot; ChartScript=&quot;D3ChartScript.StackedLines&quot;&gt;"  To="&lt;/Dashboard>"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Dashboard;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Dashboard;"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Dashboard\Signum.Dashboard.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Dashboard\Signum.Dashboard.csproj"/>
 		</Module>
@@ -230,6 +235,7 @@
 			<RemoveLine Path="Southwind\Layout.tsx" Line="const ToolbarRenderer = React.lazy(() => import(&quot;@extensions/Signum.Toolbar/Renderers/ToolbarRenderer&quot;));"/>
 			<RemoveLine Path="Southwind\Layout.tsx" From="hasUser ? &lt;React.Suspense fallback={JavascriptMessage.loading.niceToString()}>"
 						To="&lt;/React.Suspense> :"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" From="&lt;UserQuery Guid=&quot;37ae5c35-8d2b-41f7-acbf-5ef93c91c8ca&quot; DisplayName=&quot;Employees&quot; Query=&quot;Employee&quot; ColumnsMode=&quot;ReplaceAll&quot;&gt;" To="&lt;/UserQuery>" />
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" From="&lt;ToolbarMenu Guid=&quot;fd577065-f887-4567-8da3-9d5bcc1cedfd&quot; Name=&quot;Products&quot;>" To="&lt;/ToolbarMenu>" />
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" From="&lt;ToolbarMenu Guid=&quot;8b7e4ac5-cf45-41cb-8cff-4ce04506e12f&quot; Name=&quot;Employee&quot;>" To="&lt;/ToolbarMenu>" />
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" From="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-shopping-cart&quot; IconColor=&quot;orange&quot; Content=&quot;Order&quot; />"
@@ -240,6 +246,7 @@
 			<RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\Toolbar.xml" From="&lt;ToolbarMenu Guid=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; Name=&quot;Workflow&quot;>" To="&lt;/ToolbarMenu>" />
 			<RemoveLine DependsOn="Workflow" Path="Southwind.Terminal\Toolbar.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-random&quot; IconColor=&quot;saddlebrown&quot; Content=&quot;b9423939-ec3d-4495-9361-a335390d93a6&quot; />" />
 			<RemoveLine Path="Southwind.Terminal\Toolbar.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Toolbar;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Toolbar;"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Toolbar\Signum.Toolbar.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Toolbar\Signum.Toolbar.csproj"/>
@@ -283,10 +290,13 @@
 		</Module>
 
 		<Module Name="Mailing">
+
+			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.Mailing;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Mailing;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Mailing.Package;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Mailing.MicrosoftGraph;"/>
 			<RemoveLine Path="Southwind\Program.cs" Line="using Signum.Mailing;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Mailing;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Mailing;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Eval;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailMessageEntity em) => em.From.EmailOwner).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
@@ -308,11 +318,14 @@
 		</Module>
 
 		<Module Name="SMS">
+			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.SMS;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.SMS;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.SMS;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.SMS;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="SMSLogic.Start(sb, null, () => Configuration.Value.Sms);" />
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Sms*/" To="public SMSConfigurationEmbedded Sms { get; set; }"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms)}>" To="&lt;/Tab>"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.SMS;"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.SMS\Signum.SMS.csproj&quot; />"/>
@@ -368,6 +381,8 @@
 			<RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
 			<RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization;"/>
+			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.Authorization;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Authorization;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization.Rules;"/>
 
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Authorization\Signum.Authorization.csproj&quot; />"/>
@@ -528,7 +543,7 @@
 			<RemoveLine Path="Southwind\MainPublic.tsx"
 						Line="PublicClient.start({ routes });" />
 
-			<RemoveLine Path="Southwind\Starter.cs" Line="using NGPlanning.Public;" />
+			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Public;" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="PublicLogic.Start(sb);" />
 		
 
@@ -603,6 +618,7 @@
 
 		<Module Name="Predictor" DependsOn="Files">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.MachineLearning;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.MachineLearning;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.MachineLearning;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.MachineLearning.TensorFlow;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Predictor*/" To="public string PredictorModelFolder { get; set; }"/>
@@ -649,12 +665,15 @@
 			<RemoveLine Path="Southwind\MainAdmin.tsx"
 						From="DynamicClient.start({ routes, withCodeGen: true });"
 						To="DynamicViewClient.start({ routes });"/>
-			<RemoveLine Path="Southwind\Program.cs" Line="DynamicLogic.CodeGenDirectory = app.Environment.ContentRootPath + &quot;/CodeGen&quot;;"/>
+						
+			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="DynamicLogic.CodeGenDirectory = &quot;../../../../Southwind/CodeGen&quot;;"/>
+			<RemoveLine Path="Southwind\Program.cs" Line="DynamicLogic.CodeGenDirectory = app.Environment.ContentRootPath + &quot;/CodeGen&quot;"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj"/>
 		</Module>
 
 		<Module Name="Workflow">
+			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.SMS;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Workflow;"/>
 			<RemoveSpanInLines Path="Southwind\Starter.cs" Span=", typeof(WorkflowEntity)"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Workflow;"/>
@@ -680,6 +699,10 @@
 						 From="internal static void LoadProducts()"
 						 To="}//LoadShippers" />
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Test.Environment\SouthwindExtensions.cs" />
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="using Southwind.Customers;"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="using Southwind.Employees;"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="using Southwind.Products;"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="using Southwind.Shippers;"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadEmployees();"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadProducts();"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadCustomers();"/>
