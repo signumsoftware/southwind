@@ -50,6 +50,7 @@ using Southwind.Public;
 using Signum.Files.FileTypeAlgorithms;
 using Signum.Eval;
 using Signum.Mailing.MicrosoftGraph;
+using Signum.Authorization.ActiveDirectory.Azure;
 
 namespace Southwind;
 
@@ -142,7 +143,7 @@ public static partial class Starter
             AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
             AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);
             AuthLogic.StartAllModules(sb, () => Starter.Configuration.Value.AuthTokens);
-            AzureADLogic.Start(sb, adGroups: true, deactivateUsersTask: true);
+            AzureADLogic.Start(sb, adGroupsAndQueries: true, deactivateUsersTask: true);
             ResetPasswordRequestLogic.Start(sb);
             UserTicketLogic.Start(sb);
             SessionLogLogic.Start(sb);

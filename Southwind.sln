@@ -111,6 +111,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Notes", "Framework\E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Selenium", "Framework\Extensions\Signum.Selenium\Signum.Selenium.csproj", "{35142573-119D-4E50-84D2-EA04E29656E6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Tree", "Framework\Extensions\Signum.Tree\Signum.Tree.csproj", "{CC3DEDCA-B116-4A26-878B-E4FA23B8816C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -309,6 +311,10 @@ Global
 		{35142573-119D-4E50-84D2-EA04E29656E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35142573-119D-4E50-84D2-EA04E29656E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35142573-119D-4E50-84D2-EA04E29656E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC3DEDCA-B116-4A26-878B-E4FA23B8816C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC3DEDCA-B116-4A26-878B-E4FA23B8816C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC3DEDCA-B116-4A26-878B-E4FA23B8816C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC3DEDCA-B116-4A26-878B-E4FA23B8816C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -360,6 +366,7 @@ Global
 		{46635046-8905-4041-99DA-BEC6599BADDB} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{6E6C117D-A878-41B5-A6EF-E5C3A0D83286} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{35142573-119D-4E50-84D2-EA04E29656E6} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
+		{CC3DEDCA-B116-4A26-878B-E4FA23B8816C} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E18ACE2B-9B04-4506-B0EF-5723DE24799B}
