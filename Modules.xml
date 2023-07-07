@@ -400,7 +400,7 @@
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as ActiveDirectoryClient from &quot;@extensions/Signum.Authorization.ActiveDirectory/ActiveDirectoryClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes, adGroups: false });"/>
-			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import * as AzureAD from '@extensions/Signum.Authorization.ActiveDirectory/AzureAD/AzureAD'"/>
+			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import * as AzureADClient from '@extensions/Signum.Authorization.ActiveDirectory/Azure/AzureADClient'"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" From="if (window.__azureApplicationId) {" To="}//__azureApplicationId"/>
 			<RemoveLine Path="Southwind\Index.cshtml"
 						From="var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);"
@@ -673,7 +673,7 @@
 		</Module>
 
 		<Module Name="Workflow">
-			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.SMS;"/>
+			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.Workflow;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Workflow;"/>
 			<RemoveSpanInLines Path="Southwind\Starter.cs" Span=", typeof(WorkflowEntity)"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Workflow;"/>

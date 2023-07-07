@@ -25,8 +25,7 @@ import Layout from './Layout'
 import PublicCatalog from './Public/PublicCatalog'
 import Home from './Home'
 import NotFound from './NotFound'
-import LoginPage from '@extensions/Signum.Authorization/Login/LoginPage'
-import * as AzureAD from '@extensions/Signum.Authorization.ActiveDirectory/AzureAD/AzureAD'
+import * as AzureADClient from '@extensions/Signum.Authorization.ActiveDirectory/Azure/AzureADClient'
 
 import * as PublicClient from './Public/PublicClient'
 
@@ -69,12 +68,7 @@ Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 
 AuthClient.registerUserTicketAuthenticator();
 if (window.__azureApplicationId) {
-  LoginPage.customLoginButtons = ctx =>
-    <>
-      <AzureAD.MicrosoftSignIn ctx={ctx} />
-    </>;
-  LoginPage.showLoginForm = "initially_not";
-  AuthClient.authenticators.push(AzureAD.loginWithAzureAD);
+  AzureADClient.registerAzureADAuthenticator();
 }//__azureApplicationId
 
 ErrorModal.register();
