@@ -57,6 +57,11 @@
 						Line="TypeConditionLogic.Register&lt;OrderEntity>(SouthwindTypeCondition.CurrentEmployee, o => o.Employee.Is(EmployeeEntity.Current));"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="CacheLogic.CacheTable&lt;ShipperEntity>(sb);"/>
 
+			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Customers;"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Employees;"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Products;"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Shippers;"/>
+
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as CustomersClient from &quot;./Customers/CustomersClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="CustomersClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as EmployeesClient from &quot;./Employees/EmployeesClient&quot;"/>
@@ -306,7 +311,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((EmailSenderConfigurationEntity em) => em.Service).Replace(new ImplementedByAttribute(typeof(SmtpEmailServiceEntity), typeof(MicrosoftGraphEmailServiceEntity)));" DependsOn="AzureAD" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="EmailLogic.Start(sb, () => Configuration.Value.Email, (template, target, message) => Configuration.Value.EmailSender);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="MailingMicrosoftGraphLogic.Start(sb);" DependsOn="AzureAD"  />
-			<RemoveLine Path="Southwind\Starter.cs" From="s.Email.SendEmails," To="s.Email.UrlLeft"/>
+			<RemoveLine Path="Southwind\Globals\GlobalsLogic.cs" From="s.Email.SendEmails," To="s.Email.UrlLeft"/>
 			<RemoveLine Path="Southwind\Program.cs" Line="AsyncEmailSender.StartAsyncEmailSenderAfter(5 * 1000);" />
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as MailingClient from &quot;@extensions/Signum.Mailing/MailingClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="MailingClient.start({ routes, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });"/>
@@ -325,7 +330,6 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="SMSLogic.Start(sb, null, () => Configuration.Value.Sms);" />
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Sms*/" To="public SMSConfigurationEmbedded Sms { get; set; }"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms)}>" To="&lt;/Tab>"/>
-			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.SMS;"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.SMS\Signum.SMS.csproj&quot; />"/>
@@ -349,7 +353,7 @@
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Auth*/" To="public AuthTokenConfigurationEmbedded AuthTokens { get; set; }"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;auth&quot; title={ctx.niceName(a => a.authTokens)}>" To="&lt;/Tab>"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="AuthTokens = new AuthTokenConfigurationEmbedded" To="}, //Auth"/>
-			<RemoveLine Path="Southwind\Program.cs" Line="AuthTokenEncryptionKey = &quot;IMPORTANT SECRET FROM Southwind. CHANGE THIS STRING!!!&quot;," />
+			<RemoveLine Path="Southwind\Program.cs" Line="AuthTokenEncryptionKey = app.Configuration.GetValue&lt;string>(&quot;AuthTokenEncryptionKey&quot;)!," />
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;AR&quot;, AuthLogic.ImportExportAuthRules},"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="EmployeeLoader.CreateUsers," DependsOn="Migrations,LoadNorthwind"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="CreateRoles," To="CreateSystemUser,"/>
@@ -370,7 +374,7 @@
 			<RemoveSpanInLines Path="Southwind\MainPublic.tsx" Span="await AuthClient.autoLogin();"/>
 			<RemoveSpanInLines Path="Southwind\MainPublic.tsx" Span="Boolean(AuthClient.currentUser()) &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;; //"/>
 			<RemoveSpanInLines Path="Southwind\MainPublic.tsx" Span=" &amp;&amp; AuthClient.currentUser().userName != &quot;Anonymous&quot;" DependsOn="PublicCatalog"/>
-			<RemoveLine Path="Southwind\MainPublic.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, windowsAuthentication: false, resetPassword: true, notifyLogout: true });"/>
+			<RemoveLine Path="Southwind\MainPublic.tsx" Line="AuthClient.startPublic({ routes, userTicket: true, notifyLogout: true });"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" From="AuthClient.Options.onLogin = (url?: string) => {" To="};"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" From="AuthClient.Options.onLogout = () => {" To="};"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });"/>
@@ -542,7 +546,7 @@
 						Line="import * as PublicClient from './Public/PublicClient'" />
 
 			<RemoveLine Path="Southwind\MainPublic.tsx"
-						Line="PublicClient.start({ routes });" />
+						Line="PublicClient.startPublic({ routes });" />
 
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Public;" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="PublicLogic.Start(sb);" />
@@ -582,7 +586,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Map;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="MapLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as MapClient from &quot;@extensions/Signum.Map/MapClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="MapClient.start({ routes, auth: true, cache: true, disconnected: false, isolation: false });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="MapClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Map\Signum.Map.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Map\Signum.Map.csproj"/>
 		</Module>
@@ -630,8 +634,8 @@
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;TP&quot;, TrainPredictor},"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void TrainPredictor()" To="}//TrainPredictor"/>
 
-			<RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.11.0&quot; />"/>
-			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.11.0&quot; />"/>
+			<RemoveLine Path="Southwind.Terminal\Southwind.Terminal.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.11.4&quot; />"/>
+			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;PackageReference Include=&quot;SciSharp.TensorFlow.Redist&quot; Version=&quot;2.11.4&quot; />"/>
 			<RemoveSpanInLines Path="Southwind\Starter.cs" Span=", typeof(PredictorEntity)"/>
 
 			<RemoveLine Path="Southwind\Starter.cs"
@@ -668,7 +672,7 @@
 						To="DynamicViewClient.start({ routes });"/>
 						
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="DynamicLogic.CodeGenDirectory = &quot;../../../../Southwind/CodeGen&quot;;"/>
-			<RemoveLine Path="Southwind\Program.cs" Line="DynamicLogic.CodeGenDirectory = app.Environment.ContentRootPath + &quot;/CodeGen&quot;"/>
+			<RemoveLine Path="Southwind\Program.cs" Line="DynamicLogic.CodeGenDirectory = app.Environment.ContentRootPath + &quot;/CodeGen&quot;;"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Tree\Signum.Tree.csproj"/>
@@ -701,10 +705,7 @@
 						 From="internal static void LoadProducts()"
 						 To="}//LoadShippers" />
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Test.Environment\SouthwindExtensions.cs" />
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="using Southwind.Customers;"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="using Southwind.Employees;"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="using Southwind.Products;"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="using Southwind.Shippers;"/>
+
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadEmployees();"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadProducts();"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadCustomers();"/>
