@@ -82,7 +82,7 @@ public static class SouthwindMigrations
             UserEntity system = new UserEntity
             {
                 UserName = "System",
-                PasswordHash = PasswordEncoding.EncodePassword("System"),
+                PasswordHash = PasswordEncoding.EncodePassword("System", "System"),
                 Role = Database.Query<RoleEntity>().Where(r => r.Name == "Super user").SingleEx().ToLite(),
                 State = UserState.Active,
             }.Save();
@@ -90,7 +90,7 @@ public static class SouthwindMigrations
             UserEntity anonymous = new UserEntity
             {
                 UserName = "Anonymous",
-                PasswordHash = PasswordEncoding.EncodePassword("Anonymous"),
+                PasswordHash = PasswordEncoding.EncodePassword("Anonymous", "Anonymous"),
                 Role = Database.Query<RoleEntity>().Where(r => r.Name == "Anonymous").SingleEx().ToLite(),
                 State = UserState.Active,
             }.Save(); //Anonymous
