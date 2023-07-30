@@ -400,6 +400,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization.ActiveDirectory.Azure;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="AzureADLogic.Start(sb, adGroupsAndQueries: true, deactivateUsersTask: true);"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserADMixin&gt;();"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because AzureAD" />
 			<RemoveLine Path="Southwind\Layout.tsx" Line="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>

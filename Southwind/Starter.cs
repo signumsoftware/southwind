@@ -83,6 +83,7 @@ public static partial class Starter
             MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
             MixinDeclarations.Register<EmailMessageEntity, EmailMessagePackageMixin>();
             MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
+            MixinDeclarations.Register<UserEntity, UserADMixin>();
             MixinDeclarations.Register<OrderDetailEmbedded, OrderDetailMixin>();
             MixinDeclarations.Register<BigStringEmbedded, BigStringMixin>();
 

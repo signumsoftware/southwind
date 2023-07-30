@@ -105,7 +105,7 @@ internal static class EmployeeLoader
             employees.Select((employee, i) => new UserEntity
             {
                 UserName = employee.FirstName,
-                PasswordHash = PasswordEncoding.EncodePassword(employee.FirstName),
+                PasswordHash = PasswordEncoding.EncodePassword(employee.FirstName, employee.FirstName),
                 Role = roles.GetOrThrow(i < 2 ? "Super user" : i < 5 ? "Advanced user" : "Standard user").ToLite(),
                 State = UserState.Active,
             }.SetMixin((UserEmployeeMixin e) => e.Employee, employee.ToLite())).SaveList();
