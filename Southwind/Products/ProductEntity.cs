@@ -79,14 +79,16 @@ public static class ProductOperation
     public static ExecuteSymbol<ProductEntity> Save;
 }
 
+[AutoInit]//Predictor
+public static class ProductPredictorPublication
+{
+    public static PredictorPublicationSymbol MonthlySales;
+}//Predictor
+
 
 public enum ProductQuery
 {
     CurrentProducts
 }
 
-[AutoInit]//Predictor
-public static class ProductPredictorPublication
-{
-    public static PredictorPublicationSymbol MonthlySales;
-}//Predictor
+
