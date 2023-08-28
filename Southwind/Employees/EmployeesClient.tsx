@@ -39,8 +39,7 @@ export function start(options: { routes: RouteObject[] }) {
     }
   }));
 
-  QuickLinks.registerQuickLink(EmployeeEntity, ctx =>
-    new QuickLinks.QuickLinkLink(RegisterUserModel.typeName, () => EmployeeEntity.niceName(), AppContext.toAbsoluteUrl("/registerUser/" + ctx.lite.id), {
+  QuickLinks.registerQuickLink(EmployeeEntity, new QuickLinks.QuickLinkLink(RegisterUserModel.typeName, () => EmployeeEntity.niceName(), ctx => AppContext.toAbsoluteUrl("/registerUser/" + ctx.lite.id), {
       icon: "user-plus",
       iconColor: "#93c54b"
     }));//QuickLink
