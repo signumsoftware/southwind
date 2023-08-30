@@ -60,7 +60,7 @@ export function start(options: { routes: RouteObject[] }) {
 
   const selectShippedDate = (e?: OrderEntity) => ValueLineModal.show({
     member: OrderEntity.memberInfo(a => a.shippedDate),
-    initialValue: e?.requiredDate ?? DateTime.local().toISO(),
+    initialValue: e?.requiredDate ?? DateTime.local().toISO()!,
     modalSize: "sm"
   });
 
