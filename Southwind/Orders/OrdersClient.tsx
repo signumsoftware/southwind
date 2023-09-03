@@ -67,9 +67,9 @@ export function start(options: { routes: RouteObject[] }) {
   Operations.addSettings(new EntityOperationSettings(OrderOperation.Ship, {
     color: "info",
     icon: "truck",
-    commonOnClick: oc => oc.getEntity().then(e => selectShippedDate(e)).then(date => oc.defaultClick(date)),
+    commonOnClick: oc => oc.getEntity().then(e => selectShippedDate(e)).then(date => date && oc.defaultClick(date)),
     contextualFromMany: {
-      onClick: coc => selectShippedDate().then(date => coc.defaultClick(date))
+      onClick: coc => selectShippedDate().then(date => date && coc.defaultClick(date))
     }
   }));//Ship
 

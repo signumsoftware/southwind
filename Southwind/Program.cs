@@ -18,9 +18,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);     
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Configuration.AddUserSecrets(typeof(Program).Assembly);
         builder.Services.AddResponseCompression();
-
+        
         builder.Services
             .AddMvc(options => options.AddSignumGlobalFilters())
             //.AddApplicationPart(typeof(SignumServer).Assembly)
@@ -28,6 +29,7 @@ public class Program
             .AddJsonOptions(options => options.AddSignumJsonConverters());
         builder.Services.AddSignalR();
         builder.Services.AddSignumValidation();
+        
         builder.Services.Configure<IISServerOptions>(a => a.AllowSynchronousIO = true); //JSon.Net requires it
 
         //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
