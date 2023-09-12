@@ -71,7 +71,7 @@ export function startFull(routes: RouteObject[]) {
   SchedulerClient.start({ routes });
   TranslationClient.start({ routes });
   TranslatedInstanceClient.start({ routes });
-  HelpClient.start({ routes, markdownToHtml: str => str });
+  HelpClient.start({ routes });
   DiffLogClient.start({ routes });
   TimeMachineClient.start({ routes });
   ProfilerClient.start({ routes });

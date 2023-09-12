@@ -37,3 +37,4 @@ node_modules
 /Southwind/ts_out/**
 /Southwind/TensorFlowModels/**
 Framework.tar
+/Southwind/web.config
