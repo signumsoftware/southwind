@@ -94,6 +94,10 @@ public class FoldersConfigurationEmbedded : EmbeddedEntity
     /*EmailMessage*/
     [StringLengthValidator(Max = 300), FileNameValidator]
     public string EmailMessageFolder { get; set; }
+
+    /*RestLog*/
+    [StringLengthValidator(Max = 300), FileNameValidator]
+    public string RestLogFolder { get; set; }
 }
 
 [AutoInit]
@@ -103,4 +107,5 @@ public static class BigStringFileType
     public static FileTypeSymbol OperationLog;
     public static FileTypeSymbol ViewLog;
     public static FileTypeSymbol EmailMessage;
+    public static FileTypeSymbol RestLog;
 }

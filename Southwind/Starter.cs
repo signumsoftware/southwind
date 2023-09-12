@@ -258,6 +258,9 @@ public static partial class Starter
 
         FileTypeLogic.Register(BigStringFileType.EmailMessage, GetFileTypeAlgorithm(c => c.EmailMessageFolder));
         BigStringLogic.RegisterAll<EmailMessageEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.EmailMessage));
+
+        FileTypeLogic.Register(BigStringFileType.RestLog, GetFileTypeAlgorithm(c => c.RestLogFolder));
+        BigStringLogic.RegisterAll<RestLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.RestLog));
     }//ConfigureBigString
 
     public static IFileTypeAlgorithm GetFileTypeAlgorithm(Func<FoldersConfigurationEmbedded, string> getFolder, bool weakFileReference = false)

@@ -186,6 +186,11 @@
 			<RemoveLine DependsOn="ViewLog" Path="Southwind\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.ViewLog, GetFileTypeAlgorithm(c => c.ViewLogFolder));"/>
 			<RemoveLine DependsOn="ViewLog" Path="Southwind\Starter.cs" Line="BigStringLogic.RegisterAll&lt;ViewLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.ViewLog));"/>
 
+			<RemoveLine DependsOn="RestLog" Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*RestLog*/" To="public string RestLogFolder { get; set; }"/>
+			<RemoveLine DependsOn="RestLog" Path="Southwind\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.RestLog, GetFileTypeAlgorithm(c => c.RestLogFolder));"/>
+			<RemoveLine DependsOn="RestLog" Path="Southwind\Starter.cs" Line="BigStringLogic.RegisterAll&lt;RestLogEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.RestLog));"/>
+			<RemoveLine DependsOn="RestLog" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="RestLogFolder = localPrefix + @&quot;rest-logs&quot;,"/>
+			<RemoveLine DependsOn="RestLog" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="RestLogFolder = localPrefix + @&quot;rest-logs&quot;,"/>
 
 			<RemoveLine DependsOn="Mailing" Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*EmailMessage*/" To="public string EmailMessageFolder { get; set; }"/>
 			<RemoveLine DependsOn="Mailing" Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public static FileTypeSymbol EmailMessage;"/>

@@ -279,6 +279,7 @@ public static class SouthwindEnvironment
                 OperationLogFolder = localPrefix + @"operation-logs",
                 ViewLogFolder = localPrefix + @"view-logs",
                 EmailMessageFolder = localPrefix + @"email-messages",
+                RestLogFolder = localPrefix + @"rest-logs",
             },
             Translation = new TranslationConfigurationEmbedded
             {
@@ -293,6 +294,7 @@ public static class SouthwindEnvironment
                 LoginWithActiveDirectoryRegistry = false,
                 LoginWithWindowsAuthenticator = false,
                 LoginWithAzureAD = false,
+                UseDelegatedPermission = true,
                 AllowMatchUsersBySimpleUserName = true,
                 AutoCreateUsers = true,
                 AutoUpdateUsers = true,
