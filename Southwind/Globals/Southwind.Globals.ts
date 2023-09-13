@@ -40,6 +40,7 @@ export module BigStringFileType {
   export const OperationLog : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.OperationLog");
   export const ViewLog : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.ViewLog");
   export const EmailMessage : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.EmailMessage");
+  export const RestLog : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.RestLog");
 }
 
 export const FoldersConfigurationEmbedded = new Type<FoldersConfigurationEmbedded>("FoldersConfigurationEmbedded");
@@ -51,6 +52,7 @@ export interface FoldersConfigurationEmbedded extends Entities.EmbeddedEntity {
   operationLogFolder: string;
   viewLogFolder: string;
   emailMessageFolder: string;
+  restLogFolder: string;
 }
 
 export module SouthwindTypeCondition {
