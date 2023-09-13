@@ -30,6 +30,7 @@ import * as WorkflowClient from "@extensions/Signum.Workflow/WorkflowClient"
 import * as PredictorClient from "@extensions/Signum.MachineLearning/PredictorClient"
 import * as RestClient from "@extensions/Signum.Rest/RestClient"
 import * as AlertsClient from "@extensions/Signum.Alerts/AlertsClient"
+import * as NotesClient from "@extensions/Signum.Notes/NotesClient"
 import * as ConcurrentUserClient from "@extensions/Signum.ConcurrentUser/ConcurrentUserClient"
 
 import * as ToolbarClient from "@extensions/Signum.Toolbar/ToolbarClient"
@@ -82,7 +83,8 @@ export function startFull(routes: RouteObject[]) {
   PredictorClient.start({ routes });
   ToolbarClient.start({ routes });
   RestClient.start({ routes });
-  AlertsClient.start({ routes });
+  AlertsClient.start({ routes, showAlerts: a => false });
+  NotesClient.start({ routes, couldHaveNotes: a => false });
   ConcurrentUserClient.start({ routes });
 
   EvalClient.start({ routes });
