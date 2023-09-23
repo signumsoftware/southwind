@@ -119,3 +119,4 @@ Upgrade_20230707_UpdateNugets5
 Upgrade_20230828_UpdateNugets6
 Upgrade_20230829_UpdateNPMPackages
 Upgrade_20230830_ToISO
+Upgrade_20230912_isPermissionAuthorized

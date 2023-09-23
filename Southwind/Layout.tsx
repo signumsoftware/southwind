@@ -101,7 +101,7 @@ export default function Layout() {
               {!hasUser && renderTitle()}
 
               <div style={{ flex: "1", marginRight: "15px" }}>
-                {hasUser && AuthClient.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control omnibox" }} />}
+                {hasUser && AppContext.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control omnibox" }} />}
               </div>
 
               <div className="navbar-nav ml-auto">
