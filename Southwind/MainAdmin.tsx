@@ -30,6 +30,7 @@ import * as WorkflowClient from "@extensions/Signum.Workflow/WorkflowClient"
 import * as PredictorClient from "@extensions/Signum.MachineLearning/PredictorClient"
 import * as RestClient from "@extensions/Signum.Rest/RestClient"
 import * as AlertsClient from "@extensions/Signum.Alerts/AlertsClient"
+import * as NotesClient from "@extensions/Signum.Notes/NotesClient"
 import * as ConcurrentUserClient from "@extensions/Signum.ConcurrentUser/ConcurrentUserClient"
 
 import * as ToolbarClient from "@extensions/Signum.Toolbar/ToolbarClient"
@@ -65,7 +66,7 @@ export function startFull(routes: RouteObject[]) {
   UserQueryClient.start({ routes });
   CacheClient.start({ routes });
   ProcessClient.start({ routes, packages: true, packageOperations: true });
-  MailingClient.start({ routes, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });
+  MailingClient.start({ routes, contextual: true, queryButton: true });
   WordClient.start({ routes, contextual: true, queryButton: true, entityButton: false });
   ExcelClient.start({ routes, plainExcel: true, importFromExcel: true, excelReport: true });
   SchedulerClient.start({ routes });
@@ -82,7 +83,8 @@ export function startFull(routes: RouteObject[]) {
   PredictorClient.start({ routes });
   ToolbarClient.start({ routes });
   RestClient.start({ routes });
-  AlertsClient.start({ routes });
+  NotesClient.start({ routes, couldHaveNotes: type => false });
+  AlertsClient.start({ routes, showAlerts: type => false });
   ConcurrentUserClient.start({ routes });
 
   EvalClient.start({ routes });

@@ -98,6 +98,10 @@ public class FoldersConfigurationEmbedded : EmbeddedEntity
     /*RestLog*/
     [StringLengthValidator(Max = 300), FileNameValidator]
     public string RestLogFolder { get; set; }
+
+    /*Help*/
+    [StringLengthValidator(Max = 300), FileNameValidator]
+    public string HelpImagesFolder { get; set; }
 }
 
 [AutoInit]

@@ -193,7 +193,7 @@ public static partial class Starter
 
             TranslatedInstanceLogic.Start(sb, () => CultureInfo.GetCultureInfo("en"));
 
-            HelpLogic.Start(sb);
+            HelpLogic.Start(sb, GetFileTypeAlgorithm(p => p.HelpImagesFolder));
             WordTemplateLogic.Start(sb);
             MapLogic.Start(sb);
             PredictorLogic.Start(sb, GetFileTypeAlgorithm(p => p.PredictorModelFolder));

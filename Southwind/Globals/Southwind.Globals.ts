@@ -53,6 +53,7 @@ export interface FoldersConfigurationEmbedded extends Entities.EmbeddedEntity {
   viewLogFolder: string;
   emailMessageFolder: string;
   restLogFolder: string;
+  helpImagesFolder: string;
 }
 
 export module SouthwindTypeCondition {

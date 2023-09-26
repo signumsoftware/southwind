@@ -46,6 +46,7 @@
     { "path": "../Framework/Extensions/Signum.Mailing" },
     { "path": "../Framework/Extensions/Signum.Map" },
     { "path": "../Framework/Extensions/Signum.Migrations" },
+    { "path": "../Framework/Extensions/Signum.Notes" },
     { "path": "../Framework/Extensions/Signum.Omnibox" },
     { "path": "../Framework/Extensions/Signum.Processes" },
     { "path": "../Framework/Extensions/Signum.Profiler" },

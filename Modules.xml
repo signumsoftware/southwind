@@ -319,7 +319,7 @@
 			<RemoveLine Path="Southwind\Globals\GlobalsLogic.cs" From="s.Email.SendEmails," To="s.Email.UrlLeft"/>
 			<RemoveLine Path="Southwind\Program.cs" Line="AsyncEmailSender.StartAsyncEmailSenderAfter(5 * 1000);" />
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as MailingClient from &quot;@extensions/Signum.Mailing/MailingClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="MailingClient.start({ routes, pop3Config: false, sendEmailTask: false, contextual: true, queryButton: true });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="MailingClient.start({ routes, contextual: true, queryButton: true });"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Email*/" To="public EmailSenderConfigurationEntity EmailSender { get; set; }"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email)}>" To="&lt;/Tab>"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Email = new EmailConfigurationEmbedded" To="}, //Email"/>
@@ -490,7 +490,7 @@
 			<RemoveLine Path="Southwind\Layout.tsx" Line="const AlertDropdown = React.lazy(() => import(&quot;@extensions/Signum.Alerts/AlertDropdown&quot;));"/>
 			<RemoveLine Path="Southwind\Layout.tsx" Line="{hasUser &amp;&amp; &lt;React.Suspense fallback={null}>&lt;AlertDropdown />&lt;/React.Suspense>}"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as AlertsClient from &quot;@extensions/Signum.Alerts/AlertsClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AlertsClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AlertsClient.start({ routes, showAlerts: type => false });"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Alerts\Signum.Alerts.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Alerts\Signum.Alerts.csproj"/>
 		</Module>
@@ -515,6 +515,7 @@
 			<RemoveSpanInLines Path="Southwind\Starter.cs" Span=", /*Note*/typeof(OrderEntity)" DependsOn="ExampleEntities" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((NoteEntity n) => n.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Notes\Signum.Notes.csproj&quot; />"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="NotesClient.start({ routes, couldHaveNotes: type => false });"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Notes\Signum.Notes.csproj"/>
 		</Module>
 
@@ -601,11 +602,12 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Help;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.Help;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;HL&quot;, HelpXml.ImportExportHelp},"/>
-			<RemoveLine Path="Southwind\Starter.cs" Line="HelpLogic.Start(sb);"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="HelpLogic.Start(sb, GetFileTypeAlgorithm(p => p.HelpImagesFolder));"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Help\Signum.Help.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Help\Signum.Help.csproj"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as HelpClient from &quot;@extensions/Signum.Help/HelpClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="HelpClient.start({ routes, markdownToHtml: str => str });"/>
+			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Help*/" To="public string HelpImagesFolder { get; set; }"/>
 		</Module>
 
 		<Module Name="PublicAPI">
