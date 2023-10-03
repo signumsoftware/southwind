@@ -14,7 +14,7 @@ public static class Northwind
                 return connector;
 
             var northwindConnectionString = Program.Configuration.GetConnectionString("NorthwindConnectionString")!;
-            return connector = new SqlServerConnector(northwindConnectionString, new SchemaBuilder(false).Schema, SqlServerVersion.SqlServer2012);
+            return connector = new SqlServerConnector(northwindConnectionString, new SchemaBuilder().Schema, SqlServerVersion.SqlServer2012);
         }
     }
 }

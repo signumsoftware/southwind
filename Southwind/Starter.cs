@@ -282,7 +282,7 @@ public static partial class Starter
 
     public class CustomSchemaBuilder : SchemaBuilder
     {
-        public CustomSchemaBuilder() : base(true)
+        public CustomSchemaBuilder()
         {
         }
 

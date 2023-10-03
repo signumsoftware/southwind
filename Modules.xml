@@ -608,6 +608,9 @@
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as HelpClient from &quot;@extensions/Signum.Help/HelpClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="HelpClient.start({ routes, markdownToHtml: str => str });"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Help*/" To="public string HelpImagesFolder { get; set; }"/>
+			<RemoveLine DependsOn="RestLog" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="HelpImagesFolder = localPrefix + @&quot;help-image&quot;,"/>
+			<RemoveLine DependsOn="RestLog" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="HelpImagesFolder = localPrefix + @&quot;help-image&quot;,"/>
+
 		</Module>
 
 		<Module Name="PublicAPI">

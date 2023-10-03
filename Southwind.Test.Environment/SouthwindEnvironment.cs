@@ -280,6 +280,7 @@ public static class SouthwindEnvironment
                 ViewLogFolder = localPrefix + @"view-logs",
                 EmailMessageFolder = localPrefix + @"email-messages",
                 RestLogFolder = localPrefix + @"rest-logs",
+                HelpImagesFolder = localPrefix + @"help-image",
             },
             Translation = new TranslationConfigurationEmbedded
             {
