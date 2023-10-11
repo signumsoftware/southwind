@@ -490,7 +490,7 @@
 			<RemoveLine Path="Southwind\Layout.tsx" Line="const AlertDropdown = React.lazy(() => import(&quot;@extensions/Signum.Alerts/AlertDropdown&quot;));"/>
 			<RemoveLine Path="Southwind\Layout.tsx" Line="{hasUser &amp;&amp; &lt;React.Suspense fallback={null}>&lt;AlertDropdown />&lt;/React.Suspense>}"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as AlertsClient from &quot;@extensions/Signum.Alerts/AlertsClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AlertsClient.start({ routes, showAlerts: type => false });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AlertsClient.start({ routes, showAlerts: a => false });"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Alerts\Signum.Alerts.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Alerts\Signum.Alerts.csproj"/>
 		</Module>
@@ -515,7 +515,8 @@
 			<RemoveSpanInLines Path="Southwind\Starter.cs" Span=", /*Note*/typeof(OrderEntity)" DependsOn="ExampleEntities" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((NoteEntity n) => n.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Notes\Signum.Notes.csproj&quot; />"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="NotesClient.start({ routes, couldHaveNotes: type => false });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as NotesClient from &quot;@extensions/Signum.Notes/NotesClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="NotesClient.start({ routes, couldHaveNotes: a => false });"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Notes\Signum.Notes.csproj"/>
 		</Module>
 

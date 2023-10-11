@@ -83,8 +83,8 @@ export function startFull(routes: RouteObject[]) {
   PredictorClient.start({ routes });
   ToolbarClient.start({ routes });
   RestClient.start({ routes });
-  NotesClient.start({ routes, couldHaveNotes: type => false });
-  AlertsClient.start({ routes, showAlerts: type => false });
+  AlertsClient.start({ routes, showAlerts: a => false });
+  NotesClient.start({ routes, couldHaveNotes: a => false });
   ConcurrentUserClient.start({ routes });
 
   EvalClient.start({ routes });
