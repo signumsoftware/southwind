@@ -127,3 +127,4 @@ Upgrade_20231024_VisualTip
 Upgrade_20231030_AbstractIcons
 Upgrade_20231102_NodeScript
 Upgrade_20231108_TruncDateTime
+Upgrade_20231122_DotNet8
