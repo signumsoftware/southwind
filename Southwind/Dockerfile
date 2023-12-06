@@ -8,7 +8,9 @@ WORKDIR /src
 
 ## RUN apt-get update
 RUN apt-get -y install curl
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -SLO https://deb.nodesource.com/nsolid_setup_deb.sh
+RUN chmod 500 nsolid_setup_deb.sh
+RUN ./nsolid_setup_deb.sh 21
 RUN apt-get install -y nodejs
 RUN npm install -g yarn
 

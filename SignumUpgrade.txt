@@ -125,3 +125,4 @@ Upgrade_20231013_AutoLine
 Upgrade_20231023_RenameNoOne
 Upgrade_20231024_VisualTip
 Upgrade_20231030_AbstractIcons
+Upgrade_20231102_NodeScript
