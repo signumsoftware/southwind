@@ -38,7 +38,7 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
         estimation != null &&
         <div className={ctx.inputGroupClass} id={id}>
           <span className="input-group-text">
-            <FontAwesomeIcon icon={["far", "lightbulb"]} />
+            <FontAwesomeIcon icon={"lightbulb"} />
           </span>
           <div className={classes(ctx.formControlClass, "readonly numeric")} style={{ color: color && color.toString() }}>
             {estimation}
