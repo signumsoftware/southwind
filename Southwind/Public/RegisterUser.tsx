@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import { RegisterUserModel, RegisterUserMessage } from './Southwind.Public'
 import * as PublicClient from './PublicClient'
-import { ValueLine } from '@framework/Lines/ValueLine'
+import { AutoLine } from '@framework/Lines/AutoLine'
 import { FormGroup } from '@framework/Lines/FormGroup'
 import { FormControlReadonly } from '@framework/Lines/FormControlReadonly'
 import { useAPI, useForceUpdate } from '@framework/Hooks'
@@ -84,18 +84,18 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
         }
         <div className="row">
           <div className="col-sm-4">
-            <ValueLine ctx={ctx.subCtx(r => r.titleOfCourtesy)} valueLineType="DropDownList" optionItems={["Mr.", "Ms."]} />
+            <EnumLine ctx={ctx.subCtx(r => r.titleOfCourtesy)} valueLineType="DropDownList" optionItems={["Mr.", "Ms."]} />
           </div>
           <div className="col-sm-4">
-            <ValueLine ctx={ctx.subCtx(r => r.firstName)} />
+            <AutoLine ctx={ctx.subCtx(r => r.firstName)} />
           </div>
           <div className="col-sm-4">
-            <ValueLine ctx={ctx.subCtx(r => r.lastName)} />
+            <AutoLine ctx={ctx.subCtx(r => r.lastName)} />
           </div>
         </div>
         <Address ctx={ctx.subCtx(a => a.address)} inheritStyle />
-        <ValueLine ctx={ctx.subCtx(r => r.eMail)} />
-        <ValueLine ctx={ctx.subCtx(r => r.username)} />
+        <AutoLine ctx={ctx.subCtx(r => r.eMail)} />
+        <AutoLine ctx={ctx.subCtx(r => r.username)} />
         <DoublePassword ctx={ctx.subCtx(r => r.password)} initialOpen mandatory />
         <ValidationErrors entity={ctx.value} prefix="" />
         <div className="mt-4 d-flex">

@@ -121,3 +121,4 @@ Upgrade_20230829_UpdateNPMPackages
 Upgrade_20230830_ToISO
 Upgrade_20230912_isPermissionAuthorized
 Upgrade_20230912_UpdateNugets7
+Upgrade_20231013_AutoLine

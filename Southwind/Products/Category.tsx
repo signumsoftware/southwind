@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ValueLine, TypeContext } from '@framework/Lines'
+import { AutoLine, TypeContext } from '@framework/Lines'
 import { FileLine } from '@extensions/Signum.Files/Files'
 import { useForceUpdate } from '@framework/Hooks'
 import { CategoryEntity } from './Southwind.Products';
@@ -14,8 +14,8 @@ export default function Category(p : { ctx: TypeContext<CategoryEntity> }){
         {ctx.value.picture && <img style={maxDimensions} src={"data:image/jpeg;base64," + ctx.value.picture.binaryFile} />}
       </div>{/*photo*/}
       <div className="col-sm-9">
-        <ValueLine ctx={ctx.subCtx(c => c.categoryName)} />
-        <ValueLine ctx={ctx.subCtx(c => c.description)} />
+        <AutoLine ctx={ctx.subCtx(c => c.categoryName)} />
+        <AutoLine ctx={ctx.subCtx(c => c.description)} />
         <FileLine ctx={ctx.subCtx(c => c.picture)} onChange={() => forceUpdate()} />
       </div>
     </div>

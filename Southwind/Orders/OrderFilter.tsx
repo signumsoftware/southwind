@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ISimpleFilterBuilder, FilterOption, FindOptions, FindOptionsParsed, FilterOperation, FilterOptionParsed, extractFilterValue } from '@framework/Search'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
+import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
 import { OrderFilterModel } from './Southwind.Orders';
 
 export default class OrderFilter extends React.Component<{ ctx: TypeContext<OrderFilterModel> }> implements ISimpleFilterBuilder {
@@ -12,11 +12,11 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
         <div className="row">
           <div className="col-sm-6">
             <EntityCombo ctx={ctx.subCtx(o => o.customer)} />
-            <ValueLine ctx={ctx.subCtx(o => o.minOrderDate)} />
+            <AutoLine ctx={ctx.subCtx(o => o.minOrderDate)} />
           </div>
           <div className="col-sm-6">
             <EntityLine ctx={ctx.subCtx(o => o.employee)} />
-            <ValueLine ctx={ctx.subCtx(o => o.maxOrderDate)} />
+            <AutoLine ctx={ctx.subCtx(o => o.maxOrderDate)} />
           </div>
         </div>
       </div>

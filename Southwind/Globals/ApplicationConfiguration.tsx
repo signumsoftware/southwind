@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, RenderEntity } from '@framework/Lines'
+import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, RenderEntity } from '@framework/Lines'
 import { Tabs, Tab } from 'react-bootstrap';
 import { ApplicationConfigurationEntity } from './Southwind.Globals';
 
@@ -7,7 +7,7 @@ export default function ApplicationConfiguration(p : { ctx: TypeContext<Applicat
   const ctx = p.ctx;
   return (
     <div>
-      <ValueLine ctx={ctx.subCtx(a => a.environment)} />
+      <AutoLine ctx={ctx.subCtx(a => a.environment)} />
       <Tabs id="appTabs">
         <Tab eventKey="tab" title={ctx.niceName(a => a.email)}>
           <RenderEntity ctx={ctx.subCtx(a => a.email)} />
