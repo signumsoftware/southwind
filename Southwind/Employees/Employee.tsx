@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityCheckboxList } from '@framework/Lines'
+import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityCheckboxList, TextAreaLine } from '@framework/Lines'
 import { FileLine } from '@extensions/Signum.Files/Files'
 import { useForceUpdate } from '@framework/Hooks'
 import { useFetchInState } from '@framework/Navigator'
@@ -51,7 +51,7 @@ export default function Employee(p : { ctx: TypeContext<EmployeeEntity> }){
         {photo && <img className="img-responsive" src={"data:image/jpeg;base64," + photo.binaryFile} />}
         {/*photo*/}
         <div>
-          <AutoLine ctx={ctx.subCtx(e => e.notes, { formGroupStyle: "Basic" })} valueHtmlAttributes={{ rows: 10, className: "notes" }} />
+          <TextAreaLine ctx={ctx.subCtx(e => e.notes, { formGroupStyle: "Basic" })} valueHtmlAttributes={{ rows: 10, className: "notes" }} />
         </div>
       </div>
     </div>

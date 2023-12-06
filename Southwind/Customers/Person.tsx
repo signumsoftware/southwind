@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
+import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, CheckboxLine } from '@framework/Lines'
 import SearchControl from '@framework/SearchControl/SearchControl';
 import * as Reflection from '@framework/Reflection';
 import { OrderEntity } from '../Orders/Southwind.Orders';

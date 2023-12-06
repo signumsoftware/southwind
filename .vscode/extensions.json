@@ -1,9 +1,8 @@
 {
   "recommendations": [
-    "ms-dotnettools.csharp",
-    "EditorConfig.EditorConfig",
-    "formulahendry.auto-rename-tag",
-    "formulahendry.dotnet-test-explorer",
-    "vscode-icons-team.vscode-icons"
+    "ms-dotnettools.csdevkit"
+	"ms-dotnettools.csharp",
+	"ms-dotnettools.vscode-dotnet-runtime",
+	"ms-dotnettools.vscodeintellicode-csharp"
   ]
 }

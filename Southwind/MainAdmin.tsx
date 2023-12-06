@@ -59,7 +59,7 @@ export function startFull(routes: RouteObject[]) {
   QuickLinks.start();
 
   AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
-  ActiveDirectoryClient.start({ routes, adGroups: false });
+  ActiveDirectoryClient.start({ routes, adGroups: false, cachedProfilePhoto: false });
 
   ExceptionClient.start({ routes });
   VisualTipClient.start({ routes });

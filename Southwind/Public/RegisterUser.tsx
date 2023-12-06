@@ -17,6 +17,7 @@ import { ifError } from '@framework/Globals'
 import { GraphExplorer } from '@framework/Reflection'
 import { ValidationErrors } from '@framework/Frames/ValidationErrors'
 import Address from '../Customers/Address'
+import { EnumLine } from '@framework/Lines'
 
 export default function RegisterUser() {
   const params = useParams() as { reportsToEmployeeId: string };
@@ -84,7 +85,7 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
         }
         <div className="row">
           <div className="col-sm-4">
-            <EnumLine ctx={ctx.subCtx(r => r.titleOfCourtesy)} valueLineType="DropDownList" optionItems={["Mr.", "Ms."]} />
+            <EnumLine ctx={ctx.subCtx(r => r.titleOfCourtesy)} optionItems={["Mr.", "Ms."]} />
           </div>
           <div className="col-sm-4">
             <AutoLine ctx={ctx.subCtx(r => r.firstName)} />

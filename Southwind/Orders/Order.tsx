@@ -2,7 +2,7 @@ import * as React from 'react'
 import { DateTime } from 'luxon'
 import { Dic } from '@framework/Globals'
 import * as Navigator from '@framework/Navigator'
-import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlReadonly, EntityTable, ChangeEvent } from '@framework/Lines'
+import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlReadonly, EntityTable, ChangeEvent, EnumLine } from '@framework/Lines'
 import { useForceUpdate } from '@framework/Hooks'
 import { getMixin } from '@framework/Signum.Entities'
 import { toNumberFormat } from '@framework/Reflection'
@@ -45,7 +45,7 @@ export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
         <div className="col-sm-6">
           <AutoLine ctx={ctx4.subCtx(o => o.shipName)} />
           {ctx2.value.isLegacy && <AutoLine ctx={ctx4.subCtx(o => o.isLegacy)} />}
-          <AutoLine ctx={ctx4.subCtx(o => o.state)} valueHtmlAttributes={{ style: { color: stateColor(o.state) } }} />
+          <EnumLine ctx={ctx4.subCtx(o => o.state)} valueHtmlAttributes={{ style: { color: stateColor(o.state) } }} />
           <AutoLine ctx={ctx4.subCtx(o => o.orderDate)} helpText={ago(o.orderDate)} />
           <AutoLine ctx={ctx4.subCtx(o => o.requiredDate)} helpText={ago(o.requiredDate)} onChange={() => forceUpdate()} />
           <AutoLine ctx={ctx4.subCtx(o => o.shippedDate)} helpText={ago(o.shippedDate)} hideIfNull={true} />
