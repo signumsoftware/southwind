@@ -123,3 +123,4 @@ Upgrade_20230912_isPermissionAuthorized
 Upgrade_20230912_UpdateNugets7
 Upgrade_20231013_AutoLine
 Upgrade_20231023_RenameNoOne
+Upgrade_20231024_VisualTip

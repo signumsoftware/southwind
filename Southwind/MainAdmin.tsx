@@ -6,6 +6,7 @@ import * as QuickLinks from "@framework/QuickLinks"
 
 
 import * as ExceptionClient from "@framework/Exceptions/ExceptionClient"
+import * as VisualTipClient from "@framework/Basics/VisualTipClient"
 import * as AuthAdminClient from "@extensions/Signum.Authorization/AuthAdminClient"
 import * as ActiveDirectoryClient from "@extensions/Signum.Authorization.ActiveDirectory/ActiveDirectoryClient"
 import * as UserQueryClient from "@extensions/Signum.UserQueries/UserQueryClient"
@@ -61,6 +62,7 @@ export function startFull(routes: RouteObject[]) {
   ActiveDirectoryClient.start({ routes, adGroups: false });
 
   ExceptionClient.start({ routes });
+  VisualTipClient.start({ routes });
 
   FilesClient.start({ routes });
   UserQueryClient.start({ routes });
