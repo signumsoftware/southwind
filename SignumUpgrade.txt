@@ -130,3 +130,4 @@ Upgrade_20231108_TruncDateTime
 Upgrade_20231122_DotNet8
 Upgrade_20231206_VSCodeExtensions
 Upgrade_20231212_NugetUpdate
+Upgrade_20231213_ChangeLog
