@@ -1,8 +1,10 @@
 {
   "recommendations": [
-    "ms-dotnettools.csdevkit"
-	"ms-dotnettools.csharp",
-	"ms-dotnettools.vscode-dotnet-runtime",
-	"ms-dotnettools.vscodeintellicode-csharp"
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.csdevkit",
+    "ms-dotnettools.vscode-dotnet-runtime",
+    "ms-dotnettools.vscodeintellicode-csharp",
+    "formulahendry.auto-rename-tag",
+    "vscode-icons-team.vscode-icons"
   ]
 }
