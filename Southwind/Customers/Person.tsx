@@ -4,13 +4,14 @@ import SearchControl from '@framework/SearchControl/SearchControl';
 import * as Reflection from '@framework/Reflection';
 import { OrderEntity } from '../Orders/Southwind.Orders';
 import { PersonEntity } from './Southwind.Customers';
+import { CorruptMixin, getMixin } from '@framework/Signum.Entities';
 
 export default function Person(p : { ctx: TypeContext<PersonEntity> }){
   const ctx = p.ctx;
   const ctxBasic = ctx.subCtx({ formGroupStyle: "Basic" });
   return (
     <div>
-      {ctx.value.corrupt && <CheckboxLine ctx={ctx.subCtx(p => p.corrupt)} inlineCheckbox={true} />}
+      {getMixin(ctx.value, CorruptMixin).corrupt && <CheckboxLine ctx={ctx.subCtx(CorruptMixin).subCtx(p => p.corrupt)} inlineCheckbox={true} />}
       <div className="row">
         <div className="col-sm-2">
           <AutoLine ctx={ctxBasic.subCtx(p => p.title)} />

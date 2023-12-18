@@ -31,7 +31,7 @@ public class EmployeeEntity : Entity
     public string? Extension { get; set; }
 
     public Lite<FileEntity>? Photo { get; set; } //1
-
+  
     [StringLengthValidator(Min = 3, MultiLine = true)]
     public string? Notes { get; set; }
 

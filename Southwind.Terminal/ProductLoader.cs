@@ -31,15 +31,15 @@ internal static class ProductLoader
             CompanyName = s.CompanyName,
             ContactName = s.ContactName,
             ContactTitle = s.ContactTitle,
-            Phone = s.Phone.Replace(".", " "),
+            Phone = s.Phone!.Replace(".", " "),
             Fax = faxDic[s.SupplierID].Replace(".", " "),
             Address = new AddressEmbedded
             {
-                Address = s.Address,
-                City = s.City,
+                Address = s.Address!,
+                City = s.City!,
                 Region = s.Region,
                 PostalCode = s.PostalCode,
-                Country = s.Country
+                Country = s.Country!
             },
         }.SetId(s.SupplierID))
         .BulkInsert(disableIdentity: true);
@@ -52,8 +52,8 @@ internal static class ProductLoader
         category.Select(s => new CategoryEntity
         {
             CategoryName = s.CategoryName,
-            Description = s.Description,
-            Picture = new FileEmbedded { FileName = s.CategoryName + ".jpg", BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture.ToArray()) },
+            Description = s.Description!,
+            Picture = new FileEmbedded { FileName = s.CategoryName + ".jpg", BinaryFile = EmployeeLoader.RemoveOlePrefix(s.Picture!.ToArray()) },
         }.SetId(s.CategoryID))
         .BulkInsert(disableIdentity: true);
     }
@@ -69,7 +69,7 @@ internal static class ProductLoader
                 ProductName = s.ProductName,
                 Supplier = Lite.Create<SupplierEntity>(s.SupplierID!.Value),
                 Category = Lite.Create<CategoryEntity>(s.CategoryID!.Value),
-                QuantityPerUnit = s.QuantityPerUnit,
+                QuantityPerUnit = s.QuantityPerUnit!,
                 UnitPrice = s.UnitPrice!.Value,
                 UnitsInStock = s.UnitsInStock!.Value,
                 ReorderLevel = s.ReorderLevel!.Value,

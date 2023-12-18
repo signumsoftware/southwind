@@ -16,7 +16,7 @@ internal static class OrderLoader
         shippers.Select(s => new ShipperEntity
         {
             CompanyName = s.CompanyName,
-            Phone = s.Phone,
+            Phone = s.Phone!,
         }.SetId(s.ShipperID))
         .BulkInsert(disableIdentity: true);
     }
@@ -38,11 +38,11 @@ internal static class OrderLoader
             ShipName = o.ShipName,
             ShipAddress = new AddressEmbedded
             {
-                Address = o.ShipAddress,
-                City = o.ShipCity,
+                Address = o.ShipAddress!,
+                City = o.ShipCity!,
                 Region = o.ShipRegion,
                 PostalCode = o.ShipPostalCode,
-                Country = o.ShipCountry,
+                Country = o.ShipCountry!,
             },
             Freight = o.Freight!.Value,
             Details = Database.View<NW.OrderDetails>().Where(od => od.OrderID == o.OrderID).Select(od => new OrderDetailEmbedded

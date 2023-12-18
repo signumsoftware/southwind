@@ -31,7 +31,7 @@ public static class ProductsLogic
                 Database.Query<ProductEntity>()
                 .Where(a => !a.Discontinued)
                 .Select(p => new { Category = p.Category.Entity, Product = p })
-                .GroupToDictionary(a => a.Category!, a => a.Product!), /*CSBUG*/
+                .GroupToDictionary(a => a.Category, a => a.Product),
                 new InvalidateWith(typeof(ProductEntity)));
 
             AdditionalInformationKeys = sb.GlobalLazy(() => ActiveProducts.Value.SelectMany(a => a.Value).SelectMany(p => p.AdditionalInformation).Select(ai => ai.Key).ToHashSet(),
