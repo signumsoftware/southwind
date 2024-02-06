@@ -101,6 +101,8 @@ public static partial class Starter
                 Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
             }
 
+            var function = new SqlPartitionFunction("YearFunction", 2020.To(DateTime.Today.Year + 2).Select(i => (object)i));
+            sb.Schema.PartitionSchemes.Add(new SqlPartitionScheme("YearScheme", function));
 
             if (wsb != null)
             {
@@ -311,7 +313,8 @@ public static partial class Starter
     {
         PredictorLogic.IgnorePinned(sb);
 
-        sb.Schema.Settings.TypeAttributes<OrderEntity>().Add(new SystemVersionedAttribute());
+        sb.WithPartition((OrderEntity o) => o.OrderDate.Year);
+
 
         sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((ExceptionEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
@@ -347,6 +350,10 @@ public static partial class Starter
 
     }
 
+    private static void Starter_PreSaving(OrderEntity ident, PreSavingContext ctx)
+    {
+        throw new NotImplementedException();
+    }
 
     private static void SetupCache(SchemaBuilder sb)
     {

@@ -61,7 +61,21 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Employees;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Products;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Shippers;"/>
+			
+			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="using Southwind.Customers;"/>
+			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="using Southwind.Employees;"/>
+			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="using Southwind.Products;"/>
+			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="using Southwind.Shippers;"/>
 
+			<RemoveLine Path="Southwind.Test.Logic/OrderTest.cs" Line="using Southwind.Customers;"/>
+			<RemoveLine Path="Southwind.Test.Logic/OrderTest.cs" Line="using Southwind.Orders;"/>
+			<RemoveLine Path="Southwind.Test.Logic/OrderTest.cs" Line="using Southwind.Products;"/>
+			<RemoveLine Path="Southwind.Test.React/OrderTestReact.cs" Line="using Southwind.Customers;"/>
+			<RemoveLine Path="Southwind.Test.React/OrderTestReact.cs" Line="using Southwind.Orders;"/>
+			<RemoveLine Path="Southwind.Test.React/OrderTestReact.cs" Line="using Southwind.Products;"/>
+
+			
+			
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as CustomersClient from &quot;./Customers/CustomersClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="CustomersClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as EmployeesClient from &quot;./Employees/EmployeesClient&quot;"/>
@@ -234,6 +248,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="ViewLogLogic.Start(sb, new HashSet&lt;Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });"/>
 			<RemoveLine Path="Southwind.Terminal\Toolbar.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Content=&quot;ViewLog&quot; />" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.ViewLog;"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((ViewLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.ViewLog\Signum.ViewLog.csproj&quot; />"/>
 		</Module>
 
@@ -607,7 +622,7 @@
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Help\Signum.Help.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Help\Signum.Help.csproj"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import * as HelpClient from &quot;@extensions/Signum.Help/HelpClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="HelpClient.start({ routes, markdownToHtml: str => str });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="HelpClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Help*/" To="public string HelpImagesFolder { get; set; }"/>
 			<RemoveLine DependsOn="RestLog" Path="Southwind.Terminal\SouthwindMigrations.cs" Line="HelpImagesFolder = localPrefix + @&quot;help-image&quot;,"/>
 			<RemoveLine DependsOn="RestLog" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="HelpImagesFolder = localPrefix + @&quot;help-image&quot;,"/>
@@ -670,6 +685,7 @@
 		<Module Name="Dynamic">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Dynamic;"/>
 			<RemoveLine Path="Southwind\Program.cs" Line="using Signum.Dynamic;"/>
+			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.Dynamic;"/>
 			<RemoveFiles Path="Southwind\DynamicLogicStarter.cs" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="StartParameters.IgnoredDatabaseMismatches = new List&lt;Exception>();"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="StartParameters.IgnoredCodeErrors = new List&lt;Exception>();"/>
@@ -693,6 +709,7 @@
 		<Module Name="Workflow">
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.Workflow;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Workflow;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Workflow;"/>
 			<RemoveSpanInLines Path="Southwind\Starter.cs" Span=", typeof(WorkflowEntity)"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Workflow;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Workflow*/" To="public WorkflowConfigurationEmbedded Workflow { get; set; }"/>
