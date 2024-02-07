@@ -46,7 +46,6 @@ export interface PersonEntity extends CustomerEntity {
   firstName: string;
   lastName: string;
   title: string | null;
-  dateOfBirth: string /*DateTime*/ | null;
-  corrupt: boolean;
+  dateOfBirth: string /*DateOnly*/ | null;
 }
 

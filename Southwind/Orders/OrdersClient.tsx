@@ -8,7 +8,7 @@ import { EntityOperationSettings, ConstructorOperationSettings, ContextualOperat
 import * as Operations from '@framework/Operations'
 
 import { TypeContext } from '@framework/Lines'
-import ValueLineModal from '@framework/ValueLineModal'
+import AutoLineModal from '@framework/AutoLineModal'
 
 import OrderFilter from './OrderFilter'
 import { OrderEntity, OrderOperation, OrderState } from './Southwind.Orders'
@@ -58,7 +58,7 @@ export function start(options: { routes: RouteObject[] }) {
       .then(c => c && coc.defaultClick(c))
   }));
 
-  const selectShippedDate = (e?: OrderEntity) => ValueLineModal.show({
+  const selectShippedDate = (e?: OrderEntity) => AutoLineModal.show({
     member: OrderEntity.memberInfo(a => a.shippedDate),
     initialValue: e?.requiredDate ?? DateTime.local().toISO()!,
     modalSize: "sm"

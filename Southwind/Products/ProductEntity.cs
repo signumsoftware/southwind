@@ -51,6 +51,7 @@ public class ProductEntity : Entity
     [NoRepeatValidator]
     public MList<AdditionalInformationEmbedded> AdditionalInformation { get; set; } = new MList<AdditionalInformationEmbedded>();
 
+
     [AutoExpressionField]
     public override string ToString() => As.Expression(() => ProductName);
 }

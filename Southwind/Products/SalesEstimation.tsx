@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '@framework/Lines'
+import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '@framework/Lines'
 import * as Finder from '@framework/Finder';
 import { is, liteKey } from '@framework/Signum.Entities';
 import { ajaxPost } from '@framework/Services';
@@ -38,7 +38,7 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
         estimation != null &&
         <div className={ctx.inputGroupClass} id={id}>
           <span className="input-group-text">
-            <FontAwesomeIcon icon={["far", "lightbulb"]} />
+            <FontAwesomeIcon icon={"lightbulb"} />
           </span>
           <div className={classes(ctx.formControlClass, "readonly numeric")} style={{ color: color && color.toString() }}>
             {estimation}

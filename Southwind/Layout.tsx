@@ -18,6 +18,7 @@ import { ModelConverterSymbol } from '@extensions/Signum.Templating/Signum.Templ
 
 const ToolbarRenderer = React.lazy(() => import("@extensions/Signum.Toolbar/Renderers/ToolbarRenderer"));
 const OmniboxAutocomplete = React.lazy(() => import('@extensions/Signum.Omnibox/OmniboxAutocomplete'));
+const ChangeLogViewer = React.lazy(() => import('@framework/Basics/ChangeLogViewer'));
 const AlertDropdown = React.lazy(() => import("@extensions/Signum.Alerts/AlertDropdown"));
 
 export default function Layout() {
@@ -106,7 +107,7 @@ export default function Layout() {
 
               <div className="navbar-nav ml-auto">
                 {hasUser && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
-                <VersionInfo extraInformation={(window as any).__serverName} />
+                <React.Suspense fallback={null}><ChangeLogViewer extraInformation={(window as any).__serverName} /></React.Suspense>
                 <Nav.Item> {/*Swagger*/}
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
                 </Nav.Item> {/*Swagger*/}

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { DateTime } from 'luxon'
 import { Dic } from '@framework/Globals'
 import * as Navigator from '@framework/Navigator'
-import { ValueLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlReadonly, EntityTable, ChangeEvent } from '@framework/Lines'
+import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlReadonly, EntityTable, ChangeEvent, EnumLine } from '@framework/Lines'
 import { useForceUpdate } from '@framework/Hooks'
 import { getMixin } from '@framework/Signum.Entities'
 import { toNumberFormat } from '@framework/Reflection'
@@ -43,25 +43,25 @@ export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
           <EntityDetail ctx={ctx2.subCtx(o => o.shipAddress)} />
         </div>
         <div className="col-sm-6">
-          <ValueLine ctx={ctx4.subCtx(o => o.shipName)} />
-          {ctx2.value.isLegacy && <ValueLine ctx={ctx4.subCtx(o => o.isLegacy)} />}
-          <ValueLine ctx={ctx4.subCtx(o => o.state)} valueHtmlAttributes={{ style: { color: stateColor(o.state) } }} />
-          <ValueLine ctx={ctx4.subCtx(o => o.orderDate)} helpText={ago(o.orderDate)} />
-          <ValueLine ctx={ctx4.subCtx(o => o.requiredDate)} helpText={ago(o.requiredDate)} onChange={() => forceUpdate()} />
-          <ValueLine ctx={ctx4.subCtx(o => o.shippedDate)} helpText={ago(o.shippedDate)} hideIfNull={true} />
-          <ValueLine ctx={ctx4.subCtx(o => o.cancelationDate)} helpText={ago(o.cancelationDate)} hideIfNull={true} />
+          <AutoLine ctx={ctx4.subCtx(o => o.shipName)} />
+          {ctx2.value.isLegacy && <AutoLine ctx={ctx4.subCtx(o => o.isLegacy)} />}
+          <EnumLine ctx={ctx4.subCtx(o => o.state)} valueHtmlAttributes={{ style: { color: stateColor(o.state) } }} />
+          <AutoLine ctx={ctx4.subCtx(o => o.orderDate)} helpText={ago(o.orderDate)} />
+          <AutoLine ctx={ctx4.subCtx(o => o.requiredDate)} helpText={ago(o.requiredDate)} onChange={() => forceUpdate()} />
+          <AutoLine ctx={ctx4.subCtx(o => o.shippedDate)} helpText={ago(o.shippedDate)} hideIfNull={true} />
+          <AutoLine ctx={ctx4.subCtx(o => o.cancelationDate)} helpText={ago(o.cancelationDate)} hideIfNull={true} />
           <EntityCombo ctx={ctx4.subCtx(o => o.shipVia)} />
         </div>
       </div>
       <EntityTable ctx={ctx2.subCtx(o => o.details)} onChange={() => forceUpdate()} columns={EntityTable.typedColumns<OrderDetailEmbedded>([
         { property: a => a.product, headerHtmlAttributes: { style: { width: "35%" } }, template: dc => <EntityLine ctx={dc.subCtx(a => a.product)} onChange={() => handleProductChange(dc.value)} /> },
-        { property: a => a.quantity, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.quantity)} onChange={() => forceUpdate()} /> },
-        { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
-        { property: a => a.discount, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <ValueLine ctx={dc.subCtx(a => a.discount)} onChange={() => forceUpdate()} /> },
+        { property: a => a.quantity, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <AutoLine ctx={dc.subCtx(a => a.quantity)} onChange={() => forceUpdate()} /> },
+        { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <AutoLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
+        { property: a => a.discount, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <AutoLine ctx={dc.subCtx(a => a.discount)} onChange={() => forceUpdate()} /> },
         {
           header: ctx2.propertyRoute?.addLambda((o: OrderEntity) => o.details[0].element).addMixin(OrderDetailMixin, a => a.discountCode).member!.niceName,
           headerHtmlAttributes: { style: { width: "15%" } },
-          template: dc => <ValueLine ctx={dc.subCtx(OrderDetailMixin).subCtx(a => a.discountCode)} onChange={() => forceUpdate()} />
+          template: dc => <AutoLine ctx={dc.subCtx(OrderDetailMixin).subCtx(a => a.discountCode)} onChange={() => forceUpdate()} />
         },
         {
           header: OrderMessage.SubTotalPrice.niceToString(), headerHtmlAttributes: { style: { width: "10%" } },
@@ -82,7 +82,7 @@ export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
           <EntityLine ctx={ctx4.subCtx(o => o.employee)} />
         </div>
         <div className="col-sm-4">
-          <ValueLine ctx={ctx4.subCtx(o => o.freight)} />
+          <AutoLine ctx={ctx4.subCtx(o => o.freight)} />
         </div>
         <div className="col-sm-4">
           <FormGroup ctx={ctx4} label={OrderMessage.TotalPrice.niceToString()}>

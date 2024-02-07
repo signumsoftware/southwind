@@ -1,9 +1,10 @@
 {
   "recommendations": [
     "ms-dotnettools.csharp",
-    "EditorConfig.EditorConfig",
+    "ms-dotnettools.csdevkit",
+    "ms-dotnettools.vscode-dotnet-runtime",
+    "ms-dotnettools.vscodeintellicode-csharp",
     "formulahendry.auto-rename-tag",
-    "formulahendry.dotnet-test-explorer",
     "vscode-icons-team.vscode-icons"
   ]
 }

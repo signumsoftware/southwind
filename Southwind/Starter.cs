@@ -130,6 +130,8 @@ public static partial class Starter
 
             OperationLogic.Start(sb);
             ExceptionLogic.Start(sb);
+            ChangeLogLogic.Start(sb);
+            VisualTipLogic.Start(sb);
             QueryLogic.Start(sb);
 
             PermissionLogic.Start(sb);
@@ -319,6 +321,8 @@ public static partial class Starter
         sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((ExceptionEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((OperationLogEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+        sb.Schema.Settings.FieldAttributes((ChangeLogViewLogEntity cl) => cl.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
+        sb.Schema.Settings.FieldAttributes((VisualTipConsumedEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((SystemEventLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((UserQueryEntity uq) => uq.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
         sb.Schema.Settings.FieldAttributes((UserChartEntity uc) => uc.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));

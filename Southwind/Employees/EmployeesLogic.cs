@@ -26,6 +26,7 @@ public static class EmployeesLogic
                     e.Photo, //1
                 });
 
+
             Lite.RegisterLiteModelConstructor((EmployeeEntity e) => new EmployeeLiteModel
             {
                 FirstName = e.FirstName,

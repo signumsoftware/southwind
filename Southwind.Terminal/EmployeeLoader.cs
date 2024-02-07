@@ -57,12 +57,12 @@ internal static class EmployeeLoader
                 HomePhone = e.HomePhone,
                 Extension = e.Extension,
                 HireDate = e.HireDate.ToDateOnly(),
-                Photo = new FileEntity { FileName = e.PhotoPath.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo.ToArray()) }.ToLiteFat(),
+                Photo = new FileEntity { FileName = e.PhotoPath!.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo!.ToArray()) }.ToLiteFat(),
                 Address = new AddressEmbedded
                 {
-                    Address = e.Address,
-                    City = e.City,
-                    Country = e.Country,
+                    Address = e.Address!,
+                    City = e.City!,
+                    Country = e.Country!,
                     Region = e.Region,
                     PostalCode = e.PostalCode,
                 },
@@ -75,9 +75,9 @@ internal static class EmployeeLoader
         })
         .ToList());
 
-        Administrator.SaveListDisableIdentity(employees.Select(a=>a.employee!)); /*CSBUG*/
+        Administrator.SaveListDisableIdentity(employees.Select(a=>a.employee)); 
 
-        var dictionary = employees.Select(a => a.employee!).ToDictionary(a => a.Id); /*CSBUG*/
+        var dictionary = employees.Select(a => a.employee).ToDictionary(a => a.Id); 
 
         foreach (var pair in employees)
         {
