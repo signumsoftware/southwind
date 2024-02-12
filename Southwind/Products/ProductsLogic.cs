@@ -2,8 +2,8 @@ namespace Southwind.Products;
 
 public static class ProductsLogic
 {
-    public static ResetLazy<Dictionary<CategoryEntity, List<ProductEntity>>> ActiveProducts = null!;
-    public static ResetLazy<HashSet<string>> AdditionalInformationKeys = null!;
+    public static ResetLazy<FrozenDictionary<CategoryEntity, List<ProductEntity>>> ActiveProducts = null!;
+    public static ResetLazy<FrozenSet<string>> AdditionalInformationKeys = null!;
 
     public static void Start(SchemaBuilder sb)
     {

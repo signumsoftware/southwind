@@ -133,3 +133,4 @@ Upgrade_20231212_NugetUpdate
 Upgrade_20231213_ChangeLog
 Upgrade_20240116_UpdateNugets
 Upgrade_20240124_OfficialSqlTypes
+Upgrade_20240208_Frozen
