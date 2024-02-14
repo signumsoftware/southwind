@@ -131,3 +131,4 @@ Upgrade_20231122_DotNet8
 Upgrade_20231206_VSCodeExtensions
 Upgrade_20231212_NugetUpdate
 Upgrade_20231213_ChangeLog
+Upgrade_20240116_UpdateNugets
