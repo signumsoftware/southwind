@@ -92,12 +92,12 @@ public static partial class Starter
 
             if (!isPostgres)
             {
-                var sqlVersion = wsb == null ? SqlServerVersionDetector.Detect(connectionString) : SqlServerVersion.AzureSQL;
-                Connector.Default = new SqlServerConnector(connectionString, sb.Schema, sqlVersion!.Value);
+                var sqlVersion = SqlServerVersionDetector.Detect(connectionString, SqlServerVersion.AzureSQL);
+                Connector.Default = new SqlServerConnector(connectionString, sb.Schema, sqlVersion);
             }
             else
             {
-                var postgreeVersion = wsb == null ? PostgresVersionDetector.Detect(connectionString) : null;
+                var postgreeVersion = PostgresVersionDetector.Detect(connectionString, null);
                 Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
             }
 
@@ -317,6 +317,7 @@ public static partial class Starter
 
         sb.WithPartition((OrderEntity o) => o.OrderDate.Year);
 
+        sb.Schema.Settings.TypeAttributes<OrderEntity>().Add(new SystemVersionedAttribute());
 
         sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));
         sb.Schema.Settings.FieldAttributes((ExceptionEntity ua) => ua.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));

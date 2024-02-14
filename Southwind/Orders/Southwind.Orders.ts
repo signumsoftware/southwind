@@ -67,11 +67,12 @@ export module OrderMessage {
 
 export module OrderOperation {
   export const Create : Operations.ConstructSymbol_Simple<OrderEntity> = registerSymbol("Operation", "OrderOperation.Create");
+  export const CreateOrderFromCustomer : Operations.ConstructSymbol_From<OrderEntity, Customers.CustomerEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromCustomer");
+  export const Clone : Operations.ConstructSymbol_From<OrderEntity, OrderEntity> = registerSymbol("Operation", "OrderOperation.Clone");
+  export const CreateOrderFromProducts : Operations.ConstructSymbol_FromMany<OrderEntity, Products.ProductEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromProducts");
   export const Save : Operations.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Save");
   export const Ship : Operations.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Ship");
   export const Cancel : Operations.ExecuteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Cancel");
-  export const CreateOrderFromCustomer : Operations.ConstructSymbol_From<OrderEntity, Customers.CustomerEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromCustomer");
-  export const CreateOrderFromProducts : Operations.ConstructSymbol_FromMany<OrderEntity, Products.ProductEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromProducts");
   export const Delete : Operations.DeleteSymbol<OrderEntity> = registerSymbol("Operation", "OrderOperation.Delete");
   export const CancelWithProcess : Operations.ConstructSymbol_FromMany<Processes.ProcessEntity, OrderEntity> = registerSymbol("Operation", "OrderOperation.CancelWithProcess");
 }

@@ -57,9 +57,6 @@ public static class SouthwindMigrations
             ImportPredictor,
             InitialAuthRulesImport,
 
-            ToolbarLogic.UpdateToolbarIconNameInDB,
-            DashboardLogic.UpdateDashboardIconNameInDB,
-
         }.Run(autoRun);
     } //CSharpMigrations
 

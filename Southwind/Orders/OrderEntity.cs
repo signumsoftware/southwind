@@ -128,11 +128,12 @@ public enum OrderState
 public static class OrderOperation
 {
     public static ConstructSymbol<OrderEntity>.Simple Create;
+    public static ConstructSymbol<OrderEntity>.From<CustomerEntity> CreateOrderFromCustomer;
+    public static ConstructSymbol<OrderEntity>.From<OrderEntity> Clone;
+    public static ConstructSymbol<OrderEntity>.FromMany<ProductEntity> CreateOrderFromProducts;
     public static ExecuteSymbol<OrderEntity> Save;
     public static ExecuteSymbol<OrderEntity> Ship;
     public static ExecuteSymbol<OrderEntity> Cancel;
-    public static ConstructSymbol<OrderEntity>.From<CustomerEntity> CreateOrderFromCustomer;
-    public static ConstructSymbol<OrderEntity>.FromMany<ProductEntity> CreateOrderFromProducts;
     public static DeleteSymbol<OrderEntity> Delete;
 
     public static ConstructSymbol<ProcessEntity>.FromMany<OrderEntity> CancelWithProcess;
