@@ -1,3 +1,5 @@
+using System.Collections.Frozen;
+
 namespace Southwind.Products;
 
 public static class ProductsLogic
@@ -31,10 +33,10 @@ public static class ProductsLogic
                 Database.Query<ProductEntity>()
                 .Where(a => !a.Discontinued)
                 .Select(p => new { Category = p.Category.Entity, Product = p })
-                .GroupToDictionary(a => a.Category, a => a.Product),
+                .GroupToDictionary(a => a.Category, a => a.Product).ToFrozenDictionary(),
                 new InvalidateWith(typeof(ProductEntity)));
 
-            AdditionalInformationKeys = sb.GlobalLazy(() => ActiveProducts.Value.SelectMany(a => a.Value).SelectMany(p => p.AdditionalInformation).Select(ai => ai.Key).ToHashSet(),
+            AdditionalInformationKeys = sb.GlobalLazy(() => ActiveProducts.Value.SelectMany(a => a.Value).SelectMany(p => p.AdditionalInformation).Select(ai => ai.Key).ToFrozenSet(),
                 new InvalidateWith(typeof(ProductEntity)));
 
             QueryLogic.Queries.Register(ProductQuery.CurrentProducts, () =>
