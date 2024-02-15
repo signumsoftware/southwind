@@ -5,12 +5,12 @@ import { PredictorEntity } from '@extensions/Signum.MachineLearning/Signum.Machi
 import SalesEstimation from './SalesEstimation';
 import { ProductEntity } from './Southwind.Products';
 
-export default function Product(p : { ctx: TypeContext<ProductEntity> }){
+export default function Product(p: { ctx: TypeContext<ProductEntity> }) {
   const ctx = p.ctx;
   return (
     <div>
       <AutoLine ctx={ctx.subCtx(p => p.productName)} />
-      <EntityCombo ctx={ctx.subCtx(p => p.supplier)} />
+      <AutoLine ctx={ctx.subCtx(p => p.supplier)} />
       <EntityLine ctx={ctx.subCtx(p => p.category)} />
       <AutoLine ctx={ctx.subCtx(p => p.quantityPerUnit)} />
       <AutoLine ctx={ctx.subCtx(p => p.unitPrice)} />
@@ -18,7 +18,7 @@ export default function Product(p : { ctx: TypeContext<ProductEntity> }){
       {!ctx.value.isNew && <SalesEstimation ctx={ctx} />}
       <AutoLine ctx={ctx.subCtx(p => p.reorderLevel)} />
       <AutoLine ctx={ctx.subCtx(p => p.discontinued)} />
-      <EntityTable ctx={ctx.subCtx(p => p.additionalInformation)} />
+      <AutoLine ctx={ctx.subCtx(p => p.additionalInformation)} />
     </div>
   );
 }

@@ -53,7 +53,7 @@ export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
           <EntityCombo ctx={ctx4.subCtx(o => o.shipVia)} />
         </div>
       </div>
-      <EntityTable ctx={ctx2.subCtx(o => o.details)} onChange={() => forceUpdate()} columns={EntityTable.typedColumns<OrderDetailEmbedded>([
+      <EntityTable ctx={ctx2.subCtx(o => o.details)} onChange={() => forceUpdate()} columns={[
         { property: a => a.product, headerHtmlAttributes: { style: { width: "35%" } }, template: dc => <EntityLine ctx={dc.subCtx(a => a.product)} onChange={() => handleProductChange(dc.value)} /> },
         { property: a => a.quantity, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <AutoLine ctx={dc.subCtx(a => a.quantity)} onChange={() => forceUpdate()} /> },
         { property: a => a.unitPrice, headerHtmlAttributes: { style: { width: "10%" } }, template: dc => <AutoLine ctx={dc.subCtx(a => a.unitPrice)} readOnly={true} /> },
@@ -76,7 +76,7 @@ export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
               }
             </FormGroup>
         },
-      ])} />
+      ]} />
       <div className="row">
         <div className="col-sm-4">
           <EntityLine ctx={ctx4.subCtx(o => o.employee)} />
