@@ -116,6 +116,40 @@ public static class OrdersLogic
                 }
             }.Register();
 
+            new ConstructFrom<OrderEntity>(OrderOperation.Clone)
+            {
+                CanConstructExpression = o => o.State.InState(OrderState.Shipped),
+                ToStates = { OrderState.Ordered },
+                ResultIsSaved = true,
+                Construct = (o, _) =>
+                {
+
+                    var currentPrices = o.InDB()
+                        .SelectMany(a => a.Details)
+                        .Select(a => a.Product)
+                        .Distinct()
+                        .Select(p => KeyValuePair.Create(p, p.Entity.UnitPrice))
+                        .ToDictionaryEx();
+
+                    return new OrderEntity
+                    {
+                        State = OrderState.Ordered,
+                        Customer = o.Customer,
+                        Employee = EmployeeEntity.Current!,
+                        ShipAddress = o.ShipAddress.Clone(),
+                        RequiredDate = DateTime.Now.AddDays(3),
+                        OrderDate = DateTime.Now,
+                        Details = o.Details.Select(c => new OrderDetailEmbedded
+                        {
+                            Product = c.Product,
+                            Discount = 0,
+                            Quantity = c.Quantity,
+                            UnitPrice = currentPrices.GetOrThrow(c.Product),
+                        }).ToMList()
+                    }.Save();
+                }
+            }.Register();
+
             new ConstructFromMany<ProductEntity>(OrderOperation.CreateOrderFromProducts)
             {
                 ToStates = { OrderState.New },
