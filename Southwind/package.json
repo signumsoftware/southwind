@@ -39,7 +39,7 @@
     "sass-loader": "13.3.2",
     "style-loader": "3.3.3",
     "ts-loader": "9.4.4",
-    "typescript": "5.4.0-beta",
+    "typescript": "5.4.2",
     "url-loader": "4.1.1",
     "webpack": "5.88.2",
     "webpack-bundle-analyzer": "4.9.0",
