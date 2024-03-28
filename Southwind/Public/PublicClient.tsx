@@ -3,8 +3,7 @@ import { RouteObject } from 'react-router'
 import { Route } from 'react-router'
 import { ajaxPost, ajaxGet } from '@framework/Services';
 import { Navigator, EntitySettings, ViewPromise } from '@framework/Navigator'
-import { EntityOperationSettings } from '@framework/Operations'
-import * as Operations from '@framework/Operations'
+import { Operations, EntityOperationSettings } from '@framework/Operations'
 import { RegisterUserModel } from './Southwind.Public'
 import { ImportComponent } from '@framework/ImportComponent'
 import { QueryString } from '@framework/QueryString';
