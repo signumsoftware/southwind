@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { DateTime } from 'luxon'
 import { Dic } from '@framework/Globals'
-import * as Navigator from '@framework/Navigator'
+import { Navigator } from '@framework/Navigator'
 import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, FormControlReadonly, EntityTable, ChangeEvent, EnumLine } from '@framework/Lines'
 import { useForceUpdate } from '@framework/Hooks'
 import { getMixin } from '@framework/Signum.Entities'

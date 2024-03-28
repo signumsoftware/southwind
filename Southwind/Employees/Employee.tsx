@@ -2,13 +2,13 @@ import * as React from 'react'
 import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityCheckboxList, TextAreaLine } from '@framework/Lines'
 import { FileLine } from '@extensions/Signum.Files/Files'
 import { useForceUpdate } from '@framework/Hooks'
-import { useFetchInState } from '@framework/Navigator'
+import { Navigator } from '@framework/Navigator'
 import { EmployeeEntity } from './Southwind.Employees'
 
 export default function Employee(p : { ctx: TypeContext<EmployeeEntity> }){
   const forceUpdate = useForceUpdate();
   const ctx = p.ctx;
-  const photo = useFetchInState(ctx.value.photo || null);
+  const photo = Navigator.useFetchInState(ctx.value.photo || null);
   const ctxBasic = ctx.subCtx({ formGroupStyle: "SrOnly" });
   return (
     <div className="row">
