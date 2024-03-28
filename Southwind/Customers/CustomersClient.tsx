@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router'
 import { Navigator, EntitySettings } from '@framework/Navigator'
-import * as Finder from '@framework/Finder'
+import { Finder } from '@framework/Finder'
 import { FilterGroupOption } from '@framework/FindOptions';
 import { AddressEmbedded, CompanyEntity, CustomerQuery, PersonEntity } from './Southwind.Customers';
 

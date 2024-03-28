@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormControlReadonly, FormGroup } from '@framework/Lines'
-import * as Finder from '@framework/Finder';
+import { Finder } from '@framework/Finder';
 import { is, liteKey } from '@framework/Signum.Entities';
 import { ajaxPost } from '@framework/Services';
 import { Gradient, Color } from '@framework/Basics/Color';

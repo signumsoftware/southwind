@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { RouteObject } from 'react-router'
 import { Navigator, EntitySettings } from '@framework/Navigator'
-import * as Finder from '@framework/Finder'
+import { Finder } from '@framework/Finder'
 
 import { FileEmbedded } from '@extensions/Signum.Files/Signum.Files'
 

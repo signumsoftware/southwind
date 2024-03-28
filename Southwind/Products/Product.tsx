@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext, FormGroup, EntityTable } from '@framework/Lines'
-import * as Finder from '@framework/Finder';
+import { Finder } from '@framework/Finder';
 import { PredictorEntity } from '@extensions/Signum.MachineLearning/Signum.MachineLearning';
 import SalesEstimation from './SalesEstimation';
 import { ProductEntity } from './Southwind.Products';

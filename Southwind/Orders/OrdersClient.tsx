@@ -2,7 +2,7 @@ import * as React from 'react'
 import { RouteObject } from 'react-router'
 import { DateTime } from 'luxon'
 import { Navigator, EntitySettings } from '@framework/Navigator'
-import * as Finder from '@framework/Finder'
+import { Finder } from '@framework/Finder'
 import { EntityOperationSettings, ConstructorOperationSettings, ContextualOperationSettings } from '@framework/Operations'
 import * as Operations from '@framework/Operations'
 

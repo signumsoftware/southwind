@@ -1,7 +1,7 @@
 import { RouteObject } from "react-router"
 import * as Operations from "@framework/Operations"
 import { Navigator } from "@framework/Navigator"
-import * as Finder from "@framework/Finder"
+import { Finder } from "@framework/Finder"
 import * as QuickLinks from "@framework/QuickLinks"
 
 
