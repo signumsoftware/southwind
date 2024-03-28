@@ -17,17 +17,17 @@ import * as Services from "@framework/Services"
 import Notify from "@framework/Frames/Notify"
 import ErrorModal from "@framework/Modals/ErrorModal"
 
-import * as AuthClient from "@extensions/Signum.Authorization/AuthClient"
-import * as CultureClient from "@framework/Basics/CultureClient"
+import { AuthClient } from "@extensions/Signum.Authorization/AuthClient"
+import { CultureClient } from "@framework/Basics/CultureClient"
 
 
 import Layout from './Layout'
 import PublicCatalog from './Public/PublicCatalog'
 import Home from './Home'
 import NotFound from './NotFound'
-import * as AzureADClient from '@extensions/Signum.Authorization.ActiveDirectory/Azure/AzureADClient'
+import { AzureADClient } from '@extensions/Signum.Authorization.ActiveDirectory/Azure/AzureADClient'
 
-import * as PublicClient from './Public/PublicClient'
+import { PublicClient } from './Public/PublicClient'
 
 import * as ConfigureReactWidgets from "@framework/ConfigureReactWidgets"
 import { VersionChangedAlert } from "@framework/Frames/VersionChangedAlert"

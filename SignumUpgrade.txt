@@ -142,3 +142,4 @@ Upgrade_20240307_Constructor
 Upgrade_20240307_Operations
 Upgrade_20240312_TypeScript_and_nugets
 Upgrade_20240326_TypeScript_and_nugets2
+Upgrade_20240327_NamespaceInClients

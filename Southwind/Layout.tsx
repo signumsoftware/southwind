@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import LoginDropdown from '@extensions/Signum.Authorization/Login/LoginDropdown'
-import * as AuthClient from '@extensions/Signum.Authorization/AuthClient'
+import { AuthClient } from '@extensions/Signum.Authorization/AuthClient'
 import * as AppContext from "@framework/AppContext"
 import { GlobalModalContainer } from "@framework/Modals"
 import Notify from "@framework/Frames/Notify"

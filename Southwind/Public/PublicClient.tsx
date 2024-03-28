@@ -8,17 +8,20 @@ import { RegisterUserModel } from './Southwind.Public'
 import { ImportComponent } from '@framework/ImportComponent'
 import { QueryString } from '@framework/QueryString';
 
-export function startPublic(options: { routes: RouteObject[] }) {
-
-  options.routes.push({ path: "/registerUser/:reportsToEmployeeId?", element: <ImportComponent onImport={() => import("./RegisterUser")} /> });
-}
-
-export namespace API {
-  export function getRegisterUser(reportsToEmployeeId: string): Promise<RegisterUserModel> {
-    return ajaxPost({ url: `/api/getRegisterUser` + QueryString.stringify({ reportsToEmployeeId })}, null);
+export namespace PublicClient {
+  
+  export function startPublic(options: { routes: RouteObject[] }) {
+  
+    options.routes.push({ path: "/registerUser/:reportsToEmployeeId?", element: <ImportComponent onImport={() => import("./RegisterUser")} /> });
   }
-
-  export function registerUser(model: RegisterUserModel): Promise<boolean> {
-    return ajaxPost({ url: "/api/registerUser" }, model);
+  
+  export namespace API {
+    export function getRegisterUser(reportsToEmployeeId: string): Promise<RegisterUserModel> {
+      return ajaxPost({ url: `/api/getRegisterUser` + QueryString.stringify({ reportsToEmployeeId })}, null);
+    }
+  
+    export function registerUser(model: RegisterUserModel): Promise<boolean> {
+      return ajaxPost({ url: "/api/registerUser" }, model);
+    }
   }
 }

@@ -7,9 +7,12 @@ import { Operations, EntityOperationSettings } from '@framework/Operations'
 import { ImportComponent } from '@framework/ImportComponent'
 import { QueryString } from '@framework/QueryString';
 
-export function start(options: { routes: RouteObject[] }) {
-
-  /* If no view is detected DynamicComponent creates one automatically*/
-  //Navigator.addSettings(new EntitySettings(ShipperEntity, r => import('./Templates/Shipper')));
+export namespace ShippersClient {
+  
+  export function start(options: { routes: RouteObject[] }) {
+  
+    /* If no view is detected DynamicComponent creates one automatically*/
+    //Navigator.addSettings(new EntitySettings(ShipperEntity, r => import('./Templates/Shipper')));
+  }
 }
 

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as AppContext from '@framework/AppContext';
-import * as AuthClient from '@extensions/Signum.Authorization/AuthClient'
+import { AuthClient } from '@extensions/Signum.Authorization/AuthClient'
 
 export default function Home() {
 
