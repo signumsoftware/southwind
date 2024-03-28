@@ -135,3 +135,4 @@ Upgrade_20240116_UpdateNugets
 Upgrade_20240124_OfficialSqlTypes
 Upgrade_20240208_Frozen
 Upgrade_20240215_GenericLines
+Upgrade_20240227_UpgradeNugets
