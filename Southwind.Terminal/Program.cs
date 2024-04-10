@@ -28,8 +28,8 @@ class Program
                 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
                 Configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("settings.json")
-                    .AddJsonFile($"settings.{env}.json", true)
+                    .AddJsonFile("appappsettings.json")
+                    .AddJsonFile($"appappsettings.{env}.json", true)
                     .AddUserSecrets<Program>(optional: true)
                     .Build();
 

@@ -27,14 +27,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="settings.json">
+		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Update="settings.live.json">
+		<None Update="appsettings.live.json">
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Update="settings.test.json">
+		<None Update="appsettings.test.json">
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
