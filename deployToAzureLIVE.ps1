@@ -4,7 +4,7 @@ if(-Not $?){ Write-Host '"az acr login" failed' -ForegroundColor DarkRed; exit; 
 
 
 Get-ChildItem -Path "Framework" -Recurse -Include "package.json","*.csproj" | Resolve-Path -Relative | tar -cf Framework.tar -T -
-docker build -f ".\Southwind\Dockerfile" . -t southwind-live
+docker build -f ".\Southwind.Server\Dockerfile" . -t southwind-live
 if(-Not $?){ Write-Host '"docker build" failed' -ForegroundColor DarkRed; exit; }
 
 docker tag southwind-live southwind.azurecr.io/signum/southwind-live

@@ -7,12 +7,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Signum.API;
 using Signum.API.Filters;
 using Signum.Authorization;
+using Signum.Basics;
+using Signum.Engine.Maps;
+using Signum.Utilities;
 using Signum.Dynamic;
 using Signum.Mailing;
 using Signum.Processes;
 using Signum.Scheduler;
 
-namespace Southwind;
+namespace Southwind.Server;
 
 public class Program
 {

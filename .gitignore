@@ -31,10 +31,10 @@ _ReSharper*/
 .vs/
 
 node_modules
-/Southwind/CodeGen/**
-/Southwind/wwwroot/dist/**
-/Southwind/web.config/**
+/Southwind.Server/CodeGen/**
+/Southwind.Server/wwwroot/dist/**
+/Southwind.Server/web.config/**
 /Southwind/ts_out/**
-/Southwind/TensorFlowModels/**
+/Southwind.Server/TensorFlowModels/**
 Framework.tar
 /Southwind/web.config

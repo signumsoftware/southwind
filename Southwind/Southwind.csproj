@@ -3,15 +3,9 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
-		<IsPackable>false</IsPackable>
-		<AssemblyVersion>1.0.0.*</AssemblyVersion>
-		<FileVersion>1.0.0.0</FileVersion>
-		<Deterministic>false</Deterministic>
-		<UserSecretsId>Southwind</UserSecretsId>
+		<OutputType>Library</OutputType>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<NoWarn>8618,1591</NoWarn>
-        <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
         <!--<TSC_Build>true</TSC_Build>-->
 	</PropertyGroup>
 
@@ -86,14 +80,4 @@
 		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
 	</ItemGroup>
 
-	<Target Name="PublishCollectDist" AfterTargets="ComputeFilesToPublish">
-		<!-- Include the newly-built files in the publish output -->
-		<ItemGroup>
-			<DistFiles Include="wwwroot\dist\**;" />
-			<ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-				<RelativePath>%(DistFiles.Identity)</RelativePath>
-				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-			</ResolvedFileToPublish>
-		</ItemGroup>
-	</Target>
 </Project>

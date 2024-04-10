@@ -6,6 +6,7 @@
   "workspaces": [
     "Framework/Signum",
     "Framework/Extensions/*",
-    "Southwind"
+    "Southwind",
+    "Southwind.Server"
   ]
 }

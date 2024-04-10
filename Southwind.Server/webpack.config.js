@@ -11,7 +11,7 @@ module.exports = {
   mode: "development",  //Now mandatory, alternatively “production”
   devtool: false, //To remove source maps in “development”, avoids problems with errors in Chrome
   entry: {
-    main: ["./MainPublic.tsx"],
+    main: ["../Southwind/MainPublic.tsx"],
   },
   output: {
     path: path.join(__dirname, "wwwroot", "dist"),
