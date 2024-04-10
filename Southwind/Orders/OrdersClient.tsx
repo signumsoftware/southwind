@@ -59,7 +59,7 @@ export namespace OrdersClient {
     }));
   
     const selectShippedDate = (e?: OrderEntity) => AutoLineModal.show({
-      member: OrderEntity.memberInfo(a => a.shippedDate),
+      propertyRoute: OrderEntity.propertyRouteAssert(a => a.shippedDate),
       initialValue: e?.requiredDate ?? DateTime.local().toISO()!,
       modalSize: "sm"
     });

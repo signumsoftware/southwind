@@ -70,16 +70,16 @@ internal static class OrderLoader
 
         Database.Query<OrderEntity>().UnsafeUpdate()
             .Set(o => o.OrderDate, o => o.OrderDate.AddDays(ts))
-            .Set(o => o.PartitionId, o => o.OrderDate.AddDays(ts).Year)
+            //.Set(o => o.PartitionId, o => o.OrderDate.AddDays(ts).Year)
             .Set(o => o.ShippedDate, o => o.ShippedDate!.Value.AddDays(ts))
             .Set(o => o.RequiredDate, o => o.RequiredDate.AddDays(ts))
             .Set(o => o.CancelationDate, o => null)
             .Execute();
 
-        Database.MListQuery((OrderEntity e) => e.Details)
-            .UnsafeUpdateMList()
-            .Set(a => a.RowPartitionId, a => Database.Query<OrderEntity>().SingleEx(o => o.Id == a.Parent.Id).PartitionId)
-            .Execute();
+        //Database.MListQuery((OrderEntity e) => e.Details)
+        //    .UnsafeUpdateMList()
+        //    .Set(a => a.RowPartitionId, a => Database.Query<OrderEntity>().SingleEx(o => o.Id == a.Parent.Id).PartitionId)
+        //    .Execute();
 
         var limit = Clock.Now.AddDays(-10);
 

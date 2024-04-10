@@ -55,8 +55,8 @@ export default function Layout() {
 
   function handleSwaggerClick(e: React.MouseEvent<any>) {
     e.preventDefault();
-    import("@extensions/Signum.Rest/RestClient")
-      .then(RestClient => RestClient.API.getCurrentRestApiKey())
+    import("@extensions/Signum.Rest/RestApiKeyClient")
+      .then(file => file.RestApiKeyClient.API.getCurrentRestApiKey())
       .then(key => { window.location.assign(AppContext.toAbsoluteUrl("/swagger/index.html?apiKey=" + (key || ""))); });
   } //Swagger
 

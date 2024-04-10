@@ -13,7 +13,7 @@ export default function Home() {
 
     if (AuthClient.currentUser()) {
       import("@extensions/Signum.Dashboard/DashboardClient")
-        .then(DashboardClient => DashboardClient.API.home())
+        .then(file => file.DashboardClient.API.home())
         .then(h => {
           if (h)
             AppContext.navigate(`/dashboard/${h.id}`);
