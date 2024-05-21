@@ -24,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.4.3">
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.4.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -32,7 +32,7 @@
 		
 		<PackageReference Include="Signum.Analyzer" Version="3.2.0" />
 		<PackageReference Include="Signum.MSBuildTask" Version="8.0.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.16.0" />
 	</ItemGroup>
