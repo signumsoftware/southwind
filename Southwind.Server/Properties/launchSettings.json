@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://localhost/Southwind",
+      "applicationUrl": "http://localhost/Southwind.Server",
       "sslPort": 0
     },
     "iisExpress": {

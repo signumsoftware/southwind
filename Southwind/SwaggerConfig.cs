@@ -47,9 +47,9 @@ public class IncludeInDocumentationAttribute : Attribute
 } //Swagger Attributes
 
 
-internal static class SwaggerConfig
+public static class SwaggerConfig
 {
-    internal static void ConfigureSwaggerService(WebApplicationBuilder builder)
+    public static void ConfigureSwaggerService(WebApplicationBuilder builder)
     {
         //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml            
         builder.Services.AddSwaggerGen(c =>

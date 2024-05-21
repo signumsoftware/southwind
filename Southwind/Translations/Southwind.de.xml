@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Translations>
-  <Type Name="AdditionalInformationEmbedded" Description="Zusätzliche Informationen">
+  <Type Name="AdditionalInformationEmbedded" Description="Zusatzinformation">
     <Member Name="Key" Description="Schlüssel" />
     <Member Name="Value" Description="Wert" />
   </Type>
@@ -8,24 +8,19 @@
     <Member Name="Address" Description="Adresse" />
     <Member Name="City" Description="Stadt" />
     <Member Name="Country" Description="Land" />
-    <Member Name="PostalCode" Description="Plz" />
+    <Member Name="PostalCode" Description="Postleitzahl" />
     <Member Name="Region" Description="Region" />
   </Type>
-  <Type Name="AllowLogin" Description="Login zulassen">
-    <Member Name="WebOnly" Description="Nur Web" />
-    <Member Name="WindowsAndWeb" Description="Windows und Web" />
-    <Member Name="WindowsOnly" Description="Nur Windows" />
-  </Type>
   <Type Name="ApplicationConfigurationEntity" Description="Anwendungskonfiguration">
-    <Member Name="AuthTokens" Description="Auth-Token" />
-    <Member Name="DatabaseName" Description="Datenbankname" />
+    <Member Name="ActiveDirectory" Description="Aktives Verzeichnis" />
+    <Member Name="AuthTokens" Description="Authentifizierungs-Token" />
+    <Member Name="DatabaseName" Description="Name der Datenbank" />
     <Member Name="Email" Description="E-Mail" />
     <Member Name="EmailSender" Description="E-Mail-Absender" />
     <Member Name="Environment" Description="Umgebung" />
     <Member Name="Folders" Description="Ordner" />
-    <Member Name="Sms" Description="Sms" />
+    <Member Name="Sms" Description="SMS" />
     <Member Name="Translation" Description="Übersetzung" />
-    <Member Name="WebAuthn" Description="WebAuthn" />
     <Member Name="Workflow" Description="Workflow" />
   </Type>
   <Type Name="ApplicationConfigurationOperation">
@@ -35,6 +30,7 @@
     <Member Name="EmailMessage" Description="E-Mail Nachricht" />
     <Member Name="Exceptions" Description="Ausnahmen" />
     <Member Name="OperationLog" Description="Operationenprotokoll" />
+    <Member Name="RestLog" Description="Rest-Protokoll" />
     <Member Name="ViewLog" Description="Anzeigeprotokoll" />
   </Type>
   <Type Name="CatalogMessage">
@@ -44,7 +40,7 @@
     <Member Name="UnitsInStock" Description="Einheiten auf Lager" />
   </Type>
   <Type Name="CategoryEntity" Description="Kategorie">
-    <Member Name="CategoryName" Description="Kategoriename" />
+    <Member Name="CategoryName" Description="Name der Kategorie" />
     <Member Name="Description" Description="Beschreibung" />
     <Member Name="Picture" Description="Bild" />
   </Type>
@@ -72,35 +68,43 @@
     <Member Name="BirthDate" Description="Geburtsdatum" />
     <Member Name="Extension" Description="Erweiterung" />
     <Member Name="FirstName" Description="Vorname" />
-    <Member Name="HireDate" Description="Einstellungsdatum" />
-    <Member Name="HomePhone" Description="Home Phone" />
+    <Member Name="HireDate" Description="Datum der Einstellung" />
+    <Member Name="HomePhone" Description="Telefon zu Hause" />
     <Member Name="LastName" Description="Nachname" />
     <Member Name="Notes" Description="Notizen" />
     <Member Name="Photo" Description="Foto" />
     <Member Name="PhotoPath" Description="Fotopfad" />
-    <Member Name="ReportsTo" Description="Supervisor" />
-    <Member Name="Territories" Description="Gebiete" />
+    <Member Name="ReportsTo" Description="Berichte an" />
+    <Member Name="Territories" Description="Territorien" />
     <Member Name="Title" Description="Titel" />
-    <Member Name="TitleOfCourtesy" Description="Höflichkeitstitel" />
+    <Member Name="TitleOfCourtesy" Description="Titel der Höflichkeit" />
+  </Type>
+  <Type Name="EmployeeLiteModel" Description="Mitarbeiter lite">
+    <Member Name="FirstName" Description="Vorname" />
+    <Member Name="LastName" Description="Nachname" />
+    <Member Name="Photo" Description="Foto" />
   </Type>
   <Type Name="EmployeeOperation">
     <Member Name="Save" Description="Speichern" />
   </Type>
   <Type Name="EmployeeQuery">
-    <Member Name="EmployeesByTerritory" Description="Mitarbeiter nach Gebieten" />
+    <Member Name="EmployeesByTerritory" Description="Mitarbeiter nach Gebiet" />
   </Type>
-  <Type Name="FoldersConfigurationEmbedded" Description="Ordnerkonfiguration">
+  <Type Name="FoldersConfigurationEmbedded" Description="Konfiguration von Ordnern">
+    <Member Name="CachedQueryFolder" Description="Cached-Query-Ordner" />
     <Member Name="EmailMessageFolder" Description="E-Mail-Nachrichten-Ordner" />
-    <Member Name="ExceptionsFolder" Description="Ausnahme-Ordner" />
-    <Member Name="OperationLogFolder" Description="Betriebsprotokoll-Ordner" />
+    <Member Name="ExceptionsFolder" Description="Ausnahmen-Ordner " />
+    <Member Name="HelpImagesFolder" Description="Hilfe-Bilder-Ordner" />
+    <Member Name="OperationLogFolder" Description="Operation-Protokoll-Ordner" />
     <Member Name="PredictorModelFolder" Description="Prädiktormodell-Ordner" />
-    <Member Name="ViewLogFolder" Description="Anzeigeprotokoll-Ordner" />
+    <Member Name="RestLogFolder" Description="Rest-Protokoll-Ordner" />
+    <Member Name="ViewLogFolder" Description="Anzaige-Protokoll-Ordner" />
   </Type>
   <Type Name="OrderDetailEmbedded" Description="Bestelldetails">
     <Member Name="Discount" Description="Rabatt" />
     <Member Name="Product" Description="Produkt" />
     <Member Name="Quantity" Description="Menge" />
-    <Member Name="SubTotalPrice" Description="Teilgesamtpreis" />
+    <Member Name="SubTotalPrice" Description="Zwischensummenpreis" />
     <Member Name="UnitPrice" Description="Stückpreis" />
   </Type>
   <Type Name="OrderDetailMixin">
@@ -112,71 +116,71 @@
     <Member Name="Details" Description="Details" />
     <Member Name="Employee" Description="Mitarbeiter" />
     <Member Name="Freight" Description="Fracht" />
-    <Member Name="IsLegacy" Description="Ist Legacy" />
+    <Member Name="IsLegacy" Description="Ist Veraltet" />
     <Member Name="OrderDate" Description="Bestelldatum" />
-    <Member Name="RequiredDate" Description="Erforderlich am" />
-    <Member Name="ShipAddress" Description="Versandadresse" />
-    <Member Name="ShipName" Description="Versandname" />
+    <Member Name="RequiredDate" Description="Erforderliches Datum" />
+    <Member Name="ShipAddress" Description="Adresse des Schiffes" />
+    <Member Name="ShipName" Description="Name des Schiffes" />
     <Member Name="ShippedDate" Description="Versanddatum" />
-    <Member Name="ShipVia" Description="Versand per" />
-    <Member Name="State" Description="Status" />
+    <Member Name="ShipVia" Description="Versand über" />
+    <Member Name="State" Description="Zustand" />
     <Member Name="TotalPrice" Description="Gesamtpreis" />
   </Type>
-  <Type Name="OrderFilterModel" Description="Bestellfilter">
+  <Type Name="OrderFilterModel" Description="Filter bestellen">
     <Member Name="Customer" Description="Kunde" />
     <Member Name="Employee" Description="Mitarbeiter" />
-    <Member Name="MaxOrderDate" Description="Max. Bestelldatum" />
-    <Member Name="MinOrderDate" Description="Min. Bestelldatum" />
+    <Member Name="MaxOrderDate" Description="Maximales Bestelldatum" />
+    <Member Name="MinOrderDate" Description="Mindestbestelldatum" />
   </Type>
   <Type Name="OrderMessage">
     <Member Name="CancelShippedOrder0" Description="Ausgelieferte Bestellung stornieren {0}?" />
-    <Member Name="DiscountShouldBeMultpleOf5" Description="Der Rabatt muss ein Vielfaches von 5 % sein." />
+    <Member Name="DiscountShouldBeMultpleOf5" Description="Der Rabatt sollte ein Vielfaches von 5% sein" />
+    <Member Name="SalesNextMonth" Description="Verkäufe im nächsten Monat" />
     <Member Name="SelectAShipper" Description="Wählen Sie einen Versender aus" />
     <Member Name="SubTotalPrice" Description="Teilgesamtpreis" />
     <Member Name="TotalPrice" Description="Gesamtpreis" />
-    <Member Name="SalesNextMonth" Description="Umsatz nächster Monat" />
   </Type>
   <Type Name="OrderOperation">
     <Member Name="Cancel" Description="Abbrechen" />
     <Member Name="CancelWithProcess" Description="Abbrechen mit Prozess" />
+    <Member Name="Clone" Description="Klonen" />
     <Member Name="Create" Description="Erstellen" />
-    <Member Name="CreateOrderFromCustomer" Description="Bestellung aus Kunden erstellen" />
+    <Member Name="CreateOrderFromCustomer" Description="Auftrag vom Kunden erstellen" />
     <Member Name="CreateOrderFromProducts" Description="Bestellung aus Produkten erstellen" />
     <Member Name="Delete" Description="Löschen" />
     <Member Name="Save" Description="Speichern" />
-    <Member Name="Ship" Description="Versenden" />
+    <Member Name="Ship" Description="Schiff" />
   </Type>
   <Type Name="OrderProcess">
-    <Member Name="CancelOrders" Description="Aufträge stornieren" />
+    <Member Name="CancelOrders" Description="Bestellungen stornieren" />
   </Type>
   <Type Name="OrderQuery">
-    <Member Name="OrderLines" Description="Bestellpositionen" />
+    <Member Name="OrderLines" Description="Auftragspositionen" />
   </Type>
-  <Type Name="OrderState" Description="Bestellzustand">
+  <Type Name="OrderState" Description="Zustand der Bestellung">
     <Member Name="Canceled" Description="Abgebrochen" />
     <Member Name="New" Description="Neu" />
     <Member Name="Ordered" Description="Bestellt" />
-    <Member Name="Shipped" Description="Versandt" />
+    <Member Name="Shipped" Description="Versendet" />
   </Type>
   <Type Name="OrderTask">
     <Member Name="CancelOldOrders" Description="Alte Bestellungen stornieren" />
     <Member Name="CancelOldOrdersWithProcess" Description="Alte Aufträge mit Prozess stornieren" />
   </Type>
   <Type Name="PersonEntity" Description="Person" PluralDescription="Personen" Gender="f">
-    <Member Name="Corrupt" Description="Korrupt" />
     <Member Name="DateOfBirth" Description="Geburtsdatum" />
     <Member Name="FirstName" Description="Vorname" />
     <Member Name="LastName" Description="Nachname" />
     <Member Name="Title" Description="Titel" />
   </Type>
   <Type Name="ProductEntity" Description="Produkt" PluralDescription="Produkte" Gender="n">
-    <Member Name="AdditionalInformation" Description="Zusätzliche Informationen" />
+    <Member Name="AdditionalInformation" Description="Zusatzinformation" />
     <Member Name="Category" Description="Kategorie" />
     <Member Name="Discontinued" Description="Abgekündigt" />
     <Member Name="ProductName" Description="Produktname" />
     <Member Name="QuantityPerUnit" Description="Menge pro Einheit" />
-    <Member Name="ReorderLevel" Description="Reorder-Ebene" />
-    <Member Name="Supplier" Description="Lieferanten" />
+    <Member Name="ReorderLevel" Description="Nachbesteller-Level" />
+    <Member Name="Supplier" Description="Lieferant" />
     <Member Name="UnitPrice" Description="Stückpreis" />
     <Member Name="UnitsInStock" Description="Einheiten auf Lager" />
     <Member Name="ValueInStock" Description="Wert auf Lager" />
@@ -196,19 +200,37 @@
   <Type Name="RegionOperation">
     <Member Name="Save" Description="Speichern" />
   </Type>
-  <Type Name="ShipperEntity" Description="Versender" Gender="m">
+  <Type Name="RegisterUserMessage">
+    <Member Name="GoToLoginPage" Description="Zur Login-Seite gehen" />
+    <Member Name="PleaseFillTheFollowingFormToRegisterANewSouthwindEmployee" Description="Bitte füllen Sie das folgende Formular aus, um einen neuen Southwind-Mitarbeiter zu registrieren" />
+    <Member Name="Register" Description="Register" />
+    <Member Name="User0HasBeenRegisteredSuccessfully" Description="Benutzer {0} wurde erfolgreich registriert!" />
+    <Member Name="User0IsAlreadyRegistered" Description="Benutzer {0} ist bereits registriert" />
+    <Member Name="UserRegistered" Description="Benutzer registriert" />
+  </Type>
+  <Type Name="RegisterUserModel" Description="Benutzer registrieren">
+    <Member Name="Address" Description="Adresse" />
+    <Member Name="EMail" Description="E-Mail" />
+    <Member Name="FirstName" Description="Vorname" />
+    <Member Name="LastName" Description="Nachname" />
+    <Member Name="Password" Description="Passwort" />
+    <Member Name="ReportsTo" Description="Berichte an" />
+    <Member Name="TitleOfCourtesy" Description="Titel der Höflichkeit" />
+    <Member Name="Username" Description="Benutzername" />
+  </Type>
+  <Type Name="ShipperEntity" Description="Verlader" Gender="m">
     <Member Name="CompanyName" Description="Firmenname" />
     <Member Name="Phone" Description="Telefon" />
   </Type>
   <Type Name="ShipperOperation">
     <Member Name="Save" Description="Speichern" />
   </Type>
-  <Type Name="SouthwindGroup">
-    <Member Name="CurrentCustomer" Description="Aktueller Kunde" />
-    <Member Name="RoleEntities" Description="Rollenentitäten" />
-    <Member Name="UserEntities" Description="Benutzerentitäten" />
+  <Type Name="SouthwindTypeCondition">
+    <Member Name="CurrentEmployee" Description="Derzeitiger Mitarbeiter" />
+    <Member Name="RoleEntities" Description="Rollen-Entitäten" />
+    <Member Name="UserEntities" Description="Benutzer-Entitäten" />
   </Type>
-  <Type Name="SupplierEntity" Description="Lieferanten" Gender="m">
+  <Type Name="SupplierEntity" Description="Lieferant">
     <Member Name="Address" Description="Adresse" />
     <Member Name="CompanyName" Description="Firmenname" />
     <Member Name="ContactName" Description="Kontaktname" />
@@ -220,20 +242,19 @@
   <Type Name="SupplierOperation">
     <Member Name="Save" Description="Speichern" />
   </Type>
-  <Type Name="TerritoryEntity" Description="Gebiet" Gender="n">
+  <Type Name="TerritoryEntity" Description="Territorium">
     <Member Name="Description" Description="Beschreibung" />
     <Member Name="Region" Description="Region" />
   </Type>
   <Type Name="TerritoryOperation">
     <Member Name="Save" Description="Speichern" />
   </Type>
-  <Type Name="TranslationConfigurationEmbedded" Description="Übersetzungskonfiguration">
+  <Type Name="TranslationConfigurationEmbedded" Description="Konfiguration der Übersetzung">
     <Member Name="AzureCognitiveServicesAPIKey" Description="Azure Cognitive Service-API-Schlüssel" />
     <Member Name="AzureCognitiveServicesRegion" Description="Azure Cognitive Service-Region" />
-    <Member Name="DeepLAPIKey" Description="DeepL API Key" />
+    <Member Name="DeepLAPIKey" Description="DeepL-API-Schlüssel" />
   </Type>
   <Type Name="UserEmployeeMixin">
-    <Member Name="AllowLogin" Description="Login zulassen" />
     <Member Name="Employee" Description="Mitarbeiter" />
   </Type>
 </Translations>
