@@ -147,3 +147,4 @@ Upgrade_20240328_Extract_Southwind_Server
 Upgrade_20240405_Fix_Southwind_Server
 Upgrade_20240410_UpgradeNugets
 Upgrade_20240424_UpgradeNugets
+Upgrade_20240512_UpgradeNugets
