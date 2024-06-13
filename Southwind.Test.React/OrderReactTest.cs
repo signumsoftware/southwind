@@ -30,7 +30,7 @@ public class OrderReactTest : SouthwindTestClass
                 {
                     using (FrameModalProxy<OrderEntity> order = john.ConstructFrom(OrderOperation.CreateOrderFromCustomer))
                     {
-                        order.ValueLineValue(a => a.ShipName, Guid.NewGuid().ToString());
+                        order.AutoLineValue(a => a.ShipName, Guid.NewGuid().ToString());
                         order.EntityCombo(a => a.ShipVia).SelectLabel("FedEx");
 
                         ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
@@ -38,20 +38,20 @@ public class OrderReactTest : SouthwindTestClass
                         var line = order.EntityDetail(a => a.Details).GetOrCreateDetailControl<OrderDetailEmbedded>();
                         line.EntityLineValue(a => a.Product, sonicProduct.ToLite());
 
-                        Assert.Equal(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
+                        Assert.Equal(sonicProduct.UnitPrice, order.AutoLineValue(a => a.TotalPrice));
 
                         order.Execute(OrderOperation.Save);
 
                         lite = order.GetLite();
 
-                        Assert.Equal(sonicProduct.UnitPrice, order.ValueLineValue(a => a.TotalPrice));
+                        Assert.Equal(sonicProduct.UnitPrice, order.AutoLineValue(a => a.TotalPrice));
                     }
 
                     return b.NormalPage(lite);
 
                 }).EndUsing(order =>
                 {
-                    Assert.Equal(lite!.InDB(a => a.TotalPrice), order.ValueLineValue(a => a.TotalPrice));
+                    Assert.Equal(lite!.InDB(a => a.TotalPrice), order.AutoLineValue(a => a.TotalPrice));
                 });
             }
             finally
