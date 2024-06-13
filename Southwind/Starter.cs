@@ -354,11 +354,6 @@ public static partial class Starter
 
     }
 
-    private static void Starter_PreSaving(OrderEntity ident, PreSavingContext ctx)
-    {
-        throw new NotImplementedException();
-    }
-
     private static void SetupCache(SchemaBuilder sb)
     {
         CacheLogic.CacheTable<ShipperEntity>(sb);
