@@ -275,7 +275,7 @@ public static partial class Starter
                 WeakFileReference = weakFileReference
             };
         else
-            return new AzureBlobStoragebFileTypeAlgorithm(fp => new BlobContainerClient(
+            return new AzureBlobStorageFileTypeAlgorithm(fp => new BlobContainerClient(
                 AzureStorageConnectionString,
                 getFolder(Starter.Configuration.Value.Folders)))
             {
