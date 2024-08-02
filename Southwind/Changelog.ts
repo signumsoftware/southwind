@@ -5,4 +5,4 @@ export default {
     "Add ChangeLog",
     "Update Signum",
   ],
-} satisfies ChangeLogDic;
+} as ChangeLogDic;

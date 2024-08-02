@@ -4,7 +4,7 @@ import { TypeContext } from '@framework/TypeContext'
 import { useForceUpdate } from '@framework/Hooks';
 import { AddressEmbedded } from './Southwind.Customers';
 
-export default function Address(p: { ctx: TypeContext<AddressEmbedded>, inheritStyle?: boolean }) {
+export default function Address(p: { ctx: TypeContext<AddressEmbedded>, inheritStyle?: boolean }): React.JSX.Element {
   const ctx = p.inheritStyle ? p.ctx : p.ctx.subCtx({ formGroupStyle: "SrOnly", placeholderLabels: true });
   const forceUpdate = useForceUpdate();
   return (

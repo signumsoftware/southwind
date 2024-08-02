@@ -153,3 +153,4 @@ Upgrade_20240524_UpgradeNugets
 Upgrade_20240607_UpgradeNugets
 Upgrade_20240611_RenameAzureBlobStorage
 Upgrade_20240612_RenaveValueLineValue
+Upgrade_20240702_IsolatedDeclarations

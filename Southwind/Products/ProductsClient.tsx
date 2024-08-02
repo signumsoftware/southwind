@@ -11,7 +11,7 @@ import { CategoryEntity, ProductEntity, SupplierEntity } from './Southwind.Produ
 export namespace ProductsClient {
   
   
-  export function start(options: { routes: RouteObject[] }) {
+  export function start(options: { routes: RouteObject[] }): void {
   
     Navigator.addSettings(new EntitySettings(CategoryEntity, c => import('./Category')));
     Navigator.addSettings(new EntitySettings(SupplierEntity, s => import('./Supplier')));

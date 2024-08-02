@@ -21,7 +21,7 @@ const OmniboxAutocomplete = React.lazy(() => import('@extensions/Signum.Omnibox/
 const ChangeLogViewer = React.lazy(() => import('@framework/Basics/ChangeLogViewer'));
 const AlertDropdown = React.lazy(() => import("@extensions/Signum.Alerts/AlertDropdown"));
 
-export default function Layout() {
+export default function Layout(): React.JSX.Element {
 
 
   const itemStorageKey = "SIDEBAR_MODE";

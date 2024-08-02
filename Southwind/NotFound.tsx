@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as AppContext from '@framework/AppContext';
 
-export default function NotFound() {
+export default function NotFound(): React.JSX.Element {
 
   React.useEffect(() => {
     if (AppContext.currentUser == null) {

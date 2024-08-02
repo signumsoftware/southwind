@@ -4,7 +4,7 @@ import { FileLine } from '@extensions/Signum.Files/Files'
 import { useForceUpdate } from '@framework/Hooks'
 import { CategoryEntity } from './Southwind.Products';
 
-export default function Category(p : { ctx: TypeContext<CategoryEntity> }){
+export default function Category(p : { ctx: TypeContext<CategoryEntity> }): React.JSX.Element {
   const forceUpdate = useForceUpdate();
   const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
   const ctx = p.ctx.subCtx({ labelColumns: { sm: 3 } });

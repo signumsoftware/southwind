@@ -9,7 +9,7 @@ import { QueryString } from '@framework/QueryString';
 
 export namespace ShippersClient {
   
-  export function start(options: { routes: RouteObject[] }) {
+  export function start(options: { routes: RouteObject[] }): void {
   
     /* If no view is detected DynamicComponent creates one automatically*/
     //Navigator.addSettings(new EntitySettings(ShipperEntity, r => import('./Templates/Shipper')));

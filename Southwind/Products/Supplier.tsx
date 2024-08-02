@@ -2,7 +2,7 @@ import * as React from 'react'
 import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStrip, EntityRepeater, TypeContext } from '@framework/Lines'
 import { SupplierEntity } from './Southwind.Products';
 
-export default function Supplier(p : { ctx: TypeContext<SupplierEntity> }){
+export default function Supplier(p : { ctx: TypeContext<SupplierEntity> }): React.JSX.Element {
   const ctx = p.ctx;
   return (
     <div>

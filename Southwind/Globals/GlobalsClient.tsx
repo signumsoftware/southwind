@@ -9,7 +9,7 @@ import { ApplicationConfigurationEntity, UserEmployeeMixin } from './Southwind.G
 
 export namespace GlobalsClient {
   
-  export function start(options: { routes: RouteObject[] }) {
+  export function start(options: { routes: RouteObject[] }): void {
   
     Navigator.addSettings(new EntitySettings(ApplicationConfigurationEntity, a => import('./ApplicationConfiguration')));
   

@@ -5,7 +5,7 @@ import { useForceUpdate } from '@framework/Hooks'
 import { Navigator } from '@framework/Navigator'
 import { EmployeeEntity } from './Southwind.Employees'
 
-export default function Employee(p : { ctx: TypeContext<EmployeeEntity> }){
+export default function Employee(p : { ctx: TypeContext<EmployeeEntity> }): React.JSX.Element {
   const forceUpdate = useForceUpdate();
   const ctx = p.ctx;
   const photo = Navigator.useFetchInState(ctx.value.photo || null);

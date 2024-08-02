@@ -4,7 +4,7 @@ import { SearchControl } from '@framework/Search';
 import { CompanyEntity } from './Southwind.Customers';
 import { OrderEntity } from '../Orders/Southwind.Orders';
 
-export default function Company(p : { ctx: TypeContext<CompanyEntity> }){
+export default function Company(p : { ctx: TypeContext<CompanyEntity> }): React.JSX.Element {
   const ctx = p.ctx;
   return (
     <div>

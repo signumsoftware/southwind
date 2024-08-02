@@ -6,7 +6,7 @@ import { OrderEntity } from '../Orders/Southwind.Orders';
 import { PersonEntity } from './Southwind.Customers';
 import { CorruptMixin, getMixin } from '@framework/Signum.Entities';
 
-export default function Person(p : { ctx: TypeContext<PersonEntity> }){
+export default function Person(p : { ctx: TypeContext<PersonEntity> }): React.JSX.Element {
   const ctx = p.ctx;
   const ctxBasic = ctx.subCtx({ formGroupStyle: "Basic" });
   return (

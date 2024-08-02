@@ -19,7 +19,7 @@ import { ValidationErrors } from '@framework/Frames/ValidationErrors'
 import Address from '../Customers/Address'
 import { EnumLine } from '@framework/Lines'
 
-export default function RegisterUser() {
+export default function RegisterUser(): React.JSX.Element {
   const params = useParams() as { reportsToEmployeeId: string };
 
   AppContext.useTitle(RegisterUserModel.niceName());

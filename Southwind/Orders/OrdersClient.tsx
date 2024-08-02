@@ -15,7 +15,7 @@ import { CustomerQuery } from '../Customers/Southwind.Customers'
 export namespace OrdersClient {
   
   
-  export function start(options: { routes: RouteObject[] }) {
+  export function start(options: { routes: RouteObject[] }): void {
   
     Navigator.addSettings(new EntitySettings(OrderEntity, o => import('./Order')));
   

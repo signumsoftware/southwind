@@ -9,7 +9,7 @@ import { toNumberFormat } from '@framework/Reflection'
 import { AddressEmbedded, CustomerEntity } from '../Customers/Southwind.Customers'
 import { OrderDetailEmbedded, OrderDetailMixin, OrderEntity, OrderMessage, OrderState } from './Southwind.Orders'
 
-export default function Order(p: { ctx: TypeContext<OrderEntity> }) {
+export default function Order(p: { ctx: TypeContext<OrderEntity> }): React.JSX.Element {
   const forceUpdate = useForceUpdate();
   function handleCustomerChange(c: ChangeEvent) {
     var order = p.ctx.value;

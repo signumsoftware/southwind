@@ -7,7 +7,7 @@ import { AddressEmbedded, CompanyEntity, CustomerQuery, PersonEntity } from './S
 export namespace CustomersClient {
   
   
-  export function start(options: { routes: RouteObject[] }) {
+  export function start(options: { routes: RouteObject[] }): void {
   
     Navigator.addSettings(new EntitySettings(CompanyEntity, c => import('./Company')));
     Navigator.addSettings(new EntitySettings(PersonEntity, p => import('./Person')));

@@ -3,7 +3,7 @@ import { AutoLine, EntityLine, EntityCombo, EntityList, EntityDetail, EntityStri
 import { Tabs, Tab } from 'react-bootstrap';
 import { ApplicationConfigurationEntity } from './Southwind.Globals';
 
-export default function ApplicationConfiguration(p : { ctx: TypeContext<ApplicationConfigurationEntity> }){
+export default function ApplicationConfiguration(p : { ctx: TypeContext<ApplicationConfigurationEntity> }): React.JSX.Element {
   const ctx = p.ctx;
   return (
     <div>

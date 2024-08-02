@@ -18,7 +18,7 @@ import { EmployeeEntity, EmployeeLiteModel } from './Southwind.Employees'
 export namespace EmployeesClient {
   
   
-  export function start(options: { routes: RouteObject[] }) {
+  export function start(options: { routes: RouteObject[] }): void {
   
     Navigator.addSettings(new EntitySettings(EmployeeEntity, e => import('./Employee'), {
       renderLite: (lite, hl) => {

@@ -16,7 +16,7 @@ export interface CategoryWithProducts {
   products: ProductEntity[];
 }
 
-export default function PublicCatalog() {
+export default function PublicCatalog(): React.JSX.Element {
 
   const categories = useAPI(() => ajaxGet<CategoryWithProducts[]>({ url: "/api/catalog" }), []);
 

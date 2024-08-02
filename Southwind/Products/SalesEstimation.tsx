@@ -21,7 +21,7 @@ var gradient = new Gradient([
   { value: 3, color: Color.parse("#1F618D") },
 ]);
 
-export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntity> }) {
+export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntity> }): React.JSX.Element {
 
   function handleViewClick(e: React.MouseEvent<any>) {
     e.preventDefault();
