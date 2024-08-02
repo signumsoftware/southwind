@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as AppContext from '@framework/AppContext';
 import { AuthClient } from '@extensions/Signum.Authorization/AuthClient'
 
-export default function Home(): React.JSX.Element {
+export default function Home(): React.JSX.Element | null {
 
   var [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
