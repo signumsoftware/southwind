@@ -1,3 +1,6 @@
+$status = git status --porcelain
+if ($status) { throw "There are uncommitted changes." }
+
 az account set -s "<<your southwind subscription Id>>"
 az acr login --name southwind
 if(-Not $?){ Write-Host '"az acr login" failed' -ForegroundColor DarkRed; exit; }
