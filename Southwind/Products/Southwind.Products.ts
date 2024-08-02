@@ -11,7 +11,7 @@ import * as MachineLearning from '../../Framework/Extensions/Signum.MachineLearn
 
 
 
-export const AdditionalInformationEmbedded = new Type<AdditionalInformationEmbedded>("AdditionalInformationEmbedded");
+export const AdditionalInformationEmbedded: Type<AdditionalInformationEmbedded> = new Type<AdditionalInformationEmbedded>("AdditionalInformationEmbedded");
 export interface AdditionalInformationEmbedded extends Entities.EmbeddedEntity {
   Type: "AdditionalInformationEmbedded";
   key: string;
@@ -19,13 +19,13 @@ export interface AdditionalInformationEmbedded extends Entities.EmbeddedEntity {
 }
 
 export module CatalogMessage {
-  export const ProductName = new MessageKey("CatalogMessage", "ProductName");
-  export const UnitPrice = new MessageKey("CatalogMessage", "UnitPrice");
-  export const QuantityPerUnit = new MessageKey("CatalogMessage", "QuantityPerUnit");
-  export const UnitsInStock = new MessageKey("CatalogMessage", "UnitsInStock");
+  export const ProductName: MessageKey = new MessageKey("CatalogMessage", "ProductName");
+  export const UnitPrice: MessageKey = new MessageKey("CatalogMessage", "UnitPrice");
+  export const QuantityPerUnit: MessageKey = new MessageKey("CatalogMessage", "QuantityPerUnit");
+  export const UnitsInStock: MessageKey = new MessageKey("CatalogMessage", "UnitsInStock");
 }
 
-export const CategoryEntity = new Type<CategoryEntity>("Category");
+export const CategoryEntity: Type<CategoryEntity> = new Type<CategoryEntity>("Category");
 export interface CategoryEntity extends Entities.Entity {
   Type: "Category";
   categoryName: string;
@@ -37,7 +37,7 @@ export module CategoryOperation {
   export const Save : Operations.ExecuteSymbol<CategoryEntity> = registerSymbol("Operation", "CategoryOperation.Save");
 }
 
-export const ProductEntity = new Type<ProductEntity>("Product");
+export const ProductEntity: Type<ProductEntity> = new Type<ProductEntity>("Product");
 export interface ProductEntity extends Entities.Entity {
   Type: "Product";
   productName: string;
@@ -60,10 +60,10 @@ export module ProductPredictorPublication {
 }
 
 export module ProductQuery {
-  export const CurrentProducts = new QueryKey("ProductQuery", "CurrentProducts");
+  export const CurrentProducts: QueryKey = new QueryKey("ProductQuery", "CurrentProducts");
 }
 
-export const SupplierEntity = new Type<SupplierEntity>("Supplier");
+export const SupplierEntity: Type<SupplierEntity> = new Type<SupplierEntity>("Supplier");
 export interface SupplierEntity extends Entities.Entity {
   Type: "Supplier";
   companyName: string;

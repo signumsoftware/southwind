@@ -16,7 +16,7 @@ import * as Files from '../../Framework/Extensions/Signum.Files/Signum.Files'
 
 
 
-export const ApplicationConfigurationEntity = new Type<ApplicationConfigurationEntity>("ApplicationConfiguration");
+export const ApplicationConfigurationEntity: Type<ApplicationConfigurationEntity> = new Type<ApplicationConfigurationEntity>("ApplicationConfiguration");
 export interface ApplicationConfigurationEntity extends Entities.Entity {
   Type: "ApplicationConfiguration";
   environment: string;
@@ -43,7 +43,7 @@ export module BigStringFileType {
   export const RestLog : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.RestLog");
 }
 
-export const FoldersConfigurationEmbedded = new Type<FoldersConfigurationEmbedded>("FoldersConfigurationEmbedded");
+export const FoldersConfigurationEmbedded: Type<FoldersConfigurationEmbedded> = new Type<FoldersConfigurationEmbedded>("FoldersConfigurationEmbedded");
 export interface FoldersConfigurationEmbedded extends Entities.EmbeddedEntity {
   Type: "FoldersConfigurationEmbedded";
   predictorModelFolder: string;
@@ -62,7 +62,7 @@ export module SouthwindTypeCondition {
   export const CurrentEmployee : Rules.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.CurrentEmployee");
 }
 
-export const TranslationConfigurationEmbedded = new Type<TranslationConfigurationEmbedded>("TranslationConfigurationEmbedded");
+export const TranslationConfigurationEmbedded: Type<TranslationConfigurationEmbedded> = new Type<TranslationConfigurationEmbedded>("TranslationConfigurationEmbedded");
 export interface TranslationConfigurationEmbedded extends Entities.EmbeddedEntity {
   Type: "TranslationConfigurationEmbedded";
   azureCognitiveServicesAPIKey: string | null;
@@ -70,7 +70,7 @@ export interface TranslationConfigurationEmbedded extends Entities.EmbeddedEntit
   deepLAPIKey: string | null;
 }
 
-export const UserEmployeeMixin = new Type<UserEmployeeMixin>("UserEmployeeMixin");
+export const UserEmployeeMixin: Type<UserEmployeeMixin> = new Type<UserEmployeeMixin>("UserEmployeeMixin");
 export interface UserEmployeeMixin extends Entities.MixinEntity {
   Type: "UserEmployeeMixin";
   employee: Entities.Lite<Employees.EmployeeEntity> | null;

@@ -10,7 +10,7 @@ import * as Files from '../../Framework/Extensions/Signum.Files/Signum.Files'
 
 
 
-export const EmployeeEntity = new Type<EmployeeEntity>("Employee");
+export const EmployeeEntity: Type<EmployeeEntity> = new Type<EmployeeEntity>("Employee");
 export interface EmployeeEntity extends Entities.Entity {
   Type: "Employee";
   lastName: string;
@@ -29,7 +29,7 @@ export interface EmployeeEntity extends Entities.Entity {
   territories: Entities.MList<TerritoryEntity>;
 }
 
-export const EmployeeLiteModel = new Type<EmployeeLiteModel>("EmployeeLiteModel");
+export const EmployeeLiteModel: Type<EmployeeLiteModel> = new Type<EmployeeLiteModel>("EmployeeLiteModel");
 export interface EmployeeLiteModel extends Entities.ModelEntity {
   Type: "EmployeeLiteModel";
   lastName: string;
@@ -42,10 +42,10 @@ export module EmployeeOperation {
 }
 
 export module EmployeeQuery {
-  export const EmployeesByTerritory = new QueryKey("EmployeeQuery", "EmployeesByTerritory");
+  export const EmployeesByTerritory: QueryKey = new QueryKey("EmployeeQuery", "EmployeesByTerritory");
 }
 
-export const RegionEntity = new Type<RegionEntity>("Region");
+export const RegionEntity: Type<RegionEntity> = new Type<RegionEntity>("Region");
 export interface RegionEntity extends Entities.Entity {
   Type: "Region";
   description: string;
@@ -55,7 +55,7 @@ export module RegionOperation {
   export const Save : Operations.ExecuteSymbol<RegionEntity> = registerSymbol("Operation", "RegionOperation.Save");
 }
 
-export const TerritoryEntity = new Type<TerritoryEntity>("Territory");
+export const TerritoryEntity: Type<TerritoryEntity> = new Type<TerritoryEntity>("Territory");
 export interface TerritoryEntity extends Entities.Entity {
   Type: "Territory";
   region: RegionEntity;

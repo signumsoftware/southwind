@@ -8,7 +8,7 @@ import * as Operations from '../../Framework/Signum/React/Signum.Operations'
 
 
 
-export const ShipperEntity = new Type<ShipperEntity>("Shipper");
+export const ShipperEntity: Type<ShipperEntity> = new Type<ShipperEntity>("Shipper");
 export interface ShipperEntity extends Entities.Entity {
   Type: "Shipper";
   companyName: string;

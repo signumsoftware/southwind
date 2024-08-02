@@ -8,7 +8,7 @@ import * as Operations from '../../Framework/Signum/React/Signum.Operations'
 
 
 
-export const AddressEmbedded = new Type<AddressEmbedded>("AddressEmbedded");
+export const AddressEmbedded: Type<AddressEmbedded> = new Type<AddressEmbedded>("AddressEmbedded");
 export interface AddressEmbedded extends Entities.EmbeddedEntity {
   Type: "AddressEmbedded";
   address: string;
@@ -18,7 +18,7 @@ export interface AddressEmbedded extends Entities.EmbeddedEntity {
   country: string;
 }
 
-export const CompanyEntity = new Type<CompanyEntity>("Company");
+export const CompanyEntity: Type<CompanyEntity> = new Type<CompanyEntity>("Company");
 export interface CompanyEntity extends CustomerEntity {
   Type: "Company";
   companyName: string;
@@ -37,10 +37,10 @@ export module CustomerOperation {
 }
 
 export module CustomerQuery {
-  export const Customer = new QueryKey("CustomerQuery", "Customer");
+  export const Customer: QueryKey = new QueryKey("CustomerQuery", "Customer");
 }
 
-export const PersonEntity = new Type<PersonEntity>("Person");
+export const PersonEntity: Type<PersonEntity> = new Type<PersonEntity>("Person");
 export interface PersonEntity extends CustomerEntity {
   Type: "Person";
   firstName: string;

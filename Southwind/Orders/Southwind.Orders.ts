@@ -14,7 +14,7 @@ import * as Scheduler from '../../Framework/Extensions/Signum.Scheduler/Signum.S
 
 
 
-export const OrderDetailEmbedded = new Type<OrderDetailEmbedded>("OrderDetailEmbedded");
+export const OrderDetailEmbedded: Type<OrderDetailEmbedded> = new Type<OrderDetailEmbedded>("OrderDetailEmbedded");
 export interface OrderDetailEmbedded extends Entities.EmbeddedEntity {
   Type: "OrderDetailEmbedded";
   product: Entities.Lite<Products.ProductEntity>;
@@ -23,13 +23,13 @@ export interface OrderDetailEmbedded extends Entities.EmbeddedEntity {
   discount: number;
 }
 
-export const OrderDetailMixin = new Type<OrderDetailMixin>("OrderDetailMixin");
+export const OrderDetailMixin: Type<OrderDetailMixin> = new Type<OrderDetailMixin>("OrderDetailMixin");
 export interface OrderDetailMixin extends Entities.MixinEntity {
   Type: "OrderDetailMixin";
   discountCode: string | null;
 }
 
-export const OrderEntity = new Type<OrderEntity>("Order");
+export const OrderEntity: Type<OrderEntity> = new Type<OrderEntity>("Order");
 export interface OrderEntity extends Entities.Entity {
   Type: "Order";
   customer: Customers.CustomerEntity;
@@ -47,7 +47,7 @@ export interface OrderEntity extends Entities.Entity {
   state: OrderState;
 }
 
-export const OrderFilterModel = new Type<OrderFilterModel>("OrderFilterModel");
+export const OrderFilterModel: Type<OrderFilterModel> = new Type<OrderFilterModel>("OrderFilterModel");
 export interface OrderFilterModel extends Entities.ModelEntity {
   Type: "OrderFilterModel";
   customer: Entities.Lite<Customers.CustomerEntity> | null;
@@ -57,12 +57,12 @@ export interface OrderFilterModel extends Entities.ModelEntity {
 }
 
 export module OrderMessage {
-  export const DiscountShouldBeMultpleOf5 = new MessageKey("OrderMessage", "DiscountShouldBeMultpleOf5");
-  export const CancelShippedOrder0 = new MessageKey("OrderMessage", "CancelShippedOrder0");
-  export const SelectAShipper = new MessageKey("OrderMessage", "SelectAShipper");
-  export const SubTotalPrice = new MessageKey("OrderMessage", "SubTotalPrice");
-  export const TotalPrice = new MessageKey("OrderMessage", "TotalPrice");
-  export const SalesNextMonth = new MessageKey("OrderMessage", "SalesNextMonth");
+  export const DiscountShouldBeMultpleOf5: MessageKey = new MessageKey("OrderMessage", "DiscountShouldBeMultpleOf5");
+  export const CancelShippedOrder0: MessageKey = new MessageKey("OrderMessage", "CancelShippedOrder0");
+  export const SelectAShipper: MessageKey = new MessageKey("OrderMessage", "SelectAShipper");
+  export const SubTotalPrice: MessageKey = new MessageKey("OrderMessage", "SubTotalPrice");
+  export const TotalPrice: MessageKey = new MessageKey("OrderMessage", "TotalPrice");
+  export const SalesNextMonth: MessageKey = new MessageKey("OrderMessage", "SalesNextMonth");
 }
 
 export module OrderOperation {
@@ -82,10 +82,10 @@ export module OrderProcess {
 }
 
 export module OrderQuery {
-  export const OrderLines = new QueryKey("OrderQuery", "OrderLines");
+  export const OrderLines: QueryKey = new QueryKey("OrderQuery", "OrderLines");
 }
 
-export const OrderState = new EnumType<OrderState>("OrderState");
+export const OrderState: EnumType<OrderState> = new EnumType<OrderState>("OrderState");
 export type OrderState =
   "New" |
   "Ordered" |
