@@ -158,3 +158,4 @@ Upgrade_20240719_FixAzureDeploy
 Upgrade_20240802_UpdateNugets
 Upgrade_20240816_UpdateNugets
 Upgrade_20240823_UpdateNugets
+Upgrade_20240924_QuickLinkClient

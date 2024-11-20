@@ -2,7 +2,7 @@ import { RouteObject } from "react-router"
 import { Operations } from "@framework/Operations"
 import { Navigator } from "@framework/Navigator"
 import { Finder } from "@framework/Finder"
-import * as QuickLinks from "@framework/QuickLinks"
+import { QuickLinkClient } from "@framework/QuickLinkClient"
 
 
 import { ExceptionClient } from "@framework/Exceptions/ExceptionClient"
@@ -57,7 +57,7 @@ export function startFull(routes: RouteObject[]) {
   Operations.start();
   Navigator.start({ routes });
   Finder.start({ routes });
-  QuickLinks.start();
+  QuickLinkClient.start();
 
   AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
   ActiveDirectoryClient.start({ routes, adGroups: false, cachedProfilePhoto: false });

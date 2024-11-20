@@ -8,7 +8,7 @@ import { Lite } from '@framework/Signum.Entities'
 import { FileEntity } from '@extensions/Signum.Files/Signum.Files'
 
 
-import * as QuickLinks from '@framework/QuickLinks';
+import { QuickLinkClient, QuickLinkLink } from '@framework/QuickLinkClient';
 import * as AppContext from '@framework/AppContext';
 import { RegisterUserModel } from '../Public/Southwind.Public';
 
@@ -40,7 +40,7 @@ export namespace EmployeesClient {
       }
     }));
   
-    QuickLinks.registerQuickLink(EmployeeEntity, new QuickLinks.QuickLinkLink(RegisterUserModel.typeName, () => EmployeeEntity.niceName(), ctx => AppContext.toAbsoluteUrl("/registerUser/" + ctx.lite.id), {
+    QuickLinkClient.registerQuickLink(EmployeeEntity, new QuickLinkLink(RegisterUserModel.typeName, () => EmployeeEntity.niceName(), ctx => AppContext.toAbsoluteUrl("/registerUser/" + ctx.lite.id), {
         icon: "user-plus",
         iconColor: "#93c54b"
       }));//QuickLink
