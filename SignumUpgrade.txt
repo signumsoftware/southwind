@@ -157,3 +157,4 @@ Upgrade_20240702_IsolatedDeclarations
 Upgrade_20240719_FixAzureDeploy
 Upgrade_20240802_UpdateNugets
 Upgrade_20240816_UpdateNugets
+Upgrade_20240823_UpdateNugets
