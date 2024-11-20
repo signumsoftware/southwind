@@ -159,3 +159,4 @@ Upgrade_20240802_UpdateNugets
 Upgrade_20240816_UpdateNugets
 Upgrade_20240823_UpdateNugets
 Upgrade_20240924_QuickLinkClient
+Upgrade_20241107_UpdateNugets
