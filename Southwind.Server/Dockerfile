@@ -1,16 +1,16 @@
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-bookworm-slim AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 8080
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-bookworm-slim AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 ## RUN apt-get update
 RUN apt-get -y install curl
 RUN curl -SLO https://deb.nodesource.com/nsolid_setup_deb.sh
 RUN chmod 500 nsolid_setup_deb.sh
-RUN ./nsolid_setup_deb.sh 21
+RUN ./nsolid_setup_deb.sh 22
 RUN apt-get install -y nodejs
 RUN npm install -g yarn
 
