@@ -49,7 +49,7 @@ public class Program
         using (HeavyProfiler.Log("Startup"))
         using (var log = HeavyProfiler.Log("Initial"))
         {
-            DynamicLogic.CodeGenDirectory = app.Environment.ContentRootPath + "/CodeGen";
+            DynamicLogic.CodeGenDirectory = app.Environment.ContentRootPath + "\\CodeGen";
 
             Starter.Start(
                 app.Configuration.GetConnectionString("ConnectionString")!,

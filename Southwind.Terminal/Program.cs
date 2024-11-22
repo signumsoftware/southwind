@@ -33,7 +33,7 @@ class Program
                     .AddUserSecrets<Program>(optional: true)
                     .Build();
 
-                DynamicLogic.CodeGenDirectory = "../../../../Southwind/CodeGen";
+                DynamicLogic.CodeGenDirectory = @"..\..\..\..\Southwind.Server\CodeGen";
                 
                 Starter.Start(
                     Configuration.GetConnectionString("ConnectionString")!,

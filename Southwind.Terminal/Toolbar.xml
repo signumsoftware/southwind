@@ -49,7 +49,7 @@
   </UserQuery>
   <UserChart Guid="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" DisplayName="Calendar Orders Total Price" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.CalendarStream">
     <Columns>
-      <Column Token="OrderDate.Date" DisplayName="Date of Order date" Format="d" />
+      <Column Token="OrderDate" DisplayName="Date of Order date" Format="d" />
       <Column Token="Entity.TotalPrice.Sum" DisplayName="Sum of Total price" Format="N2" />
     </Columns>
     <Parameters>
