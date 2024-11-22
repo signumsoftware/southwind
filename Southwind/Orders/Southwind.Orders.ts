@@ -34,10 +34,10 @@ export interface OrderEntity extends Entities.Entity {
   Type: "Order";
   customer: Customers.CustomerEntity;
   employee: Entities.Lite<Employees.EmployeeEntity>;
-  orderDate: string /*DateTime*/;
-  requiredDate: string /*DateTime*/;
-  shippedDate: string /*DateTime*/ | null;
-  cancelationDate: string /*DateTime*/ | null;
+  orderDate: string /*DateOnly*/;
+  requiredDate: string /*DateOnly*/;
+  shippedDate: string /*DateOnly*/ | null;
+  cancelationDate: string /*DateOnly*/ | null;
   shipVia: Entities.Lite<Shippers.ShipperEntity> | null;
   shipName: string | null;
   shipAddress: Customers.AddressEmbedded;

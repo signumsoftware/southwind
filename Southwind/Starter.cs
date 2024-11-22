@@ -51,6 +51,7 @@ using Signum.Files.FileTypeAlgorithms;
 using Signum.Eval;
 using Signum.Mailing.MicrosoftGraph;
 using Signum.Authorization.ActiveDirectory.Azure;
+using Signum.TimeMachine;
 
 namespace Southwind;
 
@@ -144,7 +145,7 @@ public static partial class Starter
             BigStringLogic.Start(sb);
             EmailLogic.Start(sb, () => Configuration.Value.Email, (template, target, message) => Configuration.Value.EmailSender);
             MailingMicrosoftGraphLogic.Start(sb);
-
+            
             AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
             AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);
             AuthLogic.StartAllModules(sb, () => Starter.Configuration.Value.AuthTokens);
@@ -180,6 +181,7 @@ public static partial class Starter
             ExcelLogic.Start(sb, excelReport: true);
             ToolbarLogic.Start(sb);
             ToolbarLogic.RegisterTranslatableRoutes();
+            TimeMachineLogic.Start(sb);
 
             SMSLogic.Start(sb, null, () => Configuration.Value.Sms);
 

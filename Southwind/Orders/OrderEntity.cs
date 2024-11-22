@@ -21,13 +21,13 @@ public class OrderEntity : Entity
 
     public Lite<EmployeeEntity> Employee { get; set; }
 
-    public DateTime OrderDate { get; set; }
+    public DateOnly OrderDate { get; set; }
 
-    public DateTime RequiredDate { get; set; }
+    public DateOnly RequiredDate { get; set; }
 
-    public DateTime? ShippedDate { get; set; }
+    public DateOnly? ShippedDate { get; set; }
 
-    public DateTime? CancelationDate { get; set; }
+    public DateOnly? CancelationDate { get; set; }
 
     public Lite<ShipperEntity>? ShipVia { get; set; }
 

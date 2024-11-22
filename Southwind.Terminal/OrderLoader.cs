@@ -4,6 +4,8 @@ using Southwind.Customers;
 using Southwind.Shippers;
 using Southwind.Employees;
 using Southwind.Products;
+using Microsoft.Kiota.Abstractions;
+using Signum.DynamicQuery;
 
 namespace Southwind.Terminal;
 
@@ -30,9 +32,9 @@ internal static class OrderLoader
         var orders = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Orders>().Select(o => new OrderEntity
         {
             Employee = Lite.Create<EmployeeEntity>(o.EmployeeID!.Value),
-            OrderDate = o.OrderDate!.Value,
-            RequiredDate = o.RequiredDate!.Value,
-            ShippedDate = o.ShippedDate,
+            OrderDate = o.OrderDate!.Value.ToDateOnly(),
+            RequiredDate = o.RequiredDate!.Value.ToDateOnly(),
+            ShippedDate = o.ShippedDate.ToDateOnly(),
             State = o.ShippedDate.HasValue ? OrderState.Shipped : OrderState.Ordered,
             ShipVia = Lite.Create<ShipperEntity>(o.ShipVia!.Value),
             ShipName = o.ShipName,
@@ -56,44 +58,69 @@ internal static class OrderLoader
             IsLegacy = true,
         }.SetId(o.OrderID)).ToList());
 
-        orders.BulkInsert(disableIdentity: true, validateFirst: true, message: "auto");
+        var max = orders.Max(a => a.OrderDate);
+
+        var now = Clock.Today;
+        var ts = max.DaysTo(now);
+
+        foreach (var o in orders)
+        {
+            o.OrderDate = o.OrderDate.AddDays(ts);
+            o.RequiredDate = o.RequiredDate.AddDays(ts);
+            o.ShippedDate = o.ShippedDate?.AddDays(ts);
+            if(o.State == OrderState.Shipped && (((int)o.Id) % 7 == 0))
+            {
+                o.CancelationDate = o.ShippedDate;
+                o.State = OrderState.Canceled;
+                o.ShippedDate = null;
+            }
+        }
+
+        orders.BulkInsert(disableIdentity: true, validateFirst: false, message: "auto");
     }
 
-    public static void UpdateOrdersDate()
+    public static void SimulateOrderSystemTime()
     {
-        DateTime time = Database.Query<OrderEntity>().Max(a => a.OrderDate);
-
-        var now = Clock.Now;
-        var ts = (int)(now - time).TotalDays;
-
-        ts = (ts / 7) * 7;
-
-        Database.Query<OrderEntity>().UnsafeUpdate()
-            .Set(o => o.OrderDate, o => o.OrderDate.AddDays(ts))
-            //.Set(o => o.PartitionId, o => o.OrderDate.AddDays(ts).Year)
-            .Set(o => o.ShippedDate, o => o.ShippedDate!.Value.AddDays(ts))
-            .Set(o => o.RequiredDate, o => o.RequiredDate.AddDays(ts))
-            .Set(o => o.CancelationDate, o => null)
-            .Execute();
-
-        //Database.MListQuery((OrderEntity e) => e.Details)
-        //    .UnsafeUpdateMList()
-        //    .Set(a => a.RowPartitionId, a => Database.Query<OrderEntity>().SingleEx(o => o.Id == a.Parent.Id).PartitionId)
-        //    .Execute();
-
-        var limit = Clock.Now.AddDays(-10);
-
-        var list = Database.Query<OrderEntity>().Where(a => a.State == OrderState.Shipped && a.OrderDate < limit).Select(a => a.ToLite()).ToList();
-
-        Random r = new Random(1);
-
-        for (int i = 0; i < list.Count * 0.1f; i++)
+        using (var tr = new Transaction())
         {
-            r.NextElement(list).InDB().UnsafeUpdate()
-            .Set(o => o.ShippedDate, o => null)
-            .Set(o => o.CancelationDate, o => o.OrderDate.AddDays((int)o.Id % 10))
-            .Set(o => o.State, o => OrderState.Canceled)
-            .Execute();
+            using (Administrator.DisableHistoryTable<OrderEntity>())
+            {
+                Database.Query<OrderEntity>().UnsafeUpdate(
+                    a => a.SystemPeriod().Min,
+                    a => a.OrderDate.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60), "auto");
+
+                Database.MListQuery((OrderEntity o) => o.Details)
+                    .UnsafeUpdateMList(a => a.SystemPeriod().Min,
+                    a => a.Parent.SystemPeriod().Min, "auto");
+            }
+
+            Database.Query<OrderEntity>().Where(a => a.State == OrderState.Shipped)
+                .UnsafeUpdate(a => a.ShippedDate, a => a.ShippedDate!.Value.AddDays(1), "shipped");
+
+            Database.Query<OrderEntity>().Where(a => a.State == OrderState.Canceled)
+                .UnsafeUpdate(a => a.CancelationDate, a => a.CancelationDate!.Value.AddDays(1), "canceled");
+
+            using (Administrator.DisableHistoryTable<OrderEntity>(includeMList: false))
+            {
+                Database.Query<OrderEntity>().Where(a => a.State == OrderState.Shipped).UnsafeUpdate(
+                    a => a.SystemPeriod().Min,
+                    a => a.ShippedDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60), "shipped min");
+
+                Database.Query<OrderEntity>().Where(a => a.State == OrderState.Canceled).UnsafeUpdate(
+                    a => a.SystemPeriod().Min,
+                    a => a.CancelationDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60), "cancelled min");
+
+                Database.Query<OrderEntity>().OverrideSystemTime(new SystemTime.HistoryTable())
+                    .UnsafeUpdate()
+                    .Set(a => a.State, a => OrderState.Ordered)
+                    .Set(a => a.CancelationDate, a => null)
+                    .Set(a => a.ShippedDate, a => null)
+                    .Set(a => a.SystemPeriod().Max, ho => Database.Query<OrderEntity>().Single(mo => mo.Id == ho.Id).SystemPeriod().Min)
+                    .Execute("Fix HT");
+            }
+
+            tr.Commit();
         }
+
     }
 }

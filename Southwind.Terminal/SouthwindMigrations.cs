@@ -50,7 +50,7 @@ public static class SouthwindMigrations
             OrderLoader.LoadShippers,
             OrderLoader.LoadOrders,
             EmployeeLoader.CreateUsers,
-            OrderLoader.UpdateOrdersDate,
+            OrderLoader.SimulateOrderSystemTime,
             ImportWordReportTemplateForOrder,
             ImportToolbar,
             ImportInstanceTranslations,

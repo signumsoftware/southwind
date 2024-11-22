@@ -683,6 +683,13 @@
 			<RemoveProjectReference Path="Framework\Extensions\Signum.MachineLearning\Signum.MachineLearning.csproj"/>
 		</Module>
 
+		<Module Name="TimeMachine">
+			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.TimeMachine;"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="TimeMachineLogic.Start(sb);"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { TimeMachineClient } from &quot;@extensions/Signum.TimeMachine/TimeMachineClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="TimeMachineClient.start({ routes });"/>
+		</Module>
+
 		<Module Name="Dynamic">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Dynamic;"/>
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="using Signum.Dynamic;"/>

@@ -46,7 +46,7 @@ public static class OrdersLogic
 
             SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, ctx =>
             {
-                var package = new PackageEntity().CreateLines(Database.Query<OrderEntity>().Where(a => a.OrderDate < DateTime.Now.AddDays(-7) && a.State != OrderState.Canceled));
+                var package = new PackageEntity().CreateLines(Database.Query<OrderEntity>().Where(a => a.OrderDate < Clock.Today.AddDays(-7) && a.State != OrderState.Canceled));
 
                 var process = ProcessLogic.Create(OrderProcess.CancelOrders, package);
 
@@ -58,9 +58,9 @@ public static class OrdersLogic
             SimpleTaskLogic.Register(OrderTask.CancelOldOrders, ctx =>
             {
                 Database.Query<OrderEntity>()
-                    .Where(a => a.OrderDate < DateTime.Now.AddDays(-7))
+                    .Where(a => a.OrderDate < Clock.Today.AddDays(-7))
                     .UnsafeUpdate()
-                    .Set(o => o.CancelationDate, o => DateTime.Now)
+                    .Set(o => o.CancelationDate, o => Clock.Today)
                     .Set(o => o.State, o => OrderState.Canceled)
                     .Execute();
 
@@ -98,7 +98,7 @@ public static class OrdersLogic
                         ShipAddress = customer?.Address.Clone()!,
                         State = OrderState.New,
                         Employee = EmployeeEntity.Current!,
-                        RequiredDate = DateTime.Now.AddDays(3),
+                        RequiredDate = Clock.Today.AddDays(3),
                     };
                 }
             }.Register();
@@ -112,7 +112,7 @@ public static class OrdersLogic
                     Customer = c,
                     Employee = EmployeeEntity.Current!,
                     ShipAddress = c.Address,
-                    RequiredDate = DateTime.Now.AddDays(3),
+                    RequiredDate = Clock.Today.AddDays(3),
                 }
             }.Register();
 
@@ -137,8 +137,8 @@ public static class OrdersLogic
                         Customer = o.Customer,
                         Employee = EmployeeEntity.Current!,
                         ShipAddress = o.ShipAddress.Clone(),
-                        RequiredDate = DateTime.Now.AddDays(3),
-                        OrderDate = DateTime.Now,
+                        RequiredDate = Clock.Today.AddDays(3),
+                        OrderDate = Clock.Today,
                         Details = o.Details.Select(c => new OrderDetailEmbedded
                         {
                             Product = c.Product,
@@ -167,7 +167,7 @@ public static class OrdersLogic
                         ShipAddress = customer?.Address.Clone()!,
                         State = OrderState.New,
                         Employee = EmployeeEntity.Current!,
-                        RequiredDate = DateTime.Now.AddDays(3),
+                        RequiredDate = Clock.Today.AddDays(3),
                         Details = prods.Select(p => new OrderDetailEmbedded
                         {
                             Product = p,
@@ -196,7 +196,7 @@ public static class OrdersLogic
                 {
                     if (o.IsNew)
                     {
-                        o.OrderDate = DateTime.Now;
+                        o.OrderDate = Clock.Today;
                     }
                     o.State = OrderState.Ordered;
                 }
@@ -210,7 +210,7 @@ public static class OrdersLogic
                 CanBeModified = true,
                 Execute = (o, args) =>
                 {
-                    o.ShippedDate = args.TryGetArgS<DateTime>() ?? DateTime.Now;
+                    o.ShippedDate = args.TryGetArgS<DateOnly>() ?? Clock.Today;
                     o.State = OrderState.Shipped;
                 }
             }.Register();
@@ -221,7 +221,7 @@ public static class OrdersLogic
                 ToStates = { OrderState.Canceled },
                 Execute = (o, args) =>
                 {
-                    o.CancelationDate = DateTime.Now;
+                    o.CancelationDate = Clock.Today;
                     o.State = OrderState.Canceled;
                 }
             }.Register();
