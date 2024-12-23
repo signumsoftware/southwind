@@ -102,14 +102,14 @@
 		</Module>
 
 		<Module Name="LoadNorthwind" DependsOn="ExampleEntities,Migrations">
-			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.UpdateOrdersDate,"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="EmployeeLoader.LoadRegions," To="OrderLoader.SimulateOrderSystemTime,"/>
 			<RemoveFiles Path="Southwind.Terminal\CustomerLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\EmployeeLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\NorthwindSchema.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\OrderLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\ProductLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\SupplierFaxes.csv"/>
-			<RemoveLine Path="Southwind.Terminal\settings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True;TrustServerCertificate=true&quot;"/>
+			<RemoveLine Path="Southwind.Terminal\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True;TrustServerCertificate=true&quot;"/>
 		</Module>
 
 		<Module Name="UserQuery">
@@ -577,7 +577,7 @@
 		
 
 
-			<RemoveLine Path="Southwind\Products\ProductsLogic.cs" Line="public static ResetLazy&lt;Dictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
+			<RemoveLine Path="Southwind\Products\ProductsLogic.cs" Line="public static ResetLazy&lt;FrozenDictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
 			<RemoveLine Path="Southwind\Products\ProductsLogic.cs" From="ActiveProducts = sb.GlobalLazy(() =>" To="new InvalidateWith(typeof(ProductEntity)));"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="routes.push({ path: &quot;/publicCatalog&quot;, element: &lt;PublicCatalog /> });"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import PublicCatalog from './Public/PublicCatalog'"/>
@@ -707,8 +707,8 @@
 						From="DynamicClient.start({ routes, withCodeGen: true });"
 						To="DynamicViewClient.start({ routes });"/>
 						
-			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="DynamicLogic.CodeGenDirectory = &quot;../../../../Southwind/CodeGen&quot;;"/>
-			<RemoveLine Path="Southwind.Server\Program.cs" Line="DynamicLogic.CodeGenDirectory = app.Environment.ContentRootPath + &quot;/CodeGen&quot;;"/>
+			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="DynamicLogic.CodeGenDirectory = @&quot;..\..\..\..\Southwind.Server\CodeGen&quot;;"/>
+			<RemoveLine Path="Southwind.Server\Program.cs" Line="DynamicLogic.CodeGenDirectory = app.Environment.ContentRootPath + &quot;\\CodeGen&quot;;"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Tree\Signum.Tree.csproj"/>
@@ -761,8 +761,8 @@
 		</Module>
 
 		<Module Name="Docker">
-			<RemoveFiles Path="Southwind\Dockerfile"/>
-			<RemoveFiles Path=".dockerignore"/>"D:\Signum\southwind\"
+			<RemoveFiles Path="Southwind.Server\Dockerfile"/>
+			<RemoveFiles Path=".dockerignore"/>
 			<RemoveFiles Path="deployToAzureLIVE.ps1"/>
 			<RemoveFiles Path="deployToAzureTEST.ps1"/>
 		</Module>
