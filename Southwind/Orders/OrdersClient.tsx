@@ -37,7 +37,7 @@ export namespace OrdersClient {
           state == "Shipped" ? "gray" :
             "black";
   
-        return { style: { color: color } };
+        return { style: { "--bs-table-color" : color } as React.CSSProperties };
       }
     });
   
