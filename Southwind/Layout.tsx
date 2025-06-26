@@ -85,9 +85,10 @@ export default function Layout(): React.JSX.Element {
             mode={sidebarMode}
             sidebarContent={
               hasUser ? <React.Suspense fallback={JavascriptMessage.loading.niceToString()}>
+              {renderTitle()}
               <ToolbarRenderer
                 onAutoClose={isMobile ? () => setSidebarMode("Hidden") : undefined}
-                appTitle={renderTitle()} />
+                />
               </React.Suspense> :
                 undefined}>
 
@@ -119,9 +120,11 @@ export default function Layout(): React.JSX.Element {
               </div>
             </nav>
 
+            <div className="container-fluid overflow-auto pt-2">
             <VersionChangedAlert />
 
-            <Outlet />
+            <Outlet context={{ sidebarMode }} />
+            </div>
           </SidebarContainer>
         </div>
         <GlobalModalContainer />
