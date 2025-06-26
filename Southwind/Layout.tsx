@@ -106,7 +106,7 @@ export default function Layout(): React.JSX.Element {
                 {hasUser && AppContext.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) && <OmniboxAutocomplete inputAttrs={{ className: "form-control omnibox" }} />}
               </div>
 
-              <div className="navbar-nav ml-auto">
+              <div className="navbar-nav ml-auto me-2">
                 {hasUser && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
                 <React.Suspense fallback={null}><ChangeLogViewer extraInformation={(window as any).__serverName} /></React.Suspense>
                 <Nav.Item> {/*Swagger*/}
