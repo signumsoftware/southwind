@@ -30,7 +30,7 @@ public class AddressEmbedded : EmbeddedEntity
 
     public override string ToString()
     {
-        return "{0}\r\n{1} {2} ({3})".FormatWith(Address, PostalCode, City, Country);
+        return "{0}\n{1} {2} ({3})".FormatWith(Address, PostalCode, City, Country);
     }
 
     public AddressEmbedded Clone()
