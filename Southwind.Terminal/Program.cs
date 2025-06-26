@@ -19,6 +19,15 @@ class Program
     static int Main(string[] args)
     {
 
+        Replacements.AutoReplacement = c => {
+
+            var newValue = c.NewValues?.Where(a => a.ToLower().Replace("_", "") == c.OldValue.ToLower().Replace("_", "")).Only();
+
+            if (newValue != null)
+                return new Replacements.Selection(c.OldValue, newValue);
+
+            return null;
+        };
         try
         {
             using (AuthLogic.Disable())
