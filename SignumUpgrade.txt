@@ -175,3 +175,4 @@ Upgrade_20250314_DirectoryBuildsprops
 Upgrade_20250321_UpdateNugets
 Upgrade_20250403_UpdateNugets
 Upgrade_20250425_UpdateNugets
+Upgrade_20250502_RenameToTranslatable
