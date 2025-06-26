@@ -164,3 +164,4 @@ Upgrade_20241119_DotNet9
 Upgrade_20241126_TypeScript57
 Upgrade_20241202_UpdateNugets
 Upgrade_20241203_CorsHealthCheck
+Upgrade_20241203_SeleniumGetAttribute

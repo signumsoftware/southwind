@@ -65,7 +65,7 @@ public class SouthwindBrowser : BrowserProxy
     {
         base.Login(username, password);
 
-        string culture = Selenium.FindElement(By.Id("languageSelector")).SelectElement().SelectedOption.GetAttribute("value");
+        string culture = Selenium.FindElement(By.Id("languageSelector")).SelectElement().SelectedOption.GetDomProperty("value");
 
         Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
     }
