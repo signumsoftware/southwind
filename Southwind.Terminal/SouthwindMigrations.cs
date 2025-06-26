@@ -160,13 +160,8 @@ public static class SouthwindMigrations
                 },
                 ActiveDirectory = new ActiveDirectoryConfigurationEmbedded
                 {
-                    Azure_ApplicationID = null,
-                    Azure_DirectoryID = null,
-                    Azure_ClientSecret = null,
-                    LoginWithActiveDirectoryRegistry = false,
-                    LoginWithWindowsAuthenticator = false,
-                    LoginWithAzureAD = false,
-                    UseDelegatedPermission = true,
+                    AzureAD = null,
+                    WindowsAD = null,
                     AllowMatchUsersBySimpleUserName = true,
                     AutoCreateUsers = true,
                     AutoUpdateUsers = true,

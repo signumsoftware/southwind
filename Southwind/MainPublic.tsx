@@ -67,7 +67,7 @@ Services.VersionFilter.versionHasChanged = () => {
 Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 
 AuthClient.registerUserTicketAuthenticator();
-if (window.__azureApplicationId) {
+if (window.__azureADConfig) {
   AzureADClient.registerAzureADAuthenticator();
 }//__azureApplicationId
 

@@ -230,8 +230,7 @@
         }
 
         var __serverName = @Json.Serialize(Configuration.GetValue<string>("ServerName", "none"));
-        var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);
-        var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);
+        var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.AzureAD?.ToAzureADConfigTS());
         var __disableSignalR = @Json.Serialize(Signum.ConcurrentUser.ConcurrentUserServer.DisableSignalR);
     </script>
 </body>
