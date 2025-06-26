@@ -181,3 +181,4 @@ Upgrade_20250525_CreateGitAttributesLF
 Upgrade_20250526_SlashRSlashN
 Upgrade_20250527_UpdateNuges
 Upgrade_20250528_CRLFChecker
+Upgrade_20250603_UpdateNuges
