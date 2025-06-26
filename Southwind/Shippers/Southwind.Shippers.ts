@@ -15,7 +15,7 @@ export interface ShipperEntity extends Entities.Entity {
   phone: string;
 }
 
-export module ShipperOperation {
+export namespace ShipperOperation {
   export const Save : Operations.ExecuteSymbol<ShipperEntity> = registerSymbol("Operation", "ShipperOperation.Save");
 }
 

@@ -32,11 +32,11 @@ export interface CustomerEntity extends Entities.Entity {
   fax: string | null;
 }
 
-export module CustomerOperation {
+export namespace CustomerOperation {
   export const Save : Operations.ExecuteSymbol<CustomerEntity> = registerSymbol("Operation", "CustomerOperation.Save");
 }
 
-export module CustomerQuery {
+export namespace CustomerQuery {
   export const Customer: QueryKey = new QueryKey("CustomerQuery", "Customer");
 }
 

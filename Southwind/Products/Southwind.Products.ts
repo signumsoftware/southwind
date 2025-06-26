@@ -18,7 +18,7 @@ export interface AdditionalInformationEmbedded extends Entities.EmbeddedEntity {
   value: string;
 }
 
-export module CatalogMessage {
+export namespace CatalogMessage {
   export const ProductName: MessageKey = new MessageKey("CatalogMessage", "ProductName");
   export const UnitPrice: MessageKey = new MessageKey("CatalogMessage", "UnitPrice");
   export const QuantityPerUnit: MessageKey = new MessageKey("CatalogMessage", "QuantityPerUnit");
@@ -33,7 +33,7 @@ export interface CategoryEntity extends Entities.Entity {
   picture: Files.FileEmbedded | null;
 }
 
-export module CategoryOperation {
+export namespace CategoryOperation {
   export const Save : Operations.ExecuteSymbol<CategoryEntity> = registerSymbol("Operation", "CategoryOperation.Save");
 }
 
@@ -51,15 +51,15 @@ export interface ProductEntity extends Entities.Entity {
   additionalInformation: Entities.MList<AdditionalInformationEmbedded>;
 }
 
-export module ProductOperation {
+export namespace ProductOperation {
   export const Save : Operations.ExecuteSymbol<ProductEntity> = registerSymbol("Operation", "ProductOperation.Save");
 }
 
-export module ProductPredictorPublication {
+export namespace ProductPredictorPublication {
   export const MonthlySales : MachineLearning.PredictorPublicationSymbol = registerSymbol("PredictorPublication", "ProductPredictorPublication.MonthlySales");
 }
 
-export module ProductQuery {
+export namespace ProductQuery {
   export const CurrentProducts: QueryKey = new QueryKey("ProductQuery", "CurrentProducts");
 }
 
@@ -75,7 +75,7 @@ export interface SupplierEntity extends Entities.Entity {
   homePage: string | null;
 }
 
-export module SupplierOperation {
+export namespace SupplierOperation {
   export const Save : Operations.ExecuteSymbol<SupplierEntity> = registerSymbol("Operation", "SupplierOperation.Save");
 }
 

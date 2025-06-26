@@ -1,3 +1,4 @@
+using Signum.Entities;
 using Signum.Files;
 using Southwind.Customers;
 
@@ -65,7 +66,7 @@ public enum EmployeeQuery
 }
 
 
-[AllowUnathenticated]
+[AllowUnauthenticated]
 public class EmployeeLiteModel : ModelEntity
 {
     [StringLengthValidator(Min = 3, Max = 20)]

@@ -47,7 +47,7 @@ public class OrderReactTest : SouthwindTestClass
                         Assert.Equal(sonicProduct.UnitPrice, order.AutoLineValue(a => a.TotalPrice));
                     }
 
-                    return b.NormalPage(lite);
+                    return b.FramePage(lite);
 
                 }).EndUsing(order =>
                 {

@@ -2,15 +2,15 @@ using Signum.Files;
 
 namespace Southwind.Products;
 
-[EntityKind(EntityKind.String, EntityData.Master), AllowUnathenticated]
+[EntityKind(EntityKind.String, EntityData.Master), AllowUnauthenticated]
 public class CategoryEntity : Entity
 {
-    [TranslateField] //Localize categoryName column
+    [Translatable] //Localize categoryName column
     [UniqueIndex]
     [StringLengthValidator(Min = 3, Max = 100)]
     public string CategoryName { get; set; }
 
-    [TranslateField] //Localize description column
+    [Translatable] //Localize description column
     [StringLengthValidator(Min = 3, MultiLine = true)]
     public string Description { get; set; }
 

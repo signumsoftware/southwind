@@ -4,7 +4,7 @@ using Southwind.Employees;
 
 namespace Southwind.Public;
 
-[AllowUnathenticated]
+[AllowUnauthenticated]
 public class RegisterUserModel : ModelEntity
 {
     public Lite<EmployeeEntity>? ReportsTo { get; set; }
@@ -37,7 +37,7 @@ public class RegisterUserModel : ModelEntity
     }
 }
 
-[AllowUnathenticated]
+[AllowUnauthenticated]
 public enum RegisterUserMessage
 {
     [Description("Please fill the following form to register a new Southwind Employee")]

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using Southwind.Orders;
 using Signum.Dynamic;
+using Signum.Engine.Sync;
 
 namespace Southwind.Terminal;
 
@@ -18,16 +19,6 @@ class Program
 
     static int Main(string[] args)
     {
-
-        Replacements.AutoReplacement = c => {
-
-            var newValue = c.NewValues?.Where(a => a.ToLower().Replace("_", "") == c.OldValue.ToLower().Replace("_", "")).Only();
-
-            if (newValue != null)
-                return new Replacements.Selection(c.OldValue, newValue);
-
-            return null;
-        };
         CRLFChecker.CheckGitCRLF();
         try
         {

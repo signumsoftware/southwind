@@ -30,8 +30,8 @@ export namespace OrdersClient {
         return <OrderFilter ctx={TypeContext.root(model)} />;
       },
       hiddenColumns: [{ token: "State" }],
-      rowAttributes: (row, columns) => {
-        var state = row.columns[columns.indexOf("State")] as OrderState;
+      rowAttributes: (row, sc) => {
+        var state = sc.getRowValue(row, OrderEntity.token(a => a.state));
   
         var color = state == "Canceled" ? "darkred" :
           state == "Shipped" ? "gray" :

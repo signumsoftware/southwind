@@ -60,7 +60,7 @@ export function startFull(routes: RouteObject[]) {
   QuickLinkClient.start();
 
   AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
-  ActiveDirectoryClient.start({ routes, adGroups: false, cachedProfilePhoto: false });
+  ActiveDirectoryClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });
 
   ExceptionClient.start({ routes });
   ChangeLogClient.start({ routes, applicationName: "Southwind", mainChangeLog: () => import("./Changelog") });

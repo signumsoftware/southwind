@@ -56,7 +56,7 @@ export interface OrderFilterModel extends Entities.ModelEntity {
   maxOrderDate: string /*DateOnly*/ | null;
 }
 
-export module OrderMessage {
+export namespace OrderMessage {
   export const DiscountShouldBeMultpleOf5: MessageKey = new MessageKey("OrderMessage", "DiscountShouldBeMultpleOf5");
   export const CancelShippedOrder0: MessageKey = new MessageKey("OrderMessage", "CancelShippedOrder0");
   export const SelectAShipper: MessageKey = new MessageKey("OrderMessage", "SelectAShipper");
@@ -65,7 +65,7 @@ export module OrderMessage {
   export const SalesNextMonth: MessageKey = new MessageKey("OrderMessage", "SalesNextMonth");
 }
 
-export module OrderOperation {
+export namespace OrderOperation {
   export const Create : Operations.ConstructSymbol_Simple<OrderEntity> = registerSymbol("Operation", "OrderOperation.Create");
   export const CreateOrderFromCustomer : Operations.ConstructSymbol_From<OrderEntity, Customers.CustomerEntity> = registerSymbol("Operation", "OrderOperation.CreateOrderFromCustomer");
   export const Clone : Operations.ConstructSymbol_From<OrderEntity, OrderEntity> = registerSymbol("Operation", "OrderOperation.Clone");
@@ -77,11 +77,11 @@ export module OrderOperation {
   export const CancelWithProcess : Operations.ConstructSymbol_FromMany<Processes.ProcessEntity, OrderEntity> = registerSymbol("Operation", "OrderOperation.CancelWithProcess");
 }
 
-export module OrderProcess {
+export namespace OrderProcess {
   export const CancelOrders : Processes.ProcessAlgorithmSymbol = registerSymbol("ProcessAlgorithm", "OrderProcess.CancelOrders");
 }
 
-export module OrderQuery {
+export namespace OrderQuery {
   export const OrderLines: QueryKey = new QueryKey("OrderQuery", "OrderLines");
 }
 
@@ -92,7 +92,7 @@ export type OrderState =
   "Shipped" |
   "Canceled";
 
-export module OrderTask {
+export namespace OrderTask {
   export const CancelOldOrdersWithProcess : Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrdersWithProcess");
   export const CancelOldOrders : Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrders");
 }

@@ -272,7 +272,7 @@ public static partial class Starter
     public static IFileTypeAlgorithm GetFileTypeAlgorithm(Func<FoldersConfigurationEmbedded, string> getFolder, bool weakFileReference = false)
     {
         if (string.IsNullOrEmpty(AzureStorageConnectionString))
-            return new FileTypeAlgorithm(fp => new PrefixPair(getFolder(Starter.Configuration.Value.Folders)))
+            return new FileTypeAlgorithm(fp => getFolder(Starter.Configuration.Value.Folders), webPrefix: null)
             {
                 WeakFileReference = weakFileReference
             };

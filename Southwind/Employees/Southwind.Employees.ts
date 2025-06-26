@@ -37,11 +37,11 @@ export interface EmployeeLiteModel extends Entities.ModelEntity {
   photo: Entities.Lite<Files.FileEntity> | null;
 }
 
-export module EmployeeOperation {
+export namespace EmployeeOperation {
   export const Save : Operations.ExecuteSymbol<EmployeeEntity> = registerSymbol("Operation", "EmployeeOperation.Save");
 }
 
-export module EmployeeQuery {
+export namespace EmployeeQuery {
   export const EmployeesByTerritory: QueryKey = new QueryKey("EmployeeQuery", "EmployeesByTerritory");
 }
 
@@ -51,7 +51,7 @@ export interface RegionEntity extends Entities.Entity {
   description: string;
 }
 
-export module RegionOperation {
+export namespace RegionOperation {
   export const Save : Operations.ExecuteSymbol<RegionEntity> = registerSymbol("Operation", "RegionOperation.Save");
 }
 
@@ -62,7 +62,7 @@ export interface TerritoryEntity extends Entities.Entity {
   description: string;
 }
 
-export module TerritoryOperation {
+export namespace TerritoryOperation {
   export const Save : Operations.ExecuteSymbol<TerritoryEntity> = registerSymbol("Operation", "TerritoryOperation.Save");
 }
 

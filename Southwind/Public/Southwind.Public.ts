@@ -8,7 +8,7 @@ import * as Employees from '../Employees/Southwind.Employees'
 import * as Customers from '../Customers/Southwind.Customers'
 
 
-export module RegisterUserMessage {
+export namespace RegisterUserMessage {
   export const PleaseFillTheFollowingFormToRegisterANewSouthwindEmployee: MessageKey = new MessageKey("RegisterUserMessage", "PleaseFillTheFollowingFormToRegisterANewSouthwindEmployee");
   export const Register: MessageKey = new MessageKey("RegisterUserMessage", "Register");
   export const UserRegistered: MessageKey = new MessageKey("RegisterUserMessage", "UserRegistered");

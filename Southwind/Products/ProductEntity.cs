@@ -56,7 +56,7 @@ public class ProductEntity : Entity
     public override string ToString() => As.Expression(() => ProductName);
 }
 
-[AllowUnathenticated]
+[AllowUnauthenticated]
 public enum CatalogMessage
 {
     ProductName,

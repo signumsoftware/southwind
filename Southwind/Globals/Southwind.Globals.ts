@@ -31,11 +31,11 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
   activeDirectory: ActiveDirectory.ActiveDirectoryConfigurationEmbedded;
 }
 
-export module ApplicationConfigurationOperation {
+export namespace ApplicationConfigurationOperation {
   export const Save : Operations.ExecuteSymbol<ApplicationConfigurationEntity> = registerSymbol("Operation", "ApplicationConfigurationOperation.Save");
 }
 
-export module BigStringFileType {
+export namespace BigStringFileType {
   export const Exceptions : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.Exceptions");
   export const OperationLog : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.OperationLog");
   export const ViewLog : Files.FileTypeSymbol = registerSymbol("FileType", "BigStringFileType.ViewLog");
@@ -56,7 +56,7 @@ export interface FoldersConfigurationEmbedded extends Entities.EmbeddedEntity {
   helpImagesFolder: string;
 }
 
-export module SouthwindTypeCondition {
+export namespace SouthwindTypeCondition {
   export const UserEntities : Rules.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.UserEntities");
   export const RoleEntities : Rules.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.RoleEntities");
   export const CurrentEmployee : Rules.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.CurrentEmployee");
