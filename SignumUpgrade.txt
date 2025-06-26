@@ -161,3 +161,4 @@ Upgrade_20240823_UpdateNugets
 Upgrade_20240924_QuickLinkClient
 Upgrade_20241107_UpdateNugets
 Upgrade_20241119_DotNet9
+Upgrade_20241126_TypeScript57
