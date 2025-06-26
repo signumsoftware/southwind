@@ -177,3 +177,4 @@ Upgrade_20250403_UpdateNugets
 Upgrade_20250425_UpdateNugets
 Upgrade_20250502_RenameToTranslatable
 Upgrade_20250516_BigValuePart
+Upgrade_20250525_CreateGitAttributesLF
