@@ -9,7 +9,7 @@ public class PersonEntity : CustomerEntity
     [StringLengthValidator(Min = 3, Max = 40)]
     public string LastName { get; set; }
 
-    [StringLengthValidator(Min = 3, Max = 10), NotNullValidator]
+    [StringLengthValidator(Min = 2, Max = 10), NotNullValidator]
     public string? Title { get; set; }
 
     [NotNullValidator]

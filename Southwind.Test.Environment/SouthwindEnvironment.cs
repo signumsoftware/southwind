@@ -149,7 +149,8 @@ public static class SouthwindEnvironment
             LastName = "Connor",
             Phone = RandomPhone(5),
             Address = RandomAddress(5),
-        }.Save();
+        }.SetMixin((CorruptMixin c) => c.Corrupt, true)
+        .Save();
 
         new PersonEntity
         {
@@ -157,7 +158,8 @@ public static class SouthwindEnvironment
             LastName = "Connor",
             Phone = RandomPhone(6),
             Address = RandomAddress(6),
-        }.Save();
+        }.SetMixin((CorruptMixin c) => c.Corrupt, true)
+        .Save();
 
         new CompanyEntity
         {

@@ -30,7 +30,7 @@ export default function Home(): React.JSX.Element | null {
     return null;
 
   return (
-    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("/background_dark.jpg") + ")", backgroundSize: "cover" }}>
+    <div id="hero" style={{ background: "url(" + AppContext.toAbsoluteUrl("/background_dark.jpg") + ")", backgroundSize: "cover", flexGrow: 1 }}>
       <div className="hero-container">
         <div style={{ background: "white", padding: "10px", boxShadow: "0px 4px 8px 0px rgb(0 0 0 / 75%)" }}>
           <img src={AppContext.toAbsoluteUrl("/logo.png")} style={{ maxWidth: "90vw" }} />

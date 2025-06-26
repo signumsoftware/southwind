@@ -60,7 +60,7 @@ internal static class OrderLoader
 
         var max = orders.Max(a => a.OrderDate);
 
-        var now = Clock.Today;
+        var now = Clock.Today.AddDays(-1);
         var ts = max.DaysTo(now);
 
         foreach (var o in orders)
