@@ -363,7 +363,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="AuthLogic.Start(sb, &quot;System&quot;,  &quot;Anonymous&quot;); /* null); anonymous*/"/>
 			<RemoveSpanInLines Path="Southwind\Starter.cs" Span="&quot;Anonymous&quot;); /*" DependsOn="PublicCatalog"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="CreateUser(&quot;Anonymous&quot;, roles.GetOrThrow(&quot;Anonymous&quot;));" DependsOn="PublicCatalog"/>
-			<RemoveSpanInLines Path="Southwind\Products\CategoryEntity.cs" Span=", AllowUnathenticated" DependsOn="PublicCatalog"/>
+			<RemoveSpanInLines Path="Southwind\Products\CategoryEntity.cs" Span=", AllowUnauthenticated" DependsOn="PublicCatalog"/>
 			<RemoveSpanInLines Path="Southwind\Starter.cs" Span="anonymous*/" DependsOn="PublicCatalog"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="AuthLogic.LoadRoles();"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="UserEntity anonymous = new UserEntity" To="}.Save(); //Anonymous"/>
@@ -426,12 +426,10 @@
 			<RemoveLine Path="Southwind\Layout.tsx" Line="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ActiveDirectoryClient } from &quot;@extensions/Signum.Authorization.ActiveDirectory/ActiveDirectoryClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes, adGroups: false, cachedProfilePhoto: false });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import { AzureADClient } from '@extensions/Signum.Authorization.ActiveDirectory/Azure/AzureADClient'"/>
-			<RemoveLine Path="Southwind\MainPublic.tsx" From="if (window.__azureApplicationId) {" To="}//__azureApplicationId"/>
-			<RemoveLine Path="Southwind\Index.cshtml"
-						From="var __azureApplicationId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_ApplicationID);"
-						To="var __azureTenantId = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.Azure_DirectoryID);"/>
+			<RemoveLine Path="Southwind\MainPublic.tsx" From="if (window.__azureADConfig) {" To="}//__azureADConfig"/>
+			<RemoveLine Path="Southwind\Index.cshtml" Line="var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.AzureAD?.ToAzureADConfigTS());"/>
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
@@ -470,8 +468,8 @@
 			<RemoveFiles Path="Southwind.Terminal\InstanceTranslations\UserChart.de.View.xlsx" DependsOn="LoadNorthwind,Chart"/>
 			<RemoveFiles Path="Southwind.Terminal\InstanceTranslations\Toolbar.de.View.xlsx" DependsOn="LoadNorthwind,Toolbar"/>
 			<RemoveFiles Path="Southwind.Terminal\InstanceTranslations\ToolbarMenu.de.View.xlsx" DependsOn="LoadNorthwind,Toolbar"/>
-			<RemoveLine Path="Southwind\Products\CategoryEntity.cs" Line="[TranslateField] //Localize categoryName column" DependsOn="ExampleEntities"/>
-			<RemoveLine Path="Southwind\Products\CategoryEntity.cs" Line="[TranslateField] //Localize description column" DependsOn="ExampleEntities"/>
+			<RemoveLine Path="Southwind\Products\CategoryEntity.cs" Line="[Translatable] //Localize categoryName column" DependsOn="ExampleEntities"/>
+			<RemoveLine Path="Southwind\Products\CategoryEntity.cs" Line="[Translatable] //Localize description column" DependsOn="ExampleEntities"/>
 			<RemoveLine Path="Southwind\Layout.tsx" Line="{!hasUser &amp;&amp; &lt;CultureDropdown />}"/>
 			<RemoveLine Path="Southwind\Layout.tsx" Line="extraMenuItems={u => hasUser &amp;&amp; &lt;CultureDropdownMenuItem />}"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Translation\Signum.Translation.csproj&quot; />"/>

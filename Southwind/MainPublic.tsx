@@ -69,7 +69,7 @@ Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 AuthClient.registerUserTicketAuthenticator();
 if (window.__azureADConfig) {
   AzureADClient.registerAzureADAuthenticator();
-}//__azureApplicationId
+}//__azureADConfig
 
 ErrorModal.register();
 
