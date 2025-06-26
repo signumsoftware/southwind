@@ -28,6 +28,7 @@ class Program
 
             return null;
         };
+        CRLFChecker.CheckGitCRLF();
         try
         {
             using (AuthLogic.Disable())
