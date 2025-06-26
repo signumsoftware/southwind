@@ -168,3 +168,4 @@ Upgrade_20241203_SeleniumGetAttribute
 Upgrade_20241216_FileNesting
 Upgrade_20241220_ScrollableSideBar
 Upgrade_20250117_FixLoginPadding
+Upgrade_20250202_UpdateNugets
