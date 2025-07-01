@@ -44,6 +44,7 @@
 		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization\Signum.Authorization.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Caching\Signum.Caching.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Chart\Signum.Chart.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.ChatBot\Signum.Chatbot.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.CodeMirror\Signum.CodeMirror.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.ConcurrentUser\Signum.ConcurrentUser.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Dashboard\Signum.Dashboard.csproj" />

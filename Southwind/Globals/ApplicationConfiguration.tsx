@@ -25,6 +25,9 @@ export default function ApplicationConfiguration(p : { ctx: TypeContext<Applicat
         <Tab eventKey="workflow" title={ctx.niceName(a => a.workflow)}>
           <RenderEntity ctx={ctx.subCtx(a => a.workflow)} />
         </Tab>
+        <Tab eventKey="chatbot" title={ctx.niceName(a => a.chatbot)}>
+          <RenderEntity ctx={ctx.subCtx(a => a.chatbot)} />
+        </Tab>
         <Tab eventKey="folders" title={ctx.niceName(a => a.folders)}>
           <RenderEntity ctx={ctx.subCtx(a => a.folders)} />
         </Tab>

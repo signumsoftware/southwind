@@ -31,6 +31,7 @@
     { "path": "../Framework/Extensions/Signum.Authorization" },
     { "path": "../Framework/Extensions/Signum.Caching" },
     { "path": "../Framework/Extensions/Signum.Chart" },
+    { "path": "../Framework/Extensions/Signum.Chatbot" },
     { "path": "../Framework/Extensions/Signum.CodeMirror" },
     { "path": "../Framework/Extensions/Signum.ConcurrentUser" },
     { "path": "../Framework/Extensions/Signum.Dashboard" },

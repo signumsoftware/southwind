@@ -5,6 +5,7 @@ using Signum.Files;
 using Signum.Authorization.Rules;
 using Signum.Authorization.AuthToken;
 using Signum.Authorization.ActiveDirectory;
+using Signum.Chatbot;
 
 namespace Southwind.Globals;
 
@@ -21,6 +22,8 @@ public class ApplicationConfigurationEntity : Entity
     public EmailConfigurationEmbedded Email { get; set; }
 
     public EmailSenderConfigurationEntity EmailSender { get; set; }
+
+    public ChatbotConfigurationEmbedded Chatbot { get; set; }
 
     /*Sms*/
     public SMSConfigurationEmbedded Sms { get; set; }

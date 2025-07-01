@@ -17,6 +17,7 @@ using Southwind;
 using Signum.Security;
 using Signum.Authorization.AuthToken;
 using Signum.Authorization.ActiveDirectory;
+using Signum.ChatBot;
 
 namespace Southwind.Test.Environment;
 
@@ -266,6 +267,10 @@ public static class SouthwindEnvironment
                     }
                 }
             }, //Email
+            Chatbot = new ChatbotConfigurationEmbedded
+            {
+                MistralAPIKey = "osik9u8iytctjVUTkSpCUgjYt1FxW5aq"
+            },
             Sms = new SMSConfigurationEmbedded
             {
                 DefaultCulture = enGB,

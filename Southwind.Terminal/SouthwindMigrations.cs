@@ -1,28 +1,28 @@
-using System.Globalization;
-using Signum.Basics;
-using Signum.Engine.Maps;
-using Signum.Migrations;
 using Signum.Authorization;
+using Signum.Authorization.ActiveDirectory;
+using Signum.Authorization.AuthToken;
+using Signum.Basics;
+using Signum.Chatbot;
+using Signum.Dashboard;
+using Signum.DynamicQuery;
+using Signum.Engine.Maps;
 using Signum.Files;
+using Signum.MachineLearning;
 using Signum.Mailing;
+using Signum.Migrations;
+using Signum.Security;
 using Signum.SMS;
+using Signum.Toolbar;
+using Signum.Translation.Instances;
+using Signum.UserAssets;
+using Signum.UserAssets.Queries;
 using Signum.Word;
 using Signum.Workflow;
-using Signum.UserAssets;
-using System.IO;
-using Signum.MachineLearning;
-using Signum.DynamicQuery;
-
-using Signum.Toolbar;
-using Signum.Dashboard;
 using Southwind.Globals;
-using Southwind.Products;
 using Southwind.Orders;
-using Signum.Security;
-using Signum.Authorization.AuthToken;
-using Signum.Authorization.ActiveDirectory;
-using Signum.Translation.Instances;
-using Signum.UserAssets.Queries;
+using Southwind.Products;
+using System.Globalization;
+using System.IO;
 
 namespace Southwind.Terminal;
 
@@ -142,6 +142,10 @@ public static class SouthwindMigrations
                 Workflow = new WorkflowConfigurationEmbedded
                 {
                 }, //Workflow
+                Chatbot = new ChatbotConfigurationEmbedded
+                {
+                    MistralAPIKey = ""
+                },
                 Folders = new FoldersConfigurationEmbedded
                 {
                     PredictorModelFolder = localPrefix + @"predictor-models",

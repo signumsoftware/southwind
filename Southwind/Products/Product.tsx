@@ -4,6 +4,7 @@ import { Finder } from '@framework/Finder';
 import { PredictorEntity } from '@extensions/Signum.MachineLearning/Signum.MachineLearning';
 import SalesEstimation from './SalesEstimation';
 import { ProductEntity } from './Southwind.Products';
+import { Chatbot } from '../../Framework/Extensions/Signum.Chatbot/Chatbot';
 
 export default function Product(p: { ctx: TypeContext<ProductEntity> }): React.JSX.Element {
   const ctx = p.ctx;
@@ -19,6 +20,8 @@ export default function Product(p: { ctx: TypeContext<ProductEntity> }): React.J
       <AutoLine ctx={ctx.subCtx(p => p.reorderLevel)} />
       <AutoLine ctx={ctx.subCtx(p => p.discontinued)} />
       <AutoLine ctx={ctx.subCtx(p => p.additionalInformation)} />
+
+      <Chatbot />
     </div>
   );
 }
