@@ -51,6 +51,7 @@ class Program
                 {
                     switch (args.First().ToLower().Trim('-', '/'))
                     {
+                        case "new": Administrator.NewDatabase(); return 0;
                         case "sql": SqlMigrationRunner.SqlMigrations(true); return 0;
                         case "csharp": SouthwindMigrations.CSharpMigrations(true); return 0;
                         case "load": Load(args.Skip(1).ToArray()); return 0;
