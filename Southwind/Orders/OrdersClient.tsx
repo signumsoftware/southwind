@@ -31,9 +31,14 @@ export namespace OrdersClient {
       },
       hiddenColumns: [{ token: "State" }],
       rowAttributes: (row, sc) => {
-        var state = sc.getRowValue(row, OrderEntity.token(a => a.state));
+        const stateBox = sc.tryGetRowValue(row, OrderEntity.token(a => a.state));
+
+        if (stateBox == undefined)
+          return undefined;
+
+        const state = stateBox.value;
   
-        var color = state == "Canceled" ? "darkred" :
+        const color = state == "Canceled" ? "darkred" :
           state == "Shipped" ? "gray" :
             "black";
   
