@@ -87,6 +87,13 @@ public static class ProductPredictorPublication
 }//Predictor
 
 
+
+public enum ProductMessage
+{
+    AdditionalInfo,
+}
+
+
 public enum ProductQuery
 {
     CurrentProducts

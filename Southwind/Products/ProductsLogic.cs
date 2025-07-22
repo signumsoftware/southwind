@@ -13,6 +13,8 @@ public static class ProductsLogic
         {
             sb.Include<ProductEntity>()
                 .WithSave(ProductOperation.Save)
+                .WithUniqueIndexMList(a => a.AdditionalInformation, mle => new { mle.Parent, mle.Element.Key })
+                .WithExpressionWithParameter(ProductMessage.AdditionalInfo, AdditionalInformationKeys, (p, key) => p.AdditionalInformation.SingleOrDefaultEx(ai => ai.Key == key)!.Value)
                 .WithQuery(() => p => new
                 {
                     Entity = p,
@@ -25,9 +27,6 @@ public static class ProductsLogic
                     p.UnitsInStock,
                     p.Discontinued
                 });
-
-            sb.AddUniqueIndexMList((ProductEntity pe) => pe.AdditionalInformation, mle => new { mle.Parent, mle.Element.Key });
-            QueryLogic.Expressions.RegisterWithParameter((ProductEntity p, string key) => p.AdditionalInformation.SingleOrDefaultEx(ai => ai.Key == key)!.Value, getKeys: t => AdditionalInformationKeys.Value);
 
             ActiveProducts = sb.GlobalLazy(() =>
                 Database.Query<ProductEntity>()
