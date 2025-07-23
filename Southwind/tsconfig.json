@@ -1,12 +1,12 @@
 ﻿{
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "esnext",
     //"isolatedDeclarations": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "incremental": true,
     "composite": true,
     "outDir": "./ts_out",
@@ -17,8 +17,7 @@
       "@extensions/*": [ "../Framework/Extensions/*" ]
     },
     "lib": [
-      "es2017",
-      //"esnext",
+      "ESNext",
       "dom"
     ]
   },
