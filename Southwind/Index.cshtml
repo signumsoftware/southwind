@@ -7,24 +7,25 @@
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @{
-   string GetWebpackPath(string jsonContent, string moduleName)
-   {
-       var jsonObj = (JsonObject)JsonNode.Parse(jsonContent)!;
-       var mainObj = (JsonObject)jsonObj[moduleName]!;
-       ((JsonValue)mainObj["js"]!).TryGetValue<string>(out var result);
-       return result!;
-   }
+    bool useViteDev = Configuration.GetValue<bool>("UseViteDevServer");
 
+    string mainJs;
     //FileNotFoundException??? You need to run 'yarn watch'. Requires:
     //- Node.js: https://nodejs.org/
     //- Yarn: https://yarnpkg.com/en/
     //- NPM Task Runner: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner)
-    string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
-    string main = GetWebpackPath(json, "main");
 
-    string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
-    string vendor = GetWebpackPath(jsonDll, "vendor");;
-
+    if(useViteDev)
+    {
+        mainJs = "http://localhost:3000/src/main.tsx";
+    }
+    else
+    {
+        var manifestPath = Path.Combine(hostingEnv.WebRootPath, "dist/manifest.json");
+        var manifestJson = System.IO.File.ReadAllText(manifestPath);
+        var manifest = JsonNode.Parse(manifestJson)!.AsObject();
+        mainJs = manifest["src/main.tsx"]!["file"]!.GetValue<string>();
+    }
 }
 <!doctype html>
 <html>
@@ -148,21 +149,6 @@
     <script>
         var __baseName = "@Url.Content("~")";
 
-        var browser = (function (agent) {
-            switch (true) {
-                case agent.indexOf("edge") > -1: return "old edge";
-                case agent.indexOf("edg") > -1: return "chromium edge";
-                case agent.indexOf("opr") > -1 && !!window.opr: return "opera";
-                case agent.indexOf("chrome") > -1 && !!window.chrome: return "chrome";
-                case agent.indexOf("trident") > -1: return "ie";
-                case agent.indexOf("firefox") > -1: return "firefox";
-                case agent.indexOf("safari") > -1: return "safari";
-                default: return "other";
-            }
-        })(window.navigator.userAgent.toLowerCase());
-        /**
-            * @@param {...(a: HTMLElement) => void } complete - Blabla
-            */
         function newElement(tagName, complete) {
             var result = document.createElement(tagName);
             complete(result);
@@ -195,7 +181,20 @@
                 }));
         };
 
-        var supportIE = true;
+         var browser = (function (agent) {
+            switch (true) {
+                case agent.indexOf("edge") > -1: return "old edge";
+                case agent.indexOf("edg") > -1: return "chromium edge";
+                case agent.indexOf("opr") > -1 && !!window.opr: return "opera";
+                case agent.indexOf("chrome") > -1 && !!window.chrome: return "chrome";
+                case agent.indexOf("trident") > -1: return "ie";
+                case agent.indexOf("firefox") > -1: return "firefox";
+                case agent.indexOf("safari") > -1: return "safari";
+                default: return "other";
+            }
+        })(window.navigator.userAgent.toLowerCase());
+
+        var supportIE = false;
         if (!supportIE && (browser == "old edge" || browser == "ie")) {
             var spinner = document.querySelector("#reactDiv .loading-spinner");
             spinner && spinner.parentElement.removeChild(spinner);
@@ -205,28 +204,10 @@
                 + "<a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox</a> or "
                 + "the new <a href='https://www.microsoft.com/en-us/edge'>Microsoft Edge (chromium)</a>.";
         } else {
-            (function () {
-                var scriptToLoad = [
-                    "@Url.Content("~/dist/" + vendor)",
-                    "@Url.Content("~/dist/" + main)",
-                ];
-
-
-                function loadNextScript() {
-                    // gets the first script in the list
-                    var script = scriptToLoad.shift();
-                    // all scripts were loaded
-                    if (!script) return;
-                    var js = document.createElement('script');
-                    js.type = 'text/javascript';
-                    js.src = script;
-                    js.onload = function () { loadNextScript(); };
-                    var s = document.getElementsByTagName('script')[0];
-                    s.parentNode.insertBefore(js, s);
-                }
-
-                loadNextScript();
-            })();
+            var script = document.createElement('script');
+            script.type = 'module';
+            script.src = "@Url.Content("~/dist/" + mainJs)";
+            document.body.appendChild(script);
         }
 
         var __serverName = @Json.Serialize(Configuration.GetValue<string>("ServerName", "none"));
