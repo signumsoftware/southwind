@@ -20,6 +20,7 @@ const ToolbarRenderer = React.lazy(() => import("@extensions/Signum.Toolbar/Rend
 const OmniboxAutocomplete = React.lazy(() => import('@extensions/Signum.Omnibox/OmniboxAutocomplete'));
 const ChangeLogViewer = React.lazy(() => import('@framework/Basics/ChangeLogViewer'));
 const AlertDropdown = React.lazy(() => import("@extensions/Signum.Alerts/AlertDropdown"));
+const ChatButton = React.lazy(() => import("@extensions/Signum.Chatbot/ChatbotButton"));
 
 export default function Layout(): React.JSX.Element {
 
@@ -125,6 +126,7 @@ export default function Layout(): React.JSX.Element {
 
             <Outlet context={{ sidebarMode }} />
             </div>
+            {hasUser && <React.Suspense fallback={null}><ChatButton /></React.Suspense>}
           </SidebarContainer>
         </div>
         <GlobalModalContainer />

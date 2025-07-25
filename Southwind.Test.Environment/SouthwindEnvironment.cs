@@ -17,7 +17,7 @@ using Southwind;
 using Signum.Security;
 using Signum.Authorization.AuthToken;
 using Signum.Authorization.ActiveDirectory;
-using Signum.ChatBot;
+using Signum.Chatbot;
 
 namespace Southwind.Test.Environment;
 

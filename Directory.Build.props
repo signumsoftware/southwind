@@ -1,5 +1,7 @@
 <Project>
 	<PropertyGroup>
 	    <PreserveCompilationContext>false</PreserveCompilationContext>
+		<RazorCompileOnBuild>false</RazorCompileOnBuild>
+		<RazorCompileOnPublish>false</RazorCompileOnPublish>
 	</PropertyGroup>
 </Project>

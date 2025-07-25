@@ -12,7 +12,9 @@ export namespace GlobalsClient {
   export function start(options: { routes: RouteObject[] }): void {
   
     Navigator.addSettings(new EntitySettings(ApplicationConfigurationEntity, a => import('./ApplicationConfiguration')));
-  
+    
+
+
     Navigator.getSettings(UserEntity)!.overrideView((rep) => {
       rep.insertAfterLine(u => u.role, ctx => [
         <EntityLine ctx={ctx.subCtx(UserEmployeeMixin).subCtx(uem => uem.employee)} />

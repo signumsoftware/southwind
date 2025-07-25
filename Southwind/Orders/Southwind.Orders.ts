@@ -9,6 +9,7 @@ import * as Customers from '../Customers/Southwind.Customers'
 import * as Employees from '../Employees/Southwind.Employees'
 import * as Shippers from '../Shippers/Southwind.Shippers'
 import * as Products from '../Products/Southwind.Products'
+import * as Agents from '../../Framework/Extensions/Signum.ChatBot/Signum.Chatbot.Agents'
 import * as Processes from '../../Framework/Extensions/Signum.Processes/Signum.Processes'
 import * as Scheduler from '../../Framework/Extensions/Signum.Scheduler/Signum.Scheduler'
 
@@ -95,5 +96,9 @@ export type OrderState =
 export namespace OrderTask {
   export const CancelOldOrdersWithProcess : Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrdersWithProcess");
   export const CancelOldOrders : Scheduler.SimpleTaskSymbol = registerSymbol("SimpleTask", "OrderTask.CancelOldOrders");
+}
+
+export namespace SouthwindAgent {
+  export const Orders : Agents.ChatbotAgentCodeSymbol = registerSymbol("ChatbotAgentCode", "SouthwindAgent.Orders");
 }
 

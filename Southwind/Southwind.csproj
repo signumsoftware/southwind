@@ -7,6 +7,9 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>8618,1591</NoWarn>
         <!--<TSC_Build>true</TSC_Build>-->
+
+		<RazorCompileOnBuild>true</RazorCompileOnBuild>
+		<RazorCompileOnPublish>true</RazorCompileOnPublish>
 	</PropertyGroup>
 
 	<ItemGroup>

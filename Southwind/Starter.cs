@@ -13,6 +13,7 @@ using Signum.Cache.Broadcast;
 using Signum.Chart;
 using Signum.Chart.UserChart;
 using Signum.Chatbot;
+using Signum.Chatbot.Agents;
 using Signum.ConcurrentUser;
 using Signum.Dashboard;
 using Signum.DiffLog;
@@ -211,7 +212,9 @@ public static partial class Starter
             RestApiKeyLogic.Start(sb);
 
             WorkflowLogicStarter.Start(sb, () => Configuration.Value.Workflow);
-            ChatbotLanguageModelLogic.Start(sb, () => Configuration.Value.Chatbot);
+
+            ChatbotAgentLogic.Start(sb);
+            ChatbotLogic.Start(sb, () => Configuration.Value.Chatbot);
 
             ProfilerLogic.Start(sb,
                 timeTracker: true,

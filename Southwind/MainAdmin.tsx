@@ -1,3 +1,4 @@
+import React from "react"
 import { RouteObject } from "react-router"
 import { Operations } from "@framework/Operations"
 import { Navigator } from "@framework/Navigator"
@@ -34,6 +35,7 @@ import { RestClient } from "@extensions/Signum.Rest/RestClient"
 import { AlertsClient } from "@extensions/Signum.Alerts/AlertsClient"
 import { NotesClient } from "@extensions/Signum.Notes/NotesClient"
 import { ConcurrentUserClient } from "@extensions/Signum.ConcurrentUser/ConcurrentUserClient"
+import { ChatbotClient } from "@extensions/Signum.Chatbot/ChatbotClient"
 
 import { ToolbarClient } from "@extensions/Signum.Toolbar/ToolbarClient"
 
@@ -52,6 +54,8 @@ import { GlobalsClient } from "./Globals/GlobalsClient"
 import { OrdersClient } from "./Orders/OrdersClient"
 import { ProductsClient } from "./Products/ProductsClient"
 import { ShippersClient } from "./Shippers/ShippersClient"
+
+const ReactMarkdownWithFormulas = React.lazy(() => import("@extensions/Signum.Chatbot/ReactMarkdownWithFormulas"));
 
 export function startFull(routes: RouteObject[]) {
   Operations.start();
@@ -89,6 +93,9 @@ export function startFull(routes: RouteObject[]) {
   RestClient.start({ routes });
   AlertsClient.start({ routes, showAlerts: a => false });
   NotesClient.start({ routes, couldHaveNotes: a => false });
+
+  ChatbotClient.renderMarkdown = markdown => <ReactMarkdownWithFormulas>{markdown}</ReactMarkdownWithFormulas>;  
+  ChatbotClient.start({ routes });
   ConcurrentUserClient.start({ routes });
 
   EvalClient.start({ routes });
@@ -107,4 +114,5 @@ export function startFull(routes: RouteObject[]) {
   OrdersClient.start({ routes });
   ProductsClient.start({ routes });
   ShippersClient.start({ routes });
+  
 }

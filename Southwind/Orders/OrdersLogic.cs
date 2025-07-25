@@ -26,6 +26,8 @@ public static class OrdersLogic
                     o.ShipVia,
                 });
 
+            OrderAgent.Register();
+
             QueryLogic.Queries.Register(OrderQuery.OrderLines, () =>
                 from o in Database.Query<OrderEntity>()
                 from od in o.Details

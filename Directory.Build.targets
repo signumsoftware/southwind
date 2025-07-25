@@ -29,4 +29,16 @@
 		</None>
 		-->
 	</ItemGroup>
+
+
+	<!--<Target Name="DeleteStaticWebAssets" BeforeTargets="GenerateStaticWebAssetsManifest">
+		<PropertyGroup>
+			<StaticWebAssetsPath>$(IntermediateOutputPath)staticwebassets.build.json</StaticWebAssetsPath>
+		</PropertyGroup>
+		<Message Text=">> Trying to delete: $(StaticWebAssetsPath)" Importance="High" />
+		<ItemGroup>
+			<FilesToDelete Include="$(StaticWebAssetsPath)" />
+		</ItemGroup>
+		<Delete Files="@(FilesToDelete)" Condition="Exists('%(FilesToDelete.FullPath)')" />
+	</Target>-->
 </Project>
