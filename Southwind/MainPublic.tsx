@@ -1,11 +1,11 @@
 import "./SCSS/custom.scss";
-import "../node_modules/react-widgets/scss/styles.scss"
+import "react-widgets-up/scss/styles.scss"
 import "./site.css"
 import "@framework/Frames/Frames.css"
 
 import * as React from "react"
 import { RouteObject } from 'react-router'
-import { Localization } from "react-widgets"
+import { Localization } from "react-widgets-up"
 import { createRoot, Root } from "react-dom/client"
 import { createBrowserRouter, RouterProvider, Location } from "react-router-dom"
 
@@ -42,9 +42,7 @@ AppContext.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle 
 AppContext.setTitle();
 
 
-declare let __webpack_public_path__: string;
 
-__webpack_public_path__ = window.__baseName + "/dist/";
 
 const dateLocalizer = ConfigureReactWidgets.getDateLocalizer();
 const numberLocalizer = ConfigureReactWidgets.getNumberLocalizer();

@@ -7,23 +7,19 @@
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @{
-   string GetWebpackPath(string jsonContent, string moduleName)
+                   int? vitePort = Configuration.GetValue<int?>("ViteDevServerPort");
+   string mainJs;
+   if (vitePort != null) //yarn dev.
    {
-       var jsonObj = (JsonObject)JsonNode.Parse(jsonContent)!;
-       var mainObj = (JsonObject)jsonObj[moduleName]!;
-       ((JsonValue)mainObj["js"]!).TryGetValue<string>(out var result);
-       return result!;
+       mainJs = $"http://localhost:{vitePort}/dist/main.tsx";
    }
-
-    //FileNotFoundException??? You need to run 'yarn watch'. Requires:
-    //- Node.js: https://nodejs.org/
-    //- Yarn: https://yarnpkg.com/en/
-    //- NPM Task Runner: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner)
-    string json = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.json"));
-    string main = GetWebpackPath(json, "main");
-
-    string jsonDll = File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/webpack-assets.dll.json"));
-    string vendor = GetWebpackPath(jsonDll, "vendor");;
+   else //yarn build
+   {
+       var manifestJson = System.IO.File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/.vite/manifest.json"));
+       var manifest = JsonNode.Parse(manifestJson)!.AsObject();
+       var file = manifest["main.tsx"]!["file"]!.GetValue<string>();
+       mainJs = Url.Content("~/dist/" + file);
+   }
 
 }
 <!doctype html>
@@ -145,6 +141,20 @@
             <h3 style="margin-left: 20px;margin-top: 0;margin-bottom: 0.5rem;color:rgb(156,159,164);font-size: 1.75rem;font-weight: 500;line-height: 1.2;font-family: 'Segoe UI Emoji' , 'Segoe UI Symbol' , 'Noto Color Emoji';">Loading Southwind...</h3>
         </div>
     </div>
+    @if (vitePort != null)
+    {
+        var viteRtJs = $"http://localhost:{vitePort}/dist/@vite/client";
+        var reactRefreshJs = $"http://localhost:{vitePort}/dist/@react-refresh";
+
+        <script type="module" src="@viteRtJs"></script>
+        <script type="module">
+            import RefreshRuntime from '@reactRefreshJs'
+            RefreshRuntime.injectIntoGlobalHook(window)
+            window.$RefreshReg$ = () => {}
+            window.$RefreshSig$ = () => (type) => type
+            window.__vite_plugin_react_preamble_installed__ = true
+        </script>
+    }
     <script>
         var __baseName = "@Url.Content("~")";
 
@@ -169,7 +179,7 @@
             return result;
         }
 
-        window.onerror = function (message, filename, lineno, colno, error) {
+        function showError(error) {
             var spinner = document.querySelector("#reactDiv .loading-spinner");
             spinner && spinner.parentElement.removeChild(spinner);
 
@@ -193,9 +203,13 @@
                         pre.innerText = error.stack;
                     }));
                 }));
+        }
+
+        window.onerror = function (message, filename, lineno, colno, error) {
+            showError(error);
         };
 
-        var supportIE = true;
+        var supportIE = false;
         if (!supportIE && (browser == "old edge" || browser == "ie")) {
             var spinner = document.querySelector("#reactDiv .loading-spinner");
             spinner && spinner.parentElement.removeChild(spinner);
@@ -205,28 +219,11 @@
                 + "<a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox</a> or "
                 + "the new <a href='https://www.microsoft.com/en-us/edge'>Microsoft Edge (chromium)</a>.";
         } else {
-            (function () {
-                var scriptToLoad = [
-                    "@Url.Content("~/dist/" + vendor)",
-                    "@Url.Content("~/dist/" + main)",
-                ];
-
-
-                function loadNextScript() {
-                    // gets the first script in the list
-                    var script = scriptToLoad.shift();
-                    // all scripts were loaded
-                    if (!script) return;
-                    var js = document.createElement('script');
-                    js.type = 'text/javascript';
-                    js.src = script;
-                    js.onload = function () { loadNextScript(); };
-                    var s = document.getElementsByTagName('script')[0];
-                    s.parentNode.insertBefore(js, s);
-                }
-
-                loadNextScript();
-            })();
+            var script = document.createElement('script');
+            script.type = 'module';
+            script.src = "@mainJs";
+            script.onerror = e => showError(new URIError(`The script ${e.target.src} didn't load correctly.`));
+            document.body.appendChild(script);
         }
 
         var __serverName = @Json.Serialize(Configuration.GetValue<string>("ServerName", "none"));
