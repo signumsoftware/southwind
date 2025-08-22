@@ -4,14 +4,15 @@
   "description": "Example LOB application using Signum Framework and React",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf ./wwwroot/dist",
-    "build-development": "yarn run clean && webpack --config webpack.config.dll.js && webpack --config webpack.config.js",
-    "build-production": "yarn run clean && webpack --config webpack.config.dll.js --mode=production && webpack --config webpack.config.js --mode=production",
-    "watch": "yarn run clean && webpack --config webpack.config.dll.js && webpack --config webpack.config.js --watch"
+  "dev": "vite",
+  "build": "vite build"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/signumsoftware/southwind"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   },
   "keywords": [
     "Southwind",
@@ -30,21 +31,10 @@
   "dependencies": {
   },
   "devDependencies": {
-    "assets-webpack-plugin": "7.1.1",
-    "css-loader": "7.1.2",
-    "file-loader": "6.2.0",
-    "raw-loader": "4.0.2",
-    "rimraf": "6.0.1",
-    "sass": "1.81.0",
-    "sass-loader": "16.0.3",
-    "style-loader": "4.0.0",
-    "ts-loader": "9.5.1",
-    "typescript": "5.7.2",
-    "url-loader": "4.1.1",
-    "webpack": "5.96.1",
-    "webpack-bundle-analyzer": "4.10.2",
-    "webpack-cli": "5.1.4",
-    "webpack-notifier": "1.15.0"
+    "sass": "1.90.0",
+    "typescript": "5.9.2",
+    "vite": "7.1.1",
+    "@vitejs/plugin-react": "5.0.0"
   },
   "-vs-binding": {
     "ProjectOpened": [

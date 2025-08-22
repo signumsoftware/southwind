@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-	    <PreserveCompilationContext>false</PreserveCompilationContext>
+		<EnableRazorComponentCompile>false</EnableRazorComponentCompile>
 		<RazorCompileOnBuild>false</RazorCompileOnBuild>
 		<RazorCompileOnPublish>false</RazorCompileOnPublish>
 	</PropertyGroup>

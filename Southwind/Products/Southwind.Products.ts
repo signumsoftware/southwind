@@ -51,6 +51,10 @@ export interface ProductEntity extends Entities.Entity {
   additionalInformation: Entities.MList<AdditionalInformationEmbedded>;
 }
 
+export namespace ProductMessage {
+  export const AdditionalInfo: MessageKey = new MessageKey("ProductMessage", "AdditionalInfo");
+}
+
 export namespace ProductOperation {
   export const Save : Operations.ExecuteSymbol<ProductEntity> = registerSymbol("Operation", "ProductOperation.Save");
 }

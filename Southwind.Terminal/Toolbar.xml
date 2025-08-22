@@ -67,7 +67,7 @@
       <Column />
     </Columns>
     <Parameters>
-      <Parameter Name="Scale" Value="ZeroMax" />
+      <Parameter Name="Scale" Value="MinMax" />
       <Parameter Name="StrokeColor" Value="" />
       <Parameter Name="StrokeWidth" Value="2" />
       <Parameter Name="NumberOpacity" Value="0.8" />
@@ -99,7 +99,7 @@
       <Parameter Name="ShowLabel" Value="Yes" />
       <Parameter Name="LabelColor" Value="" />
       <Parameter Name="FillOpacity" Value="0.4" />
-      <Parameter Name="ColorScale" Value="Ordinal" />
+      <!--<Parameter Name="ColorScale" Value="Ordinal" />-->
       <Parameter Name="ColorInterpolate" Value="YlGn" />
       <Parameter Name="ColorCategory" Value="category10" />
       <Parameter Name="ColorCategorySteps" Value="3" />
@@ -227,7 +227,7 @@
       <Column />
     </Columns>
     <Parameters>
-      <Parameter Name="Scale" Value="ZeroMax" />
+      <Parameter Name="Scale" Value="MinMax" />
       <Parameter Name="Padding" Value="10" />
       <Parameter Name="Opacity" Value="0.5" />
       <Parameter Name="NumberOpacity" Value="0.8" />

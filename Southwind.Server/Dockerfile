@@ -33,7 +33,7 @@ COPY . .
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR "/src/Southwind.Server"
-RUN yarn run build-production
+RUN yarn run build
 
 FROM build AS publish
 RUN dotnet publish "Southwind.Server.csproj" -c Release -o /app/publish

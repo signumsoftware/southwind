@@ -1,11 +1,16 @@
-using NW = Southwind.Terminal.NorthwindSchema;
-using Southwind.Orders;
-using Southwind.Customers;
-using Southwind.Shippers;
-using Southwind.Employees;
-using Southwind.Products;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Kiota.Abstractions;
+using NpgsqlTypes;
 using Signum.DynamicQuery;
+using Signum.Engine;
+using Signum.Utilities.DataStructures;
+using Signum.Utilities.Reflection;
+using Southwind.Customers;
+using Southwind.Employees;
+using Southwind.Orders;
+using Southwind.Products;
+using Southwind.Shippers;
+using NW = Southwind.Terminal.NorthwindSchema;
 
 namespace Southwind.Terminal;
 
@@ -68,14 +73,13 @@ internal static class OrderLoader
             o.OrderDate = o.OrderDate.AddDays(ts);
             o.RequiredDate = o.RequiredDate.AddDays(ts);
             o.ShippedDate = o.ShippedDate?.AddDays(ts);
-            if(o.State == OrderState.Shipped && (((int)o.Id) % 7 == 0))
+            if (o.State == OrderState.Shipped && (((int)o.Id) % 7 == 0))
             {
                 o.CancelationDate = o.ShippedDate;
                 o.State = OrderState.Canceled;
                 o.ShippedDate = null;
             }
         }
-
         orders.BulkInsert(disableIdentity: true, validateFirst: false, message: "auto");
     }
 
@@ -85,13 +89,14 @@ internal static class OrderLoader
         {
             using (Administrator.DisableHistoryTable<OrderEntity>())
             {
-                Database.Query<OrderEntity>().UnsafeUpdate(
-                    a => a.SystemPeriod().Min,
-                    a => a.OrderDate.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60), "auto");
+                Database.Query<OrderEntity>().UnsafeUpdate()
+                    .SetSystemPeriodMin(a => a.SystemPeriod(), a => a.OrderDate.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60))
+                    .Execute("auto");
 
                 Database.MListQuery((OrderEntity o) => o.Details)
-                    .UnsafeUpdateMList(a => a.SystemPeriod().Min,
-                    a => a.Parent.SystemPeriod().Min, "auto");
+                    .UnsafeUpdateMList()
+                    .SetSystemPeriodMin(a => a.SystemPeriod(), a => a.Parent.SystemPeriod().Min)
+                    .Execute("auto");
             }
 
             Database.Query<OrderEntity>().Where(a => a.State == OrderState.Shipped)
@@ -102,25 +107,61 @@ internal static class OrderLoader
 
             using (Administrator.DisableHistoryTable<OrderEntity>(includeMList: false))
             {
-                Database.Query<OrderEntity>().Where(a => a.State == OrderState.Shipped).UnsafeUpdate(
-                    a => a.SystemPeriod().Min,
-                    a => a.ShippedDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60), "shipped min");
+                Database.Query<OrderEntity>().Where(a => a.State == OrderState.Shipped).UnsafeUpdate().SetSystemPeriodMin(
+                    a => a.SystemPeriod(),
+                    a => a.ShippedDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60))
+                    .Execute("shipped min");
 
-                Database.Query<OrderEntity>().Where(a => a.State == OrderState.Canceled).UnsafeUpdate(
-                    a => a.SystemPeriod().Min,
-                    a => a.CancelationDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60), "cancelled min");
+                Database.Query<OrderEntity>().Where(a => a.State == OrderState.Canceled).UnsafeUpdate().SetSystemPeriodMin(
+                    a => a.SystemPeriod(),
+                    a => a.CancelationDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60))
+                    .Execute("cancelled min");
 
                 Database.Query<OrderEntity>().OverrideSystemTime(new SystemTime.HistoryTable())
                     .UnsafeUpdate()
                     .Set(a => a.State, a => OrderState.Ordered)
                     .Set(a => a.CancelationDate, a => null)
                     .Set(a => a.ShippedDate, a => null)
-                    .Set(a => a.SystemPeriod().Max, ho => Database.Query<OrderEntity>().Single(mo => mo.Id == ho.Id).SystemPeriod().Min)
+                    .SetSystemPeriodMax(a=>a.SystemPeriod(), ho => Database.Query<OrderEntity>().Single(mo => mo.Id == ho.Id).SystemPeriod().Min)
                     .Execute("Fix HT");
             }
 
             tr.Commit();
         }
 
+    }
+
+    static IUpdateable<T> SetSystemPeriodMin<T>(this IUpdateable<T> updateable, Expression<Func<T, NullableInterval<DateTime>>> systemPeriod, Expression<Func<T, DateTime?>> valueExpression)
+    {
+        if (Connector.Current is SqlServerConnector)
+        {
+            return updateable.Set(a => systemPeriod.Evaluate(a).Min, valueExpression);
+        }
+        else if (Connector.Current is PostgreSqlConnector)
+        {
+            return updateable.Set(systemPeriod, a => new NullableInterval<DateTime>(
+                valueExpression.Evaluate(a)!.Value.ToUniversalTime(),
+                systemPeriod.Evaluate(a).Max
+                ));
+        }
+        else
+            throw new NotSupportedException($"Connector {Connector.Current.GetType().Name} not supported for SystemPeriod updates");
+    }
+
+    static IUpdateable<T> SetSystemPeriodMax<T>(this IUpdateable<T> updateable, Expression<Func<T, NullableInterval<DateTime>>> systemPeriod, Expression<Func<T, DateTime?>> valueExpression)
+    {
+        if (Connector.Current is SqlServerConnector)
+        {
+            return updateable.Set(a => systemPeriod.Evaluate(a).Max, valueExpression);
+        }
+        else if (Connector.Current is PostgreSqlConnector)
+        {
+            return updateable.Set(systemPeriod, a => new NullableInterval<DateTime>(
+                systemPeriod.Evaluate(a).Min,
+                valueExpression.Evaluate(a)!.Value.ToUniversalTime()
+                ));
+        }
+        else
+            throw new NotSupportedException($"Connector {Connector.Current.GetType().Name} not supported for SystemPeriod updates");
     }
 }

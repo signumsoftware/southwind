@@ -101,7 +101,12 @@ public static partial class Starter
             else
             {
                 var postgreeVersion = PostgresVersionDetector.Detect(connectionString, null);
-                Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion);
+                Connector.Default = new PostgreSqlConnector(connectionString, sb.Schema, postgreeVersion, dsb =>
+                {
+                    dsb.EnableArrays();
+                    dsb.EnableTransportSecurity();
+                    dsb.EnableRanges();
+                });
             }
 
             //var function = new SqlPartitionFunction("YearFunction", 2020.To(DateTime.Today.Year + 2).Select(i => (object)i));
