@@ -269,7 +269,6 @@ public static class SouthwindEnvironment
             }, //Email
             Chatbot = new ChatbotConfigurationEmbedded
             {
-                MistralAPIKey = "osik9u8iytctjVUTkSpCUgjYt1FxW5aq"
             },
             Sms = new SMSConfigurationEmbedded
             {
