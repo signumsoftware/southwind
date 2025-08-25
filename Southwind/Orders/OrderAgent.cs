@@ -10,20 +10,13 @@ internal static class OrderAgent
     {
         ChatbotAgentLogic.RegisterAgent(SouthwindAgent.Orders, new ChatbotAgentCode
         {
-            IsListed = () => true,
+            IsListedInIntroduction = () => true,
             CreateDefaultEntity = () => new ChatbotAgentEntity
             {
                 ShortDescription = "Gets the status of an order given the order id",
-                Descriptions = new MList<ChatbotAgentDescriptionsEmbedded>
-                {
-                    new ChatbotAgentDescriptionsEmbedded
-                    {
-                        Content = """
+                LongDescription = """
                          I can help getting the status on an order given the order id by calling the command $GetOrderStatus(orderId). 
                          """,
-                        PromptName = "Default",
-                    },
-                },
             },
             Tools = 
             {
