@@ -9,8 +9,8 @@
 
 @{
 	int? vitePort = Configuration.GetValue<int?>("ViteDevServerPort");
-	var webpackAssets = vitePort != null ? WebPackAssets.FromViteServerUrl($"http://localhost:{vitePort}/dist/main.tsx") :
-		WebPackAssets.FromManifestFile(JsonDocument.Parse(System.IO.File.ReadAllText(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/.vite/manifest.json"))));
+	var viteAssets = vitePort != null ? ViteAssets.FromViteServerUrl($"http://localhost:{vitePort}/dist/main.tsx") :
+		ViteAssets.FromManifestFile(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/.vite/manifest.json"), "main.tsx");
 }
 <!doctype html>
 <html>
@@ -133,17 +133,7 @@
 	</div>
 	@if (vitePort != null)
 	{
-		var viteRtJs = $"http://localhost:{vitePort}/dist/@vite/client";
-		var reactRefreshJs = $"http://localhost:{vitePort}/dist/@react-refresh";
-
-		<script type="module" src="@viteRtJs"></script>
-		<script type="module">
-			import RefreshRuntime from '@reactRefreshJs'
-			RefreshRuntime.injectIntoGlobalHook(window)
-			window.$RefreshReg$ = () => {}
-			window.$RefreshSig$ = () => (type) => type
-			window.__vite_plugin_react_preamble_installed__ = true
-		</script>
+		@ViteAssets.LoadViteReactRefresh(vitePort.Value)
 	}
 	<script>
 		var __baseName = "@Url.Content("~")";
@@ -209,7 +199,7 @@
 				+ "<a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox</a> or "
 				+ "the new <a href='https://www.microsoft.com/en-us/edge'>Microsoft Edge (chromium)</a>.";
 		} else {
-			@webpackAssets.GetHtmlString(Url)
+			@viteAssets.GetHtmlString(Url)
 		}
 
 		var __serverName = @Json.Serialize(Configuration.GetValue<string>("ServerName", "none"));
