@@ -14,7 +14,3 @@ $headings-font-weight: 600;
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "./_bootswatch";
-.btn.input-group-text{
-    background: $input-group-addon-bg;
-    border: $input-border-width solid $input-group-addon-border-color
-}
