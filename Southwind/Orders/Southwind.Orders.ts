@@ -9,7 +9,7 @@ import * as Customers from '../Customers/Southwind.Customers'
 import * as Employees from '../Employees/Southwind.Employees'
 import * as Shippers from '../Shippers/Southwind.Shippers'
 import * as Products from '../Products/Southwind.Products'
-import * as Agents from '../../Framework/Extensions/Signum.ChatBot/Signum.Chatbot.Agents'
+import * as Chatbot from '../../Framework/Extensions/Signum.ChatBot/Signum.Chatbot'
 import * as Processes from '../../Framework/Extensions/Signum.Processes/Signum.Processes'
 import * as Scheduler from '../../Framework/Extensions/Signum.Scheduler/Signum.Scheduler'
 
@@ -99,6 +99,6 @@ export namespace OrderTask {
 }
 
 export namespace SouthwindAgent {
-  export const Orders : Agents.ChatbotAgentCodeSymbol = registerSymbol("ChatbotAgentCode", "SouthwindAgent.Orders");
+  export const Orders : Chatbot.ChatbotAgentCodeSymbol = registerSymbol("ChatbotAgentCode", "SouthwindAgent.Orders");
 }
 

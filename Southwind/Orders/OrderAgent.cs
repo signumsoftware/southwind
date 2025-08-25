@@ -1,3 +1,4 @@
+using Signum.Chatbot;
 using Signum.Chatbot.Agents;
 
 namespace Southwind.Orders;
@@ -24,18 +25,30 @@ internal static class OrderAgent
                     },
                 },
             },
-            Resources =  
+            Tools = 
             {
-                { "$GetOrderStatus", async (args, token) =>
+                new ChatbotAgentTool<OrderStateRequest, OrderStateResponse>("orderStatus")
+                {
+                    Description = "Get the status of an order given the order id",
+                    Execute = async (req, token) =>
                     {
-                        var id = args.GetArgument<int>(0);
-
-                        return (await Database.Query<OrderEntity>().Where(a=>a.Id == id).Select(a=>a.State).SingleAsync(token)).ToString();
-                    }
+                        var state = await Database.Query<OrderEntity>().Where(a => a.Id == req.OrderId).Select(a => a.State).SingleAsync(token);
+                        return new OrderStateResponse { State = state };
+                    },
                 }
             }
         });
     }
+}
+
+class OrderStateRequest : IToolPayload
+{
+    public int OrderId { get; set; }
+}
+
+class OrderStateResponse : IToolPayload
+{
+    public OrderState State { get; set; }
 }
 
 
