@@ -14,7 +14,7 @@ public static class ProductsLogic
             sb.Include<ProductEntity>()
                 .WithSave(ProductOperation.Save)
                 .WithUniqueIndexMList(a => a.AdditionalInformation, mle => new { mle.Parent, mle.Element.Key })
-                .WithExpressionWithParameter(ProductMessage.AdditionalInfo, AdditionalInformationKeys, (p, key) => p.AdditionalInformation.SingleOrDefaultEx(ai => ai.Key == key)!.Value)
+                .WithExpressionWithParameter(ProductMessage.AdditionalInfo, q => AdditionalInformationKeys.Value, (p, key) => p.AdditionalInformation.SingleOrDefaultEx(ai => ai.Key == key)!.Value)
                 .WithQuery(() => p => new
                 {
                     Entity = p,

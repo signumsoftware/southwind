@@ -121,7 +121,7 @@ public class Program
                     AsyncEmailSender.StartAsyncEmailSenderAfter(5 * 1000);
                 }
 
-                SystemEventServer.LogStartStop(app, app.Lifetime);
+                SystemEventServer.LogStartStop(app.Lifetime);
                 
             }
         };
