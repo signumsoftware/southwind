@@ -20,6 +20,9 @@ export default defineConfig({
       output: {
         manualChunks: {
           // All dependencies in node_modules go into vendor.[hash].js
+          theme: [
+            '../Southwind/SCSS/custom.scss'
+          ],
           vendor: [
             'react',
             'react-dom',
