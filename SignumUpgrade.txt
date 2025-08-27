@@ -187,3 +187,4 @@ Upgrade_20250702_UpdateNugets
 Upgrade_20250710_UpdateNugets
 Upgrade_20250723_AvoidRazorCompile
 Upgrade_20250824_React19Router7
+Upgrade_20250827_FixesAfterVite

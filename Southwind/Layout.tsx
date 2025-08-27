@@ -15,6 +15,8 @@ import { isModifiableEntity, JavascriptMessage } from '@framework/Signum.Entitie
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Breakpoints, useBreakpoint, useUpdatedRef, useWindowEvent } from '@framework/Hooks'
 import { ModelConverterSymbol } from '@extensions/Signum.Templating/Signum.Templating'
+import { ThemeSelector } from './ThemeSelector'
+import { ThemeModeSelector } from '@framework/Components/ThemeModeSelector'
 
 const ToolbarRenderer = React.lazy(() => import("@extensions/Signum.Toolbar/Renderers/ToolbarRenderer"));
 const OmniboxAutocomplete = React.lazy(() => import('@extensions/Signum.Omnibox/OmniboxAutocomplete'));
@@ -113,7 +115,10 @@ export default function Layout(): React.JSX.Element {
                 <Nav.Item> {/*Swagger*/}
                   <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
                 </Nav.Item> {/*Swagger*/}
+
                 {!hasUser && <CultureDropdown />}
+                <ThemeSelector />
+                <ThemeModeSelector />
                 <LoginDropdown
                   changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"}
                   extraMenuItems={u => hasUser && <CultureDropdownMenuItem />}

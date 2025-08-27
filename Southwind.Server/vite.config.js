@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
+const port = 3000;
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -20,6 +21,9 @@ export default defineConfig({
       output: {
         manualChunks: {
           // All dependencies in node_modules go into vendor.[hash].js
+          theme: [
+            '../Southwind/SCSS/custom.scss'
+          ],
           vendor: [
             'react',
             'react-dom',
@@ -41,7 +45,8 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: port
     strictPort: true,
+    origin: `http://localhost:$3000`,
   },
 });

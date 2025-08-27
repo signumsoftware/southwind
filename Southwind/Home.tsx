@@ -44,7 +44,7 @@ export default function Home(): React.JSX.Element | null {
             <div className="text-start">
               <p>And don't forget to:</p>
               <ul>
-                <li>Choose a different theme in <a href="https://bootswatch.com">Bootwatch.com</a> and replace <code>_bootswatch.scss</code> and <code>_variables.scss</code></li>
+                <li>Choose a different theme in <a href="https://bootswatch.com">Bootwatch.com</a>, save <code>_bootswatch.scss</code> and <code>_variables.scss</code> in <code>Southwind/SCSS</code> folder and uncomment <code>/SCSS/custom.scss</code></li>
                 <li>Change favicon add it to <code>Index.cshtml</code> (consider <a href="https://www.favicon-generator.org/">favicon-generator</a>)</li>
                 <li>Change <code>wwwroot/background.jpg</code> and <code>wwwroot/logo.png</code></li>
                 <li>Remove/Change the footer in <code>Layout.tsx</code> and <code>site.css</code></li>
