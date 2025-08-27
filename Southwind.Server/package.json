@@ -38,7 +38,7 @@
   },
   "-vs-binding": {
     "ProjectOpened": [
-      "watch"
+      "dev"
     ]
   }
 }
