@@ -8,7 +8,7 @@ internal static class OrderAgent
 {
     public static void Register()
     {
-        ChatbotAgentLogic.RegisterAgent(SouthwindAgent.Orders, new ChatbotAgentCode
+        ChatbotAgentLogic.RegisterAgent(SouthwindAgent.Orders, new ChatbotAgent
         {
             IsListedInIntroduction = () => true,
             CreateDefaultEntity = () => new ChatbotAgentEntity
@@ -48,5 +48,5 @@ class OrderStateResponse : IToolPayload
 [AutoInit]
 public static class SouthwindAgent
 {
-    public static readonly ChatbotAgentCodeSymbol Orders;
+    public static readonly ChatbotAgentSymbol Orders;
 }
