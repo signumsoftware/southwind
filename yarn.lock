@@ -1198,7 +1198,7 @@
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-19.1.6.tgz#4af629da0e9f9c0f506fc4d1caa610399c595d64"
   integrity sha512-4hOiT/dwO8Ko0gV1m/TJZYk3y0KBnY9vzDh7W+DH17b2HFSOGgdj33dhihPeuy3l0q23+4e+hoXHV6hCC4dCXw==
 
-"@types/react-transition-group@^4.4.4", "@types/react-transition-group@^4.4.6":
+"@types/react-transition-group@^4.4.6":
   version "4.4.12"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.12.tgz#b5d76568485b02a307238270bfe96cb51ee2a044"
   integrity sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==
@@ -2857,14 +2857,13 @@ react-transition-group@^4.4.2, react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-widgets-up@6.0.7:
-  version "6.0.7"
-  resolved "https://registry.yarnpkg.com/react-widgets-up/-/react-widgets-up-6.0.7.tgz#81e50a6c991d4ee3ed3e9776ecb05382a556a9ab"
-  integrity sha512-SCb9PROY1Lc6ZLOTjfZ4u5i53Luh0sdedL9SfadLDv5LK+OLRhp3BfRwepe76H60c8lzwXYb/dl4REA9j5gp6g==
+react-widgets-up@6.0.12:
+  version "6.0.12"
+  resolved "https://registry.yarnpkg.com/react-widgets-up/-/react-widgets-up-6.0.12.tgz#1fe4a9973d93b35479ef3227124a572b5fa44222"
+  integrity sha512-XnnHdPyb0/aNBr9QGMwYPM3jUr82mAru4m4eJN1zEpeBqfR8E1hDzvzLFZgcp+s7arSRrh/3wbFMsCE064w5Cw==
   dependencies:
     "@restart/hooks" "^0.4.5"
     "@types/classnames" "^2.3.1"
-    "@types/react-transition-group" "^4.4.4"
     classnames "^2.3.1"
     date-arithmetic "^4.0.1"
     dom-helpers "^5.2.1"

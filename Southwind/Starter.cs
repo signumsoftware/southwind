@@ -46,6 +46,7 @@ using Signum.UserQueries;
 using Signum.ViewLog;
 using Signum.Word;
 using Signum.Workflow;
+using Southwind.ChatbotSkills;
 using Southwind.Customers;
 using Southwind.Employees;
 using Southwind.Globals;
@@ -218,8 +219,15 @@ public static partial class Starter
 
             WorkflowLogicStarter.Start(sb, () => Configuration.Value.Workflow);
 
-            ChatbotAgentLogic.Start(sb);
             ChatbotLogic.Start(sb, () => Configuration.Value.Chatbot);
+            ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
+
+            ChatbotSkillLogic.Start(sb,
+                new IntroductionSkill()
+                .WithSubSkill(SkillActivation.Eager, new OrdersSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new SearchSkill().Register())
+                .Register()
+            );
 
             ProfilerLogic.Start(sb,
                 timeTracker: true,

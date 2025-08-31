@@ -6,7 +6,7 @@
 		<OutputType>Library</OutputType>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>8618,1591</NoWarn>
-        <!--<TSC_Build>true</TSC_Build>-->
+		<!--<TSC_Build>true</TSC_Build>-->
 
 		<EnableRazorComponentCompile>true</EnableRazorComponentCompile>
 		<RazorCompileOnBuild>true</RazorCompileOnBuild>
@@ -14,17 +14,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="CodeGen\**" />
-	  <Compile Remove="wwwroot\dist\**" />
-	  <Content Remove="CodeGen\**" />
-	  <Content Remove="wwwroot\dist\**" />
-	  <EmbeddedResource Remove="CodeGen\**" />
-	  <EmbeddedResource Remove="wwwroot\dist\**" />
-	  <None Remove="CodeGen\**" />
-	  <None Remove="wwwroot\dist\**" />
-	  <TypeScriptCompile Remove="CodeGen\**" />
-	  <TypeScriptCompile Remove="node_modules\**" />
-	  <TypeScriptCompile Remove="wwwroot\dist\**" />
+		<Compile Remove="CodeGen\**" />
+		<Compile Remove="wwwroot\dist\**" />
+		<Content Remove="CodeGen\**" />
+		<Content Remove="wwwroot\dist\**" />
+		<EmbeddedResource Remove="CodeGen\**" />
+		<EmbeddedResource Remove="wwwroot\dist\**" />
+		<None Remove="CodeGen\**" />
+		<None Remove="wwwroot\dist\**" />
+		<TypeScriptCompile Remove="CodeGen\**" />
+		<TypeScriptCompile Remove="node_modules\**" />
+		<TypeScriptCompile Remove="wwwroot\dist\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -33,12 +33,12 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Signum.TSGenerator" Version="9.1.0" />
-		
+
 		<PackageReference Include="Signum.Analyzer" Version="3.2.0" />
 		<PackageReference Include="Signum.MSBuildTask" Version="9.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
-    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.16.0" />
+		<PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.16.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -81,8 +81,7 @@
 		<ProjectReference Include="..\Framework\Extensions\Signum.ViewLog\Signum.ViewLog.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Word\Signum.Word.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Workflow\Signum.Workflow.csproj" />
-		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" /> 
+		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
 		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
 	</ItemGroup>
-
 </Project>

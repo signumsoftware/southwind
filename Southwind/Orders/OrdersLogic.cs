@@ -1,5 +1,6 @@
 using Signum.Processes;
 using Signum.Scheduler;
+using Southwind.ChatbotSkills;
 using Southwind.Customers;
 using Southwind.Employees;
 using Southwind.Products;
@@ -26,7 +27,6 @@ public static class OrdersLogic
                     o.ShipVia,
                 });
 
-            OrderAgent.Register();
 
             QueryLogic.Queries.Register(OrderQuery.OrderLines, () =>
                 from o in Database.Query<OrderEntity>()
