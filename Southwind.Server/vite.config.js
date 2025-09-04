@@ -45,7 +45,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: port
+    port: port,
     strictPort: true,
     origin: `http://localhost:$3000`,
   },
