@@ -222,7 +222,7 @@ public static partial class Starter
             ChatbotLogic.Start(sb, () => Configuration.Value.Chatbot);
             ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
 
-            ChatbotSkillLogic.Start(sb,
+            ChatbotSkillLogic.Start(sb, 
                 new IntroductionSkill()
                 .WithSubSkill(SkillActivation.Eager, new OrdersSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new SearchSkill().Register())

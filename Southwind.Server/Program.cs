@@ -1,19 +1,32 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using ModelContextProtocol.Server;
 using Signum.API;
 using Signum.API.Filters;
 using Signum.Authorization;
 using Signum.Basics;
-using Signum.Engine.Maps;
-using Signum.Utilities;
+using Signum.Chatbot;
+using Signum.Chatbot.Agents;
 using Signum.Dynamic;
+using Signum.Engine.Maps;
 using Signum.Mailing;
 using Signum.Processes;
+using Signum.Rest;
 using Signum.Scheduler;
+using Signum.Security;
+using Signum.Utilities;
+using Southwind.ChatbotSkills;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.Security.Authentication;
 
 namespace Southwind.Server;
 
@@ -40,13 +53,20 @@ public class Program
                 builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyHeader();
             });
         });
-        
+
+        //builder.Services.AddMcpServer().WithSignumSkill(new IntroductionSkill()
+        //    .WithSubSkill(SkillActivation.Eager, new OrdersSkill().Register()));
 
         //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
-        SwaggerConfig.ConfigureSwaggerService(builder); 
+        SwaggerConfig.ConfigureSwaggerService(builder);
+        
+        builder.Logging.AddProvider(new McpExceptionLoggerProvider());
+        builder.Services.AddMcpServer()
+            .WithHttpTransport()
+            .WithTools<IntroductionSkill>()
+            .WithTools<SearchSkill>();
 
-
-        var app = builder.Build(); 
+        var app = builder.Build();
 
         app.UseDeveloperExceptionPage();
 
@@ -89,6 +109,8 @@ public class Program
                 builder.UseResponseCompression();
             });
 
+           
+
             app.UseRouting();
             app.UseCors("HealthCheck");
 
@@ -98,6 +120,21 @@ public class Program
                 pattern: "{*url}",
                 constraints: new { url = new NoAPIContraint() },
                 defaults: new { controller = "Home", action = "Index" });
+
+            var gr = app.MapGroup("/mcp-server");
+            gr.AddEndpointFilter(async (context, next) =>
+            {
+                var result = RestApiKeyServer.ApiKeyAuthenticator(context.HttpContext);
+                if (result?.UserWithClaims == null)
+                    throw new AuthenticationException("No authentication information found!");
+
+                context.HttpContext.Items[SignumAuthenticationFilter.Signum_User_Holder_Key] = result.UserWithClaims;
+                using (UserHolder.UserSession(result.UserWithClaims))
+                {
+                    return await next(context);
+                }
+            });
+            gr.MapMcp();
         }
 
         SignumInitializeFilterAttribute.InitializeDatabase = () =>
@@ -141,4 +178,45 @@ public class Program
         }
     }
 
+}
+
+public class McpExceptionLoggerProvider : ILoggerProvider
+{
+    private readonly ConcurrentDictionary<string, SignumExceptionLogger> _loggers = new();
+
+    public ILogger CreateLogger(string categoryName)
+    {
+        if (categoryName == typeof(McpServerTool).FullName)
+            return _loggers.GetOrAdd(categoryName, name => new SignumExceptionLogger(name));
+
+        return NullLogger.Instance;
+    }
+
+    public void Dispose() { }
+}
+
+public class SignumExceptionLogger : ILogger
+{
+    private readonly string _name;
+    public List<string> Errors { get; } = new();
+
+    public SignumExceptionLogger(string name)
+    {
+        _name = name;
+    }
+
+    public bool IsEnabled(LogLevel logLevel) => logLevel >= LogLevel.Error;
+
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+    {
+        if (IsEnabled(logLevel) && exception != null)
+        {
+            exception.LogException(e =>
+            {
+                e.ControllerName = this._name;
+            });
+        }
+    }
+
+    public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
 }

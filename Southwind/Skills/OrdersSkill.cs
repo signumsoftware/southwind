@@ -1,10 +1,11 @@
+using ModelContextProtocol.Server;
 using Signum.Chatbot;
 using Signum.Chatbot.Agents;
 using Southwind.Orders;
 
 namespace Southwind.ChatbotSkills;
 
-internal class OrdersSkill : ChatbotSkill
+public class OrdersSkill : ChatbotSkill
 {
     public OrdersSkill()
     {
@@ -12,8 +13,8 @@ internal class OrdersSkill : ChatbotSkill
         IsAllowed = () => true;
     }
 
-    [SkillTool, Description("Get the status of an order given the order id")]
-    public OrderState OrderStatus(int orderId)
+    [McpServerTool, Description("Get the status of an order given the order id")]
+    public static OrderState OrderStatus(int orderId)
     {
         var state = Database.Query<OrderEntity>().Where(a => a.Id == orderId).Select(a => a.State).Single();
         return state;

@@ -31,6 +31,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.3.0-preview.4" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
 		<ProjectReference Include="..\Southwind\Southwind.csproj" />
 	</ItemGroup>
