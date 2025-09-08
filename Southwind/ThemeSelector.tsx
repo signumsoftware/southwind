@@ -3,12 +3,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { NavDropdown } from "react-bootstrap";
 
-const BOOTSWATCH_THEMES = [
-  "cerulean", "cosmo", "cyborg", "darkly", "flatly", "journal",
-  "litera", "lumen", "lux", "materia", "minty", "morph", "pulse",
-  "quartz", "sandstone", "simplex", "sketchy", "slate", "solar",
-  "spacelab", "superhero", "united", "vapor", "yeti", "zephyr"
-];
+const BOOTSWATCH_THEMES: Record<string, "light" | "dark"> = {
+  cerulean: "light",
+  cosmo: "light",
+  cyborg: "dark",
+  darkly: "dark",
+  flatly: "light",
+  journal: "light",
+  litera: "light",
+  lumen: "light",
+  lux: "light",
+  materia: "light",
+  minty: "light",
+  morph: "light",
+  pulse: "light",
+  quartz: "light",
+  sandstone: "light",
+  simplex: "light",
+  sketchy: "light",
+  slate: "dark",
+  solar: "dark",
+  spacelab: "light",
+  superhero: "dark",
+  united: "light",
+  vapor: "dark",
+  yeti: "light",
+  zephyr: "light"
+};
 
 const BOOTSWATCH_VERSION = "5.3.3";
 const THEME_LINK_ID = "bootswatch-theme-css";
@@ -30,6 +51,7 @@ function setBootswatchTheme(theme: string) {
     if (buildTheme) buildTheme.disabled = false;
     return;
   }
+
 
   if (devTheme) devTheme.disabled = true;
   if (buildTheme) buildTheme.disabled = true;
@@ -74,6 +96,8 @@ export function ThemeSelector() {
 
   const handleSelectBootswatch = (theme: string) => {
     setBootswatchThemeState(theme);
+    var mode = BOOTSWATCH_THEMES[theme] ?? "light";
+    window.dispatchEvent(new CustomEvent("change-theme-mode", {detail: mode }))
     localStorage.setItem("bootswatch-theme", theme);
   };
 
@@ -95,7 +119,7 @@ export function ThemeSelector() {
         >
           Default Bootstrap
         </NavDropdown.Item>
-        {BOOTSWATCH_THEMES.map((theme) => (
+        {Object.keys(BOOTSWATCH_THEMES).map((theme) => (
           <NavDropdown.Item
             key={theme}
             active={bootswatchTheme === theme}

@@ -2558,10 +2558,10 @@ react-transition-group@^4.4.2, react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-widgets-up@6.0.12:
-  version "6.0.12"
-  resolved "https://registry.yarnpkg.com/react-widgets-up/-/react-widgets-up-6.0.12.tgz#1fe4a9973d93b35479ef3227124a572b5fa44222"
-  integrity sha512-XnnHdPyb0/aNBr9QGMwYPM3jUr82mAru4m4eJN1zEpeBqfR8E1hDzvzLFZgcp+s7arSRrh/3wbFMsCE064w5Cw==
+react-widgets-up@6.0.14:
+  version "6.0.14"
+  resolved "https://registry.yarnpkg.com/react-widgets-up/-/react-widgets-up-6.0.14.tgz#bc52a7a924102b98bf35014c3b5a5ca2884402d1"
+  integrity sha512-EbZm8iB/Ay/v32OHSVOAc2Z2aRp3lVAO6L5gIql7eCEKTjH19g+0OTh8lM6IdAVI1u2RCbCsj1j+Zns1rURwMw==
   dependencies:
     "@restart/hooks" "^0.4.5"
     "@types/classnames" "^2.3.1"
