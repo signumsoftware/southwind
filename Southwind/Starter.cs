@@ -14,6 +14,7 @@ using Signum.Chart;
 using Signum.Chart.UserChart;
 using Signum.Chatbot;
 using Signum.Chatbot.Agents;
+using Signum.Chatbot.Skills;
 using Signum.ConcurrentUser;
 using Signum.Dashboard;
 using Signum.DiffLog;
@@ -225,7 +226,10 @@ public static partial class Starter
             ChatbotSkillLogic.Start(sb, 
                 new IntroductionSkill()
                 .WithSubSkill(SkillActivation.Eager, new OrdersSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new AutocompleteSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new SearchSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new ChartSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new ResultTableSkill().Register())
                 .Register()
             );
 
