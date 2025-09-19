@@ -230,6 +230,8 @@ public static partial class Starter
                 .WithSubSkill(SkillActivation.Eager, new SearchSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new ChartSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new ResultTableSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new RetrieveSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new OperationSkill().Register())
                 .Register()
             );
 
