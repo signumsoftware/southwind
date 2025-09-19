@@ -67,7 +67,7 @@ export default function Layout(): React.JSX.Element {
 
   function renderTitle() {
     return (
-      <div className="navbar-light" style={{
+      <div style={{
         transition: "all 200ms",
         padding: !hasUser ? "0 0 0 10px" : sidebarMode == "Wide" ? "10px 25px" : "10px 10px 10px 14px",
       }}>
@@ -95,7 +95,7 @@ export default function Layout(): React.JSX.Element {
               </React.Suspense> :
                 undefined}>
 
-            <nav className={"main-toolbar navbar navbar-light navbar-expand"}>
+            <nav className={"main-toolbar navbar navbar-expand"}>
               
               {hasUser && <div className="navbar-nav"><SidebarToggleItem isMobile={isMobile} mode={sidebarMode} setMode={mode => {
                 setSidebarMode(mode);
@@ -118,7 +118,14 @@ export default function Layout(): React.JSX.Element {
 
                 {!hasUser && <CultureDropdown />}
                 <ThemeSelector />
-                <ThemeModeSelector />
+                <ThemeModeSelector
+                  onSetMode={mode => {
+                    var navbar = document.querySelector<HTMLElement>(".navbar")!;
+                    navbar.classList.toggle("bg-dark", mode == "dark");
+                    navbar.classList.toggle("bg-light", mode == "light");
+                    navbar.dataset.bsTheme = mode;
+                  }} /*onSetMode */
+                />
                 <LoginDropdown
                   changePasswordVisible={AuthClient.getAuthenticationType() != "azureAD"}
                   extraMenuItems={u => hasUser && <CultureDropdownMenuItem />}

@@ -39,8 +39,8 @@ export namespace OrdersClient {
         const state = stateBox.value;
   
         const color = state == "Canceled" ? "darkred" :
-          state == "Shipped" ? "gray" :
-            "black";
+          state == "Shipped" ? "var(--bs-secondary-color)" :
+            "var(--bs-body-color)";
   
         return { style: { color: color } };
       }
