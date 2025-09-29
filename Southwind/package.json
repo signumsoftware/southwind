@@ -1,0 +1,13 @@
+{
+  "name": "southwind",
+  "version": "1.0.0",
+  "description": "Southwind application",
+  "repository": "",
+  "keywords": [],
+  "author": "Signum Software",
+  "license": "MIT",
+  "resolutions": {
+  },
+  "dependencies": {
+  }
+}
