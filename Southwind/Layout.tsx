@@ -79,7 +79,7 @@ export default function Layout(): React.JSX.Element {
 
   return (
     <ErrorBoundary >
-      <div id="main" key={refreshId}>
+      <div id="site-content" key={refreshId}>
         <Notify />
         <div id="main-container">
           <SidebarContainer
@@ -132,11 +132,11 @@ export default function Layout(): React.JSX.Element {
               </div>
             </nav>
 
-            <div className="container-fluid overflow-auto pt-2">
+            <main tabIndex={-1} id="maincontent" className="container-fluid overflow-auto pt-2">
             <VersionChangedAlert />
 
             <Outlet context={{ sidebarMode }} />
-            </div>
+            </main
           </SidebarContainer>
         </div>
         <GlobalModalContainer />
