@@ -1,25 +1,11 @@
 ﻿{
+  "extends": "../Framework/tsconfig.base.json",
   "compilerOptions": {
-    "target": "esnext",
-    //"isolatedDeclarations": true,
-    "sourceMap": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react-jsx",
-    "incremental": true,
-    "composite": true,
     "outDir": "./ts_out",
-    //"noEmit": true,
-    "strict": true,
     "paths": {
       "@framework/*": [ "../Framework/Signum/React/*" ],
       "@extensions/*": [ "../Framework/Extensions/*" ]
-    },
-    "lib": [
-      "ESNext",
-      "dom"
-    ]
+    }
   },
 
   "references": [

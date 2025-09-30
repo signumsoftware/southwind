@@ -6,11 +6,6 @@
 		<OutputType>Library</OutputType>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>8618,1591</NoWarn>
-		<!--<TSC_Build>true</TSC_Build>-->
-
-		<EnableRazorComponentCompile>true</EnableRazorComponentCompile>
-		<RazorCompileOnBuild>true</RazorCompileOnBuild>
-		<RazorCompileOnPublish>true</RazorCompileOnPublish>
 	</PropertyGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />

@@ -136,7 +136,7 @@ export default function Layout(): React.JSX.Element {
             <VersionChangedAlert />
 
             <Outlet context={{ sidebarMode }} />
-            </main
+            </main>
           </SidebarContainer>
         </div>
         <GlobalModalContainer />

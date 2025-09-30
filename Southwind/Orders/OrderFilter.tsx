@@ -5,7 +5,7 @@ import { OrderFilterModel } from './Southwind.Orders';
 
 export default class OrderFilter extends React.Component<{ ctx: TypeContext<OrderFilterModel> }> implements ISimpleFilterBuilder {
 
-  render() {
+  render(): React.ReactElement {
     const ctx = this.props.ctx.subCtx({ formGroupStyle: "Basic" });
     return (
       <div>
@@ -44,7 +44,7 @@ export default class OrderFilter extends React.Component<{ ctx: TypeContext<Orde
     return result;
   }
 
-  static extract(fos: FilterOptionParsed[]) {
+  static extract(fos: FilterOptionParsed[]): OrderFilterModel | undefined {
     const filters = fos.clone();
 
     const result = OrderFilterModel.New({

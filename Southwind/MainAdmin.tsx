@@ -53,7 +53,7 @@ import { OrdersClient } from "./Orders/OrdersClient"
 import { ProductsClient } from "./Products/ProductsClient"
 import { ShippersClient } from "./Shippers/ShippersClient"
 
-export function startFull(routes: RouteObject[]) {
+export function startFull(routes: RouteObject[]) : void {
   Operations.start();
   Navigator.start({ routes });
   Finder.start({ routes });

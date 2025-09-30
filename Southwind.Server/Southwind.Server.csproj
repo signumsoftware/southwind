@@ -9,10 +9,12 @@
 		<UserSecretsId>Southwind</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<IsPackable>false</IsPackable>
+		<TSC_Build>true</TSC_Build>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Content Remove="Properties\launchSettings.json" />
+		<Content Remove="tsconfig.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -28,6 +30,7 @@
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 		</None>
+		<None Include="tsconfig.json" />
 	</ItemGroup>
 
 	<ItemGroup>
