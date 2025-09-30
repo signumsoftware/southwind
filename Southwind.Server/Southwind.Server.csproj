@@ -34,6 +34,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Signum.TSGenerator" Version="9.2.0" />
 		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
 		<ProjectReference Include="..\Southwind\Southwind.csproj" />
 	</ItemGroup>
