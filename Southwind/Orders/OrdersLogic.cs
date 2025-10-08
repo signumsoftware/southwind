@@ -10,63 +10,63 @@ public static class OrdersLogic
 {
     public static void Start(SchemaBuilder sb)
     {
-        if (sb.NotDefined(MethodBase.GetCurrentMethod()))
-        {
-            sb.Include<OrderEntity>()
-                .WithQuery(() => o => new
-                {
-                    Entity = o,
-                    o.Id,
-                    o.State,
-                    o.Customer,
-                    o.Employee,
-                    o.OrderDate,
-                    o.RequiredDate,
-                    o.ShipAddress,
-                    o.ShipVia,
-                });
+        if (sb.AlreadyDefined(MethodInfo.GetCurrentMethod()))
+            return;
 
-            QueryLogic.Queries.Register(OrderQuery.OrderLines, () =>
-                from o in Database.Query<OrderEntity>()
-                from od in o.Details
-                select new
-                {
-                    Entity = o,
-                    o.Id,
-                    od.Product,
-                    od.Quantity,
-                    od.UnitPrice,
-                    od.Discount,
-                    od.SubTotalPrice,
-                });
-
-            OrderGraph.Register();
-
-            ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());
-
-            SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, ctx =>
+        sb.Include<OrderEntity>()
+            .WithQuery(() => o => new
             {
-                var package = new PackageEntity().CreateLines(Database.Query<OrderEntity>().Where(a => a.OrderDate < Clock.Today.AddDays(-7) && a.State != OrderState.Canceled));
-
-                var process = ProcessLogic.Create(OrderProcess.CancelOrders, package);
-
-                process.Execute(ProcessOperation.Execute);
-
-                return process.ToLite();
+                Entity = o,
+                o.Id,
+                o.State,
+                o.Customer,
+                o.Employee,
+                o.OrderDate,
+                o.RequiredDate,
+                o.ShipAddress,
+                o.ShipVia,
             });
 
-            SimpleTaskLogic.Register(OrderTask.CancelOldOrders, ctx =>
+        QueryLogic.Queries.Register(OrderQuery.OrderLines, () =>
+            from o in Database.Query<OrderEntity>()
+            from od in o.Details
+            select new
             {
-                Database.Query<OrderEntity>()
-                    .Where(a => a.OrderDate < Clock.Today.AddDays(-7))
-                    .UnsafeUpdate()
-                    .Set(o => o.CancelationDate, o => Clock.Today)
-                    .Set(o => o.State, o => OrderState.Canceled)
-                    .Execute();
+                Entity = o,
+                o.Id,
+                od.Product,
+                od.Quantity,
+                od.UnitPrice,
+                od.Discount,
+                od.SubTotalPrice,
+            });
 
-                return null;
-            });//CancelOldOrdersProcess
-        }
+        OrderGraph.Register();
+
+        ProcessLogic.Register(OrderProcess.CancelOrders, new CancelOrderAlgorithm());
+
+        SimpleTaskLogic.Register(OrderTask.CancelOldOrdersWithProcess, ctx =>
+        {
+            var package = new PackageEntity().CreateLines(Database.Query<OrderEntity>().Where(a => a.OrderDate < Clock.Today.AddDays(-7) && a.State != OrderState.Canceled));
+
+            var process = ProcessLogic.Create(OrderProcess.CancelOrders, package);
+
+            process.Execute(ProcessOperation.Execute);
+
+            return process.ToLite();
+        });
+
+        SimpleTaskLogic.Register(OrderTask.CancelOldOrders, ctx =>
+        {
+            Database.Query<OrderEntity>()
+                .Where(a => a.OrderDate < Clock.Today.AddDays(-7))
+                .UnsafeUpdate()
+                .Set(o => o.CancelationDate, o => Clock.Today)
+                .Set(o => o.State, o => OrderState.Canceled)
+                .Execute();
+
+            return null;
+        });//CancelOldOrdersProcess
     }
 
     public class CancelOrderAlgorithm : PackageExecuteAlgorithm<OrderEntity>
