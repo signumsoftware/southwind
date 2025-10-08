@@ -191,3 +191,4 @@ Upgrade_20250827_FixesAfterVite
 Upgrade_20250922_HTMLCulture
 Upgrade_20250923_LayoutRestructure
 Upgrade_20250930_TSC
+Upgrade_20251001_ViteRelative

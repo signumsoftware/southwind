@@ -11,7 +11,7 @@ export default defineConfig({
       '@extensions': path.resolve(__dirname, '../Framework/Extensions'),
     },
   },
-  base: '/dist/',
+  base: '', 
   build: {
     manifest: true, // Needed if you're using the manifest in .cshtml
     outDir: 'wwwroot/dist', // Or wherever your ASP.NET app serves static files

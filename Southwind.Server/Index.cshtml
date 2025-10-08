@@ -9,7 +9,7 @@
 
 @{
 	int? vitePort = Configuration.GetValue<int?>("ViteDevServerPort");
-	var viteAssets = vitePort != null ? ViteAssets.FromViteServerUrl($"http://localhost:{vitePort}/dist/main.tsx") :
+	var viteAssets = vitePort != null ? ViteAssets.FromViteServerUrl($"http://localhost:{vitePort}/main.tsx") :
 		ViteAssets.FromManifestFile(System.IO.Path.Combine(hostingEnv.WebRootPath, "dist/.vite/manifest.json"), "main.tsx");
 }
 <!doctype html>
