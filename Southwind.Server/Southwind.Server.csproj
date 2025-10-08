@@ -13,6 +13,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="CodeGen\**" />
+	  <Content Remove="CodeGen\**" />
+	  <EmbeddedResource Remove="CodeGen\**" />
+	  <None Remove="CodeGen\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Remove="Properties\launchSettings.json" />
 		<Content Remove="tsconfig.json" />
 	</ItemGroup>
@@ -43,7 +50,7 @@
 		<!-- Include the newly-built files in the publish output -->
 		<ItemGroup>
 			<DistFiles Include="wwwroot\dist\**;" />
-			<ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+			<ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
 				<RelativePath>%(DistFiles.Identity)</RelativePath>
 				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			</ResolvedFileToPublish>
