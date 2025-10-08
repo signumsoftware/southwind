@@ -190,3 +190,4 @@ Upgrade_20250824_React19Router7
 Upgrade_20250827_FixesAfterVite
 Upgrade_20250922_HTMLCulture
 Upgrade_20250923_LayoutRestructure
+Upgrade_20250930_TSC
