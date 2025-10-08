@@ -193,3 +193,4 @@ Upgrade_20250923_LayoutRestructure
 Upgrade_20250930_TSC
 Upgrade_20251001_ViteRelative
 Upgrade_20251002_UpdateNuges
+Upgrade_20251007_WithUniqueIndex
