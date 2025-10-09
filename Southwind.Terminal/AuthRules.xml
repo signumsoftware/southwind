@@ -92,7 +92,7 @@
       <Type Resource="Employee" Allowed="Read" />
       <Type Resource="File" Allowed="Read" />
       <Type Resource="FileType" Allowed="Read" />
-      <Type Resource="LinkListPart" Allowed="Read" />
+      <Type Resource="ToolbarMenuPart" Allowed="Read" />
       <Type Resource="Note" Allowed="Write" />
       <Type Resource="NoteType" Allowed="Read" />
       <Type Resource="Order" Allowed="Write" />
