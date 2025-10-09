@@ -131,7 +131,7 @@
       <Type Resource="Category" Allowed="Write" />
       <Type Resource="Dashboard" Allowed="Write" />
       <Type Resource="Employee" Allowed="Write" />
-      <Type Resource="LinkListPart" Allowed="Write" />
+      <Type Resource="ToolbarMenuPart" Allowed="Write" />
       <Type Resource="NoteType" Allowed="Write" />
       <Type Resource="Product" Allowed="Write" />
       <Type Resource="Region" Allowed="Write" />
