@@ -429,7 +429,7 @@
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import { AzureADClient } from '@extensions/Signum.Authorization.ActiveDirectory/Azure/AzureADClient'"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" From="if (window.__azureADConfig) {" To="}//__azureADConfig"/>
-			<RemoveLine Path="Southwind\Index.cshtml" Line="var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.AzureAD?.ToAzureADConfigTS());"/>
+			<RemoveLine Path="Southwind.Server\Index.cshtml" Line="var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.AzureAD?.ToAzureADConfigTS());"/>
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
@@ -511,7 +511,7 @@
 		
 		<Module Name="SignalR" DependsOn="Auth">
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="builder.Services.AddSignalR();"/>
-			<RemoveLine Path="Southwind\Index.cshtml" Line="var __disableSignalR = @Json.Serialize(Signum.ConcurrentUser.ConcurrentUserServer.DisableSignalR);"/>
+			<RemoveLine Path="Southwind.Server\Index.cshtml" Line="var __disableSignalR = @Json.Serialize(Signum.ConcurrentUser.ConcurrentUserServer.DisableSignalR);"/>
 		</Module>
 		
 		<Module Name="ConcurrentUser" DependsOn="SignalR">
