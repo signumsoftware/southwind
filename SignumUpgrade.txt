@@ -195,3 +195,4 @@ Upgrade_20251001_ViteRelative
 Upgrade_20251002_UpdateNuges
 Upgrade_20251007_WithUniqueIndex
 Upgrade_20251008_NotDefinedToAlreadyDefined
+Upgrade_20251009_ToolbarMenuPart
