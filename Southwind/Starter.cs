@@ -19,6 +19,7 @@ using Signum.Dynamic;
 using Signum.Eval;
 using Signum.Excel;
 using Signum.Files;
+using Signum.Files.AzureBlobs;
 using Signum.Files.FileTypeAlgorithms;
 using Signum.Help;
 using Signum.MachineLearning;

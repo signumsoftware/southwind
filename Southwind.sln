@@ -115,6 +115,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Tree", "Framework\Ex
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Server", "Southwind.Server\Southwind.Server.csproj", "{CF1A5991-986F-41E7-888F-3D1BBEA12F7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Files.AzureBlobs", "Framework\Extensions\Signum.Files.AzureBlobs\Signum.Files.AzureBlobs.csproj", "{02728254-38F8-2E91-B0A8-8A785776361F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -321,6 +323,10 @@ Global
 		{CF1A5991-986F-41E7-888F-3D1BBEA12F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF1A5991-986F-41E7-888F-3D1BBEA12F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF1A5991-986F-41E7-888F-3D1BBEA12F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02728254-38F8-2E91-B0A8-8A785776361F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02728254-38F8-2E91-B0A8-8A785776361F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02728254-38F8-2E91-B0A8-8A785776361F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02728254-38F8-2E91-B0A8-8A785776361F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -373,6 +379,7 @@ Global
 		{6E6C117D-A878-41B5-A6EF-E5C3A0D83286} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{35142573-119D-4E50-84D2-EA04E29656E6} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{CC3DEDCA-B116-4A26-878B-E4FA23B8816C} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
+		{02728254-38F8-2E91-B0A8-8A785776361F} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E18ACE2B-9B04-4506-B0EF-5723DE24799B}

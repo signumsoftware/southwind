@@ -36,6 +36,7 @@
 		<ProjectReference Include="..\Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Eval\Signum.Eval.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Excel\Signum.Excel.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Files.AzureBlobs\Signum.Files.AzureBlobs.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Files\Signum.Files.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Help\Signum.Help.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.HtmlEditor\Signum.HtmlEditor.csproj" />
