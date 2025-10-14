@@ -236,7 +236,7 @@
 			<RemoveLine Path="Southwind\Home.tsx" From="if (AuthClient.currentUser()) {" To="else //Dashboard"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { DashboardClient } from &quot;@extensions/Signum.Dashboard/DashboardClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="DashboardClient.start({ routes });"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; HideQuickLink=&quot;false&quot; Owner=&quot;User;2&quot; ChartScript=&quot;D3ChartScript.StackedLines&quot;&gt;"  To="&lt;/Dashboard>"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; HideQuickLink=&quot;false&quot; Owner=&quot;User;2;Anonymous&quot; ChartScript=&quot;D3ChartScript.StackedLines&quot;&gt;"  To="&lt;/Dashboard>"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Dashboard;"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Dashboard;"/>
