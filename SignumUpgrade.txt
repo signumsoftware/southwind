@@ -196,3 +196,4 @@ Upgrade_20251002_UpdateNuges
 Upgrade_20251007_WithUniqueIndex
 Upgrade_20251008_NotDefinedToAlreadyDefined
 Upgrade_20251009_ToolbarMenuPart
+Upgrade_20251022_LinkButton

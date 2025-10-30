@@ -43,11 +43,11 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
           <div className={classes(ctx.formControlClass, "readonly numeric")} style={{ color: color && color.toString() }}>
             {estimation}
           </div>
-          <a href="#" className={classes("sf-line-button", "sf-view", "btn input-group-text")}
+          <LinkButton className={classes("sf-line-button", "sf-view", "btn input-group-text")}
             onClick={handleViewClick}
             title={EntityControlMessage.View.niceToString()}>
             <FontAwesomeIcon icon={"arrow-right"} />
-          </a>
+          </LinkButton>
         </div>
       }
     </FormGroup>

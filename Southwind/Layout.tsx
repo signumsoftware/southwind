@@ -112,7 +112,7 @@ export default function Layout(): React.JSX.Element {
                 {hasUser && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
                 <React.Suspense fallback={null}><ChangeLogViewer extraInformation={(window as any).__serverName} /></React.Suspense>
                 <Nav.Item> {/*Swagger*/}
-                  <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
+                  <LinkButton className="nav-link" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</LinkButton>
                 </Nav.Item> {/*Swagger*/}
 
                 {!hasUser && <CultureDropdown />}
