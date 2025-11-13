@@ -12,6 +12,7 @@ import { PredictorEntity } from '@extensions/Signum.MachineLearning/Signum.Machi
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ProductEntity, ProductPredictorPublication } from './Southwind.Products';
 import { OrderMessage } from '../Orders/Southwind.Orders';
+import { LinkButton } from '@framework/Basics/LinkButton';
 
 
 var gradient = new Gradient([
@@ -42,8 +43,8 @@ export default function SalesEstimation({ ctx }: { ctx: TypeContext<ProductEntit
           </span>
           <div className={classes(ctx.formControlClass, "readonly numeric")} style={{ color: color && color.toString() }}>
             {estimation}
-          </div>
-          <LinkButton className={classes("sf-line-button", "sf-view", "btn input-group-text")}
+            </div>
+            <LinkButton className={classes("sf-line-button", "sf-view", "btn input-group-text")}
             onClick={handleViewClick}
             title={EntityControlMessage.View.niceToString()}>
             <FontAwesomeIcon icon={"arrow-right"} />

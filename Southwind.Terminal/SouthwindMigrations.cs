@@ -20,9 +20,9 @@ using Southwind.Products;
 using Southwind.Orders;
 using Signum.Security;
 using Signum.Authorization.AuthToken;
-using Signum.Authorization.ActiveDirectory;
 using Signum.Translation.Instances;
 using Signum.UserAssets.Queries;
+using Signum.Authorization.AzureAD;
 
 namespace Southwind.Terminal;
 
@@ -158,15 +158,7 @@ public static class SouthwindMigrations
                     AzureCognitiveServicesAPIKey = null,
                     DeepLAPIKey = null,
                 },
-                ActiveDirectory = new ActiveDirectoryConfigurationEmbedded
-                {
-                    AzureAD = null,
-                    WindowsAD = null,
-                    AllowMatchUsersBySimpleUserName = true,
-                    AutoCreateUsers = true,
-                    AutoUpdateUsers = true,
-                    DefaultRole = standardUser,
-                }, //ActiveDirectory
+                AzureAD = null,
             }.Save();
 
             tr.Commit();

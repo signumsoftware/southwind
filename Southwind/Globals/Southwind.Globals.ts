@@ -10,7 +10,7 @@ import * as SMS from '../../Framework/Extensions/Signum.SMS/Signum.SMS'
 import * as AuthToken from '../../Framework/Extensions/Signum.Authorization/AuthToken/Signum.Authorization.AuthToken'
 import * as Rules from '../../Framework/Extensions/Signum.Authorization/Rules/Signum.Authorization.Rules'
 import * as Workflow from '../../Framework/Extensions/Signum.Workflow/Signum.Workflow'
-import * as ActiveDirectory from '../../Framework/Extensions/Signum.Authorization.ActiveDirectory/Signum.Authorization.ActiveDirectory'
+import * as AzureAD from '../../Framework/Extensions/Signum.Authorization.AzureAD/Signum.Authorization.AzureAD'
 import * as Employees from '../Employees/Southwind.Employees'
 import * as Files from '../../Framework/Extensions/Signum.Files/Signum.Files'
 
@@ -28,7 +28,7 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
   workflow: Workflow.WorkflowConfigurationEmbedded;
   folders: FoldersConfigurationEmbedded;
   translation: TranslationConfigurationEmbedded;
-  activeDirectory: ActiveDirectory.ActiveDirectoryConfigurationEmbedded;
+  azureAD: AzureAD.AzureADConfigurationEmbedded | null;
 }
 
 export namespace ApplicationConfigurationOperation {

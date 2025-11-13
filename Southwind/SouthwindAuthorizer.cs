@@ -1,11 +1,12 @@
 using Signum.Authorization;
-using Signum.Authorization.ActiveDirectory;
+using Signum.Authorization.AzureAD;
+using Signum.Authorization.AzureAD.Authorizer;
 
 namespace Southwind;
 
-internal class SouthwindAuthorizer : ActiveDirectoryAuthorizer
+internal class SouthwindAuthorizer : AzureADAuthorizer
 {
-    public SouthwindAuthorizer(Func<ActiveDirectoryConfigurationEmbedded> getConfig) : base(getConfig)
+    public SouthwindAuthorizer(Func<AzureADConfigurationEmbedded?> getConfig) : base(getConfig)
     {
     }
 

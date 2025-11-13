@@ -1,10 +1,10 @@
+using Signum.Authorization.AuthToken;
+using Signum.Authorization.AzureAD;
+using Signum.Authorization.Rules;
+using Signum.Files;
 using Signum.Mailing;
 using Signum.SMS;
 using Signum.Workflow;
-using Signum.Files;
-using Signum.Authorization.Rules;
-using Signum.Authorization.AuthToken;
-using Signum.Authorization.ActiveDirectory;
 
 namespace Southwind.Globals;
 
@@ -35,7 +35,7 @@ public class ApplicationConfigurationEntity : Entity
 
     public TranslationConfigurationEmbedded Translation { get; set; }
 
-    public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }
+    public AzureADConfigurationEmbedded? AzureAD { get; set; }
 }
 
 

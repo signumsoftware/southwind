@@ -24,7 +24,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Framework\Extensions\Signum.Alerts\Signum.Alerts.csproj" />
-		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization.ActiveDirectory\Signum.Authorization.ActiveDirectory.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization.AzureAD\Signum.Authorization.AzureAD.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization.ResetPassword\Signum.Authorization.ResetPassword.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization\Signum.Authorization.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Caching\Signum.Caching.csproj" />

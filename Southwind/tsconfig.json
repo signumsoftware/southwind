@@ -11,7 +11,7 @@
   "references": [
     { "path": "../Framework/Signum" },
     { "path": "../Framework/Extensions/Signum.Alerts" },
-    { "path": "../Framework/Extensions/Signum.Authorization.ActiveDirectory" },
+    { "path": "../Framework/Extensions/Signum.Authorization.AzureAD" },
     { "path": "../Framework/Extensions/Signum.Authorization.ResetPassword" },
     { "path": "../Framework/Extensions/Signum.Authorization" },
     { "path": "../Framework/Extensions/Signum.Caching" },

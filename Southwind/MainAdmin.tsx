@@ -9,7 +9,7 @@ import { ExceptionClient } from "@framework/Exceptions/ExceptionClient"
 import { ChangeLogClient } from "@framework/Basics/ChangeLogClient"
 import { VisualTipClient } from "@framework/Basics/VisualTipClient"
 import { AuthAdminClient } from "@extensions/Signum.Authorization/AuthAdminClient"
-import { ActiveDirectoryClient } from "@extensions/Signum.Authorization.ActiveDirectory/ActiveDirectoryClient"
+import { AzureADClient } from "@extensions/Signum.Authorization.AzureAD/AzureADClient"
 import { UserQueryClient } from "@extensions/Signum.UserQueries/UserQueryClient"
 import { OmniboxClient } from "@extensions/Signum.Omnibox/OmniboxClient"
 import { ChartClient } from "@extensions/Signum.Chart/ChartClient"
@@ -60,7 +60,7 @@ export function startFull(routes: RouteObject[]) : void {
   QuickLinkClient.start();
 
   AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
-  ActiveDirectoryClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });
+  AzureADClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });
 
   ExceptionClient.start({ routes });
   ChangeLogClient.start({ routes, applicationName: "Southwind", mainChangeLog: () => import("./Changelog") });

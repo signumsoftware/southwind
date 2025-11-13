@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32825.248
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11205.157 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Framework", "1.Framework", "{8636251D-0291-4B49-BD87-644F49A928F4}"
 EndProject
@@ -34,8 +34,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum", "Framework\Signum\Signum.csproj", "{2CEDCB3D-0968-4B9E-94FF-9EACC3C8B9B4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Alerts", "Framework\Extensions\Signum.Alerts\Signum.Alerts.csproj", "{544C1748-043B-4F93-BB23-AF06F7636FF1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Authorization.ActiveDirectory", "Framework\Extensions\Signum.Authorization.ActiveDirectory\Signum.Authorization.ActiveDirectory.csproj", "{070293C6-1FA1-438A-8FD0-3EC09A9326F4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signum.Authorization.ResetPassword", "Framework\Extensions\Signum.Authorization.ResetPassword\Signum.Authorization.ResetPassword.csproj", "{9FC44194-57EF-4F87-90C6-C557A0B7481C}"
 EndProject
@@ -117,6 +115,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Southwind.Server", "Southwi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Files.AzureBlobs", "Framework\Extensions\Signum.Files.AzureBlobs\Signum.Files.AzureBlobs.csproj", "{02728254-38F8-2E91-B0A8-8A785776361F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Authorization.AzureAD", "Framework\Extensions\Signum.Authorization.AzureAD\Signum.Authorization.AzureAD.csproj", "{50C18813-143E-EE2E-CC52-C4B3BD2F22FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,10 +163,6 @@ Global
 		{544C1748-043B-4F93-BB23-AF06F7636FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{544C1748-043B-4F93-BB23-AF06F7636FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{544C1748-043B-4F93-BB23-AF06F7636FF1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{070293C6-1FA1-438A-8FD0-3EC09A9326F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{070293C6-1FA1-438A-8FD0-3EC09A9326F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{070293C6-1FA1-438A-8FD0-3EC09A9326F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{070293C6-1FA1-438A-8FD0-3EC09A9326F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FC44194-57EF-4F87-90C6-C557A0B7481C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FC44194-57EF-4F87-90C6-C557A0B7481C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FC44194-57EF-4F87-90C6-C557A0B7481C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -327,6 +323,10 @@ Global
 		{02728254-38F8-2E91-B0A8-8A785776361F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02728254-38F8-2E91-B0A8-8A785776361F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02728254-38F8-2E91-B0A8-8A785776361F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C18813-143E-EE2E-CC52-C4B3BD2F22FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C18813-143E-EE2E-CC52-C4B3BD2F22FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C18813-143E-EE2E-CC52-C4B3BD2F22FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C18813-143E-EE2E-CC52-C4B3BD2F22FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -340,7 +340,6 @@ Global
 		{0BE88441-92D1-4DBD-AE2E-08558F625297} = {8636251D-0291-4B49-BD87-644F49A928F4}
 		{2CEDCB3D-0968-4B9E-94FF-9EACC3C8B9B4} = {8636251D-0291-4B49-BD87-644F49A928F4}
 		{544C1748-043B-4F93-BB23-AF06F7636FF1} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
-		{070293C6-1FA1-438A-8FD0-3EC09A9326F4} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{9FC44194-57EF-4F87-90C6-C557A0B7481C} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{921DC438-0D60-4575-9DA5-34B02117675F} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{F7F7581D-FD86-4319-9998-5F1500DAC870} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
@@ -380,6 +379,7 @@ Global
 		{35142573-119D-4E50-84D2-EA04E29656E6} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{CC3DEDCA-B116-4A26-878B-E4FA23B8816C} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{02728254-38F8-2E91-B0A8-8A785776361F} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
+		{50C18813-143E-EE2E-CC52-C4B3BD2F22FC} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E18ACE2B-9B04-4506-B0EF-5723DE24799B}
