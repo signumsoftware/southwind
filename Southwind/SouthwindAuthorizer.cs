@@ -6,7 +6,7 @@ namespace Southwind;
 
 internal class SouthwindAuthorizer : AzureADAuthorizer
 {
-    public SouthwindAuthorizer(Func<AzureADConfigurationEmbedded?> getConfig) : base(getConfig)
+    public SouthwindAuthorizer(Func<string?, AzureADConfigurationEmbedded?> getConfig) : base(getConfig)
     {
     }
 

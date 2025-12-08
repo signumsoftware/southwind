@@ -155,7 +155,7 @@ public static partial class Starter
             MailingMicrosoftGraphLogic.Start(sb);
             
             AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
-            AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.AzureAD);
+            AuthLogic.Authorizer = new SouthwindAuthorizer(adVariant => Configuration.Value.AzureAD);
             AuthLogic.StartAllModules(sb, () => Starter.Configuration.Value.AuthTokens);
             AzureADLogic.Start(sb, adGroupsAndQueries: true, deactivateUsersTask: true);
             ResetPasswordRequestLogic.Start(sb);

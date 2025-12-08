@@ -198,3 +198,4 @@ Upgrade_20251008_NotDefinedToAlreadyDefined
 Upgrade_20251009_ToolbarMenuPart
 Upgrade_20251022_LinkButton
 Upgrade_20251113_Dotnet10
+Upgrade_20251206_ActiveDirectory
