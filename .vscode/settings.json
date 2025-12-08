@@ -1,78 +1,31 @@
 {
-  "dotnet-test-explorer.enableTelemetry": false,
-  "dotnet-test-explorer.testProjectPath": "*.Test*",
-  "auto-rename-tag.activationOnLanguage": [
-    "html",
-    "xml",
-    "php",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-  ],
-  "editor.detectIndentation": false,
-  "files.exclude": {
-    "**/.git": true,
-    "**/bin": true,
-    "**/obj": true,
-    "**/node_modules": true,
-    "**/ts_out": true,
-  },
-  "workbench.iconTheme": "vscode-icons",
-  "vsicons.associations.folders": [
-    {
-      "icon": "asset",
-      "extensions": [
-        "Framework",
-      ],
-      "format": "svg",
+    "files.exclude": {
+        "**/.git": true,
+        "**/bin": true,
+        "**/obj": true,
+        "**/node_modules": true,
+        "**/ts_out": true,
     },
-    {
-      "icon": "bloc",
-      "extensions": [
-        "Signum.Entities",
-        "Signum.Entities.Extensions",
-        "Southwind.Entities",
-      ],
-      "format": "svg",
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "[javascript]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
     },
-    {
-      "icon": "services",
-      "extensions": [
-        "Signum.Engine",
-        "Signum.Engine.Extensions",
-        "Southwind.Logic",
-      ],
-      "format": "svg",
+    "[typescript]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
     },
-    {
-      "icon": "cli",
-      "extensions": [
-        "Signum.Upgrade",
-        "Southwind.Terminal"
-      ],
-      "format": "svg",
+    "[javascriptreact]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
     },
-    {
-      "icon": "www",
-      "extensions": [
-        "Signum.React",
-        "Signum.React.Extensions",
-        "Southwind.React",
-      ],
-      "format": "svg",
+    "[typescriptreact]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
     },
-    {
-      "icon": "test",
-      "extensions": [
-        "Signum.Test",
-        "Signum.React.Extensions.Selenium",
-        "Southwind.Test",
-        "Southwind.Test.Environment",
-        "Southwind.Test.Logic",
-        "Southwind.Test.React",
-      ],
-      "format": "svg",
+    "[css]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
     }
-  ],
 }

@@ -199,3 +199,4 @@ Upgrade_20251009_ToolbarMenuPart
 Upgrade_20251022_LinkButton
 Upgrade_20251113_Dotnet10
 Upgrade_20251206_ActiveDirectory
+Upgrade_20251207_SimplifyVSCode

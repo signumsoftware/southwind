@@ -1,167 +1,97 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Southwind.Terminal (local)",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/Southwind.Terminal.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/",
-      "console": "integratedTerminal",
-      "stopAtEntry": false,
-      // "internalConsoleOptions": "openOnSessionStart",
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": ""
-      },
-    },
-    {
-      "name": "Southwind.Terminal (LIVE)",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/Southwind.Terminal.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/",
-      "console": "integratedTerminal",
-      "stopAtEntry": false,
-      "internalConsoleOptions": "openOnSessionStart",
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "live"
-      }
-    },
-    {
-      "name": "Southwind.Terminal (test)",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/Southwind.Terminal.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net7.0/",
-      "console": "integratedTerminal",
-      "stopAtEntry": false,
-      "internalConsoleOptions": "openOnSessionStart",
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "test"
-      }
-    },
-    {
-      "name": "Southwind (local)",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind/bin/Debug/net7.0/Southwind.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/Southwind/",
-      "stopAtEntry": false,
-      "internalConsoleOptions": "openOnSessionStart",
-      "launchBrowser": {
-        "enabled": true,
-        "args": "${auto-detect-url}",
-        "windows": {
-          "command": "cmd.exe",
-          "args": "/C start ${auto-detect-url}"
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Southwind.Server",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet build",
+            "program": "${workspaceFolder}/Southwind.Server/bin/Debug/net10.0/Southwind.Server.dll",
+            "cwd": "${workspaceFolder}/Southwind.Server",
+            "console": "integratedTerminal",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            }
         },
-        "osx": {
-          "command": "open"
+        {
+            "name": "Southwind.Server (test)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet build",
+            "program": "${workspaceFolder}/Southwind.Server/bin/Debug/net10.0/Southwind.Server.dll",
+            "cwd": "${workspaceFolder}/Southwind.Server",
+            "console": "integratedTerminal",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "test"
+            },
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            }
         },
-        "linux": {
-          "command": "xdg-open"
+        {
+            "name": "Southwind.Server (live)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet build",
+            "program": "${workspaceFolder}/Southwind.Server/bin/Debug/net10.0/Southwind.Server.dll",
+            "cwd": "${workspaceFolder}/Southwind.Server",
+            "console": "integratedTerminal",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "live"
+            },
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            }
+        },
+        {
+            "name": "Southwind.Terminal",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet build",
+            "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net10.0/Southwind.Terminal.dll",
+            "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net10.0",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Southwind.Terminal (test)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet build",
+            "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net10.0/Southwind.Terminal.dll",
+            "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net10.0",
+            "console": "integratedTerminal",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "test"
+            }
+        },
+        {
+            "name": "Southwind.Terminal (live)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet build",
+            "program": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net10.0/Southwind.Terminal.dll",
+            "cwd": "${workspaceFolder}/Southwind.Terminal/bin/Debug/net10.0",
+            "console": "integratedTerminal",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "live"
+            }
+        },
+        {
+            "name": "Signum.Upgrade",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_signum_upgrade",
+            "program": "${workspaceFolder}/Framework/Signum.Upgrade/bin/Debug/net10.0/Signum.Upgrade.dll",
+            "cwd": "${workspaceFolder}/Framework/Signum.Upgrade/bin/Debug/net10.0",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
         }
-      },
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": ""
-      },
-      "sourceFileMap": {
-        "/Views": "${workspaceFolder}/Views"
-      }
-    },
-    {
-      "name": "Southwind (LIVE)",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind/bin/Debug/net7.0/Southwind.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/Southwind/",
-      "stopAtEntry": false,
-      "internalConsoleOptions": "openOnSessionStart",
-      "launchBrowser": {
-        "enabled": true,
-        "args": "${auto-detect-url}",
-        "windows": {
-          "command": "cmd.exe",
-          "args": "/C start ${auto-detect-url}"
-        },
-        "osx": {
-          "command": "open"
-        },
-        "linux": {
-          "command": "xdg-open"
-        }
-      },
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "live"
-      },
-      "sourceFileMap": {
-        "/Views": "${workspaceFolder}/Views"
-      }
-    },
-    {
-      "name": "Southwind (LIVE)",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Southwind/bin/Debug/net6.0/Southwind.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/Southwind/",
-      "stopAtEntry": false,
-      "internalConsoleOptions": "openOnSessionStart",
-      "launchBrowser": {
-        "enabled": true,
-        "args": "${auto-detect-url}",
-        "windows": {
-          "command": "cmd.exe",
-          "args": "/C start ${auto-detect-url}"
-        },
-        "osx": {
-          "command": "open"
-        },
-        "linux": {
-          "command": "xdg-open"
-        }
-      },
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "test"
-      },
-      "sourceFileMap": {
-        "/Views": "${workspaceFolder}/Views"
-      }
-    },
-    {
-      "name": "Signum.Upgrade",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build_signum_upgrade",
-      "program": "${workspaceFolder}/Framework/Signum.Upgrade/bin/Debug/net6.0/Signum.Upgrade.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/Framework/Signum.Upgrade/bin/Debug/net6.0/",
-      "console": "integratedTerminal",
-      "stopAtEntry": false,
-      "internalConsoleOptions": "openOnSessionStart",
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "dev"
-      }
-    },
-    {
-      "name": ".NET Core Attach",
-      "type": "coreclr",
-      "request": "attach",
-      "processId": "${command:pickProcess}"
-    }
-  ]
+    ]
 }

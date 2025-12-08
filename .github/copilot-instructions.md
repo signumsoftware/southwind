@@ -3,7 +3,7 @@
 ## Project Overview
 - **Type:** Signum Framework SPA
 - **Main Project:** Southwind/Southwind.csproj
-- **.NET Version:** 9.0
+- **.NET Version:** 10.0
 - **UI Framework:** React (TypeScript SPA)
 
 ## General Guidance

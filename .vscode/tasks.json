@@ -1,52 +1,54 @@
 {
-  // See https://go.microsoft.com/fwlink/?LinkId=733558
-  // for the documentation about the tasks.json format
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "build_signum_upgrade",
-      "command": "dotnet",
-      "type": "process",
-      "args": [
-        "build",
-        "${workspaceFolder}/Framework/Signum.Upgrade/Signum.Upgrade.csproj",
-        "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary"
-      ],
-      "problemMatcher": "$msCompile"
-    },
-    {
-      "label": "build",
-      "type": "shell",
-      "options": {
-        "cwd": "${workspaceFolder}/"
-      },
-      "windows": {
-        "command": "dotnet build"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "yarn watch",
-      "type": "shell",
-      "options": {
-        "cwd": "${workspaceFolder}/Southwind.React"
-      },
-      "windows": {
-        "command": "yarn watch"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "yarn install",
-      "type": "shell",
-      "options": {
-        "cwd": "${workspaceFolder}/Southwind.React"
-      },
-      "windows": {
-        "command": "yarn"
-      },
-      "problemMatcher": []
-    }
-  ]
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "dotnet build",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "windows": {
+                "command": "dotnet build"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "yarn tsgo",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/Southwind.Server"
+            },
+            "windows": {
+                "command": "yarn tsgo -b"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "yarn dev",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/Southwind.Server"
+            },
+            "group": "build",
+            "windows": {
+                "command": "yarn dev"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "yarn install",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/Southwind.Server"
+            },
+            "windows": {
+                "command": "yarn"
+            },
+            "problemMatcher": []
+        }
+    ]
 }
