@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "sass": "1.90.0",
-    "typescript": "5.9.2",
+    "@typescript/native-preview": "7.0.0-dev.20251206.1",
     "vite": "7.1.1",
     "@vitejs/plugin-react": "5.0.0"
   },

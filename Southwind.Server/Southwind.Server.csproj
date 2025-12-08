@@ -9,7 +9,7 @@
 		<UserSecretsId>Southwind</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<IsPackable>false</IsPackable>
-		<TSC_Build>true</TSC_Build>
+		<TSC_Build>tsgo</TSC_Build>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -41,7 +41,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Signum.TSGenerator" Version="10.0.1" />
+		<PackageReference Include="Signum.TSGenerator" Version="10.0.3" />
 		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
 		<ProjectReference Include="..\Southwind\Southwind.csproj" />
 	</ItemGroup>
