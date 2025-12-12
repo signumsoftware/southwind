@@ -62,6 +62,7 @@ public static class SouthwindEnvironment
     {
         var roles = Database.Query<RoleEntity>().ToDictionary(a => a.Name);
 
+        CreateUser("System", roles.GetOrThrow("Super user"));
         CreateUser("Super", roles.GetOrThrow("Super user"));
         CreateUser("Advanced", roles.GetOrThrow("Advanced user"));
         CreateUser("Standard", roles.GetOrThrow("Standard user"));

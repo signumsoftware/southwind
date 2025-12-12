@@ -50,7 +50,7 @@ public static class CustomersLogic
                 p.Address,
                 p.Phone,
                 p.Fax
-            }).ToDQueryable(descriptions).AllQueryOperationsAsync(request, token);
+            }).ToDQueryable(descriptions).AllQueryOperationsAsync(request, token, forConcat: true);
 
             var companies = Database.Query<CompanyEntity>().Select(p => new
             {
@@ -60,7 +60,7 @@ public static class CustomersLogic
                 p.Address,
                 p.Phone,
                 p.Fax
-            }).ToDQueryable(descriptions).AllQueryOperationsAsync(request, token);
+            }).ToDQueryable(descriptions).AllQueryOperationsAsync(request, token, forConcat: true);
 
             return (await persons).Concat(await companies)
                 .OrderBy(request.Orders)
