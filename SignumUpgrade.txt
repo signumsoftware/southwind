@@ -204,3 +204,4 @@ Upgrade_20251208_TypeScriptNativePreview
 Upgrade_20251210_NugetUpdate
 Upgrade_20251218_DockerfileFix
 Upgrade_20251219_FixTaskJson
+Upgrade_20260109_UpateNugets
