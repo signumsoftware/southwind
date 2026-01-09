@@ -7,17 +7,19 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 ## RUN apt-get update
-RUN apt-get -y install curl
-RUN curl -SLO https://deb.nodesource.com/nsolid_setup_deb.sh
-RUN chmod 500 nsolid_setup_deb.sh
-RUN ./nsolid_setup_deb.sh 22
-RUN apt-get install -y nodejs
-RUN npm install -g yarn
+RUN apt-get update && apt-get install -y curl && \
+    curl -SLO https://deb.nodesource.com/nsolid_setup_deb.sh && \
+    chmod 500 nsolid_setup_deb.sh && \
+    ./nsolid_setup_deb.sh 22 && \
+    apt-get install -y nodejs && \
+    npm install -g yarn && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY ["Framework.tar", "/"]
 RUN tar -xvf /Framework.tar
 
 COPY ["Southwind/Southwind.csproj", "Southwind/"]
+COPY ["Southwind/package.json", "Southwind/"]
 COPY ["Southwind.Server/Southwind.Server.csproj", "Southwind.Server/"]
 COPY ["Southwind.Server/package.json", "Southwind.Server/"]
 COPY ["package.json", ""]
@@ -42,5 +44,8 @@ FROM base AS final
 WORKDIR /app
 RUN apt-get update && apt-get install -y libgdiplus
 RUN apt-get update && apt-get install -y libfontconfig1
+RUN apt-get update && \
+    apt-get install -y libgdiplus libfontconfig1 libgssapi-krb5-2 && \
+    rm -rf /var/lib/apt/lists/*
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Southwind.Server.dll"]
