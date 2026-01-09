@@ -19,13 +19,13 @@
             "label": "yarn tsgo",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}/Southwind.Server"
+                "cwd": "${workspaceFolder}"
             },
             "windows": {
-                "command": "yarn tsgo -b"
+                "command": "yarn tsgo -b Southwind.Server/tsconfig.json"
             },
             "group": "build",
-            "problemMatcher": []
+            "problemMatcher": "$tsc"
         },
         {
             "label": "yarn dev",
