@@ -201,3 +201,4 @@ Upgrade_20251113_Dotnet10
 Upgrade_20251206_ActiveDirectory
 Upgrade_20251207_SimplifyVSCode
 Upgrade_20251208_TypeScriptNativePreview
+Upgrade_20251210_NugetUpdate
