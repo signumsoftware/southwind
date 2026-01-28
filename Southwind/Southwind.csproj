@@ -1,49 +1,30 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework> 
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
 		<OutputType>Library</OutputType>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>8618,1591</NoWarn>
-		<!--<TSC_Build>true</TSC_Build>-->
-
-		<EnableRazorComponentCompile>true</EnableRazorComponentCompile>
-		<RazorCompileOnBuild>true</RazorCompileOnBuild>
-		<RazorCompileOnPublish>true</RazorCompileOnPublish>
 	</PropertyGroup>
-
 	<ItemGroup>
-		<Compile Remove="CodeGen\**" />
-		<Compile Remove="wwwroot\dist\**" />
-		<Content Remove="CodeGen\**" />
-		<Content Remove="wwwroot\dist\**" />
-		<EmbeddedResource Remove="CodeGen\**" />
-		<EmbeddedResource Remove="wwwroot\dist\**" />
-		<None Remove="CodeGen\**" />
-		<None Remove="wwwroot\dist\**" />
-		<TypeScriptCompile Remove="CodeGen\**" />
-		<TypeScriptCompile Remove="node_modules\**" />
-		<TypeScriptCompile Remove="wwwroot\dist\**" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.9.2">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Signum.TSGenerator" Version="9.1.0" />
-
+		
+		<PackageReference Include="Signum.TSGenerator" Version="10.0.3" />
+		
 		<PackageReference Include="Signum.Analyzer" Version="3.2.0" />
-		<PackageReference Include="Signum.MSBuildTask" Version="9.0.0" />
+		<PackageReference Include="Signum.MSBuildTask" Version="10.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
-		<PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.16.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
+    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.16.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Framework\Extensions\Signum.Alerts\Signum.Alerts.csproj" />
-		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization.ActiveDirectory\Signum.Authorization.ActiveDirectory.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization.AzureAD\Signum.Authorization.AzureAD.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization.ResetPassword\Signum.Authorization.ResetPassword.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Authorization\Signum.Authorization.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Caching\Signum.Caching.csproj" />
@@ -56,6 +37,7 @@
 		<ProjectReference Include="..\Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Eval\Signum.Eval.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Excel\Signum.Excel.csproj" />
+		<ProjectReference Include="..\Framework\Extensions\Signum.Files.AzureBlobs\Signum.Files.AzureBlobs.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Files\Signum.Files.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Help\Signum.Help.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.HtmlEditor\Signum.HtmlEditor.csproj" />
@@ -81,7 +63,7 @@
 		<ProjectReference Include="..\Framework\Extensions\Signum.ViewLog\Signum.ViewLog.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Word\Signum.Word.csproj" />
 		<ProjectReference Include="..\Framework\Extensions\Signum.Workflow\Signum.Workflow.csproj" />
-		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" />
+		<ProjectReference Include="..\Framework\Signum.Utilities\Signum.Utilities.csproj" /> 
 		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
 	</ItemGroup>
 </Project>

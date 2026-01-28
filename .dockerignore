@@ -23,5 +23,6 @@
 **/values.dev.yaml
 **/appsettings.*.json
 **/appsettings.json
+**/ts_out
 LICENSE
 README.md

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Entities>
-  <UserChart Guid="d681b3f5-a3a9-4228-93e9-e856f45d911a" DisplayName="Evolution By Employee" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.StackedLines">
+  <UserChart Guid="d681b3f5-a3a9-4228-93e9-e856f45d911a" DisplayName="Evolution By Employee" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.StackedLines">
     <Filters>
       <Filter Indentation="0" Token="Employee" Operation="EqualTo" Value="[CurrentUser].[UserEmployeeMixin].Employee" DashboardBehaviour="UseAsInitialSelection" />
       <Filter Indentation="0" Token="OrderDate" Operation="GreaterThan" Value="-1/mm/dd 00:00:00" />
@@ -16,11 +16,11 @@
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
-      <Parameter Name="Horizontal Margin" Value="20" />
+      <Parameter Name="HorizontalScale" Value="Bands" />
+      <Parameter Name="HorizontalMargin" Value="20" />
       <Parameter Name="NumberOpacity" Value="0.8" />
       <Parameter Name="NumberColor" Value="white" />
       <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="ColorCategorySteps" Value="3" />
       <Parameter Name="Order" Value="none" />
       <Parameter Name="Stack" Value="zero" />
       <Parameter Name="Interpolate" Value="linear" />
@@ -47,7 +47,7 @@
       <Orden Token="RequiredDate" OrderType="Descending" />
     </Orders>
   </UserQuery>
-  <UserChart Guid="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" DisplayName="Calendar Orders Total Price" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.CalendarStream">
+  <UserChart Guid="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" DisplayName="Calendar Orders Total Price" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.CalendarStream">
     <Columns>
       <Column Token="OrderDate" DisplayName="Date of Order date" Format="d" />
       <Column Token="Entity.TotalPrice.Sum" DisplayName="Sum of Total price" Format="N2" />
@@ -58,7 +58,7 @@
       <Parameter Name="ColorInterpolate" Value="YlGn" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" DisplayName="Customers" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.BubblePack">
+  <UserChart Guid="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" DisplayName="Customers" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.BubblePack">
     <Columns>
       <Column Token="Customer" DisplayName="Customer" />
       <Column Token="Count" DisplayName="Count" />
@@ -77,10 +77,9 @@
       <Parameter Name="ColorScale" Value="ZeroMax" />
       <Parameter Name="ColorInterpolate" Value="YlGn" />
       <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="ColorCategorySteps" Value="3" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="b48718bb-f4ab-4a6a-950a-35a718d5fb23" DisplayName="Product Share" Query="Order" HideQuickLink="false" Owner="User;2" ChartScript="D3ChartScript.Bubbleplot">
+  <UserChart Guid="b48718bb-f4ab-4a6a-950a-35a718d5fb23" DisplayName="Product Share" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.Bubbleplot">
     <Columns>
       <Column Token="Entity.Details.Element.Product" />
       <Column Token="Entity.Details.Element.Quantity.Sum" DisplayName="Sum of Quantity" Format="D" />
@@ -99,13 +98,12 @@
       <Parameter Name="ShowLabel" Value="Yes" />
       <Parameter Name="LabelColor" Value="" />
       <Parameter Name="FillOpacity" Value="0.4" />
-      <!--<Parameter Name="ColorScale" Value="Ordinal" />-->
+      <Parameter Name="ColorScale" Value="ZeroMax" />
       <Parameter Name="ColorInterpolate" Value="YlGn" />
       <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="ColorCategorySteps" Value="3" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="9d266fac-e35b-4845-a7aa-970e1590ea1e" DisplayName="Average Price Per Month" Query="Order" HideQuickLink="false" Owner="User;1" ChartScript="D3ChartScript.Columns">
+  <UserChart Guid="9d266fac-e35b-4845-a7aa-970e1590ea1e" DisplayName="Average Price Per Month" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Columns">
     <Filters>
       <Filter Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
     </Filters>
@@ -122,11 +120,10 @@
       <Parameter Name="NumberOpacity" Value="0" />
       <Parameter Name="NumberColor" Value="#fff" />
       <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="ColorCategorySteps" Value="3" />
       <Parameter Name="ForceColor" Value="#1A5276" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="6406d2f6-aa24-43e4-946e-8622f65eb010" DisplayName="Total Price Sum" Query="Order" HideQuickLink="false" Owner="User;1" ChartScript="D3ChartScript.Columns">
+  <UserChart Guid="6406d2f6-aa24-43e4-946e-8622f65eb010" DisplayName="Total Price Sum" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Columns">
     <Filters>
       <Filter Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
     </Filters>
@@ -143,11 +140,10 @@
       <Parameter Name="NumberOpacity" Value="0" />
       <Parameter Name="NumberColor" Value="#fff" />
       <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="ColorCategorySteps" Value="3" />
       <Parameter Name="ForceColor" Value="#633974" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="a3c7b86d-641e-4c1e-8032-72a099a00395" DisplayName="Order number by month" Query="Order" HideQuickLink="false" Owner="User;1" ChartScript="D3ChartScript.Line">
+  <UserChart Guid="a3c7b86d-641e-4c1e-8032-72a099a00395" DisplayName="Order number by month" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Line">
     <Filters>
       <Filter Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
     </Filters>
@@ -157,7 +153,8 @@
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
-      <Parameter Name="Scale" Value="ZeroMax" />
+      <Parameter Name="HorizontalScale" Value="Bands" />
+      <Parameter Name="VerticalScale" Value="ZeroMax" />
       <Parameter Name="UnitMargin" Value="20" />
       <Parameter Name="NumberMinWidth" Value="20" />
       <Parameter Name="NumberOpacity" Value="0.8" />
@@ -181,18 +178,18 @@
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
-      <Parameter Name="Horizontal Margin" Value="20" />
+      <Parameter Name="HorizontalScale" Value="Bands" />
+      <Parameter Name="HorizontalMargin" Value="20" />
       <Parameter Name="NumberOpacity" Value="0" />
       <Parameter Name="NumberColor" Value="white" />
       <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="ColorCategorySteps" Value="3" />
       <Parameter Name="Order" Value="none" />
       <Parameter Name="Stack" Value="zero" />
       <Parameter Name="Interpolate" Value="linear" />
       <Parameter Name="ValueAsPercent" Value="No" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="aa47dc2c-2697-402d-a227-6c447815f5ec" DisplayName="Evolution by Product (Select a Category First!)" Query="Order" HideQuickLink="false" Owner="User;1" ChartScript="D3ChartScript.StackedLines">
+  <UserChart Guid="aa47dc2c-2697-402d-a227-6c447815f5ec" DisplayName="Evolution by Product (Select a Category First!)" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.StackedLines">
     <Filters>
       <Filter Indentation="0" Token="Entity.Details.Element.Product.Category" Operation="EqualTo" DashboardBehaviour="UseWhenNoFilters" />
     </Filters>
@@ -207,18 +204,18 @@
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
-      <Parameter Name="Horizontal Margin" Value="20" />
+      <Parameter Name="HorizontalScale" Value="Bands" />
+      <Parameter Name="HorizontalMargin" Value="20" />
       <Parameter Name="NumberOpacity" Value="0.8" />
       <Parameter Name="NumberColor" Value="white" />
       <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="ColorCategorySteps" Value="3" />
       <Parameter Name="Order" Value="none" />
       <Parameter Name="Stack" Value="zero" />
       <Parameter Name="Interpolate" Value="linear" />
       <Parameter Name="ValueAsPercent" Value="No" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="02296c68-d4f5-4bd3-92d8-d417fe84e43c" DisplayName="Products in Stock" Query="Product" HideQuickLink="false" Owner="User;1" ChartScript="D3ChartScript.Treemap" MaxRows="1000">
+  <UserChart Guid="02296c68-d4f5-4bd3-92d8-d417fe84e43c" DisplayName="Products in Stock" Query="Product" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Treemap" MaxRows="1000">
     <Columns>
       <Column Token="Entity" />
       <Column Token="UnitsInStock" />
@@ -235,17 +232,16 @@
       <Parameter Name="ColorScale" Value="ZeroMax" />
       <Parameter Name="ColorInterpolate" Value="YlGn" />
       <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="ColorCategorySteps" Value="3" />
     </Parameters>
   </UserChart>
   <Dashboard Guid="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" DisplayName="Example Dashboard" Owner="User;2;Anonymous" CombineSimilarRows="false">
     <CacheQueryConfiguration TimeoutForQueries="300" MaxRows="1000000" AutoRegenerateWhenOlderThan="60" />
     <Parts>
-      <Part Row="0" StartColumn="0" Columns="7" InteractionGroup="Group1" CustomColor="#faf" UseIconColorForTitle="true">
+      <Part Row="0" StartColumn="0" Columns="7" InteractionGroup="Group1">
         <UserChartPart UserChart="d681b3f5-a3a9-4228-93e9-e856f45d911a" IsQueryCached="true" />
       </Part>
       <Part Row="3" StartColumn="0" Columns="12" InteractionGroup="Group1">
-        <UserQueryPart UserQuery="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" RenderMode="SearchControl" AllowSelection="false" IsQueryCached="true" />
+        <UserQueryPart UserQuery="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" AllowSelection="false" IsQueryCached="true" />
       </Part>
       <Part Row="1" StartColumn="0" Columns="7" InteractionGroup="Group1">
         <UserChartPart UserChart="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" IsQueryCached="true" />

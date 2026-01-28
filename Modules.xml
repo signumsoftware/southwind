@@ -236,7 +236,7 @@
 			<RemoveLine Path="Southwind\Home.tsx" From="if (AuthClient.currentUser()) {" To="else //Dashboard"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { DashboardClient } from &quot;@extensions/Signum.Dashboard/DashboardClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="DashboardClient.start({ routes });"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; HideQuickLink=&quot;false&quot; Owner=&quot;User;2&quot; ChartScript=&quot;D3ChartScript.StackedLines&quot;&gt;"  To="&lt;/Dashboard>"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" From="&lt;UserChart Guid=&quot;d681b3f5-a3a9-4228-93e9-e856f45d911a&quot; DisplayName=&quot;Evolution By Employee&quot; Query=&quot;Order&quot; HideQuickLink=&quot;false&quot; Owner=&quot;User;2;Anonymous&quot; ChartScript=&quot;D3ChartScript.StackedLines&quot;&gt;"  To="&lt;/Dashboard>"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Dashboard;"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Dashboard;"/>
@@ -415,27 +415,26 @@
 		</Module>
 
 		<Module Name="AzureAD" DependsOn="Auth">
-			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization.ActiveDirectory;"/>
-			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Authorization.ActiveDirectory;"/>
+			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Authorization.AzureAD;"/>
+			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public AzureADConfigurationEmbedded? AzureAD { get; set; }"/>
 			<RemoveFiles Path="Southwind\SouthwindAuthorizer.cs" />
-			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization.ActiveDirectory.Azure;"/>
-			<RemoveLine Path="Southwind\Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization.AzureAD;"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.AzureAD);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="AzureADLogic.Start(sb, adGroupsAndQueries: true, deactivateUsersTask: true);"/>
-			<RemoveLine Path="Southwind\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserADMixin&gt;();"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserAzureADMixin&gt;();"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because AzureAD" />
 			<RemoveLine Path="Southwind\Layout.tsx" Line="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
-			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public ActiveDirectoryConfigurationEmbedded ActiveDirectory { get; set; }"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ActiveDirectoryClient } from &quot;@extensions/Signum.Authorization.ActiveDirectory/ActiveDirectoryClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ActiveDirectoryClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });"/>
-			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import { AzureADClient } from '@extensions/Signum.Authorization.ActiveDirectory/Azure/AzureADClient'"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { AzureADClient } from &quot;@extensions/Signum.Authorization.AzureAD/AzureADClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AzureADClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });"/>
+			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import { AzureADAuthenticator } from '@extensions/Signum.Authorization.AzureAD/AzureADAuthenticator'"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" From="if (window.__azureADConfig) {" To="}//__azureADConfig"/>
-			<RemoveLine Path="Southwind\Index.cshtml" Line="var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.ActiveDirectory.AzureAD?.ToAzureADConfigTS());"/>
+			<RemoveLine Path="Southwind.Server\Index.cshtml" Line="var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.AzureAD?.ToAzureADConfigTS());"/>
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
-			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
-			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" From="ActiveDirectory = new ActiveDirectoryConfigurationEmbedded" To="}, //ActiveDirectory" />
-			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Authorization.ActiveDirectory\Signum.Authorization.ActiveDirectory.csproj&quot; />"/>
-			<RemoveProjectReference Path="Framework\Extensions\Signum.Authorization.ActiveDirectory\Signum.Authorization.ActiveDirectory.csproj"/>
+			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="AzureAD = null," />
+			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="AzureAD = null," />
+			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Authorization.AzureAD\Signum.Authorization.AzureAD.csproj&quot; />"/>
+			<RemoveProjectReference Path="Framework\Extensions\Signum.Authorization.AzureAD\Signum.Authorization.AzureAD.csproj"/>
 		</Module>
 
 		<Module Name="Translation">
@@ -511,7 +510,7 @@
 		
 		<Module Name="SignalR" DependsOn="Auth">
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="builder.Services.AddSignalR();"/>
-			<RemoveLine Path="Southwind\Index.cshtml" Line="var __disableSignalR = @Json.Serialize(Signum.ConcurrentUser.ConcurrentUserServer.DisableSignalR);"/>
+			<RemoveLine Path="Southwind.Server\Index.cshtml" Line="var __disableSignalR = @Json.Serialize(Signum.ConcurrentUser.ConcurrentUserServer.DisableSignalR);"/>
 		</Module>
 		
 		<Module Name="ConcurrentUser" DependsOn="SignalR">

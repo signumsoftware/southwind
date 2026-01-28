@@ -85,7 +85,7 @@ function setBootswatchTheme(theme: string) {
   document.head.appendChild(preload);
 }
 
-export function ThemeSelector() {
+export function ThemeSelector(): React.ReactElement {
   const [bootswatchTheme, setBootswatchThemeState] = React.useState(
     localStorage.getItem("bootswatch-theme") || ""
   );

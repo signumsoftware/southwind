@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework> 
 		<Nullable>enable</Nullable>
 		<AssemblyVersion>1.0.0.*</AssemblyVersion>
 		<FileVersion>1.0.0.0</FileVersion>
@@ -9,10 +9,19 @@
 		<UserSecretsId>Southwind</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<IsPackable>false</IsPackable>
+		<TSC_Build>tsgo</TSC_Build>
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="CodeGen\**" />
+	  <Content Remove="CodeGen\**" />
+	  <EmbeddedResource Remove="CodeGen\**" />
+	  <None Remove="CodeGen\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Remove="Properties\launchSettings.json" />
+		<Content Remove="tsconfig.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -28,13 +37,12 @@
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 		</None>
+		<None Include="tsconfig.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.3.0-preview.4" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<PackageReference Include="Signum.TSGenerator" Version="10.0.3" />
 		<ProjectReference Include="..\Framework\Signum\Signum.csproj" />
 		<ProjectReference Include="..\Southwind\Southwind.csproj" />
 	</ItemGroup>
@@ -43,7 +51,7 @@
 		<!-- Include the newly-built files in the publish output -->
 		<ItemGroup>
 			<DistFiles Include="wwwroot\dist\**;" />
-			<ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+			<ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
 				<RelativePath>%(DistFiles.Identity)</RelativePath>
 				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			</ResolvedFileToPublish>

@@ -25,7 +25,7 @@ import Layout from './Layout'
 import PublicCatalog from './Public/PublicCatalog'
 import Home from './Home'
 import NotFound from './NotFound'
-import { AzureADClient } from '@extensions/Signum.Authorization.ActiveDirectory/Azure/AzureADClient'
+import { AzureADAuthenticator } from '@extensions/Signum.Authorization.AzureAD/AzureADAuthenticator'
 
 import { PublicClient } from './Public/PublicClient'
 
@@ -66,7 +66,7 @@ Services.SessionSharing.setAppNameAndRequestSessionStorage("Southwind");
 
 AuthClient.registerUserTicketAuthenticator();
 if (window.__azureADConfig) {
-  AzureADClient.registerAzureADAuthenticator();
+  AzureADAuthenticator.registerAzureADAuthenticator();
 }//__azureADConfig
 
 ErrorModal.register();

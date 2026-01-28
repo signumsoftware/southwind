@@ -9,8 +9,8 @@ import { ImportComponent } from '@framework/ImportComponent'
 import { QueryString } from '@framework/QueryString';
 
 export namespace PublicClient {
-  
-  export function startPublic(options: { routes: RouteObject[] }) {
+
+  export function startPublic(options: { routes: RouteObject[] }): void {
   
     options.routes.push({ path: "/registerUser/:reportsToEmployeeId?", element: <ImportComponent onImport={() => import("./RegisterUser")} /> });
   }

@@ -2,8 +2,7 @@ using Azure.Storage.Blobs;
 using Signum.Alerts;
 using Signum.API;
 using Signum.Authorization;
-using Signum.Authorization.ActiveDirectory;
-using Signum.Authorization.ActiveDirectory.Azure;
+using Signum.Authorization.AzureAD;
 using Signum.Authorization.ResetPassword;
 using Signum.Authorization.Rules;
 using Signum.Authorization.SessionLog;
@@ -22,6 +21,7 @@ using Signum.Dynamic;
 using Signum.Eval;
 using Signum.Excel;
 using Signum.Files;
+using Signum.Files.AzureBlobs;
 using Signum.Files.FileTypeAlgorithms;
 using Signum.Help;
 using Signum.MachineLearning;
@@ -80,15 +80,17 @@ public static partial class Starter
             string? logDatabase = Connector.TryExtractDatabaseNameWithPostfix(ref connectionString, "_Log");
 
             SchemaBuilder sb = new CustomSchemaBuilder { LogDatabaseName = logDatabase, Tracer = initial, WebServerBuilder = wsb };
+
             sb.Schema.Version = typeof(Starter).Assembly.GetName().Version!;
             sb.Schema.ForceCultureInfo = CultureInfo.GetCultureInfo("en-US");
             sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because AzureAD
             sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because Customer
+            sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid));
 
             MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
             MixinDeclarations.Register<EmailMessageEntity, EmailMessagePackageMixin>();
             MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
-            MixinDeclarations.Register<UserEntity, UserADMixin>();
+            MixinDeclarations.Register<UserEntity, UserAzureADMixin>();
             MixinDeclarations.Register<OrderDetailEmbedded, OrderDetailMixin>();
             MixinDeclarations.Register<BigStringEmbedded, BigStringMixin>();
 
@@ -156,7 +158,7 @@ public static partial class Starter
             MailingMicrosoftGraphLogic.Start(sb);
             
             AuthLogic.Start(sb, "System",  "Anonymous"); /* null); anonymous*/
-            AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.ActiveDirectory);
+            AuthLogic.Authorizer = new SouthwindAuthorizer(adVariant => Configuration.Value.AzureAD);
             AuthLogic.StartAllModules(sb, () => Starter.Configuration.Value.AuthTokens);
             AzureADLogic.Start(sb, adGroupsAndQueries: true, deactivateUsersTask: true);
             ResetPasswordRequestLogic.Start(sb);
@@ -354,7 +356,7 @@ public static partial class Starter
         sb.Schema.Settings.FieldAttributes((UserChartEntity uc) => uc.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
         sb.Schema.Settings.FieldAttributes((DashboardEntity cp) => cp.Owner).Replace(new ImplementedByAttribute(typeof(UserEntity), typeof(RoleEntity)));
 
-        sb.Schema.Settings.FieldAttributes((DashboardEntity a) => a.Parts.First().Content).Replace(new ImplementedByAttribute(typeof(UserChartPartEntity), typeof(CombinedUserChartPartEntity), typeof(UserQueryPartEntity), typeof(BigValuePartEntity), typeof(ValueUserQueryListPartEntity), typeof(LinkListPartEntity)));
+        sb.Schema.Settings.FieldAttributes((DashboardEntity a) => a.Parts.First().Content).Replace(new ImplementedByAttribute(typeof(UserChartPartEntity), typeof(CombinedUserChartPartEntity), typeof(UserQueryPartEntity), typeof(BigValuePartEntity), typeof(ValueUserQueryListPartEntity), typeof(ToolbarMenuPartEntity)));
         sb.Schema.Settings.FieldAttributes((CachedQueryEntity a) => a.UserAssets.First()).Replace(new ImplementedByAttribute(typeof(UserQueryEntity), typeof(UserChartEntity)));
 
         sb.Schema.Settings.FieldAttributes((ViewLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));

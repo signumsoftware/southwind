@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Signum.Rest;
-using Microsoft.OpenApi.Models;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Signum.API.Filters;
+using Microsoft.OpenApi;
 
 namespace Southwind;
 
@@ -26,7 +26,7 @@ public class ErrorResponsesOperationFilter : IOperationFilter
 
         void AddError(HttpStatusCode code)
         {
-            operation.Responses[((int)code).ToString()] = new OpenApiResponse
+            operation.Responses![((int)code).ToString()] = new OpenApiResponse
             {
                 Description = code.ToString(),
                 Content = new Dictionary<string, OpenApiMediaType>
@@ -85,23 +85,23 @@ GET http://localhost/Southwind/api/resource?apiKey=YOUR_API_KEY
                 Type = SecuritySchemeType.ApiKey
             });
 
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Name = headerName,
-                        Type = SecuritySchemeType.ApiKey,
-                        In = ParameterLocation.Header,
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = headerName
-                        },
-                     },
-                     new string[] {}
-                 }
-            });
+            //c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            //{
+            //    {
+            //        new OpenApiSecurityScheme
+            //        {
+            //            Name = headerName,
+            //            Type = SecuritySchemeType.ApiKey,
+            //            In = ParameterLocation.Header,
+            //            Flows = new OpenApiReference
+            //            {
+            //                Type = ReferenceType.SecurityScheme,
+            //                Id = headerName
+            //            },
+            //         },
+            //         new string[] {}
+            //     }
+            //});
 
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

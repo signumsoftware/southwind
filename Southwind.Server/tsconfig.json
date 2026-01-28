@@ -1,0 +1,10 @@
+﻿{
+  "extends": "../Framework/tsconfig.base.json",
+  "compilerOptions": {
+    "isolatedDeclarations": false,
+    "outDir": "./ts_out"
+  },
+  "references": [
+    { "path": "../Southwind" }
+  ]
+}

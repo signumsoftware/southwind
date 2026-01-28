@@ -1,4 +1,4 @@
-#main {
+#site-content {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,7 @@
     margin-top: -8px;
     margin-left: -18px;
     margin-right: -12px;
+    flex-grow: 1;
 }
 
     #hero .hero-container {
@@ -74,4 +75,9 @@ h2.white {
 
 .omnibox::placeholder {
 /*    color: rgba(255, 255, 255, 0.8);  Match nav-link color*/
+}
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
 }

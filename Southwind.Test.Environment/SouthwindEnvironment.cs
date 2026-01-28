@@ -13,10 +13,8 @@ using Southwind.Employees;
 using Southwind.Globals;
 using Southwind.Products;
 using Southwind.Shippers;
-using Southwind;
 using Signum.Security;
 using Signum.Authorization.AuthToken;
-using Signum.Authorization.ActiveDirectory;
 using Signum.Chatbot;
 
 namespace Southwind.Test.Environment;
@@ -65,6 +63,7 @@ public static class SouthwindEnvironment
     {
         var roles = Database.Query<RoleEntity>().ToDictionary(a => a.Name);
 
+        CreateUser("System", roles.GetOrThrow("Super user"));
         CreateUser("Super", roles.GetOrThrow("Super user"));
         CreateUser("Advanced", roles.GetOrThrow("Advanced user"));
         CreateUser("Standard", roles.GetOrThrow("Standard user"));
@@ -293,15 +292,7 @@ public static class SouthwindEnvironment
                 AzureCognitiveServicesAPIKey = null,
                 DeepLAPIKey = null,
             },
-            ActiveDirectory = new ActiveDirectoryConfigurationEmbedded
-            {
-                AzureAD = null,
-                WindowsAD = null,
-                AllowMatchUsersBySimpleUserName = true,
-                AutoCreateUsers = true,
-                AutoUpdateUsers = true,
-                DefaultRole = standardUser,
-            }, //ActiveDirectory
+            AzureAD = null,
         }.Save();
     }
 }

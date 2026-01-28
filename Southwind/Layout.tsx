@@ -17,6 +17,7 @@ import { Breakpoints, useBreakpoint, useUpdatedRef, useWindowEvent } from '@fram
 import { ModelConverterSymbol } from '@extensions/Signum.Templating/Signum.Templating'
 import { ThemeSelector } from './ThemeSelector'
 import { ThemeModeSelector } from '@framework/Components/ThemeModeSelector'
+import { LinkButton } from '@framework/Basics/LinkButton'
 
 const ToolbarRenderer = React.lazy(() => import("@extensions/Signum.Toolbar/Renderers/ToolbarRenderer"));
 const OmniboxAutocomplete = React.lazy(() => import('@extensions/Signum.Omnibox/OmniboxAutocomplete'));
@@ -80,7 +81,7 @@ export default function Layout(): React.JSX.Element {
 
   return (
     <ErrorBoundary >
-      <div id="main" key={refreshId}>
+      <div id="site-content" key={refreshId}>
         <Notify />
         <div id="main-container">
           <SidebarContainer
@@ -113,7 +114,7 @@ export default function Layout(): React.JSX.Element {
                 {hasUser && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
                 <React.Suspense fallback={null}><ChangeLogViewer extraInformation={(window as any).__serverName} /></React.Suspense>
                 <Nav.Item> {/*Swagger*/}
-                  <a className="nav-link" href="#" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</a>
+                  <LinkButton className="nav-link" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</LinkButton>
                 </Nav.Item> {/*Swagger*/}
 
                 {!hasUser && <CultureDropdown />}
@@ -133,12 +134,12 @@ export default function Layout(): React.JSX.Element {
               </div>
             </nav>
 
-            <div className="container-fluid overflow-auto pt-2">
+            <main tabIndex={-1} id="maincontent" className="container-fluid overflow-auto pt-2">
             <VersionChangedAlert />
 
             <Outlet context={{ sidebarMode }} />
-            </div>
             {hasUser && <React.Suspense fallback={null}><ChatButton /></React.Suspense>}
+            </main>
           </SidebarContainer>
         </div>
         <GlobalModalContainer />

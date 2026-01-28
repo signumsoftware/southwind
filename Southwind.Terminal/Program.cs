@@ -107,7 +107,7 @@ class Program
             var actions = new ConsoleSwitch<string, Action>
             {
                 {"AR", AuthLogic.ImportExportAuthRules},
-                {"HL", HelpXml.ImportExportHelp},
+                {"HL", HelpExportImport.ImportExportHelpMenu},
                 {"TP", TrainPredictor},
                 {"SO", ShowOrder},
             }.ChooseMultipleWithDescription(args);

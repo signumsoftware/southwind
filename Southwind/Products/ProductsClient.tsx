@@ -24,7 +24,7 @@ export namespace ProductsClient {
     {/*Files*/ }
     const maxDimensions: React.CSSProperties = { maxWidth: "96px", maxHeight: "96px" };
     Finder.registerPropertyFormatter(CategoryEntity.tryPropertyRoute(ca => ca.picture),
-      new Finder.CellFormatter((cell: FileEmbedded) => <img style={maxDimensions} src={"data:image/jpeg;base64," + cell.binaryFile} />, false));
+      new Finder.CellFormatter((cell: FileEmbedded) => cell && <img style={maxDimensions} src={"data:image/jpeg;base64," + cell.binaryFile} />, false));
     {/*Files*/ }
   
     Finder.addSettings({

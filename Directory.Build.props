@@ -1,7 +1,4 @@
 <Project>
 	<PropertyGroup>
-		<EnableRazorComponentCompile>false</EnableRazorComponentCompile>
-		<RazorCompileOnBuild>false</RazorCompileOnBuild>
-		<RazorCompileOnPublish>false</RazorCompileOnPublish>
 	</PropertyGroup>
 </Project>

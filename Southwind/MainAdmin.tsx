@@ -10,7 +10,7 @@ import { ExceptionClient } from "@framework/Exceptions/ExceptionClient"
 import { ChangeLogClient } from "@framework/Basics/ChangeLogClient"
 import { VisualTipClient } from "@framework/Basics/VisualTipClient"
 import { AuthAdminClient } from "@extensions/Signum.Authorization/AuthAdminClient"
-import { ActiveDirectoryClient } from "@extensions/Signum.Authorization.ActiveDirectory/ActiveDirectoryClient"
+import { AzureADClient } from "@extensions/Signum.Authorization.AzureAD/AzureADClient"
 import { UserQueryClient } from "@extensions/Signum.UserQueries/UserQueryClient"
 import { OmniboxClient } from "@extensions/Signum.Omnibox/OmniboxClient"
 import { ChartClient } from "@extensions/Signum.Chart/ChartClient"
@@ -54,6 +54,7 @@ import { GlobalsClient } from "./Globals/GlobalsClient"
 import { OrdersClient } from "./Orders/OrdersClient"
 import { ProductsClient } from "./Products/ProductsClient"
 import { ShippersClient } from "./Shippers/ShippersClient"
+import { ActiveDirectoryClient } from "@extensions/Signum.Authorization/BaseAD/ActiveDirectoryClient"
 
 const ReactMarkdownWithFormulas = React.lazy(() => import("@extensions/Signum.Chatbot/ReactMarkdownWithFormulas"));
 
@@ -64,7 +65,8 @@ export function startFull(routes: RouteObject[]) {
   QuickLinkClient.start();
 
   AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
-  ActiveDirectoryClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });
+  ActiveDirectoryClient.start({ routes, inviteUsers: false });
+  AzureADClient.start({ routes, adGroups: false, profilePhotos: false });
 
   ExceptionClient.start({ routes });
   ChangeLogClient.start({ routes, applicationName: "Southwind", mainChangeLog: () => import("./Changelog") });
