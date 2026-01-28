@@ -5,7 +5,7 @@ import { OrderFilterModel } from './Southwind.Orders';
 
 export default class OrderFilter extends React.Component<{ ctx: TypeContext<OrderFilterModel> }> implements ISimpleFilterBuilder {
 
-  render(): React.ReactElement {
+  override render(): React.ReactElement {
     const ctx = this.props.ctx.subCtx({ formGroupStyle: "Basic" });
     return (
       <div>

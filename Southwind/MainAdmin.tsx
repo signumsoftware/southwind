@@ -52,6 +52,7 @@ import { GlobalsClient } from "./Globals/GlobalsClient"
 import { OrdersClient } from "./Orders/OrdersClient"
 import { ProductsClient } from "./Products/ProductsClient"
 import { ShippersClient } from "./Shippers/ShippersClient"
+import { ActiveDirectoryClient } from "@extensions/Signum.Authorization/BaseAD/ActiveDirectoryClient"
 
 export function startFull(routes: RouteObject[]) : void {
   Operations.start();
@@ -60,7 +61,8 @@ export function startFull(routes: RouteObject[]) : void {
   QuickLinkClient.start();
 
   AuthAdminClient.start({ routes, types: true, properties: true, operations: true, queries: true, permissions: true });
-  AzureADClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });
+  ActiveDirectoryClient.start({ routes, inviteUsers: false });
+  AzureADClient.start({ routes, adGroups: false, profilePhotos: false });
 
   ExceptionClient.start({ routes });
   ChangeLogClient.start({ routes, applicationName: "Southwind", mainChangeLog: () => import("./Changelog") });
