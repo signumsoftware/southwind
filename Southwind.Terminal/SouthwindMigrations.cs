@@ -1,5 +1,4 @@
 using Signum.Authorization;
-using Signum.Authorization.ActiveDirectory;
 using Signum.Authorization.AuthToken;
 using Signum.Basics;
 using Signum.Chatbot;
@@ -21,12 +20,8 @@ using Signum.Workflow;
 using Southwind.Globals;
 using Southwind.Orders;
 using Southwind.Products;
-using Southwind.Orders;
-using Signum.Security;
-using Signum.Authorization.AuthToken;
-using Signum.Translation.Instances;
-using Signum.UserAssets.Queries;
-using Signum.Authorization.AzureAD;
+using System.Globalization;
+using System.IO;
 
 namespace Southwind.Terminal;
 

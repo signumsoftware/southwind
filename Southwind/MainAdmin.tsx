@@ -56,8 +56,6 @@ import { ProductsClient } from "./Products/ProductsClient"
 import { ShippersClient } from "./Shippers/ShippersClient"
 import { ActiveDirectoryClient } from "@extensions/Signum.Authorization/BaseAD/ActiveDirectoryClient"
 
-const ReactMarkdownWithFormulas = React.lazy(() => import("@extensions/Signum.Chatbot/ReactMarkdownWithFormulas"));
-
 export function startFull(routes: RouteObject[]) {
   Operations.start();
   Navigator.start({ routes });
@@ -96,7 +94,6 @@ export function startFull(routes: RouteObject[]) {
   AlertsClient.start({ routes, showAlerts: a => false });
   NotesClient.start({ routes, couldHaveNotes: a => false });
 
-  ChatbotClient.renderMarkdown = markdown => <ReactMarkdownWithFormulas>{markdown}</ReactMarkdownWithFormulas>;  
   ChatbotClient.start({ routes });
   ConcurrentUserClient.start({ routes });
 
