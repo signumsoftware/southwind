@@ -1,3 +1,4 @@
+using Pgvector;
 using Signum.Entities;
 using Signum.Utilities;
 
@@ -12,6 +13,9 @@ public class EmployeePassageEntity : Entity
 
     [StringLengthValidator(Max = int.MaxValue)]
     public string Chunk { get; set; }
+
+    [DbType(Size = 768), InTypeScript(false)]
+    public Vector? Embedding { get; set; }
 
     public int Index { get; set; }
 
