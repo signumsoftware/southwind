@@ -1,6 +1,6 @@
 using ModelContextProtocol.Server;
-using Signum.Chatbot;
-using Signum.Chatbot.Agents;
+using Signum.Agent;
+using Signum.Agent.Skills;
 using Southwind.Orders;
 
 namespace Southwind.ChatbotSkills;

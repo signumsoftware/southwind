@@ -5,7 +5,7 @@ using Signum.Files;
 using Signum.Mailing;
 using Signum.SMS;
 using Signum.Workflow;
-using Signum.Chatbot;
+using Signum.Agent;
 
 namespace Southwind.Globals;
 

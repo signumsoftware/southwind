@@ -6,7 +6,7 @@ import { MessageKey, QueryKey, Type, EnumType, registerSymbol } from '../../Fram
 import * as Entities from '../../Framework/Signum/React/Signum.Entities'
 import * as Operations from '../../Framework/Signum/React/Signum.Operations'
 import * as Mailing from '../../Framework/Extensions/Signum.Mailing/Signum.Mailing'
-import * as Chatbot from '../../Framework/Extensions/Signum.ChatBot/Signum.Chatbot'
+import * as Agent from '../../Framework/Extensions/Signum.Agent/Signum.Agent'
 import * as SMS from '../../Framework/Extensions/Signum.SMS/Signum.SMS'
 import * as AuthToken from '../../Framework/Extensions/Signum.Authorization/AuthToken/Signum.Authorization.AuthToken'
 import * as Rules from '../../Framework/Extensions/Signum.Authorization/Rules/Signum.Authorization.Rules'
@@ -24,7 +24,7 @@ export interface ApplicationConfigurationEntity extends Entities.Entity {
   databaseName: string;
   email: Mailing.EmailConfigurationEmbedded;
   emailSender: Mailing.EmailSenderConfigurationEntity;
-  chatbot: Chatbot.ChatbotConfigurationEmbedded;
+  chatbot: Agent.ChatbotConfigurationEmbedded;
   sms: SMS.SMSConfigurationEmbedded;
   authTokens: AuthToken.AuthTokenConfigurationEmbedded;
   workflow: Workflow.WorkflowConfigurationEmbedded;

@@ -35,7 +35,7 @@ import { RestClient } from "@extensions/Signum.Rest/RestClient"
 import { AlertsClient } from "@extensions/Signum.Alerts/AlertsClient"
 import { NotesClient } from "@extensions/Signum.Notes/NotesClient"
 import { ConcurrentUserClient } from "@extensions/Signum.ConcurrentUser/ConcurrentUserClient"
-import { ChatbotClient } from "@extensions/Signum.Chatbot/ChatbotClient"
+import { ChatbotClient } from "@extensions/Signum.Agent/ChatbotClient"
 
 import { ToolbarClient } from "@extensions/Signum.Toolbar/ToolbarClient"
 

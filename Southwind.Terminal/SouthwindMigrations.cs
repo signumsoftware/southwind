@@ -1,7 +1,7 @@
 using Signum.Authorization;
 using Signum.Authorization.AuthToken;
 using Signum.Basics;
-using Signum.Chatbot;
+using Signum.Agent;
 using Signum.Dashboard;
 using Signum.DynamicQuery;
 using Signum.Engine.Maps;

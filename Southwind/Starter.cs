@@ -1,4 +1,6 @@
 using Azure.Storage.Blobs;
+using Signum.Agent;
+using Signum.Agent.Skills;
 using Signum.Alerts;
 using Signum.API;
 using Signum.Authorization;
@@ -11,9 +13,6 @@ using Signum.Cache;
 using Signum.Cache.Broadcast;
 using Signum.Chart;
 using Signum.Chart.UserChart;
-using Signum.Chatbot;
-using Signum.Chatbot.Agents;
-using Signum.Chatbot.Skills;
 using Signum.ConcurrentUser;
 using Signum.Dashboard;
 using Signum.DiffLog;
@@ -222,7 +221,7 @@ public static partial class Starter
 
             WorkflowLogicStarter.Start(sb, () => Configuration.Value.Workflow);
 
-            ChatbotLogic.Start(sb, () => Configuration.Value.Chatbot);
+            ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);
             ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
 
             ChatbotSkillLogic.Start(sb, 

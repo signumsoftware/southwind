@@ -15,7 +15,7 @@ using Southwind.Products;
 using Southwind.Shippers;
 using Signum.Security;
 using Signum.Authorization.AuthToken;
-using Signum.Chatbot;
+using Signum.Agent;
 
 namespace Southwind.Test.Environment;
 
