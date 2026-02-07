@@ -10,6 +10,11 @@ using System.IO;
 using Southwind.Orders;
 using Signum.Dynamic;
 using Signum.Engine.Sync;
+using Signum.Agent;
+using Tensorflow;
+using Signum.Utilities.Synchronization;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Southwind.Terminal;
 
@@ -121,10 +126,6 @@ class Program
             }
         }
     }
-
-
-
-
 
     static void ShowOrder()
     {

@@ -17,6 +17,7 @@ public static class EmployeesLogic
 
         sb.Include<EmployeeEntity>()
             .WithSave(EmployeeOperation.Save)
+            .WithFullTextIndex(a => new { a.FirstName, a.LastName, a.Notes })
             .WithQuery(() => e => new
             {
                 Entity = e,
@@ -72,6 +73,17 @@ public static class EmployeesLogic
                 t.Id,
                 t.Description,
                 t.Region
+            });
+
+        sb.Include<EmployeePassageEntity>()
+            .WithQuery(() => ep => new
+            {
+                Entity = ep,
+                ep.Id,
+                ep.Employee,
+                ep.Chunk,
+                ep.Index,
+                ep.IsTitle
             });
     }
 
