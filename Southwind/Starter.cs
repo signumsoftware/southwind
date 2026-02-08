@@ -1,4 +1,5 @@
 using Azure.Storage.Blobs;
+using Npgsql;
 using Signum.Agent;
 using Signum.Agent.Skills;
 using Signum.Alerts;
@@ -109,6 +110,7 @@ public static partial class Starter
                     dsb.EnableArrays();
                     dsb.EnableTransportSecurity();
                     dsb.EnableRanges();
+                    dsb.UseVector();
                 });
             }
 

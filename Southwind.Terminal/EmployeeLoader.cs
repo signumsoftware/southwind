@@ -5,6 +5,8 @@ using Southwind.Employees;
 using Southwind.Globals;
 using Southwind.Customers;
 using Signum.Security;
+using System.IO;
+using System.Text.Json;
 
 namespace Southwind.Terminal;
 
@@ -41,50 +43,64 @@ internal static class EmployeeLoader
 
     public static void LoadEmployees()
     {
-        var territoriesDic = Database.RetrieveAll<TerritoryEntity>().ToDictionary(a => a.Id);
-
-
-        var employees = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Employees>()
-        .Select(e => new
+        using (var tr = new Transaction())
         {
-            e.ReportsTo,
-            employee = new EmployeeEntity
+            var territoriesDic = Database.RetrieveAll<TerritoryEntity>().ToDictionary(a => a.Id);
+
+            var employees = Connector.Override(NW.Northwind.Connector).Using(_ => Database.View<NW.Employees>()
+            .Select(e => new
             {
-                BirthDate = e.BirthDate.ToDateOnly(),
-                FirstName = e.FirstName,
-                LastName = e.LastName,
-                TitleOfCourtesy = e.TitleOfCourtesy,
-                HomePhone = e.HomePhone,
-                Extension = e.Extension,
-                HireDate = e.HireDate.ToDateOnly(),
-                Photo = new FileEntity { FileName = e.PhotoPath!.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo!.ToArray()) }.ToLiteFat(),
-                Address = new AddressEmbedded
+                e.ReportsTo,
+                employee = new EmployeeEntity
                 {
-                    Address = e.Address!,
-                    City = e.City!,
-                    Country = e.Country!,
-                    Region = e.Region,
-                    PostalCode = e.PostalCode,
-                },
-                Notes = e.Notes,
-                Territories = Database.View<NW.EmployeeTerritories>()
-                .Where(et => et.EmployeeID == e.EmployeeID)
-                .Select(a => territoriesDic.GetOrThrow(int.Parse(a.TerritoryID)))
-                .ToMList(),
-            }.SetId(e.EmployeeID)
-        })
-        .ToList());
+                    BirthDate = e.BirthDate.ToDateOnly(),
+                    FirstName = e.FirstName,
+                    LastName = e.LastName,
+                    TitleOfCourtesy = e.TitleOfCourtesy,
+                    HomePhone = e.HomePhone,
+                    Extension = e.Extension,
+                    HireDate = e.HireDate.ToDateOnly(),
+                    Photo = new FileEntity { FileName = e.PhotoPath!.AfterLast('/'), BinaryFile = RemoveOlePrefix(e.Photo!.ToArray()) }.ToLiteFat(),
+                    Address = new AddressEmbedded
+                    {
+                        Address = e.Address!,
+                        City = e.City!,
+                        Country = e.Country!,
+                        Region = e.Region,
+                        PostalCode = e.PostalCode,
+                    },
+                    Notes = e.Notes,
+                    Territories = Database.View<NW.EmployeeTerritories>()
+                    .Where(et => et.EmployeeID == e.EmployeeID)
+                    .Select(a => territoriesDic.GetOrThrow(int.Parse(a.TerritoryID)))
+                    .ToMList(),
+                }.SetId(e.EmployeeID)
+            })
+            .ToList());
 
-        Administrator.SaveListDisableIdentity(employees.Select(a=>a.employee)); 
+            Administrator.SaveListDisableIdentity(employees.Select(a => a.employee));
 
-        var dictionary = employees.Select(a => a.employee).ToDictionary(a => a.Id); 
+            var dictionary = employees.Select(a => a.employee).ToDictionary(a => a.Id);
 
-        foreach (var pair in employees)
-        {
-            pair.employee!.ReportsTo = pair.ReportsTo == null ? null : dictionary.GetOrThrow(pair.ReportsTo!.Value).ToLite();
+            foreach (var pair in employees)
+            {
+                pair.employee!.ReportsTo = pair.ReportsTo == null ? null : dictionary.GetOrThrow(pair.ReportsTo!.Value).ToLite();
+            }
+
+            dictionary.Values.SaveList();
+
+
+            if (Connector.Current.SupportsVectors)
+            {
+                var dic = JsonSerializer.Deserialize<Dictionary<string, float[]>>(File.ReadAllText(@"..\..\..\passagesWithEmbeddings.json")!);
+
+                foreach (var item in dictionary.Values)
+                {
+                    EmployeesLogic.GeneratePassages(item, dic!);
+                }
+            }
+            tr.Commit();
         }
-
-        dictionary.Values.SaveList();
     }
 
     public static byte[] RemoveOlePrefix(byte[] bytes)
