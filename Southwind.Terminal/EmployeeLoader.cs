@@ -1,12 +1,13 @@
 using Signum.Authorization;
+using Signum.Engine.Maps;
 using Signum.Files;
-using NW = Southwind.Terminal.NorthwindSchema;
+using Signum.Security;
+using Southwind.Customers;
 using Southwind.Employees;
 using Southwind.Globals;
-using Southwind.Customers;
-using Signum.Security;
 using System.IO;
 using System.Text.Json;
+using NW = Southwind.Terminal.NorthwindSchema;
 
 namespace Southwind.Terminal;
 
@@ -101,6 +102,9 @@ internal static class EmployeeLoader
             }
             tr.Commit();
         }
+
+        if (Connector.Current.SupportsVectors && Connector.Current is SqlServerConnector)
+            Schema.Current.Table<EmployeePassageEntity>().AllIndexes().OfType<VectorTableIndex>().SingleEx().CreateVectorIndex();
     }
 
     public static byte[] RemoveOlePrefix(byte[] bytes)

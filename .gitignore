@@ -39,3 +39,7 @@ node_modules
 /Southwind.Server/TensorFlowModels/**
 Framework.tar
 /Southwind/web.config
+
+# Test configuration files with connection strings (keep templates only)
+Framework/Signum.Test/appsettings.SqlServer.json
+Framework/Signum.Test/appsettings.Postgres.json

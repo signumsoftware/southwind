@@ -14,7 +14,7 @@ public class EmployeePassageEntity : Entity
     [StringLengthValidator(Max = int.MaxValue)]
     public string Chunk { get; set; }
 
-    [DbType(Size = 768), InTypeScript(false)]
+    [DbType(Size = 768), InTypeScript(false), HiddenProperty]
     public Vector? Embedding { get; set; }
 
     public int Index { get; set; }
