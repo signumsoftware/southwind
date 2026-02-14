@@ -226,15 +226,15 @@ public static partial class Starter
             ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);
             ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
 
-            ChatbotSkillLogic.Start(sb, 
+            ChatbotSkillLogic.Start(sb,
                 new IntroductionSkill()
                 .WithSubSkill(SkillActivation.Eager, new OrdersSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new AutocompleteSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new SearchSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new ChartSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new ResultTableSkill().Register())
+                .WithSubSkill(SkillActivation.Lazy, new ChartSkill().Register())
+                .WithSubSkill(SkillActivation.Lazy, new ResultTableSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new RetrieveSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new OperationSkill().Register())
+                .WithSubSkill(SkillActivation.Lazy, new OperationSkill().Register())
                 .Register()
             );
 
