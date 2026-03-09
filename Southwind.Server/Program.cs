@@ -24,6 +24,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Security.Authentication;
+using Signum.Agent;
 
 namespace Southwind.Server;
 
@@ -57,7 +58,7 @@ public class Program
         //https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml
         SwaggerConfig.ConfigureSwaggerService(builder);
         
-        builder.Logging.AddProvider(new McpExceptionLoggerProvider());
+        builder.Logging.AddProvider(new MCPExceptionLoggerProvider());
         builder.Services.AddMcpServer()
             .WithHttpTransport()
             .WithTools<IntroductionSkill>()
@@ -174,46 +175,4 @@ public class Program
             return true;
         }
     }
-
-}
-
-public class McpExceptionLoggerProvider : ILoggerProvider
-{
-    private readonly ConcurrentDictionary<string, SignumExceptionLogger> _loggers = new();
-
-    public ILogger CreateLogger(string categoryName)
-    {
-        if (categoryName == typeof(McpServerTool).FullName)
-            return _loggers.GetOrAdd(categoryName, name => new SignumExceptionLogger(name));
-
-        return NullLogger.Instance;
-    }
-
-    public void Dispose() { }
-}
-
-public class SignumExceptionLogger : ILogger
-{
-    private readonly string _name;
-    public List<string> Errors { get; } = new();
-
-    public SignumExceptionLogger(string name)
-    {
-        _name = name;
-    }
-
-    public bool IsEnabled(LogLevel logLevel) => logLevel >= LogLevel.Error;
-
-    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
-    {
-        if (IsEnabled(logLevel) && exception != null)
-        {
-            exception.LogException(e =>
-            {
-                e.ControllerName = this._name;
-            });
-        }
-    }
-
-    public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
 }

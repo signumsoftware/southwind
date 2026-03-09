@@ -687,6 +687,14 @@
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="TimeMachineClient.start({ routes });"/>
 		</Module>
 
+		<Module Name="Agent">
+			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Agent;"/>
+			<RemoveLine Path="Southwind.Server\Program.cs" Line="using Signum.Agent;"/>
+			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.Agent;"/>
+			<RemoveLine Path="Southwind.Server\Signum.Server.csproj" Line="using Signum.Agent;"/>
+			<RemoveProjectReference Path="Framework\Extensions\Signum.Agent\Signum.Agent.csproj"/>
+		</Module>
+
 		<Module Name="Dynamic">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Dynamic;"/>
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="using Signum.Dynamic;"/>

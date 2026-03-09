@@ -222,11 +222,12 @@ public static partial class Starter
             ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
 
             HashSet<object> searchTypes = new() { typeof(OrderEntity), typeof(CustomerEntity), typeof(ProductEntity), typeof(EmployeeEntity), typeof(CategoryEntity) };
+            SearchSkill.IsnlineQueryName = q => searchTypes.Contains(q);
 
-            ChatbotSkillLogic.Start(sb,
+            AgentSkillLogic.Start(sb,
                 new IntroductionSkill()
                 .WithSubSkill(SkillActivation.Eager, new AutocompleteSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new SearchSkill(searchTypes).Register())
+                .WithSubSkill(SkillActivation.Eager, new SearchSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new ResultTableSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new RetrieveSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new OperationSkill().Register())
