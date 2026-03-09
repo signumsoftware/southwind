@@ -25,6 +25,7 @@ public class EnvironmentTest
         using (AuthLogic.Disable())
         {
             AuthLogic.LoadRoles(authRules);
+            AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();
             SouthwindEnvironment.LoadBasics();
             SouthwindEnvironment.LoadEmployees();
             SouthwindEnvironment.LoadUsers();
@@ -32,7 +33,6 @@ public class EnvironmentTest
             SouthwindEnvironment.LoadCustomers();
             SouthwindEnvironment.LoadShippers();
             
-            AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();
         }
 
         OperationLogic.AllowSaveGlobally = false;
