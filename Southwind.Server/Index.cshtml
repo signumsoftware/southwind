@@ -160,10 +160,7 @@
 		}
 
 		function showError(error) {
-			var spinner = document.querySelector("#reactDiv .loading-spinner");
-			spinner && spinner.parentElement.removeChild(spinner);
-
-			var title = document.querySelector("#reactDiv h3").replaceWith(
+		    var title = document.querySelector("#reactDiv .center-container").replaceWith(
 				newElement("div", function (div) {
 					div.style.fontFamily = "'Segoe UI', 'Source Sans Pro' , Calibri, Candara, Arial, sans-serif";
 					div.style.fontSize = "1.3rem";
