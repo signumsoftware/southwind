@@ -143,8 +143,7 @@ public static class SouthwindMigrations
                 }, //Workflow
                 Chatbot = new ChatbotConfigurationEmbedded
                 {
-                    MistralAPIKey = ""
-                },
+                }, //Chatbot
                 Folders = new FoldersConfigurationEmbedded
                 {
                     PredictorModelFolder = localPrefix + @"predictor-models",

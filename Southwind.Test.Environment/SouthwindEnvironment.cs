@@ -268,7 +268,7 @@ public static class SouthwindEnvironment
             }, //Email
             Chatbot = new ChatbotConfigurationEmbedded
             {
-            },
+            }, //Chatbot
             Sms = new SMSConfigurationEmbedded
             {
                 DefaultCulture = enGB,
