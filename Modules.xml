@@ -110,7 +110,7 @@
 			<RemoveFiles Path="Southwind.Terminal\OrderLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\ProductLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\SupplierFaxes.csv"/>
-			<RemoveLine Path="Southwind.Terminal\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True;TrustServerCertificate=true&quot;"/>
+         <RemoveLine Path="Southwind.Terminal\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.;Initial Catalog=Northwind;Integrated Security=True;TrustServerCertificate=true&quot;"/>
 		</Module>
 
 		<Module Name="UserQuery">
@@ -118,7 +118,6 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="UserQueryLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);"/>
-			<RemoveLine Path="Southwind\Starter.cs" Line="UserQueryLogic.RegisterTranslatableRoutes();"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { UserQueryClient } from &quot;@extensions/Signum.UserQueries/UserQueryClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="UserQueryClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.UserQueries;"/>
@@ -147,7 +146,6 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="UserChartLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);"/>
-			<RemoveLine Path="Southwind\Starter.cs" Line="UserChartLogic.RegisterTranslatableRoutes();"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ChartClient } from &quot;@extensions/Signum.Chart/ChartClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ChartClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Chart\Signum.Chart.csproj&quot; />"/>
@@ -231,7 +229,6 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="DashboardLogic.Start(sb, GetFileTypeAlgorithm(p => p.CachedQueryFolder));"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="DashboardLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);"/>
-			<RemoveLine Path="Southwind\Starter.cs" Line="DashboardLogic.RegisterTranslatableRoutes();"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="CachedQueryFolder = localPrefix + @&quot;cached-query&quot;,"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="CachedQueryFolder = localPrefix + @&quot;cached-query&quot;,"/>
 			<RemoveLine Path="Southwind\Home.tsx" From="if (AuthClient.currentUser()) {" To="else //Dashboard"/>
@@ -256,7 +253,6 @@
 
 		<Module Name="Toolbar">
 			<RemoveLine Path="Southwind\Starter.cs" Line="ToolbarLogic.Start(sb);"/>
-			<RemoveLine Path="Southwind\Starter.cs" Line="ToolbarLogic.RegisterTranslatableRoutes();"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ToolbarClient } from &quot;@extensions/Signum.Toolbar/ToolbarClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ToolbarClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\Layout.tsx" Line="const ToolbarRenderer = React.lazy(() => import(&quot;@extensions/Signum.Toolbar/Renderers/ToolbarRenderer&quot;));"/>
@@ -420,16 +416,16 @@
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public AzureADConfigurationEmbedded? AzureAD { get; set; }"/>
 			<RemoveFiles Path="Southwind\SouthwindAuthorizer.cs" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization.AzureAD;"/>
-			<RemoveLine Path="Southwind\Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(() => Configuration.Value.AzureAD);"/>
+         <RemoveLine Path="Southwind\Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(adVariant => Configuration.Value.AzureAD);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="AzureADLogic.Start(sb, adGroupsAndQueries: true, deactivateUsersTask: true);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserAzureADMixin&gt;();"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because AzureAD" />
 			<RemoveLine Path="Southwind\Layout.tsx" Line="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { AzureADClient } from &quot;@extensions/Signum.Authorization.AzureAD/AzureADClient&quot;"/>
-			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AzureADClient.start({ routes, adGroups: false, inviteUsers: false, profilePhotos: false });"/>
+         <RemoveLine Path="Southwind\MainAdmin.tsx" Line="AzureADClient.start({ routes, adGroups: false, profilePhotos: false });"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import { AzureADAuthenticator } from '@extensions/Signum.Authorization.AzureAD/AzureADAuthenticator'"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" From="if (window.__azureADConfig) {" To="}//__azureADConfig"/>
-			<RemoveLine Path="Southwind.Server\Index.cshtml" Line="var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.AzureAD?.ToAzureADConfigTS());"/>
+          <RemoveLine Path="Southwind.Server\Index.cshtml" Line="var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.AzureAD?.ToAzureADConfigTS(null));"/>
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="AzureAD = null," />
@@ -616,7 +612,7 @@
 		<Module Name="Help">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Help;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.Help;"/>
-			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;HL&quot;, HelpXml.ImportExportHelp},"/>
+           <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;HL&quot;, HelpExportImport.ImportExportHelpMenu},"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="HelpLogic.Start(sb, GetFileTypeAlgorithm(p => p.HelpImagesFolder));"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Help\Signum.Help.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Help\Signum.Help.csproj"/>
@@ -717,7 +713,7 @@
 
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Agent;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public ChatbotConfigurationEmbedded Chatbot { get; set; }"/>
-            <RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;chatbot&quot; title={ctx.niceName(a => a.chatbot)}" To="&lt;/Tab>"/>
+          <RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;chatbot&quot; title={ctx.niceName(a => a.chatbot)}>" To="&lt;/Tab>"/>
 
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Chatbot = new ChatbotConfigurationEmbedded" To="}, //Chatbot"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Chatbot = new ChatbotConfigurationEmbedded" To="}, //Chatbot"/>
@@ -730,7 +726,7 @@
 
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" Line="using Signum.Agent;"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" Line="GeneratePassages(e, null);"/>
-			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" From="if (Connector.Current.SupportsVectors)" To="}); //SupportVectors"/>
+          <RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" From="if (Connector.Current.SupportsVectors)" To="} //SupportsVectors"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" From="public static void GeneratePassages(EmployeeEntity employee, Dictionary&lt;string, float[]>? dic)" To="} //GeneratePassages"/>
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeePassageEntity.cs"/>
 
