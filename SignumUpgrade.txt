@@ -207,3 +207,4 @@ Upgrade_20251219_FixTaskJson
 Upgrade_20260109_UpateNugets
 Upgrade_20260201_UpdateCopilotInstructions
 Upgrade_20260206_UpdateCopilotInstructions2
+Upgrade_20260208_UpdateNugets
