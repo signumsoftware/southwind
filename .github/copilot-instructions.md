@@ -1,5 +1,3 @@
 # GitHub Copilot Repository Instructions
 
-**For complete AI agent instructions, see [`AGENTS.md`](../AGENTS.md)** in the repository root.
-
-This file references the shared instructions used by all AI coding assistants (GitHub Copilot, OpenCode, etc.) working on this project.
+Read **[`AGENTS.md`](AGENTS.md)** and **[`Framework/AGENTS.md`](Framework/AGENTS.md)** for all project conventions.

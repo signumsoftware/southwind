@@ -1,36 +1,29 @@
 # AI Agent Instructions for Southwind
 
-This document contains shared instructions for AI coding assistants (GitHub Copilot, OpenCode, etc.) working on the Southwind project.
+**Read [`Framework/AGENTS.md`](Framework/AGENTS.md) first** — it contains all Signum Framework conventions (entities, operations, logic, React components, localization, build system).
+
+This file only covers Southwind-specific details.
 
 ---
 
-## Base Instructions
-**This repository uses Signum Framework.** 
+## Project Structure
+- **Southwind/** — Main library: entities, logic, and React components organized by module.
+- **Southwind.Server/** — ASP.NET Core host, Vite dev server (port 3000), API controllers.
+- **Southwind.Terminal/** — Console app for database migrations and data loading.
+- **Southwind.Test.Logic/** — xUnit tests for business logic.
+- **Southwind.Test.React/** — Selenium UI tests.
+- **Southwind.Test.Environment/** — Shared test setup and database configuration.
+- **Framework/** — Signum Framework git submodule (do not modify directly from this repo).
 
-For general Signum Framework conventions, **see `Framework/AGENTS.md`** first.
+## Key Files
+- `Southwind/Starter.cs` — Central bootstrapping. Registers all framework extensions and app modules via `Start()`.
+- `Southwind/MainAdmin.tsx` — Imports and starts all module clients.
+- `Southwind/Layout.tsx` — Main application shell (navbar, sidebar, modals).
+- `Southwind.Server/Program.cs` — Server entry point, calls `Starter.Start()`.
+- `Modules.xml` — Configuration for optional/removable modules.
 
-The instructions below provide Southwind-specific overrides and additions.
-
----
-
-## Project Overview
-- **Project Name:** Southwind
-- **Main Project:** Southwind/Southwind.csproj
-- **.NET Version:** 10.0
-- **Framework:** Signum Framework (git submodule at `Framework/`)
-
-## Southwind-Specific Overrides
-
-(Add your Southwind-specific coding conventions, patterns, and guidelines here)
-
----
-
-## Common Patterns
-
-(Document common patterns specific to this project)
-
----
-
-## Important Notes
-
-(Add any important notes or warnings for AI assistants working on this codebase)
+## Build & Run
+- **C#:** `dotnet build Southwind/Southwind.csproj` (not the entire solution).
+- **TypeScript:** `yarn tsgo --build` from the Southwind folder.
+- **Dev server:** `yarn dev` from Southwind.Server (Vite on port 3000).
+- **Tests:** `dotnet test Southwind.Test.Logic/Southwind.Test.Logic.csproj`.
