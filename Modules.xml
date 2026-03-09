@@ -63,7 +63,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Orders;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Products;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Shippers;"/>
-			
+
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="using Southwind.Customers;"/>
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="using Southwind.Employees;"/>
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="using Southwind.Products;"/>
@@ -76,8 +76,8 @@
 			<RemoveLine Path="Southwind.Test.React/OrderReactTest.cs" Line="using Southwind.Orders;"/>
 			<RemoveLine Path="Southwind.Test.React/OrderReactTest.cs" Line="using Southwind.Products;"/>
 
-			
-			
+
+
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { CustomersClient } from &quot;./Customers/CustomersClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="CustomersClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { EmployeesClient } from &quot;./Employees/EmployeesClient&quot;"/>
@@ -98,6 +98,7 @@
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;SQL&quot;, SqlMigrationRunner.SqlMigrations},"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;CS&quot;, () => SouthwindMigrations.CSharpMigrations(false), &quot;C# Migrations&quot;},"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="public static void CSharpMigrations(bool autoRun)" To="} //CSharpMigrations"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Migrations&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Migrations\Signum.Migrations.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Migrations\Signum.Migrations.csproj"/>
 		</Module>
@@ -110,7 +111,7 @@
 			<RemoveFiles Path="Southwind.Terminal\OrderLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\ProductLoader.cs"/>
 			<RemoveFiles Path="Southwind.Terminal\SupplierFaxes.csv"/>
-         <RemoveLine Path="Southwind.Terminal\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.;Initial Catalog=Northwind;Integrated Security=True;TrustServerCertificate=true&quot;"/>
+			<RemoveLine Path="Southwind.Terminal\appsettings.json" Line="&quot;NorthwindConnectionString&quot;: &quot;Data Source=.;Initial Catalog=Northwind;Integrated Security=True;TrustServerCertificate=true&quot;"/>
 		</Module>
 
 		<Module Name="UserQuery">
@@ -121,6 +122,7 @@
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { UserQueryClient } from &quot;@extensions/Signum.UserQueries/UserQueryClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="UserQueryClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.UserQueries;"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.UserQueries&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.UserQueries\Signum.UserQueries.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.UserQueries\Signum.UserQueries.csproj"/>
 		</Module>
@@ -135,6 +137,7 @@
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind.Terminal\WordTemplates\Order.docx"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Word;"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Word;"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Word&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Word\Signum.Word.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Word\Signum.Word.csproj"/>
 		</Module>
@@ -148,6 +151,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ChartClient } from &quot;@extensions/Signum.Chart/ChartClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ChartClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Chart&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Chart\Signum.Chart.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Chart\Signum.Chart.csproj"/>
 		</Module>
@@ -212,6 +216,7 @@
 			<RemoveLine DependsOn="Mailing" Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="EmailMessageFolder = localPrefix + @&quot;email-messages&quot;,"/>
 			<RemoveLine DependsOn="Dashboard" Path="Southwind\Starter.cs" Line="FileTypeLogic.Register(BigStringFileType.EmailMessage, GetFileTypeAlgorithm(c => c.EmailMessageFolder));"/>
 			<RemoveLine DependsOn="Dashboard" Path="Southwind\Starter.cs" Line="BigStringLogic.RegisterAll&lt;EmailMessageEntity>(sb, new BigStringConfiguration(mode, BigStringFileType.EmailMessage));"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Files&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Files\Signum.Files.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Files\Signum.Files.csproj"/>
 		</Module>
@@ -220,6 +225,7 @@
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ExcelClient } from &quot;@extensions/Signum.Excel/ExcelClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ExcelClient.start({ routes, plainExcel: true, importFromExcel: true, excelReport: true });"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Excel;"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Excel&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Excel\Signum.Excel.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Excel\Signum.Excel.csproj"/>
 		</Module>
@@ -238,6 +244,7 @@
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Toolbar.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; IconName=&quot;fas fa-tachometer-alt&quot; IconColor=&quot;blue&quot; Content=&quot;7914fa80-dfd6-42a2-b29a-18e8cc5851f8&quot; />" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Dashboard;"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Dashboard;"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Dashboard&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Dashboard\Signum.Dashboard.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Dashboard\Signum.Dashboard.csproj"/>
 		</Module>
@@ -248,6 +255,7 @@
 			<RemoveLine Path="Southwind.Terminal\Toolbar.xml" Line="&lt;ToolbarElement Type=&quot;Item&quot; Content=&quot;ViewLog&quot; />" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.ViewLog;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((ViewLogEntity cp) => cp.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.ViewLog&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.ViewLog\Signum.ViewLog.csproj&quot; />"/>
 		</Module>
 
@@ -271,6 +279,7 @@
 			<RemoveLine Path="Southwind.Terminal\Toolbar.xml" From="&lt;ToolbarMenu Guid=&quot;2deb71ea-f065-4fe3-9215-90460bc2d5ec&quot; Name=&quot;Reports&quot;>" To="&lt;/Toolbar>" />
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Toolbar;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Toolbar;"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Toolbar&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Toolbar\Signum.Toolbar.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Toolbar\Signum.Toolbar.csproj"/>
 		</Module>
@@ -291,6 +300,7 @@
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ProcessClient } from &quot;@extensions/Signum.Processes/ProcessClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ProcessClient.start({ routes, packages: true, packageOperations: true });"/>
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="ProcessRunner.StartRunningProcessesAfter(5 * 1000);"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Processes&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Processes\Signum.Processes.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Processes\Signum.Processes.csproj"/>
 		</Module>
@@ -308,6 +318,7 @@
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="ScheduleTaskRunner.StartScheduledTaskAfter(5 * 1000);"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { SchedulerClient } from &quot;@extensions/Signum.Scheduler/SchedulerClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="SchedulerClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Scheduler&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Scheduler\Signum.Scheduler.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Scheduler\Signum.Scheduler.csproj"/>
 		</Module>
@@ -333,6 +344,8 @@
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="AsyncEmailSender.StartAsyncEmailSenderAfter(5 * 1000);" />
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { MailingClient } from &quot;@extensions/Signum.Mailing/MailingClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="MailingClient.start({ routes, contextual: true, queryButton: true });"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Mailing.MicrosoftGraph&quot; },"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Mailing&quot; },"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" From="/*Email*/" To="public EmailSenderConfigurationEntity EmailSender { get; set; }"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;tab&quot; title={ctx.niceName(a => a.email)}>" To="&lt;/Tab>"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Email = new EmailConfigurationEmbedded" To="}, //Email"/>
@@ -350,6 +363,7 @@
 			<RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;sms&quot; title={ctx.niceName(a => a.sms)}>" To="&lt;/Tab>"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Sms = new SMSConfigurationEmbedded" To="}, //Sms"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.SMS&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.SMS\Signum.SMS.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.SMS\Signum.SMS.csproj"/>
 		</Module>
@@ -406,6 +420,7 @@
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.Authorization;"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Authorization;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization.Rules;"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Authorization&quot; },"/>
 
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Authorization\Signum.Authorization.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Authorization\Signum.Authorization.csproj"/>
@@ -416,20 +431,21 @@
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public AzureADConfigurationEmbedded? AzureAD { get; set; }"/>
 			<RemoveFiles Path="Southwind\SouthwindAuthorizer.cs" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization.AzureAD;"/>
-         <RemoveLine Path="Southwind\Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(adVariant => Configuration.Value.AzureAD);"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="AuthLogic.Authorizer = new SouthwindAuthorizer(adVariant => Configuration.Value.AzureAD);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="AzureADLogic.Start(sb, adGroupsAndQueries: true, deactivateUsersTask: true);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="MixinDeclarations.Register&lt;UserEntity, UserAzureADMixin&gt;();"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because AzureAD" />
 			<RemoveLine Path="Southwind\Layout.tsx" Line="changePasswordVisible={AuthClient.getAuthenticationType() != &quot;azureAD&quot;}"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { AzureADClient } from &quot;@extensions/Signum.Authorization.AzureAD/AzureADClient&quot;"/>
-         <RemoveLine Path="Southwind\MainAdmin.tsx" Line="AzureADClient.start({ routes, adGroups: false, profilePhotos: false });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AzureADClient.start({ routes, adGroups: false, profilePhotos: false });"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" Line="import { AzureADAuthenticator } from '@extensions/Signum.Authorization.AzureAD/AzureADAuthenticator'"/>
 			<RemoveLine Path="Southwind\MainPublic.tsx" From="if (window.__azureADConfig) {" To="}//__azureADConfig"/>
-          <RemoveLine Path="Southwind.Server\Index.cshtml" Line="var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.AzureAD?.ToAzureADConfigTS(null));"/>
+			<RemoveLine Path="Southwind.Server\Index.cshtml" Line="var __azureADConfig = @Json.Serialize(Starter.Configuration.Value.AzureAD?.ToAzureADConfigTS(null));"/>
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="var standardUser = Database.Query&lt;RoleEntity&gt;().Single(a => a.Name == &quot;Standard user&quot;).ToLite();" />
 			<RemoveLine Path="Southwind.Terminal/SouthwindMigrations.cs" Line="AzureAD = null," />
 			<RemoveLine Path="Southwind.Test.Environment/SouthwindEnvironment.cs" Line="AzureAD = null," />
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Authorization.AzureAD&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Authorization.AzureAD\Signum.Authorization.AzureAD.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Authorization.AzureAD\Signum.Authorization.AzureAD.csproj"/>
 		</Module>
@@ -468,6 +484,7 @@
 			<RemoveLine Path="Southwind\Products\CategoryEntity.cs" Line="[Translatable] //Localize description column" DependsOn="ExampleEntities"/>
 			<RemoveLine Path="Southwind\Layout.tsx" Line="{!hasUser &amp;&amp; &lt;CultureDropdown />}"/>
 			<RemoveLine Path="Southwind\Layout.tsx" Line="extraMenuItems={u => hasUser &amp;&amp; &lt;CultureDropdownMenuItem />}"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Translation&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Translation\Signum.Translation.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Translation\Signum.Translation.csproj"/>
 		</Module>
@@ -475,6 +492,7 @@
 		<Module Name="Auth_ResetPasswordRequest" DependsOn="Auth,Mailing">
 			<RemoveLine Path="Southwind\Starter.cs" Line="ResetPasswordRequestLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization.ResetPassword;"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Authorization.ResetPassword&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Authorization.ResetPassword\Signum.Authorization.ResetPassword.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Authorization.ResetPassword\Signum.Authorization.ResetPassword.csproj"/>
 		</Module>
@@ -501,20 +519,22 @@
 			<RemoveLine Path="Southwind\Layout.tsx" Line="{hasUser &amp;&amp; &lt;React.Suspense fallback={null}>&lt;AlertDropdown />&lt;/React.Suspense>}"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { AlertsClient } from &quot;@extensions/Signum.Alerts/AlertsClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AlertsClient.start({ routes, showAlerts: a => false });"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Alerts&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Alerts\Signum.Alerts.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Alerts\Signum.Alerts.csproj"/>
 		</Module>
-		
+
 		<Module Name="SignalR" DependsOn="Auth">
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="builder.Services.AddSignalR();"/>
 			<RemoveLine Path="Southwind.Server\Index.cshtml" Line="var __disableSignalR = @Json.Serialize(Signum.ConcurrentUser.ConcurrentUserServer.DisableSignalR);"/>
 		</Module>
-		
+
 		<Module Name="ConcurrentUser" DependsOn="SignalR">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.ConcurrentUser;"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="ConcurrentUserLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ConcurrentUserClient } from &quot;@extensions/Signum.ConcurrentUser/ConcurrentUserClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ConcurrentUserClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.ConcurrentUser&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.ConcurrentUser\Signum.ConcurrentUser.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.ConcurrentUser\Signum.ConcurrentUser.csproj"/>
 		</Module>
@@ -525,6 +545,7 @@
 			<RemoveSpanInLines Path="Southwind\Starter.cs" Span=", /*Note*/typeof(OrderEntity)" DependsOn="ExampleEntities" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((NoteEntity n) => n.CreatedBy).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Notes\Signum.Notes.csproj&quot; />"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Notes&quot; },"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { NotesClient } from &quot;@extensions/Signum.Notes/NotesClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="NotesClient.start({ routes, couldHaveNotes: a => false });"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Notes\Signum.Notes.csproj"/>
@@ -537,6 +558,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="SetupCache(sb);"/>
 			<RemoveLine Path="Southwind\Starter.cs" From="private static void SetupCache(SchemaBuilder sb)" To="}"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="CacheClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Caching&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Caching\Signum.Caching.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Caching\Signum.Caching.csproj"/>
 		</Module>
@@ -568,7 +590,7 @@
 
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Southwind.Public;" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="PublicLogic.Start(sb);" />
-		
+
 
 
 			<RemoveLine Path="Southwind\Products\ProductsLogic.cs" Line="public static ResetLazy&lt;FrozenDictionary&lt;CategoryEntity, List&lt;ProductEntity&gt;&gt;&gt; ActiveProducts = null!;"/>
@@ -586,6 +608,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" From="ProfilerLogic.Start(sb," To="overrideSessionTimeout: true);"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ProfilerClient } from &quot;@extensions/Signum.Profiler/ProfilerClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ProfilerClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Profiler&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Profiler\Signum.Profiler.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Profiler\Signum.Profiler.csproj"/>
 		</Module>
@@ -596,6 +619,7 @@
 			<RemoveLine Path="Southwind\Layout.tsx" Line="{hasUser &amp;&amp; AppContext.isPermissionAuthorized(OmniboxPermission.ViewOmnibox) &amp;&amp; &lt;OmniboxAutocomplete inputAttrs={{ className: &quot;form-control omnibox&quot; }} />}"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { OmniboxClient } from &quot;@extensions/Signum.Omnibox/OmniboxClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="OmniboxClient.start();"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Omnibox&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Omnibox\Signum.Omnibox.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Omnibox\Signum.Omnibox.csproj"/>
 		</Module>
@@ -605,6 +629,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="MapLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { MapClient } from &quot;@extensions/Signum.Map/MapClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="MapClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Map&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Map\Signum.Map.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Map\Signum.Map.csproj"/>
 		</Module>
@@ -612,8 +637,9 @@
 		<Module Name="Help">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Help;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.Help;"/>
-           <RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;HL&quot;, HelpExportImport.ImportExportHelpMenu},"/>
+			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;HL&quot;, HelpExportImport.ImportExportHelpMenu},"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="HelpLogic.Start(sb, GetFileTypeAlgorithm(p => p.HelpImagesFolder));"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Help&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Help\Signum.Help.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Help\Signum.Help.csproj"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { HelpClient } from &quot;@extensions/Signum.Help/HelpClient&quot;"/>
@@ -639,6 +665,7 @@
 			<RemoveLine Path="Southwind.Server\Program.cs" From="//Enable middleware to serve generated Swagger as a JSON endpoint." To="});//Swagger Configure"/>
 			<RemoveFiles Path="Southwind\SwaggerConfig.cs" />
 
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Rest&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Rest\Signum.Rest.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Rest\Signum.Rest.csproj"/>
 		</Module>
@@ -673,6 +700,7 @@
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind\Products\SalesEstimation.tsx"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Products\Product.tsx" Line="import SalesEstimation from './SalesEstimation';"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Products\Product.tsx" Line="{!ctx.value.isNew &amp;&amp; &lt;SalesEstimation ctx={ctx} />}"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.MachineLearning&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.MachineLearning\Signum.MachineLearning.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.MachineLearning\Signum.MachineLearning.csproj"/>
 		</Module>
@@ -682,16 +710,17 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="TimeMachineLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { TimeMachineClient } from &quot;@extensions/Signum.TimeMachine/TimeMachineClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="TimeMachineClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.TimeMachine&quot; },"/>
 		</Module>
 
 		<Module Name="Agent">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Agent;"/>
-            <RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Agent.Skills;"/>
+			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Agent.Skills;"/>
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="using Signum.Agent;"/>
-            <RemoveLine Path="Southwind.Server\Program.cs" Line="using Signum.Agent.Skills;"/>
+			<RemoveLine Path="Southwind.Server\Program.cs" Line="using Signum.Agent.Skills;"/>
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="using ModelContextProtocol.Server;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.Agent;"/>
-            <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Agent;"/>
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Agent;"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.Agent;"/>
 
 			<RemoveLine Path="Southwind\Starter.cs" From="ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);" To="); //Chatbot"/>
@@ -713,7 +742,7 @@
 
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Agent;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public ChatbotConfigurationEmbedded Chatbot { get; set; }"/>
-          <RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;chatbot&quot; title={ctx.niceName(a => a.chatbot)}>" To="&lt;/Tab>"/>
+			<RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;chatbot&quot; title={ctx.niceName(a => a.chatbot)}>" To="&lt;/Tab>"/>
 
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Chatbot = new ChatbotConfigurationEmbedded" To="}, //Chatbot"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Chatbot = new ChatbotConfigurationEmbedded" To="}, //Chatbot"/>
@@ -726,11 +755,12 @@
 
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" Line="using Signum.Agent;"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" Line="GeneratePassages(e, null);"/>
-          <RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" From="if (Connector.Current.SupportsVectors)" To="} //SupportsVectors"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" From="if (Connector.Current.SupportsVectors)" To="} //SupportsVectors"/>
 			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" From="public static void GeneratePassages(EmployeeEntity employee, Dictionary&lt;string, float[]>? dic)" To="} //GeneratePassages"/>
 			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeePassageEntity.cs"/>
 
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Agent\Signum.Agent.csproj&quot; />"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Agent&quot; },"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Agent\Signum.Agent.csproj"/>
 		</Module>
 
@@ -750,9 +780,10 @@
 			<RemoveLine Path="Southwind\MainAdmin.tsx"
 						From="DynamicClient.start({ routes, withCodeGen: true });"
 						To="DynamicViewClient.start({ routes });"/>
-						
+
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="DynamicLogic.CodeGenDirectory = @&quot;..\..\..\..\Southwind.Server\CodeGen&quot;;"/>
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="DynamicLogic.CodeGenDirectory = app.Environment.ContentRootPath + &quot;\\CodeGen&quot;;"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Dynamic&quot; },"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Dynamic\Signum.Dynamic.csproj"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Tree\Signum.Tree.csproj"/>
@@ -771,6 +802,7 @@
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="WorkflowClient.start({ routes });"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Workflow = new WorkflowConfigurationEmbedded" To="}, //Workflow"/>
+			<RemoveLine Path="Southwind\tsconfig.json" Line="{ &quot;path&quot;: &quot;../Framework/Extensions/Signum.Workflow&quot; }"/>
 			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Workflow\Signum.Workflow.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Workflow\Signum.Workflow.csproj"/>
 
