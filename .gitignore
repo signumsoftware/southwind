@@ -43,3 +43,5 @@ Framework.tar
 # Test configuration files with connection strings (keep templates only)
 Framework/Signum.Test/appsettings.SqlServer.json
 Framework/Signum.Test/appsettings.Postgres.json
+
+/nul

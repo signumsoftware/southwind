@@ -29,6 +29,7 @@ public static class ProductsLogic
                 p.Discontinued
             });
 
+
         ActiveProducts = sb.GlobalLazy(() =>
             Database.Query<ProductEntity>()
             .Where(a => !a.Discontinued)

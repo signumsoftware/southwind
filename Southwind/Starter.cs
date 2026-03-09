@@ -47,7 +47,6 @@ using Signum.UserQueries;
 using Signum.ViewLog;
 using Signum.Word;
 using Signum.Workflow;
-using Southwind.ChatbotSkills;
 using Southwind.Customers;
 using Southwind.Employees;
 using Southwind.Globals;
@@ -176,23 +175,19 @@ public static partial class Starter
             UserQueryLogic.Start(sb);
             UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);
             UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);
-            UserQueryLogic.RegisterTranslatableRoutes();                
 
             ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);
             UserChartLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);
             UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);
-            UserChartLogic.RegisterTranslatableRoutes();
 
             DashboardLogic.Start(sb, GetFileTypeAlgorithm(p => p.CachedQueryFolder));
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);
-            DashboardLogic.RegisterTranslatableRoutes();
             ViewLogLogic.Start(sb, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
             SystemEventLogLogic.Start(sb);
             DiffLogLogic.Start(sb, registerAll: true);
             ExcelLogic.Start(sb, excelReport: true);
             ToolbarLogic.Start(sb);
-            ToolbarLogic.RegisterTranslatableRoutes();
             TimeMachineLogic.Start(sb);
 
             SMSLogic.Start(sb, null, () => Configuration.Value.Sms);
@@ -226,15 +221,21 @@ public static partial class Starter
             ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);
             ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
 
+            HashSet<object> searchTypes = new() { typeof(OrderEntity), typeof(CustomerEntity), typeof(ProductEntity), typeof(EmployeeEntity), typeof(CategoryEntity) };
+
             ChatbotSkillLogic.Start(sb,
                 new IntroductionSkill()
-                .WithSubSkill(SkillActivation.Eager, new OrdersSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new AutocompleteSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new SearchSkill().Register())
-                .WithSubSkill(SkillActivation.Lazy, new ChartSkill().Register())
-                .WithSubSkill(SkillActivation.Lazy, new ResultTableSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new SearchSkill(searchTypes).Register())
+                .WithSubSkill(SkillActivation.Eager, new ResultTableSkill().Register())
                 .WithSubSkill(SkillActivation.Eager, new RetrieveSkill().Register())
-                .WithSubSkill(SkillActivation.Lazy, new OperationSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new OperationSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new CurrentUserSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new CurrentDateSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new EntityUrlSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new GetUIContextSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new ConfirmSkill().Register())
+                .WithSubSkill(SkillActivation.Lazy, new ChartSkill().Register())
                 .Register()
             );
 

@@ -31,7 +31,7 @@ public class RegisterUserModel : ModelEntity
     protected override string? PropertyValidation(PropertyInfo pi)
     {
         if (pi.Name == nameof(Password))
-            return UserEntity.OnValidatePassword(Password);
+            return UserEntity.OnValidatePassword(Password, null);
 
         return base.PropertyValidation(pi);
     }
