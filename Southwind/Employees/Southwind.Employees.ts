@@ -41,6 +41,15 @@ export namespace EmployeeOperation {
   export const Save : Operations.ExecuteSymbol<EmployeeEntity> = registerSymbol("Operation", "EmployeeOperation.Save");
 }
 
+export const EmployeePassageEntity: Type<EmployeePassageEntity> = new Type<EmployeePassageEntity>("EmployeePassage");
+export interface EmployeePassageEntity extends Entities.Entity {
+  Type: "EmployeePassage";
+  employee: Entities.Lite<EmployeeEntity>;
+  isTitle: boolean;
+  chunk: string;
+  index: number;
+}
+
 export namespace EmployeeQuery {
   export const EmployeesByTerritory: QueryKey = new QueryKey("EmployeeQuery", "EmployeesByTerritory");
 }

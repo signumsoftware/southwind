@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11205.157 d18.0
+VisualStudioVersion = 18.0.11205.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Framework", "1.Framework", "{8636251D-0291-4B49-BD87-644F49A928F4}"
 EndProject
@@ -116,6 +116,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Files.AzureBlobs", "Framework\Extensions\Signum.Files.AzureBlobs\Signum.Files.AzureBlobs.csproj", "{02728254-38F8-2E91-B0A8-8A785776361F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Authorization.AzureAD", "Framework\Extensions\Signum.Authorization.AzureAD\Signum.Authorization.AzureAD.csproj", "{50C18813-143E-EE2E-CC52-C4B3BD2F22FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signum.Agent", "Framework\Extensions\Signum.Agent\Signum.Agent.csproj", "{2CFFC826-4699-9A25-62B9-11F4BD485C32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -327,6 +329,10 @@ Global
 		{50C18813-143E-EE2E-CC52-C4B3BD2F22FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50C18813-143E-EE2E-CC52-C4B3BD2F22FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50C18813-143E-EE2E-CC52-C4B3BD2F22FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CFFC826-4699-9A25-62B9-11F4BD485C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CFFC826-4699-9A25-62B9-11F4BD485C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CFFC826-4699-9A25-62B9-11F4BD485C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CFFC826-4699-9A25-62B9-11F4BD485C32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -380,6 +386,7 @@ Global
 		{CC3DEDCA-B116-4A26-878B-E4FA23B8816C} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{02728254-38F8-2E91-B0A8-8A785776361F} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 		{50C18813-143E-EE2E-CC52-C4B3BD2F22FC} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
+		{2CFFC826-4699-9A25-62B9-11F4BD485C32} = {8BE6A286-E197-4F84-AE56-58E37CBEEEB5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E18ACE2B-9B04-4506-B0EF-5723DE24799B}

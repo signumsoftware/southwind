@@ -81,3 +81,12 @@ h2.white {
     top: -40px;
     left: 0;
 }
+
+
+@media (min-width: 768px) {
+    body {
+        max-height: 100%;
+        overflow: hidden;
+    }
+}
+

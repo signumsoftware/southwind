@@ -5,6 +5,7 @@ using Signum.Files;
 using Signum.Mailing;
 using Signum.SMS;
 using Signum.Workflow;
+using Signum.Agent;
 
 namespace Southwind.Globals;
 
@@ -21,6 +22,8 @@ public class ApplicationConfigurationEntity : Entity
     public EmailConfigurationEmbedded Email { get; set; }
 
     public EmailSenderConfigurationEntity EmailSender { get; set; }
+
+    public ChatbotConfigurationEmbedded Chatbot { get; set; }
 
     /*Sms*/
     public SMSConfigurationEmbedded Sms { get; set; }

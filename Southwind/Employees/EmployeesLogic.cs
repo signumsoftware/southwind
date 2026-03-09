@@ -1,4 +1,9 @@
+using DocumentFormat.OpenXml.ExtendedProperties;
+using Pgvector;
+using Signum.Agent;
 using Signum.Authorization;
+using Signum.Engine;
+using Signum.Utilities.Synchronization;
 using Southwind.Globals;
 using Southwind.Orders;
 
@@ -16,7 +21,12 @@ public static class EmployeesLogic
             return;
 
         sb.Include<EmployeeEntity>()
-            .WithSave(EmployeeOperation.Save)
+            .WithSave(EmployeeOperation.Save, (e, args) =>
+            {
+                if (Connector.Current.SupportsVectors)
+                    GeneratePassages(e, null);
+            })
+            .WithFullTextIndex(a => new { a.FirstName, a.LastName, a.Notes })
             .WithQuery(() => e => new
             {
                 Entity = e,
@@ -73,6 +83,23 @@ public static class EmployeesLogic
                 t.Description,
                 t.Region
             });
+
+        if (Connector.Current.SupportsVectors)
+            sb.Include<EmployeePassageEntity>()
+                .WithVectorIndex(a => a.Embedding, vti =>
+                {
+                    if (Connector.Current is SqlServerConnector)
+                        vti.DelayCreation = true;
+                })
+                .WithQuery(() => ep => new
+                {
+                    Entity = ep,
+                    ep.Id,
+                    ep.Employee,
+                    ep.Chunk,
+                    ep.Index,
+                    ep.IsTitle
+                });
     }
 
     public static void Create(EmployeeEntity employee)
@@ -88,5 +115,54 @@ public static class EmployeesLogic
         return (from e in Database.Query<EmployeeEntity>()
                 orderby Database.Query<OrderEntity>().Count(a => a.Employee.Is(e.ToLite()))
                 select e.ToLite()).Take(num).ToList();
+    }
+
+    public static void GeneratePassages(EmployeeEntity employee, Dictionary<string, float[]>? dic)
+    {
+        if (!Schema.Current.Tables.ContainsKey(typeof(EmployeePassageEntity)))
+            return;
+
+        if (!employee.IsNew)
+            Database.Query<EmployeePassageEntity>().Where(a => a.Employee.Is(employee)).UnsafeDelete();
+
+        var passages = new List<EmployeePassageEntity>
+        {
+            new EmployeePassageEntity
+            {
+                Employee = employee.ToLite(),
+                IsTitle = true,
+                Chunk = employee.TitleOfCourtesy.HasText()
+                ? $"{employee.TitleOfCourtesy} {employee.FirstName} {employee.LastName} works as {employee.Title ?? "Employee"}"
+                : $"{employee.FirstName} {employee.LastName} works as {employee.Title ?? "Employee"}",
+                Index = 0
+            }
+        };
+
+        if (employee.Notes.HasText())
+        {
+            passages.AddRange(employee.Notes.SplitNoEmpty('\r', '\n', '.')
+                .Select(t => t.Trim())
+                .Where(t => t.HasText())
+                .Select((chunk, index) => new EmployeePassageEntity
+                {
+                    Employee = employee.ToLite(),
+                    IsTitle = false,
+                    Chunk = chunk,
+                    Index = index
+                }));
+        }
+
+        if (dic != null)
+        {
+            passages.ForEach(a => a.Embedding = new Vector(dic.GetOrThrow(a.Chunk)));
+        }
+        else
+        {
+            var model = ChatbotLogic.DefaultEmbeddingsModel.Value!.RetrieveFromCache();
+            var embeddings = model.GetEmbeddingsAsync(passages.Select(a => a.Chunk).ToArray(), default).ResultSafe();
+            passages.ForEach((a, i) => a.Embedding = new Vector(embeddings[i]));
+        }
+
+        passages.BulkInsert();
     }
 }

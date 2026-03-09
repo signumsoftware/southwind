@@ -13,6 +13,7 @@ public static class OrdersLogic
         if (sb.AlreadyDefined(MethodInfo.GetCurrentMethod()))
             return;
 
+
         sb.Include<OrderEntity>()
             .WithQuery(() => o => new
             {

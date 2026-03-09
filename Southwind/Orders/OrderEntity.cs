@@ -62,6 +62,14 @@ public class OrderEntity : Entity
         if (State == OrderState.Canceled || State == OrderState.Shipped)
             return true;
 
+        if(State == OrderState.Ordered)
+        {
+            if (pi.Name == nameof(ShipAddress))
+                return false;
+
+            return true;
+        }
+
         return base.IsPropertyReadonly(pi);
     }
 

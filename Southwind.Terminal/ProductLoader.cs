@@ -1,8 +1,10 @@
-using System.Globalization;
+using Signum.Engine.Maps;
 using Signum.Files;
-using NW = Southwind.Terminal.NorthwindSchema;
-using Southwind.Products;
 using Southwind.Customers;
+using Southwind.Employees;
+using Southwind.Products;
+using System.Globalization;
+using NW = Southwind.Terminal.NorthwindSchema;
 
 namespace Southwind.Terminal;
 
@@ -98,5 +100,9 @@ internal static class ProductLoader
             return p;
         })
         .BulkInsert(disableIdentity: true);
+
+
+        if (Connector.Current.SupportsVectors && Connector.Current is SqlServerConnector)
+            Schema.Current.Table<ProductEntity>().AllIndexes().OfType<VectorTableIndex>().SingleEx().CreateVectorIndex();
     }
 }

@@ -1,4 +1,7 @@
 using Azure.Storage.Blobs;
+using Npgsql;
+using Signum.Agent;
+using Signum.Agent.Skills;
 using Signum.Alerts;
 using Signum.API;
 using Signum.Authorization;
@@ -52,7 +55,6 @@ using Southwind.Products;
 using Southwind.Public;
 using Southwind.Shippers;
 using System.Globalization;
-using System.Security.Cryptography;
 
 namespace Southwind;
 
@@ -107,6 +109,7 @@ public static partial class Starter
                     dsb.EnableArrays();
                     dsb.EnableTransportSecurity();
                     dsb.EnableRanges();
+                    dsb.UseVector();
                 });
             }
 
@@ -214,6 +217,27 @@ public static partial class Starter
             RestApiKeyLogic.Start(sb);
 
             WorkflowLogicStarter.Start(sb, () => Configuration.Value.Workflow);
+
+            ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);
+            ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
+
+            HashSet<object> searchTypes = new() { typeof(OrderEntity), typeof(CustomerEntity), typeof(ProductEntity), typeof(EmployeeEntity), typeof(CategoryEntity) };
+
+            ChatbotSkillLogic.Start(sb,
+                new IntroductionSkill()
+                .WithSubSkill(SkillActivation.Eager, new AutocompleteSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new SearchSkill(searchTypes).Register())
+                .WithSubSkill(SkillActivation.Eager, new ResultTableSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new RetrieveSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new OperationSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new CurrentUserSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new CurrentDateSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new EntityUrlSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new GetUIContextSkill().Register())
+                .WithSubSkill(SkillActivation.Eager, new ConfirmSkill().Register())
+                .WithSubSkill(SkillActivation.Lazy, new ChartSkill().Register())
+                .Register()
+            );
 
             ProfilerLogic.Start(sb,
                 timeTracker: true,

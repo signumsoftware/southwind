@@ -4,7 +4,6 @@ import { Finder } from '@framework/Finder';
 import { PredictorEntity } from '@extensions/Signum.MachineLearning/Signum.MachineLearning';
 import SalesEstimation from './SalesEstimation';
 import { ProductEntity } from './Southwind.Products';
-
 export default function Product(p: { ctx: TypeContext<ProductEntity> }): React.JSX.Element {
   const ctx = p.ctx;
   return (

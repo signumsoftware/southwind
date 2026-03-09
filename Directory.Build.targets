@@ -29,4 +29,12 @@
 		</None>
 		-->
 	</ItemGroup>
+
+
+	<ItemGroup>
+		<None Update="Skills\*.md">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 </Project>

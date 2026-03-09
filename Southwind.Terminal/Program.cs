@@ -10,6 +10,12 @@ using System.IO;
 using Southwind.Orders;
 using Signum.Dynamic;
 using Signum.Engine.Sync;
+using Signum.Agent;
+using Tensorflow;
+using Signum.Utilities.Synchronization;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using Southwind.Employees;
 
 namespace Southwind.Terminal;
 
@@ -110,6 +116,7 @@ class Program
                 {"HL", HelpExportImport.ImportExportHelpMenu},
                 {"TP", TrainPredictor},
                 {"SO", ShowOrder},
+                {"EE", ExportEmbeddings }
             }.ChooseMultipleWithDescription(args);
 
             if (actions == null)
@@ -123,8 +130,17 @@ class Program
     }
 
 
+    static void ExportEmbeddings()
+    {
+        var lines = Database.Query<EmployeePassageEntity>().Select(a => a.Chunk).ToList().OrderBy().ToArray();
+        var embeddings = ChatbotLogic.DefaultEmbeddingsModel.Value!.RetrieveFromCache()
+            .GetEmbeddingsAsync(lines, default)
+            .ResultSafe();
 
+        var dic = lines.Zip(embeddings, (l, e) => KeyValuePair.Create(l, e)).ToDictionary();
 
+        File.WriteAllText(@"..\..\..\passagesWithEmbeddings.json", JsonSerializer.Serialize(dic));
+    }
 
     static void ShowOrder()
     {

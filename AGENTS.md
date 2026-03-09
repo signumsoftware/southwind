@@ -7,7 +7,7 @@ This file only covers Southwind-specific details.
 ---
 
 ## Project Structure
-- **Southwind/** — Main library: entities, logic, and React components organized by module.
+- **Southwind/** — Main library: entities, logic, and React components organized by module (Customers, Employees, Orders, Products, Shippers, Globals).
 - **Southwind.Server/** — ASP.NET Core host, Vite dev server (port 3000), API controllers.
 - **Southwind.Terminal/** — Console app for database migrations and data loading.
 - **Southwind.Test.Logic/** — xUnit tests for business logic.
@@ -17,10 +17,13 @@ This file only covers Southwind-specific details.
 
 ## Key Files
 - `Southwind/Starter.cs` — Central bootstrapping. Registers all framework extensions and app modules via `Start()`.
-- `Southwind/MainAdmin.tsx` — Imports and starts all module clients.
+- `Southwind/MainAdmin.tsx` — Imports and starts all module clients (`CustomersClient`, `OrdersClient`, etc.).
 - `Southwind/Layout.tsx` — Main application shell (navbar, sidebar, modals).
 - `Southwind.Server/Program.cs` — Server entry point, calls `Starter.Start()`.
 - `Modules.xml` — Configuration for optional/removable modules.
+
+## Domain Model
+Based on Northwind: **Customers** (Person, Company — polymorphic), **Orders** (with state machine: New → Ordered → Shipped | Canceled), **Products** (with Category, Supplier), **Employees**, **Shippers**. **ApplicationConfigurationEntity** is the global settings singleton.
 
 ## Build & Run
 - **C#:** `dotnet build Southwind/Southwind.csproj` (not the entire solution).
