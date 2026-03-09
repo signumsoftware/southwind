@@ -99,7 +99,7 @@ internal static class EmployeeLoader
                 {
                     EmployeesLogic.GeneratePassages(item, dic!);
                 }
-            }
+            } //SupportVectors
             tr.Commit();
         }
 

@@ -85,6 +85,7 @@ public static class EmployeesLogic
             });
 
         if (Connector.Current.SupportsVectors)
+        {
             sb.Include<EmployeePassageEntity>()
                 .WithVectorIndex(a => a.Embedding, vti =>
                 {
@@ -100,6 +101,8 @@ public static class EmployeesLogic
                     ep.Index,
                     ep.IsTitle
                 });
+
+        } //SupportsVectors
     }
 
     public static void Create(EmployeeEntity employee)
@@ -164,5 +167,5 @@ public static class EmployeesLogic
         }
 
         passages.BulkInsert();
-    }
+    } //GeneratePassages
 }

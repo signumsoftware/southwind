@@ -48,7 +48,8 @@
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Southwind.Orders;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="{&quot;SO&quot;, ShowOrder},"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" From="static void ShowOrder()" To="}//ShowOrder"/>
-			
+
+			<RemoveLine Path="Southwind\Starter.cs" Line="dsb.UseVector();"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.ImplementedByAllPrimaryKeyTypes.Add(typeof(Guid)); //because Customer" />
 			<RemoveLine Path="Southwind\Starter.cs" Line="MixinDeclarations.Register&lt;OrderDetailEmbedded, OrderDetailMixin>();"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.TypeAttributes&lt;OrderEntity>().Add(new SystemVersionedAttribute());"/>
@@ -689,9 +690,51 @@
 
 		<Module Name="Agent">
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Agent;"/>
+            <RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Agent.Skills;"/>
 			<RemoveLine Path="Southwind.Server\Program.cs" Line="using Signum.Agent;"/>
+            <RemoveLine Path="Southwind.Server\Program.cs" Line="using Signum.Agent.Skills;"/>
+			<RemoveLine Path="Southwind.Server\Program.cs" Line="using ModelContextProtocol.Server;"/>
 			<RemoveLine Path="Southwind.Terminal\Program.cs" Line="using Signum.Agent;"/>
-			<RemoveLine Path="Southwind.Server\Signum.Server.csproj" Line="using Signum.Agent;"/>
+            <RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Agent;"/>
+			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.Agent;"/>
+
+			<RemoveLine Path="Southwind\Starter.cs" From="ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);" To="); //Chatbot"/>
+
+			<RemoveLine Path="Southwind.Server\Program.cs" Line="builder.Logging.AddProvider(new MCPExceptionLoggerProvider());"/>
+			<RemoveLine Path="Southwind.Server\Program.cs" From="builder.Services.AddMcpServer()" To=".WithTools&lt;SearchSkill>();"/>
+			<RemoveLine Path="Southwind.Server\Program.cs" From="var gr = app.MapGroup(&quot;/mcp-server&quot;);" To="gr.MapMcp();"/>
+			<RemoveLine Path="Southwind.Server\Southwind.Server.csproj" Line="&lt;PackageReference Include=&quot;ModelContextProtocol.AspNetCore&quot; Version=&quot;1.1.0&quot; />"/>
+
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ChatbotClient } from &quot;@extensions/Signum.Agent/ChatbotClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ConfirmUITool } from &quot;@extensions/Signum.Agent/Skills/ConfirmUITool&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { GetUIContextUITool } from &quot;@extensions/Signum.Agent/Skills/GetUIContextUITool&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ChatbotClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ChatbotClient.registerUITool(new ConfirmUITool());"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ChatbotClient.registerUITool(new GetUIContextUITool());"/>
+
+			<RemoveLine Path="Southwind\Layout.tsx" Line="const ChatButton = React.lazy(() => import(&quot;@extensions/Signum.Agent/ChatbotButton&quot;));"/>
+			<RemoveLine Path="Southwind\Layout.tsx" Line="{hasUser &amp;&amp; &lt;React.Suspense fallback={null}>&lt;ChatButton />&lt;/React.Suspense>}"/>
+
+			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Agent;"/>
+			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public ChatbotConfigurationEmbedded Chatbot { get; set; }"/>
+            <RemoveLine Path="Southwind\Globals\ApplicationConfiguration.tsx" From="&lt;Tab eventKey=&quot;chatbot&quot; title={ctx.niceName(a => a.chatbot)}" To="&lt;/Tab>"/>
+
+			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" From="Chatbot = new ChatbotConfigurationEmbedded" To="}, //Chatbot"/>
+			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" From="Chatbot = new ChatbotConfigurationEmbedded" To="}, //Chatbot"/>
+
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" Line="{&quot;EE&quot;, ExportEmbeddings }"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\Program.cs" From="static void ExportEmbeddings()" To="}"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\EmployeeLoader.cs" From="if (Connector.Current.SupportsVectors)" To="} //SupportVectors"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\EmployeeLoader.cs" Line="if (Connector.Current.SupportsVectors &amp;&amp; Connector.Current is SqlServerConnector)"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind.Terminal\EmployeeLoader.cs" Line="Schema.Current.Table&lt;EmployeePassageEntity>().AllIndexes().OfType&lt;VectorTableIndex>().SingleEx().CreateVectorIndex();"/>
+
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" Line="using Signum.Agent;"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" Line="GeneratePassages(e, null);"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" From="if (Connector.Current.SupportsVectors)" To="}); //SupportVectors"/>
+			<RemoveLine DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeesLogic.cs" From="public static void GeneratePassages(EmployeeEntity employee, Dictionary&lt;string, float[]>? dic)" To="} //GeneratePassages"/>
+			<RemoveFiles DependsOn="ExampleEntities" Path="Southwind\Employees\EmployeePassageEntity.cs"/>
+
+			<RemoveLine Path="Southwind\Southwind.csproj" Line="&lt;ProjectReference Include=&quot;..\Framework\Extensions\Signum.Agent\Signum.Agent.csproj&quot; />"/>
 			<RemoveProjectReference Path="Framework\Extensions\Signum.Agent\Signum.Agent.csproj"/>
 		</Module>
 

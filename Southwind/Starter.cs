@@ -238,7 +238,7 @@ public static partial class Starter
                 .WithSubSkill(SkillActivation.Eager, new ConfirmSkill().Register())
                 .WithSubSkill(SkillActivation.Lazy, new ChartSkill().Register())
                 .Register()
-            );
+            ); //Chatbot
 
             ProfilerLogic.Start(sb,
                 timeTracker: true,

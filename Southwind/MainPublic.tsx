@@ -42,9 +42,6 @@ AppContext.setTitleFunction(pageTitle => document.title = pageTitle ? pageTitle 
 AppContext.setTitle();
 
 
-console.log(document.cookie);
-
-
 const dateLocalizer = ConfigureReactWidgets.getDateLocalizer();
 const numberLocalizer = ConfigureReactWidgets.getNumberLocalizer();
 
