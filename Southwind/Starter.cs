@@ -172,23 +172,19 @@ public static partial class Starter
             UserQueryLogic.Start(sb);
             UserQueryLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);
             UserQueryLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);
-            UserQueryLogic.RegisterTranslatableRoutes();                
 
             ChartLogic.Start(sb, googleMapsChartScripts: false /*requires Google Maps API key in ChartClient */);
             UserChartLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);
             UserChartLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);
-            UserChartLogic.RegisterTranslatableRoutes();
 
             DashboardLogic.Start(sb, GetFileTypeAlgorithm(p => p.CachedQueryFolder));
             DashboardLogic.RegisterUserTypeCondition(sb, SouthwindTypeCondition.UserEntities);
             DashboardLogic.RegisterRoleTypeCondition(sb, SouthwindTypeCondition.RoleEntities);
-            DashboardLogic.RegisterTranslatableRoutes();
             ViewLogLogic.Start(sb, new HashSet<Type> { typeof(UserQueryEntity), typeof(UserChartEntity), typeof(DashboardEntity) });
             SystemEventLogLogic.Start(sb);
             DiffLogLogic.Start(sb, registerAll: true);
             ExcelLogic.Start(sb, excelReport: true);
             ToolbarLogic.Start(sb);
-            ToolbarLogic.RegisterTranslatableRoutes();
             TimeMachineLogic.Start(sb);
 
             SMSLogic.Start(sb, null, () => Configuration.Value.Sms);
