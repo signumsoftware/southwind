@@ -211,3 +211,4 @@ Upgrade_20260208_UpdateNugets
 Upgrade_20260211_IndexErrorHandling
 Upgrade_20260212_MoveAuthRulesImportUp
 Upgrade_20260212_UpdateCopilotInstructions3
+Upgrade_20260318_UpdateNugets
