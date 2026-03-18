@@ -655,7 +655,7 @@
 			<RemoveLine Path="Southwind\Starter.cs" Line="RestLogLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="RestApiKeyLogic.Start(sb);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="sb.Schema.Settings.FieldAttributes((RestLogEntity a) => a.User).Replace(new ImplementedByAttribute(typeof(UserEntity)));"/>
-			<RemoveLine Path="Southwind\Layout.tsx" From="&lt;Nav.Item> {/*Swagger*/}" To="&lt;/Nav.Item> {/*Swagger*/}"/>
+          <RemoveLine Path="Southwind\Layout.tsx" From="{hasUser &amp;&amp; /*Swagger*/&lt;Nav.Item>" To="&lt;/Nav.Item> /*Swagger*/}"/>
 			<RemoveLine Path="Southwind\Layout.tsx" From="function handleSwaggerClick(e: React.MouseEvent&lt;any>) {" To="} //Swagger"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { RestClient } from &quot;@extensions/Signum.Rest/RestClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="RestClient.start({ routes });"/>
@@ -725,8 +725,8 @@
 
 			<RemoveLine Path="Southwind\Starter.cs" From="ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);" To="); //Chatbot"/>
 
-			<RemoveLine Path="Southwind.Server\Program.cs" Line="builder.Logging.AddProvider(new MCPExceptionLoggerProvider());"/>
-			<RemoveLine Path="Southwind.Server\Program.cs" From="builder.Services.AddMcpServer()" To=".WithTools&lt;SearchSkill>();"/>
+          <RemoveLine Path="Southwind.Server\Program.cs" Line="builder.Logging.AddProvider(new MCPExceptionLoggerProvider());"/>
+         <RemoveLine Path="Southwind.Server\Program.cs" From="builder.Services.AddMcpServer()" To="); //MCP"/>
 			<RemoveLine Path="Southwind.Server\Program.cs" From="var gr = app.MapGroup(&quot;/mcp-server&quot;);" To="gr.MapMcp();"/>
 			<RemoveLine Path="Southwind.Server\Southwind.Server.csproj" Line="&lt;PackageReference Include=&quot;ModelContextProtocol.AspNetCore&quot; Version=&quot;1.1.0&quot; />"/>
 
@@ -739,6 +739,10 @@
 
 			<RemoveLine Path="Southwind\Layout.tsx" Line="const ChatButton = React.lazy(() => import(&quot;@extensions/Signum.Agent/ChatbotButton&quot;));"/>
 			<RemoveLine Path="Southwind\Layout.tsx" Line="{hasUser &amp;&amp; &lt;React.Suspense fallback={null}>&lt;ChatButton />&lt;/React.Suspense>}"/>
+			<RemoveLine Path="Southwind\Layout.tsx" Line="import MessageModal from '@framework/Modals/MessageModal'"/>
+			<RemoveLine Path="Southwind\Layout.tsx" Line="import CopyButton from '@framework/Components/CopyButton'"/>
+			<RemoveLine Path="Southwind\Layout.tsx" From="function handleMcpClick(e: React.MouseEvent&lt;any>) {" To="} //MCP"/>
+			<RemoveLine Path="Southwind\Layout.tsx" From="{hasUser &amp;&amp; /*MCP*/&lt;Nav.Item>" To="&lt;/Nav.Item> /*MCP*/}"/>
 
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="using Signum.Agent;"/>
 			<RemoveLine Path="Southwind\Globals\ApplicationConfigurationEntity.cs" Line="public ChatbotConfigurationEmbedded Chatbot { get; set; }"/>

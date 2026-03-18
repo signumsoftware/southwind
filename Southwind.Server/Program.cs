@@ -69,7 +69,7 @@ public class Program
                 .WithSubSkill(SkillActivation.Lazy, new CurrentServerContextSkill())
                 .WithSubSkill(SkillActivation.Lazy, new EntityUrlSkill())
                 .WithSubSkill(SkillActivation.Lazy, new ChartSkill())
-            );
+            ); //MCP
 
         var app = builder.Build();
 
