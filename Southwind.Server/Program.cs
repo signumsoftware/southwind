@@ -60,9 +60,16 @@ public class Program
         
         builder.Logging.AddProvider(new MCPExceptionLoggerProvider());
         builder.Services.AddMcpServer()
-            .WithHttpTransport()
-            .WithTools<IntroductionSkill>()
-            .WithTools<SearchSkill>();
+            .WithSignumSkill(
+             new IntroductionSkill()
+                .WithSubSkill(SkillActivation.Lazy, new AutocompleteSkill())
+                .WithSubSkill(SkillActivation.Lazy, new SearchSkill())
+                .WithSubSkill(SkillActivation.Lazy, new RetrieveSkill())
+                .WithSubSkill(SkillActivation.Lazy, new OperationSkill())
+                .WithSubSkill(SkillActivation.Lazy, new CurrentServerContextSkill())
+                .WithSubSkill(SkillActivation.Lazy, new EntityUrlSkill())
+                .WithSubSkill(SkillActivation.Lazy, new ChartSkill())
+            );
 
         var app = builder.Build();
 

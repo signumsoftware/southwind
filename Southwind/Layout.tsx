@@ -18,6 +18,8 @@ import { ModelConverterSymbol } from '@extensions/Signum.Templating/Signum.Templ
 import { ThemeSelector } from './ThemeSelector'
 import { ThemeModeSelector } from '@framework/Components/ThemeModeSelector'
 import { LinkButton } from '@framework/Basics/LinkButton'
+import MessageModal from '@framework/Modals/MessageModal'
+import CopyButton from '@framework/Components/CopyButton'
 
 const ToolbarRenderer = React.lazy(() => import("@extensions/Signum.Toolbar/Renderers/ToolbarRenderer"));
 const OmniboxAutocomplete = React.lazy(() => import('@extensions/Signum.Omnibox/OmniboxAutocomplete'));
@@ -63,6 +65,24 @@ export default function Layout(): React.JSX.Element {
       .then(file => file.RestApiKeyClient.API.getCurrentRestApiKey())
       .then(key => { window.location.assign(AppContext.toAbsoluteUrl("/swagger/index.html?apiKey=" + (key || ""))); });
   } //Swagger
+
+  function handleMcpClick(e: React.MouseEvent<any>) {
+    e.preventDefault();
+    import("@extensions/Signum.Rest/RestApiKeyClient")
+      .then(file => file.RestApiKeyClient.API.getCurrentRestApiKey())
+      .then(key => {
+        const mcpUrl = window.location.origin + AppContext.toAbsoluteUrl("/mcp-server?apiKey=" + (key || ""));
+        return MessageModal.show({
+          title: "MCP",
+          buttons: "ok",
+          message:
+            <div className="d-flex align-items-start gap-2">
+              <code className="mb-0 text-break">{mcpUrl}</code>
+              <CopyButton getText={() => mcpUrl} title="Copy MCP URL">Copy</CopyButton>
+            </div>
+        });
+      });
+  } //MCP
 
   const hasUser = Boolean(AuthClient.currentUser());
 
@@ -113,9 +133,13 @@ export default function Layout(): React.JSX.Element {
               <div className="navbar-nav ml-auto me-2">
                 {hasUser && <React.Suspense fallback={null}><AlertDropdown /></React.Suspense>}
                 <React.Suspense fallback={null}><ChangeLogViewer extraInformation={(window as any).__serverName} /></React.Suspense>
-                <Nav.Item> {/*Swagger*/}
+                {hasUser && /*Swagger*/<Nav.Item>
                   <LinkButton className="nav-link" onClick={handleSwaggerClick} title="Swagger API Documentation">&nbsp; API</LinkButton>
-                </Nav.Item> {/*Swagger*/}
+                </Nav.Item> /*Swagger*/}
+                
+                {hasUser && /*MCP*/<Nav.Item>
+                  <LinkButton className="nav-link" onClick={handleMcpClick} title="MCP Server URL">&nbsp; MCP</LinkButton>
+                </Nav.Item> /*MCP*/}
 
                 {!hasUser && <CultureDropdown />}
                 <ThemeSelector />

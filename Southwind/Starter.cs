@@ -222,22 +222,19 @@ public static partial class Starter
             ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
 
             HashSet<object> searchTypes = new() { typeof(OrderEntity), typeof(CustomerEntity), typeof(ProductEntity), typeof(EmployeeEntity), typeof(CategoryEntity) };
-            SearchSkill.IsnlineQueryName = q => searchTypes.Contains(q);
-
+            SearchSkill.InlineQueryName = q => searchTypes.Contains(q);
+            CurrentServerContextSkill.UrlLeft = () => Configuration.Value.Email.UrlLeft;
             AgentSkillLogic.Start(sb,
                 new IntroductionSkill()
-                .WithSubSkill(SkillActivation.Eager, new AutocompleteSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new SearchSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new ResultTableSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new RetrieveSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new OperationSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new CurrentUserSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new CurrentDateSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new EntityUrlSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new GetUIContextSkill().Register())
-                .WithSubSkill(SkillActivation.Eager, new ConfirmSkill().Register())
-                .WithSubSkill(SkillActivation.Lazy, new ChartSkill().Register())
-                .Register()
+                .WithSubSkill(SkillActivation.Eager, new AutocompleteSkill())
+                .WithSubSkill(SkillActivation.Eager, new SearchSkill())
+                .WithSubSkill(SkillActivation.Eager, new RetrieveSkill())
+                .WithSubSkill(SkillActivation.Eager, new OperationSkill())
+                .WithSubSkill(SkillActivation.Eager, new CurrentServerContextSkill())
+                .WithSubSkill(SkillActivation.Eager, new EntityUrlSkill())
+                .WithSubSkill(SkillActivation.Eager, new GetUIContextSkill())
+                .WithSubSkill(SkillActivation.Eager, new ConfirmUISkill())
+                .WithSubSkill(SkillActivation.Lazy, new ChartSkill())
             ); //Chatbot
 
             ProfilerLogic.Start(sb,
