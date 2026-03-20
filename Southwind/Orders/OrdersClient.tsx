@@ -42,7 +42,7 @@ export namespace OrdersClient {
           state == "Shipped" ? "var(--bs-secondary-color)" :
             "var(--bs-body-color)";
   
-        return { style: { color: color } };
+        return { style: { "--bs-table-color" : color } as React.CSSProperties };
       }
     });
   
