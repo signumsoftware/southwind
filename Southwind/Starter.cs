@@ -221,13 +221,11 @@ public static partial class Starter
             ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);
             ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
 
-            HashSet<object> searchTypes = new() { typeof(OrderEntity), typeof(CustomerEntity), typeof(ProductEntity), typeof(EmployeeEntity), typeof(CategoryEntity) };
-            SearchSkill.InlineQueryName = q => searchTypes.Contains(q);
             CurrentServerContextSkill.UrlLeft = () => Configuration.Value.Email.UrlLeft;
             AgentSkillLogic.Start(sb,
                 new IntroductionSkill()
                 .WithSubSkill(SkillActivation.Eager, new AutocompleteSkill())
-                .WithSubSkill(SkillActivation.Eager, new SearchSkill())
+                .WithSubSkill(SkillActivation.Eager, new SearchSkill(typeof(OrderEntity), typeof(CustomerEntity), typeof(ProductEntity), typeof(EmployeeEntity), typeof(CategoryEntity)))
                 .WithSubSkill(SkillActivation.Eager, new RetrieveSkill())
                 .WithSubSkill(SkillActivation.Eager, new OperationSkill())
                 .WithSubSkill(SkillActivation.Eager, new CurrentServerContextSkill())
