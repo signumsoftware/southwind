@@ -1,13 +1,9 @@
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using Signum.Selenium;
+using Signum.Page;
 
 namespace Southwind.Test.React;
 
@@ -27,26 +23,62 @@ public class SouthwindTestClass
         BaseUrl = config["Url"]!;
     }
 
-    public static void Browse(string username, Action<SouthwindBrowser> action)
+private static readonly Lazy<Task<IBrowser>> DefaultBrowser = new(async () =>
+{
+    var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
+
+    string? headless = System.Environment.GetEnvironmentVariable("PLAYWRIGHT_HEADLESS");
+
+    if (headless != null && headless.ToLower() == "true")
+        return await playwright.Chromium.LaunchAsync(new() { Headless = true });
+
+    // Configure browser launch options (equivalent to ChromeOptions)
+    var launchOptions = new BrowserTypeLaunchOptions
     {
-        var selenium = new ChromeDriver("../../../");
+        Headless = false,
+        Args = new[]
+        {
+            "--start-maximized",
+            "--no-first-run",
+            "--no-default-browser-check",
+            "--disable-popup-blocking",
+        },
+    };
 
-        var browser = new SouthwindBrowser(selenium);
-        try
-        {
-            browser.Login(username, username);
-            action(browser);
-        }
-        catch (UnhandledAlertException)
-        {
-            selenium.SwitchTo().Alert();
+    return await playwright.Chromium.LaunchAsync(launchOptions);
+});
 
-        }
-        finally
-        {
-            selenium.Close();
-        }
+public static async Task BrowseAsync(string username, Func<SouthwindBrowser, Task> action)
+{
+    var contextOptions = new BrowserNewContextOptions
+    {
+        ViewportSize = ViewportSize.NoViewport, // Allow start-maximized to work
+        Permissions = new[] { "geolocation", "notifications" },
+    };
+
+    var browser = await DefaultBrowser.Value;
+    var context = await browser.NewContextAsync(contextOptions);
+
+    // Set preferences equivalent to Chrome user profile preferences
+    await context.GrantPermissionsAsync(new[] { "clipboard-read", "clipboard-write" });
+
+    var page = await context.NewPageAsync();
+
+    var browserProxy = new SouthwindBrowser(page);
+
+    try
+    {
+        page.SetDefaultTimeout(10000);
+        await browserProxy.LoginAsync(username, username);
+        await action(browserProxy);
     }
+    finally
+    {
+        await page.CloseAsync();
+        await context.CloseAsync();
+    }
+}
+
 }
 
 public class SouthwindBrowser : BrowserProxy
@@ -56,16 +88,16 @@ public class SouthwindBrowser : BrowserProxy
         return SouthwindTestClass.BaseUrl + url;
     }
 
-    public SouthwindBrowser(WebDriver driver)
+    public SouthwindBrowser(IPage driver)
         : base(driver)
     {
     }
 
-    public override void Login(string username, string password)
+    public override async Task LoginAsync(string username, string password)
     {
-        base.Login(username, password);
+        await base.LoginAsync(username, password);
 
-        string culture = Selenium.FindElement(By.Id("languageSelector")).SelectElement().SelectedOption.GetDomProperty("value")!;
+        string culture = await Page.Locator("#" + "languageSelector").SelectElement().SelectedOption.GetAttributeAsync("value")!;
 
         Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
     }

@@ -14,44 +14,44 @@ public class OrderReactTest : SouthwindTestClass
     }
 
     [Fact]
-    public void OrderWebTestExample()
+    public async Task OrderWebTestExampleAsync()
     {
-        Browse("Standard", b =>
+        await BrowseAsync("Standard", async b =>
         {
             Lite<OrderEntity>? lite = null;
             try
             {
-                b.SearchPage(typeof(PersonEntity)).Using(persons =>
+                await b.SearchPageAsync(typeof(PersonEntity)).Await_UsingAsync(async persons =>
                 {
                     persons.Search();
                     persons.SearchControl.Results.OrderBy("Id");
-                    return persons.Results.EntityClick<PersonEntity>(1);
-                }).Using(john =>
+                    return await persons.Results.EntityClickAsync<PersonEntity>(1);
+                }).Await_UsingAsync(async john =>
                 {
-                    using (FrameModalProxy<OrderEntity> order = john.ConstructFrom(OrderOperation.CreateOrderFromCustomer))
+                    using (FrameModalProxy<OrderEntity> order = await john.ConstructFromAsync(OrderOperation.CreateOrderFromCustomer))
                     {
-                        order.AutoLineValue(a => a.ShipName, Guid.NewGuid().ToString());
-                        order.EntityCombo(a => a.ShipVia).SelectLabel("FedEx");
+                        await order.AutoLineValueAsync(a => a.ShipName, Guid.NewGuid().ToString());
+                        await order.EntityCombo(a => a.ShipVia).SelectLabelAsync("FedEx");
 
                         ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
 
                         var line = order.EntityDetail(a => a.Details).GetOrCreateDetailControl<OrderDetailEmbedded>();
-                        line.EntityLineValue(a => a.Product, sonicProduct.ToLite());
+                        await line.EntityLineValueAsync(a => a.Product, sonicProduct.ToLite());
 
-                        Assert.Equal(sonicProduct.UnitPrice, order.AutoLineValue(a => a.TotalPrice));
+                        Assert.Equal(sonicProduct.UnitPrice, await order.AutoLineValueAsync(a => a.TotalPrice));
 
-                        order.Execute(OrderOperation.Save);
+                        await order.ExecuteAsync(OrderOperation.Save);
 
-                        lite = order.GetLite();
+                        lite = await order.GetLiteAsync();
 
-                        Assert.Equal(sonicProduct.UnitPrice, order.AutoLineValue(a => a.TotalPrice));
+                        Assert.Equal(sonicProduct.UnitPrice, await order.AutoLineValueAsync(a => a.TotalPrice));
                     }
 
-                    return b.FramePage(lite);
+                    return await b.FramePageAsync(lite);
 
-                }).EndUsing(order =>
+                }).Await_EndUsingAsync(async order =>
                 {
-                    Assert.Equal(lite!.InDB(a => a.TotalPrice), order.AutoLineValue(a => a.TotalPrice));
+                    Assert.Equal(lite!.InDB(a => a.TotalPrice), await order.AutoLineValueAsync(a => a.TotalPrice));
                 });
             }
             finally
