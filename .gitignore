@@ -40,3 +40,6 @@ node_modules
 Framework.tar
 /Southwind/web.config
 /nul
+
+.claude/worktrees/
+.claude/settings.local.json
