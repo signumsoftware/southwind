@@ -47,7 +47,7 @@ public class PublicController : ControllerBase
             new UserEntity
             {
                 UserName = model.EMail,
-                PasswordHash = PasswordEncoding.EncodePassword(model.Username, model.Password),
+                PasswordHash = PasswordEncoding.HashPassword(model.Username, model.Password),
                 Email = model.EMail,
                 Role = role,
             }.InitiMixin((UserEmployeeMixin um) =>

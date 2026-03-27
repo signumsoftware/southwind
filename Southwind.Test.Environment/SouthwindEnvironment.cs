@@ -75,7 +75,7 @@ public static class SouthwindEnvironment
         var user = new UserEntity
         {
             UserName = userName,
-            PasswordHash = PasswordEncoding.EncodePassword(userName, userName),
+            PasswordHash = PasswordEncoding.HashPassword(userName, userName),
             Role = role.ToLite(),
             State = UserState.Active,
         };
