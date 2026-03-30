@@ -92,7 +92,6 @@
       <Type Resource="Employee" Allowed="Read" />
       <Type Resource="File" Allowed="Read" />
       <Type Resource="FileType" Allowed="Read" />
-      <Type Resource="ToolbarMenuPart" Allowed="Read" />
       <Type Resource="Note" Allowed="Write" />
       <Type Resource="NoteType" Allowed="Read" />
       <Type Resource="Order" Allowed="Write" />
@@ -105,6 +104,10 @@
       <Type Resource="Territory" Allowed="Read" />
       <Type Resource="Toolbar" Allowed="Read" />
       <Type Resource="ToolbarMenu" Allowed="Read" />
+      <Type Resource="ToolbarMenuPart" Allowed="Read" />
+      <Type Resource="User" Allowed="Read">
+        <Condition Name="UserTypeCondition.DeactivatedUsers" Allowed="None" />
+      </Type>
       <Type Resource="UserChart" Allowed="Read" />
       <Type Resource="UserChartPart" Allowed="Read" />
       <Type Resource="UserQuery" Allowed="Read" />
@@ -131,7 +134,6 @@
       <Type Resource="Category" Allowed="Write" />
       <Type Resource="Dashboard" Allowed="Write" />
       <Type Resource="Employee" Allowed="Write" />
-      <Type Resource="ToolbarMenuPart" Allowed="Write" />
       <Type Resource="NoteType" Allowed="Write" />
       <Type Resource="Product" Allowed="Write" />
       <Type Resource="Region" Allowed="Write" />
@@ -140,6 +142,7 @@
       <Type Resource="Territory" Allowed="Write" />
       <Type Resource="Toolbar" Allowed="Write" />
       <Type Resource="ToolbarMenu" Allowed="Write" />
+      <Type Resource="ToolbarMenuPart" Allowed="Write" />
       <Type Resource="UserChartPart" Allowed="Write" />
       <Type Resource="UserQueryPart" Allowed="Write" />
       <Type Resource="ValueUserQueryListPart" Allowed="Write" />

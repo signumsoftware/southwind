@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(taskkill /F /IM \"Southwind.Test.React.exe\")"
     ]
   }
 }

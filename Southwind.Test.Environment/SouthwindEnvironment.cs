@@ -16,11 +16,14 @@ using Southwind.Shippers;
 using Signum.Security;
 using Signum.Authorization.AuthToken;
 using Signum.Agent;
+using OpenAI.Responses;
 
 namespace Southwind.Test.Environment;
 
 public static class SouthwindEnvironment
 {
+    public static string? BroadcastSecretHash;
+
     internal static void LoadEmployees()
     {
         var america = new RegionEntity { Description = "America" };
@@ -218,6 +221,8 @@ public static class SouthwindEnvironment
                 config.GetValue<string>("BroadcastSecret"),
                 config.GetValue<string>("BroadcastUrls"), wsb: null,
                 includeDynamic);
+
+            BroadcastSecretHash = config.GetValue<string>("BroadcastSecretHash");
             
             started = true;
         }
