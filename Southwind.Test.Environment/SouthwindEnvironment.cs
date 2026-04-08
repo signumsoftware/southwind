@@ -17,6 +17,7 @@ using Signum.Security;
 using Signum.Authorization.AuthToken;
 using Signum.Agent;
 using OpenAI.Responses;
+using Microsoft.Graph.Models.Security;
 
 namespace Southwind.Test.Environment;
 

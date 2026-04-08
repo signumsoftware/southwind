@@ -87,7 +87,7 @@ export default function Order(p: { ctx: TypeContext<OrderEntity> }): React.JSX.E
         <div className="col-sm-4">
           <FormGroup ctx={ctx4} label={OrderMessage.TotalPrice.niceToString()}>
             {id => <div className={ctx4.inputGroupClass}>
-              <FormControlReadonly ctx={ctx4} id={id}>
+              <FormControlReadonly ctx={ctx4} id={id} className="total-price">
                 {formatNumber.format(ctx4.value.details.map(mle => subTotalPrice(mle.element)).sum())}
               </FormControlReadonly>
               <span className="input-group-text">€</span>

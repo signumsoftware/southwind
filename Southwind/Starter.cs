@@ -124,7 +124,6 @@ public static partial class Starter
             CacheLogic.Start(sb, serverBroadcast: 
                 sb.Settings.IsPostgres ? new PostgresBroadcast() : 
                 broadcastSecret != null ? new SimpleHttpBroadcast(broadcastSecret, broadcastUrls ?? "") :
-                null, withSqlDependency: false);/*Cache*/
 
             EvalLogic.Start(sb);
             DynamicLogicStarter.Start(sb);
