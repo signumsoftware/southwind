@@ -415,7 +415,7 @@
 			<RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="SouthwindEnvironment.LoadUsers();"/>
 			<RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="var authRules = XDocument.Load(@&quot;..\..\..\..\Southwind.Terminal\AuthRules.xml&quot;);"/>
 			<RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.LoadRoles(authRules);"/>
-			<RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportRulesScript(authRules, interactive: false)!.PlainSqlCommand().ExecuteLeaves();"/>
+			<RemoveLine Path="Southwind.Test.Environment\EnvironmentTest.cs" Line="AuthLogic.ImportAuthRules(authRules, interactive: false);"/>
 			<RemoveLine Path="Southwind\Starter.cs" Line="using Signum.Authorization;"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.Authorization;"/>
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Authorization;"/>
@@ -723,7 +723,8 @@
 			<RemoveLine Path="Southwind.Terminal\SouthwindMigrations.cs" Line="using Signum.Agent;"/>
 			<RemoveLine Path="Southwind.Test.Environment\SouthwindEnvironment.cs" Line="using Signum.Agent;"/>
 
-			<RemoveLine Path="Southwind\Starter.cs" From="ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);" To="); //Chatbot"/>
+			<RemoveLine Path="Southwind\Starter.cs" From="ChatbotLogic.Start(sb, () => Configuration.Value.Chatbot);" To="); //Chatbot"/>
+			<RemoveLine Path="Southwind\Starter.cs" From="AgentLogic.RegisterAgent(SouthwindAgentUseCases.MCP, () =>" To="); //MCP"/>
 
           <RemoveLine Path="Southwind.Server\Program.cs" Line="builder.Logging.AddProvider(new MCPExceptionLoggerProvider());"/>
          <RemoveLine Path="Southwind.Server\Program.cs" From="builder.Services.AddMcpServer()" To="); //MCP"/>
@@ -731,9 +732,11 @@
 			<RemoveLine Path="Southwind.Server\Southwind.Server.csproj" Line="&lt;PackageReference Include=&quot;ModelContextProtocol.AspNetCore&quot; Version=&quot;1.1.0&quot; />"/>
 
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ChatbotClient } from &quot;@extensions/Signum.Agent/ChatbotClient&quot;"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { AgentClient } from &quot;@extensions/Signum.Agent/AgentClient&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { ConfirmUITool } from &quot;@extensions/Signum.Agent/Skills/ConfirmUITool&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="import { GetUIContextUITool } from &quot;@extensions/Signum.Agent/Skills/GetUIContextUITool&quot;"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ChatbotClient.start({ routes });"/>
+			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="AgentClient.start({ routes });"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ChatbotClient.registerUITool(new ConfirmUITool());"/>
 			<RemoveLine Path="Southwind\MainAdmin.tsx" Line="ChatbotClient.registerUITool(new GetUIContextUITool());"/>
 

@@ -64,7 +64,8 @@ public class Program
        
 
         builder.Services.AddMcpServer()
-            .WithSignumSkill(SouthwindAgentUseCases.MCP);
+            .WithSignumSkill(SouthwindAgentUseCases.MCP
+        ); //MCP
 
         var app = builder.Build();
 

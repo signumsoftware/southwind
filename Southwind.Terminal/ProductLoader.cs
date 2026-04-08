@@ -100,9 +100,5 @@ internal static class ProductLoader
             return p;
         })
         .BulkInsert(disableIdentity: true);
-
-
-        if (Connector.Current.SupportsVectors && Connector.Current is SqlServerConnector)
-            Schema.Current.Table<ProductEntity>().AllIndexes().OfType<VectorTableIndex>().SingleEx().CreateVectorIndex();
     }
 }

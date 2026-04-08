@@ -121,9 +121,10 @@ public static partial class Starter
                 SignumServer.Start(wsb);
             }
 
-            CacheLogic.Start(sb, serverBroadcast: 
-                sb.Settings.IsPostgres ? new PostgresBroadcast() : 
+            CacheLogic.Start(sb, serverBroadcast:
+                sb.Settings.IsPostgres ? new PostgresBroadcast() :
                 broadcastSecret != null ? new SimpleHttpBroadcast(broadcastSecret, broadcastUrls ?? "") :
+                null);/*Cache*/
 
             EvalLogic.Start(sb);
             DynamicLogicStarter.Start(sb);
