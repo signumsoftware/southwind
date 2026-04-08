@@ -67,6 +67,6 @@ public static class OrderExtensions
 {
     public static async Task WaitTotalPrice(this ILineContainer<OrderEntity> order, decimal unitPrice)
     {
-        await order.Element.Locator("input.total-price").WaitContentAsync(unitPrice.ToString("00.00"));
+        await order.Element.Locator("input.total-price").WaitAttributeAsync("value", unitPrice.ToString("00.00"));
     }
 }

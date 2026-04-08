@@ -46,6 +46,7 @@ public class SouthwindTestClass : SignumPlaywrightTestClass, IAsyncLifetime
         return await GetBrowser(playwright, mode);
     });
 
+
     public async Task BrowseAsync(string username, Func<SouthwindBrowser, Task> action)
     {
         var browser = await DefaultBrowser.Value;

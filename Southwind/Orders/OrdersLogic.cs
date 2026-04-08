@@ -112,7 +112,7 @@ public static class OrdersLogic
                     State = OrderState.New,
                     Customer = c,
                     Employee = EmployeeEntity.Current!,
-                    ShipAddress = c.Address,
+                    ShipAddress = c.Address.Clone(),
                     RequiredDate = Clock.Today.AddDays(3),
                 }
             }.Register();
