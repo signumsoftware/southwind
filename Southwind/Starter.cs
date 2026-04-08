@@ -123,8 +123,8 @@ public static partial class Starter
 
             CacheLogic.Start(sb, serverBroadcast: 
                 sb.Settings.IsPostgres ? new PostgresBroadcast() : 
-                broadcastSecret != null && broadcastUrls != null ? new SimpleHttpBroadcast(broadcastSecret, broadcastUrls) :
-                null);/*Cache*/
+                broadcastSecret != null ? new SimpleHttpBroadcast(broadcastSecret, broadcastUrls ?? "") :
+                null, withSqlDependency: false);/*Cache*/
 
             EvalLogic.Start(sb);
             DynamicLogicStarter.Start(sb);
@@ -218,14 +218,14 @@ public static partial class Starter
 
             WorkflowLogicStarter.Start(sb, () => Configuration.Value.Workflow);
 
-            ChatbotLogic.Start(sb, () => (ChatbotConfigurationEmbedded)Configuration.Value.Chatbot);
+            ChatbotLogic.Start(sb, () => Configuration.Value.Chatbot);
             ChatbotLogic.RegisterUserTypeCondition(SouthwindTypeCondition.UserEntities);
 
             CurrentServerContextSkill.UrlLeft = () => Configuration.Value.Email.UrlLeft;
-            AgentSkillLogic.Start(sb,
+            AgentLogic.Start(sb, () =>
                 new IntroductionSkill()
                 .WithSubSkill(SkillActivation.Eager, new AutocompleteSkill())
-                .WithSubSkill(SkillActivation.Eager, new SearchSkill(typeof(OrderEntity), typeof(CustomerEntity), typeof(ProductEntity), typeof(EmployeeEntity), typeof(CategoryEntity)))
+                .WithSubSkill(SkillActivation.Eager, new SearchSkill { InlineQueryName = { typeof(OrderEntity), CustomerQuery.Customer, typeof(ProductEntity), typeof(EmployeeEntity), typeof(CategoryEntity) } })
                 .WithSubSkill(SkillActivation.Eager, new RetrieveSkill())
                 .WithSubSkill(SkillActivation.Eager, new OperationSkill())
                 .WithSubSkill(SkillActivation.Eager, new CurrentServerContextSkill())
@@ -234,6 +234,17 @@ public static partial class Starter
                 .WithSubSkill(SkillActivation.Eager, new ConfirmUISkill())
                 .WithSubSkill(SkillActivation.Lazy, new ChartSkill())
             ); //Chatbot
+
+            AgentLogic.RegisterAgent(SouthwindAgentUseCases.MCP, () =>
+            new IntroductionSkill()
+               .WithSubSkill(SkillActivation.Lazy, new AutocompleteSkill())
+               .WithSubSkill(SkillActivation.Lazy, new SearchSkill())
+               .WithSubSkill(SkillActivation.Lazy, new RetrieveSkill())
+               .WithSubSkill(SkillActivation.Lazy, new OperationSkill())
+               .WithSubSkill(SkillActivation.Lazy, new CurrentServerContextSkill())
+               .WithSubSkill(SkillActivation.Lazy, new EntityUrlSkill())
+               .WithSubSkill(SkillActivation.Lazy, new ChartSkill())
+            ); //MCP
 
             ProfilerLogic.Start(sb,
                 timeTracker: true,

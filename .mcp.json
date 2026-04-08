@@ -1,0 +1,14 @@
+{
+  "inputs": [],
+  "servers": {
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "chrome-devtools-mcp@latest",
+        "--autoConnect"
+      ],
+      "env": {}
+    }
+  }
+}

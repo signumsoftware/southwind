@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Security.Authentication;
 using Signum.Agent;
+using Southwind.Globals;
 
 namespace Southwind.Server;
 
@@ -59,17 +60,11 @@ public class Program
         SwaggerConfig.ConfigureSwaggerService(builder);
         
         builder.Logging.AddProvider(new MCPExceptionLoggerProvider());
+
+       
+
         builder.Services.AddMcpServer()
-            .WithSignumSkill(
-             new IntroductionSkill()
-                .WithSubSkill(SkillActivation.Lazy, new AutocompleteSkill())
-                .WithSubSkill(SkillActivation.Lazy, new SearchSkill())
-                .WithSubSkill(SkillActivation.Lazy, new RetrieveSkill())
-                .WithSubSkill(SkillActivation.Lazy, new OperationSkill())
-                .WithSubSkill(SkillActivation.Lazy, new CurrentServerContextSkill())
-                .WithSubSkill(SkillActivation.Lazy, new EntityUrlSkill())
-                .WithSubSkill(SkillActivation.Lazy, new ChartSkill())
-            ); //MCP
+            .WithSignumSkill(SouthwindAgentUseCases.MCP);
 
         var app = builder.Build();
 

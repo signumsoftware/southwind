@@ -121,7 +121,7 @@ public static class SouthwindMigrations
                 {
                     SendEmails = true,
                     DefaultCulture = enGB,
-                    UrlLeft = "http://localhost/Southwind"
+                    UrlLeft = "http://localhost/Southwind.Server"
                 },
                 EmailSender = new EmailSenderConfigurationEntity
                 {

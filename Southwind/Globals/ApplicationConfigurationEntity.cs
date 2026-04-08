@@ -116,3 +116,9 @@ public static class BigStringFileType
     public static FileTypeSymbol EmailMessage;
     public static FileTypeSymbol RestLog;
 }
+
+[AutoInit]
+public static class SouthwindAgentUseCases
+{
+    public static AgentSymbol MCP;
+}

@@ -14,19 +14,19 @@ public class OrderReactTest : SouthwindTestClass
     }
 
     [Fact]
-    public async Task OrderWebTestExampleAsync()
+    public async Task CreateOrderTest()
     {
         await BrowseAsync("Standard", async b =>
         {
             Lite<OrderEntity>? lite = null;
-            await b.SearchPageAsync(typeof(PersonEntity)).Await_UsingAsync(async persons =>
+            var customer = Database.Query<PersonEntity>().OrderBy(p => p.Id).Skip(1).FirstEx().ToLite();
+            await b.SearchPageAsync(typeof(PersonEntity)).Then(async persons =>
             {
                 await persons.SearchAsync();
-                await persons.SearchControl.Results.OrderByAsync("Id");
-                return await persons.Results.EntityClickAsync<PersonEntity>(1);
-            }).Await_UsingAsync(async john =>
+                return await persons.Results.EntityClickAsync(customer);
+            }).Then(async john =>
             {
-                using (FrameModalProxy<OrderEntity> order = await john.ConstructFromAsync(OrderOperation.CreateOrderFromCustomer))
+                await john.ConstructFromAsync(OrderOperation.CreateOrderFromCustomer).Then(async order =>
                 {
                     await order.AutoLineValueAsync(a => a.ShipName, Guid.NewGuid().ToString());
                     await order.EntityCombo(a => a.ShipVia).SelectLabelAsync("FedEx");
@@ -43,15 +43,14 @@ public class OrderReactTest : SouthwindTestClass
                     lite = await order.GetLiteAsync();
 
                     Assert.Equal(sonicProduct.UnitPrice, await order.AutoLineValueAsync(a => a.TotalPrice));
-                }
+                });
 
-                return await b.FramePageAsync(lite);
+                return await b.FramePageAsync(lite!);
 
-            }).Await_EndUsingAsync(async order =>
+            }).Then(async order =>
             {
                 Assert.Equal(lite!.InDB(a => a.TotalPrice), await order.AutoLineValueAsync(a => a.TotalPrice));
             });
-
         });
     }//OrderReactTestExample
 }

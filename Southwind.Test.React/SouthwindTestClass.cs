@@ -1,4 +1,7 @@
 using Microsoft.Extensions.Configuration;
+using Signum.Utilities.Synchronization;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -23,17 +26,25 @@ public class SouthwindTestClass :IAsyncLifetime
 
     public async ValueTask InitializeAsync()
     {
-        PlaywrightExtensions.ResetCaptureModalIndex();
-
         Administrator.RestoreSnapshotOrDatabase();
 
         using (var c = new HttpClient())
         {
-            await c.PostAsync(SouthwindTestClass.BaseUrl + "api/cache/invalidateAll", JsonContent.Create(new
+            AssertClean200(await c.PostAsync(SouthwindTestClass.BaseUrl + "api/cache/invalidateAll", JsonContent.Create(new
             {
                 SecretHash = SouthwindEnvironment.BroadcastSecretHash,
-            }));
+            })));
         }
+    }
+
+    private static void AssertClean200(HttpResponseMessage response)
+    {
+        var content = response.Content.ReadAsStringAsync().ResultSafe();
+        if (!response.IsSuccessStatusCode || content != "")
+            throw new InvalidOperationException($"Error {response.StatusCode}\n"
+                + "Content:\n"
+                + content
+                );
     }
 
     public ValueTask DisposeAsync()
@@ -48,7 +59,8 @@ public class SouthwindTestClass :IAsyncLifetime
         var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
 
         string? mode = System.Environment.GetEnvironmentVariable("PLAYWRIGHT_MODE") ??
-                       ReadFile(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\PLAYWRIGHT_MODE.txt"));
+                       ReadFile(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\PLAYWRIGHT_MODE.txt")) ??
+                       (Debugger.IsAttached ? "debug" : null);
 
         if (mode != null && mode.ToLower() == "headless")
             return await playwright.Chromium.LaunchAsync(new() { Headless = true });
@@ -109,24 +121,26 @@ public class SouthwindTestClass :IAsyncLifetime
 
         var browserProxy = new SouthwindBrowser(page);
 
-        bool testPassed = false;
+        Exception? exception = null;
         try
         {
             page.SetDefaultTimeout(10000);
             await browserProxy.LoginAsync(username, username);
+            CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = await browserProxy.GetCurrentCultureAsync();
             await action(browserProxy);
-            testPassed = true;
+        }
+        catch (Exception ex)
+        {
+            exception = ex;
+            throw;
         }
         finally
         {
-            if (testPassed || !BrowserProxy.DebugMode)
+            if (!(BrowserProxy.DebugMode && exception != null))
             {
                 await page.CloseAsync();
-                await context.CloseAsync();
-            }
-            else
-            {
-                Console.WriteLine("[PLAYWRIGHT DEBUG MODE] Test failed — keeping browser open for inspection.");
+                if (!BrowserProxy.DebugMode)
+                    await context.CloseAsync();
             }
         }
     }

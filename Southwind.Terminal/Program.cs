@@ -133,7 +133,7 @@ class Program
     static void ExportEmbeddings()
     {
         var lines = Database.Query<EmployeePassageEntity>().Select(a => a.Chunk).ToList().OrderBy().ToArray();
-        var embeddings = ChatbotLogic.DefaultEmbeddingsModel.Value!.RetrieveFromCache()
+        var embeddings = LanguageModelLogic.DefaultEmbeddingsModel.Value!.RetrieveFromCache()
             .GetEmbeddingsAsync(lines, default)
             .ResultSafe();
 

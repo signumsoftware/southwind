@@ -222,7 +222,7 @@ public static class SouthwindEnvironment
                 config.GetValue<string>("BroadcastUrls"), wsb: null,
                 includeDynamic);
 
-            BroadcastSecretHash = config.GetValue<string>("BroadcastSecretHash");
+            BroadcastSecretHash = Convert.ToBase64String(PasswordEncoding.HashPassword("", config.GetValue<string>("BroadcastSecret")!));
             
             started = true;
         }
@@ -255,7 +255,7 @@ public static class SouthwindEnvironment
             {
                 SendEmails = false,
                 DefaultCulture = enGB,
-                UrlLeft = "http://localhost/Southwind",
+                UrlLeft = "http://localhost/Southwind.Server",
             },
             AuthTokens = new AuthTokenConfigurationEmbedded
             {

@@ -161,7 +161,7 @@ public static class EmployeesLogic
         }
         else
         {
-            var model = ChatbotLogic.DefaultEmbeddingsModel.Value!.RetrieveFromCache();
+            var model = LanguageModelLogic.DefaultEmbeddingsModel.Value!.RetrieveFromCache();
             var embeddings = model.GetEmbeddingsAsync(passages.Select(a => a.Chunk).ToArray(), default).ResultSafe();
             passages.ForEach((a, i) => a.Embedding = new Vector(embeddings[i]));
         }

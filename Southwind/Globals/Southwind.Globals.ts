@@ -58,6 +58,10 @@ export interface FoldersConfigurationEmbedded extends Entities.EmbeddedEntity {
   helpImagesFolder: string;
 }
 
+export namespace SouthwindAgentUseCases {
+  export const MCP : Agent.AgentSymbol = registerSymbol("Agent", "SouthwindAgentUseCases.MCP");
+}
+
 export namespace SouthwindTypeCondition {
   export const UserEntities : Rules.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.UserEntities");
   export const RoleEntities : Rules.TypeConditionSymbol = registerSymbol("TypeCondition", "SouthwindTypeCondition.RoleEntities");

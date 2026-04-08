@@ -36,6 +36,7 @@ import { AlertsClient } from "@extensions/Signum.Alerts/AlertsClient"
 import { NotesClient } from "@extensions/Signum.Notes/NotesClient"
 import { ConcurrentUserClient } from "@extensions/Signum.ConcurrentUser/ConcurrentUserClient"
 import { ChatbotClient } from "@extensions/Signum.Agent/ChatbotClient"
+  import { AgentClient } from "@extensions/Signum.Agent/AgentClient"
 import { ConfirmUITool } from "@extensions/Signum.Agent/Skills/ConfirmUITool"
 import { GetUIContextUITool } from "@extensions/Signum.Agent/Skills/GetUIContextUITool"
 
@@ -58,7 +59,7 @@ import { ProductsClient } from "./Products/ProductsClient"
 import { ShippersClient } from "./Shippers/ShippersClient"
 import { ActiveDirectoryClient } from "@extensions/Signum.Authorization/BaseAD/ActiveDirectoryClient"
 
-export function startFull(routes: RouteObject[]) {
+export function startFull(routes: RouteObject[]) : void {
   Operations.start();
   Navigator.start({ routes });
   Finder.start({ routes });
@@ -97,6 +98,7 @@ export function startFull(routes: RouteObject[]) {
   NotesClient.start({ routes, couldHaveNotes: a => false });
 
   ChatbotClient.start({ routes });
+  AgentClient.start({ routes });
   ChatbotClient.registerUITool(new ConfirmUITool());
   ChatbotClient.registerUITool(new GetUIContextUITool());
   ConcurrentUserClient.start({ routes });

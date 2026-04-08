@@ -105,8 +105,8 @@
       <Type Resource="Toolbar" Allowed="Read" />
       <Type Resource="ToolbarMenu" Allowed="Read" />
       <Type Resource="ToolbarMenuPart" Allowed="Read" />
-      <Type Resource="User" Allowed="Read">
-        <Condition Name="UserTypeCondition.DeactivatedUsers" Allowed="None" />
+      <Type Resource="User" Allowed="None">
+        <Condition Name="SouthwindTypeCondition.UserEntities" Allowed="Read" />
       </Type>
       <Type Resource="UserChart" Allowed="Read" />
       <Type Resource="UserChartPart" Allowed="Read" />
