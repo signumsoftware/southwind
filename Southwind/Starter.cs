@@ -123,7 +123,7 @@ public static partial class Starter
 
             CacheLogic.Start(sb, serverBroadcast: 
                 sb.Settings.IsPostgres ? new PostgresBroadcast() : 
-                broadcastSecret != null && broadcastUrls != null ? new SimpleHttpBroadcast(broadcastSecret, broadcastUrls) :
+                broadcastSecret != null ? new SimpleHttpBroadcast(broadcastSecret, broadcastUrls ?? "") :
                 null);/*Cache*/
 
             EvalLogic.Start(sb);

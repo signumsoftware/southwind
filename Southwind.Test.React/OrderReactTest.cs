@@ -19,39 +19,54 @@ public class OrderReactTest : SouthwindTestClass
         await BrowseAsync("Standard", async b =>
         {
             Lite<OrderEntity>? lite = null;
-            await b.SearchPageAsync(typeof(PersonEntity)).Await_UsingAsync(async persons =>
+            await b.SearchPageAsync(typeof(PersonEntity))
+            .Then(async persons =>
             {
                 await persons.SearchAsync();
                 await persons.SearchControl.Results.OrderByAsync("Id");
-                return await persons.Results.EntityClickAsync<PersonEntity>(1);
-            }).Await_UsingAsync(async john =>
-            {
-                using (FrameModalProxy<OrderEntity> order = await john.ConstructFromAsync(OrderOperation.CreateOrderFromCustomer))
+                await persons.Results.EntityClickAsync<PersonEntity>(1).Then(async john =>
                 {
-                    await order.AutoLineValueAsync(a => a.ShipName, Guid.NewGuid().ToString());
-                    await order.EntityCombo(a => a.ShipVia).SelectLabelAsync("FedEx");
+                    await john.ConstructFromAsync(OrderOperation.CreateOrderFromCustomer, "create")
+                    .Then(async order =>
+                    {
+                        await order.AutoLineValueAsync(a => a.ShipName, Guid.NewGuid().ToString());
+                        await order.EntityCombo(a => a.ShipVia).SelectLabelAsync("FedEx");
 
-                    ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
+                        ProductEntity sonicProduct = Database.Query<ProductEntity>().SingleEx(p => p.ProductName.Contains("Sonic"));
 
-                    var line = await order.EntityDetail(a => a.Details).GetOrCreateDetailControlAsync<OrderDetailEmbedded>();
-                    await line.EntityLineValueAsync(a => a.Product, sonicProduct.ToLite());
+                        await order.EntityTable(a => a.Details).CreateRowAsync<OrderDetailEmbedded>().Then(async line =>
+                        {
+                            await line.EntityLineValueAsync(a => a.Product, sonicProduct.ToLite());
+                        });
 
-                    Assert.Equal(sonicProduct.UnitPrice, await order.AutoLineValueAsync(a => a.TotalPrice));
+                        await order.WaitTotalPrice( sonicProduct.UnitPrice);
 
-                    await order.ExecuteAsync(OrderOperation.Save);
+                        await order.ExecuteAsync(OrderOperation.Save);
 
-                    lite = await order.GetLiteAsync();
+                        await order.WaitTotalPrice(sonicProduct.UnitPrice);
 
-                    Assert.Equal(sonicProduct.UnitPrice, await order.AutoLineValueAsync(a => a.TotalPrice));
-                }
+                        lite = await order.GetLiteAsync();
+                      
+                    });
+                });
 
-                return await b.FramePageAsync(lite);
+                return await b.FramePageAsync(lite!);
 
-            }).Await_EndUsingAsync(async order =>
+            }).Then(async order =>
             {
-                Assert.Equal(lite!.InDB(a => a.TotalPrice), await order.AutoLineValueAsync(a => a.TotalPrice));
+                await order.WaitTotalPrice(lite!.InDB(a => a.TotalPrice));
             });
 
         });
     }//OrderReactTestExample
+
+
+}
+
+public static class OrderExtensions
+{
+    public static async Task WaitTotalPrice(this ILineContainer<OrderEntity> order, decimal unitPrice)
+    {
+        await order.Element.Locator("input.total-price").WaitContentAsync(unitPrice.ToString("00.00"));
+    }
 }

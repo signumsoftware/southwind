@@ -17,6 +17,7 @@ using Signum.Security;
 using Signum.Authorization.AuthToken;
 using Signum.Agent;
 using OpenAI.Responses;
+using Microsoft.Graph.Models.Security;
 
 namespace Southwind.Test.Environment;
 
@@ -222,7 +223,7 @@ public static class SouthwindEnvironment
                 config.GetValue<string>("BroadcastUrls"), wsb: null,
                 includeDynamic);
 
-            BroadcastSecretHash = config.GetValue<string>("BroadcastSecretHash");
+            BroadcastSecretHash = Convert.ToBase64String(PasswordEncoding.HashPassword("", config.GetValue<string>("BroadcastSecret")!));
             
             started = true;
         }
