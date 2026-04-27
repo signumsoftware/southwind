@@ -36,7 +36,7 @@ import { AlertsClient } from "@extensions/Signum.Alerts/AlertsClient"
 import { NotesClient } from "@extensions/Signum.Notes/NotesClient"
 import { ConcurrentUserClient } from "@extensions/Signum.ConcurrentUser/ConcurrentUserClient"
 import { ChatbotClient } from "@extensions/Signum.Agent/ChatbotClient"
-  import { AgentClient } from "@extensions/Signum.Agent/AgentClient"
+import { AgentClient } from "@extensions/Signum.Agent/AgentClient"
 import { ConfirmUITool } from "@extensions/Signum.Agent/Skills/ConfirmUITool"
 import { GetUIContextUITool } from "@extensions/Signum.Agent/Skills/GetUIContextUITool"
 
@@ -97,8 +97,8 @@ export function startFull(routes: RouteObject[]) : void {
   AlertsClient.start({ routes, showAlerts: a => false });
   NotesClient.start({ routes, couldHaveNotes: a => false });
 
-  ChatbotClient.start({ routes });
   AgentClient.start({ routes });
+  ChatbotClient.start({ routes });
   ChatbotClient.registerUITool(new ConfirmUITool());
   ChatbotClient.registerUITool(new GetUIContextUITool());
   ConcurrentUserClient.start({ routes });
