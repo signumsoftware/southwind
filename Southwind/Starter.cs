@@ -150,6 +150,7 @@ public static partial class Starter
             // Extensions modules
 
             MigrationLogic.Start(sb);
+            TokenMigrationLogic.Start(sb);
 
             CultureInfoLogic.Start(sb);
             FilePathEmbeddedLogic.Start(sb);
