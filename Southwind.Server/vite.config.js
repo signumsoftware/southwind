@@ -19,28 +19,20 @@ export default defineConfig({
     rollupOptions: {
       input: '/main.tsx', // Full path relative to root
       output: {
-        manualChunks: {
-          // All dependencies in node_modules go into vendor.[hash].js
-          theme: [
-            '../Southwind/SCSS/custom.scss'
+        codeSplitting: {
+          groups: [
+            {
+              name: 'theme',
+              test: /node_modules[\\/](\.\.[\\/]Southwind[\\/]SCSS[\\/]custom\.scss)/,
+              priority: 10,
+            },
+            {
+              name: 'vendor',
+              test: /node_modules[\\/](react|react-dom|react-router-dom|react-widgets-up|react-bootstrap|bootstrap|@azure|luxon|@fortawesome)/,
+              priority: 10,
+            },
           ],
-          vendor: [
-            'react',
-            'react-dom',
-            'react-router-dom',
-            'react-widgets-up',
-            'react-bootstrap',
-            'bootstrap',
-            "@azure/msal-browser",
-            "luxon",
-            "@fortawesome/fontawesome-svg-core",
-            "@fortawesome/free-regular-svg-icons",
-            "@fortawesome/free-brands-svg-icons",
-            "@fortawesome/free-solid-svg-icons",
-            "@fortawesome/react-fontawesome",
-            //"d3"
-          ]
-        }
+        },
       }
     },
   },

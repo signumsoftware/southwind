@@ -45,18 +45,18 @@ AppContext.setTitle();
 const dateLocalizer = ConfigureReactWidgets.getDateLocalizer();
 const numberLocalizer = ConfigureReactWidgets.getNumberLocalizer();
 
-Services.NotifyPendingFilter.notifyPendingRequests = pending => {
-  Notify.singleton && Notify.singleton.notifyPendingRequest(pending);
+Services.NotifyPendingFilter.Options.notifyPendingRequests = pending => {
+  Notify.getSingleton()?.notifyPendingRequest(pending);
 }
 
 CultureClient.onCultureLoaded.push(ci => {
   const culture = ci.name!; //"en";
 
   luxon.Settings.defaultLocale = culture;
-  NumberFormatSettings.defaultNumberFormatLocale = culture;
+  NumberFormatSettings.Options.defaultNumberFormatLocale = culture;
 }); //Culture
 
-Services.VersionFilter.versionHasChanged = () => {
+Services.VersionFilter.Options.versionHasChanged = () => {
   VersionChangedAlert.forceUpdateSingletone && VersionChangedAlert.forceUpdateSingletone();
 }
 

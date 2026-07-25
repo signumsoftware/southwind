@@ -46,8 +46,8 @@ export default function Layout(): React.JSX.Element {
   const sidebarModeRef = useUpdatedRef(sidebarMode);
 
   React.useEffect(() => {
-    AppContext.Expander.onGetExpanded = () => sidebarModeRef.current != "Wide";
-    AppContext.Expander.onSetExpanded = (isExpanded: boolean) => setSidebarMode(isExpanded ? (isMobile ? "Hidden" : "Narrow") : "Wide");
+    AppContext.Expander.Options.onGetExpanded = () => sidebarModeRef.current != "Wide";
+    AppContext.Expander.Options.onSetExpanded = (isExpanded: boolean) => setSidebarMode(isExpanded ? (isMobile ? "Hidden" : "Narrow") : "Wide");
   }, []); //Sidebar
 
   function resetUI() {
