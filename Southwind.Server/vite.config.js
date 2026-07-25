@@ -19,6 +19,10 @@ export default defineConfig({
     rollupOptions: {
       input: '/main.tsx', // Full path relative to root
       output: {
+        // Rolldown (Vite 8) may reorder side-effect imports. @lexical/code needs prismjs core
+        // (which sets the global Prism) to run before its prismjs/components/prism-* imports,
+        // otherwise the build throws "ReferenceError: Prism is not defined".
+        strictExecutionOrder: true,
         codeSplitting: {
           groups: [
             {

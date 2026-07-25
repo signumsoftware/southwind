@@ -27,6 +27,7 @@
     { "path": "../Framework/Extensions/Signum.Files" },
     { "path": "../Framework/Extensions/Signum.Help" },
     { "path": "../Framework/Extensions/Signum.HtmlEditor" },
+    { "path": "../Framework/Extensions/Signum.Markdown" },
     { "path": "../Framework/Extensions/Signum.Isolation" },
     { "path": "../Framework/Extensions/Signum.MachineLearning" },
     { "path": "../Framework/Extensions/Signum.Mailing.MicrosoftGraph" },

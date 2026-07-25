@@ -15,6 +15,8 @@ import { UserQueryClient } from "@extensions/Signum.UserQueries/UserQueryClient"
 import { OmniboxClient } from "@extensions/Signum.Omnibox/OmniboxClient"
 import { ChartClient } from "@extensions/Signum.Chart/ChartClient"
 import { DashboardClient } from "@extensions/Signum.Dashboard/DashboardClient"
+import { HtmlEditorClient } from "@extensions/Signum.HtmlEditor/HtmlEditorClient"
+import { MarkdownClient } from "@extensions/Signum.Markdown/MarkdownClient"
 import { MapClient } from "@extensions/Signum.Map/MapClient"
 import { CacheClient } from "@extensions/Signum.Caching/CacheClient"
 import { ProcessClient } from "@extensions/Signum.Processes/ProcessClient"
@@ -88,11 +90,13 @@ export function startFull(routes: RouteObject[]) : void {
   TimeMachineClient.start({ routes });
   ProfilerClient.start({ routes });
   ChartClient.start({ routes });
+  ToolbarClient.start({ routes });
   DashboardClient.start({ routes });
+  HtmlEditorClient.start();
+  MarkdownClient.start();
   MapClient.start({ routes });
   WorkflowClient.start({ routes });
   PredictorClient.start({ routes });
-  ToolbarClient.start({ routes });
   RestClient.start({ routes });
   AlertsClient.start({ routes, showAlerts: a => false });
   NotesClient.start({ routes, couldHaveNotes: a => false });
