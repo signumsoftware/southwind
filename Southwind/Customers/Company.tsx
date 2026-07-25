@@ -12,10 +12,9 @@ export default function Company(p : { ctx: TypeContext<CompanyEntity> }): React.
       <AutoLine ctx={ctx.subCtx(c => c.contactName)} />
       <AutoLine ctx={ctx.subCtx(c => c.contactTitle)} />
       <h2>{OrderEntity.nicePluralName()}</h2>
-      <SearchControl findOptions={{
-        queryName: OrderEntity,
+      <SearchControl findOptions={OrderEntity.findOptions(token => ({
         filterOptions: [{ token: "Customer", value: ctx.value}] 
-      }} showSimpleFilterBuilder={false} />
+      }))} showSimpleFilterBuilder={false} />
     </div>
   );
 }

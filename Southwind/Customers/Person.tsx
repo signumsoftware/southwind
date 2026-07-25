@@ -28,10 +28,9 @@ export default function Person(p : { ctx: TypeContext<PersonEntity> }): React.JS
       </div>
 
       <h2 className="mt-4">{OrderEntity.nicePluralName()}</h2>
-      <SearchControl findOptions={{
-        queryName: OrderEntity,
+      <SearchControl findOptions={OrderEntity.findOptions(token => ({
         filterOptions: [{ token: "Customer", value: ctx.value}] 
-      }} showSimpleFilterBuilder={false} />
+      }))} showSimpleFilterBuilder={false} />
     </div>
   );
 }
