@@ -219,3 +219,4 @@ Upgrade_20260326_ClaudeGitignore
 Upgrade_20260422_UpdateNugets
 Upgrade_20260512_UpdateNugetsAndTokenMigration
 Upgrade_20260602_Vite8AndOptions
+Upgrade_20260610_ViteWatchIgnoreObjBin

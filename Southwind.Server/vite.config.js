@@ -40,5 +40,8 @@ export default defineConfig({
     port: port,
     strictPort: true,
     origin: `http://localhost:$3000`,
+        watch: {
+            ignored: ['**/obj/**', '**/bin/**'],
+        },
   },
 });
