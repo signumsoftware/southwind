@@ -43,6 +43,7 @@ using Signum.Toolbar;
 using Signum.Translation;
 using Signum.Translation.Instances;
 using Signum.Translation.Translators;
+using Signum.UserAssets.TokenMigrations;
 using Signum.UserQueries;
 using Signum.ViewLog;
 using Signum.Word;
@@ -89,7 +90,6 @@ public static partial class Starter
             MixinDeclarations.Register<OperationLogEntity, DiffLogMixin>();
             MixinDeclarations.Register<EmailMessageEntity, EmailMessagePackageMixin>();
             MixinDeclarations.Register<UserEntity, UserEmployeeMixin>();
-            MixinDeclarations.Register<UserEntity, UserAzureADMixin>();
             MixinDeclarations.Register<OrderDetailEmbedded, OrderDetailMixin>();
             MixinDeclarations.Register<BigStringEmbedded, BigStringMixin>();
 

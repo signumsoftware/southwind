@@ -16,13 +16,13 @@
             "problemMatcher": []
         },
         {
-            "label": "yarn tsgo",
+            "label": "yarn tsc",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "windows": {
-                "command": "yarn tsgo -b Southwind.Server/tsconfig.json"
+               "command": "yarn tsc -b Southwind.Server/tsconfig.json"
             },
             "group": "build",
             "problemMatcher": "$tsc"

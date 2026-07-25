@@ -71,7 +71,7 @@ ErrorModal.register();
 
 
 let root: Root | undefined = undefined;
-async function reload() {
+async function reload() : Promise<boolean> {
   await AuthClient.autoLogin();
   await reloadTypes();
   await CultureClient.loadCurrentCulture();
@@ -134,9 +134,9 @@ AuthClient.Options.onLogin = (url?: string) => {
   });
 };
 
-AuthClient.Options.onLogout = () => {
+AuthClient.Options.onLogout = async () => {
   AppContext.navigate("/");
-  reload();
+  await reload();
 };
 
 reload();
