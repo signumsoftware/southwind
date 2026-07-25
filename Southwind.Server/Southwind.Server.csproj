@@ -9,7 +9,7 @@
 		<UserSecretsId>Southwind</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<IsPackable>false</IsPackable>
-		<TSC_Build>tsgo</TSC_Build>
+		<TSC_Build>true</TSC_Build>
 	</PropertyGroup>
 
 	<ItemGroup>
