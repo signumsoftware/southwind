@@ -105,16 +105,28 @@ internal static class OrderLoader
             Database.Query<OrderEntity>().Where(a => a.State == OrderState.Canceled)
                 .UnsafeUpdate(a => a.CancelationDate, a => a.CancelationDate!.Value.AddDays(1), "canceled");
 
+            // When this block disposes, SYSTEM_VERSIONING is re-enabled via ADD PERIOD FOR SYSTEM_TIME,
+            // which SQL Server rejects if any open row has a start of period > GETUTCDATE(). Recent shipped/
+            // canceled demo dates (shifted by LoadOrders, +1 day, then +8h) can land on today, and the
+            // SqlServer branch stores local wall-clock time, so clamp the start to just below now (UTC).
+            var nowUtc = Clock.Now.ToUniversalTime().AddMinutes(-1);
+
             using (Administrator.DisableHistoryTable<OrderEntity>(includeMList: false))
             {
+                Expression<Func<OrderEntity, DateTime>> shippedStart =
+                    a => a.ShippedDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60);
+
                 Database.Query<OrderEntity>().Where(a => a.State == OrderState.Shipped).UnsafeUpdate().SetSystemPeriodMin(
                     a => a.SystemPeriod(),
-                    a => a.ShippedDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60))
+                    a => shippedStart.Evaluate(a) > nowUtc ? nowUtc : shippedStart.Evaluate(a))
                     .Execute("shipped min");
+
+                Expression<Func<OrderEntity, DateTime>> canceledStart =
+                    a => a.CancelationDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60);
 
                 Database.Query<OrderEntity>().Where(a => a.State == OrderState.Canceled).UnsafeUpdate().SetSystemPeriodMin(
                     a => a.SystemPeriod(),
-                    a => a.CancelationDate!.Value.ToDateTime().AddHours(8).AddMinutes((int)a.Id % (60 * 8)).AddSeconds((int)a.Id % 60))
+                    a => canceledStart.Evaluate(a) > nowUtc ? nowUtc : canceledStart.Evaluate(a))
                     .Execute("cancelled min");
 
                 Database.Query<OrderEntity>().OverrideSystemTime(new SystemTime.HistoryTable())
