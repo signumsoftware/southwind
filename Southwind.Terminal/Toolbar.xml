@@ -2,17 +2,17 @@
 <Entities>
   <UserChart Guid="d681b3f5-a3a9-4228-93e9-e856f45d911a" DisplayName="Evolution By Employee" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.StackedLines">
     <Filters>
-      <Filter Indentation="0" Token="Employee" Operation="EqualTo" Value="[CurrentUser].[UserEmployeeMixin].Employee" DashboardBehaviour="UseAsInitialSelection" />
-      <Filter Indentation="0" Token="OrderDate" Operation="GreaterThan" Value="-1/mm/dd 00:00:00" />
+      <Filter Guid="a3bd3f44-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="Employee" Operation="EqualTo" Value="[CurrentUser].[UserEmployeeMixin].Employee" DashboardBehaviour="UseAsInitialSelection" />
+      <Filter Guid="a3bd3f76-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="OrderDate" Operation="GreaterThan" Value="-1/mm/dd 00:00:00" />
     </Filters>
     <Columns>
-      <Column Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" />
-      <Column Token="Employee" DisplayName="Employee" />
-      <Column Token="Count" DisplayName="Count" />
-      <Column />
-      <Column />
-      <Column />
-      <Column />
+      <Column Guid="a3bb245c-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" />
+      <Column Guid="a3bb2498-a60e-11f1-9201-9ec661fa3012" Token="Employee" DisplayName="Employee" />
+      <Column Guid="a3bb24c0-a60e-11f1-9201-9ec661fa3012" Token="Count" DisplayName="Count" />
+      <Column Guid="a3bb24fc-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb252e-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2560-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2588-a60e-11f1-9201-9ec661fa3012" />
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
@@ -29,19 +29,19 @@
   </UserChart>
   <UserQuery Guid="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" DisplayName="Next Orders" Query="Order" Owner="User;2;Anonymous" ColumnsMode="ReplaceAll">
     <Filters>
-      <Filter Indentation="0" Token="State" Operation="EqualTo" Value="Ordered" />
-      <Filter Indentation="0" Token="Entity.Details.Element.Product" Operation="EqualTo" DashboardBehaviour="PromoteToDasboardPinnedFilter">
+      <Filter Guid="a3afca8a-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="State" Operation="EqualTo" Value="Ordered" />
+      <Filter Guid="a3afccce-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="Entity.Details.Element.Product" Operation="EqualTo" DashboardBehaviour="PromoteToDasboardPinnedFilter">
         <Pinned Active="WhenHasValue" />
       </Filter>
     </Filters>
     <Columns>
-      <Column Token="Id" />
-      <Column Token="State" />
-      <Column Token="Entity.TotalPrice" />
-      <Column Token="RequiredDate" />
-      <Column Token="OrderDate" />
-      <Column Token="Customer" />
-      <Column Token="Employee" />
+      <Column Guid="a3b42c42-a60e-11f1-9201-9ec661fa3012" Token="Id" />
+      <Column Guid="a3b42ed6-a60e-11f1-9201-9ec661fa3012" Token="State" />
+      <Column Guid="a3b42f1c-a60e-11f1-9201-9ec661fa3012" Token="Entity.TotalPrice" />
+      <Column Guid="a3b42f4e-a60e-11f1-9201-9ec661fa3012" Token="RequiredDate" />
+      <Column Guid="a3b42f80-a60e-11f1-9201-9ec661fa3012" Token="OrderDate" />
+      <Column Guid="a3b42fb2-a60e-11f1-9201-9ec661fa3012" Token="Customer" />
+      <Column Guid="a3b42fda-a60e-11f1-9201-9ec661fa3012" Token="Employee" />
     </Columns>
     <Orders>
       <Orden Token="RequiredDate" OrderType="Descending" />
@@ -49,8 +49,8 @@
   </UserQuery>
   <UserChart Guid="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" DisplayName="Calendar Orders Total Price" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.CalendarStream">
     <Columns>
-      <Column Token="OrderDate" DisplayName="Date of Order date" Format="d" />
-      <Column Token="Entity.TotalPrice.Sum" DisplayName="Sum of Total price" Format="N2" />
+      <Column Guid="a3bb25ba-a60e-11f1-9201-9ec661fa3012" Token="OrderDate" DisplayName="Date of Order date" Format="d" />
+      <Column Guid="a3bb25ec-a60e-11f1-9201-9ec661fa3012" Token="Entity.TotalPrice.Sum" DisplayName="Sum of Total price" Format="N2" />
     </Columns>
     <Parameters>
       <Parameter Name="StartDate" Value="Monday" />
@@ -60,11 +60,11 @@
   </UserChart>
   <UserChart Guid="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" DisplayName="Customers" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.BubblePack">
     <Columns>
-      <Column Token="Customer" DisplayName="Customer" />
-      <Column Token="Count" DisplayName="Count" />
-      <Column Token="Customer.Address.Country" DisplayName="Country" />
-      <Column />
-      <Column />
+      <Column Guid="a3bb261e-a60e-11f1-9201-9ec661fa3012" Token="Customer" DisplayName="Customer" />
+      <Column Guid="a3bb2650-a60e-11f1-9201-9ec661fa3012" Token="Count" DisplayName="Count" />
+      <Column Guid="a3bb2678-a60e-11f1-9201-9ec661fa3012" Token="Customer.Address.Country" DisplayName="Country" />
+      <Column Guid="a3bb26aa-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb26dc-a60e-11f1-9201-9ec661fa3012" />
     </Columns>
     <Parameters>
       <Parameter Name="Scale" Value="MinMax" />
@@ -81,12 +81,12 @@
   </UserChart>
   <UserChart Guid="b48718bb-f4ab-4a6a-950a-35a718d5fb23" DisplayName="Product Share" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.Bubbleplot">
     <Columns>
-      <Column Token="Entity.Details.Element.Product" />
-      <Column Token="Entity.Details.Element.Quantity.Sum" DisplayName="Sum of Quantity" Format="D" />
-      <Column Token="Entity.Details.Element.UnitPrice.Average" DisplayName="Average of Unit price" Format="N2" />
-      <Column Token="Entity.Details.Element.SubTotalPrice.Sum" DisplayName="Sum of Sub total price" Format="N2" />
-      <Column />
-      <Column />
+      <Column Guid="a3bb2704-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Product" />
+      <Column Guid="a3bb2736-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Quantity.Sum" DisplayName="Sum of Quantity" Format="D" />
+      <Column Guid="a3bb275e-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.UnitPrice.Average" DisplayName="Average of Unit price" Format="N2" />
+      <Column Guid="a3bb2790-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.SubTotalPrice.Sum" DisplayName="Sum of Sub total price" Format="N2" />
+      <Column Guid="a3bb27c2-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb27f4-a60e-11f1-9201-9ec661fa3012" />
     </Columns>
     <Parameters>
       <Parameter Name="HorizontalScale" Value="ZeroMax" />
@@ -105,11 +105,11 @@
   </UserChart>
   <UserChart Guid="9d266fac-e35b-4845-a7aa-970e1590ea1e" DisplayName="Average Price Per Month" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Columns">
     <Filters>
-      <Filter Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
+      <Filter Guid="a3bd3fa8-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
     </Filters>
     <Columns>
-      <Column Token="OrderDate.MonthStart" DisplayName="Month Start of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
-      <Column Token="Entity.TotalPrice.Average" DisplayName="Average of Total price" Format="N2" />
+      <Column Guid="a3bb2830-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Guid="a3bb2862-a60e-11f1-9201-9ec661fa3012" Token="Entity.TotalPrice.Average" DisplayName="Average of Total price" Format="N2" />
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
@@ -125,11 +125,11 @@
   </UserChart>
   <UserChart Guid="6406d2f6-aa24-43e4-946e-8622f65eb010" DisplayName="Total Price Sum" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Columns">
     <Filters>
-      <Filter Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
+      <Filter Guid="a3bd3fda-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
     </Filters>
     <Columns>
-      <Column Token="OrderDate.MonthStart" DisplayName="Month Start of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
-      <Column Token="Entity.TotalPrice.Sum" DisplayName="Sum of Total price" Format="N2" />
+      <Column Guid="a3bb2894-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Guid="a3bb28bc-a60e-11f1-9201-9ec661fa3012" Token="Entity.TotalPrice.Sum" DisplayName="Sum of Total price" Format="N2" />
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
@@ -145,11 +145,11 @@
   </UserChart>
   <UserChart Guid="a3c7b86d-641e-4c1e-8032-72a099a00395" DisplayName="Order number by month" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Line">
     <Filters>
-      <Filter Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
+      <Filter Guid="a3bd400c-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="OrderDate" Operation="LessThan" Value="yyyy/mm/01 00:00:00" />
     </Filters>
     <Columns>
-      <Column Token="OrderDate.MonthStart" DisplayName="Month Start of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
-      <Column Token="Count" DisplayName="Count" />
+      <Column Guid="a3bb28ee-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Guid="a3bb292a-a60e-11f1-9201-9ec661fa3012" Token="Count" DisplayName="Count" />
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
@@ -168,13 +168,13 @@
   </UserChart>
   <UserChart Guid="c169f387-2ffa-4b97-8c77-644cb2baef4a" DisplayName="Evolution by Category" Query="Order" HideQuickLink="false" ChartScript="D3ChartScript.StackedLines">
     <Columns>
-      <Column Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
-      <Column Token="Entity.Details.Element.Product.Category" />
-      <Column Token="Entity.Details.Element.SubTotalPrice.Sum" />
-      <Column />
-      <Column />
-      <Column />
-      <Column />
+      <Column Guid="a3bb2970-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Guid="a3bb29a2-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Product.Category" />
+      <Column Guid="a3bb29ca-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.SubTotalPrice.Sum" />
+      <Column Guid="a3bb29fc-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2a2e-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2a60-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2a92-a60e-11f1-9201-9ec661fa3012" />
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
@@ -191,16 +191,16 @@
   </UserChart>
   <UserChart Guid="aa47dc2c-2697-402d-a227-6c447815f5ec" DisplayName="Evolution by Product (Select a Category First!)" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.StackedLines">
     <Filters>
-      <Filter Indentation="0" Token="Entity.Details.Element.Product.Category" Operation="EqualTo" DashboardBehaviour="UseWhenNoFilters" />
+      <Filter Guid="a3bd4048-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="Entity.Details.Element.Product.Category" Operation="EqualTo" DashboardBehaviour="UseWhenNoFilters" />
     </Filters>
     <Columns>
-      <Column Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
-      <Column Token="Entity.Details.Element.Product" />
-      <Column Token="Entity.Details.Element.SubTotalPrice.Sum" />
-      <Column />
-      <Column />
-      <Column />
-      <Column />
+      <Column Guid="a3bb2ac4-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Guid="a3bb2aec-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Product" />
+      <Column Guid="a3bb2b1e-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.SubTotalPrice.Sum" />
+      <Column Guid="a3bb2b46-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2b78-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2d9e-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2dda-a60e-11f1-9201-9ec661fa3012" />
     </Columns>
     <Parameters>
       <Parameter Name="CompleteValues" Value="Auto" />
@@ -217,11 +217,11 @@
   </UserChart>
   <UserChart Guid="02296c68-d4f5-4bd3-92d8-d417fe84e43c" DisplayName="Products in Stock" Query="Product" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Treemap" MaxRows="1000">
     <Columns>
-      <Column Token="Entity" />
-      <Column Token="UnitsInStock" />
-      <Column Token="Supplier" />
-      <Column />
-      <Column />
+      <Column Guid="a3bb2e0c-a60e-11f1-9201-9ec661fa3012" Token="Entity" />
+      <Column Guid="a3bb2e34-a60e-11f1-9201-9ec661fa3012" Token="UnitsInStock" />
+      <Column Guid="a3bb2e66-a60e-11f1-9201-9ec661fa3012" Token="Supplier" />
+      <Column Guid="a3bb2e98-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2eca-a60e-11f1-9201-9ec661fa3012" />
     </Columns>
     <Parameters>
       <Parameter Name="Scale" Value="MinMax" />
@@ -237,35 +237,35 @@
   <Dashboard Guid="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" DisplayName="Example Dashboard" Owner="User;2;Anonymous" CombineSimilarRows="false">
     <CacheQueryConfiguration TimeoutForQueries="300" MaxRows="1000000" AutoRegenerateWhenOlderThan="60" />
     <Parts>
-      <Part Row="0" StartColumn="0" Columns="7" InteractionGroup="Group1">
+      <Part Guid="6ab23698-1d80-4a77-9379-1551d4a9d56d" Row="0" StartColumn="0" Columns="7" InteractionGroup="Group1">
         <UserChartPart UserChart="d681b3f5-a3a9-4228-93e9-e856f45d911a" IsQueryCached="true" />
       </Part>
-      <Part Row="3" StartColumn="0" Columns="12" InteractionGroup="Group1">
+      <Part Guid="35354c85-68e3-40c3-8998-f3b49a198eca" Row="3" StartColumn="0" Columns="12" InteractionGroup="Group1">
         <UserQueryPart UserQuery="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" AllowSelection="false" IsQueryCached="true" />
       </Part>
-      <Part Row="1" StartColumn="0" Columns="7" InteractionGroup="Group1">
+      <Part Guid="0305d303-d51a-4b36-b2c5-300dc838427f" Row="1" StartColumn="0" Columns="7" InteractionGroup="Group1">
         <UserChartPart UserChart="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" IsQueryCached="true" />
       </Part>
-      <Part Row="0" StartColumn="7" Columns="5" InteractionGroup="Group1">
+      <Part Guid="b8331c8f-bd36-4606-804c-7c198684d169" Row="0" StartColumn="7" Columns="5" InteractionGroup="Group1">
         <UserChartPart UserChart="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" IsQueryCached="true" />
       </Part>
-      <Part Row="1" StartColumn="7" Columns="5" InteractionGroup="Group1">
+      <Part Guid="ea248f52-c08b-4f9f-91a7-28f94fa78811" Row="1" StartColumn="7" Columns="5" InteractionGroup="Group1">
         <UserChartPart UserChart="b48718bb-f4ab-4a6a-950a-35a718d5fb23" IsQueryCached="true" />
       </Part>
-      <Part Row="5" StartColumn="0" Columns="12" Title="Order number and average" IconName="fas fa-chart-bar" IconColor="violet" InteractionGroup="Group1">
+      <Part Guid="7f71a39d-bcd2-4fe9-868a-ccde87c14494" Row="5" StartColumn="0" Columns="12" Title="Order number and average" IconName="fas fa-chart-bar" IconColor="violet" InteractionGroup="Group1">
         <CombinedUserChartPart>
           <UserChart Guid="9d266fac-e35b-4845-a7aa-970e1590ea1e" IsQueryCached="true" />
           <UserChart Guid="6406d2f6-aa24-43e4-946e-8622f65eb010" IsQueryCached="true" />
           <UserChart Guid="a3c7b86d-641e-4c1e-8032-72a099a00395" IsQueryCached="true" />
         </CombinedUserChartPart>
       </Part>
-      <Part Row="8" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group2">
+      <Part Guid="bf06bccf-1102-4a40-b2a8-797d5548e157" Row="8" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group2">
         <UserChartPart UserChart="c169f387-2ffa-4b97-8c77-644cb2baef4a" IsQueryCached="true" />
       </Part>
-      <Part Row="9" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group2">
+      <Part Guid="3092c3e9-8158-4fdb-8f76-3a6a34c2dbda" Row="9" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group2">
         <UserChartPart UserChart="aa47dc2c-2697-402d-a227-6c447815f5ec" IsQueryCached="true" />
       </Part>
-      <Part Row="2" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group1">
+      <Part Guid="08a94511-031b-4b3a-bb42-c787e3478b15" Row="2" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group1">
         <UserChartPart UserChart="02296c68-d4f5-4bd3-92d8-d417fe84e43c" IsQueryCached="true" />
       </Part>
     </Parts>
@@ -278,91 +278,91 @@
   </Dashboard>
   <ToolbarMenu Guid="fd577065-f887-4567-8da3-9d5bcc1cedfd" Name="Products">
     <Elements>
-      <ToolbarElement Type="Item" Content="Product" />
-      <ToolbarElement Type="Item" Content="Category" />
-      <ToolbarElement Type="Item" Content="Supplier" />
-      <ToolbarElement Type="Item" Content="Shipper" />
+      <ToolbarElement Guid="2e85c82c-5dd8-4d49-b6fa-965f1cf0a807" Type="Item" Content="Product" />
+      <ToolbarElement Guid="a396e3ab-2750-4181-9073-13323d7c177c" Type="Item" Content="Category" />
+      <ToolbarElement Guid="6e6309fc-697f-4ef6-8b70-d2c463025408" Type="Item" Content="Supplier" />
+      <ToolbarElement Guid="4df53016-c4fe-49f2-a340-af2c7c615344" Type="Item" Content="Shipper" />
     </Elements>
   </ToolbarMenu>
   <UserQuery Guid="37ae5c35-8d2b-41f7-acbf-5ef93c91c8ca" DisplayName="Employees" Query="Employee" ColumnsMode="ReplaceAll">
     <Columns>
-      <Column Token="Id" />
-      <Column Token="FirstName" />
-      <Column Token="LastName" />
-      <Column Token="BirthDate" />
-      <Column Token="Entity.Territories.SeparatedByNewLine" />
-      <Column Token="Photo" />
+      <Column Guid="a3b4300c-a60e-11f1-9201-9ec661fa3012" Token="Id" />
+      <Column Guid="a3b4303e-a60e-11f1-9201-9ec661fa3012" Token="FirstName" />
+      <Column Guid="a3b43066-a60e-11f1-9201-9ec661fa3012" Token="LastName" />
+      <Column Guid="a3b43098-a60e-11f1-9201-9ec661fa3012" Token="BirthDate" />
+      <Column Guid="a3b430ca-a60e-11f1-9201-9ec661fa3012" Token="Entity.Territories.SeparatedByNewLine" />
+      <Column Guid="a3b430fc-a60e-11f1-9201-9ec661fa3012" Token="Photo" />
     </Columns>
   </UserQuery>
   <ToolbarMenu Guid="8b7e4ac5-cf45-41cb-8cff-4ce04506e12f" Name="Employee">
     <Elements>
-      <ToolbarElement Type="Item" Content="37ae5c35-8d2b-41f7-acbf-5ef93c91c8ca" />
-      <ToolbarElement Type="Item" Content="Territory" />
-      <ToolbarElement Type="Item" Content="EmployeesByTerritory" />
+      <ToolbarElement Guid="9189ae1a-8a45-4b04-9a53-f41ba8524664" Type="Item" Content="37ae5c35-8d2b-41f7-acbf-5ef93c91c8ca" />
+      <ToolbarElement Guid="2669aa69-84b9-456d-a9f1-06e5b93935e7" Type="Item" Content="Territory" />
+      <ToolbarElement Guid="41255eeb-4d87-4262-b40b-18b1d0f0d59d" Type="Item" Content="EmployeesByTerritory" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="2deb71ea-f065-4fe3-9215-90460bc2d5ec" Name="Reports">
     <Elements>
-      <ToolbarElement Type="Item" Content="WordTemplate" />
-      <ToolbarElement Type="Item" Content="EmailTemplate" />
-      <ToolbarElement Type="Item" Content="UserQuery" />
-      <ToolbarElement Type="Item" Content="UserChart" />
-      <ToolbarElement Type="Item" Content="Dashboard" />
-      <ToolbarElement Type="Item" Content="Toolbar" />
+      <ToolbarElement Guid="5f1384f9-1621-42e1-8900-5a20af6efc49" Type="Item" Content="WordTemplate" />
+      <ToolbarElement Guid="dfdcfe84-d72b-4213-bff7-5101e475053d" Type="Item" Content="EmailTemplate" />
+      <ToolbarElement Guid="7996ae85-53ff-4d75-a081-2df502c15b88" Type="Item" Content="UserQuery" />
+      <ToolbarElement Guid="5882d189-19e7-43c6-ac12-5b0d5a57f082" Type="Item" Content="UserChart" />
+      <ToolbarElement Guid="29fc9bdc-1442-453d-adba-a8ed8d69b05a" Type="Item" Content="Dashboard" />
+      <ToolbarElement Guid="3f4b47b8-eeac-449f-91fd-feb1ea9513dd" Type="Item" Content="Toolbar" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="af61b3b1-dc30-4129-a37f-aaf72450a939" Name="Logs">
     <Elements>
-      <ToolbarElement Type="Item" Content="OperationLog" />
-      <ToolbarElement Type="Item" Content="ViewLog" />
-      <ToolbarElement Type="Item" Content="SessionLog" />
+      <ToolbarElement Guid="0f5362e5-07fc-4867-bffc-460e94f36f87" Type="Item" Content="OperationLog" />
+      <ToolbarElement Guid="049f9806-488f-4ecd-9ff8-0f9302246626" Type="Item" Content="ViewLog" />
+      <ToolbarElement Guid="ea4d175b-13de-4a80-a5f3-de53dc7ccc2e" Type="Item" Content="SessionLog" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="3dbf3d73-02f6-4ad8-88f4-2fe03d34edeb" Name="Security">
     <Elements>
-      <ToolbarElement Type="Item" Content="User" />
-      <ToolbarElement Type="Item" Content="Role" />
+      <ToolbarElement Guid="c043e1c4-3715-4c22-92f1-3dabc3985f5f" Type="Item" Content="User" />
+      <ToolbarElement Guid="90a468b7-e401-4db3-bf52-5074f3ed7f87" Type="Item" Content="Role" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="aa00a50a-ff58-4950-94de-e200769effdc" Name="System Panels">
     <Elements>
-      <ToolbarElement Type="Item" Label="Cache" IconName="fas fa-database" IconColor="#e74c3c" Content="CachePermission.ViewCache" Url="~/cache/statistics" />
-      <ToolbarElement Type="Item" Label="Profiler (Heavy)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewHeavyProfiler" Url="~/profiler/heavy" />
-      <ToolbarElement Type="Item" Label="Profiler (Times)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewTimeTracker" Url="~/profiler/times" />
-      <ToolbarElement Type="Item" Label="Processes Panel" IconName="fas fa-cogs" IconColor="#9b6bcc" Content="ProcessPermission.ViewProcessPanel" Url="~/processes/view" />
-      <ToolbarElement Type="Item" Label="Dynamic Panel" IconName="fas fa-arrows-alt" IconColor="#9b6bcc" Content="EvalPanelPermission.ViewDynamicPanel" Url="~/dynamic/panel" />
-      <ToolbarElement Type="Item" Label="Workflow Script Runner" IconName="fas fa-random" IconColor="#9b6bcc" Content="WorkflowPermission.ViewWorkflowPanel" Url="~/workflow/panel" />
-      <ToolbarElement Type="Item" Label="Async Email Sender" IconName="fas fa-send" IconColor="#3498db" Content="AsyncEmailSenderPermission.ViewAsyncEmailSenderPanel" Url="~/asyncEmailSender/view" />
-      <ToolbarElement Type="Item" Label="Code Translation" IconName="fas fa-language" IconColor="#1abc9c" Content="TranslationPermission.TranslateCode" Url="~/translation/status" />
+      <ToolbarElement Guid="1a24fd0b-735c-4c27-80ed-db4af92f173d" Type="Item" Label="Cache" IconName="fas fa-database" IconColor="#e74c3c" Content="CachePermission.ViewCache" Url="~/cache/statistics" />
+      <ToolbarElement Guid="4fd9f39d-fb50-4b0a-a141-2e074b50ed16" Type="Item" Label="Profiler (Heavy)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewHeavyProfiler" Url="~/profiler/heavy" />
+      <ToolbarElement Guid="a4e1655b-af0a-4a37-b445-1822e0b19cd8" Type="Item" Label="Profiler (Times)" IconName="fas fa-bolt" IconColor="#e74c3c" Content="ProfilerPermission.ViewTimeTracker" Url="~/profiler/times" />
+      <ToolbarElement Guid="1b1666ae-f6c7-44eb-a0d3-c3bd453b3b1f" Type="Item" Label="Processes Panel" IconName="fas fa-cogs" IconColor="#9b6bcc" Content="ProcessPermission.ViewProcessPanel" Url="~/processes/view" />
+      <ToolbarElement Guid="e0e56ee1-f93b-44a0-98cf-8de5d834c092" Type="Item" Label="Dynamic Panel" IconName="fas fa-arrows-alt" IconColor="#9b6bcc" Content="EvalPanelPermission.ViewDynamicPanel" Url="~/dynamic/panel" />
+      <ToolbarElement Guid="74e0f3e7-fbb2-49ee-a17f-60c68631343a" Type="Item" Label="Workflow Script Runner" IconName="fas fa-random" IconColor="#9b6bcc" Content="WorkflowPermission.ViewWorkflowPanel" Url="~/workflow/panel" />
+      <ToolbarElement Guid="a0ed1a78-e6b6-4246-928c-3b10158406a4" Type="Item" Label="Async Email Sender" IconName="fas fa-send" IconColor="#3498db" Content="AsyncEmailSenderPermission.ViewAsyncEmailSenderPanel" Url="~/asyncEmailSender/view" />
+      <ToolbarElement Guid="463ad8f6-d3a6-41a3-be4d-73ab4db76820" Type="Item" Label="Code Translation" IconName="fas fa-language" IconColor="#1abc9c" Content="TranslationPermission.TranslateCode" Url="~/translation/status" />
     </Elements>
   </ToolbarMenu>
   <ToolbarMenu Guid="b9423939-ec3d-4495-9361-a335390d93a6" Name="Workflow">
     <Elements>
-      <ToolbarElement Type="Item" Content="Workflow" />
-      <ToolbarElement Type="Item" Content="WorkflowActivity" />
-      <ToolbarElement Type="Divider" />
-      <ToolbarElement Type="Item" Content="Case" />
-      <ToolbarElement Type="Item" Content="CaseActivity" />
-      <ToolbarElement Type="Item" Content="CaseTagType" />
+      <ToolbarElement Guid="1a484513-c4d5-43f1-ac59-9a891fbe776b" Type="Item" Content="Workflow" />
+      <ToolbarElement Guid="1d17c324-de0c-4d4a-aae1-5ad98b771efe" Type="Item" Content="WorkflowActivity" />
+      <ToolbarElement Guid="2272e6d1-7970-4542-9604-65511699c195" Type="Divider" />
+      <ToolbarElement Guid="fcd00031-b057-4f49-9b8b-95d35bb8debd" Type="Item" Content="Case" />
+      <ToolbarElement Guid="ac7289cb-ab71-4794-9d86-c0f7ba79b12b" Type="Item" Content="CaseActivity" />
+      <ToolbarElement Guid="71e5de2a-6a83-460f-9d2b-bed866e6ab31" Type="Item" Content="CaseTagType" />
     </Elements>
   </ToolbarMenu>
   <Toolbar Guid="eb64a1af-852c-468b-a94f-19e28357ac0e" Name="Side Toolbar" Location="Side">
     <Elements>
-      <ToolbarElement Type="Item" IconName="fas fa-tachometer-alt" IconColor="blue" Content="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" />
-      <ToolbarElement Type="Item" Label="Map" IconName="fas fa-map" IconColor="mediumvioletred" Content="MapPermission.ViewMap" Url="~/Map" />
-      <ToolbarElement Type="Item" Label="Public catalog" IconName="fas fa-shopping-bag" IconColor="orangered" Url="~/PublicCatalog" />
-      <ToolbarElement Type="Divider" />
-      <ToolbarElement Type="Header" Label="Entities" IconName="fas fa-redo" IconColor="red" />
-      <ToolbarElement Type="Item" IconName="fas fa-shopping-cart" IconColor="orange" Content="Order" />
-      <ToolbarElement Type="Item" IconName="fas fa-apple-alt" IconColor="gold" Content="fd577065-f887-4567-8da3-9d5bcc1cedfd" />
-      <ToolbarElement Type="Item" IconName="fas fa-user" IconColor="seagreen" Content="8b7e4ac5-cf45-41cb-8cff-4ce04506e12f" />
-      <ToolbarElement Type="Item" IconName="fas fa-file" IconColor="mediumaquamarine" Content="2deb71ea-f065-4fe3-9215-90460bc2d5ec" />
-      <ToolbarElement Type="Item" IconName="fas fa-calendar-alt" IconColor="skyblue" Content="af61b3b1-dc30-4129-a37f-aaf72450a939" />
-      <ToolbarElement Type="Item" IconName="fas fa-unlock-alt" IconColor="steelblue" Content="3dbf3d73-02f6-4ad8-88f4-2fe03d34edeb" />
-      <ToolbarElement Type="Divider" />
-      <ToolbarElement Type="Item" IconName="fas fa-cogs" IconColor="gray" Content="aa00a50a-ff58-4950-94de-e200769effdc" />
-      <ToolbarElement Type="Item" IconName="fas fa-random" IconColor="saddlebrown" Content="b9423939-ec3d-4495-9361-a335390d93a6" />
-      <ToolbarElement Type="Item" Content="WorkflowPermission.WorkflowToolbarMenu" />
+      <ToolbarElement Guid="8823e875-c0ed-4a1f-890c-da0f5de1f9e0" Type="Item" IconName="fas fa-tachometer-alt" IconColor="blue" Content="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" />
+      <ToolbarElement Guid="be765fdc-bab7-4ec4-bf54-0f4e51e23bbc" Type="Item" Label="Map" IconName="fas fa-map" IconColor="mediumvioletred" Content="MapPermission.ViewMap" Url="~/Map" />
+      <ToolbarElement Guid="a45d8401-c6d7-4f52-b458-10e76bc5c54f" Type="Item" Label="Public catalog" IconName="fas fa-shopping-bag" IconColor="orangered" Url="~/PublicCatalog" />
+      <ToolbarElement Guid="c86e9827-a197-4677-9d73-35148b7b92a7" Type="Divider" />
+      <ToolbarElement Guid="58ad35b1-f4d3-4475-8203-f52e8f15017d" Type="Header" Label="Entities" IconName="fas fa-redo" IconColor="red" />
+      <ToolbarElement Guid="36871928-0eff-4324-b189-5103da93b550" Type="Item" IconName="fas fa-shopping-cart" IconColor="orange" Content="Order" />
+      <ToolbarElement Guid="e87a80b3-3d92-4264-a4f6-b3aaa0a55a77" Type="Item" IconName="fas fa-apple-alt" IconColor="gold" Content="fd577065-f887-4567-8da3-9d5bcc1cedfd" />
+      <ToolbarElement Guid="36edf8b1-ad56-4a6e-9ea1-7439db32be55" Type="Item" IconName="fas fa-user" IconColor="seagreen" Content="8b7e4ac5-cf45-41cb-8cff-4ce04506e12f" />
+      <ToolbarElement Guid="e7871311-4c3c-45be-bec5-f13661414318" Type="Item" IconName="fas fa-file" IconColor="mediumaquamarine" Content="2deb71ea-f065-4fe3-9215-90460bc2d5ec" />
+      <ToolbarElement Guid="2db2147d-1fc3-4921-80a0-25a531b4c26d" Type="Item" IconName="fas fa-calendar-alt" IconColor="skyblue" Content="af61b3b1-dc30-4129-a37f-aaf72450a939" />
+      <ToolbarElement Guid="712f4309-650a-43c2-97a1-cc101bc59b75" Type="Item" IconName="fas fa-unlock-alt" IconColor="steelblue" Content="3dbf3d73-02f6-4ad8-88f4-2fe03d34edeb" />
+      <ToolbarElement Guid="c055355a-aae8-441a-a7d5-03af94fba766" Type="Divider" />
+      <ToolbarElement Guid="1b6494c1-4947-4740-823e-865c6d6f438e" Type="Item" IconName="fas fa-cogs" IconColor="gray" Content="aa00a50a-ff58-4950-94de-e200769effdc" />
+      <ToolbarElement Guid="5011e39d-56a2-4451-af93-8daa372cc10f" Type="Item" IconName="fas fa-random" IconColor="saddlebrown" Content="b9423939-ec3d-4495-9361-a335390d93a6" />
+      <ToolbarElement Guid="082f6dc6-9c02-4379-ab89-366019c352c3" Type="Item" Content="WorkflowPermission.WorkflowToolbarMenu" />
     </Elements>
   </Toolbar>
 </Entities>
