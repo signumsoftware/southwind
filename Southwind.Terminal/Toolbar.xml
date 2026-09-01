@@ -27,26 +27,30 @@
       <Parameter Name="ValueAsPercent" Value="No" />
     </Parameters>
   </UserChart>
-  <UserQuery Guid="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" DisplayName="Next Orders" Query="Order" Owner="User;2;Anonymous" ColumnsMode="ReplaceAll">
-    <Filters>
-      <Filter Guid="a3afca8a-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="State" Operation="EqualTo" Value="Ordered" />
-      <Filter Guid="a3afccce-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="Entity.Details.Element.Product" Operation="EqualTo" DashboardBehaviour="PromoteToDasboardPinnedFilter">
-        <Pinned Active="WhenHasValue" />
-      </Filter>
-    </Filters>
+  <UserChart Guid="b48718bb-f4ab-4a6a-950a-35a718d5fb23" DisplayName="Product Share" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.Bubbleplot">
     <Columns>
-      <Column Guid="a3b42c42-a60e-11f1-9201-9ec661fa3012" Token="Id" />
-      <Column Guid="a3b42ed6-a60e-11f1-9201-9ec661fa3012" Token="State" />
-      <Column Guid="a3b42f1c-a60e-11f1-9201-9ec661fa3012" Token="Entity.TotalPrice" />
-      <Column Guid="a3b42f4e-a60e-11f1-9201-9ec661fa3012" Token="RequiredDate" />
-      <Column Guid="a3b42f80-a60e-11f1-9201-9ec661fa3012" Token="OrderDate" />
-      <Column Guid="a3b42fb2-a60e-11f1-9201-9ec661fa3012" Token="Customer" />
-      <Column Guid="a3b42fda-a60e-11f1-9201-9ec661fa3012" Token="Employee" />
+      <Column Guid="a3bb2704-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Product" />
+      <Column Guid="a3bb2736-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Quantity.Sum" DisplayName="Sum of Quantity" Format="D" />
+      <Column Guid="a3bb275e-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.UnitPrice.Average" DisplayName="Average of Unit price" Format="N2" />
+      <Column Guid="a3bb2790-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.SubTotalPrice.Sum" DisplayName="Sum of Sub total price" Format="N2" />
+      <Column Guid="a3bb27c2-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb27f4-a60e-11f1-9201-9ec661fa3012" />
     </Columns>
-    <Orders>
-      <Orden Token="RequiredDate" OrderType="Descending" />
-    </Orders>
-  </UserQuery>
+    <Parameters>
+      <Parameter Name="HorizontalScale" Value="ZeroMax" />
+      <Parameter Name="VerticalScale" Value="ZeroMax" />
+      <Parameter Name="SizeScale" Value="ZeroMax" />
+      <Parameter Name="UnitMargin" Value="40" />
+      <Parameter Name="TopMargin" Value="0.15*" />
+      <Parameter Name="RightMargin" Value="0.15*" />
+      <Parameter Name="ShowLabel" Value="Yes" />
+      <Parameter Name="LabelColor" Value="" />
+      <Parameter Name="FillOpacity" Value="0.4" />
+      <Parameter Name="ColorScale" Value="ZeroMax" />
+      <Parameter Name="ColorInterpolate" Value="YlGn" />
+      <Parameter Name="ColorCategory" Value="category10" />
+    </Parameters>
+  </UserChart>
   <UserChart Guid="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" DisplayName="Calendar Orders Total Price" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.CalendarStream">
     <Columns>
       <Column Guid="a3bb25ba-a60e-11f1-9201-9ec661fa3012" Token="OrderDate" DisplayName="Date of Order date" Format="d" />
@@ -56,6 +60,55 @@
       <Parameter Name="StartDate" Value="Monday" />
       <Parameter Name="ColorScale" Value="Sqrt" />
       <Parameter Name="ColorInterpolate" Value="YlGn" />
+    </Parameters>
+  </UserChart>
+  <UserChart Guid="aa47dc2c-2697-402d-a227-6c447815f5ec" DisplayName="Evolution by Product (Select a Category First!)" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.StackedLines">
+    <Filters>
+      <Filter Guid="a3bd4048-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="Entity.Details.Element.Product.Category" Operation="EqualTo" DashboardBehaviour="UseWhenNoFilters" />
+    </Filters>
+    <Columns>
+      <Column Guid="a3bb2ac4-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Guid="a3bb2aec-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Product" />
+      <Column Guid="a3bb2b1e-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.SubTotalPrice.Sum" />
+      <Column Guid="a3bb2b46-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2b78-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2d9e-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2dda-a60e-11f1-9201-9ec661fa3012" />
+    </Columns>
+    <Parameters>
+      <Parameter Name="CompleteValues" Value="Auto" />
+      <Parameter Name="HorizontalScale" Value="Bands" />
+      <Parameter Name="HorizontalMargin" Value="20" />
+      <Parameter Name="NumberOpacity" Value="0.8" />
+      <Parameter Name="NumberColor" Value="white" />
+      <Parameter Name="ColorCategory" Value="category10" />
+      <Parameter Name="Order" Value="none" />
+      <Parameter Name="Stack" Value="zero" />
+      <Parameter Name="Interpolate" Value="linear" />
+      <Parameter Name="ValueAsPercent" Value="No" />
+    </Parameters>
+  </UserChart>
+  <UserChart Guid="c169f387-2ffa-4b97-8c77-644cb2baef4a" DisplayName="Evolution by Category" Query="Order" HideQuickLink="false" ChartScript="D3ChartScript.StackedLines">
+    <Columns>
+      <Column Guid="a3bb2970-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
+      <Column Guid="a3bb29a2-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Product.Category" />
+      <Column Guid="a3bb29ca-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.SubTotalPrice.Sum" />
+      <Column Guid="a3bb29fc-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2a2e-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2a60-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2a92-a60e-11f1-9201-9ec661fa3012" />
+    </Columns>
+    <Parameters>
+      <Parameter Name="CompleteValues" Value="Auto" />
+      <Parameter Name="HorizontalScale" Value="Bands" />
+      <Parameter Name="HorizontalMargin" Value="20" />
+      <Parameter Name="NumberOpacity" Value="0" />
+      <Parameter Name="NumberColor" Value="white" />
+      <Parameter Name="ColorCategory" Value="category10" />
+      <Parameter Name="Order" Value="none" />
+      <Parameter Name="Stack" Value="zero" />
+      <Parameter Name="Interpolate" Value="linear" />
+      <Parameter Name="ValueAsPercent" Value="No" />
     </Parameters>
   </UserChart>
   <UserChart Guid="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" DisplayName="Customers" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.BubblePack">
@@ -79,25 +132,20 @@
       <Parameter Name="ColorCategory" Value="category10" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="b48718bb-f4ab-4a6a-950a-35a718d5fb23" DisplayName="Product Share" Query="Order" HideQuickLink="false" Owner="User;2;Anonymous" ChartScript="D3ChartScript.Bubbleplot">
+  <UserChart Guid="02296c68-d4f5-4bd3-92d8-d417fe84e43c" DisplayName="Products in Stock" Query="Product" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Treemap" MaxRows="1000">
     <Columns>
-      <Column Guid="a3bb2704-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Product" />
-      <Column Guid="a3bb2736-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Quantity.Sum" DisplayName="Sum of Quantity" Format="D" />
-      <Column Guid="a3bb275e-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.UnitPrice.Average" DisplayName="Average of Unit price" Format="N2" />
-      <Column Guid="a3bb2790-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.SubTotalPrice.Sum" DisplayName="Sum of Sub total price" Format="N2" />
-      <Column Guid="a3bb27c2-a60e-11f1-9201-9ec661fa3012" />
-      <Column Guid="a3bb27f4-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2e0c-a60e-11f1-9201-9ec661fa3012" Token="Entity" />
+      <Column Guid="a3bb2e34-a60e-11f1-9201-9ec661fa3012" Token="UnitsInStock" />
+      <Column Guid="a3bb2e66-a60e-11f1-9201-9ec661fa3012" Token="Supplier" />
+      <Column Guid="a3bb2e98-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3bb2eca-a60e-11f1-9201-9ec661fa3012" />
     </Columns>
     <Parameters>
-      <Parameter Name="HorizontalScale" Value="ZeroMax" />
-      <Parameter Name="VerticalScale" Value="ZeroMax" />
-      <Parameter Name="SizeScale" Value="ZeroMax" />
-      <Parameter Name="UnitMargin" Value="40" />
-      <Parameter Name="TopMargin" Value="0.15*" />
-      <Parameter Name="RightMargin" Value="0.15*" />
-      <Parameter Name="ShowLabel" Value="Yes" />
-      <Parameter Name="LabelColor" Value="" />
-      <Parameter Name="FillOpacity" Value="0.4" />
+      <Parameter Name="Scale" Value="MinMax" />
+      <Parameter Name="Padding" Value="10" />
+      <Parameter Name="Opacity" Value="0.5" />
+      <Parameter Name="NumberOpacity" Value="0.8" />
+      <Parameter Name="NumberColor" Value="#fff" />
       <Parameter Name="ColorScale" Value="ZeroMax" />
       <Parameter Name="ColorInterpolate" Value="YlGn" />
       <Parameter Name="ColorCategory" Value="category10" />
@@ -166,91 +214,49 @@
       <Parameter Name="Interpolate" Value="monotone" />
     </Parameters>
   </UserChart>
-  <UserChart Guid="c169f387-2ffa-4b97-8c77-644cb2baef4a" DisplayName="Evolution by Category" Query="Order" HideQuickLink="false" ChartScript="D3ChartScript.StackedLines">
-    <Columns>
-      <Column Guid="a3bb2970-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
-      <Column Guid="a3bb29a2-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Product.Category" />
-      <Column Guid="a3bb29ca-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.SubTotalPrice.Sum" />
-      <Column Guid="a3bb29fc-a60e-11f1-9201-9ec661fa3012" />
-      <Column Guid="a3bb2a2e-a60e-11f1-9201-9ec661fa3012" />
-      <Column Guid="a3bb2a60-a60e-11f1-9201-9ec661fa3012" />
-      <Column Guid="a3bb2a92-a60e-11f1-9201-9ec661fa3012" />
-    </Columns>
-    <Parameters>
-      <Parameter Name="CompleteValues" Value="Auto" />
-      <Parameter Name="HorizontalScale" Value="Bands" />
-      <Parameter Name="HorizontalMargin" Value="20" />
-      <Parameter Name="NumberOpacity" Value="0" />
-      <Parameter Name="NumberColor" Value="white" />
-      <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="Order" Value="none" />
-      <Parameter Name="Stack" Value="zero" />
-      <Parameter Name="Interpolate" Value="linear" />
-      <Parameter Name="ValueAsPercent" Value="No" />
-    </Parameters>
-  </UserChart>
-  <UserChart Guid="aa47dc2c-2697-402d-a227-6c447815f5ec" DisplayName="Evolution by Product (Select a Category First!)" Query="Order" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.StackedLines">
+  <UserQuery Guid="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" DisplayName="Next Orders" Query="Order" Owner="User;2;Anonymous" ColumnsMode="ReplaceAll">
     <Filters>
-      <Filter Guid="a3bd4048-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="Entity.Details.Element.Product.Category" Operation="EqualTo" DashboardBehaviour="UseWhenNoFilters" />
+      <Filter Guid="a3afca8a-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="State" Operation="EqualTo" Value="Ordered" />
+      <Filter Guid="a3afccce-a60e-11f1-9201-9ec661fa3012" Indentation="0" Token="Entity.Details.Element.Product" Operation="EqualTo" DashboardBehaviour="PromoteToDasboardPinnedFilter">
+        <Pinned Active="WhenHasValue" />
+      </Filter>
     </Filters>
     <Columns>
-      <Column Guid="a3bb2ac4-a60e-11f1-9201-9ec661fa3012" Token="OrderDate.MonthStart" DisplayName="Month Start  of Order date" Format="Y" OrderByIndex="1" OrderByType="Ascending" />
-      <Column Guid="a3bb2aec-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.Product" />
-      <Column Guid="a3bb2b1e-a60e-11f1-9201-9ec661fa3012" Token="Entity.Details.Element.SubTotalPrice.Sum" />
-      <Column Guid="a3bb2b46-a60e-11f1-9201-9ec661fa3012" />
-      <Column Guid="a3bb2b78-a60e-11f1-9201-9ec661fa3012" />
-      <Column Guid="a3bb2d9e-a60e-11f1-9201-9ec661fa3012" />
-      <Column Guid="a3bb2dda-a60e-11f1-9201-9ec661fa3012" />
+      <Column Guid="a3b42c42-a60e-11f1-9201-9ec661fa3012" Token="Id" />
+      <Column Guid="a3b42ed6-a60e-11f1-9201-9ec661fa3012" Token="State" />
+      <Column Guid="a3b42f1c-a60e-11f1-9201-9ec661fa3012" Token="Entity.TotalPrice" />
+      <Column Guid="a3b42f4e-a60e-11f1-9201-9ec661fa3012" Token="RequiredDate" />
+      <Column Guid="a3b42f80-a60e-11f1-9201-9ec661fa3012" Token="OrderDate" />
+      <Column Guid="a3b42fb2-a60e-11f1-9201-9ec661fa3012" Token="Customer" />
+      <Column Guid="a3b42fda-a60e-11f1-9201-9ec661fa3012" Token="Employee" />
     </Columns>
-    <Parameters>
-      <Parameter Name="CompleteValues" Value="Auto" />
-      <Parameter Name="HorizontalScale" Value="Bands" />
-      <Parameter Name="HorizontalMargin" Value="20" />
-      <Parameter Name="NumberOpacity" Value="0.8" />
-      <Parameter Name="NumberColor" Value="white" />
-      <Parameter Name="ColorCategory" Value="category10" />
-      <Parameter Name="Order" Value="none" />
-      <Parameter Name="Stack" Value="zero" />
-      <Parameter Name="Interpolate" Value="linear" />
-      <Parameter Name="ValueAsPercent" Value="No" />
-    </Parameters>
-  </UserChart>
-  <UserChart Guid="02296c68-d4f5-4bd3-92d8-d417fe84e43c" DisplayName="Products in Stock" Query="Product" HideQuickLink="false" Owner="User;1;System" ChartScript="D3ChartScript.Treemap" MaxRows="1000">
-    <Columns>
-      <Column Guid="a3bb2e0c-a60e-11f1-9201-9ec661fa3012" Token="Entity" />
-      <Column Guid="a3bb2e34-a60e-11f1-9201-9ec661fa3012" Token="UnitsInStock" />
-      <Column Guid="a3bb2e66-a60e-11f1-9201-9ec661fa3012" Token="Supplier" />
-      <Column Guid="a3bb2e98-a60e-11f1-9201-9ec661fa3012" />
-      <Column Guid="a3bb2eca-a60e-11f1-9201-9ec661fa3012" />
-    </Columns>
-    <Parameters>
-      <Parameter Name="Scale" Value="MinMax" />
-      <Parameter Name="Padding" Value="10" />
-      <Parameter Name="Opacity" Value="0.5" />
-      <Parameter Name="NumberOpacity" Value="0.8" />
-      <Parameter Name="NumberColor" Value="#fff" />
-      <Parameter Name="ColorScale" Value="ZeroMax" />
-      <Parameter Name="ColorInterpolate" Value="YlGn" />
-      <Parameter Name="ColorCategory" Value="category10" />
-    </Parameters>
-  </UserChart>
+    <Orders>
+      <Orden Token="RequiredDate" OrderType="Descending" />
+    </Orders>
+  </UserQuery>
   <Dashboard Guid="7914fa80-dfd6-42a2-b29a-18e8cc5851f8" DisplayName="Example Dashboard" Owner="User;2;Anonymous" CombineSimilarRows="false">
     <CacheQueryConfiguration TimeoutForQueries="300" MaxRows="1000000" AutoRegenerateWhenOlderThan="60" />
     <Parts>
       <Part Guid="6ab23698-1d80-4a77-9379-1551d4a9d56d" Row="0" StartColumn="0" Columns="7" InteractionGroup="Group1">
         <UserChartPart UserChart="d681b3f5-a3a9-4228-93e9-e856f45d911a" IsQueryCached="true" />
       </Part>
-      <Part Guid="35354c85-68e3-40c3-8998-f3b49a198eca" Row="3" StartColumn="0" Columns="12" InteractionGroup="Group1">
-        <UserQueryPart UserQuery="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" AllowSelection="false" IsQueryCached="true" />
+      <Part Guid="ea248f52-c08b-4f9f-91a7-28f94fa78811" Row="1" StartColumn="7" Columns="5" InteractionGroup="Group1">
+        <UserChartPart UserChart="b48718bb-f4ab-4a6a-950a-35a718d5fb23" IsQueryCached="true" />
       </Part>
       <Part Guid="0305d303-d51a-4b36-b2c5-300dc838427f" Row="1" StartColumn="0" Columns="7" InteractionGroup="Group1">
         <UserChartPart UserChart="01a3003d-83f7-4d74-8f9f-8a3ca8a4ec30" IsQueryCached="true" />
       </Part>
+      <Part Guid="3092c3e9-8158-4fdb-8f76-3a6a34c2dbda" Row="9" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group2">
+        <UserChartPart UserChart="aa47dc2c-2697-402d-a227-6c447815f5ec" IsQueryCached="true" />
+      </Part>
+      <Part Guid="bf06bccf-1102-4a40-b2a8-797d5548e157" Row="8" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group2">
+        <UserChartPart UserChart="c169f387-2ffa-4b97-8c77-644cb2baef4a" IsQueryCached="true" />
+      </Part>
       <Part Guid="b8331c8f-bd36-4606-804c-7c198684d169" Row="0" StartColumn="7" Columns="5" InteractionGroup="Group1">
         <UserChartPart UserChart="76ef1383-3603-4ab1-8f44-cfa4f554e0ff" IsQueryCached="true" />
       </Part>
-      <Part Guid="ea248f52-c08b-4f9f-91a7-28f94fa78811" Row="1" StartColumn="7" Columns="5" InteractionGroup="Group1">
-        <UserChartPart UserChart="b48718bb-f4ab-4a6a-950a-35a718d5fb23" IsQueryCached="true" />
+      <Part Guid="08a94511-031b-4b3a-bb42-c787e3478b15" Row="2" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group1">
+        <UserChartPart UserChart="02296c68-d4f5-4bd3-92d8-d417fe84e43c" IsQueryCached="true" />
       </Part>
       <Part Guid="7f71a39d-bcd2-4fe9-868a-ccde87c14494" Row="5" StartColumn="0" Columns="12" Title="Order number and average" IconName="fas fa-chart-bar" IconColor="violet" InteractionGroup="Group1">
         <CombinedUserChartPart>
@@ -259,14 +265,8 @@
           <UserChart Guid="a3c7b86d-641e-4c1e-8032-72a099a00395" IsQueryCached="true" />
         </CombinedUserChartPart>
       </Part>
-      <Part Guid="bf06bccf-1102-4a40-b2a8-797d5548e157" Row="8" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group2">
-        <UserChartPart UserChart="c169f387-2ffa-4b97-8c77-644cb2baef4a" IsQueryCached="true" />
-      </Part>
-      <Part Guid="3092c3e9-8158-4fdb-8f76-3a6a34c2dbda" Row="9" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group2">
-        <UserChartPart UserChart="aa47dc2c-2697-402d-a227-6c447815f5ec" IsQueryCached="true" />
-      </Part>
-      <Part Guid="08a94511-031b-4b3a-bb42-c787e3478b15" Row="2" StartColumn="0" Columns="12" IconName="fas fa-chart-bar" IconColor="#6C3483" InteractionGroup="Group1">
-        <UserChartPart UserChart="02296c68-d4f5-4bd3-92d8-d417fe84e43c" IsQueryCached="true" />
+      <Part Guid="35354c85-68e3-40c3-8998-f3b49a198eca" Row="3" StartColumn="0" Columns="12" InteractionGroup="Group1">
+        <UserQueryPart UserQuery="9ab3968e-3098-4fca-9ca8-ca8ff6dd53cb" AllowSelection="false" IsQueryCached="true" />
       </Part>
     </Parts>
     <TokenEquivalencesGroups>
