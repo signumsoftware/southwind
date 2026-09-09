@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import { RegisterUserModel, RegisterUserMessage } from './Southwind.Public'
 import { PublicClient } from './PublicClient'
-import { AutoLine } from '@framework/Lines/AutoLine'
+import { TextBoxLine } from '@framework/Lines/TextBoxLine'
 import { FormGroup } from '@framework/Lines/FormGroup'
 import { FormControlReadonly } from '@framework/Lines/FormControlReadonly'
 import { useAPI, useForceUpdate } from '@framework/Hooks'
@@ -17,7 +17,7 @@ import { ifError } from '@framework/Globals'
 import { GraphExplorer } from '@framework/Reflection'
 import { ValidationErrors } from '@framework/Frames/ValidationErrors'
 import Address from '../Customers/Address'
-import { EnumLine } from '@framework/Lines'
+import { EnumLine } from '@framework/Lines/EnumLine'
 
 export default function RegisterUser(): React.JSX.Element {
   const params = useParams() as { reportsToEmployeeId: string };
@@ -88,15 +88,15 @@ function RegisterUserCard(p: { reportsToEmployeeId: string }) {
             <EnumLine ctx={ctx.subCtx(r => r.titleOfCourtesy)} optionItems={["Mr.", "Ms."]} />
           </div>
           <div className="col-sm-4">
-            <AutoLine ctx={ctx.subCtx(r => r.firstName)} />
+            <TextBoxLine ctx={ctx.subCtx(r => r.firstName)} />
           </div>
           <div className="col-sm-4">
-            <AutoLine ctx={ctx.subCtx(r => r.lastName)} />
+            <TextBoxLine ctx={ctx.subCtx(r => r.lastName)} />
           </div>
         </div>
         <Address ctx={ctx.subCtx(a => a.address)} inheritStyle />
-        <AutoLine ctx={ctx.subCtx(r => r.eMail)} />
-        <AutoLine ctx={ctx.subCtx(r => r.username)} />
+        <TextBoxLine ctx={ctx.subCtx(r => r.eMail)} />
+        <TextBoxLine ctx={ctx.subCtx(r => r.username)} />
         <DoublePassword ctx={ctx.subCtx(r => r.password)} initialOpen mandatory />
         <ValidationErrors entity={ctx.value} prefix="" />
         <div className="mt-4 d-flex">

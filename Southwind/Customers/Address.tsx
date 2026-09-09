@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { AutoLine } from '@framework/Lines/AutoLine'
+import { TextBoxLine } from '@framework/Lines/TextBoxLine'
 import { TypeContext } from '@framework/TypeContext'
 import { useForceUpdate } from '@framework/Hooks';
 import { AddressEmbedded } from './Southwind.Customers';
@@ -9,14 +9,14 @@ export default function Address(p: { ctx: TypeContext<AddressEmbedded>, inheritS
   const forceUpdate = useForceUpdate();
   return (
     <div>
-      <AutoLine ctx={ctx.subCtx(a => a.address)} />
+      <TextBoxLine ctx={ctx.subCtx(a => a.address)} />
       <div className="row">
-        <div className="col-sm-6"><AutoLine ctx={ctx.subCtx(a => a.city)} /></div>
-        <div className="col-sm-6"><AutoLine ctx={ctx.subCtx(a => a.region)} /></div>
+        <div className="col-sm-6"><TextBoxLine ctx={ctx.subCtx(a => a.city)} /></div>
+        <div className="col-sm-6"><TextBoxLine ctx={ctx.subCtx(a => a.region)} /></div>
       </div>
       <div className="row">
-        <div className="col-sm-6"><AutoLine ctx={ctx.subCtx(a => a.postalCode)} mandatory={ctx.value.country != "Ireland"} /></div>
-        <div className="col-sm-6"><AutoLine ctx={ctx.subCtx(a => a.country)} onChange={forceUpdate} /></div>
+        <div className="col-sm-6"><TextBoxLine ctx={ctx.subCtx(a => a.postalCode)} mandatory={ctx.value.country != "Ireland"} /></div>
+        <div className="col-sm-6"><TextBoxLine ctx={ctx.subCtx(a => a.country)} onChange={forceUpdate} /></div>
       </div>
     </div>
   );
