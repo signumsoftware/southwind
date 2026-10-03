@@ -61,7 +61,7 @@ public static class SouthwindMigrations
 
     internal static void InitialAuthRulesImport()
     {
-        AuthLogic.AutomaticImportAuthRules();
+        AuthLogic.ImportAuthRules();
     }
 
     internal static void CreateRoles()
